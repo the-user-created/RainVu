@@ -460,7 +460,7 @@ class TransitionInfo {
 }
 
 class RootPageContext {
-  const RootPageContext(this.isRootPage, [this.errorRoute]);
+  const RootPageContext({required this.isRootPage, this.errorRoute});
 
   final bool isRootPage;
   final String? errorRoute;
@@ -476,7 +476,7 @@ class RootPageContext {
 
   static Widget wrap(final Widget child, {final String? errorRoute}) =>
       Provider.value(
-        value: RootPageContext(true, errorRoute),
+        value: RootPageContext(isRootPage: true, errorRoute: errorRoute),
         child: child,
       );
 }
