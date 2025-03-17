@@ -365,6 +365,7 @@ class _EditEntryWidgetState extends State<EditEntryWidget> {
 
                         TimeOfDay? datePickedTime;
                         if (datePickedDate != null) {
+                          if (!context.mounted) return;
                           datePickedTime = await showTimePicker(
                             context: context,
                             initialTime:

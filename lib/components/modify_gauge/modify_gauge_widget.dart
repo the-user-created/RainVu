@@ -241,6 +241,8 @@ class _ModifyGaugeWidgetState extends State<ModifyGaugeWidget> {
                             location: _model.placePickerValue.latLng,
                             rainGaugeID: "${currentUserUid}_1",
                           ));
+
+                      if (!context.mounted) return;
                       Navigator.pop(context);
                     },
                     text: "Save",

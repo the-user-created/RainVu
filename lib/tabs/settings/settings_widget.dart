@@ -562,6 +562,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                     onPressed: () async {
                                       GoRouter.of(context).prepareAuthEvent();
                                       await authManager.signOut();
+                                      if (!context.mounted) return;
                                       GoRouter.of(context)
                                           .clearRedirectLocation();
 
@@ -600,6 +601,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                     onPressed: () async {
                                       GoRouter.of(context).prepareAuthEvent();
                                       await authManager.signOut();
+                                      if (!context.mounted) return;
                                       GoRouter.of(context)
                                           .clearRedirectLocation();
 

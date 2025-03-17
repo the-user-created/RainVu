@@ -559,6 +559,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                             return;
                                                           }
 
+                                                          if (!context.mounted) return;
+
                                                           context.goNamedAuth(
                                                               HomeWidget
                                                                   .routeName,
@@ -728,7 +730,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                         null) {
                                                                       return;
                                                                     }
-
+                                                                    if (!context.mounted) return;
                                                                     context.goNamedAuth(
                                                                         HomeWidget
                                                                             .routeName,
@@ -812,6 +814,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                         return;
                                                                       }
 
+                                                                      if (!context.mounted) return;
                                                                       context.goNamedAuth(
                                                                           HomeWidget
                                                                               .routeName,
@@ -894,6 +897,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                       return;
                                                                     }
 
+                                                                    if (!context.mounted) return;
                                                                     context.goNamedAuth(
                                                                         HomeWidget
                                                                             .routeName,
@@ -1418,6 +1422,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                             return;
                                                           }
 
+                                                          if (!context.mounted) return;
                                                           context.goNamedAuth(
                                                               HomeWidget
                                                                   .routeName,
@@ -1535,6 +1540,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                       return;
                                                                     }
 
+                                                                    if (!context.mounted) return;
                                                                     context.goNamedAuth(
                                                                         HomeWidget
                                                                             .routeName,
@@ -1618,6 +1624,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                         return;
                                                                       }
 
+                                                                      if (!context.mounted) return;
                                                                       context.goNamedAuth(
                                                                           HomeWidget
                                                                               .routeName,
@@ -1700,6 +1707,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                       return;
                                                                     }
 
+                                                                    if (!context.mounted) return;
                                                                     context.goNamedAuth(
                                                                         HomeWidget
                                                                             .routeName,
