@@ -1,6 +1,5 @@
 import 'form_field_controller.dart';
 
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/scheduler.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
@@ -8,6 +7,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 
 class ChipData {
   const ChipData(this.label, [this.iconData]);
+
   final String label;
   final IconData? iconData;
 }
@@ -24,6 +24,7 @@ class ChipStyle {
     this.borderWidth,
     this.borderRadius,
   });
+
   final Color? backgroundColor;
   final TextStyle? textStyle;
   final Color? iconColor;
@@ -71,6 +72,7 @@ class FlutterFlowChoiceChips extends StatefulWidget {
 
 class _FlutterFlowChoiceChipsState extends State<FlutterFlowChoiceChips> {
   late List<String> choiceChipValues;
+
   List<String> get selectedValues => widget.controller.value ?? [];
 
   @override

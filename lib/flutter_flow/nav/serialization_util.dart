@@ -1,13 +1,11 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:from_css_color/from_css_color.dart';
 
 import '/backend/backend.dart';
 
 import '/backend/schema/enums/enums.dart';
 
-import '../../flutter_flow/lat_lng.dart';
 import '../../flutter_flow/place.dart';
 import '../../flutter_flow/uploaded_file.dart';
 
@@ -33,6 +31,7 @@ String uploadedFileToString(FFUploadedFile uploadedFile) =>
     uploadedFile.serialize();
 
 const _kDocIdDelimeter = '|';
+
 String _serializeDocumentReference(DocumentReference ref) {
   final docIds = <String>[];
   DocumentReference? currentRef = ref;
@@ -182,7 +181,6 @@ enum ParamType {
   FFPlace,
   FFUploadedFile,
   JSON,
-
   Document,
   DocumentReference,
   Enum,
@@ -204,8 +202,8 @@ dynamic deserializeParam<T>(
         return null;
       }
       return paramValues
-          .where((p) => p is String)
-          .map((p) => p as String)
+          .whereType<String>()
+          .map((p) => p)
           .map((p) => deserializeParam<T>(p, paramType, false,
               collectionNamePath: collectionNamePath))
           .where((p) => p != null)
@@ -270,7 +268,7 @@ Future<List<T>> Function(String) getDocList<T>(
     List<String> docIds = [];
     try {
       final ids = json.decode(idsList) as Iterable;
-      docIds = ids.where((d) => d is String).map((d) => d as String).toList();
+      docIds = ids.whereType<String>().map((d) => d).toList();
     } catch (_) {}
     return Future.wait(
       docIds.map(

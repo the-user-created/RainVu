@@ -1,10 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'season_patterns_model.dart';
 export 'season_patterns_model.dart';
 
@@ -61,13 +57,13 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                   letterSpacing: 0.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 2.0, 0.0, 0.0),
             child: SingleChildScrollView(
               primary: false,
               child: Column(
@@ -76,7 +72,7 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                   Material(
                     color: Colors.transparent,
                     elevation: 2.0,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(16.0),
                         bottomRight: Radius.circular(16.0),
@@ -88,7 +84,7 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryBackground,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(16.0),
                           bottomRight: Radius.circular(16.0),
                           topLeft: Radius.circular(0.0),
@@ -96,7 +92,7 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 20.0, 20.0, 20.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -121,7 +117,7 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 16.0, 16.0, 16.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
@@ -158,13 +154,13 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                                               .primary,
                                           size: 24.0,
                                         ),
-                                      ].divide(SizedBox(width: 8.0)),
+                                      ].divide(const SizedBox(width: 8.0)),
                                     ),
                                   ],
                                 ),
                               ),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),
@@ -197,14 +193,15 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                         child:
                             // TODO: interactive area for a line chart that displays historical rainfall trends for the selected season. This chart should clearly mark data points with smooth transitions, enabling users to tap on any point to reveal detailed tooltips that show the exact rainfall amounts, percentage differences from previous years, and contextual notes where applicable.
                             Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               20.0, 20.0, 20.0, 20.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
                               Align(
-                                alignment: AlignmentDirectional(-1.0, 0.0),
+                                alignment:
+                                    const AlignmentDirectional(-1.0, 0.0),
                                 child: Text(
                                   'Rainfall Trends',
                                   style: FlutterFlowTheme.of(context)
@@ -251,7 +248,7 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               20.0, 20.0, 20.0, 20.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -344,7 +341,7 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
-                                        ].divide(SizedBox(width: 8.0)),
+                                        ].divide(const SizedBox(width: 8.0)),
                                       ),
                                     ],
                                   ),
@@ -421,7 +418,7 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                                   ),
                                 ],
                               ),
-                            ].divide(SizedBox(height: 16.0)),
+                            ].divide(const SizedBox(height: 16.0)),
                           ),
                         ),
                       ),
@@ -430,7 +427,7 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                   Material(
                     color: Colors.transparent,
                     elevation: 2.0,
-                    shape: RoundedRectangleBorder(
+                    shape: const RoundedRectangleBorder(
                       borderRadius: BorderRadius.only(
                         bottomLeft: Radius.circular(0.0),
                         bottomRight: Radius.circular(0.0),
@@ -442,7 +439,7 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryBackground,
-                        borderRadius: BorderRadius.only(
+                        borderRadius: const BorderRadius.only(
                           bottomLeft: Radius.circular(0.0),
                           bottomRight: Radius.circular(0.0),
                           topLeft: Radius.circular(16.0),
@@ -450,7 +447,7 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 20.0, 20.0, 20.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -475,12 +472,12 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                                     letterSpacing: 0.0,
                                   ),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),
                   ),
-                ].divide(SizedBox(height: 24.0)),
+                ].divide(const SizedBox(height: 24.0)),
               ),
             ),
           ),

@@ -9,7 +9,10 @@ export '../base_auth_user_provider.dart';
 
 class RainWiseFirebaseUser extends BaseAuthUser {
   RainWiseFirebaseUser(this.user);
+
   User? user;
+
+  @override
   bool get loggedIn => user != null;
 
   @override
@@ -60,6 +63,7 @@ class RainWiseFirebaseUser extends BaseAuthUser {
 
   static BaseAuthUser fromUserCredential(UserCredential userCredential) =>
       fromFirebaseUser(userCredential.user);
+
   static BaseAuthUser fromFirebaseUser(User? user) =>
       RainWiseFirebaseUser(user);
 }

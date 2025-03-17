@@ -3,15 +3,10 @@ import '/flutter_flow/flutter_flow_animations.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:math';
-import 'dart:ui';
 import '/index.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:flutter_animate/flutter_animate.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'entry_model.dart';
 export 'entry_model.dart';
 
@@ -74,15 +69,15 @@ class _EntryWidgetState extends State<EntryWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(0.0, 60.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 60.0),
+            end: const Offset(0.0, 0.0),
           ),
           TiltEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(-0.349, 0),
-            end: Offset(0, 0),
+            begin: const Offset(-0.349, 0),
+            end: const Offset(0, 0),
           ),
         ],
       ),
@@ -100,15 +95,15 @@ class _EntryWidgetState extends State<EntryWidget>
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(0.0, 60.0),
-            end: Offset(0.0, 0.0),
+            begin: const Offset(0.0, 60.0),
+            end: const Offset(0.0, 0.0),
           ),
           TiltEffect(
             curve: Curves.easeInOut,
             delay: 0.0.ms,
             duration: 300.0.ms,
-            begin: Offset(-0.349, 0),
-            end: Offset(0, 0),
+            begin: const Offset(-0.349, 0),
+            end: const Offset(0, 0),
           ),
         ],
       ),
@@ -147,41 +142,43 @@ class _EntryWidgetState extends State<EntryWidget>
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).secondaryBackground,
                     ),
-                    alignment: AlignmentDirectional(0.0, -1.0),
+                    alignment: const AlignmentDirectional(0.0, -1.0),
                     child: SingleChildScrollView(
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
                         mainAxisAlignment: MainAxisAlignment.center,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 44.0, 0.0, 0.0),
                             child: Container(
                               width: double.infinity,
-                              constraints: BoxConstraints(
+                              constraints: const BoxConstraints(
                                 maxWidth: 602.0,
                               ),
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
-                                borderRadius: BorderRadius.only(
+                                borderRadius: const BorderRadius.only(
                                   bottomLeft: Radius.circular(16.0),
                                   bottomRight: Radius.circular(16.0),
                                   topLeft: Radius.circular(0.0),
                                   topRight: Radius.circular(0.0),
                                 ),
                               ),
-                              alignment: AlignmentDirectional(-1.0, 0.0),
+                              alignment: const AlignmentDirectional(-1.0, 0.0),
                               child: Align(
-                                alignment: AlignmentDirectional(-1.0, 0.0),
+                                alignment:
+                                    const AlignmentDirectional(-1.0, 0.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment: MainAxisAlignment.center,
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 0.0, 0.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 0.0, 0.0, 0.0),
                                       child: Text(
                                         'LOGO',
                                         style: FlutterFlowTheme.of(context)
@@ -200,7 +197,7 @@ class _EntryWidgetState extends State<EntryWidget>
                           Container(
                             width: double.infinity,
                             height: 700.0,
-                            constraints: BoxConstraints(
+                            constraints: const BoxConstraints(
                               maxWidth: 602.0,
                             ),
                             decoration: BoxDecoration(
@@ -208,12 +205,12 @@ class _EntryWidgetState extends State<EntryWidget>
                                   .secondaryBackground,
                             ),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 0.0, 16.0, 0.0),
                               child: Column(
                                 children: [
                                   Align(
-                                    alignment: Alignment(-1.0, 0),
+                                    alignment: const Alignment(-1.0, 0),
                                     child: TabBar(
                                       isScrollable: true,
                                       labelColor: FlutterFlowTheme.of(context)
@@ -221,7 +218,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                       unselectedLabelColor:
                                           FlutterFlowTheme.of(context)
                                               .secondaryText,
-                                      labelPadding: EdgeInsets.all(16.0),
+                                      labelPadding: const EdgeInsets.all(16.0),
                                       labelStyle: FlutterFlowTheme.of(context)
                                           .displaySmall
                                           .override(
@@ -239,9 +236,10 @@ class _EntryWidgetState extends State<EntryWidget>
                                       indicatorColor:
                                           FlutterFlowTheme.of(context).primary,
                                       indicatorWeight: 4.0,
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          0.0, 12.0, 16.0, 12.0),
-                                      tabs: [
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              0.0, 12.0, 16.0, 12.0),
+                                      tabs: const [
                                         Tab(
                                           text: 'Sign In',
                                         ),
@@ -260,20 +258,21 @@ class _EntryWidgetState extends State<EntryWidget>
                                       controller: _model.tabBarController,
                                       children: [
                                         Align(
-                                          alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                          alignment: const AlignmentDirectional(
+                                              0.0, 0.0),
                                           child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    12.0, 0.0, 12.0, 12.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(
+                                                12.0, 0.0, 12.0, 12.0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(
                                                           0.0, 12.0, 0.0, 24.0),
                                                   child: Text(
                                                     'Let\'s get started by filling out the form below.',
@@ -287,10 +286,11 @@ class _EntryWidgetState extends State<EntryWidget>
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(
                                                           0.0, 0.0, 0.0, 16.0),
-                                                  child: Container(
+                                                  child: SizedBox(
                                                     width: double.infinity,
                                                     child: TextFormField(
                                                       controller: _model
@@ -298,7 +298,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                       focusNode: _model
                                                           .emailAddressFocusNode,
                                                       autofocus: true,
-                                                      autofillHints: [
+                                                      autofillHints: const [
                                                         AutofillHints.email
                                                       ],
                                                       obscureText: false,
@@ -376,8 +376,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                 .of(context)
                                                             .secondaryBackground,
                                                         contentPadding:
-                                                            EdgeInsets.all(
-                                                                24.0),
+                                                            const EdgeInsets
+                                                                .all(24.0),
                                                       ),
                                                       style: FlutterFlowTheme
                                                               .of(context)
@@ -400,10 +400,11 @@ class _EntryWidgetState extends State<EntryWidget>
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(
                                                           0.0, 0.0, 0.0, 16.0),
-                                                  child: Container(
+                                                  child: SizedBox(
                                                     width: double.infinity,
                                                     child: TextFormField(
                                                       controller: _model
@@ -411,7 +412,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                       focusNode: _model
                                                           .passwordFocusNode,
                                                       autofocus: false,
-                                                      autofillHints: [
+                                                      autofillHints: const [
                                                         AutofillHints.password
                                                       ],
                                                       obscureText: !_model
@@ -490,8 +491,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                 .of(context)
                                                             .secondaryBackground,
                                                         contentPadding:
-                                                            EdgeInsets.all(
-                                                                24.0),
+                                                            const EdgeInsets
+                                                                .all(24.0),
                                                         suffixIcon: InkWell(
                                                           onTap: () =>
                                                               safeSetState(
@@ -535,13 +536,13 @@ class _EntryWidgetState extends State<EntryWidget>
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
-                                                                0.0, 16.0),
+                                                            0.0, 16.0),
                                                     child: FFButtonWidget(
                                                       onPressed: () async {
                                                         GoRouter.of(context)
@@ -572,19 +573,13 @@ class _EntryWidgetState extends State<EntryWidget>
                                                         width: 230.0,
                                                         height: 52.0,
                                                         padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(0.0,
+                                                                0.0, 0.0, 0.0),
                                                         iconPadding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(0.0,
+                                                                0.0, 0.0, 0.0),
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -602,7 +597,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                       0.0,
                                                                 ),
                                                         elevation: 3.0,
-                                                        borderSide: BorderSide(
+                                                        borderSide:
+                                                            const BorderSide(
                                                           color: Colors
                                                               .transparent,
                                                           width: 1.0,
@@ -616,13 +612,13 @@ class _EntryWidgetState extends State<EntryWidget>
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
-                                                                0.0, 16.0),
+                                                            0.0, 16.0),
                                                     child: FFButtonWidget(
                                                       onPressed: () {
                                                         print(
@@ -633,19 +629,13 @@ class _EntryWidgetState extends State<EntryWidget>
                                                         width: 230.0,
                                                         height: 44.0,
                                                         padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(0.0,
+                                                                0.0, 0.0, 0.0),
                                                         iconPadding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(0.0,
+                                                                0.0, 0.0, 0.0),
                                                         color: FlutterFlowTheme
                                                                 .of(context)
                                                             .secondaryBackground,
@@ -679,16 +669,16 @@ class _EntryWidgetState extends State<EntryWidget>
                                                   children: [
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               0.0, 0.0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    16.0,
-                                                                    0.0,
-                                                                    16.0,
-                                                                    24.0),
+                                                                16.0,
+                                                                0.0,
+                                                                16.0,
+                                                                24.0),
                                                         child: Text(
                                                           'Or sign in with',
                                                           textAlign:
@@ -707,16 +697,13 @@ class _EntryWidgetState extends State<EntryWidget>
                                                     ),
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               0.0, 0.0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    16.0),
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(0.0,
+                                                                0.0, 0.0, 16.0),
                                                         child: Wrap(
                                                           spacing: 16.0,
                                                           runSpacing: 0.0,
@@ -739,12 +726,12 @@ class _EntryWidgetState extends State<EntryWidget>
                                                           children: [
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          16.0),
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      16.0),
                                                               child:
                                                                   FFButtonWidget(
                                                                 onPressed:
@@ -769,7 +756,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                 },
                                                                 text:
                                                                     'Continue with Google',
-                                                                icon: FaIcon(
+                                                                icon:
+                                                                    const FaIcon(
                                                                   FontAwesomeIcons
                                                                       .google,
                                                                   size: 20.0,
@@ -778,14 +766,16 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                     FFButtonOptions(
                                                                   width: 230.0,
                                                                   height: 44.0,
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  padding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           0.0,
                                                                           0.0),
-                                                                  iconPadding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  iconPadding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           0.0,
@@ -826,12 +816,12 @@ class _EntryWidgetState extends State<EntryWidget>
                                                             isAndroid
                                                                 ? Container()
                                                                 : Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            16.0),
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        16.0),
                                                                     child:
                                                                         FFButtonWidget(
                                                                       onPressed:
@@ -852,7 +842,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                       text:
                                                                           'Continue with Apple',
                                                                       icon:
-                                                                          FaIcon(
+                                                                          const FaIcon(
                                                                         FontAwesomeIcons
                                                                             .apple,
                                                                         size:
@@ -864,12 +854,14 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                             230.0,
                                                                         height:
                                                                             44.0,
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: const EdgeInsetsDirectional
+                                                                            .fromSTEB(
                                                                             0.0,
                                                                             0.0,
                                                                             0.0,
                                                                             0.0),
-                                                                        iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                                                        iconPadding: const EdgeInsetsDirectional
+                                                                            .fromSTEB(
                                                                             0.0,
                                                                             0.0,
                                                                             0.0,
@@ -901,12 +893,12 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                   ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          16.0),
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      16.0),
                                                               child:
                                                                   FFButtonWidget(
                                                                 onPressed:
@@ -935,14 +927,16 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                     FFButtonOptions(
                                                                   width: 230.0,
                                                                   height: 44.0,
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  padding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           0.0,
                                                                           0.0),
-                                                                  iconPadding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  iconPadding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           0.0,
@@ -992,20 +986,21 @@ class _EntryWidgetState extends State<EntryWidget>
                                           ),
                                         ),
                                         Align(
-                                          alignment:
-                                              AlignmentDirectional(0.0, 0.0),
+                                          alignment: const AlignmentDirectional(
+                                              0.0, 0.0),
                                           child: Padding(
-                                            padding:
-                                                EdgeInsetsDirectional.fromSTEB(
-                                                    12.0, 0.0, 12.0, 12.0),
+                                            padding: const EdgeInsetsDirectional
+                                                .fromSTEB(
+                                                12.0, 0.0, 12.0, 12.0),
                                             child: Column(
                                               mainAxisSize: MainAxisSize.max,
                                               crossAxisAlignment:
                                                   CrossAxisAlignment.start,
                                               children: [
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(
                                                           0.0, 12.0, 0.0, 24.0),
                                                   child: Text(
                                                     'Let\'s get started by filling out the form below.',
@@ -1019,10 +1014,11 @@ class _EntryWidgetState extends State<EntryWidget>
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(
                                                           0.0, 0.0, 0.0, 16.0),
-                                                  child: Container(
+                                                  child: SizedBox(
                                                     width: double.infinity,
                                                     child: TextFormField(
                                                       controller: _model
@@ -1030,7 +1026,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                       focusNode: _model
                                                           .emailAddressCreateFocusNode,
                                                       autofocus: true,
-                                                      autofillHints: [
+                                                      autofillHints: const [
                                                         AutofillHints.email
                                                       ],
                                                       obscureText: false,
@@ -1108,8 +1104,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                 .of(context)
                                                             .secondaryBackground,
                                                         contentPadding:
-                                                            EdgeInsets.all(
-                                                                24.0),
+                                                            const EdgeInsets
+                                                                .all(24.0),
                                                       ),
                                                       style: FlutterFlowTheme
                                                               .of(context)
@@ -1132,10 +1128,11 @@ class _EntryWidgetState extends State<EntryWidget>
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(
                                                           0.0, 0.0, 0.0, 16.0),
-                                                  child: Container(
+                                                  child: SizedBox(
                                                     width: double.infinity,
                                                     child: TextFormField(
                                                       controller: _model
@@ -1143,7 +1140,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                       focusNode: _model
                                                           .passwordCreateFocusNode,
                                                       autofocus: false,
-                                                      autofillHints: [
+                                                      autofillHints: const [
                                                         AutofillHints.password
                                                       ],
                                                       obscureText: !_model
@@ -1222,8 +1219,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                 .of(context)
                                                             .secondaryBackground,
                                                         contentPadding:
-                                                            EdgeInsets.all(
-                                                                24.0),
+                                                            const EdgeInsets
+                                                                .all(24.0),
                                                         suffixIcon: InkWell(
                                                           onTap: () =>
                                                               safeSetState(
@@ -1266,10 +1263,11 @@ class _EntryWidgetState extends State<EntryWidget>
                                                   ),
                                                 ),
                                                 Padding(
-                                                  padding: EdgeInsetsDirectional
-                                                      .fromSTEB(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(
                                                           0.0, 0.0, 0.0, 16.0),
-                                                  child: Container(
+                                                  child: SizedBox(
                                                     width: double.infinity,
                                                     child: TextFormField(
                                                       controller: _model
@@ -1277,7 +1275,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                       focusNode: _model
                                                           .passwordConfirmFocusNode,
                                                       autofocus: false,
-                                                      autofillHints: [
+                                                      autofillHints: const [
                                                         AutofillHints.password
                                                       ],
                                                       obscureText: !_model
@@ -1357,8 +1355,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                 .of(context)
                                                             .secondaryBackground,
                                                         contentPadding:
-                                                            EdgeInsets.all(
-                                                                24.0),
+                                                            const EdgeInsets
+                                                                .all(24.0),
                                                         suffixIcon: InkWell(
                                                           onTap: () =>
                                                               safeSetState(
@@ -1403,13 +1401,13 @@ class _EntryWidgetState extends State<EntryWidget>
                                                 ),
                                                 Align(
                                                   alignment:
-                                                      AlignmentDirectional(
+                                                      const AlignmentDirectional(
                                                           0.0, 0.0),
                                                   child: Padding(
                                                     padding:
-                                                        EdgeInsetsDirectional
+                                                        const EdgeInsetsDirectional
                                                             .fromSTEB(0.0, 0.0,
-                                                                0.0, 16.0),
+                                                            0.0, 16.0),
                                                     child: FFButtonWidget(
                                                       onPressed: () async {
                                                         GoRouter.of(context)
@@ -1423,7 +1421,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                           ScaffoldMessenger.of(
                                                                   context)
                                                               .showSnackBar(
-                                                            SnackBar(
+                                                            const SnackBar(
                                                               content: Text(
                                                                 'Passwords don\'t match!',
                                                               ),
@@ -1457,19 +1455,13 @@ class _EntryWidgetState extends State<EntryWidget>
                                                         width: 230.0,
                                                         height: 52.0,
                                                         padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(0.0,
+                                                                0.0, 0.0, 0.0),
                                                         iconPadding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0),
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(0.0,
+                                                                0.0, 0.0, 0.0),
                                                         color:
                                                             FlutterFlowTheme.of(
                                                                     context)
@@ -1487,7 +1479,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                       0.0,
                                                                 ),
                                                         elevation: 3.0,
-                                                        borderSide: BorderSide(
+                                                        borderSide:
+                                                            const BorderSide(
                                                           color: Colors
                                                               .transparent,
                                                           width: 1.0,
@@ -1505,16 +1498,16 @@ class _EntryWidgetState extends State<EntryWidget>
                                                   children: [
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               0.0, 0.0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
+                                                            const EdgeInsetsDirectional
                                                                 .fromSTEB(
-                                                                    16.0,
-                                                                    0.0,
-                                                                    16.0,
-                                                                    24.0),
+                                                                16.0,
+                                                                0.0,
+                                                                16.0,
+                                                                24.0),
                                                         child: Text(
                                                           'Or sign up with',
                                                           textAlign:
@@ -1533,16 +1526,13 @@ class _EntryWidgetState extends State<EntryWidget>
                                                     ),
                                                     Align(
                                                       alignment:
-                                                          AlignmentDirectional(
+                                                          const AlignmentDirectional(
                                                               0.0, 0.0),
                                                       child: Padding(
                                                         padding:
-                                                            EdgeInsetsDirectional
-                                                                .fromSTEB(
-                                                                    0.0,
-                                                                    0.0,
-                                                                    0.0,
-                                                                    16.0),
+                                                            const EdgeInsetsDirectional
+                                                                .fromSTEB(0.0,
+                                                                0.0, 0.0, 16.0),
                                                         child: Wrap(
                                                           spacing: 16.0,
                                                           runSpacing: 0.0,
@@ -1565,12 +1555,12 @@ class _EntryWidgetState extends State<EntryWidget>
                                                           children: [
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          16.0),
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      16.0),
                                                               child:
                                                                   FFButtonWidget(
                                                                 onPressed:
@@ -1595,7 +1585,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                 },
                                                                 text:
                                                                     'Continue with Google',
-                                                                icon: FaIcon(
+                                                                icon:
+                                                                    const FaIcon(
                                                                   FontAwesomeIcons
                                                                       .google,
                                                                   size: 20.0,
@@ -1604,14 +1595,16 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                     FFButtonOptions(
                                                                   width: 230.0,
                                                                   height: 44.0,
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  padding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           0.0,
                                                                           0.0),
-                                                                  iconPadding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  iconPadding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           0.0,
@@ -1652,12 +1645,12 @@ class _EntryWidgetState extends State<EntryWidget>
                                                             isAndroid
                                                                 ? Container()
                                                                 : Padding(
-                                                                    padding: EdgeInsetsDirectional
+                                                                    padding: const EdgeInsetsDirectional
                                                                         .fromSTEB(
-                                                                            0.0,
-                                                                            0.0,
-                                                                            0.0,
-                                                                            16.0),
+                                                                        0.0,
+                                                                        0.0,
+                                                                        0.0,
+                                                                        16.0),
                                                                     child:
                                                                         FFButtonWidget(
                                                                       onPressed:
@@ -1678,7 +1671,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                       text:
                                                                           'Continue with Apple',
                                                                       icon:
-                                                                          FaIcon(
+                                                                          const FaIcon(
                                                                         FontAwesomeIcons
                                                                             .apple,
                                                                         size:
@@ -1690,12 +1683,14 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                             230.0,
                                                                         height:
                                                                             44.0,
-                                                                        padding: EdgeInsetsDirectional.fromSTEB(
+                                                                        padding: const EdgeInsetsDirectional
+                                                                            .fromSTEB(
                                                                             0.0,
                                                                             0.0,
                                                                             0.0,
                                                                             0.0),
-                                                                        iconPadding: EdgeInsetsDirectional.fromSTEB(
+                                                                        iconPadding: const EdgeInsetsDirectional
+                                                                            .fromSTEB(
                                                                             0.0,
                                                                             0.0,
                                                                             0.0,
@@ -1727,12 +1722,12 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                   ),
                                                             Padding(
                                                               padding:
-                                                                  EdgeInsetsDirectional
+                                                                  const EdgeInsetsDirectional
                                                                       .fromSTEB(
-                                                                          0.0,
-                                                                          0.0,
-                                                                          0.0,
-                                                                          16.0),
+                                                                      0.0,
+                                                                      0.0,
+                                                                      0.0,
+                                                                      16.0),
                                                               child:
                                                                   FFButtonWidget(
                                                                 onPressed:
@@ -1761,14 +1756,16 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                     FFButtonOptions(
                                                                   width: 230.0,
                                                                   height: 44.0,
-                                                                  padding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  padding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           0.0,
                                                                           0.0),
-                                                                  iconPadding: EdgeInsetsDirectional
-                                                                      .fromSTEB(
+                                                                  iconPadding:
+                                                                      const EdgeInsetsDirectional
+                                                                          .fromSTEB(
                                                                           0.0,
                                                                           0.0,
                                                                           0.0,

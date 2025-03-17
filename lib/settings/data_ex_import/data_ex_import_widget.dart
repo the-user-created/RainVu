@@ -4,11 +4,7 @@ import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
 import '/flutter_flow/upload_data.dart';
-import 'dart:ui';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'data_ex_import_model.dart';
 export 'data_ex_import_model.dart';
 
@@ -66,7 +62,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                   letterSpacing: 0.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
         ),
         body: SafeArea(
@@ -101,7 +97,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 20.0, 20.0, 20.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -132,7 +128,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                final _datePickedDate = await showDatePicker(
+                                final datePickedDate = await showDatePicker(
                                   context: context,
                                   initialDate: getCurrentTimestamp,
                                   firstDate: DateTime(1900),
@@ -143,7 +139,8 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                       child!,
                                       headerBackgroundColor:
                                           FlutterFlowTheme.of(context).accent1,
-                                      headerForegroundColor: Color(0xFFECE7E0),
+                                      headerForegroundColor:
+                                          const Color(0xFFECE7E0),
                                       headerTextStyle:
                                           FlutterFlowTheme.of(context)
                                               .headlineLarge
@@ -162,7 +159,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                       selectedDateTimeBackgroundColor:
                                           FlutterFlowTheme.of(context).accent1,
                                       selectedDateTimeForegroundColor:
-                                          Color(0xFFECE7E0),
+                                          const Color(0xFFECE7E0),
                                       actionButtonForegroundColor:
                                           FlutterFlowTheme.of(context).primary,
                                       iconSize: 24.0,
@@ -170,12 +167,12 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                   },
                                 );
 
-                                if (_datePickedDate != null) {
+                                if (datePickedDate != null) {
                                   safeSetState(() {
                                     _model.datePicked = DateTime(
-                                      _datePickedDate.year,
-                                      _datePickedDate.month,
-                                      _datePickedDate.day,
+                                      datePickedDate.year,
+                                      datePickedDate.month,
+                                      datePickedDate.day,
                                     );
                                   });
                                 } else if (_model.datePicked != null) {
@@ -191,7 +188,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       16.0, 16.0, 16.0, 16.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -229,7 +226,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                   ),
                             ),
                             FlutterFlowChoiceChips(
-                              options: [
+                              options: const [
                                 ChipData('CSV'),
                                 ChipData('PDF'),
                                 ChipData('JSON')
@@ -247,9 +244,9 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                           .secondaryBackground,
                                       letterSpacing: 0.0,
                                     ),
-                                iconColor: Color(0x00000000),
+                                iconColor: const Color(0x00000000),
                                 iconSize: 16.0,
-                                labelPadding: EdgeInsets.all(8.0),
+                                labelPadding: const EdgeInsets.all(8.0),
                                 elevation: 0.0,
                                 borderRadius: BorderRadius.circular(20.0),
                               ),
@@ -264,9 +261,9 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                           .primaryText,
                                       letterSpacing: 0.0,
                                     ),
-                                iconColor: Color(0x00000000),
+                                iconColor: const Color(0x00000000),
                                 iconSize: 16.0,
-                                labelPadding: EdgeInsets.all(8.0),
+                                labelPadding: const EdgeInsets.all(8.0),
                                 elevation: 0.0,
                                 borderRadius: BorderRadius.circular(20.0),
                               ),
@@ -285,7 +282,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                               children: [
                                 Theme(
                                   data: ThemeData(
-                                    checkboxTheme: CheckboxThemeData(
+                                    checkboxTheme: const CheckboxThemeData(
                                       shape: RoundedRectangleBorder(
                                         borderRadius: BorderRadius.only(
                                           bottomLeft: Radius.circular(0.0),
@@ -322,7 +319,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                         letterSpacing: 0.0,
                                       ),
                                 ),
-                              ].divide(SizedBox(width: 12.0)),
+                              ].divide(const SizedBox(width: 12.0)),
                             ),
                             FFButtonWidget(
                               onPressed: () {
@@ -338,9 +335,10 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                               options: FFButtonOptions(
                                 width: MediaQuery.sizeOf(context).width * 1.0,
                                 height: 50.0,
-                                padding: EdgeInsets.all(8.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
+                                padding: const EdgeInsets.all(8.0),
+                                iconPadding:
+                                    const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).primary,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
@@ -354,7 +352,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                 borderRadius: BorderRadius.circular(25.0),
                               ),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),
@@ -385,7 +383,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 20.0, 20.0, 20.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -456,7 +454,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                   borderRadius: BorderRadius.circular(12.0),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsets.all(16.0),
+                                  padding: const EdgeInsets.all(16.0),
                                   child: Column(
                                     mainAxisSize: MainAxisSize.max,
                                     mainAxisAlignment: MainAxisAlignment.center,
@@ -464,8 +462,8 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                         CrossAxisAlignment.center,
                                     children: [
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 0.0, 8.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(8.0, 0.0, 8.0, 0.0),
                                         child: Icon(
                                           Icons.upload_file,
                                           color: FlutterFlowTheme.of(context)
@@ -474,8 +472,8 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 0.0, 8.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(8.0, 0.0, 8.0, 0.0),
                                         child: Text(
                                           'Select File to Import',
                                           style: FlutterFlowTheme.of(context)
@@ -487,8 +485,8 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                         ),
                                       ),
                                       Padding(
-                                        padding: EdgeInsetsDirectional.fromSTEB(
-                                            8.0, 0.0, 8.0, 0.0),
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(8.0, 0.0, 8.0, 0.0),
                                         child: Text(
                                           'CSV or JSON files only',
                                           style: FlutterFlowTheme.of(context)
@@ -514,7 +512,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 16.0, 16.0, 16.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -540,7 +538,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                             letterSpacing: 0.0,
                                           ),
                                     ),
-                                  ].divide(SizedBox(height: 8.0)),
+                                  ].divide(const SizedBox(height: 8.0)),
                                 ),
                               ),
                             ),
@@ -558,9 +556,10 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                               options: FFButtonOptions(
                                 width: MediaQuery.sizeOf(context).width * 1.0,
                                 height: 50.0,
-                                padding: EdgeInsets.all(8.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
+                                padding: const EdgeInsets.all(8.0),
+                                iconPadding:
+                                    const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).primary,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
@@ -574,13 +573,13 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                 borderRadius: BorderRadius.circular(25.0),
                               ),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ].divide(SizedBox(height: 24.0)),
+              ].divide(const SizedBox(height: 24.0)),
             ),
           ),
         ),

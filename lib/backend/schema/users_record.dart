@@ -3,48 +3,58 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
-import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class UsersRecord extends FirestoreRecord {
   UsersRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
 
   // "email" field.
   String? _email;
+
   String get email => _email ?? '';
+
   bool hasEmail() => _email != null;
 
   // "display_name" field.
   String? _displayName;
+
   String get displayName => _displayName ?? '';
+
   bool hasDisplayName() => _displayName != null;
 
   // "uid" field.
   String? _uid;
+
   String get uid => _uid ?? '';
+
   bool hasUid() => _uid != null;
 
   // "created_time" field.
   DateTime? _createdTime;
+
   DateTime? get createdTime => _createdTime;
+
   bool hasCreatedTime() => _createdTime != null;
 
   // "photo_url" field.
   String? _photoUrl;
+
   String get photoUrl => _photoUrl ?? '';
+
   bool hasPhotoUrl() => _photoUrl != null;
 
   // "phone_number" field.
   String? _phoneNumber;
+
   String get phoneNumber => _phoneNumber ?? '';
+
   bool hasPhoneNumber() => _phoneNumber != null;
 
   void _initializeFields() {

@@ -6,12 +6,8 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'dart:ui';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'log_rain_model.dart';
 export 'log_rain_model.dart';
 
@@ -167,7 +163,7 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                           borderColor: Colors.transparent,
                           borderWidth: 0.0,
                           borderRadius: 8.0,
-                          margin: EdgeInsetsDirectional.fromSTEB(
+                          margin: const EdgeInsetsDirectional.fromSTEB(
                               12.0, 0.0, 12.0, 0.0),
                           hidesUnderline: true,
                           isOverButton: false,
@@ -177,7 +173,7 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                       },
                     ),
                   ),
-                ].divide(SizedBox(height: 8.0)),
+                ].divide(const SizedBox(height: 8.0)),
               ),
               Column(
                 mainAxisSize: MainAxisSize.min,
@@ -271,7 +267,7 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                             ),
                             0.0),
                         child: FlutterFlowChoiceChips(
-                          options: [ChipData('mm'), ChipData('inches')],
+                          options: const [ChipData('mm'), ChipData('inches')],
                           onChanged: (val) => safeSetState(
                               () => _model.choiceChipsValue = val?.firstOrNull),
                           selectedChipStyle: ChipStyle(
@@ -286,7 +282,7 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                                   letterSpacing: 0.0,
                                   fontWeight: FontWeight.w500,
                                 ),
-                            iconColor: Color(0x00000000),
+                            iconColor: const Color(0x00000000),
                             iconSize: 18.0,
                             elevation: 0.0,
                             borderRadius: BorderRadius.circular(16.0),
@@ -303,7 +299,7 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                                       letterSpacing: 0.0,
                                       fontWeight: FontWeight.w500,
                                     ),
-                            iconColor: Color(0x00000000),
+                            iconColor: const Color(0x00000000),
                             iconSize: 18.0,
                             elevation: 0.0,
                             borderRadius: BorderRadius.circular(16.0),
@@ -319,9 +315,9 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                           wrapped: true,
                         ),
                       ),
-                    ].divide(SizedBox(width: 8.0)),
+                    ].divide(const SizedBox(width: 8.0)),
                   ),
-                ].divide(SizedBox(height: 8.0)),
+                ].divide(const SizedBox(height: 8.0)),
               ),
               Column(
                 mainAxisSize: MainAxisSize.min,
@@ -340,7 +336,7 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                     hoverColor: Colors.transparent,
                     highlightColor: Colors.transparent,
                     onTap: () async {
-                      final _datePickedDate = await showDatePicker(
+                      final datePickedDate = await showDatePicker(
                         context: context,
                         initialDate: getCurrentTimestamp,
                         firstDate: DateTime(1900),
@@ -374,9 +370,9 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                         },
                       );
 
-                      TimeOfDay? _datePickedTime;
-                      if (_datePickedDate != null) {
-                        _datePickedTime = await showTimePicker(
+                      TimeOfDay? datePickedTime;
+                      if (datePickedDate != null) {
+                        datePickedTime = await showTimePicker(
                           context: context,
                           initialTime:
                               TimeOfDay.fromDateTime(getCurrentTimestamp),
@@ -411,14 +407,14 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                         );
                       }
 
-                      if (_datePickedDate != null && _datePickedTime != null) {
+                      if (datePickedDate != null && datePickedTime != null) {
                         safeSetState(() {
                           _model.datePicked = DateTime(
-                            _datePickedDate.year,
-                            _datePickedDate.month,
-                            _datePickedDate.day,
-                            _datePickedTime!.hour,
-                            _datePickedTime.minute,
+                            datePickedDate.year,
+                            datePickedDate.month,
+                            datePickedDate.day,
+                            datePickedTime!.hour,
+                            datePickedTime.minute,
                           );
                         });
                       } else if (_model.datePicked != null) {
@@ -439,7 +435,7 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                         ),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             12.0, 12.0, 12.0, 12.0),
                         child: Row(
                           mainAxisSize: MainAxisSize.max,
@@ -470,7 +466,7 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                       ),
                     ),
                   ),
-                ].divide(SizedBox(height: 8.0)),
+                ].divide(const SizedBox(height: 8.0)),
               ),
               FFButtonWidget(
                 onPressed: () async {
@@ -480,9 +476,9 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                 options: FFButtonOptions(
                   width: double.infinity,
                   height: 50.0,
-                  padding: EdgeInsets.all(8.0),
+                  padding: const EdgeInsets.all(8.0),
                   iconPadding:
-                      EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
                   color: FlutterFlowTheme.of(context).accent1,
                   textStyle: FlutterFlowTheme.of(context).titleSmall.override(
                         fontFamily: 'Readex Pro',
@@ -490,7 +486,7 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                         letterSpacing: 0.0,
                       ),
                   elevation: 0.0,
-                  borderSide: BorderSide(
+                  borderSide: const BorderSide(
                     color: Colors.transparent,
                     width: 1.0,
                   ),
@@ -498,7 +494,7 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                   hoverColor: FlutterFlowTheme.of(context).primary,
                 ),
               ),
-            ].divide(SizedBox(height: 16.0)),
+            ].divide(const SizedBox(height: 16.0)),
           ),
         ),
       ),

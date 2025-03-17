@@ -2,11 +2,7 @@ import '/components/edit_entry/edit_entry_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'rainfall_entries_model.dart';
 export 'rainfall_entries_model.dart';
 
@@ -74,7 +70,7 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                   fontWeight: FontWeight.bold,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: true,
           toolbarHeight: 70.0,
         ),
@@ -94,7 +90,7 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                   mainAxisSize: MainAxisSize.max,
                   children: [
                     Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
                           16.0, 12.0, 16.0, 24.0),
                       child: ListView(
                         padding: EdgeInsets.zero,
@@ -103,13 +99,13 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                         scrollDirection: Axis.vertical,
                         children: [
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 12.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4.0,
                                     color: Color(0x10000000),
@@ -122,13 +118,14 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                               child: Padding(
-                                padding: EdgeInsets.all(16.0),
+                                padding: const EdgeInsets.all(16.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 16.0, 16.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 16.0, 16.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -153,8 +150,9 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                         ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         0.0, 4.0, 0.0, 0.0),
                                                 child: Text(
                                                   '12.5 mm - Main Gauge',
@@ -209,14 +207,14 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                           padding: MediaQuery
                                                               .viewInsetsOf(
                                                                   context),
-                                                          child: Container(
+                                                          child: SizedBox(
                                                             height: MediaQuery
                                                                         .sizeOf(
                                                                             context)
                                                                     .height *
                                                                 0.7,
                                                             child:
-                                                                EditEntryWidget(),
+                                                                const EditEntryWidget(),
                                                           ),
                                                         ),
                                                       );
@@ -226,8 +224,9 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                 },
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         8.0, 0.0, 8.0, 0.0),
                                                 child: FlutterFlowIconButton(
                                                   borderRadius: 8.0,
@@ -255,8 +254,9 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 12.0, 16.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 12.0, 16.0, 0.0),
                                       child: Divider(
                                         height: 1.0,
                                         thickness: 1.0,
@@ -270,13 +270,13 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 12.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4.0,
                                     color: Color(0x10000000),
@@ -289,13 +289,14 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                               child: Padding(
-                                padding: EdgeInsets.all(16.0),
+                                padding: const EdgeInsets.all(16.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 16.0, 16.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 16.0, 16.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -320,8 +321,9 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                         ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         0.0, 4.0, 0.0, 0.0),
                                                 child: Text(
                                                   '8.2 mm - Backyard Gauge',
@@ -376,7 +378,7 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                           padding: MediaQuery
                                                               .viewInsetsOf(
                                                                   context),
-                                                          child: Container(
+                                                          child: const SizedBox(
                                                             height: 70.0,
                                                             child:
                                                                 EditEntryWidget(),
@@ -389,8 +391,9 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                 },
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         8.0, 0.0, 8.0, 0.0),
                                                 child: FlutterFlowIconButton(
                                                   borderRadius: 8.0,
@@ -418,8 +421,9 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 12.0, 16.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 12.0, 16.0, 0.0),
                                       child: Divider(
                                         height: 1.0,
                                         thickness: 1.0,
@@ -433,13 +437,13 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                             ),
                           ),
                           Padding(
-                            padding: EdgeInsetsDirectional.fromSTEB(
+                            padding: const EdgeInsetsDirectional.fromSTEB(
                                 0.0, 0.0, 0.0, 12.0),
                             child: Container(
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .secondaryBackground,
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4.0,
                                     color: Color(0x10000000),
@@ -452,13 +456,14 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                 borderRadius: BorderRadius.circular(12.0),
                               ),
                               child: Padding(
-                                padding: EdgeInsets.all(16.0),
+                                padding: const EdgeInsets.all(16.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 16.0, 16.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 16.0, 16.0, 0.0),
                                       child: Row(
                                         mainAxisSize: MainAxisSize.max,
                                         mainAxisAlignment:
@@ -483,8 +488,9 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                         ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         0.0, 4.0, 0.0, 0.0),
                                                 child: Text(
                                                   'No entry',
@@ -509,8 +515,9 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                             mainAxisSize: MainAxisSize.max,
                                             children: [
                                               Align(
-                                                alignment: AlignmentDirectional(
-                                                    0.0, 0.0),
+                                                alignment:
+                                                    const AlignmentDirectional(
+                                                        0.0, 0.0),
                                                 child: FlutterFlowIconButton(
                                                   borderRadius: 8.0,
                                                   buttonSize: 44.0,
@@ -547,7 +554,8 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                             padding: MediaQuery
                                                                 .viewInsetsOf(
                                                                     context),
-                                                            child: Container(
+                                                            child:
+                                                                const SizedBox(
                                                               height: 70.0,
                                                               child:
                                                                   EditEntryWidget(),
@@ -561,8 +569,9 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                 ),
                                               ),
                                               Padding(
-                                                padding: EdgeInsetsDirectional
-                                                    .fromSTEB(
+                                                padding:
+                                                    const EdgeInsetsDirectional
+                                                        .fromSTEB(
                                                         8.0, 0.0, 8.0, 0.0),
                                                 child: FlutterFlowIconButton(
                                                   borderRadius: 8.0,
@@ -590,8 +599,9 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                       ),
                                     ),
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          16.0, 12.0, 16.0, 0.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              16.0, 12.0, 16.0, 0.0),
                                       child: Divider(
                                         height: 1.0,
                                         thickness: 1.0,

@@ -1,12 +1,8 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'notifications_model.dart';
 export 'notifications_model.dart';
 
@@ -67,13 +63,13 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                   letterSpacing: 0.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 0.0),
             child: SingleChildScrollView(
               primary: false,
               child: Column(
@@ -104,7 +100,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               20.0, 20.0, 20.0, 20.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -147,8 +143,8 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                   Switch(
                                     value: _model.switchValue1!,
                                     onChanged: (newValue) async {
-                                      safeSetState(() =>
-                                          _model.switchValue1 = newValue!);
+                                      safeSetState(
+                                          () => _model.switchValue1 = newValue);
                                     },
                                   ),
                                 ],
@@ -162,7 +158,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                   await showModalBottomSheet<bool>(
                                       context: context,
                                       builder: (context) {
-                                        final _datePickedCupertinoTheme =
+                                        final datePickedCupertinoTheme =
                                             CupertinoTheme.of(context);
                                         return Container(
                                           height: MediaQuery.of(context)
@@ -174,10 +170,10 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                           color: FlutterFlowTheme.of(context)
                                               .secondaryBackground,
                                           child: CupertinoTheme(
-                                            data: _datePickedCupertinoTheme
+                                            data: datePickedCupertinoTheme
                                                 .copyWith(
                                               textTheme:
-                                                  _datePickedCupertinoTheme
+                                                  datePickedCupertinoTheme
                                                       .textTheme
                                                       .copyWith(
                                                 dateTimePickerTextStyle:
@@ -222,8 +218,9 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                     borderRadius: BorderRadius.circular(12.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 16.0, 16.0, 16.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 16.0, 16.0, 16.0),
                                     child: Row(
                                       mainAxisSize: MainAxisSize.max,
                                       mainAxisAlignment:
@@ -268,7 +265,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                                         letterSpacing: 0.0,
                                                       ),
                                             ),
-                                          ].divide(SizedBox(width: 8.0)),
+                                          ].divide(const SizedBox(width: 8.0)),
                                         ),
                                         FaIcon(
                                           FontAwesomeIcons.chevronDown,
@@ -281,7 +278,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                   ),
                                 ),
                               ),
-                            ].divide(SizedBox(height: 16.0)),
+                            ].divide(const SizedBox(height: 16.0)),
                           ),
                         ),
                       ),
@@ -312,7 +309,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               20.0, 20.0, 20.0, 20.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -355,13 +352,13 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                   Switch(
                                     value: _model.switchValue2!,
                                     onChanged: (newValue) async {
-                                      safeSetState(() =>
-                                          _model.switchValue2 = newValue!);
+                                      safeSetState(
+                                          () => _model.switchValue2 = newValue);
                                     },
                                   ),
                                 ],
                               ),
-                            ].divide(SizedBox(height: 16.0)),
+                            ].divide(const SizedBox(height: 16.0)),
                           ),
                         ),
                       ),
@@ -392,7 +389,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               20.0, 20.0, 20.0, 20.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -435,13 +432,13 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                   Switch(
                                     value: _model.switchValue3!,
                                     onChanged: (newValue) async {
-                                      safeSetState(() =>
-                                          _model.switchValue3 = newValue!);
+                                      safeSetState(
+                                          () => _model.switchValue3 = newValue);
                                     },
                                   ),
                                 ],
                               ),
-                            ].divide(SizedBox(height: 16.0)),
+                            ].divide(const SizedBox(height: 16.0)),
                           ),
                         ),
                       ),
@@ -472,7 +469,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                           borderRadius: BorderRadius.circular(16.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               20.0, 20.0, 20.0, 20.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -515,13 +512,13 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                   Switch(
                                     value: _model.switchValue4!,
                                     onChanged: (newValue) async {
-                                      safeSetState(() =>
-                                          _model.switchValue4 = newValue!);
+                                      safeSetState(
+                                          () => _model.switchValue4 = newValue);
                                     },
                                   ),
                                 ],
                               ),
-                            ].divide(SizedBox(height: 16.0)),
+                            ].divide(const SizedBox(height: 16.0)),
                           ),
                         ),
                       ),
@@ -549,7 +546,7 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                           ),
                     ),
                   ),
-                ].divide(SizedBox(height: 24.0)),
+                ].divide(const SizedBox(height: 24.0)),
               ),
             ),
           ),

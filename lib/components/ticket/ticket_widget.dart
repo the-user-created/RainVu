@@ -3,10 +3,7 @@ import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
 import '/flutter_flow/form_field_controller.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'ticket_model.dart';
 export 'ticket_model.dart';
 
@@ -91,7 +88,7 @@ class _TicketWidgetState extends State<TicketWidget> {
                 _model.dropDownValue ??= '',
               ),
               options: List<String>.from(['1', '2', '3', '4', '5']),
-              optionLabels: [
+              optionLabels: const [
                 'Bug Report',
                 'Feature Request',
                 'General Feedback',
@@ -118,7 +115,8 @@ class _TicketWidgetState extends State<TicketWidget> {
               borderColor: FlutterFlowTheme.of(context).alternate,
               borderWidth: 1.0,
               borderRadius: 8.0,
-              margin: EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
+              margin:
+                  const EdgeInsetsDirectional.fromSTEB(12.0, 0.0, 12.0, 0.0),
               hidesUnderline: true,
               isOverButton: false,
               isSearchable: false,
@@ -242,9 +240,9 @@ class _TicketWidgetState extends State<TicketWidget> {
                   options: FFButtonOptions(
                     width: 100.0,
                     height: 40.0,
-                    padding: EdgeInsets.all(8.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsets.all(8.0),
+                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Inter',
@@ -267,9 +265,9 @@ class _TicketWidgetState extends State<TicketWidget> {
                   options: FFButtonOptions(
                     width: 100.0,
                     height: 40.0,
-                    padding: EdgeInsets.all(8.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsets.all(8.0),
+                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).accent1,
                     textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Inter',
@@ -277,7 +275,7 @@ class _TicketWidgetState extends State<TicketWidget> {
                           letterSpacing: 0.0,
                         ),
                     elevation: 0.0,
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.transparent,
                       width: 1.0,
                     ),
@@ -285,9 +283,9 @@ class _TicketWidgetState extends State<TicketWidget> {
                     hoverColor: FlutterFlowTheme.of(context).primary,
                   ),
                 ),
-              ].divide(SizedBox(width: 12.0)),
+              ].divide(const SizedBox(width: 12.0)),
             ),
-          ].divide(SizedBox(height: 16.0)),
+          ].divide(const SizedBox(height: 16.0)),
         ),
       ),
     );

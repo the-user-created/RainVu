@@ -1,10 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'anomaly_explore_model.dart';
 export 'anomaly_explore_model.dart';
 
@@ -61,7 +57,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                   letterSpacing: 0.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
         ),
         body: SafeArea(
@@ -75,7 +71,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                   width: MediaQuery.sizeOf(context).width * 1.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primaryBackground,
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         blurRadius: 4.0,
                         color: Color(0x33000000),
@@ -86,7 +82,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                         spreadRadius: 0.0,
                       )
                     ],
-                    borderRadius: BorderRadius.only(
+                    borderRadius: const BorderRadius.only(
                       bottomLeft: Radius.circular(16.0),
                       bottomRight: Radius.circular(16.0),
                       topLeft: Radius.circular(0.0),
@@ -94,8 +90,8 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                     ),
                   ),
                   child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        16.0, 16.0, 16.0, 16.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -115,11 +111,11 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                             Expanded(
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFF5F5F5),
+                                  color: const Color(0xFFF5F5F5),
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       12.0, 16.0, 12.0, 16.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
@@ -139,7 +135,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                               letterSpacing: 0.0,
                                             ),
                                       ),
-                                    ].divide(SizedBox(width: 8.0)),
+                                    ].divide(const SizedBox(width: 8.0)),
                                   ),
                                 ),
                               ),
@@ -149,16 +145,16 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                             Expanded(
                               child: Container(
                                 decoration: BoxDecoration(
-                                  color: Color(0xFFF5F5F5),
+                                  color: const Color(0xFFF5F5F5),
                                   borderRadius: BorderRadius.circular(8.0),
                                 ),
                                 child: Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       12.0, 16.0, 12.0, 16.0),
                                   child: Row(
                                     mainAxisSize: MainAxisSize.max,
                                     children: [
-                                      Icon(
+                                      const Icon(
                                         Icons.warning,
                                         color: Color(0xFFF9CF58),
                                         size: 20.0,
@@ -172,14 +168,14 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                               letterSpacing: 0.0,
                                             ),
                                       ),
-                                    ].divide(SizedBox(width: 8.0)),
+                                    ].divide(const SizedBox(width: 8.0)),
                                   ),
                                 ),
                               ),
                             ),
-                          ].divide(SizedBox(width: 12.0)),
+                          ].divide(const SizedBox(width: 12.0)),
                         ),
-                      ].divide(SizedBox(height: 16.0)),
+                      ].divide(const SizedBox(height: 16.0)),
                     ),
                   ),
                 ),
@@ -188,7 +184,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                   height: 300.0,
                   decoration: BoxDecoration(
                     color: FlutterFlowTheme.of(context).primaryBackground,
-                    boxShadow: [
+                    boxShadow: const [
                       BoxShadow(
                         blurRadius: 4.0,
                         color: Color(0x33000000),
@@ -202,8 +198,8 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                     borderRadius: BorderRadius.circular(12.0),
                   ),
                   child: Padding(
-                    padding:
-                        EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+                    padding: const EdgeInsetsDirectional.fromSTEB(
+                        16.0, 16.0, 16.0, 16.0),
                     child: Column(
                       mainAxisSize: MainAxisSize.max,
                       children: [
@@ -225,19 +221,20 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                               children: [
                                 Container(
                                   decoration: BoxDecoration(
-                                    color: Color(0xFFE3F2FD),
+                                    color: const Color(0xFFE3F2FD),
                                     borderRadius: BorderRadius.circular(4.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        4.0, 8.0, 4.0, 8.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            4.0, 8.0, 4.0, 8.0),
                                     child: Text(
                                       'Normal',
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
                                             fontFamily: 'Inter',
-                                            color: Color(0xFF1565C0),
+                                            color: const Color(0xFF1565C0),
                                             letterSpacing: 0.0,
                                           ),
                                     ),
@@ -245,25 +242,26 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                 ),
                                 Container(
                                   decoration: BoxDecoration(
-                                    color: Color(0xFFFFF3E0),
+                                    color: const Color(0xFFFFF3E0),
                                     borderRadius: BorderRadius.circular(4.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        4.0, 8.0, 4.0, 8.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            4.0, 8.0, 4.0, 8.0),
                                     child: Text(
                                       'Anomaly',
                                       style: FlutterFlowTheme.of(context)
                                           .bodySmall
                                           .override(
                                             fontFamily: 'Inter',
-                                            color: Color(0xFFEF6C00),
+                                            color: const Color(0xFFEF6C00),
                                             letterSpacing: 0.0,
                                           ),
                                     ),
                                   ),
                                 ),
-                              ].divide(SizedBox(width: 8.0)),
+                              ].divide(const SizedBox(width: 8.0)),
                             ),
                           ],
                         ),
@@ -275,7 +273,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                           height: 240.0,
                           fit: BoxFit.contain,
                         ),
-                      ].divide(SizedBox(height: 8.0)),
+                      ].divide(const SizedBox(height: 8.0)),
                     ),
                   ),
                 ),
@@ -287,8 +285,8 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                       ),
                 ),
                 Padding(
-                  padding:
-                      EdgeInsetsDirectional.fromSTEB(24.0, 0.0, 24.0, 32.0),
+                  padding: const EdgeInsetsDirectional.fromSTEB(
+                      24.0, 0.0, 24.0, 32.0),
                   child: ListView(
                     padding: EdgeInsets.zero,
                     primary: false,
@@ -300,7 +298,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                         width: MediaQuery.sizeOf(context).width * 1.0,
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).primaryBackground,
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               blurRadius: 4.0,
                               color: Color(0x33000000),
@@ -314,7 +312,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 16.0, 16.0, 16.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -336,19 +334,20 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                   ),
                                   Container(
                                     decoration: BoxDecoration(
-                                      color: Color(0xFFFFEBEE),
+                                      color: const Color(0xFFFFEBEE),
                                       borderRadius: BorderRadius.circular(4.0),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          4.0, 8.0, 4.0, 8.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              4.0, 8.0, 4.0, 8.0),
                                       child: Text(
                                         '+245% Above Average',
                                         style: FlutterFlowTheme.of(context)
                                             .bodySmall
                                             .override(
                                               fontFamily: 'Inter',
-                                              color: Color(0xFFC62828),
+                                              color: const Color(0xFFC62828),
                                               letterSpacing: 0.0,
                                             ),
                                       ),
@@ -367,7 +366,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                       letterSpacing: 0.0,
                                     ),
                               ),
-                            ].divide(SizedBox(height: 8.0)),
+                            ].divide(const SizedBox(height: 8.0)),
                           ),
                         ),
                       ),
@@ -375,7 +374,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                         width: MediaQuery.sizeOf(context).width * 1.0,
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).primaryBackground,
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               blurRadius: 4.0,
                               color: Color(0x33000000),
@@ -389,7 +388,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 16.0, 16.0, 16.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -411,19 +410,20 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                   ),
                                   Container(
                                     decoration: BoxDecoration(
-                                      color: Color(0xFFE8F5E9),
+                                      color: const Color(0xFFE8F5E9),
                                       borderRadius: BorderRadius.circular(4.0),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          4.0, 8.0, 4.0, 8.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              4.0, 8.0, 4.0, 8.0),
                                       child: Text(
                                         '-75% Below Average',
                                         style: FlutterFlowTheme.of(context)
                                             .bodySmall
                                             .override(
                                               fontFamily: 'Inter',
-                                              color: Color(0xFF2E7D32),
+                                              color: const Color(0xFF2E7D32),
                                               letterSpacing: 0.0,
                                             ),
                                       ),
@@ -442,7 +442,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                       letterSpacing: 0.0,
                                     ),
                               ),
-                            ].divide(SizedBox(height: 8.0)),
+                            ].divide(const SizedBox(height: 8.0)),
                           ),
                         ),
                       ),
@@ -450,7 +450,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                         width: MediaQuery.sizeOf(context).width * 1.0,
                         decoration: BoxDecoration(
                           color: FlutterFlowTheme.of(context).primaryBackground,
-                          boxShadow: [
+                          boxShadow: const [
                             BoxShadow(
                               blurRadius: 4.0,
                               color: Color(0x33000000),
@@ -464,7 +464,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                           borderRadius: BorderRadius.circular(12.0),
                         ),
                         child: Padding(
-                          padding: EdgeInsetsDirectional.fromSTEB(
+                          padding: const EdgeInsetsDirectional.fromSTEB(
                               16.0, 16.0, 16.0, 16.0),
                           child: Column(
                             mainAxisSize: MainAxisSize.max,
@@ -486,19 +486,20 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                   ),
                                   Container(
                                     decoration: BoxDecoration(
-                                      color: Color(0xFFFFEBEE),
+                                      color: const Color(0xFFFFEBEE),
                                       borderRadius: BorderRadius.circular(4.0),
                                     ),
                                     child: Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          4.0, 8.0, 4.0, 8.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              4.0, 8.0, 4.0, 8.0),
                                       child: Text(
                                         '+180% Above Average',
                                         style: FlutterFlowTheme.of(context)
                                             .bodySmall
                                             .override(
                                               fontFamily: 'Inter',
-                                              color: Color(0xFFC62828),
+                                              color: const Color(0xFFC62828),
                                               letterSpacing: 0.0,
                                             ),
                                       ),
@@ -517,14 +518,14 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                       letterSpacing: 0.0,
                                     ),
                               ),
-                            ].divide(SizedBox(height: 8.0)),
+                            ].divide(const SizedBox(height: 8.0)),
                           ),
                         ),
                       ),
-                    ].divide(SizedBox(height: 12.0)),
+                    ].divide(const SizedBox(height: 12.0)),
                   ),
                 ),
-              ].divide(SizedBox(height: 24.0)),
+              ].divide(const SizedBox(height: 24.0)),
             ),
           ),
         ),

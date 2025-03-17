@@ -1,13 +1,8 @@
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/index.dart';
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'monthly_breakdown_model.dart';
 export 'monthly_breakdown_model.dart';
 
@@ -66,9 +61,10 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
           ),
           actions: [
             Align(
-              alignment: AlignmentDirectional(0.0, 0.0),
+              alignment: const AlignmentDirectional(0.0, 0.0),
               child: Padding(
-                padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                padding:
+                    const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
                 child: FlutterFlowIconButton(
                   borderRadius: 50.0,
                   buttonSize: 40.0,
@@ -79,7 +75,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                     size: 24.0,
                   ),
                   onPressed: () async {
-                    final _datePickedDate = await showDatePicker(
+                    final datePickedDate = await showDatePicker(
                       context: context,
                       initialDate: getCurrentTimestamp,
                       firstDate: DateTime(1900),
@@ -113,12 +109,12 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                       },
                     );
 
-                    if (_datePickedDate != null) {
+                    if (datePickedDate != null) {
                       safeSetState(() {
                         _model.datePicked = DateTime(
-                          _datePickedDate.year,
-                          _datePickedDate.month,
-                          _datePickedDate.day,
+                          datePickedDate.year,
+                          datePickedDate.month,
+                          datePickedDate.day,
                         );
                       });
                     } else if (_model.datePicked != null) {
@@ -165,7 +161,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 20.0, 20.0, 20.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -201,7 +197,8 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                   ],
                                 ),
                                 Align(
-                                  alignment: AlignmentDirectional(0.0, 0.0),
+                                  alignment:
+                                      const AlignmentDirectional(0.0, 0.0),
                                   child: FlutterFlowIconButton(
                                     borderRadius: 50.0,
                                     buttonSize: 48.0,
@@ -305,7 +302,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                 ),
                               ],
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),
@@ -336,7 +333,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 20.0, 20.0, 20.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -388,7 +385,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 letterSpacing: 0.0,
                                               ),
                                         ),
-                                      ].divide(SizedBox(width: 8.0)),
+                                      ].divide(const SizedBox(width: 8.0)),
                                     ),
                                   ],
                                 ),
@@ -441,7 +438,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 letterSpacing: 0.0,
                                               ),
                                         ),
-                                      ].divide(SizedBox(width: 8.0)),
+                                      ].divide(const SizedBox(width: 8.0)),
                                     ),
                                   ],
                                 ),
@@ -494,7 +491,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 letterSpacing: 0.0,
                                               ),
                                         ),
-                                      ].divide(SizedBox(width: 8.0)),
+                                      ].divide(const SizedBox(width: 8.0)),
                                     ),
                                   ],
                                 ),
@@ -509,7 +506,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                 ),
                               ],
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),
@@ -541,7 +538,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 20.0, 20.0, 20.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -563,7 +560,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                               height: 200.0,
                               fit: BoxFit.contain,
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),
@@ -594,7 +591,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 20.0, 20.0, 20.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -657,7 +654,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 letterSpacing: 0.0,
                                               ),
                                         ),
-                                      ].divide(SizedBox(width: 8.0)),
+                                      ].divide(const SizedBox(width: 8.0)),
                                     ),
                                   ],
                                 ),
@@ -705,7 +702,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 letterSpacing: 0.0,
                                               ),
                                         ),
-                                      ].divide(SizedBox(width: 8.0)),
+                                      ].divide(const SizedBox(width: 8.0)),
                                     ),
                                   ],
                                 ),
@@ -753,7 +750,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 letterSpacing: 0.0,
                                               ),
                                         ),
-                                      ].divide(SizedBox(width: 8.0)),
+                                      ].divide(const SizedBox(width: 8.0)),
                                     ),
                                   ],
                                 ),
@@ -801,7 +798,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 letterSpacing: 0.0,
                                               ),
                                         ),
-                                      ].divide(SizedBox(width: 8.0)),
+                                      ].divide(const SizedBox(width: 8.0)),
                                     ),
                                   ],
                                 ),
@@ -849,19 +846,19 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 letterSpacing: 0.0,
                                               ),
                                         ),
-                                      ].divide(SizedBox(width: 8.0)),
+                                      ].divide(const SizedBox(width: 8.0)),
                                     ),
                                   ],
                                 ),
-                              ].divide(SizedBox(height: 12.0)),
+                              ].divide(const SizedBox(height: 12.0)),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ].divide(SizedBox(height: 24.0)),
+              ].divide(const SizedBox(height: 24.0)),
             ),
           ),
         ),
