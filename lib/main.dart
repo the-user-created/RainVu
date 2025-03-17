@@ -67,7 +67,7 @@ class _MyAppState extends State<MyApp> {
 
   List<String> getRouteStack() =>
       _router.routerDelegate.currentConfiguration.matches
-          .map((e) => getRoute(e))
+          .map((e) => getRoute(e as RouteMatch?))
           .toList();
 
   late Stream<BaseAuthUser> userStream;
