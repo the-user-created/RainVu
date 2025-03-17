@@ -2,11 +2,11 @@ import "package:cloud_firestore/cloud_firestore.dart";
 import "package:firebase_auth/firebase_auth.dart";
 import "package:flutter/cupertino.dart";
 import "package:rain_wise/auth/firebase_auth/auth_util.dart";
+import "package:rain_wise/backend/schema/firestore_util.dart";
 import "package:rain_wise/backend/schema/gauges_record.dart";
 import "package:rain_wise/backend/schema/notifications_record.dart";
 import "package:rain_wise/backend/schema/rainfall_entries_record.dart";
 import "package:rain_wise/backend/schema/users_record.dart";
-import "package:rain_wise/backend/schema/util/firestore_util.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 
 export "dart:async" show StreamSubscription;
@@ -14,13 +14,12 @@ export "dart:async" show StreamSubscription;
 export "package:cloud_firestore/cloud_firestore.dart" hide Order;
 export "package:firebase_core/firebase_core.dart";
 
+export "schema/firestore_util.dart";
 export "schema/gauges_record.dart";
 export "schema/index.dart";
 export "schema/notifications_record.dart";
 export "schema/rainfall_entries_record.dart";
 export "schema/users_record.dart";
-export "schema/util/firestore_util.dart";
-export "schema/util/schema_util.dart";
 
 /// Functions to query UsersRecords (as a Stream and as a Future).
 Future<int> queryUsersRecordCount({
@@ -187,6 +186,8 @@ Future<int> queryCollectionCount(
 
   return query.count().get().catchError((final err) {
     debugPrint("Error querying $collection: $err");
+    // Return a default value or rethrow the error
+    throw err; // This will propagate the error up the chain
   }).then((final value) => value.count!);
 }
 

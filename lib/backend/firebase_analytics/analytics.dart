@@ -10,7 +10,7 @@ const kMaxParameterLength = 100;
 Future<void> logFirebaseEvent(final String eventName,
     {Map<String?, dynamic>? parameters}) async {
   // https://firebase.google.com/docs/reference/cpp/group/event-names
-  assert(eventName.length <= kMaxEventNameLength);
+  assert(eventName.length <= kMaxEventNameLength, "Event name too long");
 
   parameters ??= {};
   parameters

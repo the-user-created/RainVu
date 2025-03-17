@@ -1,3 +1,4 @@
+// Why ignore? - This file has many style definitions which are not meant to use the @override keyword.
 // ignore_for_file: overridden_fields, annotate_overrides
 
 import "package:flutter/material.dart";

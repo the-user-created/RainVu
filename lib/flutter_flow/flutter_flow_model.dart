@@ -30,7 +30,7 @@ T createModel<T extends FlutterFlowModel>(
   final BuildContext context,
   final T Function() defaultBuilder,
 ) {
-  final model = context.read<T?>() ?? defaultBuilder()
+  final dynamic model = context.read<T?>() ?? defaultBuilder()
     .._init(context);
   return model;
 }
@@ -134,12 +134,15 @@ class FlutterFlowDynamicModels<T extends FlutterFlowModel> {
   }
 
   S? getValueForKey<S>(final String? uniqueKey, final S? Function(T) getValue) {
-    final model = _childrenModels[uniqueKey];
+    final dynamic model = _childrenModels[uniqueKey];
     return model != null ? getValue(model) : null;
   }
 
-  void dispose() =>
-      _childrenModels.values.forEach((final model) => model.dispose());
+  void dispose() {
+    for (final T model in _childrenModels.values) {
+      model.dispose();
+    }
+  }
 
   void _updateActiveKeys(final String uniqueKey) {
     final shouldResetActiveKeys = _activeKeys == null;

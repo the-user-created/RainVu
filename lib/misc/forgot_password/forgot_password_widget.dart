@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/auth/firebase_auth/auth_util.dart";
@@ -28,8 +30,8 @@ class _ForgotPasswordWidgetState extends State<ForgotPasswordWidget> {
     super.initState();
     _model = createModel(context, ForgotPasswordModel.new);
 
-    logFirebaseEvent("screen_view",
-        parameters: {"screen_name": "ForgotPassword"});
+    unawaited(logFirebaseEvent("screen_view",
+        parameters: {"screen_name": "ForgotPassword"}));
     _model.emailAddressTextController ??= TextEditingController();
     _model.emailAddressFocusNode ??= FocusNode();
   }

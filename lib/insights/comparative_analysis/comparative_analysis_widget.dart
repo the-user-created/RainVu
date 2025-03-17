@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_choice_chips.dart";
@@ -29,8 +31,8 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
     super.initState();
     _model = createModel(context, ComparativeAnalysisModel.new);
 
-    logFirebaseEvent("screen_view",
-        parameters: {"screen_name": "comparative_analysis"});
+    unawaited(logFirebaseEvent("screen_view",
+        parameters: {"screen_name": "comparative_analysis"}));
   }
 
   @override

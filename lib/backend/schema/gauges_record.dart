@@ -1,14 +1,26 @@
 import "dart:async";
 
 import "package:collection/collection.dart";
+import "package:rain_wise/backend/schema/firestore_util.dart";
 import "package:rain_wise/backend/schema/index.dart";
-import "package:rain_wise/backend/schema/util/firestore_util.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 
 class GaugesRecord extends FirestoreRecord {
+  factory GaugesRecord.fromSnapshot(final DocumentSnapshot snapshot) =>
+      GaugesRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data()! as Map<String, dynamic>),
+      );
+
+  factory GaugesRecord.fromData(
+    final Map<String, dynamic> data,
+    final DocumentReference reference,
+  ) =>
+      GaugesRecord._(reference, mapFromFirestore(data));
+
   GaugesRecord._(
     super.reference,
-    super.data,
+    super.snapshotData,
   ) {
     _initializeFields();
   }
@@ -56,18 +68,6 @@ class GaugesRecord extends FirestoreRecord {
 
   static Future<GaugesRecord> getDocumentOnce(final DocumentReference ref) =>
       ref.get().then(GaugesRecord.fromSnapshot);
-
-  static GaugesRecord fromSnapshot(final DocumentSnapshot snapshot) =>
-      GaugesRecord._(
-        snapshot.reference,
-        mapFromFirestore(snapshot.data()! as Map<String, dynamic>),
-      );
-
-  static GaugesRecord getDocumentFromData(
-    final Map<String, dynamic> data,
-    final DocumentReference reference,
-  ) =>
-      GaugesRecord._(reference, mapFromFirestore(data));
 
   @override
   String toString() =>
