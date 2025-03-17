@@ -1,10 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'coming_soon_model.dart';
 export 'coming_soon_model.dart';
 
@@ -53,7 +49,7 @@ class _ComingSoonWidgetState extends State<ComingSoonWidget> {
           iconTheme:
               IconThemeData(color: FlutterFlowTheme.of(context).primaryText),
           automaticallyImplyLeading: true,
-          actions: [],
+          actions: const [],
           centerTitle: false,
         ),
         body: SafeArea(
@@ -92,7 +88,7 @@ class _ComingSoonWidgetState extends State<ComingSoonWidget> {
                         letterSpacing: 0.0,
                       ),
                 ),
-              ].divide(SizedBox(height: 24.0)),
+              ].divide(const SizedBox(height: 24.0)),
             ),
           ),
         ),

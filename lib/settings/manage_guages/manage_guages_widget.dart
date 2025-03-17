@@ -5,10 +5,7 @@ import '/components/rain_gauge/rain_gauge_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'manage_guages_model.dart';
 export 'manage_guages_model.dart';
 
@@ -66,13 +63,13 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                   letterSpacing: 0.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
         ),
         body: SafeArea(
           top: true,
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
+            padding: const EdgeInsetsDirectional.fromSTEB(0.0, 16.0, 0.0, 16.0),
             child: SingleChildScrollView(
               primary: false,
               child: Column(
@@ -94,7 +91,7 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryBackground,
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             blurRadius: 4.0,
                             color: Color(0x33000000),
@@ -108,7 +105,7 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                         borderRadius: BorderRadius.circular(12.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             16.0, 16.0, 16.0, 16.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -218,9 +215,9 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                                     );
                                   },
                                 ),
-                              ].divide(SizedBox(height: 12.0)),
+                              ].divide(const SizedBox(height: 12.0)),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),
@@ -252,10 +249,10 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                               },
                               child: Padding(
                                 padding: MediaQuery.viewInsetsOf(context),
-                                child: Container(
+                                child: SizedBox(
                                   height:
                                       MediaQuery.sizeOf(context).height * 0.6,
-                                  child: AddGaugeWidget(),
+                                  child: const AddGaugeWidget(),
                                 ),
                               ),
                             );
@@ -263,7 +260,7 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                         ).then((value) => safeSetState(() {}));
                       },
                       text: 'Add New Rain Gauge',
-                      icon: Icon(
+                      icon: const Icon(
                         Icons.add,
                         color: Colors.white,
                         size: 15.0,
@@ -271,9 +268,9 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                       options: FFButtonOptions(
                         width: MediaQuery.sizeOf(context).width * 1.0,
                         height: 50.0,
-                        padding: EdgeInsets.all(8.0),
-                        iconPadding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                        padding: const EdgeInsets.all(8.0),
+                        iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 0.0),
                         color: FlutterFlowTheme.of(context).primary,
                         textStyle:
                             FlutterFlowTheme.of(context).titleSmall.override(
@@ -286,7 +283,7 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                       ),
                     ),
                   ),
-                ].divide(SizedBox(height: 16.0)),
+                ].divide(const SizedBox(height: 16.0)),
               ),
             ),
           ),

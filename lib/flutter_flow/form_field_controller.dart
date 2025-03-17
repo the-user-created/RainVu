@@ -6,6 +6,7 @@ class FormFieldController<T> extends ValueNotifier<T?> {
   final T? initialValue;
 
   void reset() => value = initialValue;
+
   void update() => notifyListeners();
 }
 

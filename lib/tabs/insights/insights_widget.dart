@@ -2,13 +2,8 @@ import '/components/mtd_breakdown/mtd_breakdown_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/index.dart';
 import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'insights_model.dart';
 export 'insights_model.dart';
 
@@ -66,9 +61,10 @@ class _InsightsWidgetState extends State<InsightsWidget> {
             ),
             actions: [
               Align(
-                alignment: AlignmentDirectional(0.0, 0.0),
+                alignment: const AlignmentDirectional(0.0, 0.0),
                 child: Padding(
-                  padding: EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
+                  padding:
+                      const EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 12.0, 0.0),
                   child: FlutterFlowIconButton(
                     borderRadius: 50.0,
                     buttonSize: 40.0,
@@ -99,7 +95,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).primaryBackground,
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           blurRadius: 4.0,
                           color: Color(0x33000000),
@@ -156,7 +152,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                   decoration: BoxDecoration(
                                     color:
                                         FlutterFlowTheme.of(context).alternate,
-                                    boxShadow: [
+                                    boxShadow: const [
                                       BoxShadow(
                                         blurRadius: 4.0,
                                         color: Color(0x33000000),
@@ -169,8 +165,9 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                     borderRadius: BorderRadius.circular(16.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 16.0, 16.0, 16.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 16.0, 16.0, 16.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
@@ -223,7 +220,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 letterSpacing: 0.0,
                                               ),
                                         ),
-                                      ].divide(SizedBox(height: 8.0)),
+                                      ].divide(const SizedBox(height: 8.0)),
                                     ),
                                   ),
                                 ),
@@ -241,7 +238,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                   decoration: BoxDecoration(
                                     color:
                                         FlutterFlowTheme.of(context).alternate,
-                                    boxShadow: [
+                                    boxShadow: const [
                                       BoxShadow(
                                         blurRadius: 4.0,
                                         color: Color(0x33000000),
@@ -254,8 +251,9 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                     borderRadius: BorderRadius.circular(16.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 16.0, 16.0, 16.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 16.0, 16.0, 16.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
@@ -308,7 +306,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 letterSpacing: 0.0,
                                               ),
                                         ),
-                                      ].divide(SizedBox(height: 8.0)),
+                                      ].divide(const SizedBox(height: 8.0)),
                                     ),
                                   ),
                                 ),
@@ -332,7 +330,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                   decoration: BoxDecoration(
                                     color:
                                         FlutterFlowTheme.of(context).alternate,
-                                    boxShadow: [
+                                    boxShadow: const [
                                       BoxShadow(
                                         blurRadius: 4.0,
                                         color: Color(0x33000000),
@@ -345,8 +343,9 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                     borderRadius: BorderRadius.circular(16.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 16.0, 16.0, 16.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 16.0, 16.0, 16.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
@@ -399,7 +398,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 letterSpacing: 0.0,
                                               ),
                                         ),
-                                      ].divide(SizedBox(height: 8.0)),
+                                      ].divide(const SizedBox(height: 8.0)),
                                     ),
                                   ),
                                 ),
@@ -417,7 +416,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                   decoration: BoxDecoration(
                                     color:
                                         FlutterFlowTheme.of(context).alternate,
-                                    boxShadow: [
+                                    boxShadow: const [
                                       BoxShadow(
                                         blurRadius: 4.0,
                                         color: Color(0x33000000),
@@ -430,8 +429,9 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                     borderRadius: BorderRadius.circular(16.0),
                                   ),
                                   child: Padding(
-                                    padding: EdgeInsetsDirectional.fromSTEB(
-                                        16.0, 16.0, 16.0, 16.0),
+                                    padding:
+                                        const EdgeInsetsDirectional.fromSTEB(
+                                            16.0, 16.0, 16.0, 16.0),
                                     child: Column(
                                       mainAxisSize: MainAxisSize.max,
                                       crossAxisAlignment:
@@ -484,14 +484,14 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 letterSpacing: 0.0,
                                               ),
                                         ),
-                                      ].divide(SizedBox(height: 8.0)),
+                                      ].divide(const SizedBox(height: 8.0)),
                                     ),
                                   ),
                                 ),
                               ),
                             ],
                           ),
-                        ].divide(SizedBox(height: 24.0)),
+                        ].divide(const SizedBox(height: 24.0)),
                       ),
                     ),
                   ),
@@ -507,7 +507,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryBackground,
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             blurRadius: 4.0,
                             color: Color(0x33000000),
@@ -520,7 +520,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             20.0, 20.0, 20.0, 20.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -564,7 +564,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                 ),
                               ),
                               child: Padding(
-                                padding: EdgeInsetsDirectional.fromSTEB(
+                                padding: const EdgeInsetsDirectional.fromSTEB(
                                     16.0, 16.0, 16.0, 16.0),
                                 child: Column(
                                   mainAxisSize: MainAxisSize.max,
@@ -589,7 +589,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   bottomLeft:
                                                       Radius.circular(0.0),
                                                   bottomRight:
@@ -624,7 +625,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   bottomLeft:
                                                       Radius.circular(0.0),
                                                   bottomRight:
@@ -659,7 +661,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   bottomLeft:
                                                       Radius.circular(0.0),
                                                   bottomRight:
@@ -694,7 +697,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   bottomLeft:
                                                       Radius.circular(0.0),
                                                   bottomRight:
@@ -729,7 +733,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   bottomLeft:
                                                       Radius.circular(0.0),
                                                   bottomRight:
@@ -764,7 +769,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   bottomLeft:
                                                       Radius.circular(0.0),
                                                   bottomRight:
@@ -799,7 +805,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   bottomLeft:
                                                       Radius.circular(0.0),
                                                   bottomRight:
@@ -834,7 +841,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   bottomLeft:
                                                       Radius.circular(0.0),
                                                   bottomRight:
@@ -869,7 +877,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   bottomLeft:
                                                       Radius.circular(0.0),
                                                   bottomRight:
@@ -904,7 +913,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   bottomLeft:
                                                       Radius.circular(0.0),
                                                   bottomRight:
@@ -939,7 +949,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   bottomLeft:
                                                       Radius.circular(0.0),
                                                   bottomRight:
@@ -974,7 +985,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 color:
                                                     FlutterFlowTheme.of(context)
                                                         .primary,
-                                                borderRadius: BorderRadius.only(
+                                                borderRadius:
+                                                    const BorderRadius.only(
                                                   bottomLeft:
                                                       Radius.circular(0.0),
                                                   bottomRight:
@@ -1003,7 +1015,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                 ),
                               ),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),
@@ -1035,7 +1047,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                     height: 320.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).primaryBackground,
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           blurRadius: 4.0,
                           color: Color(0x33000000),
@@ -1050,15 +1062,16 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                     child:
                         // TODO: when each month is tapped on, take the user to the respective monthyl breakdown
                         Align(
-                      alignment: AlignmentDirectional(0.0, 0.0),
+                      alignment: const AlignmentDirectional(0.0, 0.0),
                       child: GridView(
-                        padding: EdgeInsets.fromLTRB(
+                        padding: const EdgeInsets.fromLTRB(
                           24.0,
                           0,
                           24.0,
                           0,
                         ),
-                        gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
+                        gridDelegate:
+                            const SliverGridDelegateWithFixedCrossAxisCount(
                           crossAxisCount: 2,
                           crossAxisSpacing: 10.0,
                           mainAxisSpacing: 10.0,
@@ -1070,84 +1083,84 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                           wrapWithModel(
                             model: _model.mtdBreakdownModel1,
                             updateCallback: () => safeSetState(() {}),
-                            child: MtdBreakdownWidget(
+                            child: const MtdBreakdownWidget(
                               month: '',
                             ),
                           ),
                           wrapWithModel(
                             model: _model.mtdBreakdownModel2,
                             updateCallback: () => safeSetState(() {}),
-                            child: MtdBreakdownWidget(
+                            child: const MtdBreakdownWidget(
                               month: '',
                             ),
                           ),
                           wrapWithModel(
                             model: _model.mtdBreakdownModel3,
                             updateCallback: () => safeSetState(() {}),
-                            child: MtdBreakdownWidget(
+                            child: const MtdBreakdownWidget(
                               month: '',
                             ),
                           ),
                           wrapWithModel(
                             model: _model.mtdBreakdownModel4,
                             updateCallback: () => safeSetState(() {}),
-                            child: MtdBreakdownWidget(
+                            child: const MtdBreakdownWidget(
                               month: '',
                             ),
                           ),
                           wrapWithModel(
                             model: _model.mtdBreakdownModel5,
                             updateCallback: () => safeSetState(() {}),
-                            child: MtdBreakdownWidget(
+                            child: const MtdBreakdownWidget(
                               month: '',
                             ),
                           ),
                           wrapWithModel(
                             model: _model.mtdBreakdownModel6,
                             updateCallback: () => safeSetState(() {}),
-                            child: MtdBreakdownWidget(
+                            child: const MtdBreakdownWidget(
                               month: '',
                             ),
                           ),
                           wrapWithModel(
                             model: _model.mtdBreakdownModel7,
                             updateCallback: () => safeSetState(() {}),
-                            child: MtdBreakdownWidget(
+                            child: const MtdBreakdownWidget(
                               month: '',
                             ),
                           ),
                           wrapWithModel(
                             model: _model.mtdBreakdownModel8,
                             updateCallback: () => safeSetState(() {}),
-                            child: MtdBreakdownWidget(
+                            child: const MtdBreakdownWidget(
                               month: '',
                             ),
                           ),
                           wrapWithModel(
                             model: _model.mtdBreakdownModel9,
                             updateCallback: () => safeSetState(() {}),
-                            child: MtdBreakdownWidget(
+                            child: const MtdBreakdownWidget(
                               month: '',
                             ),
                           ),
                           wrapWithModel(
                             model: _model.mtdBreakdownModel10,
                             updateCallback: () => safeSetState(() {}),
-                            child: MtdBreakdownWidget(
+                            child: const MtdBreakdownWidget(
                               month: '',
                             ),
                           ),
                           wrapWithModel(
                             model: _model.mtdBreakdownModel11,
                             updateCallback: () => safeSetState(() {}),
-                            child: MtdBreakdownWidget(
+                            child: const MtdBreakdownWidget(
                               month: '',
                             ),
                           ),
                           wrapWithModel(
                             model: _model.mtdBreakdownModel12,
                             updateCallback: () => safeSetState(() {}),
-                            child: MtdBreakdownWidget(
+                            child: const MtdBreakdownWidget(
                               month: '',
                             ),
                           ),
@@ -1212,7 +1225,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .primaryBackground,
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4.0,
                                     color: Color(0x33000000),
@@ -1225,7 +1238,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
                               child: Padding(
-                                padding: EdgeInsets.all(20.0),
+                                padding: const EdgeInsets.all(20.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -1259,7 +1272,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
-                                        ].divide(SizedBox(height: 16.0)),
+                                        ].divide(const SizedBox(height: 16.0)),
                                       ),
                                     ),
                                     Icon(
@@ -1306,7 +1319,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .primaryBackground,
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4.0,
                                     color: Color(0x33000000),
@@ -1319,7 +1332,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
                               child: Padding(
-                                padding: EdgeInsets.all(20.0),
+                                padding: const EdgeInsets.all(20.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -1353,7 +1366,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
-                                        ].divide(SizedBox(height: 16.0)),
+                                        ].divide(const SizedBox(height: 16.0)),
                                       ),
                                     ),
                                     Icon(
@@ -1400,7 +1413,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .primaryBackground,
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4.0,
                                     color: Color(0x33000000),
@@ -1413,7 +1426,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
                               child: Padding(
-                                padding: EdgeInsets.all(20.0),
+                                padding: const EdgeInsets.all(20.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -1447,7 +1460,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
-                                        ].divide(SizedBox(height: 16.0)),
+                                        ].divide(const SizedBox(height: 16.0)),
                                       ),
                                     ),
                                     Icon(
@@ -1495,7 +1508,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                               decoration: BoxDecoration(
                                 color: FlutterFlowTheme.of(context)
                                     .primaryBackground,
-                                boxShadow: [
+                                boxShadow: const [
                                   BoxShadow(
                                     blurRadius: 4.0,
                                     color: Color(0x33000000),
@@ -1508,7 +1521,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                 borderRadius: BorderRadius.circular(16.0),
                               ),
                               child: Padding(
-                                padding: EdgeInsets.all(20.0),
+                                padding: const EdgeInsets.all(20.0),
                                 child: Row(
                                   mainAxisSize: MainAxisSize.max,
                                   mainAxisAlignment:
@@ -1543,7 +1556,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                   letterSpacing: 0.0,
                                                 ),
                                           ),
-                                        ].divide(SizedBox(height: 16.0)),
+                                        ].divide(const SizedBox(height: 16.0)),
                                       ),
                                     ),
                                     Icon(
@@ -1559,12 +1572,12 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                           ),
                         ),
                       ),
-                    ].divide(SizedBox(height: 24.0)),
+                    ].divide(const SizedBox(height: 24.0)),
                   ),
                 ]
-                    .divide(SizedBox(height: 24.0))
-                    .addToStart(SizedBox(height: 24.0))
-                    .addToEnd(SizedBox(height: 48.0)),
+                    .divide(const SizedBox(height: 24.0))
+                    .addToStart(const SizedBox(height: 24.0))
+                    .addToEnd(const SizedBox(height: 48.0)),
               ),
             ),
           ),

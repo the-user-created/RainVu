@@ -1,9 +1,6 @@
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'mtd_breakdown_model.dart';
 export 'mtd_breakdown_model.dart';
 
@@ -14,10 +11,10 @@ class MtdBreakdownWidget extends StatefulWidget {
     int? mtdTotal,
     int? twoYrAvg,
     int? fiveYrAvg,
-  })  : this.month = month ?? 'err',
-        this.mtdTotal = mtdTotal ?? -1,
-        this.twoYrAvg = twoYrAvg ?? -1,
-        this.fiveYrAvg = fiveYrAvg ?? -1;
+  })  : month = month ?? 'err',
+        mtdTotal = mtdTotal ?? -1,
+        twoYrAvg = twoYrAvg ?? -1,
+        fiveYrAvg = fiveYrAvg ?? -1;
 
   final String month;
   final int mtdTotal;
@@ -53,7 +50,7 @@ class _MtdBreakdownWidgetState extends State<MtdBreakdownWidget> {
   @override
   Widget build(BuildContext context) {
     return Padding(
-      padding: EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
+      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
       child: Material(
         color: Colors.transparent,
         elevation: 2.0,
@@ -63,7 +60,7 @@ class _MtdBreakdownWidgetState extends State<MtdBreakdownWidget> {
         child: Container(
           decoration: BoxDecoration(
             color: FlutterFlowTheme.of(context).alternate,
-            boxShadow: [
+            boxShadow: const [
               BoxShadow(
                 blurRadius: 4.0,
                 color: Color(0x33000000),
@@ -76,12 +73,13 @@ class _MtdBreakdownWidgetState extends State<MtdBreakdownWidget> {
             borderRadius: BorderRadius.circular(16.0),
           ),
           child: Padding(
-            padding: EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
+            padding:
+                const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
             child: Column(
               mainAxisSize: MainAxisSize.max,
               children: [
                 Text(
-                  widget!.month,
+                  widget.month,
                   style: FlutterFlowTheme.of(context).titleMedium.override(
                         fontFamily: 'Readex Pro',
                         letterSpacing: 0.0,
@@ -100,7 +98,7 @@ class _MtdBreakdownWidgetState extends State<MtdBreakdownWidget> {
                           ),
                     ),
                     Text(
-                      '${widget!.mtdTotal.toString()}mm',
+                      '${widget.mtdTotal.toString()}mm',
                       style: FlutterFlowTheme.of(context).bodyMedium.override(
                             fontFamily: 'Inter',
                             letterSpacing: 0.0,
@@ -125,13 +123,13 @@ class _MtdBreakdownWidgetState extends State<MtdBreakdownWidget> {
                       children: [
                         Builder(
                           builder: (context) {
-                            if (widget!.twoYrAvg > widget!.mtdTotal) {
+                            if (widget.twoYrAvg > widget.mtdTotal) {
                               return Icon(
                                 Icons.arrow_upward,
                                 color: FlutterFlowTheme.of(context).success,
                                 size: 16.0,
                               );
-                            } else if (widget!.twoYrAvg < widget!.mtdTotal) {
+                            } else if (widget.twoYrAvg < widget.mtdTotal) {
                               return Icon(
                                 Icons.arrow_downward,
                                 color: FlutterFlowTheme.of(context).error,
@@ -147,14 +145,14 @@ class _MtdBreakdownWidgetState extends State<MtdBreakdownWidget> {
                           },
                         ),
                         Text(
-                          '${widget!.twoYrAvg.toString()}mm',
+                          '${widget.twoYrAvg.toString()}mm',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Inter',
                                     letterSpacing: 0.0,
                                   ),
                         ),
-                      ].divide(SizedBox(width: 4.0)),
+                      ].divide(const SizedBox(width: 4.0)),
                     ),
                   ],
                 ),
@@ -175,13 +173,13 @@ class _MtdBreakdownWidgetState extends State<MtdBreakdownWidget> {
                       children: [
                         Builder(
                           builder: (context) {
-                            if (widget!.fiveYrAvg > widget!.mtdTotal) {
+                            if (widget.fiveYrAvg > widget.mtdTotal) {
                               return Icon(
                                 Icons.arrow_upward,
                                 color: FlutterFlowTheme.of(context).success,
                                 size: 16.0,
                               );
-                            } else if (widget!.fiveYrAvg < widget!.mtdTotal) {
+                            } else if (widget.fiveYrAvg < widget.mtdTotal) {
                               return Icon(
                                 Icons.arrow_downward,
                                 color: FlutterFlowTheme.of(context).error,
@@ -197,18 +195,18 @@ class _MtdBreakdownWidgetState extends State<MtdBreakdownWidget> {
                           },
                         ),
                         Text(
-                          '${widget!.fiveYrAvg.toString()}mm',
+                          '${widget.fiveYrAvg.toString()}mm',
                           style:
                               FlutterFlowTheme.of(context).bodyMedium.override(
                                     fontFamily: 'Inter',
                                     letterSpacing: 0.0,
                                   ),
                         ),
-                      ].divide(SizedBox(width: 4.0)),
+                      ].divide(const SizedBox(width: 4.0)),
                     ),
                   ],
                 ),
-              ].divide(SizedBox(height: 8.0)),
+              ].divide(const SizedBox(height: 8.0)),
             ),
           ),
         ),

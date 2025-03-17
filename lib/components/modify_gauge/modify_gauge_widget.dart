@@ -3,13 +3,7 @@ import '/backend/backend.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import '/flutter_flow/place.dart';
-import 'dart:io';
-import 'dart:ui';
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'modify_gauge_model.dart';
 export 'modify_gauge_model.dart';
 
@@ -86,8 +80,8 @@ class _ModifyGaugeWidgetState extends State<ModifyGaugeWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 4.0),
                         child: Text(
                           'Rain Gauge Name',
                           style:
@@ -125,21 +119,21 @@ class _ModifyGaugeWidgetState extends State<ModifyGaugeWidget> {
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0x00000000),
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           errorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0x00000000),
                               width: 1.0,
                             ),
                             borderRadius: BorderRadius.circular(8.0),
                           ),
                           focusedErrorBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
+                            borderSide: const BorderSide(
                               color: Color(0x00000000),
                               width: 1.0,
                             ),
@@ -164,8 +158,8 @@ class _ModifyGaugeWidgetState extends State<ModifyGaugeWidget> {
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
                       Padding(
-                        padding:
-                            EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 4.0),
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            0.0, 0.0, 0.0, 4.0),
                         child: Text(
                           'Location (Optional)',
                           style:
@@ -213,7 +207,7 @@ class _ModifyGaugeWidgetState extends State<ModifyGaugeWidget> {
                       ),*/
                     ],
                   ),
-                ].divide(SizedBox(height: 16.0)),
+                ].divide(const SizedBox(height: 16.0)),
               ),
             ),
             Row(
@@ -228,9 +222,9 @@ class _ModifyGaugeWidgetState extends State<ModifyGaugeWidget> {
                   options: FFButtonOptions(
                     width: 100.0,
                     height: 40.0,
-                    padding: EdgeInsets.all(8.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsets.all(8.0),
+                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).secondaryBackground,
                     textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Inter',
@@ -261,9 +255,9 @@ class _ModifyGaugeWidgetState extends State<ModifyGaugeWidget> {
                   options: FFButtonOptions(
                     width: 100.0,
                     height: 40.0,
-                    padding: EdgeInsets.all(8.0),
-                    iconPadding:
-                        EdgeInsetsDirectional.fromSTEB(0.0, 0.0, 0.0, 0.0),
+                    padding: const EdgeInsets.all(8.0),
+                    iconPadding: const EdgeInsetsDirectional.fromSTEB(
+                        0.0, 0.0, 0.0, 0.0),
                     color: FlutterFlowTheme.of(context).accent1,
                     textStyle: FlutterFlowTheme.of(context).bodyMedium.override(
                           fontFamily: 'Inter',
@@ -271,16 +265,16 @@ class _ModifyGaugeWidgetState extends State<ModifyGaugeWidget> {
                           letterSpacing: 0.0,
                         ),
                     elevation: 0.0,
-                    borderSide: BorderSide(
+                    borderSide: const BorderSide(
                       color: Colors.transparent,
                       width: 1.0,
                     ),
                     borderRadius: BorderRadius.circular(8.0),
                   ),
                 ),
-              ].divide(SizedBox(width: 12.0)),
+              ].divide(const SizedBox(width: 12.0)),
             ),
-          ].divide(SizedBox(height: 24.0)),
+          ].divide(const SizedBox(height: 24.0)),
         ),
       ),
     );

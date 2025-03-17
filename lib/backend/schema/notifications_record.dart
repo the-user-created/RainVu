@@ -3,43 +3,51 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
-import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class NotificationsRecord extends FirestoreRecord {
   NotificationsRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
 
   // "daily" field.
   bool? _daily;
+
   bool get daily => _daily ?? false;
+
   bool hasDaily() => _daily != null;
 
   // "dailyTime" field.
   DateTime? _dailyTime;
+
   DateTime? get dailyTime => _dailyTime;
+
   bool hasDailyTime() => _dailyTime != null;
 
   // "weeklySummary" field.
   bool? _weeklySummary;
+
   bool get weeklySummary => _weeklySummary ?? false;
+
   bool hasWeeklySummary() => _weeklySummary != null;
 
   // "severeWeather" field.
   bool? _severeWeather;
+
   bool get severeWeather => _severeWeather ?? false;
+
   bool hasSevereWeather() => _severeWeather != null;
 
   // "appUpdates" field.
   bool? _appUpdates;
+
   bool get appUpdates => _appUpdates ?? false;
+
   bool hasAppUpdates() => _appUpdates != null;
 
   DocumentReference get parentReference => reference.parent.parent!;

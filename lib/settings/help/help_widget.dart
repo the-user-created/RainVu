@@ -2,10 +2,7 @@ import '/components/ticket/ticket_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'help_model.dart';
 export 'help_model.dart';
 
@@ -62,7 +59,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                   letterSpacing: 0.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
         ),
         body: SafeArea(
@@ -88,7 +85,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).primaryBackground,
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           blurRadius: 4.0,
                           color: Color(0x33000000),
@@ -104,7 +101,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                     child:
                         // TODO: Add better FAQs, and make into a searchable list
                         Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
                           16.0, 16.0, 16.0, 16.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
@@ -130,7 +127,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                               ),
                             ),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 16.0, 16.0, 16.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -157,7 +154,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                                       ),
                                     ],
                                   ),
-                                ].divide(SizedBox(height: 8.0)),
+                                ].divide(const SizedBox(height: 8.0)),
                               ),
                             ),
                           ),
@@ -173,7 +170,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                               ),
                             ),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 16.0, 16.0, 16.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -200,7 +197,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                                       ),
                                     ],
                                   ),
-                                ].divide(SizedBox(height: 8.0)),
+                                ].divide(const SizedBox(height: 8.0)),
                               ),
                             ),
                           ),
@@ -216,7 +213,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                               ),
                             ),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 16.0, 16.0, 16.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -243,7 +240,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                                       ),
                                     ],
                                   ),
-                                ].divide(SizedBox(height: 8.0)),
+                                ].divide(const SizedBox(height: 8.0)),
                               ),
                             ),
                           ),
@@ -259,7 +256,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                               ),
                             ),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 16.0, 16.0, 16.0),
                               child: Column(
                                 mainAxisSize: MainAxisSize.max,
@@ -286,11 +283,11 @@ class _HelpWidgetState extends State<HelpWidget> {
                                       ),
                                     ],
                                   ),
-                                ].divide(SizedBox(height: 8.0)),
+                                ].divide(const SizedBox(height: 8.0)),
                               ),
                             ),
                           ),
-                        ].divide(SizedBox(height: 16.0)),
+                        ].divide(const SizedBox(height: 16.0)),
                       ),
                     ),
                   ),
@@ -311,7 +308,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).primaryBackground,
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           blurRadius: 4.0,
                           color: Color(0x33000000),
@@ -325,7 +322,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
                           16.0, 16.0, 16.0, 16.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
@@ -353,7 +350,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                               ),
                             ),
                             child: Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 16.0, 16.0, 16.0),
                               child: Row(
                                 mainAxisSize: MainAxisSize.max,
@@ -397,7 +394,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                               ),
                             ),
                           ),
-                        ].divide(SizedBox(height: 16.0)),
+                        ].divide(const SizedBox(height: 16.0)),
                       ),
                     ),
                   ),
@@ -418,7 +415,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                     width: MediaQuery.sizeOf(context).width * 1.0,
                     decoration: BoxDecoration(
                       color: FlutterFlowTheme.of(context).primaryBackground,
-                      boxShadow: [
+                      boxShadow: const [
                         BoxShadow(
                           blurRadius: 4.0,
                           color: Color(0x33000000),
@@ -432,7 +429,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                       borderRadius: BorderRadius.circular(12.0),
                     ),
                     child: Padding(
-                      padding: EdgeInsetsDirectional.fromSTEB(
+                      padding: const EdgeInsetsDirectional.fromSTEB(
                           16.0, 16.0, 16.0, 16.0),
                       child: Column(
                         mainAxisSize: MainAxisSize.max,
@@ -461,11 +458,11 @@ class _HelpWidgetState extends State<HelpWidget> {
                                     },
                                     child: Padding(
                                       padding: MediaQuery.viewInsetsOf(context),
-                                      child: Container(
+                                      child: SizedBox(
                                         height:
                                             MediaQuery.sizeOf(context).height *
                                                 0.7,
-                                        child: TicketWidget(),
+                                        child: const TicketWidget(),
                                       ),
                                     ),
                                   );
@@ -473,7 +470,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                               ).then((value) => safeSetState(() {}));
                             },
                             text: 'Report a Problem',
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.report_problem_outlined,
                               color: Colors.white,
                               size: 15.0,
@@ -481,8 +478,8 @@ class _HelpWidgetState extends State<HelpWidget> {
                             options: FFButtonOptions(
                               width: MediaQuery.sizeOf(context).width * 1.0,
                               height: 50.0,
-                              padding: EdgeInsets.all(8.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsets.all(8.0),
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).error,
                               textStyle: FlutterFlowTheme.of(context)
@@ -511,11 +508,11 @@ class _HelpWidgetState extends State<HelpWidget> {
                                     },
                                     child: Padding(
                                       padding: MediaQuery.viewInsetsOf(context),
-                                      child: Container(
+                                      child: SizedBox(
                                         height:
                                             MediaQuery.sizeOf(context).height *
                                                 0.7,
-                                        child: TicketWidget(),
+                                        child: const TicketWidget(),
                                       ),
                                     ),
                                   );
@@ -523,7 +520,7 @@ class _HelpWidgetState extends State<HelpWidget> {
                               ).then((value) => safeSetState(() {}));
                             },
                             text: 'Send Feedback',
-                            icon: Icon(
+                            icon: const Icon(
                               Icons.feedback_outlined,
                               color: Colors.white,
                               size: 15.0,
@@ -531,8 +528,8 @@ class _HelpWidgetState extends State<HelpWidget> {
                             options: FFButtonOptions(
                               width: MediaQuery.sizeOf(context).width * 1.0,
                               height: 50.0,
-                              padding: EdgeInsets.all(8.0),
-                              iconPadding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsets.all(8.0),
+                              iconPadding: const EdgeInsetsDirectional.fromSTEB(
                                   0.0, 0.0, 0.0, 0.0),
                               color: FlutterFlowTheme.of(context).primary,
                               textStyle: FlutterFlowTheme.of(context)
@@ -546,12 +543,12 @@ class _HelpWidgetState extends State<HelpWidget> {
                               borderRadius: BorderRadius.circular(25.0),
                             ),
                           ),
-                        ].divide(SizedBox(height: 16.0)),
+                        ].divide(const SizedBox(height: 16.0)),
                       ),
                     ),
                   ),
                 ),
-              ].divide(SizedBox(height: 24.0)),
+              ].divide(const SizedBox(height: 24.0)),
             ),
           ),
         ),

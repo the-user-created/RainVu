@@ -123,6 +123,8 @@ dependencies:
   # Use with the CupertinoIcons class for iOS style icons.
   cupertino_icons: ^1.0.0
 
+  crypto: any
+
 dependency_overrides:
   http: 1.2.2
   package_info_plus: 8.0.2

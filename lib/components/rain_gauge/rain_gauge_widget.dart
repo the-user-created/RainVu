@@ -2,10 +2,7 @@ import '/components/modify_gauge/modify_gauge_widget.dart';
 import '/flutter_flow/flutter_flow_icon_button.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
-import 'dart:ui';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'rain_gauge_model.dart';
 export 'rain_gauge_model.dart';
 
@@ -56,7 +53,7 @@ class _RainGaugeWidgetState extends State<RainGaugeWidget> {
         borderRadius: BorderRadius.circular(8.0),
       ),
       child: Padding(
-        padding: EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
+        padding: const EdgeInsetsDirectional.fromSTEB(12.0, 12.0, 12.0, 12.0),
         child: Row(
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -103,9 +100,9 @@ class _RainGaugeWidgetState extends State<RainGaugeWidget> {
                       builder: (context) {
                         return Padding(
                           padding: MediaQuery.viewInsetsOf(context),
-                          child: Container(
+                          child: SizedBox(
                             height: MediaQuery.sizeOf(context).height * 0.6,
-                            child: ModifyGaugeWidget(),
+                            child: const ModifyGaugeWidget(),
                           ),
                         );
                       },
@@ -126,19 +123,19 @@ class _RainGaugeWidgetState extends State<RainGaugeWidget> {
                           context: context,
                           builder: (alertDialogContext) {
                             return AlertDialog(
-                              title: Text('Confirm Deletion'),
-                              content: Text(
+                              title: const Text('Confirm Deletion'),
+                              content: const Text(
                                   'Are you sure you want to delete this rain guage?'),
                               actions: [
                                 TextButton(
                                   onPressed: () =>
                                       Navigator.pop(alertDialogContext, false),
-                                  child: Text('Cancel'),
+                                  child: const Text('Cancel'),
                                 ),
                                 TextButton(
                                   onPressed: () =>
                                       Navigator.pop(alertDialogContext, true),
-                                  child: Text('Confirm'),
+                                  child: const Text('Confirm'),
                                 ),
                               ],
                             );
@@ -147,7 +144,7 @@ class _RainGaugeWidgetState extends State<RainGaugeWidget> {
                         false;
                   },
                 ),
-              ].divide(SizedBox(width: 8.0)),
+              ].divide(const SizedBox(width: 8.0)),
             ),
           ],
         ),

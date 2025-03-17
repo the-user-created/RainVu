@@ -2,11 +2,8 @@ import '/components/manage_plan/manage_plan_widget.dart';
 import '/flutter_flow/flutter_flow_theme.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 import '/flutter_flow/flutter_flow_widgets.dart';
-import 'dart:ui';
 import '/index.dart';
 import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
-import 'package:provider/provider.dart';
 import 'my_subscription_model.dart';
 export 'my_subscription_model.dart';
 
@@ -63,7 +60,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                   letterSpacing: 0.0,
                 ),
           ),
-          actions: [],
+          actions: const [],
           centerTitle: false,
         ),
         body: SafeArea(
@@ -95,7 +92,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryBackground,
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             blurRadius: 4.0,
                             color: Color(0x33000000),
@@ -108,7 +105,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 24.0, 24.0, 24.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -118,7 +115,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                               crossAxisAlignment: CrossAxisAlignment.start,
                               children: [
                                 Padding(
-                                  padding: EdgeInsetsDirectional.fromSTEB(
+                                  padding: const EdgeInsetsDirectional.fromSTEB(
                                       4.0, 0.0, 4.0, 0.0),
                                   child: Text(
                                     'Pro Plan',
@@ -136,8 +133,9 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                       MainAxisAlignment.spaceBetween,
                                   children: [
                                     Padding(
-                                      padding: EdgeInsetsDirectional.fromSTEB(
-                                          4.0, 8.0, 4.0, 8.0),
+                                      padding:
+                                          const EdgeInsetsDirectional.fromSTEB(
+                                              4.0, 8.0, 4.0, 8.0),
                                       child: Container(
                                         decoration: BoxDecoration(
                                           color: FlutterFlowTheme.of(context)
@@ -146,7 +144,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                               BorderRadius.circular(12.0),
                                         ),
                                         child: Padding(
-                                          padding: EdgeInsets.all(8.0),
+                                          padding: const EdgeInsets.all(8.0),
                                           child: Text(
                                             'Active',
                                             style: FlutterFlowTheme.of(context)
@@ -179,7 +177,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                               ],
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 0.0, 16.0, 0.0),
                               child: Text(
                                 'Next renewal on June 15, 2024',
@@ -194,7 +192,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                               ),
                             ),
                             Padding(
-                              padding: EdgeInsetsDirectional.fromSTEB(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
                                   16.0, 0.0, 16.0, 0.0),
                               child: Container(
                                 child: Column(
@@ -223,7 +221,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                                 fontWeight: FontWeight.normal,
                                               ),
                                         ),
-                                      ].divide(SizedBox(width: 12.0)),
+                                      ].divide(const SizedBox(width: 12.0)),
                                     ),
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -248,7 +246,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                                 fontWeight: FontWeight.normal,
                                               ),
                                         ),
-                                      ].divide(SizedBox(width: 12.0)),
+                                      ].divide(const SizedBox(width: 12.0)),
                                     ),
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -273,7 +271,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                                 fontWeight: FontWeight.normal,
                                               ),
                                         ),
-                                      ].divide(SizedBox(width: 12.0)),
+                                      ].divide(const SizedBox(width: 12.0)),
                                     ),
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -298,7 +296,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                                 fontWeight: FontWeight.normal,
                                               ),
                                         ),
-                                      ].divide(SizedBox(width: 12.0)),
+                                      ].divide(const SizedBox(width: 12.0)),
                                     ),
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -323,7 +321,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                                 fontWeight: FontWeight.normal,
                                               ),
                                         ),
-                                      ].divide(SizedBox(width: 12.0)),
+                                      ].divide(const SizedBox(width: 12.0)),
                                     ),
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -348,7 +346,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                                 fontWeight: FontWeight.normal,
                                               ),
                                         ),
-                                      ].divide(SizedBox(width: 12.0)),
+                                      ].divide(const SizedBox(width: 12.0)),
                                     ),
                                     Row(
                                       mainAxisSize: MainAxisSize.max,
@@ -373,13 +371,13 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                                 fontWeight: FontWeight.normal,
                                               ),
                                         ),
-                                      ].divide(SizedBox(width: 12.0)),
+                                      ].divide(const SizedBox(width: 12.0)),
                                     ),
-                                  ].divide(SizedBox(height: 8.0)),
+                                  ].divide(const SizedBox(height: 8.0)),
                                 ),
                               ),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),
@@ -407,7 +405,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryBackground,
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             blurRadius: 4.0,
                             color: Color(0x33000000),
@@ -420,7 +418,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 24.0, 24.0, 24.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -450,11 +448,11 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                       child: Padding(
                                         padding:
                                             MediaQuery.viewInsetsOf(context),
-                                        child: Container(
+                                        child: SizedBox(
                                           height: MediaQuery.sizeOf(context)
                                                   .height *
                                               0.9,
-                                          child: ManagePlanWidget(),
+                                          child: const ManagePlanWidget(),
                                         ),
                                       ),
                                     );
@@ -465,9 +463,10 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                               options: FFButtonOptions(
                                 width: MediaQuery.sizeOf(context).width * 1.0,
                                 height: 50.0,
-                                padding: EdgeInsets.all(8.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
+                                padding: const EdgeInsets.all(8.0),
+                                iconPadding:
+                                    const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
                                 color: FlutterFlowTheme.of(context).accent1,
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
@@ -488,10 +487,11 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                               options: FFButtonOptions(
                                 width: MediaQuery.sizeOf(context).width * 1.0,
                                 height: 50.0,
-                                padding: EdgeInsets.all(8.0),
-                                iconPadding: EdgeInsetsDirectional.fromSTEB(
-                                    0.0, 0.0, 0.0, 0.0),
-                                color: Color(0x00FFFFFF),
+                                padding: const EdgeInsets.all(8.0),
+                                iconPadding:
+                                    const EdgeInsetsDirectional.fromSTEB(
+                                        0.0, 0.0, 0.0, 0.0),
+                                color: const Color(0x00FFFFFF),
                                 textStyle: FlutterFlowTheme.of(context)
                                     .titleSmall
                                     .override(
@@ -505,10 +505,10 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                   width: 1.0,
                                 ),
                                 borderRadius: BorderRadius.circular(25.0),
-                                hoverColor: Color(0x21D93C4D),
+                                hoverColor: const Color(0x21D93C4D),
                               ),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),
@@ -536,7 +536,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryBackground,
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             blurRadius: 4.0,
                             color: Color(0x33000000),
@@ -549,7 +549,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 24.0, 24.0, 24.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -698,9 +698,9 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                     ),
                                   ],
                                 ),
-                              ].divide(SizedBox(height: 12.0)),
+                              ].divide(const SizedBox(height: 12.0)),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),
@@ -728,7 +728,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       decoration: BoxDecoration(
                         color: FlutterFlowTheme.of(context).primaryBackground,
-                        boxShadow: [
+                        boxShadow: const [
                           BoxShadow(
                             blurRadius: 4.0,
                             color: Color(0x33000000),
@@ -741,7 +741,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                         borderRadius: BorderRadius.circular(16.0),
                       ),
                       child: Padding(
-                        padding: EdgeInsetsDirectional.fromSTEB(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
                             24.0, 24.0, 24.0, 24.0),
                         child: Column(
                           mainAxisSize: MainAxisSize.max,
@@ -787,13 +787,13 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                     ),
                               ),
                             ),
-                          ].divide(SizedBox(height: 16.0)),
+                          ].divide(const SizedBox(height: 16.0)),
                         ),
                       ),
                     ),
                   ),
                 ),
-              ].divide(SizedBox(height: 24.0)),
+              ].divide(const SizedBox(height: 24.0)),
             ),
           ),
         ),

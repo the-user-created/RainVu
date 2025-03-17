@@ -13,21 +13,14 @@ typedef _LayoutCallback = void Function(
 
 class _TabLabelBarRenderer extends RenderFlex {
   _TabLabelBarRenderer({
-    required Axis direction,
-    required MainAxisSize mainAxisSize,
-    required MainAxisAlignment mainAxisAlignment,
-    required CrossAxisAlignment crossAxisAlignment,
-    required TextDirection textDirection,
-    required VerticalDirection verticalDirection,
+    required super.direction,
+    required super.mainAxisSize,
+    required super.mainAxisAlignment,
+    required super.crossAxisAlignment,
+    required TextDirection super.textDirection,
+    required super.verticalDirection,
     required this.onPerformLayout,
-  }) : super(
-          direction: direction,
-          mainAxisSize: mainAxisSize,
-          mainAxisAlignment: mainAxisAlignment,
-          crossAxisAlignment: crossAxisAlignment,
-          textDirection: textDirection,
-          verticalDirection: verticalDirection,
-        );
+  });
 
   _LayoutCallback onPerformLayout;
 
@@ -64,11 +57,10 @@ class _TabLabelBarRenderer extends RenderFlex {
 // upon layout. The tab widths are only used at paint time (see _IndicatorPainter)
 // or in response to input.
 class _TabLabelBar extends Flex {
-  _TabLabelBar({
-    required List<Widget> children,
+  const _TabLabelBar({
+    required super.children,
     required this.onPerformLayout,
   }) : super(
-          children: children,
           direction: Axis.horizontal,
           mainAxisSize: MainAxisSize.max,
           mainAxisAlignment: MainAxisAlignment.start,
@@ -122,6 +114,7 @@ class _IndicatorPainter extends CustomPainter {
 
   BoxPainter? _painter;
   bool _needsPaint = false;
+
   void markNeedsPaint() {
     _needsPaint = true;
   }
@@ -170,15 +163,12 @@ class _IndicatorPainter extends CustomPainter {
 
 class _TabBarScrollPosition extends ScrollPositionWithSingleContext {
   _TabBarScrollPosition({
-    required ScrollPhysics physics,
-    required ScrollContext context,
-    required ScrollPosition? oldPosition,
+    required super.physics,
+    required super.context,
+    required super.oldPosition,
     required this.tabBar,
   }) : super(
           initialPixels: null,
-          physics: physics,
-          context: context,
-          oldPosition: oldPosition,
         );
 
   final _FlutterFlowButtonTabBarState tabBar;
@@ -245,7 +235,7 @@ class FlutterFlowButtonTabBar extends StatefulWidget
   /// [DefaultTabController] ancestor.
   ///
   const FlutterFlowButtonTabBar({
-    Key? key,
+    super.key,
     required this.tabs,
     this.controller,
     this.isScrollable = false,
@@ -269,7 +259,7 @@ class FlutterFlowButtonTabBar extends StatefulWidget
     this.padding = EdgeInsets.zero,
     this.borderRadius = 8.0,
     this.elevation = 0,
-  }) : super(key: key);
+  });
 
   /// Typically a list of two or more [Tab] widgets.
   ///
@@ -719,16 +709,16 @@ class _FlutterFlowButtonTabBarState extends State<FlutterFlowButtonTabBar>
       child: TextButton(
         onPressed: () => _handleTap(index),
         style: ButtonStyle(
-          elevation: MaterialStateProperty.all(
+          elevation: WidgetStateProperty.all(
               widget.useToggleButtonStyle ? 0 : widget.elevation),
 
           /// give a pretty small minimum size
-          minimumSize: MaterialStateProperty.all(const Size(10, 10)),
-          padding: MaterialStateProperty.all(EdgeInsets.zero),
-          textStyle: MaterialStateProperty.all(textStyle),
-          foregroundColor: MaterialStateProperty.all(textColor),
+          minimumSize: WidgetStateProperty.all(const Size(10, 10)),
+          padding: WidgetStateProperty.all(EdgeInsets.zero),
+          textStyle: WidgetStateProperty.all(textStyle),
+          foregroundColor: WidgetStateProperty.all(textColor),
           tapTargetSize: MaterialTapTargetSize.shrinkWrap,
-          shape: MaterialStateProperty.all(
+          shape: WidgetStateProperty.all(
             widget.useToggleButtonStyle
                 ? const RoundedRectangleBorder(
                     side: BorderSide.none,

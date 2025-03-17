@@ -3,38 +3,44 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
-import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class GaugesRecord extends FirestoreRecord {
   GaugesRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
 
   // "userID" field.
   String? _userID;
+
   String get userID => _userID ?? '';
+
   bool hasUserID() => _userID != null;
 
   // "gaugeName" field.
   String? _gaugeName;
+
   String get gaugeName => _gaugeName ?? '';
+
   bool hasGaugeName() => _gaugeName != null;
 
   // "location" field.
   LatLng? _location;
+
   LatLng? get location => _location;
+
   bool hasLocation() => _location != null;
 
   // "rainGaugeID" field.
   String? _rainGaugeID;
+
   String get rainGaugeID => _rainGaugeID ?? '';
+
   bool hasRainGaugeID() => _rainGaugeID != null;
 
   void _initializeFields() {

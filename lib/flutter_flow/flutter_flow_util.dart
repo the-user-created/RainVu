@@ -14,7 +14,6 @@ import 'package:url_launcher/url_launcher.dart';
 
 import '../main.dart';
 
-import 'lat_lng.dart';
 
 export 'keep_alive_wrapper.dart';
 export 'lat_lng.dart';
@@ -53,22 +52,21 @@ String dateTimeFormat(String format, DateTime? dateTime, {String? locale}) {
   return DateFormat(format, locale).format(dateTime);
 }
 
-Theme wrapInMaterialDatePickerTheme(
-  BuildContext context,
-  Widget child, {
-  required Color headerBackgroundColor,
-  required Color headerForegroundColor,
-  required TextStyle headerTextStyle,
-  required Color pickerBackgroundColor,
-  required Color pickerForegroundColor,
-  required Color selectedDateTimeBackgroundColor,
-  required Color selectedDateTimeForegroundColor,
-  required Color actionButtonForegroundColor,
-  required double iconSize,
-}) {
+Theme wrapInMaterialDatePickerTheme(BuildContext context,
+    Widget child, {
+      required Color headerBackgroundColor,
+      required Color headerForegroundColor,
+      required TextStyle headerTextStyle,
+      required Color pickerBackgroundColor,
+      required Color pickerForegroundColor,
+      required Color selectedDateTimeBackgroundColor,
+      required Color selectedDateTimeForegroundColor,
+      required Color actionButtonForegroundColor,
+      required double iconSize,
+    }) {
   final baseTheme = Theme.of(context);
   final dateTimeMaterialStateForegroundColor =
-      WidgetStateProperty.resolveWith((states) {
+  WidgetStateProperty.resolveWith((states) {
     if (states.contains(WidgetState.disabled)) {
       return pickerForegroundColor.applyAlpha(0.60);
     }
@@ -82,7 +80,7 @@ Theme wrapInMaterialDatePickerTheme(
   });
 
   final dateTimeMaterialStateBackgroundColor =
-      WidgetStateProperty.resolveWith((states) {
+  WidgetStateProperty.resolveWith((states) {
     if (states.contains(WidgetState.selected)) {
       return selectedDateTimeBackgroundColor;
     }
@@ -137,19 +135,18 @@ Theme wrapInMaterialDatePickerTheme(
   );
 }
 
-Theme wrapInMaterialTimePickerTheme(
-  BuildContext context,
-  Widget child, {
-  required Color headerBackgroundColor,
-  required Color headerForegroundColor,
-  required TextStyle headerTextStyle,
-  required Color pickerBackgroundColor,
-  required Color pickerForegroundColor,
-  required Color selectedDateTimeBackgroundColor,
-  required Color selectedDateTimeForegroundColor,
-  required Color actionButtonForegroundColor,
-  required double iconSize,
-}) {
+Theme wrapInMaterialTimePickerTheme(BuildContext context,
+    Widget child, {
+      required Color headerBackgroundColor,
+      required Color headerForegroundColor,
+      required TextStyle headerTextStyle,
+      required Color pickerBackgroundColor,
+      required Color pickerForegroundColor,
+      required Color selectedDateTimeBackgroundColor,
+      required Color selectedDateTimeForegroundColor,
+      required Color actionButtonForegroundColor,
+      required double iconSize,
+    }) {
   final baseTheme = Theme.of(context);
   return Theme(
     data: baseTheme.copyWith(
@@ -177,20 +174,20 @@ Theme wrapInMaterialTimePickerTheme(
         hourMinuteTextColor: pickerForegroundColor,
         dialHandColor: selectedDateTimeBackgroundColor,
         dialTextColor: WidgetStateColor.resolveWith((states) =>
-            states.contains(WidgetState.selected)
-                ? selectedDateTimeForegroundColor
-                : pickerForegroundColor),
+        states.contains(WidgetState.selected)
+            ? selectedDateTimeForegroundColor
+            : pickerForegroundColor),
         dayPeriodBorderSide: BorderSide(
           color: pickerForegroundColor,
         ),
         dayPeriodTextColor: WidgetStateColor.resolveWith((states) =>
-            states.contains(WidgetState.selected)
-                ? selectedDateTimeForegroundColor
-                : pickerForegroundColor),
+        states.contains(WidgetState.selected)
+            ? selectedDateTimeForegroundColor
+            : pickerForegroundColor),
         dayPeriodColor: WidgetStateColor.resolveWith((states) =>
-            states.contains(WidgetState.selected)
-                ? selectedDateTimeBackgroundColor
-                : Colors.transparent),
+        states.contains(WidgetState.selected)
+            ? selectedDateTimeBackgroundColor
+            : Colors.transparent),
         entryModeIconColor: pickerForegroundColor,
       ),
     ),
@@ -229,8 +226,7 @@ enum DecimalType {
   commaDecimal,
 }
 
-String formatNumber(
-  num? value, {
+String formatNumber(num? value, {
   required FormatType formatType,
   DecimalType? decimalType,
   String? currency,
@@ -300,6 +296,7 @@ String formatNumber(
 }
 
 DateTime get getCurrentTimestamp => DateTime.now();
+
 DateTime dateTimeFromSecondsSinceEpoch(int seconds) {
   return DateTime.fromMillisecondsSinceEpoch(seconds * 1000);
 }
@@ -310,8 +307,11 @@ extension DateTimeConversionExtension on DateTime {
 
 extension DateTimeComparisonOperators on DateTime {
   bool operator <(DateTime other) => isBefore(other);
+
   bool operator >(DateTime other) => isAfter(other);
+
   bool operator <=(DateTime other) => this < other || isAtSameMomentAs(other);
+
   bool operator >=(DateTime other) => this > other || isAtSameMomentAs(other);
 }
 
@@ -321,11 +321,11 @@ T? castToType<T>(dynamic value) {
   }
   switch (T) {
     case double:
-      // Doubles may be stored as ints in some cases.
+    // Doubles may be stored as ints in some cases.
       return value.toDouble() as T;
     case int:
-      // Likewise, ints may be stored as doubles. If this is the case
-      // (i.e. no decimal value), return the value as an int.
+    // Likewise, ints may be stored as doubles. If this is the case
+    // (i.e. no decimal value), return the value as an int.
       if (value is num && value.toInt() == value) {
         return value.toInt() as T;
       }
@@ -336,11 +336,10 @@ T? castToType<T>(dynamic value) {
   return value as T;
 }
 
-dynamic getJsonField(
-  dynamic response,
-  String jsonPath, [
-  bool isForList = false,
-]) {
+dynamic getJsonField(dynamic response,
+    String jsonPath, [
+      bool isForList = false,
+    ]) {
   final field = JsonPath(jsonPath).read(response);
   if (field.isEmpty) {
     return null;
@@ -367,14 +366,20 @@ Rect? getWidgetBoundingBox(BuildContext context) {
 }
 
 bool get isAndroid => !kIsWeb && Platform.isAndroid;
+
 bool get isiOS => !kIsWeb && Platform.isIOS;
+
 bool get isWeb => kIsWeb;
 
 const kBreakpointSmall = 479.0;
 const kBreakpointMedium = 767.0;
 const kBreakpointLarge = 991.0;
+
 bool isMobileWidth(BuildContext context) =>
-    MediaQuery.sizeOf(context).width < kBreakpointSmall;
+    MediaQuery
+        .sizeOf(context)
+        .width < kBreakpointSmall;
+
 bool responsiveVisibility({
   required BuildContext context,
   bool phone = true,
@@ -382,7 +387,9 @@ bool responsiveVisibility({
   bool tabletLandscape = true,
   bool desktop = true,
 }) {
-  final width = MediaQuery.sizeOf(context).width;
+  final width = MediaQuery
+      .sizeOf(context)
+      .width;
   if (width < kBreakpointSmall) {
     return phone;
   } else if (width < kBreakpointMedium) {
@@ -403,6 +410,7 @@ const kTextValidatorWebsiteRegex =
 
 extension FFTextEditingControllerExt on TextEditingController? {
   String get text => this == null ? '' : this!.text;
+
   set text(String newText) => this?.text = newText;
 }
 
@@ -417,11 +425,12 @@ extension IterableExt<T> on Iterable<T> {
     return sortedAscending;
   }
 
-  List<S> mapIndexed<S>(S Function(int, T) func) => toList()
-      .asMap()
-      .map((index, value) => MapEntry(index, func(index, value)))
-      .values
-      .toList();
+  List<S> mapIndexed<S>(S Function(int, T) func) =>
+      toList()
+          .asMap()
+          .map((index, value) => MapEntry(index, func(index, value)))
+          .values
+          .toList();
 }
 
 extension StringDocRef on String {
@@ -434,24 +443,23 @@ void setAppLanguage(BuildContext context, String language) =>
 void setDarkModeSetting(BuildContext context, ThemeMode themeMode) =>
     MyApp.of(context).setThemeMode(themeMode);
 
-void showSnackbar(
-  BuildContext context,
-  String message, {
-  bool loading = false,
-  int duration = 4,
-}) {
+void showSnackbar(BuildContext context,
+    String message, {
+      bool loading = false,
+      int duration = 4,
+    }) {
   ScaffoldMessenger.of(context).hideCurrentSnackBar();
   ScaffoldMessenger.of(context).showSnackBar(
     SnackBar(
       content: Row(
         children: [
           if (loading)
-            Padding(
+            const Padding(
               padding: EdgeInsetsDirectional.only(end: 10.0),
-              child: Container(
+              child: SizedBox(
                 height: 20,
                 width: 20,
-                child: const CircularProgressIndicator(
+                child: CircularProgressIndicator(
                   color: Colors.white,
                 ),
               ),
@@ -476,7 +484,8 @@ extension ListFilterExt<T> on Iterable<T?> {
 }
 
 extension MapFilterExtensions<T> on Map<String, T?> {
-  Map<String, T> get withoutNulls => Map.fromEntries(
+  Map<String, T> get withoutNulls =>
+      Map.fromEntries(
         entries
             .where((e) => e.value != null)
             .map((e) => MapEntry(e.key, e.value as T)),
@@ -484,17 +493,23 @@ extension MapFilterExtensions<T> on Map<String, T?> {
 }
 
 extension MapListContainsExt on List<dynamic> {
-  bool containsMap(dynamic map) => map is Map
-      ? any((e) => e is Map && const DeepCollectionEquality().equals(e, map))
-      : contains(map);
+  bool containsMap(dynamic map) =>
+      map is Map
+          ? any((e) =>
+      e is Map && const DeepCollectionEquality().equals(e, map))
+          : contains(map);
 }
 
 extension ListDivideExt<T extends Widget> on Iterable<T> {
-  Iterable<MapEntry<int, Widget>> get enumerate => toList().asMap().entries;
+  Iterable<MapEntry<int, Widget>> get enumerate =>
+      toList()
+          .asMap()
+          .entries;
 
-  List<Widget> divide(Widget t, {bool Function(int)? filterFn}) => isEmpty
-      ? []
-      : (enumerate
+  List<Widget> divide(Widget t, {bool Function(int)? filterFn}) =>
+      isEmpty
+          ? []
+          : (enumerate
           .map((e) => [e.value, if (filterFn == null || filterFn(e.key)) t])
           .expand((i) => i)
           .toList()
@@ -503,10 +518,12 @@ extension ListDivideExt<T extends Widget> on Iterable<T> {
   List<Widget> around(Widget t) => addToStart(t).addToEnd(t);
 
   List<Widget> addToStart(Widget t) =>
-      enumerate.map((e) => e.value).toList()..insert(0, t);
+      enumerate.map((e) => e.value).toList()
+        ..insert(0, t);
 
   List<Widget> addToEnd(Widget t) =>
-      enumerate.map((e) => e.value).toList()..add(t);
+      enumerate.map((e) => e.value).toList()
+        ..add(t);
 
   List<Padding> paddingTopEach(double val) =>
       map((w) => Padding(padding: EdgeInsets.only(top: val), child: w))
@@ -526,11 +543,14 @@ extension StatefulWidgetExtensions on State<StatefulWidget> {
 // For iOS 16 and below, set the status bar color to match the app's theme.
 // https://github.com/flutter/flutter/issues/41067
 Brightness? _lastBrightness;
+
 void fixStatusBarOniOS16AndBelow(BuildContext context) {
   if (!isiOS) {
     return;
   }
-  final brightness = Theme.of(context).brightness;
+  final brightness = Theme
+      .of(context)
+      .brightness;
   if (_lastBrightness != brightness) {
     _lastBrightness = brightness;
     SystemChrome.setSystemUIOverlayStyle(
@@ -598,5 +618,6 @@ extension ListUniqueExt<T> on Iterable<T> {
 
 String getCurrentRoute(BuildContext context) =>
     context.mounted ? MyApp.of(context).getRoute() : '';
+
 List<String> getCurrentRouteStack(BuildContext context) =>
     context.mounted ? MyApp.of(context).getRouteStack() : [];

@@ -1,6 +1,5 @@
 import 'package:dropdown_button2/dropdown_button2.dart';
 
-import 'package:flutter/foundation.dart';
 import 'form_field_controller.dart';
 import 'package:flutter/material.dart';
 
@@ -88,7 +87,9 @@ class FlutterFlowDropDown<T> extends StatefulWidget {
 
 class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
   bool get isMultiSelect => widget.isMultiSelect;
+
   FormFieldController<T?> get controller => widget.controller!;
+
   FormFieldController<List<T>?> get multiSelectController =>
       widget.multiSelectController!;
 

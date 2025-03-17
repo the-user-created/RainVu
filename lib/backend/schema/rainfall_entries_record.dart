@@ -3,53 +3,65 @@ import 'dart:async';
 import 'package:collection/collection.dart';
 
 import '/backend/schema/util/firestore_util.dart';
-import '/backend/schema/util/schema_util.dart';
-import '/backend/schema/enums/enums.dart';
 
 import 'index.dart';
 import '/flutter_flow/flutter_flow_util.dart';
 
 class RainfallEntriesRecord extends FirestoreRecord {
   RainfallEntriesRecord._(
-    DocumentReference reference,
-    Map<String, dynamic> data,
-  ) : super(reference, data) {
+    super.reference,
+    super.data,
+  ) {
     _initializeFields();
   }
 
   // "entryId" field.
   String? _entryId;
+
   String get entryId => _entryId ?? '';
+
   bool hasEntryId() => _entryId != null;
 
   // "userId" field.
   String? _userId;
+
   String get userId => _userId ?? '';
+
   bool hasUserId() => _userId != null;
 
   // "date" field.
   DateTime? _date;
+
   DateTime? get date => _date;
+
   bool hasDate() => _date != null;
 
   // "rainfallAmount" field.
   double? _rainfallAmount;
+
   double get rainfallAmount => _rainfallAmount ?? 0.0;
+
   bool hasRainfallAmount() => _rainfallAmount != null;
 
   // "notes" field.
   String? _notes;
+
   String get notes => _notes ?? '';
+
   bool hasNotes() => _notes != null;
 
   // "createdAt" field.
   DateTime? _createdAt;
+
   DateTime? get createdAt => _createdAt;
+
   bool hasCreatedAt() => _createdAt != null;
 
   // "rainGaugeID" field.
   String? _rainGaugeID;
+
   String get rainGaugeID => _rainGaugeID ?? '';
+
   bool hasRainGaugeID() => _rainGaugeID != null;
 
   void _initializeFields() {
