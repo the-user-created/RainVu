@@ -207,7 +207,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                               size: 24.0,
                             ),
                             onPressed: () {
-                              print('IconButton pressed ...');
+                              debugPrint('IconButton pressed ...');
                             },
                           ),
 
@@ -226,7 +226,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                               size: 24.0,
                             ),
                             onPressed: () {
-                              print('IconButton pressed ...');
+                              debugPrint('IconButton pressed ...');
                             },
                           ),
                           FlutterFlowIconButton(
@@ -241,7 +241,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                               size: 24.0,
                             ),
                             onPressed: () {
-                              print('IconButton pressed ...');
+                              debugPrint('IconButton pressed ...');
                             },
                           ),
                           FlutterFlowIconButton(
@@ -256,7 +256,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                               size: 24.0,
                             ),
                             onPressed: () {
-                              print('IconButton pressed ...');
+                              debugPrint('IconButton pressed ...');
                             },
                           ),
                           FlutterFlowIconButton(
@@ -271,7 +271,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                               size: 24.0,
                             ),
                             onPressed: () {
-                              print('IconButton pressed ...');
+                              debugPrint('IconButton pressed ...');
                             },
                           ),
                         ],

@@ -187,7 +187,7 @@ class _NavBarPageState extends State<NavBarPage> {
         items: const <BottomNavigationBarItem>[
           BottomNavigationBarItem(
             icon: FaIcon(
-              FontAwesomeIcons.home,
+              FontAwesomeIcons.house,
             ),
             label: '',
             tooltip: '',
@@ -201,7 +201,7 @@ class _NavBarPageState extends State<NavBarPage> {
           ),
           BottomNavigationBarItem(
             icon: FaIcon(
-              FontAwesomeIcons.mapMarkedAlt,
+              FontAwesomeIcons.mapLocationDot,
             ),
             label: '',
             tooltip: '',

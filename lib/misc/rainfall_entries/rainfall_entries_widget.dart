@@ -59,7 +59,7 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
               size: 24.0,
             ),
             onPressed: () {
-              print('IconButton pressed ...');
+              debugPrint('IconButton pressed ...');
             },
           ),
           title: Text(
@@ -243,7 +243,7 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                     size: 24.0,
                                                   ),
                                                   onPressed: () {
-                                                    print(
+                                                    debugPrint(
                                                         'IconButton pressed ...');
                                                   },
                                                 ),
@@ -410,7 +410,7 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                     size: 24.0,
                                                   ),
                                                   onPressed: () {
-                                                    print(
+                                                    debugPrint(
                                                         'IconButton pressed ...');
                                                   },
                                                 ),
@@ -588,7 +588,7 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                     size: 24.0,
                                                   ),
                                                   onPressed: () {
-                                                    print(
+                                                    debugPrint(
                                                         'IconButton pressed ...');
                                                   },
                                                 ),

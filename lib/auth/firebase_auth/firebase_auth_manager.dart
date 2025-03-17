@@ -71,7 +71,7 @@ class FirebaseAuthManager extends AuthManager
   Future deleteUser(BuildContext context) async {
     try {
       if (!loggedIn) {
-        print('Error: delete user attempted with no logged in user!');
+        debugPrint('Error: delete user attempted with no logged in user!');
         return;
       }
       logFirebaseEvent("DELETE_USER");
@@ -95,7 +95,7 @@ class FirebaseAuthManager extends AuthManager
   }) async {
     try {
       if (!loggedIn) {
-        print('Error: update email attempted with no logged in user!');
+        debugPrint('Error: update email attempted with no logged in user!');
         return;
       }
       await currentUser?.updateEmail(email);
@@ -119,7 +119,7 @@ class FirebaseAuthManager extends AuthManager
   }) async {
     try {
       if (!loggedIn) {
-        print('Error: update password attempted with no logged in user!');
+        debugPrint('Error: update password attempted with no logged in user!');
         return;
       }
       await currentUser?.updatePassword(newPassword);

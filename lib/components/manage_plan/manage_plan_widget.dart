@@ -935,7 +935,7 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                       0.0),
                   child: FFButtonWidget(
                     onPressed: () {
-                      print('Button pressed ...');
+                      debugPrint('Button pressed ...');
                     },
                     text: 'Upgrade to Pro+',
                     options: FFButtonOptions(
@@ -972,7 +972,7 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                       0.0),
                   child: FFButtonWidget(
                     onPressed: () {
-                      print('Button pressed ...');
+                      debugPrint('Button pressed ...');
                     },
                     text: 'Downgrade to Free',
                     options: FFButtonOptions(
