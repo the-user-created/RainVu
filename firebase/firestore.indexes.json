@@ -1,0 +1,18 @@
+{
+  "indexes": [
+    {
+      "collectionGroup": "gauges",
+      "queryScope": "COLLECTION",
+      "fields": [
+        {
+          "fieldPath": "userID",
+          "order": "ASCENDING"
+        },
+        {
+          "fieldPath": "gaugeName",
+          "order": "ASCENDING"
+        }
+      ]
+    }
+  ]
+}
