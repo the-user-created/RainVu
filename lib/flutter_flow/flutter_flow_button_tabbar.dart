@@ -340,7 +340,6 @@ class FlutterFlowButtonTabBar extends StatefulWidget
   /// The default value is [EdgeInsets.symmetric(horizontal: 4)].
   final EdgeInsetsGeometry labelPadding;
 
-  // Already importing material.dart, so no need to import it again
   // ignore: comment_references
   /// The [EdgeInsets] used for the [Margin] of the buttons.
   ///

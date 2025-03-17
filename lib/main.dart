@@ -16,14 +16,13 @@ import "package:rain_wise/flutter_flow/internationalization.dart";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
-  GoRouter.optionURLReflectsImperativeAPIs = true;
   usePathUrlStrategy();
 
   await initFirebase();
 
   await FlutterFlowTheme.initialize();
 
-  final appState = FFAppState(); // Initialize FFAppState
+  final appState = FFAppState();
   await appState.initializePersistedState();
 
   if (!kIsWeb) {
@@ -41,19 +40,14 @@ void main() async {
 class MyApp extends StatefulWidget {
   const MyApp({super.key});
 
-  // This widget is the root of your application.
   @override
   State<MyApp> createState() => MyAppState();
 }
 
 class MyAppState extends State<MyApp> {
   Locale? _locale;
-
   final ThemeMode _themeMode = FlutterFlowTheme.themeMode;
-
   late AppStateNotifier _appStateNotifier;
-  late GoRouter _router;
-
   late Stream<BaseAuthUser> userStream;
 
   final StreamSubscription<UsersRecord?> authUserSub =
@@ -64,7 +58,7 @@ class MyAppState extends State<MyApp> {
     super.initState();
 
     _appStateNotifier = AppStateNotifier.instance;
-    _router = createRouter(_appStateNotifier);
+    // Listen to the auth stream and update AppStateNotifier
     userStream = rainWiseFirebaseUserStream()
       ..listen((final user) {
         _appStateNotifier.update(user);
@@ -84,31 +78,38 @@ class MyAppState extends State<MyApp> {
   }
 
   @override
-  Widget build(final BuildContext context) => MaterialApp.router(
-        debugShowCheckedModeBanner: false,
-        title: "RainWise",
-        localizationsDelegates: const [
-          FFLocalizationsDelegate(),
-          GlobalMaterialLocalizations.delegate,
-          GlobalWidgetsLocalizations.delegate,
-          GlobalCupertinoLocalizations.delegate,
-          FallbackMaterialLocalizationDelegate(),
-          FallbackCupertinoLocalizationDelegate(),
-        ],
-        locale: _locale,
-        supportedLocales: const [
-          Locale("en"),
-        ],
-        theme: ThemeData(
-          brightness: Brightness.light,
-          useMaterial3: false,
-        ),
-        darkTheme: ThemeData(
-          brightness: Brightness.dark,
-          useMaterial3: false,
-        ),
-        themeMode: _themeMode,
-        routerConfig: _router,
+  Widget build(final BuildContext context) => AnimatedBuilder(
+        animation: _appStateNotifier,
+        builder: (final context, final _) {
+          // Re-create the router configuration whenever app state changes.
+          final GoRouter router = createRouter(_appStateNotifier);
+          return MaterialApp.router(
+            debugShowCheckedModeBanner: false,
+            title: "RainWise",
+            localizationsDelegates: const [
+              FFLocalizationsDelegate(),
+              GlobalMaterialLocalizations.delegate,
+              GlobalWidgetsLocalizations.delegate,
+              GlobalCupertinoLocalizations.delegate,
+              FallbackMaterialLocalizationDelegate(),
+              FallbackCupertinoLocalizationDelegate(),
+            ],
+            locale: _locale,
+            supportedLocales: const [
+              Locale("en"),
+            ],
+            theme: ThemeData(
+              brightness: Brightness.light,
+              useMaterial3: false,
+            ),
+            darkTheme: ThemeData(
+              brightness: Brightness.dark,
+              useMaterial3: false,
+            ),
+            themeMode: _themeMode,
+            routerConfig: router,
+          );
+        },
       );
 
   @override
