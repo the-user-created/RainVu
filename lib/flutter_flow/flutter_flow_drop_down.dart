@@ -47,6 +47,7 @@ class FlutterFlowDropDown<T> extends StatefulWidget {
                   onChanged != null &&
                   multiSelectController == null &&
                   onMultiSelectChanged == null),
+          "isMultiSelect and controller/onChanged or multiSelectController/onMultiSelectChanged must be set accordingly",
         );
 
   final FormFieldController<T?>? controller;
@@ -135,7 +136,7 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
       widget.multiSelectController!;
 
   T? get currentValue {
-    final value = isMultiSelect
+    final dynamic value = isMultiSelect
         ? multiSelectController.value?.firstOrNull
         : controller.value;
     return widget.options.contains(value) ? value : null;
@@ -254,7 +255,7 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
       : null;
 
   ValueKey _getItemKey(final T option) {
-    final widgetKey = (widget.key! as ValueKey).value;
+    final dynamic widgetKey = (widget.key! as ValueKey).value;
     return ValueKey("$widgetKey ${widget.options.indexOf(option)}");
   }
 

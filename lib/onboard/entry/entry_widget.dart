@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
@@ -35,7 +37,7 @@ class _EntryWidgetState extends State<EntryWidget>
     super.initState();
     _model = createModel(context, EntryModel.new);
 
-    logFirebaseEvent("screen_view", parameters: {"screen_name": "entry"});
+    unawaited(logFirebaseEvent("screen_view", parameters: {"screen_name": "entry"}));
     _model.tabBarController = TabController(
       vsync: this,
       length: 2,
@@ -124,8 +126,7 @@ class _EntryWidgetState extends State<EntryWidget>
           FocusScope.of(context).unfocus();
           FocusManager.instance.primaryFocus?.unfocus();
         },
-        child: WillPopScope(
-          onWillPop: () async => false,
+        child: PopScope(
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -561,7 +562,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                           context.goNamedAuth(
                                                               HomeWidget
                                                                   .routeName,
-                                                              context.mounted);
+                                                              mounted: context
+                                                                  .mounted);
                                                         },
                                                         text: "Sign In",
                                                         options:
@@ -730,8 +732,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                     context.goNamedAuth(
                                                                         HomeWidget
                                                                             .routeName,
-                                                                        context
-                                                                            .mounted);
+                                                                        mounted:
+                                                                            context.mounted);
                                                                   },
                                                                   text:
                                                                       "Continue with Google",
@@ -813,8 +815,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                       context.goNamedAuth(
                                                                           HomeWidget
                                                                               .routeName,
-                                                                          context
-                                                                              .mounted);
+                                                                          mounted:
+                                                                              context.mounted);
                                                                     },
                                                                     text:
                                                                         "Continue with Apple",
@@ -895,8 +897,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                     context.goNamedAuth(
                                                                         HomeWidget
                                                                             .routeName,
-                                                                        context
-                                                                            .mounted);
+                                                                        mounted:
+                                                                            context.mounted);
                                                                   },
                                                                   text:
                                                                       "Continue without an account",
@@ -1419,7 +1421,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                           context.goNamedAuth(
                                                               HomeWidget
                                                                   .routeName,
-                                                              context.mounted);
+                                                              mounted: context
+                                                                  .mounted);
                                                         },
                                                         text: "Create Account",
                                                         options:
@@ -1535,8 +1538,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                     context.goNamedAuth(
                                                                         HomeWidget
                                                                             .routeName,
-                                                                        context
-                                                                            .mounted);
+                                                                        mounted:
+                                                                            context.mounted);
                                                                   },
                                                                   text:
                                                                       "Continue with Google",
@@ -1618,8 +1621,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                       context.goNamedAuth(
                                                                           HomeWidget
                                                                               .routeName,
-                                                                          context
-                                                                              .mounted);
+                                                                          mounted:
+                                                                              context.mounted);
                                                                     },
                                                                     text:
                                                                         "Continue with Apple",
@@ -1700,8 +1703,8 @@ class _EntryWidgetState extends State<EntryWidget>
                                                                     context.goNamedAuth(
                                                                         HomeWidget
                                                                             .routeName,
-                                                                        context
-                                                                            .mounted);
+                                                                        mounted:
+                                                                            context.mounted);
                                                                   },
                                                                   text:
                                                                       "Continue without an account",

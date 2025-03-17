@@ -21,6 +21,8 @@ class AppStateNotifier extends ChangeNotifier {
 
   static AppStateNotifier? _instance;
 
+  // WHY ignore? - This is a singleton class, so we need to use a static method
+  // ignore: prefer_constructors_over_static_methods
   static AppStateNotifier get instance => _instance ??= AppStateNotifier._();
 
   BaseAuthUser? initialUser;
@@ -52,11 +54,6 @@ class AppStateNotifier extends ChangeNotifier {
 
   void clearRedirectLocation() => _redirectLocation = null;
 
-  /// Mark as not needing to notify on a sign in / out when we intend
-  /// to perform subsequent actions (such as navigation) afterwards.
-  void updateNotifyOnAuthChange(final bool notify) =>
-      notifyOnAuthChange = notify;
-
   void update(final BaseAuthUser newUser) {
     final bool shouldUpdate =
         user?.uid == null || newUser.uid == null || user?.uid != newUser.uid;
@@ -69,7 +66,7 @@ class AppStateNotifier extends ChangeNotifier {
     }
     // Once again mark the notifier as needing to update on auth change
     // (in order to catch sign in / out events).
-    updateNotifyOnAuthChange(true);
+    notifyOnAuthChange = true;
   }
 
   void stopShowingSplashImage() {
@@ -218,14 +215,15 @@ extension NavParamExtensions on Map<String, String?> {
 
 extension NavigationExtensions on BuildContext {
   void goNamedAuth(
-    final String name,
-    final bool mounted, {
+    final String name, {
+    final bool mounted = true,
     final Map<String, String> pathParameters = const <String, String>{},
     final Map<String, String> queryParameters = const <String, String>{},
     final Object? extra,
     final bool ignoreRedirect = false,
   }) =>
-      !mounted || GoRouter.of(this).shouldRedirect(ignoreRedirect)
+      !mounted ||
+              GoRouter.of(this).shouldRedirect(ignoreRedirect: ignoreRedirect)
           ? null
           : goNamed(
               name,
@@ -235,14 +233,15 @@ extension NavigationExtensions on BuildContext {
             );
 
   Future<void> pushNamedAuth(
-    final String name,
-    final bool mounted, {
+    final String name, {
+    final bool mounted = true,
     final Map<String, String> pathParameters = const <String, String>{},
     final Map<String, String> queryParameters = const <String, String>{},
     final Object? extra,
     final bool ignoreRedirect = false,
   }) async =>
-      !mounted || GoRouter.of(this).shouldRedirect(ignoreRedirect)
+      !mounted ||
+              GoRouter.of(this).shouldRedirect(ignoreRedirect: ignoreRedirect)
           ? null
           : pushNamed(
               name,
@@ -265,18 +264,20 @@ extension NavigationExtensions on BuildContext {
 extension GoRouterExtensions on GoRouter {
   AppStateNotifier get appState => AppStateNotifier.instance;
 
-  void prepareAuthEvent([final bool ignoreRedirect = false]) =>
-      appState.hasRedirect() && !ignoreRedirect
-          ? null
-          : appState.updateNotifyOnAuthChange(false);
+  void prepareAuthEvent({final bool ignoreRedirect = false}) {
+    if (!(appState.hasRedirect() && !ignoreRedirect)) {
+      appState.notifyOnAuthChange = false;
+    }
+  }
 
-  bool shouldRedirect(final bool ignoreRedirect) =>
+  bool shouldRedirect({final bool ignoreRedirect = false}) =>
       !ignoreRedirect && appState.hasRedirect();
 
   void clearRedirectLocation() => appState.clearRedirectLocation();
 
-  void setRedirectLocationIfUnset(final String location) =>
-      appState.updateNotifyOnAuthChange(false);
+  void setRedirectLocationIfUnset(final String location) {
+    appState.notifyOnAuthChange = false;
+  }
 }
 
 extension _GoRouterStateExtensions on GoRouterState {
@@ -316,7 +317,7 @@ class FFParameters {
   Future<bool> completeFutures() => Future.wait(
         state.allParams.entries.where(isAsyncParam).map(
           (final param) async {
-            final doc = await asyncParams[param.key]!(param.value)
+            final dynamic doc = await asyncParams[param.key]!(param.value)
                 .onError((final _, final __) => null);
             if (doc != null) {
               futureParamValues[param.key] = doc;
@@ -341,7 +342,7 @@ class FFParameters {
     if (!state.allParams.containsKey(paramName)) {
       return null;
     }
-    final param = state.allParams[paramName];
+    final dynamic param = state.allParams[paramName];
     // Got parameter from `extras`, so just directly return it.
     if (param is! String) {
       return param;
@@ -350,7 +351,7 @@ class FFParameters {
     return deserializeParam<T>(
       param,
       type,
-      isList,
+      isList: isList,
       collectionNamePath: collectionNamePath,
     );
   }
@@ -449,13 +450,13 @@ class TransitionInfo {
     this.alignment,
   });
 
+  factory TransitionInfo.appDefault() =>
+      const TransitionInfo(hasTransition: false);
+
   final bool hasTransition;
   final PageTransitionType transitionType;
   final Duration duration;
   final Alignment? alignment;
-
-  static TransitionInfo appDefault() =>
-      const TransitionInfo(hasTransition: false);
 }
 
 class RootPageContext {

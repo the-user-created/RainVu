@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/components/ticket/ticket_widget.dart";
@@ -28,7 +30,7 @@ class _HelpWidgetState extends State<HelpWidget> {
     super.initState();
     _model = createModel(context, HelpModel.new);
 
-    logFirebaseEvent("screen_view", parameters: {"screen_name": "help"});
+    unawaited(logFirebaseEvent("screen_view", parameters: {"screen_name": "help"}));
   }
 
   @override

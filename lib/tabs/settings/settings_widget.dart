@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/auth/firebase_auth/auth_util.dart";
@@ -29,7 +31,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
     super.initState();
     _model = createModel(context, SettingsModel.new);
 
-    logFirebaseEvent("screen_view", parameters: {"screen_name": "settings"});
+    unawaited(logFirebaseEvent("screen_view", parameters: {"screen_name": "settings"}));
   }
 
   @override
@@ -40,8 +42,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   }
 
   @override
-  Widget build(final BuildContext context) => WillPopScope(
-        onWillPop: () async => false,
+  Widget build(final BuildContext context) => PopScope(
         child: Scaffold(
           key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
@@ -565,7 +566,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                           .clearRedirectLocation();
 
                                       context.goNamedAuth(EntryWidget.routeName,
-                                          context.mounted);
+                                          mounted: context.mounted);
                                     },
                                     text: "Log Out",
                                     options: FFButtonOptions(
@@ -603,7 +604,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                           .clearRedirectLocation();
 
                                       context.goNamedAuth(EntryWidget.routeName,
-                                          context.mounted);
+                                          mounted: context.mounted);
                                     },
                                     text: "Create an account",
                                     options: FFButtonOptions(

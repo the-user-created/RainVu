@@ -21,7 +21,7 @@ extension FFEnumListExtensions<T extends Enum> on Iterable<T> {
 
 T? deserializeEnum<T>(final String? value) {
   switch (T) {
-    case (WeatherIcon):
+    case (WeatherIcon _):
       return WeatherIcon.values.deserialize(value) as T?;
     default:
       return null;

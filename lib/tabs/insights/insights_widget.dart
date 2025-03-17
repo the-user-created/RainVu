@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/components/mtd_breakdown/mtd_breakdown_widget.dart";
@@ -29,7 +31,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
     super.initState();
     _model = createModel(context, InsightsModel.new);
 
-    logFirebaseEvent("screen_view", parameters: {"screen_name": "insights"});
+    unawaited(logFirebaseEvent("screen_view", parameters: {"screen_name": "insights"}));
   }
 
   @override
@@ -45,8 +47,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
           FocusScope.of(context).unfocus();
           FocusManager.instance.primaryFocus?.unfocus();
         },
-        child: WillPopScope(
-          onWillPop: () async => false,
+        child: PopScope(
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,

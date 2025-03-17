@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
@@ -33,7 +35,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
     super.initState();
     _model = createModel(context, MapModel.new);
 
-    logFirebaseEvent("screen_view", parameters: {"screen_name": "map"});
+    unawaited(logFirebaseEvent("screen_view", parameters: {"screen_name": "map"}));
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 
@@ -67,8 +69,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
           FocusScope.of(context).unfocus();
           FocusManager.instance.primaryFocus?.unfocus();
         },
-        child: WillPopScope(
-          onWillPop: () async => false,
+        child: PopScope(
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,

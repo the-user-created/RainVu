@@ -20,7 +20,8 @@ class FFPlace {
   final String zipCode;
 
   @override
-  String toString() => """FFPlace(
+  String toString() => """
+  FFPlace(
         latLng: $latLng,
         name: $name,
         address: $address,
@@ -28,7 +29,8 @@ class FFPlace {
         state: $state,
         country: $country,
         zipCode: $zipCode,
-      )""";
+      )
+      """;
 
   @override
   int get hashCode => latLng.hashCode;

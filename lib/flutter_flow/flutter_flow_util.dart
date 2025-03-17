@@ -197,19 +197,28 @@ Theme wrapInMaterialTimePickerTheme(
   );
 }
 
+class LaunchUrlException implements Exception {
+  LaunchUrlException(this.message);
+
+  final String message;
+
+  @override
+  String toString() => "LaunchUrlException: $message";
+}
+
 Future launchURL(final String url) async {
   Uri uri = Uri.parse(url);
   try {
     await launchUrl(uri);
   } catch (e) {
-    throw "Could not launch $uri: $e";
+    throw LaunchUrlException("Could not launch $uri: $e");
   }
 }
 
 Color colorFromCssString(final String color, {final Color? defaultColor}) {
   try {
     return fromCssColor(color);
-  } catch (_) {}
+  } on Exception catch (_) {}
   return defaultColor ?? Colors.black;
 }
 
@@ -284,7 +293,7 @@ String formatNumber(
     final String currencySymbol = currency.isNotEmpty
         ? currency
         : NumberFormat.simpleCurrency().format(0.0).substring(0, 1);
-    formattedValue = '$currencySymbol$formattedValue';
+    formattedValue = "$currencySymbol$formattedValue";
   }
 
   return formattedValue;
@@ -311,31 +320,27 @@ extension DateTimeComparisonOperators on DateTime {
       this > other || isAtSameMomentAs(other);
 }
 
-T? castToType<T>(final value) {
+T? castToType<T>(final dynamic value) {
   if (value == null) {
     return null;
   }
-  switch (T) {
-    case double:
-      // Doubles may be stored as ints in some cases.
-      return value.toDouble() as T;
-    case int:
-      // Likewise, ints may be stored as doubles. If this is the case
-      // (i.e. no decimal value), return the value as an int.
-      if (value is num && value.toInt() == value) {
-        return value.toInt() as T;
-      }
-    default:
-      break;
+  if (T == double) {
+    // Doubles may be stored as ints in some cases.
+    // Ensure value is a num before calling toDouble.
+    return (value as num).toDouble() as T;
+  }
+  if (T == int) {
+    // Likewise, ints may be stored as doubles.
+    // If the value is numeric and has no decimal part, convert to int.
+    if (value is num && value.toInt() == value) {
+      return value.toInt() as T;
+    }
   }
   return value as T;
 }
 
-dynamic getJsonField(
-  final response,
-  final String jsonPath, [
-  final bool isForList = false,
-]) {
+dynamic getJsonField(final dynamic response, final String jsonPath,
+    {final bool isForList = false}) {
   final Iterable<JsonPathMatch> field = JsonPath(jsonPath).read(response);
   if (field.isEmpty) {
     return null;
@@ -343,7 +348,7 @@ dynamic getJsonField(
   if (field.length > 1) {
     return field.map((final f) => f.value).toList();
   }
-  final value = field.first.value;
+  final Object? value = field.first.value;
   if (isForList) {
     return value is! Iterable
         ? [value]
@@ -356,7 +361,7 @@ Rect? getWidgetBoundingBox(final BuildContext context) {
   try {
     final renderBox = context.findRenderObject() as RenderBox?;
     return renderBox!.localToGlobal(Offset.zero) & renderBox.size;
-  } catch (_) {
+  } on Exception catch (_) {
     return null;
   }
 }
@@ -381,7 +386,7 @@ bool responsiveVisibility({
   final bool tabletLandscape = true,
   final bool desktop = true,
 }) {
-  final width = MediaQuery.sizeOf(context).width;
+  final double width = MediaQuery.sizeOf(context).width;
   if (width < kBreakpointSmall) {
     return phone;
   } else if (width < kBreakpointMedium) {
@@ -409,7 +414,7 @@ extension FFTextEditingControllerExt on TextEditingController? {
 extension IterableExt<T> on Iterable<T> {
   List<T> sortedList<S extends Comparable>(
       {final S Function(T)? keyOf, final bool desc = false}) {
-    final sortedAscending = toList()
+    final List<T> sortedAscending = toList()
       ..sort(keyOf == null
           ? null
           : ((final a, final b) => keyOf(a).compareTo(keyOf(b))));
@@ -482,7 +487,7 @@ extension MapFilterExtensions<T> on Map<String, T?> {
 }
 
 extension MapListContainsExt on List<dynamic> {
-  bool containsMap(final map) => map is Map
+  bool containsMap(final dynamic map) => map is Map
       ? any((final e) =>
           e is Map && const DeepCollectionEquality().equals(e, map))
       : contains(map);
@@ -553,15 +558,15 @@ String roundTo(final double value, final int decimalPoints) {
   return ((value * power).round() / power).toString();
 }
 
-double computeGradientAlignmentX(double evaluatedAngle) {
-  evaluatedAngle %= 360;
-  final double rads = evaluatedAngle * pi / 180;
+double computeGradientAlignmentX(final double evaluatedAngle) {
+  double angle = evaluatedAngle % 360;
+  final double rads = angle * pi / 180;
   double x;
-  if (evaluatedAngle < 45 || evaluatedAngle > 315) {
+  if (angle < 45 || angle > 315) {
     x = sin(2 * rads);
-  } else if (45 <= evaluatedAngle && evaluatedAngle <= 135) {
+  } else if (45 <= angle && angle <= 135) {
     x = 1;
-  } else if (135 <= evaluatedAngle && evaluatedAngle <= 225) {
+  } else if (135 <= angle && angle <= 225) {
     x = sin(-2 * rads);
   } else {
     x = -1;
@@ -569,15 +574,15 @@ double computeGradientAlignmentX(double evaluatedAngle) {
   return double.parse(roundTo(x, 2));
 }
 
-double computeGradientAlignmentY(double evaluatedAngle) {
-  evaluatedAngle %= 360;
-  final double rads = evaluatedAngle * pi / 180;
+double computeGradientAlignmentY(final double evaluatedAngle) {
+  double angle = evaluatedAngle % 360;
+  final double rads = angle * pi / 180;
   double y;
-  if (evaluatedAngle < 45 || evaluatedAngle > 315) {
+  if (angle < 45 || angle > 315) {
     y = -1;
-  } else if (45 <= evaluatedAngle && evaluatedAngle <= 135) {
+  } else if (45 <= angle && angle <= 135) {
     y = sin(-2 * rads);
-  } else if (135 <= evaluatedAngle && evaluatedAngle <= 225) {
+  } else if (135 <= angle && angle <= 225) {
     y = 1;
   } else {
     y = sin(2 * rads);

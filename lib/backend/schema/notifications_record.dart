@@ -1,14 +1,26 @@
 import "dart:async";
 
 import "package:collection/collection.dart";
+import "package:rain_wise/backend/schema/firestore_util.dart";
 import "package:rain_wise/backend/schema/index.dart";
-import "package:rain_wise/backend/schema/util/firestore_util.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 
 class NotificationsRecord extends FirestoreRecord {
+  factory NotificationsRecord.fromSnapshot(final DocumentSnapshot snapshot) =>
+      NotificationsRecord._(
+        snapshot.reference,
+        mapFromFirestore(snapshot.data()! as Map<String, dynamic>),
+      );
+
+  factory NotificationsRecord.fromData(
+    final Map<String, dynamic> data,
+    final DocumentReference reference,
+  ) =>
+      NotificationsRecord._(reference, mapFromFirestore(data));
+
   NotificationsRecord._(
     super.reference,
-    super.data,
+    super.snapshotData,
   ) {
     _initializeFields();
   }
@@ -74,18 +86,6 @@ class NotificationsRecord extends FirestoreRecord {
   static Future<NotificationsRecord> getDocumentOnce(
           final DocumentReference ref) =>
       ref.get().then(NotificationsRecord.fromSnapshot);
-
-  static NotificationsRecord fromSnapshot(final DocumentSnapshot snapshot) =>
-      NotificationsRecord._(
-        snapshot.reference,
-        mapFromFirestore(snapshot.data()! as Map<String, dynamic>),
-      );
-
-  static NotificationsRecord getDocumentFromData(
-    final Map<String, dynamic> data,
-    final DocumentReference reference,
-  ) =>
-      NotificationsRecord._(reference, mapFromFirestore(data));
 
   @override
   String toString() =>

@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/auth/firebase_auth/auth_util.dart";
@@ -31,8 +33,8 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
     super.initState();
     _model = createModel(context, ManageGuagesModel.new);
 
-    logFirebaseEvent("screen_view",
-        parameters: {"screen_name": "manage_guages"});
+    unawaited(logFirebaseEvent("screen_view",
+        parameters: {"screen_name": "manage_guages"}));
   }
 
   @override

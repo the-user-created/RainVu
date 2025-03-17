@@ -1,6 +1,7 @@
 import "dart:convert";
 
 import "package:flutter/material.dart";
+import "package:from_css_color/from_css_color.dart";
 
 import "package:rain_wise/backend/backend.dart";
 
@@ -45,7 +46,7 @@ String _serializeDocumentReference(final DocumentReference ref) {
 }
 
 String? serializeParam(
-  final param,
+  final dynamic param,
   final ParamType paramType, {
   final bool isList = false,
 }) {
@@ -96,7 +97,7 @@ String? serializeParam(
         data = (param is Enum) ? param.serialize() : null;
     }
     return data;
-  } catch (e) {
+  } on Exception catch (e) {
     debugPrint("Error serializing parameter: $e");
     return null;
   }
@@ -159,12 +160,12 @@ DocumentReference _deserializeDocumentReference(
   final String refStr,
   final List<String> collectionNamePath,
 ) {
-  var path = "";
+  final buffer = StringBuffer();
   final List<String> docIds = refStr.split(_kDocIdDelimeter);
   for (int i = 0; i < docIds.length && i < collectionNamePath.length; i++) {
-    path += "/${collectionNamePath[i]}/${docIds[i]}";
+    buffer.write("/${collectionNamePath[i]}/${docIds[i]}");
   }
-  return FirebaseFirestore.instance.doc(path);
+  return FirebaseFirestore.instance.doc(buffer.toString());
 }
 
 enum ParamType {
@@ -187,22 +188,23 @@ enum ParamType {
 dynamic deserializeParam<T>(
   final String? param,
   final ParamType paramType,
-  final bool isList, {
-  final List<String>? collectionNamePath,
+  {
+    final bool isList = false,
+    final List<String>? collectionNamePath,
 }) {
   try {
     if (param == null) {
       return null;
     }
     if (isList) {
-      final paramValues = json.decode(param);
+      final dynamic paramValues = json.decode(param);
       if (paramValues is! Iterable || paramValues.isEmpty) {
         return null;
       }
       return paramValues
           .whereType<String>()
           .map((final p) => p)
-          .map((final p) => deserializeParam<T>(p, paramType, false,
+          .map((final p) => deserializeParam<T>(p, paramType,
               collectionNamePath: collectionNamePath))
           .where((final p) => p != null)
           .map((final p) => p! as T)
@@ -236,14 +238,12 @@ dynamic deserializeParam<T>(
         return json.decode(param);
       case ParamType.DocumentReference:
         return _deserializeDocumentReference(param, collectionNamePath ?? []);
-
       case ParamType.Enum:
         return deserializeEnum<T>(param);
-
-      default:
+      case ParamType.Document:
         return null;
     }
-  } catch (e) {
+  } on Exception catch (e) {
     debugPrint("Error deserializing parameter: $e");
     return null;
   }
@@ -266,7 +266,7 @@ Future<List<T>> Function(String) getDocList<T>(
       try {
         final ids = json.decode(idsList) as Iterable;
         docIds = ids.whereType<String>().map((final d) => d).toList();
-      } catch (_) {}
+      } on Exception catch (_) {}
       return Future.wait(
         docIds.map(
           (final ids) => _deserializeDocumentReference(ids, collectionNamePath)

@@ -52,11 +52,8 @@ final Stream<UsersRecord?> authenticatedUserStream = FirebaseAuth.instance
           : UsersRecord.getDocument(UsersRecord.collection.doc(uid))
               .handleError((final _) {}),
     )
-    .map((final user) {
-  currentUserDocument = user;
-
-  return currentUserDocument;
-}).asBroadcastStream();
+    .map((final user) => currentUserDocument = user)
+    .asBroadcastStream();
 
 class AuthUserStreamWidget extends StatelessWidget {
   const AuthUserStreamWidget({required this.builder, super.key});

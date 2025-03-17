@@ -10,6 +10,26 @@ class FFUploadedFile {
     this.blurHash,
   });
 
+  factory FFUploadedFile.deserialize(final String val) {
+    final serializedData = jsonDecode(val) as Map<String, dynamic>;
+    final Map<String, dynamic> data = {
+      "name": serializedData["name"] ?? "",
+      "bytes": serializedData["bytes"] ?? Uint8List.fromList([]),
+      "height": serializedData["height"],
+      "width": serializedData["width"],
+      "blurHash": serializedData["blurHash"],
+    };
+    final List<dynamic> byteList =
+        data["bytes"] is List ? data["bytes"] as List<dynamic> : [];
+    return FFUploadedFile(
+      name: data["name"] as String,
+      bytes: Uint8List.fromList(byteList.cast<int>()),
+      height: data["height"] as double?,
+      width: data["width"] as double?,
+      blurHash: data["blurHash"] as String?,
+    );
+  }
+
   final String? name;
   final Uint8List? bytes;
   final double? height;
@@ -29,24 +49,6 @@ class FFUploadedFile {
           "blurHash": blurHash,
         },
       );
-
-  static FFUploadedFile deserialize(final String val) {
-    final serializedData = jsonDecode(val) as Map<String, dynamic>;
-    final Map<String, dynamic> data = {
-      "name": serializedData["name"] ?? "",
-      "bytes": serializedData["bytes"] ?? Uint8List.fromList([]),
-      "height": serializedData["height"],
-      "width": serializedData["width"],
-      "blurHash": serializedData["blurHash"],
-    };
-    return FFUploadedFile(
-      name: data["name"] as String,
-      bytes: Uint8List.fromList(data["bytes"].cast<int>().toList()),
-      height: data["height"] as double?,
-      width: data["width"] as double?,
-      blurHash: data["blurHash"] as String?,
-    );
-  }
 
   @override
   int get hashCode => Object.hash(

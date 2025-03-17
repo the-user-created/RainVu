@@ -1,3 +1,4 @@
+import "dart:async";
 import "dart:ui";
 
 import "package:flutter/foundation.dart";
@@ -31,7 +32,7 @@ class _HomeWidgetState extends State<HomeWidget> {
     super.initState();
     _model = createModel(context, HomeModel.new);
 
-    logFirebaseEvent("screen_view", parameters: {"screen_name": "home"});
+    unawaited(logFirebaseEvent("screen_view", parameters: {"screen_name": "home"}));
   }
 
   @override
@@ -47,8 +48,7 @@ class _HomeWidgetState extends State<HomeWidget> {
           FocusScope.of(context).unfocus();
           FocusManager.instance.primaryFocus?.unfocus();
         },
-        child: WillPopScope(
-          onWillPop: () async => false,
+        child: PopScope(
           child: Scaffold(
             key: scaffoldKey,
             backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,

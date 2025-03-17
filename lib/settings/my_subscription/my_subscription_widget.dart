@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/components/manage_plan/manage_plan_widget.dart";
@@ -29,8 +31,8 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
     super.initState();
     _model = createModel(context, MySubscriptionModel.new);
 
-    logFirebaseEvent("screen_view",
-        parameters: {"screen_name": "my_subscription"});
+    unawaited(logFirebaseEvent("screen_view",
+        parameters: {"screen_name": "my_subscription"}));
   }
 
   @override

@@ -30,7 +30,7 @@ class RainWiseFirebaseUser extends BaseAuthUser {
   Future? updateEmail(final String email) async {
     try {
       await user?.updateEmail(email);
-    } catch (_) {
+    } on FirebaseAuthException {
       await user?.verifyBeforeUpdateEmail(email);
     }
   }

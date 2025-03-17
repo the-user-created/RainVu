@@ -1,6 +1,9 @@
-import "package:cloud_firestore/cloud_firestore.dart";
+import "dart:ui";
 
-import "package:rain_wise/backend/schema/util/schema_util.dart";
+import "package:cloud_firestore/cloud_firestore.dart";
+import "package:from_css_color/from_css_color.dart";
+import "package:rain_wise/backend/schema/enums/enums.dart";
+
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 
 typedef RecordBuilder<T> = T Function(DocumentSnapshot snapshot);
@@ -12,7 +15,7 @@ abstract class FirestoreRecord {
   DocumentReference reference;
 }
 
-abstract class FFFirebaseStruct extends BaseStruct {
+abstract class FFFirebaseStruct {
   FFFirebaseStruct(this.firestoreUtilData);
 
   /// Utility class for Firestore updates
@@ -121,10 +124,10 @@ extension LatLngExtension on GeoPoint {
 DocumentReference toRef(final String ref) =>
     FirebaseFirestore.instance.doc(ref);
 
-T? safeGet<T>(final T Function() func, [final Function(dynamic)? reportError]) {
+T? safeGet<T>(final T Function() func, [final Function(Exception)? reportError]) {
   try {
     return func();
-  } catch (e) {
+  } on Exception catch (e) {
     reportError?.call(e);
   }
   return null;
@@ -142,7 +145,7 @@ Map<String, dynamic> mergeNestedFields(final Map<String, dynamic> data) {
       nestedData.where((final k, final _) => k.split(".").first == name).map(
           (final k, final v) => MapEntry(k.split(".").skip(1).join("."), v)),
     );
-    final existingValue = data[name];
+    final dynamic existingValue = data[name];
     data[name] = {
       if (existingValue != null && existingValue is Map)
         ...existingValue as Map<String, dynamic>,

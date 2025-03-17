@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
@@ -26,8 +28,8 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
     super.initState();
     _model = createModel(context, AnomalyExploreModel.new);
 
-    logFirebaseEvent("screen_view",
-        parameters: {"screen_name": "anomaly_explore"});
+    unawaited(logFirebaseEvent("screen_view",
+        parameters: {"screen_name": "anomaly_explore"}));
   }
 
   @override

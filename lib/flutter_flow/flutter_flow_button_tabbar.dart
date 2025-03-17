@@ -37,10 +37,10 @@ class _TabLabelBarRenderer extends RenderFlex {
       final FlexParentData childParentData =
           child.parentData! as FlexParentData;
       xOffsets.add(childParentData.offset.dx);
-      assert(child.parentData == childParentData);
+      assert(child.parentData == childParentData, "Wrong parentData");
       child = childParentData.nextSibling;
     }
-    assert(textDirection != null);
+    assert(textDirection != null, "textDirection is null");
     switch (textDirection!) {
       case TextDirection.rtl:
         xOffsets.insert(0, size.width);
@@ -145,10 +145,10 @@ class _IndicatorPainter extends CustomPainter {
   int get maxTabIndex => _currentTabOffsets!.length - 2;
 
   double centerOf(final int tabIndex) {
-    assert(_currentTabOffsets != null);
-    assert(_currentTabOffsets!.isNotEmpty);
-    assert(tabIndex >= 0);
-    assert(tabIndex <= maxTabIndex);
+    assert(_currentTabOffsets != null, "centerOf called before saveTabOffsets");
+    assert(_currentTabOffsets!.isNotEmpty, "No tab offsets available");
+    assert(tabIndex >= 0, "Invalid tab index");
+    assert(tabIndex <= maxTabIndex, "Invalid tab index");
     return (_currentTabOffsets![tabIndex] + _currentTabOffsets![tabIndex + 1]) /
         2.0;
   }
@@ -340,6 +340,8 @@ class FlutterFlowButtonTabBar extends StatefulWidget
   /// The default value is [EdgeInsets.symmetric(horizontal: 4)].
   final EdgeInsetsGeometry labelPadding;
 
+  // Already importing material.dart, so no need to import it again
+  // ignore: comment_references
   /// The [EdgeInsets] used for the [Margin] of the buttons.
   ///
   /// The default value is [EdgeInsets.all(4)].
@@ -473,7 +475,7 @@ class _FlutterFlowButtonTabBarState extends State<FlutterFlowButtonTabBar>
         );
       }
       return true;
-    }());
+    }(), "");
 
     if (newController == _controller) {
       return;
@@ -504,7 +506,7 @@ class _FlutterFlowButtonTabBarState extends State<FlutterFlowButtonTabBar>
   @override
   void didChangeDependencies() {
     super.didChangeDependencies();
-    assert(debugCheckHasMaterial(context));
+    assert(debugCheckHasMaterial(context), "No Material widget found.");
     _updateTabController();
     _initIndicatorPainter();
   }
@@ -613,7 +615,7 @@ class _FlutterFlowButtonTabBarState extends State<FlutterFlowButtonTabBar>
   }
 
   void _handleTabControllerAnimationTick() {
-    assert(mounted);
+    assert(mounted, "TabBar received animation event after being disposed.");
     if (!_controller!.indexIsChanging && widget.isScrollable) {
       // Sync the TabBar's scroll position with the TabBarView's PageView.
       _currentIndex = _controller!.index;
@@ -651,7 +653,7 @@ class _FlutterFlowButtonTabBarState extends State<FlutterFlowButtonTabBar>
   }
 
   void _handleTap(final int index) {
-    assert(index >= 0 && index < widget.tabs.length);
+    assert(index >= 0 && index < widget.tabs.length, "Index out of range");
     _controller?.animateTo(index);
     widget.onTap?.call(index);
   }
@@ -805,7 +807,7 @@ class _FlutterFlowButtonTabBarState extends State<FlutterFlowButtonTabBar>
           );
         }
         return true;
-      }());
+      }(), "");
     });
     _debugHasScheduledValidTabsCountCheck = true;
     return true;
@@ -813,7 +815,7 @@ class _FlutterFlowButtonTabBarState extends State<FlutterFlowButtonTabBar>
 
   @override
   Widget build(final BuildContext context) {
-    assert(_debugScheduleCheckHasValidTabsCount());
+    assert(_debugScheduleCheckHasValidTabsCount(), "");
 
     if (_controller!.length == 0) {
       return Container(
