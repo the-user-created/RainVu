@@ -1,7 +1,7 @@
-import '/components/rain_gauge/rain_gauge_widget.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import 'manage_guages_widget.dart' show ManageGuagesWidget;
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
+import "package:rain_wise/components/rain_gauge/rain_gauge_widget.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
+import "package:rain_wise/settings/manage_guages/manage_guages_widget.dart" show ManageGuagesWidget;
 
 class ManageGuagesModel extends FlutterFlowModel<ManageGuagesWidget> {
   ///  State fields for stateful widgets in this page.
@@ -10,8 +10,8 @@ class ManageGuagesModel extends FlutterFlowModel<ManageGuagesWidget> {
   late RainGaugeModel rainGaugeModel;
 
   @override
-  void initState(BuildContext context) {
-    rainGaugeModel = createModel(context, () => RainGaugeModel());
+  void initState(final BuildContext context) {
+    rainGaugeModel = createModel(context, RainGaugeModel.new);
   }
 
   @override

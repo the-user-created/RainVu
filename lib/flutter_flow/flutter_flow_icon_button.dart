@@ -1,10 +1,11 @@
-import 'package:flutter/material.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
+import "package:font_awesome_flutter/font_awesome_flutter.dart";
 
 class FlutterFlowIconButton extends StatefulWidget {
   const FlutterFlowIconButton({
-    super.key,
     required this.icon,
+    super.key,
     this.borderColor,
     this.borderRadius,
     this.borderWidth,
@@ -33,6 +34,24 @@ class FlutterFlowIconButton extends StatefulWidget {
 
   @override
   State<FlutterFlowIconButton> createState() => _FlutterFlowIconButtonState();
+
+  @override
+  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DoubleProperty("borderRadius", borderRadius))
+      ..add(DoubleProperty("buttonSize", buttonSize))
+      ..add(ColorProperty("fillColor", fillColor))
+      ..add(ColorProperty("disabledColor", disabledColor))
+      ..add(ColorProperty("disabledIconColor", disabledIconColor))
+      ..add(ColorProperty("hoverColor", hoverColor))
+      ..add(ColorProperty("hoverIconColor", hoverIconColor))
+      ..add(ColorProperty("borderColor", borderColor))
+      ..add(DoubleProperty("borderWidth", borderWidth))
+      ..add(DiagnosticsProperty<bool>(
+          "showLoadingIndicator", showLoadingIndicator))
+      ..add(ObjectFlagProperty<Function()?>.has("onPressed", onPressed));
+  }
 }
 
 class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> {
@@ -48,7 +67,7 @@ class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> {
   }
 
   @override
-  void didUpdateWidget(FlutterFlowIconButton oldWidget) {
+  void didUpdateWidget(final FlutterFlowIconButton oldWidget) {
     super.didUpdateWidget(oldWidget);
     _updateIcon();
   }
@@ -75,21 +94,19 @@ class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     ButtonStyle style = ButtonStyle(
       shape: WidgetStateProperty.resolveWith<OutlinedBorder>(
-        (states) {
-          return RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(widget.borderRadius ?? 0),
-            side: BorderSide(
-              color: widget.borderColor ?? Colors.transparent,
-              width: widget.borderWidth ?? 0,
-            ),
-          );
-        },
+        (final states) => RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(widget.borderRadius ?? 0),
+          side: BorderSide(
+            color: widget.borderColor ?? Colors.transparent,
+            width: widget.borderWidth ?? 0,
+          ),
+        ),
       ),
       iconColor: WidgetStateProperty.resolveWith<Color?>(
-        (states) {
+        (final states) {
           if (states.contains(WidgetState.disabled) &&
               widget.disabledIconColor != null) {
             return widget.disabledIconColor;
@@ -102,7 +119,7 @@ class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> {
         },
       ),
       backgroundColor: WidgetStateProperty.resolveWith<Color?>(
-        (states) {
+        (final states) {
           if (states.contains(WidgetState.disabled) &&
               widget.disabledColor != null) {
             return widget.disabledColor;
@@ -115,7 +132,7 @@ class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> {
           return widget.fillColor;
         },
       ),
-      overlayColor: WidgetStateProperty.resolveWith<Color?>((states) {
+      overlayColor: WidgetStateProperty.resolveWith<Color?>((final states) {
         if (states.contains(WidgetState.pressed)) {
           return null;
         }
@@ -132,7 +149,7 @@ class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> {
           useMaterial3: true,
         ),
         child: IgnorePointer(
-          ignoring: (widget.showLoadingIndicator && loading),
+          ignoring: widget.showLoadingIndicator && loading,
           child: IconButton(
             icon: (widget.showLoadingIndicator && loading)
                 ? SizedBox(
@@ -166,5 +183,14 @@ class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> {
         ),
       ),
     );
+  }
+
+  @override
+  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<bool>("loading", loading))
+      ..add(DoubleProperty("iconSize", iconSize))
+      ..add(ColorProperty("iconColor", iconColor));
   }
 }

@@ -1,11 +1,10 @@
-import 'package:firebase_auth/firebase_auth.dart';
-import 'package:rxdart/rxdart.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:flutter/foundation.dart';
+import "package:firebase_auth/firebase_auth.dart";
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
+import "package:flutter/foundation.dart";
+import "package:rain_wise/auth/base_auth_user_provider.dart";
+import "package:rxdart/rxdart.dart";
 
-import '../base_auth_user_provider.dart';
-
-export '../base_auth_user_provider.dart';
+export "../base_auth_user_provider.dart";
 
 class RainWiseFirebaseUser extends BaseAuthUser {
   RainWiseFirebaseUser(this.user);
@@ -28,7 +27,7 @@ class RainWiseFirebaseUser extends BaseAuthUser {
   Future? delete() => user?.delete();
 
   @override
-  Future? updateEmail(String email) async {
+  Future? updateEmail(final String email) async {
     try {
       await user?.updateEmail(email);
     } catch (_) {
@@ -37,7 +36,7 @@ class RainWiseFirebaseUser extends BaseAuthUser {
   }
 
   @override
-  Future? updatePassword(String newPassword) async {
+  Future? updatePassword(final String newPassword) async {
     await user?.updatePassword(newPassword);
   }
 
@@ -58,26 +57,26 @@ class RainWiseFirebaseUser extends BaseAuthUser {
   Future refreshUser() async {
     await FirebaseAuth.instance.currentUser
         ?.reload()
-        .then((_) => user = FirebaseAuth.instance.currentUser);
+        .then((final _) => user = FirebaseAuth.instance.currentUser);
   }
 
-  static BaseAuthUser fromUserCredential(UserCredential userCredential) =>
+  static BaseAuthUser fromUserCredential(final UserCredential userCredential) =>
       fromFirebaseUser(userCredential.user);
 
-  static BaseAuthUser fromFirebaseUser(User? user) =>
+  static BaseAuthUser fromFirebaseUser(final User? user) =>
       RainWiseFirebaseUser(user);
 }
 
 Stream<BaseAuthUser> rainWiseFirebaseUserStream() => FirebaseAuth.instance
         .authStateChanges()
-        .debounce((user) => user == null && !loggedIn
+        .debounce((final user) => user == null && !loggedIn
             ? TimerStream(true, const Duration(seconds: 1))
             : Stream.value(user))
         .map<BaseAuthUser>(
-      (user) {
+      (final user) {
         currentUser = RainWiseFirebaseUser(user);
         if (!kIsWeb) {
-          FirebaseCrashlytics.instance.setUserIdentifier(user?.uid ?? '');
+          FirebaseCrashlytics.instance.setUserIdentifier(user?.uid ?? "");
         }
         return currentUser!;
       },

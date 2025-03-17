@@ -5,15 +5,15 @@ class LatLng {
   final double longitude;
 
   @override
-  String toString() => 'LatLng(lat: $latitude, lng: $longitude)';
+  String toString() => "LatLng(lat: $latitude, lng: $longitude)";
 
-  String serialize() => '$latitude,$longitude';
+  String serialize() => "$latitude,$longitude";
 
   @override
   int get hashCode => latitude.hashCode + longitude.hashCode;
 
   @override
-  bool operator ==(other) =>
+  bool operator ==(final Object other) =>
       other is LatLng &&
       latitude == other.latitude &&
       longitude == other.longitude;

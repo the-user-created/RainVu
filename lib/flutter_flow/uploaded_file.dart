@@ -1,5 +1,5 @@
-import 'dart:convert';
-import 'dart:typed_data' show Uint8List;
+import "dart:convert";
+import "dart:typed_data" show Uint8List;
 
 class FFUploadedFile {
   const FFUploadedFile({
@@ -18,33 +18,33 @@ class FFUploadedFile {
 
   @override
   String toString() =>
-      'FFUploadedFile(name: $name, bytes: ${bytes?.length ?? 0}, height: $height, width: $width, blurHash: $blurHash,)';
+      "FFUploadedFile(name: $name, bytes: ${bytes?.length ?? 0}, height: $height, width: $width, blurHash: $blurHash,)";
 
   String serialize() => jsonEncode(
         {
-          'name': name,
-          'bytes': bytes,
-          'height': height,
-          'width': width,
-          'blurHash': blurHash,
+          "name": name,
+          "bytes": bytes,
+          "height": height,
+          "width": width,
+          "blurHash": blurHash,
         },
       );
 
-  static FFUploadedFile deserialize(String val) {
+  static FFUploadedFile deserialize(final String val) {
     final serializedData = jsonDecode(val) as Map<String, dynamic>;
-    final data = {
-      'name': serializedData['name'] ?? '',
-      'bytes': serializedData['bytes'] ?? Uint8List.fromList([]),
-      'height': serializedData['height'],
-      'width': serializedData['width'],
-      'blurHash': serializedData['blurHash'],
+    final Map<String, dynamic> data = {
+      "name": serializedData["name"] ?? "",
+      "bytes": serializedData["bytes"] ?? Uint8List.fromList([]),
+      "height": serializedData["height"],
+      "width": serializedData["width"],
+      "blurHash": serializedData["blurHash"],
     };
     return FFUploadedFile(
-      name: data['name'] as String,
-      bytes: Uint8List.fromList(data['bytes'].cast<int>().toList()),
-      height: data['height'] as double?,
-      width: data['width'] as double?,
-      blurHash: data['blurHash'] as String?,
+      name: data["name"] as String,
+      bytes: Uint8List.fromList(data["bytes"].cast<int>().toList()),
+      height: data["height"] as double?,
+      width: data["width"] as double?,
+      blurHash: data["blurHash"] as String?,
     );
   }
 
@@ -58,7 +58,7 @@ class FFUploadedFile {
       );
 
   @override
-  bool operator ==(other) =>
+  bool operator ==(final Object other) =>
       other is FFUploadedFile &&
       name == other.name &&
       bytes == other.bytes &&

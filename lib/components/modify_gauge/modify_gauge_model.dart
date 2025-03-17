@@ -1,6 +1,7 @@
-import '/flutter_flow/flutter_flow_util.dart';
-import 'modify_gauge_widget.dart' show ModifyGaugeWidget;
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
+import "package:rain_wise/components/modify_gauge/modify_gauge_widget.dart"
+    show ModifyGaugeWidget;
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 
 class ModifyGaugeModel extends FlutterFlowModel<ModifyGaugeWidget> {
   ///  State fields for stateful widgets in this component.
@@ -16,7 +17,7 @@ class ModifyGaugeModel extends FlutterFlowModel<ModifyGaugeWidget> {
   FFPlace placePickerValue = const FFPlace();
 
   @override
-  void initState(BuildContext context) {}
+  void initState(final BuildContext context) {}
 
   @override
   void dispose() {

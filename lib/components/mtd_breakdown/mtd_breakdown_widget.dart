@@ -1,17 +1,19 @@
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import 'package:flutter/material.dart';
-import 'mtd_breakdown_model.dart';
-export 'mtd_breakdown_model.dart';
+import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
+import "package:rain_wise/components/mtd_breakdown/mtd_breakdown_model.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
+
+export "mtd_breakdown_model.dart";
 
 class MtdBreakdownWidget extends StatefulWidget {
   const MtdBreakdownWidget({
     super.key,
-    String? month,
-    int? mtdTotal,
-    int? twoYrAvg,
-    int? fiveYrAvg,
-  })  : month = month ?? 'err',
+    final String? month,
+    final int? mtdTotal,
+    final int? twoYrAvg,
+    final int? fiveYrAvg,
+  })  : month = month ?? "err",
         mtdTotal = mtdTotal ?? -1,
         twoYrAvg = twoYrAvg ?? -1,
         fiveYrAvg = fiveYrAvg ?? -1;
@@ -23,13 +25,23 @@ class MtdBreakdownWidget extends StatefulWidget {
 
   @override
   State<MtdBreakdownWidget> createState() => _MtdBreakdownWidgetState();
+
+  @override
+  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(StringProperty("month", month))
+      ..add(IntProperty("mtdTotal", mtdTotal))
+      ..add(IntProperty("twoYrAvg", twoYrAvg))
+      ..add(IntProperty("fiveYrAvg", fiveYrAvg));
+  }
 }
 
 class _MtdBreakdownWidgetState extends State<MtdBreakdownWidget> {
   late MtdBreakdownModel _model;
 
   @override
-  void setState(VoidCallback callback) {
+  void setState(final VoidCallback callback) {
     super.setState(callback);
     _model.onUpdate();
   }
@@ -37,7 +49,7 @@ class _MtdBreakdownWidgetState extends State<MtdBreakdownWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => MtdBreakdownModel());
+    _model = createModel(context, MtdBreakdownModel.new);
   }
 
   @override
@@ -48,169 +60,162 @@ class _MtdBreakdownWidgetState extends State<MtdBreakdownWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsetsDirectional.fromSTEB(0.0, 12.0, 0.0, 12.0),
-      child: Material(
-        color: Colors.transparent,
-        elevation: 2.0,
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(16.0),
-        ),
-        child: Container(
-          decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).alternate,
-            boxShadow: const [
-              BoxShadow(
-                blurRadius: 4.0,
-                color: Color(0x33000000),
-                offset: Offset(
-                  0.0,
-                  2.0,
-                ),
-              )
-            ],
-            borderRadius: BorderRadius.circular(16.0),
+  Widget build(final BuildContext context) => Padding(
+        padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
+        child: Material(
+          color: Colors.transparent,
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
           ),
-          child: Padding(
-            padding:
-                const EdgeInsetsDirectional.fromSTEB(16.0, 16.0, 16.0, 16.0),
-            child: Column(
-              mainAxisSize: MainAxisSize.max,
-              children: [
-                Text(
-                  widget.month,
-                  style: FlutterFlowTheme.of(context).titleMedium.override(
-                        fontFamily: 'Readex Pro',
-                        letterSpacing: 0.0,
+          child: DecoratedBox(
+            decoration: BoxDecoration(
+              color: FlutterFlowTheme.of(context).alternate,
+              boxShadow: const [
+                BoxShadow(
+                  blurRadius: 4,
+                  color: Color(0x33000000),
+                  offset: Offset(
+                    0,
+                    2,
+                  ),
+                )
+              ],
+              borderRadius: BorderRadius.circular(16),
+            ),
+            child: Padding(
+              padding: const EdgeInsetsDirectional.fromSTEB(16, 16, 16, 16),
+              child: Column(
+                children: [
+                  Text(
+                    widget.month,
+                    style: FlutterFlowTheme.of(context).titleMedium.override(
+                          fontFamily: "Readex Pro",
+                          letterSpacing: 0,
+                        ),
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "Total",
+                        style: FlutterFlowTheme.of(context).bodySmall.override(
+                              fontFamily: "Inter",
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              letterSpacing: 0,
+                            ),
                       ),
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      'Total',
-                      style: FlutterFlowTheme.of(context).bodySmall.override(
-                            fontFamily: 'Inter',
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            letterSpacing: 0.0,
+                      Text(
+                        "${widget.mtdTotal}mm",
+                        style: FlutterFlowTheme.of(context).bodyMedium.override(
+                              fontFamily: "Inter",
+                              letterSpacing: 0,
+                            ),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "2yr avg",
+                        style: FlutterFlowTheme.of(context).bodySmall.override(
+                              fontFamily: "Inter",
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              letterSpacing: 0,
+                            ),
+                      ),
+                      Row(
+                        children: [
+                          Builder(
+                            builder: (final context) {
+                              if (widget.twoYrAvg > widget.mtdTotal) {
+                                return Icon(
+                                  Icons.arrow_upward,
+                                  color: FlutterFlowTheme.of(context).success,
+                                  size: 16,
+                                );
+                              } else if (widget.twoYrAvg < widget.mtdTotal) {
+                                return Icon(
+                                  Icons.arrow_downward,
+                                  color: FlutterFlowTheme.of(context).error,
+                                  size: 16,
+                                );
+                              } else {
+                                return Icon(
+                                  Icons.horizontal_rule,
+                                  color: FlutterFlowTheme.of(context).info,
+                                  size: 16,
+                                );
+                              }
+                            },
                           ),
-                    ),
-                    Text(
-                      '${widget.mtdTotal.toString()}mm',
-                      style: FlutterFlowTheme.of(context).bodyMedium.override(
-                            fontFamily: 'Inter',
-                            letterSpacing: 0.0,
+                          Text(
+                            "${widget.twoYrAvg}mm",
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: "Inter",
+                                  letterSpacing: 0,
+                                ),
                           ),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '2yr avg',
-                      style: FlutterFlowTheme.of(context).bodySmall.override(
-                            fontFamily: 'Inter',
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            letterSpacing: 0.0,
+                        ].divide(const SizedBox(width: 4)),
+                      ),
+                    ],
+                  ),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Text(
+                        "5yr avg",
+                        style: FlutterFlowTheme.of(context).bodySmall.override(
+                              fontFamily: "Inter",
+                              color: FlutterFlowTheme.of(context).secondaryText,
+                              letterSpacing: 0,
+                            ),
+                      ),
+                      Row(
+                        children: [
+                          Builder(
+                            builder: (final context) {
+                              if (widget.fiveYrAvg > widget.mtdTotal) {
+                                return Icon(
+                                  Icons.arrow_upward,
+                                  color: FlutterFlowTheme.of(context).success,
+                                  size: 16,
+                                );
+                              } else if (widget.fiveYrAvg < widget.mtdTotal) {
+                                return Icon(
+                                  Icons.arrow_downward,
+                                  color: FlutterFlowTheme.of(context).error,
+                                  size: 16,
+                                );
+                              } else {
+                                return Icon(
+                                  Icons.horizontal_rule,
+                                  color: FlutterFlowTheme.of(context).info,
+                                  size: 16,
+                                );
+                              }
+                            },
                           ),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Builder(
-                          builder: (context) {
-                            if (widget.twoYrAvg > widget.mtdTotal) {
-                              return Icon(
-                                Icons.arrow_upward,
-                                color: FlutterFlowTheme.of(context).success,
-                                size: 16.0,
-                              );
-                            } else if (widget.twoYrAvg < widget.mtdTotal) {
-                              return Icon(
-                                Icons.arrow_downward,
-                                color: FlutterFlowTheme.of(context).error,
-                                size: 16.0,
-                              );
-                            } else {
-                              return Icon(
-                                Icons.horizontal_rule,
-                                color: FlutterFlowTheme.of(context).info,
-                                size: 16.0,
-                              );
-                            }
-                          },
-                        ),
-                        Text(
-                          '${widget.twoYrAvg.toString()}mm',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                        ),
-                      ].divide(const SizedBox(width: 4.0)),
-                    ),
-                  ],
-                ),
-                Row(
-                  mainAxisSize: MainAxisSize.max,
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      '5yr avg',
-                      style: FlutterFlowTheme.of(context).bodySmall.override(
-                            fontFamily: 'Inter',
-                            color: FlutterFlowTheme.of(context).secondaryText,
-                            letterSpacing: 0.0,
+                          Text(
+                            "${widget.fiveYrAvg}mm",
+                            style: FlutterFlowTheme.of(context)
+                                .bodyMedium
+                                .override(
+                                  fontFamily: "Inter",
+                                  letterSpacing: 0,
+                                ),
                           ),
-                    ),
-                    Row(
-                      mainAxisSize: MainAxisSize.max,
-                      children: [
-                        Builder(
-                          builder: (context) {
-                            if (widget.fiveYrAvg > widget.mtdTotal) {
-                              return Icon(
-                                Icons.arrow_upward,
-                                color: FlutterFlowTheme.of(context).success,
-                                size: 16.0,
-                              );
-                            } else if (widget.fiveYrAvg < widget.mtdTotal) {
-                              return Icon(
-                                Icons.arrow_downward,
-                                color: FlutterFlowTheme.of(context).error,
-                                size: 16.0,
-                              );
-                            } else {
-                              return Icon(
-                                Icons.horizontal_rule,
-                                color: FlutterFlowTheme.of(context).info,
-                                size: 16.0,
-                              );
-                            }
-                          },
-                        ),
-                        Text(
-                          '${widget.fiveYrAvg.toString()}mm',
-                          style:
-                              FlutterFlowTheme.of(context).bodyMedium.override(
-                                    fontFamily: 'Inter',
-                                    letterSpacing: 0.0,
-                                  ),
-                        ),
-                      ].divide(const SizedBox(width: 4.0)),
-                    ),
-                  ],
-                ),
-              ].divide(const SizedBox(height: 8.0)),
+                        ].divide(const SizedBox(width: 4)),
+                      ),
+                    ],
+                  ),
+                ].divide(const SizedBox(height: 8)),
+              ),
             ),
           ),
         ),
-      ),
-    );
-  }
+      );
 }

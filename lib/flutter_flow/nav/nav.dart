@@ -1,20 +1,18 @@
-import 'dart:async';
+import "dart:async";
 
-import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import "package:flutter/material.dart";
+import "package:provider/provider.dart";
+import "package:rain_wise/auth/base_auth_user_provider.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
+import "package:rain_wise/index.dart";
+import "package:rain_wise/nav_bar.dart";
 
-import '/auth/base_auth_user_provider.dart';
+export "package:go_router/go_router.dart";
 
-import '/main.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
+export "serialization_util.dart";
 
-import '/index.dart';
-
-export 'package:go_router/go_router.dart';
-export 'serialization_util.dart';
-
-const kTransitionInfoKey = '__transition_info__';
+const kTransitionInfoKey = "__transition_info__";
 
 GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
 
@@ -49,16 +47,18 @@ class AppStateNotifier extends ChangeNotifier {
 
   bool hasRedirect() => _redirectLocation != null;
 
-  void setRedirectLocationIfUnset(String loc) => _redirectLocation ??= loc;
+  void setRedirectLocationIfUnset(final String loc) =>
+      _redirectLocation ??= loc;
 
   void clearRedirectLocation() => _redirectLocation = null;
 
   /// Mark as not needing to notify on a sign in / out when we intend
   /// to perform subsequent actions (such as navigation) afterwards.
-  void updateNotifyOnAuthChange(bool notify) => notifyOnAuthChange = notify;
+  void updateNotifyOnAuthChange(final bool notify) =>
+      notifyOnAuthChange = notify;
 
-  void update(BaseAuthUser newUser) {
-    final shouldUpdate =
+  void update(final BaseAuthUser newUser) {
+    final bool shouldUpdate =
         user?.uid == null || newUser.uid == null || user?.uid != newUser.uid;
     initialUser ??= newUser;
     user = newUser;
@@ -78,145 +78,152 @@ class AppStateNotifier extends ChangeNotifier {
   }
 }
 
-GoRouter createRouter(AppStateNotifier appStateNotifier) => GoRouter(
-      initialLocation: '/',
+GoRouter createRouter(final AppStateNotifier appStateNotifier) => GoRouter(
+      initialLocation: "/",
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (context, state) =>
+      errorBuilder: (final context, final state) =>
           appStateNotifier.loggedIn ? const NavBarPage() : const EntryWidget(),
       routes: [
         FFRoute(
-          name: '_initialize',
-          path: '/',
-          builder: (context, _) => appStateNotifier.loggedIn
+          name: "_initialize",
+          path: "/",
+          builder: (final context, final _) => appStateNotifier.loggedIn
               ? const NavBarPage()
               : const EntryWidget(),
         ),
         FFRoute(
           name: SettingsWidget.routeName,
           path: SettingsWidget.routePath,
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'settings')
+          builder: (final context, final params) => params.isEmpty
+              ? const NavBarPage(initialPage: "settings")
               : const NavBarPage(
-                  initialPage: 'settings',
+                  initialPage: "settings",
                   page: SettingsWidget(),
                 ),
         ),
         FFRoute(
           name: EntryWidget.routeName,
           path: EntryWidget.routePath,
-          builder: (context, params) => const EntryWidget(),
+          builder: (final context, final params) => const EntryWidget(),
         ),
         FFRoute(
           name: InsightsWidget.routeName,
           path: InsightsWidget.routePath,
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'insights')
+          builder: (final context, final params) => params.isEmpty
+              ? const NavBarPage(initialPage: "insights")
               : const NavBarPage(
-                  initialPage: 'insights',
+                  initialPage: "insights",
                   page: InsightsWidget(),
                 ),
         ),
         FFRoute(
           name: ManageGuagesWidget.routeName,
           path: ManageGuagesWidget.routePath,
-          builder: (context, params) => const ManageGuagesWidget(),
+          builder: (final context, final params) => const ManageGuagesWidget(),
         ),
         FFRoute(
           name: NotificationsWidget.routeName,
           path: NotificationsWidget.routePath,
-          builder: (context, params) => const NotificationsWidget(),
+          builder: (final context, final params) => const NotificationsWidget(),
         ),
         FFRoute(
           name: HelpWidget.routeName,
           path: HelpWidget.routePath,
-          builder: (context, params) => const HelpWidget(),
+          builder: (final context, final params) => const HelpWidget(),
         ),
         FFRoute(
           name: MySubscriptionWidget.routeName,
           path: MySubscriptionWidget.routePath,
-          builder: (context, params) => const MySubscriptionWidget(),
+          builder: (final context, final params) =>
+              const MySubscriptionWidget(),
         ),
         FFRoute(
           name: DataExImportWidget.routeName,
           path: DataExImportWidget.routePath,
-          builder: (context, params) => const DataExImportWidget(),
+          builder: (final context, final params) => const DataExImportWidget(),
         ),
         FFRoute(
           name: ComingSoonWidget.routeName,
           path: ComingSoonWidget.routePath,
-          builder: (context, params) => const ComingSoonWidget(),
+          builder: (final context, final params) => const ComingSoonWidget(),
         ),
         FFRoute(
           name: HomeWidget.routeName,
           path: HomeWidget.routePath,
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'home')
+          builder: (final context, final params) => params.isEmpty
+              ? const NavBarPage(initialPage: "home")
               : const NavBarPage(
-                  initialPage: 'home',
+                  initialPage: "home",
                   page: HomeWidget(),
                 ),
         ),
         FFRoute(
           name: MapWidget.routeName,
           path: MapWidget.routePath,
-          builder: (context, params) => params.isEmpty
-              ? const NavBarPage(initialPage: 'map')
+          builder: (final context, final params) => params.isEmpty
+              ? const NavBarPage(initialPage: "map")
               : const NavBarPage(
-                  initialPage: 'map',
+                  initialPage: "map",
                   page: MapWidget(),
                 ),
         ),
         FFRoute(
           name: MonthlyBreakdownWidget.routeName,
           path: MonthlyBreakdownWidget.routePath,
-          builder: (context, params) => const MonthlyBreakdownWidget(),
+          builder: (final context, final params) =>
+              const MonthlyBreakdownWidget(),
         ),
         FFRoute(
           name: SeasonPatternsWidget.routeName,
           path: SeasonPatternsWidget.routePath,
-          builder: (context, params) => const SeasonPatternsWidget(),
+          builder: (final context, final params) =>
+              const SeasonPatternsWidget(),
         ),
         FFRoute(
           name: AnomalyExploreWidget.routeName,
           path: AnomalyExploreWidget.routePath,
-          builder: (context, params) => const AnomalyExploreWidget(),
+          builder: (final context, final params) =>
+              const AnomalyExploreWidget(),
         ),
         FFRoute(
           name: ComparativeAnalysisWidget.routeName,
           path: ComparativeAnalysisWidget.routePath,
-          builder: (context, params) => const ComparativeAnalysisWidget(),
+          builder: (final context, final params) =>
+              const ComparativeAnalysisWidget(),
         ),
         FFRoute(
           name: RainfallEntriesWidget.routeName,
           path: RainfallEntriesWidget.routePath,
-          builder: (context, params) => const RainfallEntriesWidget(),
+          builder: (final context, final params) =>
+              const RainfallEntriesWidget(),
         ),
         FFRoute(
           name: ForgotPasswordWidget.routeName,
           path: ForgotPasswordWidget.routePath,
-          builder: (context, params) => const ForgotPasswordWidget(),
+          builder: (final context, final params) =>
+              const ForgotPasswordWidget(),
         )
-      ].map((r) => r.toRoute(appStateNotifier)).toList(),
+      ].map((final r) => r.toRoute(appStateNotifier)).toList(),
     );
 
 extension NavParamExtensions on Map<String, String?> {
   Map<String, String> get withoutNulls => Map.fromEntries(
         entries
-            .where((e) => e.value != null)
-            .map((e) => MapEntry(e.key, e.value!)),
+            .where((final e) => e.value != null)
+            .map((final e) => MapEntry(e.key, e.value!)),
       );
 }
 
 extension NavigationExtensions on BuildContext {
   void goNamedAuth(
-    String name,
-    bool mounted, {
-    Map<String, String> pathParameters = const <String, String>{},
-    Map<String, String> queryParameters = const <String, String>{},
-    Object? extra,
-    bool ignoreRedirect = false,
+    final String name,
+    final bool mounted, {
+    final Map<String, String> pathParameters = const <String, String>{},
+    final Map<String, String> queryParameters = const <String, String>{},
+    final Object? extra,
+    final bool ignoreRedirect = false,
   }) =>
       !mounted || GoRouter.of(this).shouldRedirect(ignoreRedirect)
           ? null
@@ -227,14 +234,14 @@ extension NavigationExtensions on BuildContext {
               extra: extra,
             );
 
-  void pushNamedAuth(
-    String name,
-    bool mounted, {
-    Map<String, String> pathParameters = const <String, String>{},
-    Map<String, String> queryParameters = const <String, String>{},
-    Object? extra,
-    bool ignoreRedirect = false,
-  }) =>
+  Future<void> pushNamedAuth(
+    final String name,
+    final bool mounted, {
+    final Map<String, String> pathParameters = const <String, String>{},
+    final Map<String, String> queryParameters = const <String, String>{},
+    final Object? extra,
+    final bool ignoreRedirect = false,
+  }) async =>
       !mounted || GoRouter.of(this).shouldRedirect(ignoreRedirect)
           ? null
           : pushNamed(
@@ -250,7 +257,7 @@ extension NavigationExtensions on BuildContext {
     if (canPop()) {
       pop();
     } else {
-      go('/');
+      go("/");
     }
   }
 }
@@ -258,23 +265,23 @@ extension NavigationExtensions on BuildContext {
 extension GoRouterExtensions on GoRouter {
   AppStateNotifier get appState => AppStateNotifier.instance;
 
-  void prepareAuthEvent([bool ignoreRedirect = false]) =>
+  void prepareAuthEvent([final bool ignoreRedirect = false]) =>
       appState.hasRedirect() && !ignoreRedirect
           ? null
           : appState.updateNotifyOnAuthChange(false);
 
-  bool shouldRedirect(bool ignoreRedirect) =>
+  bool shouldRedirect(final bool ignoreRedirect) =>
       !ignoreRedirect && appState.hasRedirect();
 
   void clearRedirectLocation() => appState.clearRedirectLocation();
 
-  void setRedirectLocationIfUnset(String location) =>
+  void setRedirectLocationIfUnset(final String location) =>
       appState.updateNotifyOnAuthChange(false);
 }
 
 extension _GoRouterStateExtensions on GoRouterState {
   Map<String, dynamic> get extraMap =>
-      extra != null ? extra as Map<String, dynamic> : {};
+      extra != null ? extra! as Map<String, dynamic> : {};
 
   Map<String, dynamic> get allParams => <String, dynamic>{}
     ..addAll(pathParameters)
@@ -301,16 +308,16 @@ class FFParameters {
       (state.allParams.length == 1 &&
           state.extraMap.containsKey(kTransitionInfoKey));
 
-  bool isAsyncParam(MapEntry<String, dynamic> param) =>
+  bool isAsyncParam(final MapEntry<String, dynamic> param) =>
       asyncParams.containsKey(param.key) && param.value is String;
 
   bool get hasFutures => state.allParams.entries.any(isAsyncParam);
 
   Future<bool> completeFutures() => Future.wait(
         state.allParams.entries.where(isAsyncParam).map(
-          (param) async {
+          (final param) async {
             final doc = await asyncParams[param.key]!(param.value)
-                .onError((_, __) => null);
+                .onError((final _, final __) => null);
             if (doc != null) {
               futureParamValues[param.key] = doc;
               return true;
@@ -318,13 +325,15 @@ class FFParameters {
             return false;
           },
         ),
-      ).onError((_, __) => [false]).then((v) => v.every((e) => e));
+      )
+          .onError((final _, final __) => [false])
+          .then((final v) => v.every((final e) => e));
 
   dynamic getParam<T>(
-    String paramName,
-    ParamType type, {
-    bool isList = false,
-    List<String>? collectionNamePath,
+    final String paramName,
+    final ParamType type, {
+    final bool isList = false,
+    final List<String>? collectionNamePath,
   }) {
     if (futureParamValues.containsKey(paramName)) {
       return futureParamValues[paramName];
@@ -364,36 +373,38 @@ class FFRoute {
   final Widget Function(BuildContext, FFParameters) builder;
   final List<GoRoute> routes;
 
-  GoRoute toRoute(AppStateNotifier appStateNotifier) => GoRoute(
+  GoRoute toRoute(final AppStateNotifier appStateNotifier) => GoRoute(
         name: name,
         path: path,
-        redirect: (context, state) {
+        redirect: (final context, final state) {
           if (appStateNotifier.shouldRedirect) {
-            final redirectLocation = appStateNotifier.getRedirectLocation();
+            final String redirectLocation =
+                appStateNotifier.getRedirectLocation();
             appStateNotifier.clearRedirectLocation();
             return redirectLocation;
           }
 
           if (requireAuth && !appStateNotifier.loggedIn) {
             appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return '/entry';
+            return "/entry";
           }
           return null;
         },
-        pageBuilder: (context, state) {
+        pageBuilder: (final context, final state) {
           fixStatusBarOniOS16AndBelow(context);
           final ffParams = FFParameters(state, asyncParams);
-          final page = ffParams.hasFutures
+          final Widget page = ffParams.hasFutures
               ? FutureBuilder(
                   future: ffParams.completeFutures(),
-                  builder: (context, _) => builder(context, ffParams),
+                  builder: (final context, final _) =>
+                      builder(context, ffParams),
                 )
               : builder(context, ffParams);
-          final child = appStateNotifier.loading
+          final Widget child = appStateNotifier.loading
               ? Center(
                   child: SizedBox(
-                    width: 50.0,
-                    height: 50.0,
+                    width: 50,
+                    height: 50,
                     child: CircularProgressIndicator(
                       valueColor: AlwaysStoppedAnimation<Color>(
                         FlutterFlowTheme.of(context).primary,
@@ -403,15 +414,15 @@ class FFRoute {
                 )
               : page;
 
-          final transitionInfo = state.transitionInfo;
+          final TransitionInfo transitionInfo = state.transitionInfo;
           return transitionInfo.hasTransition
               ? CustomTransitionPage(
                   key: state.pageKey,
                   child: child,
                   transitionDuration: transitionInfo.duration,
-                  transitionsBuilder:
-                      (context, animation, secondaryAnimation, child) =>
-                          PageTransition(
+                  transitionsBuilder: (final context, final animation,
+                          final secondaryAnimation, final child) =>
+                      PageTransition(
                     type: transitionInfo.transitionType,
                     duration: transitionInfo.duration,
                     reverseDuration: transitionInfo.duration,
@@ -453,27 +464,18 @@ class RootPageContext {
   final bool isRootPage;
   final String? errorRoute;
 
-  static bool isInactiveRootPage(BuildContext context) {
-    final rootPageContext = context.read<RootPageContext?>();
-    final isRootPage = rootPageContext?.isRootPage ?? false;
+  static bool isInactiveRootPage(final BuildContext context) {
+    final RootPageContext? rootPageContext = context.read<RootPageContext?>();
+    final bool isRootPage = rootPageContext?.isRootPage ?? false;
     final location = GoRouterState.of(context).uri.toString();
     return isRootPage &&
-        location != '/' &&
+        location != "/" &&
         location != rootPageContext?.errorRoute;
   }
 
-  static Widget wrap(Widget child, {String? errorRoute}) => Provider.value(
+  static Widget wrap(final Widget child, {final String? errorRoute}) =>
+      Provider.value(
         value: RootPageContext(true, errorRoute),
         child: child,
       );
-}
-
-extension GoRouterLocationExtension on GoRouter {
-  String getCurrentLocation() {
-    final RouteMatch lastMatch = routerDelegate.currentConfiguration.last;
-    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
-        ? lastMatch.matches
-        : routerDelegate.currentConfiguration;
-    return matchList.uri.toString();
-  }
 }

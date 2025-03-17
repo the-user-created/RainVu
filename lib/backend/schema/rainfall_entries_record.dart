@@ -1,11 +1,9 @@
-import 'dart:async';
+import "dart:async";
 
-import 'package:collection/collection.dart';
-
-import '/backend/schema/util/firestore_util.dart';
-
-import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
+import "package:collection/collection.dart";
+import "package:rain_wise/backend/schema/index.dart";
+import "package:rain_wise/backend/schema/util/firestore_util.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 
 class RainfallEntriesRecord extends FirestoreRecord {
   RainfallEntriesRecord._(
@@ -18,14 +16,14 @@ class RainfallEntriesRecord extends FirestoreRecord {
   // "entryId" field.
   String? _entryId;
 
-  String get entryId => _entryId ?? '';
+  String get entryId => _entryId ?? "";
 
   bool hasEntryId() => _entryId != null;
 
   // "userId" field.
   String? _userId;
 
-  String get userId => _userId ?? '';
+  String get userId => _userId ?? "";
 
   bool hasUserId() => _userId != null;
 
@@ -46,7 +44,7 @@ class RainfallEntriesRecord extends FirestoreRecord {
   // "notes" field.
   String? _notes;
 
-  String get notes => _notes ?? '';
+  String get notes => _notes ?? "";
 
   bool hasNotes() => _notes != null;
 
@@ -60,72 +58,74 @@ class RainfallEntriesRecord extends FirestoreRecord {
   // "rainGaugeID" field.
   String? _rainGaugeID;
 
-  String get rainGaugeID => _rainGaugeID ?? '';
+  String get rainGaugeID => _rainGaugeID ?? "";
 
   bool hasRainGaugeID() => _rainGaugeID != null;
 
   void _initializeFields() {
-    _entryId = snapshotData['entryId'] as String?;
-    _userId = snapshotData['userId'] as String?;
-    _date = snapshotData['date'] as DateTime?;
-    _rainfallAmount = castToType<double>(snapshotData['rainfallAmount']);
-    _notes = snapshotData['notes'] as String?;
-    _createdAt = snapshotData['createdAt'] as DateTime?;
-    _rainGaugeID = snapshotData['rainGaugeID'] as String?;
+    _entryId = snapshotData["entryId"] as String?;
+    _userId = snapshotData["userId"] as String?;
+    _date = snapshotData["date"] as DateTime?;
+    _rainfallAmount = castToType<double>(snapshotData["rainfallAmount"]);
+    _notes = snapshotData["notes"] as String?;
+    _createdAt = snapshotData["createdAt"] as DateTime?;
+    _rainGaugeID = snapshotData["rainGaugeID"] as String?;
   }
 
   static CollectionReference get collection =>
-      FirebaseFirestore.instance.collection('rainfall_entries');
+      FirebaseFirestore.instance.collection("rainfall_entries");
 
-  static Stream<RainfallEntriesRecord> getDocument(DocumentReference ref) =>
-      ref.snapshots().map((s) => RainfallEntriesRecord.fromSnapshot(s));
+  static Stream<RainfallEntriesRecord> getDocument(
+          final DocumentReference ref) =>
+      ref.snapshots().map(RainfallEntriesRecord.fromSnapshot);
 
-  static Future<RainfallEntriesRecord> getDocumentOnce(DocumentReference ref) =>
-      ref.get().then((s) => RainfallEntriesRecord.fromSnapshot(s));
+  static Future<RainfallEntriesRecord> getDocumentOnce(
+          final DocumentReference ref) =>
+      ref.get().then(RainfallEntriesRecord.fromSnapshot);
 
-  static RainfallEntriesRecord fromSnapshot(DocumentSnapshot snapshot) =>
+  static RainfallEntriesRecord fromSnapshot(final DocumentSnapshot snapshot) =>
       RainfallEntriesRecord._(
         snapshot.reference,
-        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+        mapFromFirestore(snapshot.data()! as Map<String, dynamic>),
       );
 
   static RainfallEntriesRecord getDocumentFromData(
-    Map<String, dynamic> data,
-    DocumentReference reference,
+    final Map<String, dynamic> data,
+    final DocumentReference reference,
   ) =>
       RainfallEntriesRecord._(reference, mapFromFirestore(data));
 
   @override
   String toString() =>
-      'RainfallEntriesRecord(reference: ${reference.path}, data: $snapshotData)';
+      "RainfallEntriesRecord(reference: ${reference.path}, data: $snapshotData)";
 
   @override
   int get hashCode => reference.path.hashCode;
 
   @override
-  bool operator ==(other) =>
+  bool operator ==(final Object other) =>
       other is RainfallEntriesRecord &&
       reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createRainfallEntriesRecordData({
-  String? entryId,
-  String? userId,
-  DateTime? date,
-  double? rainfallAmount,
-  String? notes,
-  DateTime? createdAt,
-  String? rainGaugeID,
+  final String? entryId,
+  final String? userId,
+  final DateTime? date,
+  final double? rainfallAmount,
+  final String? notes,
+  final DateTime? createdAt,
+  final String? rainGaugeID,
 }) {
-  final firestoreData = mapToFirestore(
+  final Map<String, dynamic> firestoreData = mapToFirestore(
     <String, dynamic>{
-      'entryId': entryId,
-      'userId': userId,
-      'date': date,
-      'rainfallAmount': rainfallAmount,
-      'notes': notes,
-      'createdAt': createdAt,
-      'rainGaugeID': rainGaugeID,
+      "entryId": entryId,
+      "userId": userId,
+      "date": date,
+      "rainfallAmount": rainfallAmount,
+      "notes": notes,
+      "createdAt": createdAt,
+      "rainGaugeID": rainGaugeID,
     }.withoutNulls,
   );
 
@@ -137,18 +137,18 @@ class RainfallEntriesRecordDocumentEquality
   const RainfallEntriesRecordDocumentEquality();
 
   @override
-  bool equals(RainfallEntriesRecord? e1, RainfallEntriesRecord? e2) {
-    return e1?.entryId == e2?.entryId &&
-        e1?.userId == e2?.userId &&
-        e1?.date == e2?.date &&
-        e1?.rainfallAmount == e2?.rainfallAmount &&
-        e1?.notes == e2?.notes &&
-        e1?.createdAt == e2?.createdAt &&
-        e1?.rainGaugeID == e2?.rainGaugeID;
-  }
+  bool equals(
+          final RainfallEntriesRecord? e1, final RainfallEntriesRecord? e2) =>
+      e1?.entryId == e2?.entryId &&
+      e1?.userId == e2?.userId &&
+      e1?.date == e2?.date &&
+      e1?.rainfallAmount == e2?.rainfallAmount &&
+      e1?.notes == e2?.notes &&
+      e1?.createdAt == e2?.createdAt &&
+      e1?.rainGaugeID == e2?.rainGaugeID;
 
   @override
-  int hash(RainfallEntriesRecord? e) => const ListEquality().hash([
+  int hash(final RainfallEntriesRecord? e) => const ListEquality().hash([
         e?.entryId,
         e?.userId,
         e?.date,
@@ -159,5 +159,5 @@ class RainfallEntriesRecordDocumentEquality
       ]);
 
   @override
-  bool isValidKey(Object? o) => o is RainfallEntriesRecord;
+  bool isValidKey(final Object? o) => o is RainfallEntriesRecord;
 }

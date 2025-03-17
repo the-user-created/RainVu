@@ -1,16 +1,18 @@
-import '/components/edit_entry/edit_entry_widget.dart';
-import '/flutter_flow/flutter_flow_icon_button.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import 'package:flutter/material.dart';
-import 'rainfall_entries_model.dart';
-export 'rainfall_entries_model.dart';
+import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
+import "package:rain_wise/components/edit_entry/edit_entry_widget.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
+import "package:rain_wise/misc/rainfall_entries/rainfall_entries_model.dart";
+
+export "rainfall_entries_model.dart";
 
 class RainfallEntriesWidget extends StatefulWidget {
   const RainfallEntriesWidget({super.key});
 
-  static String routeName = 'rainfallEntries';
-  static String routePath = '/rainfallEntries';
+  static String routeName = "rainfallEntries";
+  static String routePath = "/rainfallEntries";
 
   @override
   State<RainfallEntriesWidget> createState() => _RainfallEntriesWidgetState();
@@ -24,10 +26,10 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
   @override
   void initState() {
     super.initState();
-    _model = createModel(context, () => RainfallEntriesModel());
+    _model = createModel(context, RainfallEntriesModel.new);
 
-    logFirebaseEvent('screen_view',
-        parameters: {'screen_name': 'rainfallEntries'});
+    logFirebaseEvent("screen_view",
+        parameters: {"screen_name": "rainfallEntries"});
   }
 
   @override
@@ -38,164 +40,155 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    return GestureDetector(
-      onTap: () {
-        FocusScope.of(context).unfocus();
-        FocusManager.instance.primaryFocus?.unfocus();
-      },
-      child: Scaffold(
-        key: scaffoldKey,
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        appBar: AppBar(
+  Widget build(final BuildContext context) => GestureDetector(
+        onTap: () {
+          FocusScope.of(context).unfocus();
+          FocusManager.instance.primaryFocus?.unfocus();
+        },
+        child: Scaffold(
+          key: scaffoldKey,
           backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-          automaticallyImplyLeading: false,
-          leading: FlutterFlowIconButton(
-            borderRadius: 8.0,
-            buttonSize: 40.0,
-            icon: Icon(
-              Icons.arrow_back_rounded,
-              color: FlutterFlowTheme.of(context).primaryText,
-              size: 24.0,
-            ),
-            onPressed: () {
-              debugPrint('IconButton pressed ...');
-            },
-          ),
-          title: Text(
-            'March 2025',
-            style: FlutterFlowTheme.of(context).headlineMedium.override(
-                  fontFamily: 'Readex Pro',
-                  letterSpacing: 0.0,
-                  fontWeight: FontWeight.bold,
-                ),
-          ),
-          actions: const [],
-          centerTitle: true,
-          toolbarHeight: 70.0,
-        ),
-        body: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.max,
-            children: [
-              Container(
-                width: double.infinity,
-                height: 1.0,
-                decoration: BoxDecoration(
-                  color: FlutterFlowTheme.of(context).alternate,
-                ),
+          appBar: AppBar(
+            backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+            automaticallyImplyLeading: false,
+            leading: FlutterFlowIconButton(
+              borderRadius: 8,
+              buttonSize: 40,
+              icon: Icon(
+                Icons.arrow_back_rounded,
+                color: FlutterFlowTheme.of(context).primaryText,
+                size: 24,
               ),
-              Expanded(
-                child: Column(
-                  mainAxisSize: MainAxisSize.max,
-                  children: [
-                    Padding(
-                      padding: const EdgeInsetsDirectional.fromSTEB(
-                          16.0, 12.0, 16.0, 24.0),
-                      child: ListView(
-                        padding: EdgeInsets.zero,
-                        primary: false,
-                        shrinkWrap: true,
-                        scrollDirection: Axis.vertical,
-                        children: [
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 12.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                boxShadow: const [
-                                  BoxShadow(
-                                    blurRadius: 4.0,
-                                    color: Color(0x10000000),
-                                    offset: Offset(
-                                      0.0,
-                                      2.0,
-                                    ),
-                                  )
-                                ],
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              16.0, 16.0, 16.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Apr 1, 2023',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                        0.0, 4.0, 0.0, 0.0),
-                                                child: Text(
-                                                  '12.5 mm - Main Gauge',
+              onPressed: () {
+                debugPrint("IconButton pressed ...");
+              },
+            ),
+            title: Text(
+              "March 2025",
+              style: FlutterFlowTheme.of(context).headlineMedium.override(
+                    fontFamily: "Readex Pro",
+                    letterSpacing: 0,
+                    fontWeight: FontWeight.bold,
+                  ),
+            ),
+            actions: const [],
+            centerTitle: true,
+            toolbarHeight: 70,
+          ),
+          body: SingleChildScrollView(
+            child: Column(
+              children: [
+                Container(
+                  width: double.infinity,
+                  height: 1,
+                  decoration: BoxDecoration(
+                    color: FlutterFlowTheme.of(context).alternate,
+                  ),
+                ),
+                Expanded(
+                  child: Column(
+                    children: [
+                      Padding(
+                        padding: const EdgeInsetsDirectional.fromSTEB(
+                            16, 12, 16, 24),
+                        child: ListView(
+                          padding: EdgeInsets.zero,
+                          primary: false,
+                          shrinkWrap: true,
+                          children: [
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 0, 0, 12),
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      blurRadius: 4,
+                                      color: Color(0x10000000),
+                                      offset: Offset(
+                                        0,
+                                        2,
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(16, 16, 16, 0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Apr 1, 2023",
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .bodyMedium
+                                                      .titleMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        letterSpacing: 0.0,
+                                                        fontFamily:
+                                                            "Readex Pro",
+                                                        letterSpacing: 0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
                                                       ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              FlutterFlowIconButton(
-                                                borderRadius: 8.0,
-                                                buttonSize: 44.0,
-                                                fillColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .accent1,
-                                                icon: Icon(
-                                                  Icons.edit_outlined,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  size: 24.0,
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 4, 0, 0),
+                                                  child: Text(
+                                                    "12.5 mm - Main Gauge",
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: "Inter",
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          letterSpacing: 0,
+                                                        ),
+                                                  ),
                                                 ),
-                                                onPressed: () async {
-                                                  await showModalBottomSheet(
-                                                    isScrollControlled: true,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    enableDrag: false,
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return GestureDetector(
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                FlutterFlowIconButton(
+                                                  borderRadius: 8,
+                                                  buttonSize: 44,
+                                                  fillColor:
+                                                      FlutterFlowTheme.of(
+                                                              context)
+                                                          .accent1,
+                                                  icon: Icon(
+                                                    Icons.edit_outlined,
+                                                    color: FlutterFlowTheme.of(
+                                                            context)
+                                                        .primary,
+                                                    size: 24,
+                                                  ),
+                                                  onPressed: () async {
+                                                    await showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      enableDrag: false,
+                                                      context: context,
+                                                      builder:
+                                                          (final context) =>
+                                                              GestureDetector(
                                                         onTap: () {
                                                           FocusScope.of(context)
                                                               .unfocus();
@@ -217,156 +210,149 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                                 const EditEntryWidget(),
                                                           ),
                                                         ),
-                                                      );
+                                                      ),
+                                                    ).then((final value) =>
+                                                        safeSetState(() {}));
+                                                  },
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(8, 0, 8, 0),
+                                                  child: FlutterFlowIconButton(
+                                                    borderRadius: 8,
+                                                    buttonSize: 44,
+                                                    fillColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .accent1,
+                                                    icon: Icon(
+                                                      Icons.delete_outline,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .error,
+                                                      size: 24,
+                                                    ),
+                                                    onPressed: () {
+                                                      debugPrint(
+                                                          "IconButton pressed ...");
                                                     },
-                                                  ).then((value) =>
-                                                      safeSetState(() {}));
-                                                },
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                        8.0, 0.0, 8.0, 0.0),
-                                                child: FlutterFlowIconButton(
-                                                  borderRadius: 8.0,
-                                                  buttonSize: 44.0,
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
+                                      ),
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(16, 12, 16, 0),
+                                        child: Divider(
+                                          height: 1,
+                                          thickness: 1,
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                        ),
+                                      ),
+                                    ],
+                                  ),
+                                ),
+                              ),
+                            ),
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 0, 0, 12),
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      blurRadius: 4,
+                                      color: Color(0x10000000),
+                                      offset: Offset(
+                                        0,
+                                        2,
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(16, 16, 16, 0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Apr 2, 2023",
+                                                  style: FlutterFlowTheme.of(
+                                                          context)
+                                                      .titleMedium
+                                                      .override(
+                                                        fontFamily:
+                                                            "Readex Pro",
+                                                        letterSpacing: 0,
+                                                        fontWeight:
+                                                            FontWeight.w600,
+                                                      ),
+                                                ),
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 4, 0, 0),
+                                                  child: Text(
+                                                    "8.2 mm - Backyard Gauge",
+                                                    style: FlutterFlowTheme.of(
+                                                            context)
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: "Inter",
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          letterSpacing: 0,
+                                                        ),
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                FlutterFlowIconButton(
+                                                  borderRadius: 8,
+                                                  buttonSize: 44,
                                                   fillColor:
                                                       FlutterFlowTheme.of(
                                                               context)
                                                           .accent1,
                                                   icon: Icon(
-                                                    Icons.delete_outline,
+                                                    Icons.edit_outlined,
                                                     color: FlutterFlowTheme.of(
                                                             context)
-                                                        .error,
-                                                    size: 24.0,
+                                                        .primary,
+                                                    size: 24,
                                                   ),
-                                                  onPressed: () {
-                                                    debugPrint(
-                                                        'IconButton pressed ...');
-                                                  },
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
-                                      ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              16.0, 12.0, 16.0, 0.0),
-                                      child: Divider(
-                                        height: 1.0,
-                                        thickness: 1.0,
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
-                                      ),
-                                    ),
-                                  ],
-                                ),
-                              ),
-                            ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 12.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                boxShadow: const [
-                                  BoxShadow(
-                                    blurRadius: 4.0,
-                                    color: Color(0x10000000),
-                                    offset: Offset(
-                                      0.0,
-                                      2.0,
-                                    ),
-                                  )
-                                ],
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              16.0, 16.0, 16.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Apr 2, 2023',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                        0.0, 4.0, 0.0, 0.0),
-                                                child: Text(
-                                                  '8.2 mm - Backyard Gauge',
-                                                  style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
-                                                        fontFamily: 'Inter',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        letterSpacing: 0.0,
-                                                      ),
-                                                ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              FlutterFlowIconButton(
-                                                borderRadius: 8.0,
-                                                buttonSize: 44.0,
-                                                fillColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .accent1,
-                                                icon: Icon(
-                                                  Icons.edit_outlined,
-                                                  color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
-                                                  size: 24.0,
-                                                ),
-                                                onPressed: () async {
-                                                  await showModalBottomSheet(
-                                                    isScrollControlled: true,
-                                                    backgroundColor:
-                                                        Colors.transparent,
-                                                    enableDrag: false,
-                                                    context: context,
-                                                    builder: (context) {
-                                                      return GestureDetector(
+                                                  onPressed: () async {
+                                                    await showModalBottomSheet(
+                                                      isScrollControlled: true,
+                                                      backgroundColor:
+                                                          Colors.transparent,
+                                                      enableDrag: false,
+                                                      context: context,
+                                                      builder:
+                                                          (final context) =>
+                                                              GestureDetector(
                                                         onTap: () {
                                                           FocusScope.of(context)
                                                               .unfocus();
@@ -379,168 +365,162 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                               .viewInsetsOf(
                                                                   context),
                                                           child: const SizedBox(
-                                                            height: 70.0,
+                                                            height: 70,
                                                             child:
                                                                 EditEntryWidget(),
                                                           ),
                                                         ),
-                                                      );
-                                                    },
-                                                  ).then((value) =>
-                                                      safeSetState(() {}));
-                                                },
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                        8.0, 0.0, 8.0, 0.0),
-                                                child: FlutterFlowIconButton(
-                                                  borderRadius: 8.0,
-                                                  buttonSize: 44.0,
-                                                  fillColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .accent1,
-                                                  icon: Icon(
-                                                    Icons.delete_outline,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .error,
-                                                    size: 24.0,
-                                                  ),
-                                                  onPressed: () {
-                                                    debugPrint(
-                                                        'IconButton pressed ...');
+                                                      ),
+                                                    ).then((final value) =>
+                                                        safeSetState(() {}));
                                                   },
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(8, 0, 8, 0),
+                                                  child: FlutterFlowIconButton(
+                                                    borderRadius: 8,
+                                                    buttonSize: 44,
+                                                    fillColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .accent1,
+                                                    icon: Icon(
+                                                      Icons.delete_outline,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .error,
+                                                      size: 24,
+                                                    ),
+                                                    onPressed: () {
+                                                      debugPrint(
+                                                          "IconButton pressed ...");
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              16.0, 12.0, 16.0, 0.0),
-                                      child: Divider(
-                                        height: 1.0,
-                                        thickness: 1.0,
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(16, 12, 16, 0),
+                                        child: Divider(
+                                          height: 1,
+                                          thickness: 1,
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                          Padding(
-                            padding: const EdgeInsetsDirectional.fromSTEB(
-                                0.0, 0.0, 0.0, 12.0),
-                            child: Container(
-                              decoration: BoxDecoration(
-                                color: FlutterFlowTheme.of(context)
-                                    .secondaryBackground,
-                                boxShadow: const [
-                                  BoxShadow(
-                                    blurRadius: 4.0,
-                                    color: Color(0x10000000),
-                                    offset: Offset(
-                                      0.0,
-                                      2.0,
-                                    ),
-                                  )
-                                ],
-                                borderRadius: BorderRadius.circular(12.0),
-                              ),
-                              child: Padding(
-                                padding: const EdgeInsets.all(16.0),
-                                child: Column(
-                                  mainAxisSize: MainAxisSize.max,
-                                  children: [
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              16.0, 16.0, 16.0, 0.0),
-                                      child: Row(
-                                        mainAxisSize: MainAxisSize.max,
-                                        mainAxisAlignment:
-                                            MainAxisAlignment.spaceBetween,
-                                        children: [
-                                          Column(
-                                            mainAxisSize: MainAxisSize.max,
-                                            crossAxisAlignment:
-                                                CrossAxisAlignment.start,
-                                            children: [
-                                              Text(
-                                                'Apr 3, 2023',
-                                                style:
-                                                    FlutterFlowTheme.of(context)
-                                                        .titleMedium
-                                                        .override(
-                                                          fontFamily:
-                                                              'Readex Pro',
-                                                          letterSpacing: 0.0,
-                                                          fontWeight:
-                                                              FontWeight.w600,
-                                                        ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                        0.0, 4.0, 0.0, 0.0),
-                                                child: Text(
-                                                  'No entry',
+                            Padding(
+                              padding: const EdgeInsetsDirectional.fromSTEB(
+                                  0, 0, 0, 12),
+                              child: DecoratedBox(
+                                decoration: BoxDecoration(
+                                  color: FlutterFlowTheme.of(context)
+                                      .secondaryBackground,
+                                  boxShadow: const [
+                                    BoxShadow(
+                                      blurRadius: 4,
+                                      color: Color(0x10000000),
+                                      offset: Offset(
+                                        0,
+                                        2,
+                                      ),
+                                    )
+                                  ],
+                                  borderRadius: BorderRadius.circular(12),
+                                ),
+                                child: Padding(
+                                  padding: const EdgeInsets.all(16),
+                                  child: Column(
+                                    children: [
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(16, 16, 16, 0),
+                                        child: Row(
+                                          mainAxisAlignment:
+                                              MainAxisAlignment.spaceBetween,
+                                          children: [
+                                            Column(
+                                              crossAxisAlignment:
+                                                  CrossAxisAlignment.start,
+                                              children: [
+                                                Text(
+                                                  "Apr 3, 2023",
                                                   style: FlutterFlowTheme.of(
                                                           context)
-                                                      .bodyMedium
+                                                      .titleMedium
                                                       .override(
-                                                        fontFamily: 'Inter',
-                                                        color:
-                                                            FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
-                                                        letterSpacing: 0.0,
+                                                        fontFamily:
+                                                            "Readex Pro",
+                                                        letterSpacing: 0,
                                                         fontWeight:
-                                                            FontWeight.normal,
+                                                            FontWeight.w600,
                                                       ),
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                          Row(
-                                            mainAxisSize: MainAxisSize.max,
-                                            children: [
-                                              Align(
-                                                alignment:
-                                                    const AlignmentDirectional(
-                                                        0.0, 0.0),
-                                                child: FlutterFlowIconButton(
-                                                  borderRadius: 8.0,
-                                                  buttonSize: 44.0,
-                                                  fillColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .accent1,
-                                                  icon: Icon(
-                                                    Icons.edit_outlined,
-                                                    color: FlutterFlowTheme.of(
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(0, 4, 0, 0),
+                                                  child: Text(
+                                                    "No entry",
+                                                    style: FlutterFlowTheme.of(
                                                             context)
-                                                        .primary,
-                                                    size: 24.0,
+                                                        .bodyMedium
+                                                        .override(
+                                                          fontFamily: "Inter",
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .secondaryText,
+                                                          letterSpacing: 0,
+                                                          fontWeight:
+                                                              FontWeight.normal,
+                                                        ),
                                                   ),
-                                                  onPressed: () async {
-                                                    await showModalBottomSheet(
-                                                      isScrollControlled: true,
-                                                      backgroundColor:
-                                                          Colors.transparent,
-                                                      enableDrag: false,
-                                                      context: context,
-                                                      builder: (context) {
-                                                        return GestureDetector(
+                                                ),
+                                              ],
+                                            ),
+                                            Row(
+                                              children: [
+                                                Align(
+                                                  alignment:
+                                                      AlignmentDirectional
+                                                          .center,
+                                                  child: FlutterFlowIconButton(
+                                                    borderRadius: 8,
+                                                    buttonSize: 44,
+                                                    fillColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .accent1,
+                                                    icon: Icon(
+                                                      Icons.edit_outlined,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .primary,
+                                                      size: 24,
+                                                    ),
+                                                    onPressed: () async {
+                                                      await showModalBottomSheet(
+                                                        isScrollControlled:
+                                                            true,
+                                                        backgroundColor:
+                                                            Colors.transparent,
+                                                        enableDrag: false,
+                                                        context: context,
+                                                        builder:
+                                                            (final context) =>
+                                                                GestureDetector(
                                                           onTap: () {
                                                             FocusScope.of(
                                                                     context)
@@ -556,74 +536,78 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                                     context),
                                                             child:
                                                                 const SizedBox(
-                                                              height: 70.0,
+                                                              height: 70,
                                                               child:
                                                                   EditEntryWidget(),
                                                             ),
                                                           ),
-                                                        );
-                                                      },
-                                                    ).then((value) =>
-                                                        safeSetState(() {}));
-                                                  },
-                                                ),
-                                              ),
-                                              Padding(
-                                                padding:
-                                                    const EdgeInsetsDirectional
-                                                        .fromSTEB(
-                                                        8.0, 0.0, 8.0, 0.0),
-                                                child: FlutterFlowIconButton(
-                                                  borderRadius: 8.0,
-                                                  buttonSize: 44.0,
-                                                  fillColor:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .accent1,
-                                                  icon: Icon(
-                                                    Icons.delete_outline,
-                                                    color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .error,
-                                                    size: 24.0,
+                                                        ),
+                                                      ).then((final value) =>
+                                                          safeSetState(() {}));
+                                                    },
                                                   ),
-                                                  onPressed: () {
-                                                    debugPrint(
-                                                        'IconButton pressed ...');
-                                                  },
                                                 ),
-                                              ),
-                                            ],
-                                          ),
-                                        ],
+                                                Padding(
+                                                  padding:
+                                                      const EdgeInsetsDirectional
+                                                          .fromSTEB(8, 0, 8, 0),
+                                                  child: FlutterFlowIconButton(
+                                                    borderRadius: 8,
+                                                    buttonSize: 44,
+                                                    fillColor:
+                                                        FlutterFlowTheme.of(
+                                                                context)
+                                                            .accent1,
+                                                    icon: Icon(
+                                                      Icons.delete_outline,
+                                                      color:
+                                                          FlutterFlowTheme.of(
+                                                                  context)
+                                                              .error,
+                                                      size: 24,
+                                                    ),
+                                                    onPressed: () {
+                                                      debugPrint(
+                                                          "IconButton pressed ...");
+                                                    },
+                                                  ),
+                                                ),
+                                              ],
+                                            ),
+                                          ],
+                                        ),
                                       ),
-                                    ),
-                                    Padding(
-                                      padding:
-                                          const EdgeInsetsDirectional.fromSTEB(
-                                              16.0, 12.0, 16.0, 0.0),
-                                      child: Divider(
-                                        height: 1.0,
-                                        thickness: 1.0,
-                                        color: FlutterFlowTheme.of(context)
-                                            .alternate,
+                                      Padding(
+                                        padding: const EdgeInsetsDirectional
+                                            .fromSTEB(16, 12, 16, 0),
+                                        child: Divider(
+                                          height: 1,
+                                          thickness: 1,
+                                          color: FlutterFlowTheme.of(context)
+                                              .alternate,
+                                        ),
                                       ),
-                                    ),
-                                  ],
+                                    ],
+                                  ),
                                 ),
                               ),
                             ),
-                          ),
-                        ],
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
-              ),
-            ],
+              ],
+            ),
           ),
         ),
-      ),
-    );
+      );
+
+  @override
+  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+        "scaffoldKey", scaffoldKey));
   }
 }

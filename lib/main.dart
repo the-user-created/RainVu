@@ -1,19 +1,18 @@
-import 'package:provider/provider.dart';
-import 'package:flutter/material.dart';
+import "dart:async";
 
-import 'package:flutter_localizations/flutter_localizations.dart';
-import 'package:flutter_web_plugins/url_strategy.dart';
-import 'auth/firebase_auth/firebase_user_provider.dart';
-import 'auth/firebase_auth/auth_util.dart';
-
-import 'backend/firebase/firebase_config.dart';
-import '/flutter_flow/flutter_flow_theme.dart';
-import 'flutter_flow/flutter_flow_util.dart';
-import 'flutter_flow/internationalization.dart';
-import 'package:flutter/foundation.dart';
-import 'package:firebase_crashlytics/firebase_crashlytics.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'index.dart';
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
+import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
+import "package:flutter_localizations/flutter_localizations.dart";
+import "package:flutter_web_plugins/url_strategy.dart";
+import "package:provider/provider.dart";
+import "package:rain_wise/auth/firebase_auth/auth_util.dart";
+import "package:rain_wise/auth/firebase_auth/firebase_user_provider.dart";
+import "package:rain_wise/backend/firebase/firebase_config.dart";
+import "package:rain_wise/backend/schema/users_record.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
+import "package:rain_wise/flutter_flow/internationalization.dart";
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
@@ -31,10 +30,12 @@ void main() async {
     FlutterError.onError = FirebaseCrashlytics.instance.recordFlutterFatalError;
   }
 
-  runApp(ChangeNotifierProvider(
-    create: (context) => appState,
-    child: const MyApp(),
-  ));
+  runApp(
+    ChangeNotifierProvider(
+      create: (final context) => appState,
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatefulWidget {
@@ -42,37 +43,21 @@ class MyApp extends StatefulWidget {
 
   // This widget is the root of your application.
   @override
-  State<MyApp> createState() => _MyAppState();
-
-  static _MyAppState of(BuildContext context) =>
-      context.findAncestorStateOfType<_MyAppState>()!;
+  State<MyApp> createState() => MyAppState();
 }
 
-class _MyAppState extends State<MyApp> {
+class MyAppState extends State<MyApp> {
   Locale? _locale;
 
-  ThemeMode _themeMode = FlutterFlowTheme.themeMode;
+  final ThemeMode _themeMode = FlutterFlowTheme.themeMode;
 
   late AppStateNotifier _appStateNotifier;
   late GoRouter _router;
 
-  String getRoute([RouteMatch? routeMatch]) {
-    final RouteMatch lastMatch =
-        routeMatch ?? _router.routerDelegate.currentConfiguration.last;
-    final RouteMatchList matchList = lastMatch is ImperativeRouteMatch
-        ? lastMatch.matches
-        : _router.routerDelegate.currentConfiguration;
-    return matchList.uri.toString();
-  }
-
-  List<String> getRouteStack() =>
-      _router.routerDelegate.currentConfiguration.matches
-          .map((e) => getRoute(e as RouteMatch?))
-          .toList();
-
   late Stream<BaseAuthUser> userStream;
 
-  final authUserSub = authenticatedUserStream.listen((_) {});
+  final StreamSubscription<UsersRecord?> authUserSub =
+      authenticatedUserStream.listen((final _) {});
 
   @override
   void initState() {
@@ -81,10 +66,10 @@ class _MyAppState extends State<MyApp> {
     _appStateNotifier = AppStateNotifier.instance;
     _router = createRouter(_appStateNotifier);
     userStream = rainWiseFirebaseUserStream()
-      ..listen((user) {
+      ..listen((final user) {
         _appStateNotifier.update(user);
       });
-    jwtTokenStream.listen((_) {});
+    jwtTokenStream.listen((final _) {});
     Future.delayed(
       const Duration(milliseconds: 1000),
       () => _appStateNotifier.stopShowingSplashImage(),
@@ -92,129 +77,47 @@ class _MyAppState extends State<MyApp> {
   }
 
   @override
-  void dispose() {
-    authUserSub.cancel();
+  Future<void> dispose() async {
+    await authUserSub.cancel();
 
     super.dispose();
   }
 
-  void setLocale(String language) {
-    safeSetState(() => _locale = createLocale(language));
-  }
-
-  void setThemeMode(ThemeMode mode) => safeSetState(() {
-        _themeMode = mode;
-        FlutterFlowTheme.saveThemeMode(mode);
-      });
-
   @override
-  Widget build(BuildContext context) {
-    return MaterialApp.router(
-      debugShowCheckedModeBanner: false,
-      title: 'RainWise',
-      localizationsDelegates: const [
-        FFLocalizationsDelegate(),
-        GlobalMaterialLocalizations.delegate,
-        GlobalWidgetsLocalizations.delegate,
-        GlobalCupertinoLocalizations.delegate,
-        FallbackMaterialLocalizationDelegate(),
-        FallbackCupertinoLocalizationDelegate(),
-      ],
-      locale: _locale,
-      supportedLocales: const [
-        Locale('en'),
-      ],
-      theme: ThemeData(
-        brightness: Brightness.light,
-        useMaterial3: false,
-      ),
-      darkTheme: ThemeData(
-        brightness: Brightness.dark,
-        useMaterial3: false,
-      ),
-      themeMode: _themeMode,
-      routerConfig: _router,
-    );
-  }
-}
-
-class NavBarPage extends StatefulWidget {
-  const NavBarPage({super.key, this.initialPage, this.page});
-
-  final String? initialPage;
-  final Widget? page;
-
-  @override
-  _NavBarPageState createState() => _NavBarPageState();
-}
-
-/// This is the private State class that goes with NavBarPage.
-class _NavBarPageState extends State<NavBarPage> {
-  String _currentPageName = 'home';
-  late Widget? _currentPage;
-
-  @override
-  void initState() {
-    super.initState();
-    _currentPageName = widget.initialPage ?? _currentPageName;
-    _currentPage = widget.page;
-  }
-
-  @override
-  Widget build(BuildContext context) {
-    final tabs = {
-      'home': const HomeWidget(),
-      'insights': const InsightsWidget(),
-      'map': const MapWidget(),
-      'settings': const SettingsWidget(),
-    };
-    final currentIndex = tabs.keys.toList().indexOf(_currentPageName);
-
-    return Scaffold(
-      body: _currentPage ?? tabs[_currentPageName],
-      bottomNavigationBar: BottomNavigationBar(
-        currentIndex: currentIndex,
-        onTap: (i) => safeSetState(() {
-          _currentPage = null;
-          _currentPageName = tabs.keys.toList()[i];
-        }),
-        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-        selectedItemColor: FlutterFlowTheme.of(context).secondary,
-        unselectedItemColor: FlutterFlowTheme.of(context).secondaryText,
-        showSelectedLabels: false,
-        showUnselectedLabels: false,
-        type: BottomNavigationBarType.fixed,
-        items: const <BottomNavigationBarItem>[
-          BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.house,
-            ),
-            label: '',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.chartLine,
-            ),
-            label: 'Home',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: FaIcon(
-              FontAwesomeIcons.mapLocationDot,
-            ),
-            label: '',
-            tooltip: '',
-          ),
-          BottomNavigationBarItem(
-            icon: Icon(
-              Icons.settings_rounded,
-            ),
-            label: 'Settings',
-            tooltip: '',
-          )
+  Widget build(final BuildContext context) => MaterialApp.router(
+        debugShowCheckedModeBanner: false,
+        title: "RainWise",
+        localizationsDelegates: const [
+          FFLocalizationsDelegate(),
+          GlobalMaterialLocalizations.delegate,
+          GlobalWidgetsLocalizations.delegate,
+          GlobalCupertinoLocalizations.delegate,
+          FallbackMaterialLocalizationDelegate(),
+          FallbackCupertinoLocalizationDelegate(),
         ],
-      ),
-    );
+        locale: _locale,
+        supportedLocales: const [
+          Locale("en"),
+        ],
+        theme: ThemeData(
+          brightness: Brightness.light,
+          useMaterial3: false,
+        ),
+        darkTheme: ThemeData(
+          brightness: Brightness.dark,
+          useMaterial3: false,
+        ),
+        themeMode: _themeMode,
+        routerConfig: _router,
+      );
+
+  @override
+  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<StreamSubscription<UsersRecord?>>(
+          "authUserSub", authUserSub))
+      ..add(
+          DiagnosticsProperty<Stream<BaseAuthUser>>("userStream", userStream));
   }
 }

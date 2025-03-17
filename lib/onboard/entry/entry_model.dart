@@ -1,7 +1,7 @@
-import '/flutter_flow/flutter_flow_util.dart';
-import '/index.dart';
-import 'entry_widget.dart' show EntryWidget;
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
+import "package:rain_wise/index.dart";
+import "package:rain_wise/onboard/entry/entry_widget.dart" show EntryWidget;
 
 class EntryModel extends FlutterFlowModel<EntryWidget> {
   ///  State fields for stateful widgets in this page.
@@ -44,7 +44,7 @@ class EntryModel extends FlutterFlowModel<EntryWidget> {
       passwordConfirmTextControllerValidator;
 
   @override
-  void initState(BuildContext context) {
+  void initState(final BuildContext context) {
     passwordVisibility = false;
     passwordCreateVisibility = false;
     passwordConfirmVisibility = false;

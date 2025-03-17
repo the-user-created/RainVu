@@ -1,38 +1,38 @@
-import 'dart:convert';
+import "dart:convert";
 
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
 
-import '/backend/backend.dart';
+import "package:rain_wise/backend/backend.dart";
 
-import '/backend/schema/enums/enums.dart';
+import "package:rain_wise/backend/schema/enums/enums.dart";
 
-import '../../flutter_flow/place.dart';
-import '../../flutter_flow/uploaded_file.dart';
+import "package:rain_wise/flutter_flow/place.dart";
+import "package:rain_wise/flutter_flow/uploaded_file.dart";
 
 /// SERIALIZATION HELPERS
 
-String dateTimeRangeToString(DateTimeRange dateTimeRange) {
+String dateTimeRangeToString(final DateTimeRange dateTimeRange) {
   final startStr = dateTimeRange.start.millisecondsSinceEpoch.toString();
   final endStr = dateTimeRange.end.millisecondsSinceEpoch.toString();
-  return '$startStr|$endStr';
+  return "$startStr|$endStr";
 }
 
-String placeToString(FFPlace place) => jsonEncode({
-      'latLng': place.latLng.serialize(),
-      'name': place.name,
-      'address': place.address,
-      'city': place.city,
-      'state': place.state,
-      'country': place.country,
-      'zipCode': place.zipCode,
+String placeToString(final FFPlace place) => jsonEncode({
+      "latLng": place.latLng.serialize(),
+      "name": place.name,
+      "address": place.address,
+      "city": place.city,
+      "state": place.state,
+      "country": place.country,
+      "zipCode": place.zipCode,
     });
 
-String uploadedFileToString(FFUploadedFile uploadedFile) =>
+String uploadedFileToString(final FFUploadedFile uploadedFile) =>
     uploadedFile.serialize();
 
-const _kDocIdDelimeter = '|';
+const _kDocIdDelimeter = "|";
 
-String _serializeDocumentReference(DocumentReference ref) {
+String _serializeDocumentReference(final DocumentReference ref) {
   final docIds = <String>[];
   DocumentReference? currentRef = ref;
   while (currentRef != null) {
@@ -45,19 +45,19 @@ String _serializeDocumentReference(DocumentReference ref) {
 }
 
 String? serializeParam(
-  dynamic param,
-  ParamType paramType, {
-  bool isList = false,
+  final param,
+  final ParamType paramType, {
+  final bool isList = false,
 }) {
   try {
     if (param == null) {
       return null;
     }
     if (isList) {
-      final serializedValues = (param as Iterable)
-          .map((p) => serializeParam(p, paramType, isList: false))
-          .where((p) => p != null)
-          .map((p) => p!)
+      final List<String> serializedValues = (param as Iterable)
+          .map((final p) => serializeParam(p, paramType))
+          .where((final p) => p != null)
+          .map((final p) => p!)
           .toList();
       return json.encode(serializedValues);
     }
@@ -70,7 +70,7 @@ String? serializeParam(
       case ParamType.String:
         data = param;
       case ParamType.bool:
-        data = param ? 'true' : 'false';
+        data = param ? "true" : "false";
       case ParamType.DateTime:
         data = (param as DateTime).millisecondsSinceEpoch.toString();
       case ParamType.DateTimeRange:
@@ -88,18 +88,16 @@ String? serializeParam(
       case ParamType.DocumentReference:
         data = _serializeDocumentReference(param as DocumentReference);
       case ParamType.Document:
-        final reference = (param as FirestoreRecord).reference;
+        final DocumentReference<Object?> reference =
+            (param as FirestoreRecord).reference;
         data = _serializeDocumentReference(reference);
 
       case ParamType.Enum:
         data = (param is Enum) ? param.serialize() : null;
-
-      default:
-        data = null;
     }
     return data;
   } catch (e) {
-    debugPrint('Error serializing parameter: $e');
+    debugPrint("Error serializing parameter: $e");
     return null;
   }
 }
@@ -108,8 +106,8 @@ String? serializeParam(
 
 /// DESERIALIZATION HELPERS
 
-DateTimeRange? dateTimeRangeFromString(String dateTimeRangeStr) {
-  final pieces = dateTimeRangeStr.split('|');
+DateTimeRange? dateTimeRangeFromString(final String dateTimeRangeStr) {
+  final List<String> pieces = dateTimeRangeStr.split("|");
   if (pieces.length != 2) {
     return null;
   }
@@ -119,8 +117,8 @@ DateTimeRange? dateTimeRangeFromString(String dateTimeRangeStr) {
   );
 }
 
-LatLng? latLngFromString(String? latLngStr) {
-  final pieces = latLngStr?.split(',');
+LatLng? latLngFromString(final String? latLngStr) {
+  final List<String>? pieces = latLngStr?.split(",");
   if (pieces == null || pieces.length != 2) {
     return null;
   }
@@ -130,41 +128,41 @@ LatLng? latLngFromString(String? latLngStr) {
   );
 }
 
-FFPlace placeFromString(String placeStr) {
+FFPlace placeFromString(final String placeStr) {
   final serializedData = jsonDecode(placeStr) as Map<String, dynamic>;
-  final data = {
-    'latLng': serializedData.containsKey('latLng')
-        ? latLngFromString(serializedData['latLng'] as String)
-        : const LatLng(0.0, 0.0),
-    'name': serializedData['name'] ?? '',
-    'address': serializedData['address'] ?? '',
-    'city': serializedData['city'] ?? '',
-    'state': serializedData['state'] ?? '',
-    'country': serializedData['country'] ?? '',
-    'zipCode': serializedData['zipCode'] ?? '',
+  final Map<String, dynamic> data = {
+    "latLng": serializedData.containsKey("latLng")
+        ? latLngFromString(serializedData["latLng"] as String)
+        : const LatLng(0, 0),
+    "name": serializedData["name"] ?? "",
+    "address": serializedData["address"] ?? "",
+    "city": serializedData["city"] ?? "",
+    "state": serializedData["state"] ?? "",
+    "country": serializedData["country"] ?? "",
+    "zipCode": serializedData["zipCode"] ?? "",
   };
   return FFPlace(
-    latLng: data['latLng'] as LatLng,
-    name: data['name'] as String,
-    address: data['address'] as String,
-    city: data['city'] as String,
-    state: data['state'] as String,
-    country: data['country'] as String,
-    zipCode: data['zipCode'] as String,
+    latLng: data["latLng"] as LatLng,
+    name: data["name"] as String,
+    address: data["address"] as String,
+    city: data["city"] as String,
+    state: data["state"] as String,
+    country: data["country"] as String,
+    zipCode: data["zipCode"] as String,
   );
 }
 
-FFUploadedFile uploadedFileFromString(String uploadedFileStr) =>
+FFUploadedFile uploadedFileFromString(final String uploadedFileStr) =>
     FFUploadedFile.deserialize(uploadedFileStr);
 
 DocumentReference _deserializeDocumentReference(
-  String refStr,
-  List<String> collectionNamePath,
+  final String refStr,
+  final List<String> collectionNamePath,
 ) {
-  var path = '';
-  final docIds = refStr.split(_kDocIdDelimeter);
+  var path = "";
+  final List<String> docIds = refStr.split(_kDocIdDelimeter);
   for (int i = 0; i < docIds.length && i < collectionNamePath.length; i++) {
-    path += '/${collectionNamePath[i]}/${docIds[i]}';
+    path += "/${collectionNamePath[i]}/${docIds[i]}";
   }
   return FirebaseFirestore.instance.doc(path);
 }
@@ -187,10 +185,10 @@ enum ParamType {
 }
 
 dynamic deserializeParam<T>(
-  String? param,
-  ParamType paramType,
-  bool isList, {
-  List<String>? collectionNamePath,
+  final String? param,
+  final ParamType paramType,
+  final bool isList, {
+  final List<String>? collectionNamePath,
 }) {
   try {
     if (param == null) {
@@ -203,11 +201,11 @@ dynamic deserializeParam<T>(
       }
       return paramValues
           .whereType<String>()
-          .map((p) => p)
-          .map((p) => deserializeParam<T>(p, paramType, false,
+          .map((final p) => p)
+          .map((final p) => deserializeParam<T>(p, paramType, false,
               collectionNamePath: collectionNamePath))
-          .where((p) => p != null)
-          .map((p) => p! as T)
+          .where((final p) => p != null)
+          .map((final p) => p! as T)
           .toList();
     }
     switch (paramType) {
@@ -218,9 +216,9 @@ dynamic deserializeParam<T>(
       case ParamType.String:
         return param;
       case ParamType.bool:
-        return param == 'true';
+        return param == "true";
       case ParamType.DateTime:
-        final milliseconds = int.tryParse(param);
+        final int? milliseconds = int.tryParse(param);
         return milliseconds != null
             ? DateTime.fromMillisecondsSinceEpoch(milliseconds)
             : null;
@@ -246,36 +244,35 @@ dynamic deserializeParam<T>(
         return null;
     }
   } catch (e) {
-    debugPrint('Error deserializing parameter: $e');
+    debugPrint("Error deserializing parameter: $e");
     return null;
   }
 }
 
 Future<dynamic> Function(String) getDoc(
-  List<String> collectionNamePath,
-  RecordBuilder recordBuilder,
-) {
-  return (String ids) => _deserializeDocumentReference(ids, collectionNamePath)
-      .get()
-      .then((s) => recordBuilder(s));
-}
+  final List<String> collectionNamePath,
+  final RecordBuilder recordBuilder,
+) =>
+    (final String ids) => _deserializeDocumentReference(ids, collectionNamePath)
+        .get()
+        .then(recordBuilder);
 
 Future<List<T>> Function(String) getDocList<T>(
-  List<String> collectionNamePath,
-  RecordBuilder<T> recordBuilder,
-) {
-  return (String idsList) {
-    List<String> docIds = [];
-    try {
-      final ids = json.decode(idsList) as Iterable;
-      docIds = ids.whereType<String>().map((d) => d).toList();
-    } catch (_) {}
-    return Future.wait(
-      docIds.map(
-        (ids) => _deserializeDocumentReference(ids, collectionNamePath)
-            .get()
-            .then((s) => recordBuilder(s)),
-      ),
-    ).then((docs) => docs.where((d) => d != null).map((d) => d!).toList());
-  };
-}
+  final List<String> collectionNamePath,
+  final RecordBuilder<T> recordBuilder,
+) =>
+    (final String idsList) {
+      List<String> docIds = [];
+      try {
+        final ids = json.decode(idsList) as Iterable;
+        docIds = ids.whereType<String>().map((final d) => d).toList();
+      } catch (_) {}
+      return Future.wait(
+        docIds.map(
+          (final ids) => _deserializeDocumentReference(ids, collectionNamePath)
+              .get()
+              .then(recordBuilder),
+        ),
+      ).then((final docs) =>
+          docs.where((final d) => d != null).map((final d) => d!).toList());
+    };

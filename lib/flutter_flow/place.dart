@@ -1,14 +1,14 @@
-import 'lat_lng.dart';
+import "package:rain_wise/flutter_flow/lat_lng.dart";
 
 class FFPlace {
   const FFPlace({
-    this.latLng = const LatLng(0.0, 0.0),
-    this.name = '',
-    this.address = '',
-    this.city = '',
-    this.state = '',
-    this.country = '',
-    this.zipCode = '',
+    this.latLng = const LatLng(0, 0),
+    this.name = "",
+    this.address = "",
+    this.city = "",
+    this.state = "",
+    this.country = "",
+    this.zipCode = "",
   });
 
   final LatLng latLng;
@@ -20,7 +20,7 @@ class FFPlace {
   final String zipCode;
 
   @override
-  String toString() => '''FFPlace(
+  String toString() => """FFPlace(
         latLng: $latLng,
         name: $name,
         address: $address,
@@ -28,13 +28,13 @@ class FFPlace {
         state: $state,
         country: $country,
         zipCode: $zipCode,
-      )''';
+      )""";
 
   @override
   int get hashCode => latLng.hashCode;
 
   @override
-  bool operator ==(other) =>
+  bool operator ==(final Object other) =>
       other is FFPlace &&
       latLng == other.latLng &&
       name == other.name &&

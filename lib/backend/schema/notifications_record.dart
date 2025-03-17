@@ -1,11 +1,9 @@
-import 'dart:async';
+import "dart:async";
 
-import 'package:collection/collection.dart';
-
-import '/backend/schema/util/firestore_util.dart';
-
-import 'index.dart';
-import '/flutter_flow/flutter_flow_util.dart';
+import "package:collection/collection.dart";
+import "package:rain_wise/backend/schema/index.dart";
+import "package:rain_wise/backend/schema/util/firestore_util.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 
 class NotificationsRecord extends FirestoreRecord {
   NotificationsRecord._(
@@ -53,66 +51,69 @@ class NotificationsRecord extends FirestoreRecord {
   DocumentReference get parentReference => reference.parent.parent!;
 
   void _initializeFields() {
-    _daily = snapshotData['daily'] as bool?;
-    _dailyTime = snapshotData['dailyTime'] as DateTime?;
-    _weeklySummary = snapshotData['weeklySummary'] as bool?;
-    _severeWeather = snapshotData['severeWeather'] as bool?;
-    _appUpdates = snapshotData['appUpdates'] as bool?;
+    _daily = snapshotData["daily"] as bool?;
+    _dailyTime = snapshotData["dailyTime"] as DateTime?;
+    _weeklySummary = snapshotData["weeklySummary"] as bool?;
+    _severeWeather = snapshotData["severeWeather"] as bool?;
+    _appUpdates = snapshotData["appUpdates"] as bool?;
   }
 
-  static Query<Map<String, dynamic>> collection([DocumentReference? parent]) =>
+  static Query<Map<String, dynamic>> collection(
+          [final DocumentReference? parent]) =>
       parent != null
-          ? parent.collection('notifications')
-          : FirebaseFirestore.instance.collectionGroup('notifications');
+          ? parent.collection("notifications")
+          : FirebaseFirestore.instance.collectionGroup("notifications");
 
-  static DocumentReference createDoc(DocumentReference parent, {String? id}) =>
-      parent.collection('notifications').doc(id);
+  static DocumentReference createDoc(final DocumentReference parent,
+          {final String? id}) =>
+      parent.collection("notifications").doc(id);
 
-  static Stream<NotificationsRecord> getDocument(DocumentReference ref) =>
-      ref.snapshots().map((s) => NotificationsRecord.fromSnapshot(s));
+  static Stream<NotificationsRecord> getDocument(final DocumentReference ref) =>
+      ref.snapshots().map(NotificationsRecord.fromSnapshot);
 
-  static Future<NotificationsRecord> getDocumentOnce(DocumentReference ref) =>
-      ref.get().then((s) => NotificationsRecord.fromSnapshot(s));
+  static Future<NotificationsRecord> getDocumentOnce(
+          final DocumentReference ref) =>
+      ref.get().then(NotificationsRecord.fromSnapshot);
 
-  static NotificationsRecord fromSnapshot(DocumentSnapshot snapshot) =>
+  static NotificationsRecord fromSnapshot(final DocumentSnapshot snapshot) =>
       NotificationsRecord._(
         snapshot.reference,
-        mapFromFirestore(snapshot.data() as Map<String, dynamic>),
+        mapFromFirestore(snapshot.data()! as Map<String, dynamic>),
       );
 
   static NotificationsRecord getDocumentFromData(
-    Map<String, dynamic> data,
-    DocumentReference reference,
+    final Map<String, dynamic> data,
+    final DocumentReference reference,
   ) =>
       NotificationsRecord._(reference, mapFromFirestore(data));
 
   @override
   String toString() =>
-      'NotificationsRecord(reference: ${reference.path}, data: $snapshotData)';
+      "NotificationsRecord(reference: ${reference.path}, data: $snapshotData)";
 
   @override
   int get hashCode => reference.path.hashCode;
 
   @override
-  bool operator ==(other) =>
+  bool operator ==(final Object other) =>
       other is NotificationsRecord &&
       reference.path.hashCode == other.reference.path.hashCode;
 }
 
 Map<String, dynamic> createNotificationsRecordData({
-  bool? daily,
-  DateTime? dailyTime,
-  bool? weeklySummary,
-  bool? severeWeather,
-  bool? appUpdates,
+  final bool? daily,
+  final DateTime? dailyTime,
+  final bool? weeklySummary,
+  final bool? severeWeather,
+  final bool? appUpdates,
 }) {
-  final firestoreData = mapToFirestore(
+  final Map<String, dynamic> firestoreData = mapToFirestore(
     <String, dynamic>{
-      'daily': daily,
-      'dailyTime': dailyTime,
-      'weeklySummary': weeklySummary,
-      'severeWeather': severeWeather,
-      'appUpdates': appUpdates,
+      "daily": daily,
+      "dailyTime": dailyTime,
+      "weeklySummary": weeklySummary,
+      "severeWeather": severeWeather,
+      "appUpdates": appUpdates,
     }.withoutNulls,
   );
 
@@ -124,16 +125,15 @@ class NotificationsRecordDocumentEquality
   const NotificationsRecordDocumentEquality();
 
   @override
-  bool equals(NotificationsRecord? e1, NotificationsRecord? e2) {
-    return e1?.daily == e2?.daily &&
-        e1?.dailyTime == e2?.dailyTime &&
-        e1?.weeklySummary == e2?.weeklySummary &&
-        e1?.severeWeather == e2?.severeWeather &&
-        e1?.appUpdates == e2?.appUpdates;
-  }
+  bool equals(final NotificationsRecord? e1, final NotificationsRecord? e2) =>
+      e1?.daily == e2?.daily &&
+      e1?.dailyTime == e2?.dailyTime &&
+      e1?.weeklySummary == e2?.weeklySummary &&
+      e1?.severeWeather == e2?.severeWeather &&
+      e1?.appUpdates == e2?.appUpdates;
 
   @override
-  int hash(NotificationsRecord? e) => const ListEquality().hash([
+  int hash(final NotificationsRecord? e) => const ListEquality().hash([
         e?.daily,
         e?.dailyTime,
         e?.weeklySummary,
@@ -142,5 +142,5 @@ class NotificationsRecordDocumentEquality
       ]);
 
   @override
-  bool isValidKey(Object? o) => o is NotificationsRecord;
+  bool isValidKey(final Object? o) => o is NotificationsRecord;
 }
