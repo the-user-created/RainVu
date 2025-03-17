@@ -21,7 +21,6 @@ class AppStateNotifier extends ChangeNotifier {
 
   static AppStateNotifier? _instance;
 
-  // WHY ignore? - This is a singleton class, so we need to use a static method
   // ignore: prefer_constructors_over_static_methods
   static AppStateNotifier get instance => _instance ??= AppStateNotifier._();
 
