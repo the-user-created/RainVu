@@ -75,7 +75,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                       size: 24.0,
                     ),
                     onPressed: () {
-                      print('IconButton pressed ...');
+                      debugPrint('IconButton pressed ...');
                     },
                   ),
                 ),

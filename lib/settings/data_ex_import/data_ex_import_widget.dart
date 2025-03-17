@@ -323,7 +323,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                             ),
                             FFButtonWidget(
                               onPressed: () {
-                                print('Button pressed ...');
+                                debugPrint('Button pressed ...');
                               },
                               text: 'Download File',
                               icon: Icon(
@@ -544,7 +544,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                             ),
                             FFButtonWidget(
                               onPressed: () {
-                                print('Button pressed ...');
+                                debugPrint('Button pressed ...');
                               },
                               text: 'Import Data',
                               icon: Icon(

@@ -481,7 +481,7 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                             ),
                             FFButtonWidget(
                               onPressed: () {
-                                print('Button pressed ...');
+                                debugPrint('Button pressed ...');
                               },
                               text: 'Cancel Subscription',
                               options: FFButtonOptions(

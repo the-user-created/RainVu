@@ -621,7 +621,7 @@ class _EntryWidgetState extends State<EntryWidget>
                                                             0.0, 16.0),
                                                     child: FFButtonWidget(
                                                       onPressed: () {
-                                                        print(
+                                                        debugPrint(
                                                             'Button pressed ...');
                                                       },
                                                       text: 'Forgot Password',
