@@ -1,7 +1,8 @@
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
-import 'comparative_analysis_widget.dart' show ComparativeAnalysisWidget;
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
+import "package:rain_wise/flutter_flow/form_field_controller.dart";
+import "package:rain_wise/insights/comparative_analysis/comparative_analysis_widget.dart"
+    show ComparativeAnalysisWidget;
 
 class ComparativeAnalysisModel
     extends FlutterFlowModel<ComparativeAnalysisWidget> {
@@ -13,11 +14,11 @@ class ComparativeAnalysisModel
   String? get choiceChipsValue =>
       choiceChipsValueController?.value?.firstOrNull;
 
-  set choiceChipsValue(String? val) =>
+  set choiceChipsValue(final String? val) =>
       choiceChipsValueController?.value = val != null ? [val] : [];
 
   @override
-  void initState(BuildContext context) {}
+  void initState(final BuildContext context) {}
 
   @override
   void dispose() {}

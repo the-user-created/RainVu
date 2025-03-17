@@ -1,9 +1,10 @@
-import 'form_field_controller.dart';
+import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
+import "package:flutter/scheduler.dart";
+import "package:font_awesome_flutter/font_awesome_flutter.dart";
 
-import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import '/flutter_flow/flutter_flow_util.dart';
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
+import "package:rain_wise/flutter_flow/form_field_controller.dart";
 
 class ChipData {
   const ChipData(this.label, [this.iconData]);
@@ -38,15 +39,15 @@ class ChipStyle {
 
 class FlutterFlowChoiceChips extends StatefulWidget {
   const FlutterFlowChoiceChips({
-    super.key,
     required this.options,
     required this.onChanged,
     required this.controller,
     required this.selectedChipStyle,
     required this.unselectedChipStyle,
     required this.chipSpacing,
-    this.rowSpacing = 0.0,
     required this.multiselect,
+    super.key,
+    this.rowSpacing = 0.0,
     this.initialized = true,
     this.alignment = WrapAlignment.start,
     this.disabledColor,
@@ -68,6 +69,28 @@ class FlutterFlowChoiceChips extends StatefulWidget {
 
   @override
   State<FlutterFlowChoiceChips> createState() => _FlutterFlowChoiceChipsState();
+
+  @override
+  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(IterableProperty<ChipData>("options", options))
+      ..add(ObjectFlagProperty<void Function(List<String>? p1)?>.has(
+          "onChanged", onChanged))
+      ..add(DiagnosticsProperty<FormFieldController<List<String>>>(
+          "controller", controller))
+      ..add(DiagnosticsProperty<ChipStyle>(
+          "selectedChipStyle", selectedChipStyle))
+      ..add(DiagnosticsProperty<ChipStyle>(
+          "unselectedChipStyle", unselectedChipStyle))
+      ..add(DoubleProperty("chipSpacing", chipSpacing))
+      ..add(DoubleProperty("rowSpacing", rowSpacing))
+      ..add(DiagnosticsProperty<bool>("multiselect", multiselect))
+      ..add(DiagnosticsProperty<bool>("initialized", initialized))
+      ..add(EnumProperty<WrapAlignment>("alignment", alignment))
+      ..add(ColorProperty("disabledColor", disabledColor))
+      ..add(DiagnosticsProperty<bool>("wrapped", wrapped));
+  }
 }
 
 class _FlutterFlowChoiceChipsState extends State<FlutterFlowChoiceChips> {
@@ -81,7 +104,7 @@ class _FlutterFlowChoiceChipsState extends State<FlutterFlowChoiceChips> {
     choiceChipValues = List.from(selectedValues);
     if (!widget.initialized && choiceChipValues.isNotEmpty) {
       SchedulerBinding.instance.addPostFrameCallback(
-        (_) {
+        (final _) {
           if (widget.onChanged != null) {
             widget.onChanged!(choiceChipValues);
           }
@@ -96,18 +119,18 @@ class _FlutterFlowChoiceChipsState extends State<FlutterFlowChoiceChips> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final children = widget.options.map<Widget>(
-      (option) {
-        final selected = selectedValues.contains(option.label);
-        final style =
+  Widget build(final BuildContext context) {
+    final List<Widget> children = widget.options.map<Widget>(
+      (final option) {
+        final bool selected = selectedValues.contains(option.label);
+        final ChipStyle style =
             selected ? widget.selectedChipStyle : widget.unselectedChipStyle;
         return Theme(
           data: Theme.of(context).copyWith(canvasColor: Colors.transparent),
           child: ChoiceChip(
             selected: selected,
             onSelected: widget.onChanged != null
-                ? (isSelected) {
+                ? (final isSelected) {
                     choiceChipValues = List.from(selectedValues);
                     if (isSelected) {
                       widget.multiselect
@@ -170,12 +193,19 @@ class _FlutterFlowChoiceChipsState extends State<FlutterFlowChoiceChips> {
         scrollDirection: Axis.horizontal,
         clipBehavior: Clip.none,
         child: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
           children: children.divide(
             SizedBox(width: widget.chipSpacing),
           ),
         ),
       );
     }
+  }
+
+  @override
+  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(IterableProperty<String>("choiceChipValues", choiceChipValues))
+      ..add(IterableProperty<String>("selectedValues", selectedValues));
   }
 }

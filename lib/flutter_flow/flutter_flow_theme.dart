@@ -1,11 +1,11 @@
 // ignore_for_file: overridden_fields, annotate_overrides
 
-import 'package:flutter/material.dart';
-import 'package:google_fonts/google_fonts.dart';
+import "package:flutter/material.dart";
+import "package:google_fonts/google_fonts.dart";
 
-import 'package:shared_preferences/shared_preferences.dart';
+import "package:shared_preferences/shared_preferences.dart";
 
-const kThemeModeKey = '__theme_mode__';
+const kThemeModeKey = "__theme_mode__";
 SharedPreferences? _prefs;
 
 abstract class FlutterFlowTheme {
@@ -13,7 +13,7 @@ abstract class FlutterFlowTheme {
       _prefs = await SharedPreferences.getInstance();
 
   static ThemeMode get themeMode {
-    final darkMode = _prefs?.getBool(kThemeModeKey);
+    final bool? darkMode = _prefs?.getBool(kThemeModeKey);
     return darkMode == null
         ? ThemeMode.system
         : darkMode
@@ -21,23 +21,23 @@ abstract class FlutterFlowTheme {
             : ThemeMode.light;
   }
 
-  static void saveThemeMode(ThemeMode mode) => mode == ThemeMode.system
-      ? _prefs?.remove(kThemeModeKey)
-      : _prefs?.setBool(kThemeModeKey, mode == ThemeMode.dark);
+  static Future<void> saveThemeMode(final ThemeMode mode) async =>
+      mode == ThemeMode.system
+          ? _prefs?.remove(kThemeModeKey)
+          : _prefs?.setBool(kThemeModeKey, mode == ThemeMode.dark);
 
-  static FlutterFlowTheme of(BuildContext context) {
-    return Theme.of(context).brightness == Brightness.dark
-        ? DarkModeTheme()
-        : LightModeTheme();
-  }
+  static FlutterFlowTheme of(final BuildContext context) =>
+      Theme.of(context).brightness == Brightness.dark
+          ? DarkModeTheme()
+          : LightModeTheme();
 
-  @Deprecated('Use primary instead')
+  @Deprecated("Use primary instead")
   Color get primaryColor => primary;
 
-  @Deprecated('Use secondary instead')
+  @Deprecated("Use secondary instead")
   Color get secondaryColor => secondary;
 
-  @Deprecated('Use tertiary instead')
+  @Deprecated("Use tertiary instead")
   Color get tertiaryColor => tertiary;
 
   late Color primary;
@@ -57,46 +57,46 @@ abstract class FlutterFlowTheme {
   late Color error;
   late Color info;
 
-  @Deprecated('Use displaySmallFamily instead')
+  @Deprecated("Use displaySmallFamily instead")
   String get title1Family => displaySmallFamily;
 
-  @Deprecated('Use displaySmall instead')
+  @Deprecated("Use displaySmall instead")
   TextStyle get title1 => typography.displaySmall;
 
-  @Deprecated('Use headlineMediumFamily instead')
+  @Deprecated("Use headlineMediumFamily instead")
   String get title2Family => typography.headlineMediumFamily;
 
-  @Deprecated('Use headlineMedium instead')
+  @Deprecated("Use headlineMedium instead")
   TextStyle get title2 => typography.headlineMedium;
 
-  @Deprecated('Use headlineSmallFamily instead')
+  @Deprecated("Use headlineSmallFamily instead")
   String get title3Family => typography.headlineSmallFamily;
 
-  @Deprecated('Use headlineSmall instead')
+  @Deprecated("Use headlineSmall instead")
   TextStyle get title3 => typography.headlineSmall;
 
-  @Deprecated('Use titleMediumFamily instead')
+  @Deprecated("Use titleMediumFamily instead")
   String get subtitle1Family => typography.titleMediumFamily;
 
-  @Deprecated('Use titleMedium instead')
+  @Deprecated("Use titleMedium instead")
   TextStyle get subtitle1 => typography.titleMedium;
 
-  @Deprecated('Use titleSmallFamily instead')
+  @Deprecated("Use titleSmallFamily instead")
   String get subtitle2Family => typography.titleSmallFamily;
 
-  @Deprecated('Use titleSmall instead')
+  @Deprecated("Use titleSmall instead")
   TextStyle get subtitle2 => typography.titleSmall;
 
-  @Deprecated('Use bodyMediumFamily instead')
+  @Deprecated("Use bodyMediumFamily instead")
   String get bodyText1Family => typography.bodyMediumFamily;
 
-  @Deprecated('Use bodyMedium instead')
+  @Deprecated("Use bodyMedium instead")
   TextStyle get bodyText1 => typography.bodyMedium;
 
-  @Deprecated('Use bodySmallFamily instead')
+  @Deprecated("Use bodySmallFamily instead")
   String get bodyText2Family => typography.bodySmallFamily;
 
-  @Deprecated('Use bodySmall instead')
+  @Deprecated("Use bodySmall instead")
   TextStyle get bodyText2 => typography.bodySmall;
 
   String get displayLargeFamily => typography.displayLargeFamily;
@@ -163,13 +163,13 @@ abstract class FlutterFlowTheme {
 }
 
 class LightModeTheme extends FlutterFlowTheme {
-  @Deprecated('Use primary instead')
+  @Deprecated("Use primary instead")
   Color get primaryColor => primary;
 
-  @Deprecated('Use secondary instead')
+  @Deprecated("Use secondary instead")
   Color get secondaryColor => secondary;
 
-  @Deprecated('Use tertiary instead')
+  @Deprecated("Use tertiary instead")
   Color get tertiaryColor => tertiary;
 
   late Color primary = const Color(0xFF6995A7);
@@ -257,150 +257,150 @@ class ThemeTypography extends Typography {
 
   final FlutterFlowTheme theme;
 
-  String get displayLargeFamily => 'Readex Pro';
+  String get displayLargeFamily => "Readex Pro";
 
   TextStyle get displayLarge => GoogleFonts.getFont(
-        'Readex Pro',
+        "Readex Pro",
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
-        fontSize: 64.0,
+        fontSize: 64,
       );
 
-  String get displayMediumFamily => 'Readex Pro';
+  String get displayMediumFamily => "Readex Pro";
 
   TextStyle get displayMedium => GoogleFonts.getFont(
-        'Readex Pro',
+        "Readex Pro",
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
-        fontSize: 44.0,
+        fontSize: 44,
       );
 
-  String get displaySmallFamily => 'Readex Pro';
+  String get displaySmallFamily => "Readex Pro";
 
   TextStyle get displaySmall => GoogleFonts.getFont(
-        'Readex Pro',
+        "Readex Pro",
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
-        fontSize: 36.0,
+        fontSize: 36,
       );
 
-  String get headlineLargeFamily => 'Readex Pro';
+  String get headlineLargeFamily => "Readex Pro";
 
   TextStyle get headlineLarge => GoogleFonts.getFont(
-        'Readex Pro',
+        "Readex Pro",
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
-        fontSize: 32.0,
+        fontSize: 32,
       );
 
-  String get headlineMediumFamily => 'Readex Pro';
+  String get headlineMediumFamily => "Readex Pro";
 
   TextStyle get headlineMedium => GoogleFonts.getFont(
-        'Readex Pro',
+        "Readex Pro",
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
-        fontSize: 28.0,
+        fontSize: 28,
       );
 
-  String get headlineSmallFamily => 'Readex Pro';
+  String get headlineSmallFamily => "Readex Pro";
 
   TextStyle get headlineSmall => GoogleFonts.getFont(
-        'Readex Pro',
+        "Readex Pro",
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
-        fontSize: 24.0,
+        fontSize: 24,
       );
 
-  String get titleLargeFamily => 'Readex Pro';
+  String get titleLargeFamily => "Readex Pro";
 
   TextStyle get titleLarge => GoogleFonts.getFont(
-        'Readex Pro',
+        "Readex Pro",
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
-        fontSize: 20.0,
+        fontSize: 20,
       );
 
-  String get titleMediumFamily => 'Readex Pro';
+  String get titleMediumFamily => "Readex Pro";
 
   TextStyle get titleMedium => GoogleFonts.getFont(
-        'Readex Pro',
+        "Readex Pro",
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
-        fontSize: 18.0,
+        fontSize: 18,
       );
 
-  String get titleSmallFamily => 'Readex Pro';
+  String get titleSmallFamily => "Readex Pro";
 
   TextStyle get titleSmall => GoogleFonts.getFont(
-        'Readex Pro',
+        "Readex Pro",
         color: theme.primaryText,
         fontWeight: FontWeight.w600,
-        fontSize: 16.0,
+        fontSize: 16,
       );
 
-  String get labelLargeFamily => 'Inter';
+  String get labelLargeFamily => "Inter";
 
   TextStyle get labelLarge => GoogleFonts.getFont(
-        'Inter',
+        "Inter",
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
-        fontSize: 16.0,
+        fontSize: 16,
       );
 
-  String get labelMediumFamily => 'Inter';
+  String get labelMediumFamily => "Inter";
 
   TextStyle get labelMedium => GoogleFonts.getFont(
-        'Inter',
+        "Inter",
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
-        fontSize: 14.0,
+        fontSize: 14,
       );
 
-  String get labelSmallFamily => 'Inter';
+  String get labelSmallFamily => "Inter";
 
   TextStyle get labelSmall => GoogleFonts.getFont(
-        'Inter',
+        "Inter",
         color: theme.secondaryText,
         fontWeight: FontWeight.normal,
-        fontSize: 12.0,
+        fontSize: 12,
       );
 
-  String get bodyLargeFamily => 'Inter';
+  String get bodyLargeFamily => "Inter";
 
   TextStyle get bodyLarge => GoogleFonts.getFont(
-        'Inter',
+        "Inter",
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
-        fontSize: 16.0,
+        fontSize: 16,
       );
 
-  String get bodyMediumFamily => 'Inter';
+  String get bodyMediumFamily => "Inter";
 
   TextStyle get bodyMedium => GoogleFonts.getFont(
-        'Inter',
+        "Inter",
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
-        fontSize: 14.0,
+        fontSize: 14,
       );
 
-  String get bodySmallFamily => 'Inter';
+  String get bodySmallFamily => "Inter";
 
   TextStyle get bodySmall => GoogleFonts.getFont(
-        'Inter',
+        "Inter",
         color: theme.primaryText,
         fontWeight: FontWeight.normal,
-        fontSize: 12.0,
+        fontSize: 12,
       );
 }
 
 class DarkModeTheme extends FlutterFlowTheme {
-  @Deprecated('Use primary instead')
+  @Deprecated("Use primary instead")
   Color get primaryColor => primary;
 
-  @Deprecated('Use secondary instead')
+  @Deprecated("Use secondary instead")
   Color get secondaryColor => secondary;
 
-  @Deprecated('Use tertiary instead')
+  @Deprecated("Use tertiary instead")
   Color get tertiaryColor => tertiary;
 
   late Color primary = const Color(0xFF6995A7);
@@ -423,16 +423,16 @@ class DarkModeTheme extends FlutterFlowTheme {
 
 extension TextStyleHelper on TextStyle {
   TextStyle override({
-    String? fontFamily,
-    Color? color,
-    double? fontSize,
-    FontWeight? fontWeight,
-    double? letterSpacing,
-    FontStyle? fontStyle,
-    bool useGoogleFonts = true,
-    TextDecoration? decoration,
-    double? lineHeight,
-    List<Shadow>? shadows,
+    final String? fontFamily,
+    final Color? color,
+    final double? fontSize,
+    final FontWeight? fontWeight,
+    final double? letterSpacing,
+    final FontStyle? fontStyle,
+    final bool useGoogleFonts = true,
+    final TextDecoration? decoration,
+    final double? lineHeight,
+    final List<Shadow>? shadows,
   }) =>
       useGoogleFonts
           ? GoogleFonts.getFont(

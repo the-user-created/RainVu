@@ -1,10 +1,10 @@
-import '/flutter_flow/flutter_flow_util.dart';
-import 'help_widget.dart' show HelpWidget;
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
+import "package:rain_wise/settings/help/help_widget.dart" show HelpWidget;
 
 class HelpModel extends FlutterFlowModel<HelpWidget> {
   @override
-  void initState(BuildContext context) {}
+  void initState(final BuildContext context) {}
 
   @override
   void dispose() {}

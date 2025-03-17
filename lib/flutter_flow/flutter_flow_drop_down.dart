@@ -1,16 +1,22 @@
-import 'package:dropdown_button2/dropdown_button2.dart';
-
-import 'form_field_controller.dart';
-import 'package:flutter/material.dart';
+import "package:dropdown_button2/dropdown_button2.dart";
+import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
+import "package:rain_wise/flutter_flow/form_field_controller.dart";
 
 class FlutterFlowDropDown<T> extends StatefulWidget {
   const FlutterFlowDropDown({
+    required this.options,
+    required this.textStyle,
+    required this.elevation,
+    required this.borderWidth,
+    required this.borderRadius,
+    required this.borderColor,
+    required this.margin,
     super.key,
     this.controller,
     this.multiSelectController,
     this.hintText,
     this.searchHintText,
-    required this.options,
     this.optionLabels,
     this.onChanged,
     this.onMultiSelectChanged,
@@ -22,12 +28,6 @@ class FlutterFlowDropDown<T> extends StatefulWidget {
     this.searchHintTextStyle,
     this.searchTextStyle,
     this.searchCursorColor,
-    required this.textStyle,
-    required this.elevation,
-    required this.borderWidth,
-    required this.borderRadius,
-    required this.borderColor,
-    required this.margin,
     this.hidesUnderline = false,
     this.disabled = false,
     this.isOverButton = false,
@@ -83,6 +83,47 @@ class FlutterFlowDropDown<T> extends StatefulWidget {
 
   @override
   State<FlutterFlowDropDown<T>> createState() => _FlutterFlowDropDownState<T>();
+
+  @override
+  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<FormFieldController<T?>?>(
+          "controller", controller))
+      ..add(DiagnosticsProperty<FormFieldController<List<T>?>?>(
+          "multiSelectController", multiSelectController))
+      ..add(StringProperty("hintText", hintText))
+      ..add(StringProperty("searchHintText", searchHintText))
+      ..add(IterableProperty<T>("options", options))
+      ..add(IterableProperty<String>("optionLabels", optionLabels))
+      ..add(ObjectFlagProperty<Function(T? p1)?>.has("onChanged", onChanged))
+      ..add(ObjectFlagProperty<Function(List<T>? p1)?>.has(
+          "onMultiSelectChanged", onMultiSelectChanged))
+      ..add(DoubleProperty("width", width))
+      ..add(DoubleProperty("height", height))
+      ..add(DoubleProperty("maxHeight", maxHeight))
+      ..add(ColorProperty("fillColor", fillColor))
+      ..add(DiagnosticsProperty<TextStyle?>(
+          "searchHintTextStyle", searchHintTextStyle))
+      ..add(DiagnosticsProperty<TextStyle?>("searchTextStyle", searchTextStyle))
+      ..add(ColorProperty("searchCursorColor", searchCursorColor))
+      ..add(DiagnosticsProperty<TextStyle>("textStyle", textStyle))
+      ..add(DoubleProperty("elevation", elevation))
+      ..add(DoubleProperty("borderWidth", borderWidth))
+      ..add(DoubleProperty("borderRadius", borderRadius))
+      ..add(ColorProperty("borderColor", borderColor))
+      ..add(DiagnosticsProperty<EdgeInsetsGeometry>("margin", margin))
+      ..add(DiagnosticsProperty<bool>("hidesUnderline", hidesUnderline))
+      ..add(DiagnosticsProperty<bool>("disabled", disabled))
+      ..add(DiagnosticsProperty<bool>("isOverButton", isOverButton))
+      ..add(DiagnosticsProperty<Offset?>("menuOffset", menuOffset))
+      ..add(DiagnosticsProperty<bool>("isSearchable", isSearchable))
+      ..add(DiagnosticsProperty<bool>("isMultiSelect", isMultiSelect))
+      ..add(StringProperty("labelText", labelText))
+      ..add(DiagnosticsProperty<TextStyle?>("labelTextStyle", labelTextStyle))
+      ..add(DiagnosticsProperty<bool>(
+          "optionsHasValueKeys", optionsHasValueKeys));
+  }
 }
 
 class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
@@ -111,7 +152,7 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
 
   Map<T, String> get optionLabels => Map.fromEntries(
         widget.options.asMap().entries.map(
-              (option) => MapEntry(
+              (final option) => MapEntry(
                 option.value,
                 widget.optionLabels == null ||
                         widget.optionLabels!.length < option.key + 1
@@ -153,8 +194,8 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
   }
 
   @override
-  Widget build(BuildContext context) {
-    final dropdownWidget = _buildDropdownWidget();
+  Widget build(final BuildContext context) {
+    final Widget dropdownWidget = _buildDropdownWidget();
     return SizedBox(
       width: widget.width,
       height: widget.height,
@@ -186,60 +227,59 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
   Widget _buildDropdownWidget() =>
       _useDropdown2() ? _buildDropdown() : _buildLegacyDropdown();
 
-  Widget _buildLegacyDropdown() {
-    return DropdownButtonFormField<T>(
-      value: currentValue,
-      hint: _createHintText(),
-      items: _createMenuItems(),
-      elevation: widget.elevation.toInt(),
-      onChanged: widget.disabled ? null : (value) => controller.value = value,
-      icon: widget.icon,
-      isExpanded: true,
-      dropdownColor: widget.fillColor,
-      focusColor: Colors.transparent,
-      decoration: InputDecoration(
-        labelText: widget.labelText == null || widget.labelText!.isEmpty
-            ? null
-            : widget.labelText,
-        labelStyle: widget.labelTextStyle,
-        border: widget.hidesUnderline
-            ? InputBorder.none
-            : const UnderlineInputBorder(),
-      ),
-    );
-  }
+  Widget _buildLegacyDropdown() => DropdownButtonFormField<T>(
+        value: currentValue,
+        hint: _createHintText(),
+        items: _createMenuItems(),
+        elevation: widget.elevation.toInt(),
+        onChanged:
+            widget.disabled ? null : (final value) => controller.value = value,
+        icon: widget.icon,
+        isExpanded: true,
+        dropdownColor: widget.fillColor,
+        focusColor: Colors.transparent,
+        decoration: InputDecoration(
+          labelText: widget.labelText == null || widget.labelText!.isEmpty
+              ? null
+              : widget.labelText,
+          labelStyle: widget.labelTextStyle,
+          border: widget.hidesUnderline
+              ? InputBorder.none
+              : const UnderlineInputBorder(),
+        ),
+      );
 
   Text? _createHintText() => widget.hintText != null
       ? Text(widget.hintText!, style: widget.textStyle)
       : null;
 
-  ValueKey _getItemKey(T option) {
-    final widgetKey = (widget.key as ValueKey).value;
-    return ValueKey('$widgetKey ${widget.options.indexOf(option)}');
+  ValueKey _getItemKey(final T option) {
+    final widgetKey = (widget.key! as ValueKey).value;
+    return ValueKey("$widgetKey ${widget.options.indexOf(option)}");
   }
 
   List<DropdownMenuItem<T>> _createMenuItems() => widget.options
       .map(
-        (option) => DropdownMenuItem<T>(
+        (final option) => DropdownMenuItem<T>(
             key: widget.optionsHasValueKeys ? _getItemKey(option) : null,
             value: option,
             child: Padding(
               padding: _useDropdown2() ? horizontalMargin : EdgeInsets.zero,
-              child: Text(optionLabels[option] ?? '', style: widget.textStyle),
+              child: Text(optionLabels[option] ?? "", style: widget.textStyle),
             )),
       )
       .toList();
 
   List<DropdownMenuItem<T>> _createMultiselectMenuItems() => widget.options
       .map(
-        (item) => DropdownMenuItem<T>(
+        (final item) => DropdownMenuItem<T>(
           key: widget.optionsHasValueKeys ? _getItemKey(item) : null,
           value: item,
           // Disable default onTap to avoid closing menu when selecting an item
           enabled: false,
           child: StatefulBuilder(
-            builder: (context, menuSetState) {
-              final isSelected =
+            builder: (final context, final menuSetState) {
+              final bool isSelected =
                   multiSelectController.value?.contains(item) ?? false;
               return InkWell(
                   onTap: () {
@@ -279,8 +319,9 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
       .toList();
 
   Widget _buildDropdown() {
-    final overlayColor = WidgetStateProperty.resolveWith<Color?>((states) =>
-        states.contains(WidgetState.focused) ? Colors.transparent : null);
+    final WidgetStateProperty<Color?> overlayColor =
+        WidgetStateProperty.resolveWith<Color?>((final states) =>
+            states.contains(WidgetState.focused) ? Colors.transparent : null);
     final iconStyleData = widget.icon != null
         ? IconStyleData(icon: widget.icon!)
         : const IconStyleData();
@@ -301,7 +342,7 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
       dropdownStyleData: DropdownStyleData(
         elevation: widget.elevation.toInt(),
         decoration: BoxDecoration(
-          borderRadius: BorderRadius.circular(4.0),
+          borderRadius: BorderRadius.circular(4),
           color: widget.fillColor,
         ),
         isOverButton: widget.isOverButton,
@@ -311,18 +352,20 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
       ),
       onChanged: widget.disabled
           ? null
-          : (isMultiSelect ? (_) {} : (val) => widget.controller!.value = val),
+          : (isMultiSelect
+              ? (final _) {}
+              : (final val) => widget.controller!.value = val),
       isExpanded: true,
-      selectedItemBuilder: (context) => widget.options
+      selectedItemBuilder: (final context) => widget.options
           .map(
-            (item) => Align(
+            (final item) => Align(
                 alignment: AlignmentDirectional.centerStart,
                 child: Text(
                   isMultiSelect
                       ? currentValues
-                          .where((v) => optionLabels.containsKey(v))
-                          .map((v) => optionLabels[v])
-                          .join(', ')
+                          .where((final v) => optionLabels.containsKey(v))
+                          .map((final v) => optionLabels[v])
+                          .join(", ")
                       : optionLabels[item]!,
                   style: widget.textStyle,
                   maxLines: 1,
@@ -361,21 +404,36 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
                   ),
                 ),
               ),
-              searchMatchFn: (item, searchValue) {
-                return (optionLabels[item.value] ?? '')
-                    .toLowerCase()
-                    .contains(searchValue.toLowerCase());
-              },
+              searchMatchFn: (final item, final searchValue) =>
+                  (optionLabels[item.value] ?? "")
+                      .toLowerCase()
+                      .contains(searchValue.toLowerCase()),
             )
           : null,
       // This is to clear the search value when you close the menu
       onMenuStateChange: widget.isSearchable
-          ? (isOpen) {
+          ? (final isOpen) {
               if (!isOpen) {
                 _textEditingController.clear();
               }
             }
           : null,
     );
+  }
+
+  @override
+  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<bool>("isMultiSelect", isMultiSelect))
+      ..add(DiagnosticsProperty<FormFieldController<T?>>(
+          "controller", controller))
+      ..add(DiagnosticsProperty<FormFieldController<List<T>?>>(
+          "multiSelectController", multiSelectController))
+      ..add(DiagnosticsProperty<T?>("currentValue", currentValue))
+      ..add(IterableProperty<T>("currentValues", currentValues))
+      ..add(DiagnosticsProperty<Map<T, String>>("optionLabels", optionLabels))
+      ..add(DiagnosticsProperty<EdgeInsetsGeometry>(
+          "horizontalMargin", horizontalMargin));
   }
 }

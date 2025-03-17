@@ -1,7 +1,8 @@
-import '/flutter_flow/flutter_flow_util.dart';
-import '/flutter_flow/form_field_controller.dart';
-import 'ticket_widget.dart' show TicketWidget;
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
+import "package:rain_wise/components/ticket/ticket_widget.dart"
+    show TicketWidget;
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
+import "package:rain_wise/flutter_flow/form_field_controller.dart";
 
 class TicketModel extends FlutterFlowModel<TicketWidget> {
   ///  State fields for stateful widgets in this component.
@@ -21,7 +22,7 @@ class TicketModel extends FlutterFlowModel<TicketWidget> {
   String? Function(BuildContext, String?)? textController2Validator;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(final BuildContext context) {}
 
   @override
   void dispose() {

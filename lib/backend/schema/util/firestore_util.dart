@@ -1,7 +1,7 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
+import "package:cloud_firestore/cloud_firestore.dart";
 
-import '/backend/schema/util/schema_util.dart';
-import '/flutter_flow/flutter_flow_util.dart';
+import "package:rain_wise/backend/schema/util/schema_util.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 
 typedef RecordBuilder<T> = T Function(DocumentSnapshot snapshot);
 
@@ -32,20 +32,20 @@ class FirestoreUtilData {
   final bool create;
   final bool delete;
 
-  static String get name => 'firestoreUtilData';
+  static String get name => "firestoreUtilData";
 }
 
-Map<String, dynamic> mapFromFirestore(Map<String, dynamic> data) =>
+Map<String, dynamic> mapFromFirestore(final Map<String, dynamic> data) =>
     mergeNestedFields(data)
-        .where((k, _) => k != FirestoreUtilData.name)
-        .map((key, value) {
+        .where((final k, final _) => k != FirestoreUtilData.name)
+        .map((final key, value) {
       // Handle Timestamp
       if (value is Timestamp) {
         value = value.toDate();
       }
       // Handle list of Timestamp
       if (value is Iterable && value.isNotEmpty && value.first is Timestamp) {
-        value = value.map((v) => (v as Timestamp).toDate()).toList();
+        value = value.map((final v) => (v as Timestamp).toDate()).toList();
       }
       // Handle GeoPoint
       if (value is GeoPoint) {
@@ -53,7 +53,7 @@ Map<String, dynamic> mapFromFirestore(Map<String, dynamic> data) =>
       }
       // Handle list of GeoPoint
       if (value is Iterable && value.isNotEmpty && value.first is GeoPoint) {
-        value = value.map((v) => (v as GeoPoint).toLatLng()).toList();
+        value = value.map((final v) => (v as GeoPoint).toLatLng()).toList();
       }
       // Handle nested data.
       if (value is Map) {
@@ -62,21 +62,22 @@ Map<String, dynamic> mapFromFirestore(Map<String, dynamic> data) =>
       // Handle list of nested data.
       if (value is Iterable && value.isNotEmpty && value.first is Map) {
         value = value
-            .map((v) => mapFromFirestore(v as Map<String, dynamic>))
+            .map((final v) => mapFromFirestore(v as Map<String, dynamic>))
             .toList();
       }
       return MapEntry(key, value);
     });
 
-Map<String, dynamic> mapToFirestore(Map<String, dynamic> data) =>
-    data.where((k, v) => k != FirestoreUtilData.name).map((key, value) {
+Map<String, dynamic> mapToFirestore(final Map<String, dynamic> data) => data
+        .where((final k, final v) => k != FirestoreUtilData.name)
+        .map((final key, value) {
       // Handle GeoPoint
       if (value is LatLng) {
         value = value.toGeoPoint();
       }
       // Handle list of GeoPoint
       if (value is Iterable && value.isNotEmpty && value.first is LatLng) {
-        value = value.map((v) => (v as LatLng).toGeoPoint()).toList();
+        value = value.map((final v) => (v as LatLng).toGeoPoint()).toList();
       }
       // Handle Color
       if (value is Color) {
@@ -84,14 +85,14 @@ Map<String, dynamic> mapToFirestore(Map<String, dynamic> data) =>
       }
       // Handle list of Color
       if (value is Iterable && value.isNotEmpty && value.first is Color) {
-        value = value.map((v) => (v as Color).toCssString()).toList();
+        value = value.map((final v) => (v as Color).toCssString()).toList();
       } // Handle Enums.
       if (value is Enum) {
         value = value.serialize();
       }
       // Handle list of Enums.
       if (value is Iterable && value.isNotEmpty && value.first is Enum) {
-        value = value.map((v) => (v as Enum).serialize()).toList();
+        value = value.map((final v) => (v as Enum).serialize()).toList();
       }
       // Handle nested data.
       if (value is Map) {
@@ -100,14 +101,14 @@ Map<String, dynamic> mapToFirestore(Map<String, dynamic> data) =>
       // Handle list of nested data.
       if (value is Iterable && value.isNotEmpty && value.first is Map) {
         value = value
-            .map((v) => mapToFirestore(v as Map<String, dynamic>))
+            .map((final v) => mapToFirestore(v as Map<String, dynamic>))
             .toList();
       }
       return MapEntry(key, value);
     });
 
-List<GeoPoint>? convertToGeoPointList(List<LatLng>? list) =>
-    list?.map((e) => e.toGeoPoint()).toList();
+List<GeoPoint>? convertToGeoPointList(final List<LatLng>? list) =>
+    list?.map((final e) => e.toGeoPoint()).toList();
 
 extension GeoPointExtension on LatLng {
   GeoPoint toGeoPoint() => GeoPoint(latitude, longitude);
@@ -117,9 +118,10 @@ extension LatLngExtension on GeoPoint {
   LatLng toLatLng() => LatLng(latitude, longitude);
 }
 
-DocumentReference toRef(String ref) => FirebaseFirestore.instance.doc(ref);
+DocumentReference toRef(final String ref) =>
+    FirebaseFirestore.instance.doc(ref);
 
-T? safeGet<T>(T Function() func, [Function(dynamic)? reportError]) {
+T? safeGet<T>(final T Function() func, [final Function(dynamic)? reportError]) {
   try {
     return func();
   } catch (e) {
@@ -128,16 +130,17 @@ T? safeGet<T>(T Function() func, [Function(dynamic)? reportError]) {
   return null;
 }
 
-Map<String, dynamic> mergeNestedFields(Map<String, dynamic> data) {
-  final nestedData = data.where((k, _) => k.contains('.'));
-  final fieldNames = nestedData.keys.map((k) => k.split('.').first).toSet();
+Map<String, dynamic> mergeNestedFields(final Map<String, dynamic> data) {
+  final Map<String, dynamic> nestedData =
+      data.where((final k, final _) => k.contains("."));
+  final Set<String> fieldNames =
+      nestedData.keys.map((final k) => k.split(".").first).toSet();
   // Remove nested values (e.g. 'foo.bar') and merge them into a map.
-  data.removeWhere((k, _) => k.contains('.'));
-  for (var name in fieldNames) {
-    final mergedValues = mergeNestedFields(
-      nestedData
-          .where((k, _) => k.split('.').first == name)
-          .map((k, v) => MapEntry(k.split('.').skip(1).join('.'), v)),
+  data.removeWhere((final k, final _) => k.contains("."));
+  for (final name in fieldNames) {
+    final Map<String, dynamic> mergedValues = mergeNestedFields(
+      nestedData.where((final k, final _) => k.split(".").first == name).map(
+          (final k, final v) => MapEntry(k.split(".").skip(1).join("."), v)),
     );
     final existingValue = data[name];
     data[name] = {
@@ -147,7 +150,7 @@ Map<String, dynamic> mergeNestedFields(Map<String, dynamic> data) {
     };
   }
   // Merge any nested maps inside any of the fields as well.
-  data.where((_, v) => v is Map).forEach((k, v) {
+  data.where((final _, final v) => v is Map).forEach((final k, final v) {
     data[k] = mergeNestedFields(v as Map<String, dynamic>);
   });
 
@@ -155,6 +158,6 @@ Map<String, dynamic> mergeNestedFields(Map<String, dynamic> data) {
 }
 
 extension _WhereMapExtension<K, V> on Map<K, V> {
-  Map<K, V> where(bool Function(K, V) test) =>
-      Map.fromEntries(entries.where((e) => test(e.key, e.value)));
+  Map<K, V> where(final bool Function(K, V) test) =>
+      Map.fromEntries(entries.where((final e) => test(e.key, e.value)));
 }

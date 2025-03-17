@@ -1,8 +1,9 @@
-import '/components/mtd_breakdown/mtd_breakdown_widget.dart';
-import '/flutter_flow/flutter_flow_util.dart';
-import '/index.dart';
-import 'insights_widget.dart' show InsightsWidget;
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
+import "package:rain_wise/components/mtd_breakdown/mtd_breakdown_widget.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
+import "package:rain_wise/index.dart";
+import "package:rain_wise/tabs/insights/insights_widget.dart"
+    show InsightsWidget;
 
 class InsightsModel extends FlutterFlowModel<InsightsWidget> {
   ///  State fields for stateful widgets in this page.
@@ -44,19 +45,19 @@ class InsightsModel extends FlutterFlowModel<InsightsWidget> {
   late MtdBreakdownModel mtdBreakdownModel12;
 
   @override
-  void initState(BuildContext context) {
-    mtdBreakdownModel1 = createModel(context, () => MtdBreakdownModel());
-    mtdBreakdownModel2 = createModel(context, () => MtdBreakdownModel());
-    mtdBreakdownModel3 = createModel(context, () => MtdBreakdownModel());
-    mtdBreakdownModel4 = createModel(context, () => MtdBreakdownModel());
-    mtdBreakdownModel5 = createModel(context, () => MtdBreakdownModel());
-    mtdBreakdownModel6 = createModel(context, () => MtdBreakdownModel());
-    mtdBreakdownModel7 = createModel(context, () => MtdBreakdownModel());
-    mtdBreakdownModel8 = createModel(context, () => MtdBreakdownModel());
-    mtdBreakdownModel9 = createModel(context, () => MtdBreakdownModel());
-    mtdBreakdownModel10 = createModel(context, () => MtdBreakdownModel());
-    mtdBreakdownModel11 = createModel(context, () => MtdBreakdownModel());
-    mtdBreakdownModel12 = createModel(context, () => MtdBreakdownModel());
+  void initState(final BuildContext context) {
+    mtdBreakdownModel1 = createModel(context, MtdBreakdownModel.new);
+    mtdBreakdownModel2 = createModel(context, MtdBreakdownModel.new);
+    mtdBreakdownModel3 = createModel(context, MtdBreakdownModel.new);
+    mtdBreakdownModel4 = createModel(context, MtdBreakdownModel.new);
+    mtdBreakdownModel5 = createModel(context, MtdBreakdownModel.new);
+    mtdBreakdownModel6 = createModel(context, MtdBreakdownModel.new);
+    mtdBreakdownModel7 = createModel(context, MtdBreakdownModel.new);
+    mtdBreakdownModel8 = createModel(context, MtdBreakdownModel.new);
+    mtdBreakdownModel9 = createModel(context, MtdBreakdownModel.new);
+    mtdBreakdownModel10 = createModel(context, MtdBreakdownModel.new);
+    mtdBreakdownModel11 = createModel(context, MtdBreakdownModel.new);
+    mtdBreakdownModel12 = createModel(context, MtdBreakdownModel.new);
   }
 
   @override

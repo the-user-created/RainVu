@@ -1,7 +1,7 @@
-import '/flutter_flow/flutter_flow_util.dart';
-import '/index.dart';
-import 'map_widget.dart' show MapWidget;
-import 'package:flutter/material.dart';
+import "package:flutter/material.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
+import "package:rain_wise/index.dart";
+import "package:rain_wise/tabs/map/map_widget.dart" show MapWidget;
 
 class MapModel extends FlutterFlowModel<MapWidget> {
   ///  State fields for stateful widgets in this page.
@@ -12,7 +12,7 @@ class MapModel extends FlutterFlowModel<MapWidget> {
   String? Function(BuildContext, String?)? textControllerValidator;
 
   @override
-  void initState(BuildContext context) {}
+  void initState(final BuildContext context) {}
 
   @override
   void dispose() {

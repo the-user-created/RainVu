@@ -1,6 +1,7 @@
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:flutter/material.dart';
-import 'package:auto_size_text/auto_size_text.dart';
+import "package:auto_size_text/auto_size_text.dart";
+import "package:flutter/foundation.dart";
+import "package:flutter/material.dart";
+import "package:font_awesome_flutter/font_awesome_flutter.dart";
 
 class FFButtonOptions {
   const FFButtonOptions({
@@ -52,12 +53,12 @@ class FFButtonOptions {
 
 class FFButtonWidget extends StatefulWidget {
   const FFButtonWidget({
-    super.key,
     required this.text,
     required this.onPressed,
+    required this.options,
+    super.key,
     this.icon,
     this.iconData,
-    required this.options,
     this.showLoadingIndicator = true,
   });
 
@@ -70,6 +71,18 @@ class FFButtonWidget extends StatefulWidget {
 
   @override
   State<FFButtonWidget> createState() => _FFButtonWidgetState();
+
+  @override
+  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(StringProperty("text", text))
+      ..add(DiagnosticsProperty<IconData?>("iconData", iconData))
+      ..add(ObjectFlagProperty<Function()?>.has("onPressed", onPressed))
+      ..add(DiagnosticsProperty<FFButtonOptions>("options", options))
+      ..add(DiagnosticsProperty<bool>(
+          "showLoadingIndicator", showLoadingIndicator));
+  }
 }
 
 class _FFButtonWidgetState extends State<FFButtonWidget> {
@@ -81,7 +94,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
       widget.options.textStyle?.fontSize == 0 ? null : widget.text;
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     Widget textWidget = loading
         ? SizedBox(
             width: widget.options.width == null
@@ -100,7 +113,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
             ),
           )
         : AutoSizeText(
-            text ?? '',
+            text ?? "",
             style:
                 text == null ? null : widget.options.textStyle?.withoutColor(),
             textAlign: widget.options.textAlign,
@@ -108,7 +121,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
             overflow: TextOverflow.ellipsis,
           );
 
-    final onPressed = widget.onPressed != null
+    final Function()? onPressed = widget.onPressed != null
         ? (widget.showLoadingIndicator
             ? () async {
                 if (loading) {
@@ -128,7 +141,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
 
     ButtonStyle style = ButtonStyle(
       shape: WidgetStateProperty.resolveWith<OutlinedBorder>(
-        (states) {
+        (final states) {
           if (states.contains(WidgetState.hovered) &&
               widget.options.hoverBorderSide != null) {
             return RoundedRectangleBorder(
@@ -145,7 +158,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
         },
       ),
       foregroundColor: WidgetStateProperty.resolveWith<Color?>(
-        (states) {
+        (final states) {
           if (states.contains(WidgetState.disabled) &&
               widget.options.disabledTextColor != null) {
             return widget.options.disabledTextColor;
@@ -158,7 +171,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
         },
       ),
       backgroundColor: WidgetStateProperty.resolveWith<Color?>(
-        (states) {
+        (final states) {
           if (states.contains(WidgetState.disabled) &&
               widget.options.disabledColor != null) {
             return widget.options.disabledColor;
@@ -170,16 +183,16 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
           return widget.options.color;
         },
       ),
-      overlayColor: WidgetStateProperty.resolveWith<Color?>((states) {
+      overlayColor: WidgetStateProperty.resolveWith<Color?>((final states) {
         if (states.contains(WidgetState.pressed)) {
           return widget.options.splashColor;
         }
         return widget.options.hoverColor == null ? null : Colors.transparent;
       }),
       padding: WidgetStateProperty.all(widget.options.padding ??
-          const EdgeInsets.symmetric(horizontal: 12.0, vertical: 4.0)),
+          const EdgeInsets.symmetric(horizontal: 12, vertical: 4)),
       elevation: WidgetStateProperty.resolveWith<double?>(
-        (states) {
+        (final states) {
           if (states.contains(WidgetState.hovered) &&
               widget.options.hoverElevation != null) {
             return widget.options.hoverElevation!;
@@ -192,7 +205,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
     if ((widget.icon != null || widget.iconData != null) && !loading) {
       Widget icon = widget.icon ??
           FaIcon(
-            widget.iconData!,
+            widget.iconData,
             size: widget.options.iconSize,
             color: widget.options.iconColor,
           );
@@ -209,7 +222,7 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
                 widget.options.borderRadius ?? BorderRadius.circular(8),
           ),
           child: IconButton(
-            splashRadius: 1.0,
+            splashRadius: 1,
             icon: Padding(
               padding: widget.options.iconPadding ?? EdgeInsets.zero,
               child: icon,
@@ -245,12 +258,20 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
       ),
     );
   }
+
+  @override
+  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties
+      ..add(DiagnosticsProperty<bool>("loading", loading))
+      ..add(IntProperty("maxLines", maxLines))
+      ..add(StringProperty("text", text));
+  }
 }
 
 extension _WithoutColorExtension on TextStyle {
   TextStyle withoutColor() => TextStyle(
         inherit: inherit,
-        color: null,
         backgroundColor: backgroundColor,
         fontSize: fontSize,
         fontWeight: fontWeight,
@@ -280,7 +301,8 @@ extension _WithoutColorExtension on TextStyle {
 }
 
 // Slightly hacky method of getting the layout width of the provided text.
-double? _getTextWidth(String? text, TextStyle? style, int maxLines) =>
+double? _getTextWidth(
+        final String? text, final TextStyle? style, final int maxLines) =>
     text != null
         ? (TextPainter(
             text: TextSpan(text: text, style: style),
