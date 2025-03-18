@@ -44,6 +44,9 @@ class _LogRainWidgetState extends State<LogRainWidget> {
     super.dispose();
   }
 
+  // TODO(david): Hide keyboard on load, and show when user taps on the text field
+  // TODO(david): Keyboard should be above content of modal, not push it up... content should scroll
+
   @override
   Widget build(final BuildContext context) => Container(
         width: double.infinity,
