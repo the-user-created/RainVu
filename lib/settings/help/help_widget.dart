@@ -40,6 +40,9 @@ class _HelpWidgetState extends State<HelpWidget> {
     super.dispose();
   }
 
+  // TODO(david): Add better FAQs, and make into a searchable list
+  // TODO(david): Should have hover/tap animation, open user's default email app
+
   @override
   Widget build(final BuildContext context) => GestureDetector(
         onTap: () {
@@ -98,7 +101,6 @@ class _HelpWidgetState extends State<HelpWidget> {
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child:
-                          // TODO(david): Add better FAQs, and make into a searchable list
                           Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
                             16, 16, 16, 16),
@@ -321,7 +323,6 @@ class _HelpWidgetState extends State<HelpWidget> {
                                   ),
                             ),
 
-                            // TODO(david): Should have hover/tap animation, open user's default email app
                             Container(
                               width: MediaQuery.sizeOf(context).width * 1.0,
                               decoration: BoxDecoration(

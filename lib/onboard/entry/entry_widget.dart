@@ -120,6 +120,10 @@ class _EntryWidgetState extends State<EntryWidget>
     super.dispose();
   }
 
+  // TODO: Upon login error, show nice snack bar message
+  // TODO: Forgot Password
+  // TODO: Reduce complexity and size of this file
+
   @override
   Widget build(final BuildContext context) => GestureDetector(
         onTap: () {

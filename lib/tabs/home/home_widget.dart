@@ -42,6 +42,10 @@ class _HomeWidgetState extends State<HomeWidget> {
     super.dispose();
   }
 
+  // TODO: Make widgets dynamic with rainfall entries
+  // TODO: Rainfall Trends widget - make 30 days and 7 days selectable
+  // TODO:
+
   @override
   Widget build(final BuildContext context) => GestureDetector(
         onTap: () {

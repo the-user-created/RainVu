@@ -37,6 +37,9 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
     super.dispose();
   }
 
+  // TODO: Make dynamic
+  // TODO: Payment gateway integration?
+
   @override
   Widget build(final BuildContext context) => Material(
         color: Colors.transparent,

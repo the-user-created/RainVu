@@ -42,6 +42,10 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
     super.dispose();
   }
 
+  // TODO: Make dynamic with rainfall data
+  // TODO: Year selector
+  // TODO: choice chips default to annual total
+
   @override
   Widget build(final BuildContext context) => GestureDetector(
         onTap: () {

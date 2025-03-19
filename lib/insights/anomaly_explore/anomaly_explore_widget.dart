@@ -39,6 +39,9 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
     super.dispose();
   }
 
+  // TODO: Make dynamic with rainfall data
+  // TODO: Date range picker for filtering and severity selection
+
   @override
   Widget build(final BuildContext context) => GestureDetector(
         onTap: () {

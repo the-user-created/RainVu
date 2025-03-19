@@ -45,6 +45,10 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
     super.dispose();
   }
 
+  // TODO: Reminder time should default to 8am
+  // TODO: Implement notifications on Firebase
+  // TODO: Add a way to see all past notifications
+
   @override
   Widget build(final BuildContext context) => GestureDetector(
         onTap: () {

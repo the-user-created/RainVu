@@ -42,6 +42,12 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
     super.dispose();
   }
 
+  // TODO(david): Implement file picker
+  // TODO: Date range picker
+  // TODO: Default export format = CSV
+  // TODO: remove notes checkbox
+  // TODO: implement download/import file logic
+
   @override
   Widget build(final BuildContext context) => GestureDetector(
         onTap: () {
@@ -401,7 +407,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () {
-                                  // TODO(david): Implement file picker
+
                                 },
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width * 1.0,
