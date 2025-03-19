@@ -41,6 +41,8 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
     super.dispose();
   }
 
+  // TODO: Many rendering library issues here
+
   @override
   Widget build(final BuildContext context) => GestureDetector(
         onTap: () {

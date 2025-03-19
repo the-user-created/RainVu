@@ -43,6 +43,10 @@ class _TicketWidgetState extends State<TicketWidget> {
     super.dispose();
   }
 
+  // TODO(david): Make description textfield scrollable when the number of lines of text exceeds the original height of the textfield.
+  // TODO(david): Hide email input if logged in
+  // TODO: Fix keyboard
+
   @override
   Widget build(final BuildContext context) => Container(
         width: double.infinity,
@@ -118,7 +122,6 @@ class _TicketWidgetState extends State<TicketWidget> {
                 hidesUnderline: true,
               ),
 
-              // TODO(david): Make textfield scrollable when the number of lines of text exceeds the original height of the textfield.
               TextFormField(
                 controller: _model.textController1,
                 focusNode: _model.textFieldFocusNode1,
@@ -166,7 +169,6 @@ class _TicketWidgetState extends State<TicketWidget> {
                 validator: _model.textController1Validator.asValidator(context),
               ),
 
-              // TODO(david): Hide if logged in
               TextFormField(
                 controller: _model.textController2,
                 focusNode: _model.textFieldFocusNode2,

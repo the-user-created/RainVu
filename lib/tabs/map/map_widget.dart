@@ -65,6 +65,11 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
   }
 
   // TODO: Keyboard pushes up the screen when focused on TextField
+  // TODO: Make dynamic with rainfall entries
+  // TODO: Use actual interactive map
+  // TODO: Keep "Recent Rainfall"??
+  // TODO: Make the interaction buttons work
+  // TODO: Location search - center text and icon + make it work
 
   @override
   Widget build(final BuildContext context) => GestureDetector(

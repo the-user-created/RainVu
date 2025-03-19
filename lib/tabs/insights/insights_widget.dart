@@ -41,6 +41,13 @@ class _InsightsWidgetState extends State<InsightsWidget> {
     super.dispose();
   }
 
+  // TODO: Make dynamic with rainfall entries
+  // TODO: Info button in app bar
+  // TODO(david): Make each of the cards expand to fill the entire column area upon being tapped - provide more detail when this happens
+  // TODO(david): Add info dialogs to each info-icon
+  // TODO(david): Allow user to change this to a yearly trend
+  // TODO(david): when each month is tapped on, take the user to the respective monthly breakdown
+
   @override
   Widget build(final BuildContext context) => GestureDetector(
         onTap: () {
@@ -107,9 +114,6 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child:
-                          // TODO(david): Make each of the cards expand to fill the entire column area upon being tapped - provide more detail when this happens
-                          //
-                          // TODO(david): Add info dialogs to each info-icon
                           Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             valueOrDefault<double>(
@@ -483,8 +487,6 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                         ),
                       ),
                     ),
-
-                    // TODO(david): Allow user to change this to a yearly trend
                     Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -962,7 +964,6 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child:
-                          // TODO(david): when each month is tapped on, take the user to the respective monthly breakdown
                           Align(
                         alignment: AlignmentDirectional.center,
                         child: GridView(

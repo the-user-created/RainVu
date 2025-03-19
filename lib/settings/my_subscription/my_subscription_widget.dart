@@ -42,6 +42,10 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
     super.dispose();
   }
 
+  // TODO: Make buttons work
+  // TODO: make dynamic
+  // TODO: Payment gateway integration
+
   @override
   Widget build(final BuildContext context) => GestureDetector(
         onTap: () {

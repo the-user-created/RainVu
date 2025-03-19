@@ -39,6 +39,11 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
     super.dispose();
   }
 
+  // TODO(david): Allow user to add seasons (and provide default seasons based on location)
+  // TODO(david): interactive area for a line chart that displays historical rainfall trends for the selected season. This chart should clearly mark data points with smooth transitions, enabling users to tap on any point to reveal detailed tooltips that show the exact rainfall amounts, percentage differences from previous years, and contextual notes where applicable.
+  // TODO: Select season dropdown
+  // TODO: Make dynamic with rainfall data
+
   @override
   Widget build(final BuildContext context) => GestureDetector(
         onTap: () {
@@ -104,7 +109,6 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                                     ),
                               ),
 
-                              // TODO(david): Allow user to add seasons (and provide default seasons based on location)
                               Container(
                                 width: MediaQuery.sizeOf(context).width * 1.0,
                                 decoration: BoxDecoration(
@@ -185,7 +189,6 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                             borderRadius: BorderRadius.circular(16),
                           ),
                           child:
-                              // TODO(david): interactive area for a line chart that displays historical rainfall trends for the selected season. This chart should clearly mark data points with smooth transitions, enabling users to tap on any point to reveal detailed tooltips that show the exact rainfall amounts, percentage differences from previous years, and contextual notes where applicable.
                               Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
                                 20, 20, 20, 20),

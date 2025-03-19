@@ -46,6 +46,10 @@ class _LogRainWidgetState extends State<LogRainWidget> {
 
   // TODO(david): Hide keyboard on load, and show when user taps on the text field
   // TODO(david): Keyboard should be above content of modal, not push it up... content should scroll
+  // TODO: Date & Time should show the current date and time when the modal is opened
+  // TODO: Date & Time should shows something nicer than "2d" or "~1mo"
+  // TODO: when hit cancel on date selector, the selected date updates...
+  // TODO: Default to mm for unit if the user has not selected one yet (keep the unit stored on device)
 
   @override
   Widget build(final BuildContext context) => Container(

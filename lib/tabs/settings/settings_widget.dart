@@ -45,6 +45,9 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   // TODO: Organize settings options into (using collapsible sections):
   //  Account Management, Subscription, Data Management, Notifications,
   //  Legal & Support
+  // TODO: Remove "App Version"
+  // TODO: "Hide last synced" if user does not have a Pro subscription??
+  // TODO: Write Privacy Policy & Terms of Service
 
   @override
   Widget build(final BuildContext context) => PopScope(
