@@ -377,30 +377,6 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                                         size: 20,
                                       ),
                                       Text(
-                                        "30-day historical data limit",
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: "Inter",
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 14,
-                                              letterSpacing: 0,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                      ),
-                                    ].divide(const SizedBox(width: 12)),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.remove_circle,
-                                        color:
-                                            FlutterFlowTheme.of(context).error,
-                                        size: 20,
-                                      ),
-                                      Text(
                                         "No data export",
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -425,7 +401,7 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                                         size: 20,
                                       ),
                                       Text(
-                                        "No forecasts or analytics",
+                                        "No weather forecasts",
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
@@ -640,30 +616,6 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                                         size: 20,
                                       ),
                                       Text(
-                                        "Full historical data",
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: "Inter",
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 14,
-                                              letterSpacing: 0,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                      ),
-                                    ].divide(const SizedBox(width: 12)),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.check_circle,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                        size: 20,
-                                      ),
-                                      Text(
                                         "Detailed graphs",
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
@@ -713,191 +665,6 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                                       ),
                                       Text(
                                         "Advanced analytics",
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: "Inter",
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 14,
-                                              letterSpacing: 0,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                      ),
-                                    ].divide(const SizedBox(width: 12)),
-                                  ),
-                                ].divide(const SizedBox(height: 8)),
-                              ),
-                            ].divide(const SizedBox(height: 16)),
-                          ),
-                        ),
-                      ),
-                    ),
-                  ),
-                  Padding(
-                    padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
-                    child: Material(
-                      color: Colors.transparent,
-                      elevation: 2,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(12),
-                      ),
-                      child: Container(
-                        width: MediaQuery.sizeOf(context).width * 1.0,
-                        decoration: BoxDecoration(
-                          color: FlutterFlowTheme.of(context).primaryBackground,
-                          boxShadow: const [
-                            BoxShadow(
-                              blurRadius: 4,
-                              color: Color(0x33000000),
-                              offset: Offset(
-                                0,
-                                2,
-                              ),
-                            )
-                          ],
-                          borderRadius: BorderRadius.circular(12),
-                        ),
-                        child: Padding(
-                          padding: const EdgeInsetsDirectional.fromSTEB(
-                              16, 16, 16, 16),
-                          child: Column(
-                            children: [
-                              Row(
-                                mainAxisAlignment:
-                                    MainAxisAlignment.spaceBetween,
-                                children: [
-                                  Column(
-                                    crossAxisAlignment:
-                                        CrossAxisAlignment.start,
-                                    children: [
-                                      Text(
-                                        "Pro+",
-                                        style: FlutterFlowTheme.of(context)
-                                            .headlineSmall
-                                            .override(
-                                              fontFamily: "Readex Pro",
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 24,
-                                              letterSpacing: 0,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                      ),
-                                      Text(
-                                        "R300/year",
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: "Inter",
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              fontSize: 14,
-                                              letterSpacing: 0,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                      ),
-                                    ],
-                                  ),
-                                ],
-                              ),
-                              Column(
-                                children: [
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.check_circle,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                        size: 20,
-                                      ),
-                                      Text(
-                                        "Everything in Pro",
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: "Inter",
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 14,
-                                              letterSpacing: 0,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                      ),
-                                    ].divide(const SizedBox(width: 12)),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.check_circle,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                        size: 20,
-                                      ),
-                                      Text(
-                                        "Multi-user access",
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: "Inter",
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 14,
-                                              letterSpacing: 0,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                      ),
-                                    ].divide(const SizedBox(width: 12)),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.check_circle,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                        size: 20,
-                                      ),
-                                      Text(
-                                        "AI-powered insights",
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: "Inter",
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .primaryText,
-                                              fontSize: 14,
-                                              letterSpacing: 0,
-                                              fontWeight: FontWeight.normal,
-                                            ),
-                                      ),
-                                    ].divide(const SizedBox(width: 12)),
-                                  ),
-                                  Row(
-                                    children: [
-                                      Icon(
-                                        Icons.check_circle,
-                                        color: FlutterFlowTheme.of(context)
-                                            .secondary,
-                                        size: 20,
-                                      ),
-                                      Text(
-                                        "API access",
                                         style: FlutterFlowTheme.of(context)
                                             .bodyMedium
                                             .override(
