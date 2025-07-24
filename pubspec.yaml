@@ -45,7 +45,7 @@ dependencies:
   google_fonts: ^6.2.1
   google_sign_in: ^6.3.0
   image_picker: ^1.1.2
-  intl: ^0.19.0
+  intl: ^0.20.2
   json_path: ^0.7.5
   mime_type: ^1.0.1
   page_transition: ^2.2.1
