@@ -280,30 +280,6 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                           size: 20,
                                         ),
                                         Text(
-                                          "Full historical data",
-                                          style: FlutterFlowTheme.of(context)
-                                              .bodyMedium
-                                              .override(
-                                                fontFamily: "Inter",
-                                                color:
-                                                    FlutterFlowTheme.of(context)
-                                                        .primaryText,
-                                                fontSize: 14,
-                                                letterSpacing: 0,
-                                                fontWeight: FontWeight.normal,
-                                              ),
-                                        ),
-                                      ].divide(const SizedBox(width: 12)),
-                                    ),
-                                    Row(
-                                      children: [
-                                        Icon(
-                                          Icons.check_circle,
-                                          color: FlutterFlowTheme.of(context)
-                                              .primary,
-                                          size: 20,
-                                        ),
-                                        Text(
                                           "Detailed graphs",
                                           style: FlutterFlowTheme.of(context)
                                               .bodyMedium

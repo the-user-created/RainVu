@@ -986,84 +986,84 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                               model: _model.mtdBreakdownModel1,
                               updateCallback: () => safeSetState(() {}),
                               child: const MtdBreakdownWidget(
-                                month: "",
+                                month: "January",
                               ),
                             ),
                             wrapWithModel(
                               model: _model.mtdBreakdownModel2,
                               updateCallback: () => safeSetState(() {}),
                               child: const MtdBreakdownWidget(
-                                month: "",
+                                month: "February",
                               ),
                             ),
                             wrapWithModel(
                               model: _model.mtdBreakdownModel3,
                               updateCallback: () => safeSetState(() {}),
                               child: const MtdBreakdownWidget(
-                                month: "",
+                                month: "March",
                               ),
                             ),
                             wrapWithModel(
                               model: _model.mtdBreakdownModel4,
                               updateCallback: () => safeSetState(() {}),
                               child: const MtdBreakdownWidget(
-                                month: "",
+                                month: "April",
                               ),
                             ),
                             wrapWithModel(
                               model: _model.mtdBreakdownModel5,
                               updateCallback: () => safeSetState(() {}),
                               child: const MtdBreakdownWidget(
-                                month: "",
+                                month: "May",
                               ),
                             ),
                             wrapWithModel(
                               model: _model.mtdBreakdownModel6,
                               updateCallback: () => safeSetState(() {}),
                               child: const MtdBreakdownWidget(
-                                month: "",
+                                month: "June",
                               ),
                             ),
                             wrapWithModel(
                               model: _model.mtdBreakdownModel7,
                               updateCallback: () => safeSetState(() {}),
                               child: const MtdBreakdownWidget(
-                                month: "",
+                                month: "July",
                               ),
                             ),
                             wrapWithModel(
                               model: _model.mtdBreakdownModel8,
                               updateCallback: () => safeSetState(() {}),
                               child: const MtdBreakdownWidget(
-                                month: "",
+                                month: "August",
                               ),
                             ),
                             wrapWithModel(
                               model: _model.mtdBreakdownModel9,
                               updateCallback: () => safeSetState(() {}),
                               child: const MtdBreakdownWidget(
-                                month: "",
+                                month: "September",
                               ),
                             ),
                             wrapWithModel(
                               model: _model.mtdBreakdownModel10,
                               updateCallback: () => safeSetState(() {}),
                               child: const MtdBreakdownWidget(
-                                month: "",
+                                month: "October",
                               ),
                             ),
                             wrapWithModel(
                               model: _model.mtdBreakdownModel11,
                               updateCallback: () => safeSetState(() {}),
                               child: const MtdBreakdownWidget(
-                                month: "",
+                                month: "November",
                               ),
                             ),
                             wrapWithModel(
                               model: _model.mtdBreakdownModel12,
                               updateCallback: () => safeSetState(() {}),
                               child: const MtdBreakdownWidget(
-                                month: "",
+                                month: "December",
                               ),
                             ),
                           ],
