@@ -1,15 +1,12 @@
 import "dart:async";
 
+import "package:firebase_core/firebase_core.dart";
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter_localizations/flutter_localizations.dart";
 import "package:flutter_web_plugins/url_strategy.dart";
 import "package:provider/provider.dart";
-import "package:rain_wise/auth/firebase_auth/auth_util.dart";
-import "package:rain_wise/auth/firebase_auth/firebase_user_provider.dart";
-import "package:rain_wise/backend/firebase/firebase_config.dart";
-import "package:rain_wise/backend/schema/users_record.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/flutter_flow/internationalization.dart";
@@ -18,7 +15,7 @@ void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   usePathUrlStrategy();
 
-  await initFirebase();
+  await Firebase.initializeApp();
 
   await FlutterFlowTheme.initialize();
 
@@ -48,22 +45,12 @@ class MyAppState extends State<MyApp> {
   Locale? _locale;
   final ThemeMode _themeMode = FlutterFlowTheme.themeMode;
   late AppStateNotifier _appStateNotifier;
-  late Stream<BaseAuthUser> userStream;
-
-  final StreamSubscription<UsersRecord?> authUserSub =
-      authenticatedUserStream.listen((final _) {});
 
   @override
   void initState() {
     super.initState();
 
     _appStateNotifier = AppStateNotifier.instance;
-    // Listen to the auth stream and update AppStateNotifier
-    userStream = rainWiseFirebaseUserStream()
-      ..listen((final user) {
-        _appStateNotifier.update(user);
-      });
-    jwtTokenStream.listen((final _) {});
     Future.delayed(
       const Duration(milliseconds: 1000),
       () => _appStateNotifier.stopShowingSplashImage(),
@@ -72,8 +59,6 @@ class MyAppState extends State<MyApp> {
 
   @override
   Future<void> dispose() async {
-    await authUserSub.cancel();
-
     super.dispose();
   }
 
@@ -111,14 +96,4 @@ class MyAppState extends State<MyApp> {
           );
         },
       );
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty<StreamSubscription<UsersRecord?>>(
-          "authUserSub", authUserSub))
-      ..add(
-          DiagnosticsProperty<Stream<BaseAuthUser>>("userStream", userStream));
-  }
 }

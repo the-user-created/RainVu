@@ -1,5 +1,3 @@
-import "dart:async";
-
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
@@ -27,8 +25,6 @@ class _ComingSoonWidgetState extends State<ComingSoonWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, ComingSoonModel.new);
-
-    unawaited(logFirebaseEvent("screen_view", parameters: {"screen_name": "coming_soon"}));
   }
 
   @override

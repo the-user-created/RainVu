@@ -8,11 +8,8 @@ export "/insights/monthly_breakdown/monthly_breakdown_widget.dart"
 export "/insights/season_patterns/season_patterns_widget.dart"
     show SeasonPatternsWidget;
 export "/misc/coming_soon/coming_soon_widget.dart" show ComingSoonWidget;
-export "/misc/forgot_password/forgot_password_widget.dart"
-    show ForgotPasswordWidget;
 export "/misc/rainfall_entries/rainfall_entries_widget.dart"
     show RainfallEntriesWidget;
-export "/onboard/entry/entry_widget.dart" show EntryWidget;
 export "/settings/data_ex_import/data_ex_import_widget.dart"
     show DataExImportWidget;
 export "/settings/help/help_widget.dart" show HelpWidget;

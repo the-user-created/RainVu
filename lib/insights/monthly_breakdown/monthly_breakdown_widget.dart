@@ -1,5 +1,3 @@
-import "dart:async";
-
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
@@ -29,9 +27,6 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, MonthlyBreakdownModel.new);
-
-    unawaited(logFirebaseEvent("screen_view",
-        parameters: {"screen_name": "monthly_breakdown"}));
   }
 
   @override

@@ -1,5 +1,3 @@
-import "dart:async";
-
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/components/edit_entry/edit_entry_widget.dart";
@@ -29,9 +27,6 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, RainfallEntriesModel.new);
-
-    unawaited(logFirebaseEvent("screen_view",
-        parameters: {"screen_name": "rainfallEntries"}));
   }
 
   @override

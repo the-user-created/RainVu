@@ -1,5 +1,3 @@
-import "dart:async";
-
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/components/mtd_breakdown/mtd_breakdown_widget.dart";
@@ -30,8 +28,6 @@ class _InsightsWidgetState extends State<InsightsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, InsightsModel.new);
-
-    unawaited(logFirebaseEvent("screen_view", parameters: {"screen_name": "insights"}));
   }
 
   @override

@@ -1,6 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/auth/firebase_auth/auth_util.dart";
-import "package:rain_wise/backend/backend.dart";
 import "package:rain_wise/components/add_gauge/add_gauge_model.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
@@ -229,14 +227,7 @@ class _AddGaugeWidgetState extends State<AddGaugeWidget> {
                   ),
                   FFButtonWidget(
                     onPressed: () async {
-                      await GaugesRecord.collection
-                          .doc()
-                          .set(createGaugesRecordData(
-                            userID: currentUserUid,
-                            gaugeName: _model.textController.text,
-                            location: _model.placePickerValue.latLng,
-                            rainGaugeID: "${currentUserUid}_1",
-                          ));
+                      // TODO: Implement the logic to save the new gauge.
 
                       if (!context.mounted) return;
                       Navigator.pop(context);
