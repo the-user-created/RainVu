@@ -1,5 +1,3 @@
-import "dart:async";
-
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
@@ -35,8 +33,6 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
     super.initState();
     _model = createModel(context, MapModel.new);
 
-    unawaited(
-        logFirebaseEvent("screen_view", parameters: {"screen_name": "map"}));
     _model.textController ??= TextEditingController();
     _model.textFieldFocusNode ??= FocusNode();
 

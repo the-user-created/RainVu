@@ -2,8 +2,6 @@ import "dart:async";
 
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
-import "package:rain_wise/auth/base_auth_user_provider.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/index.dart";
 import "package:rain_wise/nav_bar.dart";
@@ -24,8 +22,6 @@ class AppStateNotifier extends ChangeNotifier {
   // ignore: prefer_constructors_over_static_methods
   static AppStateNotifier get instance => _instance ??= AppStateNotifier._();
 
-  BaseAuthUser? initialUser;
-  BaseAuthUser? user;
   bool showSplashImage = true;
   String? _redirectLocation;
 
@@ -36,14 +32,6 @@ class AppStateNotifier extends ChangeNotifier {
   /// Otherwise, this will trigger a refresh and interrupt the action(s).
   bool notifyOnAuthChange = true;
 
-  bool get loading => user == null || showSplashImage;
-
-  bool get loggedIn => user?.loggedIn ?? false;
-
-  bool get initiallyLoggedIn => initialUser?.loggedIn ?? false;
-
-  bool get shouldRedirect => loggedIn && _redirectLocation != null;
-
   String getRedirectLocation() => _redirectLocation!;
 
   bool hasRedirect() => _redirectLocation != null;
@@ -52,21 +40,6 @@ class AppStateNotifier extends ChangeNotifier {
       _redirectLocation ??= loc;
 
   void clearRedirectLocation() => _redirectLocation = null;
-
-  void update(final BaseAuthUser newUser) {
-    final bool shouldUpdate =
-        user?.uid == null || newUser.uid == null || user?.uid != newUser.uid;
-    initialUser ??= newUser;
-    user = newUser;
-    // Refresh the app on auth change unless explicitly marked otherwise.
-    // No need to update unless the user has changed.
-    if (notifyOnAuthChange && shouldUpdate) {
-      notifyListeners();
-    }
-    // Once again mark the notifier as needing to update on auth change
-    // (in order to catch sign in / out events).
-    notifyOnAuthChange = true;
-  }
 
   void stopShowingSplashImage() {
     showSplashImage = false;
@@ -79,15 +52,12 @@ GoRouter createRouter(final AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (final context, final state) =>
-          appStateNotifier.loggedIn ? const NavBarPage() : const EntryWidget(),
+      errorBuilder: (final context, final state) => const NavBarPage(), // TODO: Handle errors properly.
       routes: [
         FFRoute(
           name: "_initialize",
           path: "/",
-          builder: (final context, final _) => appStateNotifier.loggedIn
-              ? const NavBarPage()
-              : const EntryWidget(),
+          builder: (final context, final _) => const NavBarPage(),
         ),
         FFRoute(
           name: SettingsWidget.routeName,
@@ -98,11 +68,6 @@ GoRouter createRouter(final AppStateNotifier appStateNotifier) => GoRouter(
                   initialPage: "settings",
                   page: SettingsWidget(),
                 ),
-        ),
-        FFRoute(
-          name: EntryWidget.routeName,
-          path: EntryWidget.routePath,
-          builder: (final context, final params) => const EntryWidget(),
         ),
         FFRoute(
           name: InsightsWidget.routeName,
@@ -195,12 +160,6 @@ GoRouter createRouter(final AppStateNotifier appStateNotifier) => GoRouter(
           builder: (final context, final params) =>
               const RainfallEntriesWidget(),
         ),
-        FFRoute(
-          name: ForgotPasswordWidget.routeName,
-          path: ForgotPasswordWidget.routePath,
-          builder: (final context, final params) =>
-              const ForgotPasswordWidget(),
-        )
       ].map((final r) => r.toRoute(appStateNotifier)).toList(),
     );
 
@@ -376,20 +335,6 @@ class FFRoute {
   GoRoute toRoute(final AppStateNotifier appStateNotifier) => GoRoute(
         name: name,
         path: path,
-        redirect: (final context, final state) {
-          if (appStateNotifier.shouldRedirect) {
-            final String redirectLocation =
-                appStateNotifier.getRedirectLocation();
-            appStateNotifier.clearRedirectLocation();
-            return redirectLocation;
-          }
-
-          if (requireAuth && !appStateNotifier.loggedIn) {
-            appStateNotifier.setRedirectLocationIfUnset(state.uri.toString());
-            return "/entry";
-          }
-          return null;
-        },
         pageBuilder: (final context, final state) {
           fixStatusBarOniOS16AndBelow(context);
           final ffParams = FFParameters(state, asyncParams);
@@ -400,19 +345,7 @@ class FFRoute {
                       builder(context, ffParams),
                 )
               : builder(context, ffParams);
-          final Widget child = appStateNotifier.loading
-              ? Center(
-                  child: SizedBox(
-                    width: 50,
-                    height: 50,
-                    child: CircularProgressIndicator(
-                      valueColor: AlwaysStoppedAnimation<Color>(
-                        FlutterFlowTheme.of(context).primary,
-                      ),
-                    ),
-                  ),
-                )
-              : page;
+          final Widget child = page;
 
           final TransitionInfo transitionInfo = state.transitionInfo;
           return transitionInfo.hasTransition

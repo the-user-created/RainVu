@@ -1,5 +1,3 @@
-import "dart:async";
-
 import "package:flutter/cupertino.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
@@ -29,9 +27,6 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, NotificationsModel.new);
-
-    unawaited(logFirebaseEvent("screen_view",
-        parameters: {"screen_name": "notifications"}));
     _model.switchValue1 = true;
     _model.switchValue2 = true;
     _model.switchValue3 = true;

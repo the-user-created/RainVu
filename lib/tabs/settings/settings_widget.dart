@@ -1,11 +1,7 @@
-import "dart:async";
-
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
-import "package:rain_wise/auth/firebase_auth/auth_util.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
 import "package:rain_wise/index.dart";
 import "package:rain_wise/tabs/settings/settings_model.dart";
 
@@ -30,9 +26,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, SettingsModel.new);
-
-    unawaited(logFirebaseEvent("screen_view",
-        parameters: {"screen_name": "settings"}));
   }
 
   @override
@@ -547,92 +540,6 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                   ),
                   Column(
                     children: [
-                      Padding(
-                        padding:
-                            const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),
-                        child: Builder(
-                          builder: (final context) {
-                            if (currentUserUid != "") {
-                              return Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16, 12, 16, 12),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    GoRouter.of(context).prepareAuthEvent();
-                                    await authManager.signOut();
-                                    if (!context.mounted) return;
-                                    GoRouter.of(context)
-                                        .clearRedirectLocation();
-
-                                    context.goNamedAuth(EntryWidget.routeName,
-                                        mounted: context.mounted);
-                                  },
-                                  text: "Log Out",
-                                  options: FFButtonOptions(
-                                    height: 40,
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            24, 0, 24, 0),
-                                    iconPadding: EdgeInsetsDirectional.zero,
-                                    color: FlutterFlowTheme.of(context).accent1,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: "Readex Pro",
-                                          color: Colors.white,
-                                          letterSpacing: 0,
-                                        ),
-                                    elevation: 0,
-                                    borderSide: const BorderSide(),
-                                    borderRadius: BorderRadius.circular(50),
-                                    hoverColor:
-                                        FlutterFlowTheme.of(context).primary,
-                                  ),
-                                ),
-                              );
-                            } else {
-                              return Padding(
-                                padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16, 12, 16, 12),
-                                child: FFButtonWidget(
-                                  onPressed: () async {
-                                    GoRouter.of(context).prepareAuthEvent();
-                                    await authManager.signOut();
-                                    if (!context.mounted) return;
-                                    GoRouter.of(context)
-                                        .clearRedirectLocation();
-
-                                    context.goNamedAuth(EntryWidget.routeName,
-                                        mounted: context.mounted);
-                                  },
-                                  text: "Create an account",
-                                  options: FFButtonOptions(
-                                    height: 40,
-                                    padding:
-                                        const EdgeInsetsDirectional.fromSTEB(
-                                            24, 0, 24, 0),
-                                    iconPadding: EdgeInsetsDirectional.zero,
-                                    color: FlutterFlowTheme.of(context).accent1,
-                                    textStyle: FlutterFlowTheme.of(context)
-                                        .titleSmall
-                                        .override(
-                                          fontFamily: "Readex Pro",
-                                          color: Colors.white,
-                                          letterSpacing: 0,
-                                          fontWeight: FontWeight.bold,
-                                        ),
-                                    elevation: 0,
-                                    borderSide: const BorderSide(),
-                                    borderRadius: BorderRadius.circular(50),
-                                    hoverColor:
-                                        FlutterFlowTheme.of(context).primary,
-                                  ),
-                                ),
-                              );
-                            }
-                          },
-                        ),
-                      ),
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             valueOrDefault<double>(

@@ -1,7 +1,5 @@
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
-import "package:rain_wise/auth/firebase_auth/auth_util.dart";
-import "package:rain_wise/backend/backend.dart";
 import "package:rain_wise/components/edit_entry/edit_entry_model.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_choice_chips.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_drop_down.dart";
@@ -96,81 +94,47 @@ class _EditEntryWidgetState extends State<EditEntryWidget> {
                           color: FlutterFlowTheme.of(context).alternate,
                         ),
                       ),
-                      child: StreamBuilder<List<GaugesRecord>>(
-                        stream: queryGaugesRecord(
-                          queryBuilder: (final gaugesRecord) => gaugesRecord
-                              .where(
-                                "userID",
-                                isEqualTo: currentUserUid,
-                              )
-                              .orderBy("gaugeName"),
-                        ),
-                        builder: (final context, final snapshot) {
-                          // Customize what your widget looks like when it's loading.
-                          if (!snapshot.hasData) {
-                            return Center(
-                              child: SizedBox(
-                                width: 50,
-                                height: 50,
-                                child: CircularProgressIndicator(
-                                  valueColor: AlwaysStoppedAnimation<Color>(
-                                    FlutterFlowTheme.of(context).primary,
-                                  ),
-                                ),
-                              ),
-                            );
-                          }
-                          List<GaugesRecord> dropDownGaugesRecordList =
-                              snapshot.data!;
-
-                          return FlutterFlowDropDown<String>(
-                            controller: _model.dropDownValueController ??=
-                                FormFieldController<String>(null),
-                            options: dropDownGaugesRecordList
-                                .map((final e) => e.gaugeName)
-                                .toList(),
-                            onChanged: (final val) =>
-                                safeSetState(() => _model.dropDownValue = val),
-                            width: 200,
-                            height: 40,
-                            searchHintTextStyle: FlutterFlowTheme.of(context)
-                                .labelMedium
-                                .override(
+                      child: FlutterFlowDropDown<String>(
+                        controller: _model.dropDownValueController ??=
+                            FormFieldController<String>(null),
+                        options: [], // TODO: Populate with rain gauge options
+                        onChanged: (final val) =>
+                            safeSetState(() => _model.dropDownValue = val),
+                        width: 200,
+                        height: 40,
+                        searchHintTextStyle:
+                            FlutterFlowTheme.of(context).labelMedium.override(
                                   fontFamily: "Inter",
                                   letterSpacing: 0,
                                 ),
-                            searchTextStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
+                        searchTextStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.override(
                                   fontFamily: "Inter",
                                   letterSpacing: 0,
                                 ),
-                            textStyle: FlutterFlowTheme.of(context)
-                                .bodyMedium
-                                .override(
+                        textStyle:
+                            FlutterFlowTheme.of(context).bodyMedium.override(
                                   fontFamily: "Inter",
                                   fontSize: 16,
                                   letterSpacing: 0,
                                 ),
-                            hintText: "Select...",
-                            searchHintText: "Search...",
-                            icon: Icon(
-                              Icons.keyboard_arrow_down_rounded,
-                              color: FlutterFlowTheme.of(context).secondaryText,
-                              size: 24,
-                            ),
-                            fillColor: FlutterFlowTheme.of(context)
-                                .secondaryBackground,
-                            elevation: 2,
-                            borderColor: Colors.transparent,
-                            borderWidth: 0,
-                            borderRadius: 8,
-                            margin: const EdgeInsetsDirectional.fromSTEB(
-                                12, 0, 12, 0),
-                            hidesUnderline: true,
-                            isSearchable: true,
-                          );
-                        },
+                        hintText: "Select...",
+                        searchHintText: "Search...",
+                        icon: Icon(
+                          Icons.keyboard_arrow_down_rounded,
+                          color: FlutterFlowTheme.of(context).secondaryText,
+                          size: 24,
+                        ),
+                        fillColor:
+                            FlutterFlowTheme.of(context).secondaryBackground,
+                        elevation: 2,
+                        borderColor: Colors.transparent,
+                        borderWidth: 0,
+                        borderRadius: 8,
+                        margin:
+                            const EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
+                        hidesUnderline: true,
+                        isSearchable: true,
                       ),
                     ),
                   ].divide(const SizedBox(height: 8)),

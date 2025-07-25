@@ -1,9 +1,5 @@
-import "dart:async";
-
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
-import "package:rain_wise/auth/firebase_auth/auth_util.dart";
-import "package:rain_wise/backend/backend.dart";
 import "package:rain_wise/components/add_gauge/add_gauge_widget.dart";
 import "package:rain_wise/components/rain_gauge/rain_gauge_widget.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
@@ -32,9 +28,6 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, ManageGuagesModel.new);
-
-    unawaited(logFirebaseEvent("screen_view",
-        parameters: {"screen_name": "manage_guages"}));
   }
 
   @override
@@ -123,46 +116,17 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                                           letterSpacing: 0,
                                         ),
                                   ),
-                                  FutureBuilder<int>(
-                                    future: queryGaugesRecordCount(
-                                      queryBuilder: (final gaugesRecord) =>
-                                          gaugesRecord.where(
-                                        "userID",
-                                        isEqualTo: currentUserUid,
-                                      ),
-                                    ),
-                                    builder: (final context, final snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50,
-                                            height: 50,
-                                            child: CircularProgressIndicator(
-                                              valueColor:
-                                                  AlwaysStoppedAnimation<Color>(
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      int textCount = snapshot.data!;
-
-                                      return Text(
-                                        "$textCount Active",
-                                        style: FlutterFlowTheme.of(context)
-                                            .bodyMedium
-                                            .override(
-                                              fontFamily: "Inter",
-                                              color:
-                                                  FlutterFlowTheme.of(context)
-                                                      .secondaryText,
-                                              letterSpacing: 0,
-                                            ),
-                                      );
-                                    },
+                                  Text(
+                                    "0 Active",
+                                    // TODO: Update this to show the number of active gauges
+                                    style: FlutterFlowTheme.of(context)
+                                        .bodyMedium
+                                        .override(
+                                          fontFamily: "Inter",
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryText,
+                                          letterSpacing: 0,
+                                        ),
                                   ),
                                 ],
                               ),
@@ -171,51 +135,15 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                                 primary: false,
                                 shrinkWrap: true,
                                 children: [
-                                  StreamBuilder<List<GaugesRecord>>(
-                                    stream: queryGaugesRecord(
-                                      queryBuilder: (final gaugesRecord) =>
-                                          gaugesRecord
-                                              .where(
-                                                "userID",
-                                                isEqualTo: currentUserUid,
-                                              )
-                                              .orderBy("gaugeName"),
+                                  wrapWithModel(
+                                    model: _model.rainGaugeModel,
+                                    updateCallback: () => safeSetState(() {}),
+                                    // TODO: Update this to show the list of rain gauges
+                                    child: const RainGaugeWidget(
+                                      gaugeName: "",
+                                      gaugeID: "",
+                                      location: LatLng(0, 0),
                                     ),
-                                    builder: (final context, final snapshot) {
-                                      // Customize what your widget looks like when it's loading.
-                                      if (!snapshot.hasData) {
-                                        return Center(
-                                          child: SizedBox(
-                                            width: 50,
-                                            height: 50,
-                                            child: CircularProgressIndicator(
-                                              valueColor:
-                                                  AlwaysStoppedAnimation<Color>(
-                                                FlutterFlowTheme.of(context)
-                                                    .primary,
-                                              ),
-                                            ),
-                                          ),
-                                        );
-                                      }
-                                      List<GaugesRecord>
-                                          rainGaugeGaugesRecordList =
-                                          snapshot.data!;
-
-                                      return wrapWithModel(
-                                        model: _model.rainGaugeModel,
-                                        updateCallback: () =>
-                                            safeSetState(() {}),
-                                        child: RainGaugeWidget(
-                                          gaugeName: rainGaugeGaugesRecordList
-                                              .firstOrNull!.gaugeName,
-                                          gaugeID: rainGaugeGaugesRecordList
-                                              .firstOrNull!.rainGaugeID,
-                                          location: rainGaugeGaugesRecordList
-                                              .firstOrNull!.location,
-                                        ),
-                                      );
-                                    },
                                   ),
                                 ].divide(const SizedBox(height: 12)),
                               ),

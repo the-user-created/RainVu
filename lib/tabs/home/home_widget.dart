@@ -1,4 +1,3 @@
-import "dart:async";
 import "dart:ui";
 
 import "package:flutter/foundation.dart";
@@ -31,8 +30,6 @@ class _HomeWidgetState extends State<HomeWidget> {
   void initState() {
     super.initState();
     _model = createModel(context, HomeModel.new);
-
-    unawaited(logFirebaseEvent("screen_view", parameters: {"screen_name": "home"}));
   }
 
   @override
