@@ -305,7 +305,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 child: DecoratedBox(
                                   decoration: const BoxDecoration(),
                                   child:
-                                      // TODO(david): Take user to monthly breakdown for current month
+                                      // TODO: Take user to monthly breakdown for current month
                                       Padding(
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
@@ -360,7 +360,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                       ),
                     ),
 
-                    // TODO(david): Only shown for Pro users
+                    // TODO: Only shown for Pro users
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                           valueOrDefault<double>(
@@ -415,7 +415,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 height: 140,
                                 decoration: const BoxDecoration(),
                                 child:
-                                    // TODO(david): Remove blur for Pro users
+                                    // TODO: Remove blur for Pro users
                                     ClipRect(
                                   child: ImageFiltered(
                                     imageFilter: ImageFilter.blur(
@@ -928,7 +928,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                         ),
                                   ),
 
-                                  // TODO(david): Add switching logic
+                                  // TODO: Add switching logic
                                   DecoratedBox(
                                     decoration: const BoxDecoration(),
                                     child: Row(

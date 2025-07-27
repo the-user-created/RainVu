@@ -91,7 +91,7 @@ class _ModifyGaugeWidgetState extends State<ModifyGaugeWidget> {
                           ),
                         ),
 
-                        // TODO(david): get gauge name
+                        // TODO: get gauge name
                         TextFormField(
                           controller: _model.textController,
                           focusNode: _model.textFieldFocusNode,
@@ -163,7 +163,7 @@ class _ModifyGaugeWidgetState extends State<ModifyGaugeWidget> {
                           ),
                         ),
 
-                        // TODO(david): get gauge location
+                        // TODO: get gauge location
                         /*FlutterFlowPlacePicker(
                         iOSGoogleMapsApiKey: '',
                         androidGoogleMapsApiKey: '',

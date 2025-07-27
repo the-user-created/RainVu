@@ -16,8 +16,8 @@ class SeasonPatternsWidget extends StatefulWidget {
 class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  // TODO(david): Allow user to add seasons (and provide default seasons based on location)
-  // TODO(david): interactive area for a line chart that displays historical rainfall trends for the selected season. This chart should clearly mark data points with smooth transitions, enabling users to tap on any point to reveal detailed tooltips that show the exact rainfall amounts, percentage differences from previous years, and contextual notes where applicable.
+  // TODO: Allow user to add seasons (and provide default seasons based on location)
+  // TODO: interactive area for a line chart that displays historical rainfall trends for the selected season. This chart should clearly mark data points with smooth transitions, enabling users to tap on any point to reveal detailed tooltips that show the exact rainfall amounts, percentage differences from previous years, and contextual notes where applicable.
   // TODO: Select season dropdown
   // TODO: Make dynamic with rainfall data
 

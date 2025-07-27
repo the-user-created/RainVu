@@ -37,7 +37,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
     super.dispose();
   }
 
-  // TODO(david): Implement file picker
+  // TODO: Implement file picker
   // TODO: Date range picker
   // TODO: Default export format = CSV
   // TODO: remove notes checkbox
