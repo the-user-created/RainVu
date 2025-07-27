@@ -52,16 +52,17 @@ class _HelpWidgetState extends State<HelpWidget> {
                 children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        24,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      24,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       decoration: BoxDecoration(
@@ -74,14 +75,17 @@ class _HelpWidgetState extends State<HelpWidget> {
                               0,
                               2,
                             ),
-                          )
+                          ),
                         ],
                         borderRadius: BorderRadius.circular(12),
                       ),
-                      child:
-                          Padding(
+                      child: Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                            16, 16, 16, 16),
+                          16,
+                          16,
+                          16,
+                          16,
+                        ),
                         child: Column(
                           children: [
                             Text(
@@ -105,7 +109,11 @@ class _HelpWidgetState extends State<HelpWidget> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16, 16, 16, 16),
+                                  16,
+                                  16,
+                                  16,
+                                  16,
+                                ),
                                 child: Column(
                                   children: [
                                     Row(
@@ -145,7 +153,11 @@ class _HelpWidgetState extends State<HelpWidget> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16, 16, 16, 16),
+                                  16,
+                                  16,
+                                  16,
+                                  16,
+                                ),
                                 child: Column(
                                   children: [
                                     Row(
@@ -185,7 +197,11 @@ class _HelpWidgetState extends State<HelpWidget> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16, 16, 16, 16),
+                                  16,
+                                  16,
+                                  16,
+                                  16,
+                                ),
                                 child: Column(
                                   children: [
                                     Row(
@@ -225,7 +241,11 @@ class _HelpWidgetState extends State<HelpWidget> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16, 16, 16, 16),
+                                  16,
+                                  16,
+                                  16,
+                                  16,
+                                ),
                                 child: Column(
                                   children: [
                                     Row(
@@ -260,16 +280,17 @@ class _HelpWidgetState extends State<HelpWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       decoration: BoxDecoration(
@@ -282,13 +303,17 @@ class _HelpWidgetState extends State<HelpWidget> {
                               0,
                               2,
                             ),
-                          )
+                          ),
                         ],
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                            16, 16, 16, 16),
+                          16,
+                          16,
+                          16,
+                          16,
+                        ),
                         child: Column(
                           children: [
                             Text(
@@ -300,7 +325,6 @@ class _HelpWidgetState extends State<HelpWidget> {
                                     letterSpacing: 0,
                                   ),
                             ),
-
                             Container(
                               width: MediaQuery.sizeOf(context).width * 1.0,
                               decoration: BoxDecoration(
@@ -313,7 +337,11 @@ class _HelpWidgetState extends State<HelpWidget> {
                               ),
                               child: Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16, 16, 16, 16),
+                                  16,
+                                  16,
+                                  16,
+                                  16,
+                                ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -362,16 +390,17 @@ class _HelpWidgetState extends State<HelpWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        32),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      32,
+                    ),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       decoration: BoxDecoration(
@@ -384,13 +413,17 @@ class _HelpWidgetState extends State<HelpWidget> {
                               0,
                               2,
                             ),
-                          )
+                          ),
                         ],
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                            16, 16, 16, 16),
+                          16,
+                          16,
+                          16,
+                          16,
+                        ),
                         child: Column(
                           children: [
                             Text(
@@ -511,7 +544,11 @@ class _HelpWidgetState extends State<HelpWidget> {
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey", scaffoldKey));
+    properties.add(
+      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+        "scaffoldKey",
+        scaffoldKey,
+      ),
+    );
   }
 }

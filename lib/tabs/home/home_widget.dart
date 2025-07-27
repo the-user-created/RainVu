@@ -94,16 +94,17 @@ class _HomeWidgetState extends State<HomeWidget> {
                   children: [
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
                           0,
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
-                          0),
+                        ),
+                        0,
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
+                          0,
+                        ),
+                        0,
+                      ),
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -116,7 +117,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 0,
                                 2,
                               ),
-                            )
+                            ),
                           ],
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -176,7 +177,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 8, 0, 8),
+                                  0,
+                                  8,
+                                  0,
+                                  8,
+                                ),
                                 child: Divider(
                                   height: 1,
                                   thickness: 1,
@@ -185,7 +190,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 4, 0, 8),
+                                  0,
+                                  4,
+                                  0,
+                                  8,
+                                ),
                                 child: Text(
                                   "Recent Entries",
                                   style: FlutterFlowTheme.of(context)
@@ -199,7 +208,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 4, 0, 4),
+                                  0,
+                                  4,
+                                  0,
+                                  4,
+                                ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -231,7 +244,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 4, 0, 4),
+                                  0,
+                                  4,
+                                  0,
+                                  4,
+                                ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -263,7 +280,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 4, 0, 4),
+                                  0,
+                                  4,
+                                  0,
+                                  4,
+                                ),
                                 child: Row(
                                   mainAxisAlignment:
                                       MainAxisAlignment.spaceBetween,
@@ -300,7 +321,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   await context.pushNamed(
-                                      MonthlyBreakdownWidget.routeName);
+                                    MonthlyBreakdownWidget.routeName,
+                                  );
                                 },
                                 child: DecoratedBox(
                                   decoration: const BoxDecoration(),
@@ -309,7 +331,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       Padding(
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
-                                            0, 8, 0, 0),
+                                      0,
+                                      8,
+                                      0,
+                                      0,
+                                    ),
                                     child: InkWell(
                                       splashColor: Colors.transparent,
                                       focusColor: Colors.transparent,
@@ -317,7 +343,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         await context.pushNamed(
-                                            MonthlyBreakdownWidget.routeName);
+                                          MonthlyBreakdownWidget.routeName,
+                                        );
                                       },
                                       child: Row(
                                         mainAxisSize: MainAxisSize.min,
@@ -331,8 +358,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   letterSpacing: 0,
                                                   fontWeight: FontWeight.w600,
                                                 ),
@@ -363,16 +390,17 @@ class _HomeWidgetState extends State<HomeWidget> {
                     // TODO: Only shown for Pro users
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
                           0,
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
-                          0),
+                        ),
+                        0,
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
+                          0,
+                        ),
+                        0,
+                      ),
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 1.0,
                         decoration: BoxDecoration(
@@ -384,12 +412,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 0,
                                 2,
                               ),
-                            )
+                            ),
                           ],
                           gradient: LinearGradient(
                             colors: [
                               FlutterFlowTheme.of(context).primaryBackground,
-                              FlutterFlowTheme.of(context).alternate
+                              FlutterFlowTheme.of(context).alternate,
                             ],
                             stops: const [0.0, 1.0],
                             begin: AlignmentDirectional.topCenter,
@@ -399,7 +427,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              16, 16, 16, 16),
+                            16,
+                            16,
+                            16,
+                            16,
+                          ),
                           child: Column(
                             children: [
                               Text(
@@ -446,14 +478,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "Today",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
+                                                    context,
+                                                  ).bodySmall.override(
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
+                                                          context,
+                                                        ).secondaryText,
                                                         letterSpacing: 0,
                                                       ),
                                                 ),
@@ -465,9 +496,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "24°C",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
+                                                    context,
+                                                  ).bodyMedium.override(
                                                         fontFamily: "Inter",
                                                         letterSpacing: 0,
                                                       ),
@@ -475,19 +505,19 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "10%",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
+                                                    context,
+                                                  ).bodySmall.override(
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .tertiary,
+                                                          context,
+                                                        ).tertiary,
                                                         letterSpacing: 0,
                                                       ),
                                                 ),
                                               ].divide(
-                                                  const SizedBox(height: 8)),
+                                                const SizedBox(height: 8),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -509,14 +539,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "Tue",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
+                                                    context,
+                                                  ).bodySmall.override(
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
+                                                          context,
+                                                        ).secondaryText,
                                                         letterSpacing: 0,
                                                       ),
                                                 ),
@@ -528,9 +557,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "22°C",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
+                                                    context,
+                                                  ).bodyMedium.override(
                                                         fontFamily: "Inter",
                                                         letterSpacing: 0,
                                                       ),
@@ -538,19 +566,19 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "30%",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
+                                                    context,
+                                                  ).bodySmall.override(
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .tertiary,
+                                                          context,
+                                                        ).tertiary,
                                                         letterSpacing: 0,
                                                       ),
                                                 ),
                                               ].divide(
-                                                  const SizedBox(height: 8)),
+                                                const SizedBox(height: 8),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -572,30 +600,28 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "Wed",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
+                                                    context,
+                                                  ).bodySmall.override(
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
+                                                          context,
+                                                        ).secondaryText,
                                                         letterSpacing: 0,
                                                       ),
                                                 ),
                                                 Icon(
                                                   Icons.grain,
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   size: 32,
                                                 ),
                                                 Text(
                                                   "20°C",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
+                                                    context,
+                                                  ).bodyMedium.override(
                                                         fontFamily: "Inter",
                                                         letterSpacing: 0,
                                                       ),
@@ -603,19 +629,19 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "80%",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
+                                                    context,
+                                                  ).bodySmall.override(
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .tertiary,
+                                                          context,
+                                                        ).tertiary,
                                                         letterSpacing: 0,
                                                       ),
                                                 ),
                                               ].divide(
-                                                  const SizedBox(height: 8)),
+                                                const SizedBox(height: 8),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -637,14 +663,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "Thu",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
+                                                    context,
+                                                  ).bodySmall.override(
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
+                                                          context,
+                                                        ).secondaryText,
                                                         letterSpacing: 0,
                                                       ),
                                                 ),
@@ -656,9 +681,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "23°C",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
+                                                    context,
+                                                  ).bodyMedium.override(
                                                         fontFamily: "Inter",
                                                         letterSpacing: 0,
                                                       ),
@@ -666,19 +690,19 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "20%",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
+                                                    context,
+                                                  ).bodySmall.override(
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .tertiary,
+                                                          context,
+                                                        ).tertiary,
                                                         letterSpacing: 0,
                                                       ),
                                                 ),
                                               ].divide(
-                                                  const SizedBox(height: 8)),
+                                                const SizedBox(height: 8),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -700,14 +724,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "Thu",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
+                                                    context,
+                                                  ).bodySmall.override(
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
+                                                          context,
+                                                        ).secondaryText,
                                                         letterSpacing: 0,
                                                       ),
                                                 ),
@@ -719,9 +742,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "23°C",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
+                                                    context,
+                                                  ).bodyMedium.override(
                                                         fontFamily: "Inter",
                                                         letterSpacing: 0,
                                                       ),
@@ -729,19 +751,19 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "20%",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
+                                                    context,
+                                                  ).bodySmall.override(
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .tertiary,
+                                                          context,
+                                                        ).tertiary,
                                                         letterSpacing: 0,
                                                       ),
                                                 ),
                                               ].divide(
-                                                  const SizedBox(height: 8)),
+                                                const SizedBox(height: 8),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -763,14 +785,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "Thu",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
+                                                    context,
+                                                  ).bodySmall.override(
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
+                                                          context,
+                                                        ).secondaryText,
                                                         letterSpacing: 0,
                                                       ),
                                                 ),
@@ -782,9 +803,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "23°C",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
+                                                    context,
+                                                  ).bodyMedium.override(
                                                         fontFamily: "Inter",
                                                         letterSpacing: 0,
                                                       ),
@@ -792,19 +812,19 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "20%",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
+                                                    context,
+                                                  ).bodySmall.override(
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .tertiary,
+                                                          context,
+                                                        ).tertiary,
                                                         letterSpacing: 0,
                                                       ),
                                                 ),
                                               ].divide(
-                                                  const SizedBox(height: 8)),
+                                                const SizedBox(height: 8),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -826,14 +846,13 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "Thu",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
+                                                    context,
+                                                  ).bodySmall.override(
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
+                                                          context,
+                                                        ).secondaryText,
                                                         letterSpacing: 0,
                                                       ),
                                                 ),
@@ -845,9 +864,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "23°C",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodyMedium
-                                                      .override(
+                                                    context,
+                                                  ).bodyMedium.override(
                                                         fontFamily: "Inter",
                                                         letterSpacing: 0,
                                                       ),
@@ -855,19 +873,19 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "20%",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .bodySmall
-                                                      .override(
+                                                    context,
+                                                  ).bodySmall.override(
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .tertiary,
+                                                          context,
+                                                        ).tertiary,
                                                         letterSpacing: 0,
                                                       ),
                                                 ),
                                               ].divide(
-                                                  const SizedBox(height: 8)),
+                                                const SizedBox(height: 8),
+                                              ),
                                             ),
                                           ),
                                         ),
@@ -883,16 +901,17 @@ class _HomeWidgetState extends State<HomeWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
                           0,
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
-                          0),
+                        ),
+                        0,
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
+                          0,
+                        ),
+                        0,
+                      ),
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -905,7 +924,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 0,
                                 2,
                               ),
-                            )
+                            ),
                           ],
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -978,7 +997,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 16, 0, 0),
+                                  0,
+                                  16,
+                                  0,
+                                  0,
+                                ),
                                 child: Container(
                                   width: double.infinity,
                                   height: 180,
@@ -1016,8 +1039,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 height: 40,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       BorderRadius.circular(4),
                                                 ),
@@ -1027,8 +1050,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 height: 65,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       BorderRadius.circular(4),
                                                 ),
@@ -1038,8 +1061,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 height: 30,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       BorderRadius.circular(4),
                                                 ),
@@ -1049,8 +1072,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 height: 90,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       BorderRadius.circular(4),
                                                 ),
@@ -1060,8 +1083,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 height: 50,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       BorderRadius.circular(4),
                                                 ),
@@ -1071,8 +1094,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 height: 75,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       BorderRadius.circular(4),
                                                 ),
@@ -1082,8 +1105,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 height: 25,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       BorderRadius.circular(4),
                                                 ),
@@ -1203,7 +1226,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 12, 0, 0),
+                                  0,
+                                  12,
+                                  0,
+                                  0,
+                                ),
                                 child: DecoratedBox(
                                   decoration: const BoxDecoration(),
                                   child: InkWell(
@@ -1255,16 +1282,17 @@ class _HomeWidgetState extends State<HomeWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
                           0,
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
-                          0),
+                        ),
+                        0,
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
+                          0,
+                        ),
+                        0,
+                      ),
                       child: Container(
                         width: double.infinity,
                         decoration: BoxDecoration(
@@ -1277,7 +1305,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 0,
                                 2,
                               ),
-                            )
+                            ),
                           ],
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -1297,7 +1325,11 @@ class _HomeWidgetState extends State<HomeWidget> {
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    0, 16, 0, 0),
+                                  0,
+                                  16,
+                                  0,
+                                  0,
+                                ),
                                 child: SingleChildScrollView(
                                   scrollDirection: Axis.horizontal,
                                   child: Row(
@@ -1321,15 +1353,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "36.2",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .titleLarge
-                                                      .override(
+                                                    context,
+                                                  ).titleLarge.override(
                                                         fontFamily:
                                                             "Readex Pro",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
+                                                          context,
+                                                        ).primary,
                                                         letterSpacing: 0,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -1339,9 +1370,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                   "mm this week",
                                                   textAlign: TextAlign.center,
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .labelMedium
-                                                      .override(
+                                                    context,
+                                                  ).labelMedium.override(
                                                         fontFamily: "Inter",
                                                         letterSpacing: 0,
                                                       ),
@@ -1368,15 +1398,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "78.5",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .titleLarge
-                                                      .override(
+                                                    context,
+                                                  ).titleLarge.override(
                                                         fontFamily:
                                                             "Readex Pro",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
+                                                          context,
+                                                        ).primary,
                                                         letterSpacing: 0,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -1386,9 +1415,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                   "mm this month",
                                                   textAlign: TextAlign.center,
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .labelMedium
-                                                      .override(
+                                                    context,
+                                                  ).labelMedium.override(
                                                         fontFamily: "Inter",
                                                         letterSpacing: 0,
                                                       ),
@@ -1415,15 +1443,14 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                 Text(
                                                   "5.6",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .titleLarge
-                                                      .override(
+                                                    context,
+                                                  ).titleLarge.override(
                                                         fontFamily:
                                                             "Readex Pro",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .primary,
+                                                          context,
+                                                        ).primary,
                                                         letterSpacing: 0,
                                                         fontWeight:
                                                             FontWeight.bold,
@@ -1433,9 +1460,8 @@ class _HomeWidgetState extends State<HomeWidget> {
                                                   "mm daily avg",
                                                   textAlign: TextAlign.center,
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .labelMedium
-                                                      .override(
+                                                    context,
+                                                  ).labelMedium.override(
                                                         fontFamily: "Inter",
                                                         letterSpacing: 0,
                                                       ),
@@ -1468,7 +1494,11 @@ class _HomeWidgetState extends State<HomeWidget> {
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey", scaffoldKey));
+    properties.add(
+      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+        "scaffoldKey",
+        scaffoldKey,
+      ),
+    );
   }
 }

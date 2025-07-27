@@ -352,8 +352,12 @@ class FFRoute {
                   key: state.pageKey,
                   child: child,
                   transitionDuration: transitionInfo.duration,
-                  transitionsBuilder: (final context, final animation,
-                          final secondaryAnimation, final child) =>
+                  transitionsBuilder: (
+                    final context,
+                    final animation,
+                    final secondaryAnimation,
+                    final child,
+                  ) =>
                       PageTransition(
                     type: transitionInfo.transitionType,
                     duration: transitionInfo.duration,

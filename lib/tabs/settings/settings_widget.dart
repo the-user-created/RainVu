@@ -67,16 +67,17 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                         children: [
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                valueOrDefault<double>(
-                                  FFAppConstants.horiEdgePadding.toDouble(),
-                                  0,
-                                ),
+                              valueOrDefault<double>(
+                                FFAppConstants.horiEdgePadding.toDouble(),
                                 0,
-                                valueOrDefault<double>(
-                                  FFAppConstants.horiEdgePadding.toDouble(),
-                                  0,
-                                ),
-                                0),
+                              ),
+                              0,
+                              valueOrDefault<double>(
+                                FFAppConstants.horiEdgePadding.toDouble(),
+                                0,
+                              ),
+                              0,
+                            ),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -99,7 +100,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -132,16 +133,17 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                valueOrDefault<double>(
-                                  FFAppConstants.horiEdgePadding.toDouble(),
-                                  0,
-                                ),
+                              valueOrDefault<double>(
+                                FFAppConstants.horiEdgePadding.toDouble(),
                                 0,
-                                valueOrDefault<double>(
-                                  FFAppConstants.horiEdgePadding.toDouble(),
-                                  0,
-                                ),
-                                0),
+                              ),
+                              0,
+                              valueOrDefault<double>(
+                                FFAppConstants.horiEdgePadding.toDouble(),
+                                0,
+                              ),
+                              0,
+                            ),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -164,7 +166,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -197,16 +199,17 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                valueOrDefault<double>(
-                                  FFAppConstants.horiEdgePadding.toDouble(),
-                                  0,
-                                ),
+                              valueOrDefault<double>(
+                                FFAppConstants.horiEdgePadding.toDouble(),
                                 0,
-                                valueOrDefault<double>(
-                                  FFAppConstants.horiEdgePadding.toDouble(),
-                                  0,
-                                ),
-                                0),
+                              ),
+                              0,
+                              valueOrDefault<double>(
+                                FFAppConstants.horiEdgePadding.toDouble(),
+                                0,
+                              ),
+                              0,
+                            ),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -229,7 +232,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -262,16 +265,17 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                valueOrDefault<double>(
-                                  FFAppConstants.horiEdgePadding.toDouble(),
-                                  0,
-                                ),
+                              valueOrDefault<double>(
+                                FFAppConstants.horiEdgePadding.toDouble(),
                                 0,
-                                valueOrDefault<double>(
-                                  FFAppConstants.horiEdgePadding.toDouble(),
-                                  0,
-                                ),
-                                0),
+                              ),
+                              0,
+                              valueOrDefault<double>(
+                                FFAppConstants.horiEdgePadding.toDouble(),
+                                0,
+                              ),
+                              0,
+                            ),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -294,7 +298,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -327,16 +331,17 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                valueOrDefault<double>(
-                                  FFAppConstants.horiEdgePadding.toDouble(),
-                                  0,
-                                ),
+                              valueOrDefault<double>(
+                                FFAppConstants.horiEdgePadding.toDouble(),
                                 0,
-                                valueOrDefault<double>(
-                                  FFAppConstants.horiEdgePadding.toDouble(),
-                                  0,
-                                ),
-                                0),
+                              ),
+                              0,
+                              valueOrDefault<double>(
+                                FFAppConstants.horiEdgePadding.toDouble(),
+                                0,
+                              ),
+                              0,
+                            ),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -359,7 +364,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -392,16 +397,17 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                valueOrDefault<double>(
-                                  FFAppConstants.horiEdgePadding.toDouble(),
-                                  0,
-                                ),
+                              valueOrDefault<double>(
+                                FFAppConstants.horiEdgePadding.toDouble(),
                                 0,
-                                valueOrDefault<double>(
-                                  FFAppConstants.horiEdgePadding.toDouble(),
-                                  0,
-                                ),
-                                0),
+                              ),
+                              0,
+                              valueOrDefault<double>(
+                                FFAppConstants.horiEdgePadding.toDouble(),
+                                0,
+                              ),
+                              0,
+                            ),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -424,7 +430,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -457,16 +463,17 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           ),
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
-                                valueOrDefault<double>(
-                                  FFAppConstants.horiEdgePadding.toDouble(),
-                                  0,
-                                ),
+                              valueOrDefault<double>(
+                                FFAppConstants.horiEdgePadding.toDouble(),
                                 0,
-                                valueOrDefault<double>(
-                                  FFAppConstants.horiEdgePadding.toDouble(),
-                                  0,
-                                ),
-                                0),
+                              ),
+                              0,
+                              valueOrDefault<double>(
+                                FFAppConstants.horiEdgePadding.toDouble(),
+                                0,
+                              ),
+                              0,
+                            ),
                             child: InkWell(
                               splashColor: Colors.transparent,
                               focusColor: Colors.transparent,
@@ -488,7 +495,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -527,16 +534,17 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                     children: [
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            valueOrDefault<double>(
-                              FFAppConstants.horiEdgePadding.toDouble(),
-                              0,
-                            ),
-                            12,
-                            valueOrDefault<double>(
-                              FFAppConstants.horiEdgePadding.toDouble(),
-                              0,
-                            ),
-                            12),
+                          valueOrDefault<double>(
+                            FFAppConstants.horiEdgePadding.toDouble(),
+                            0,
+                          ),
+                          12,
+                          valueOrDefault<double>(
+                            FFAppConstants.horiEdgePadding.toDouble(),
+                            0,
+                          ),
+                          12,
+                        ),
                         child: Row(
                           mainAxisAlignment: MainAxisAlignment.spaceBetween,
                           children: [
@@ -545,7 +553,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      16, 0, 0, 0),
+                                    16,
+                                    0,
+                                    0,
+                                    0,
+                                  ),
                                   child: Text(
                                     "App Version",
                                     style: FlutterFlowTheme.of(context)
@@ -558,7 +570,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      16, 4, 0, 0),
+                                    16,
+                                    4,
+                                    0,
+                                    0,
+                                  ),
                                   child: Text(
                                     "v0.0.1",
                                     style: FlutterFlowTheme.of(context)
@@ -576,7 +592,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               children: [
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 0, 16, 0),
+                                    0,
+                                    0,
+                                    16,
+                                    0,
+                                  ),
                                   child: Text(
                                     "Last Synced",
                                     style: FlutterFlowTheme.of(context)
@@ -589,7 +609,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                                 ),
                                 Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      0, 4, 16, 0),
+                                    0,
+                                    4,
+                                    16,
+                                    0,
+                                  ),
                                   child: Text(
                                     "05/02/2025 21:34",
                                     style: FlutterFlowTheme.of(context)
@@ -617,7 +641,11 @@ class _SettingsWidgetState extends State<SettingsWidget> {
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey", scaffoldKey));
+    properties.add(
+      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+        "scaffoldKey",
+        scaffoldKey,
+      ),
+    );
   }
 }

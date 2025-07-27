@@ -47,16 +47,17 @@ class _AddGaugeWidgetState extends State<AddGaugeWidget> {
         ),
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(
-              valueOrDefault<double>(
-                FFAppConstants.horiEdgePadding.toDouble(),
-                0,
-              ),
-              16,
-              valueOrDefault<double>(
-                FFAppConstants.horiEdgePadding.toDouble(),
-                0,
-              ),
-              16),
+            valueOrDefault<double>(
+              FFAppConstants.horiEdgePadding.toDouble(),
+              0,
+            ),
+            16,
+            valueOrDefault<double>(
+              FFAppConstants.horiEdgePadding.toDouble(),
+              0,
+            ),
+            16,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -229,7 +230,9 @@ class _AddGaugeWidgetState extends State<AddGaugeWidget> {
                     onPressed: () async {
                       // TODO: Implement the logic to save the new gauge.
 
-                      if (!context.mounted) return;
+                      if (!context.mounted) {
+                        return;
+                      }
                       Navigator.pop(context);
                     },
                     text: "Save",

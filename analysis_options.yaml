@@ -5,7 +5,6 @@ linter:
     - always_declare_return_types
     - always_put_control_body_on_new_line
     - always_put_required_named_parameters_first
-    # - always_specify_types
     - always_use_package_imports
     - annotate_overrides
     - annotate_redeclares
@@ -104,7 +103,6 @@ linter:
     - noop_primitive_operations
     - null_check_on_nullable_type_parameter
     - null_closures
-    - omit_obvious_property_types
     - one_member_abstracts
     - only_throw_errors
     - overridden_fields

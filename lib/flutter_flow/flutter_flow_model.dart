@@ -46,7 +46,9 @@ abstract class FlutterFlowModel<W extends Widget> {
       initState(context);
       _isInitialized = true;
     }
-    if (context.widget is W) _widget = context.widget as W;
+    if (context.widget is W) {
+      _widget = context.widget as W;
+    }
     _context = context;
   }
 
@@ -122,8 +124,10 @@ class FlutterFlowDynamicModels<T extends FlutterFlowModel> {
       // Map each model to the desired value and return as list. In order
       // to preserve index order, rather than removing null values we provide
       // default values (for types with reasonable defaults).
-      .map((final e) =>
-          getValue(_childrenModels[e.key]!) ?? _getDefaultValue<S>()!)
+      .map(
+        (final e) =>
+            getValue(_childrenModels[e.key]!) ?? _getDefaultValue<S>()!,
+      )
       .toList();
 
   S? getValueAtIndex<S>(final int index, final S? Function(T) getValue) {

@@ -96,7 +96,11 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                             // TODO: include interactive filter controls that enable users to select specific years or a range of years, as well as choose which metrics to compare, such as total annual rainfall, month-to-date totals, or seasonal averages.
                             Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              16, 16, 16, 16),
+                            16,
+                            16,
+                            16,
+                            16,
+                          ),
                           child: Column(
                             children: [
                               Text(
@@ -123,7 +127,11 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                                     child: Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              12, 16, 12, 16),
+                                        12,
+                                        16,
+                                        12,
+                                        16,
+                                      ),
                                       child: Row(
                                         children: [
                                           Icon(
@@ -156,7 +164,11 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                                     child: Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              12, 16, 12, 16),
+                                        12,
+                                        16,
+                                        12,
+                                        16,
+                                      ),
                                       child: Row(
                                         children: [
                                           Icon(
@@ -184,10 +196,12 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                                 options: const [
                                   ChipData("Annual Total"),
                                   ChipData("Monthly"),
-                                  ChipData("Seasonal")
+                                  ChipData("Seasonal"),
                                 ],
-                                onChanged: (final val) => safeSetState(() =>
-                                    _model.choiceChipsValue = val?.firstOrNull),
+                                onChanged: (final val) => safeSetState(
+                                  () => _model.choiceChipsValue =
+                                      val?.firstOrNull,
+                                ),
                                 selectedChipStyle: ChipStyle(
                                   backgroundColor:
                                       FlutterFlowTheme.of(context).accent1,
@@ -202,7 +216,11 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                                   iconSize: 16,
                                   labelPadding:
                                       const EdgeInsetsDirectional.fromSTEB(
-                                          8, 12, 8, 12),
+                                    8,
+                                    12,
+                                    8,
+                                    12,
+                                  ),
                                   elevation: 0,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
@@ -219,7 +237,11 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                                   iconSize: 16,
                                   labelPadding:
                                       const EdgeInsetsDirectional.fromSTEB(
-                                          8, 12, 8, 12),
+                                    8,
+                                    12,
+                                    8,
+                                    12,
+                                  ),
                                   elevation: 0,
                                   borderRadius: BorderRadius.circular(20),
                                 ),
@@ -257,13 +279,17 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                               0,
                               2,
                             ),
-                          )
+                          ),
                         ],
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                            16, 16, 16, 16),
+                          16,
+                          16,
+                          16,
+                          16,
+                        ),
                         child: Column(
                           children: [
                             Row(
@@ -361,7 +387,7 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                                 0,
                                 2,
                               ),
-                            )
+                            ),
                           ],
                           borderRadius: BorderRadius.circular(16),
                         ),
@@ -369,7 +395,11 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                             // TODO: a scrollable list of summary cards where each card represents data for a single year. Each card should display the total rainfall for that year, as well as additional data points like month-to-date and year-to-date totals. Incorporate visual indicators such as subtle color changes or directional icons to quickly inform the user if a year’s performance is above, below, or in line with historical trends.
                             Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              16, 16, 16, 16),
+                            16,
+                            16,
+                            16,
+                            16,
+                          ),
                           child: Column(
                             children: [
                               Text(
@@ -393,13 +423,17 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      16, 16, 16, 16),
+                                    16,
+                                    16,
+                                    16,
+                                    16,
+                                  ),
                                   child: Column(
                                     children: [
                                       Row(
@@ -413,8 +447,8 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                                                 .override(
                                                   fontFamily: "Readex Pro",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -556,13 +590,17 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      16, 16, 16, 16),
+                                    16,
+                                    16,
+                                    16,
+                                    16,
+                                  ),
                                   child: Column(
                                     children: [
                                       Row(
@@ -576,8 +614,8 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                                                 .override(
                                                   fontFamily: "Readex Pro",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .tertiary,
+                                                    context,
+                                                  ).tertiary,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -719,13 +757,17 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      16, 16, 16, 16),
+                                    16,
+                                    16,
+                                    16,
+                                    16,
+                                  ),
                                   child: Column(
                                     children: [
                                       Row(
@@ -739,8 +781,8 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                                                 .override(
                                                   fontFamily: "Readex Pro",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondary,
+                                                    context,
+                                                  ).secondary,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -886,7 +928,11 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey", scaffoldKey));
+    properties.add(
+      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+        "scaffoldKey",
+        scaffoldKey,
+      ),
+    );
   }
 }

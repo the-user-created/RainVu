@@ -44,7 +44,7 @@ class _MtdBreakdownWidgetState extends State<MtdBreakdownWidget> {
                     0,
                     2,
                   ),
-                )
+                ),
               ],
               borderRadius: BorderRadius.circular(16),
             ),

@@ -58,16 +58,17 @@ class _LogRainWidgetState extends State<LogRainWidget> {
         ),
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(
-              valueOrDefault<double>(
-                FFAppConstants.horiEdgePadding.toDouble(),
-                0,
-              ),
-              16,
-              valueOrDefault<double>(
-                FFAppConstants.horiEdgePadding.toDouble(),
-                0,
-              ),
-              16),
+            valueOrDefault<double>(
+              FFAppConstants.horiEdgePadding.toDouble(),
+              0,
+            ),
+            16,
+            valueOrDefault<double>(
+              FFAppConstants.horiEdgePadding.toDouble(),
+              0,
+            ),
+            16,
+          ),
           child: SingleChildScrollView(
             primary: false,
             child: Column(
@@ -104,7 +105,7 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                       child: FlutterFlowDropDown<String>(
                         controller: _model.dropDownValueController ??=
                             FormFieldController<String>(null),
-                        options: [],
+                        options: const [],
                         // TODO: Populate with rain gauges
                         onChanged: (final val) =>
                             safeSetState(() => _model.dropDownValue = val),
@@ -208,7 +209,7 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                       validator:
                           _model.textControllerValidator.asValidator(context),
                       inputFormatters: [
-                        FilteringTextInputFormatter.allow(RegExp("[0-9]"))
+                        FilteringTextInputFormatter.allow(RegExp("[0-9]")),
                       ],
                     ),
                     Row(
@@ -225,17 +226,19 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
+                            0,
+                            0,
+                            valueOrDefault<double>(
+                              FFAppConstants.horiEdgePadding.toDouble(),
                               0,
-                              0,
-                              valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
-                                0,
-                              ),
-                              0),
+                            ),
+                            0,
+                          ),
                           child: FlutterFlowChoiceChips(
                             options: const [ChipData("mm"), ChipData("inches")],
-                            onChanged: (final val) => safeSetState(() =>
-                                _model.choiceChipsValue = val?.firstOrNull),
+                            onChanged: (final val) => safeSetState(
+                              () => _model.choiceChipsValue = val?.firstOrNull,
+                            ),
                             selectedChipStyle: ChipStyle(
                               backgroundColor:
                                   FlutterFlowTheme.of(context).accent1,
@@ -337,7 +340,9 @@ class _LogRainWidgetState extends State<LogRainWidget> {
 
                         TimeOfDay? datePickedTime;
                         if (datePickedDate != null) {
-                          if (!context.mounted) return;
+                          if (!context.mounted) {
+                            return;
+                          }
                           datePickedTime = await showTimePicker(
                             context: context,
                             initialTime:
@@ -401,7 +406,11 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              12, 12, 12, 12),
+                            12,
+                            12,
+                            12,
+                            12,
+                          ),
                           child: Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [

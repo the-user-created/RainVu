@@ -76,16 +76,17 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                   children: [
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
                           0,
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
-                          0),
+                        ),
+                        0,
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
+                          0,
+                        ),
+                        0,
+                      ),
                       child: Material(
                         color: Colors.transparent,
                         elevation: 2,
@@ -101,7 +102,11 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                           ),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                20, 20, 20, 20),
+                              20,
+                              20,
+                              20,
+                              20,
+                            ),
                             child: Column(
                               children: [
                                 Row(
@@ -129,8 +134,8 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
+                                                    context,
+                                                  ).secondaryText,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -140,8 +145,9 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                     Switch(
                                       value: _model.switchValue1!,
                                       onChanged: (final newValue) {
-                                        safeSetState(() =>
-                                            _model.switchValue1 = newValue);
+                                        safeSetState(
+                                          () => _model.switchValue1 = newValue,
+                                        );
                                       },
                                     ),
                                   ],
@@ -153,62 +159,60 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                   highlightColor: Colors.transparent,
                                   onTap: () async {
                                     await showModalBottomSheet<bool>(
-                                        context: context,
-                                        builder: (final context) {
-                                          final CupertinoThemeData
-                                              datePickedCupertinoTheme =
-                                              CupertinoTheme.of(context);
-                                          return Container(
-                                            height: MediaQuery.of(context)
-                                                    .size
-                                                    .height /
-                                                3,
-                                            width: MediaQuery.of(context)
-                                                .size
-                                                .width,
-                                            color: FlutterFlowTheme.of(context)
-                                                .secondaryBackground,
-                                            child: CupertinoTheme(
-                                              data: datePickedCupertinoTheme
-                                                  .copyWith(
-                                                textTheme:
-                                                    datePickedCupertinoTheme
-                                                        .textTheme
-                                                        .copyWith(
-                                                  dateTimePickerTextStyle:
-                                                      FlutterFlowTheme.of(
-                                                              context)
-                                                          .headlineMedium
-                                                          .override(
-                                                            fontFamily:
-                                                                "Readex Pro",
-                                                            color: FlutterFlowTheme
-                                                                    .of(context)
-                                                                .primaryText,
-                                                            letterSpacing: 0,
-                                                          ),
-                                                ),
-                                              ),
-                                              child: CupertinoDatePicker(
-                                                mode: CupertinoDatePickerMode
-                                                    .time,
-                                                minimumDate: DateTime(1900),
-                                                initialDateTime:
-                                                    getCurrentTimestamp,
-                                                maximumDate: DateTime(2050),
-                                                backgroundColor:
-                                                    FlutterFlowTheme.of(context)
-                                                        .secondaryBackground,
-                                                onDateTimeChanged:
-                                                    (final newDateTime) =>
-                                                        safeSetState(() {
-                                                  _model.datePicked =
-                                                      newDateTime;
-                                                }),
+                                      context: context,
+                                      builder: (final context) {
+                                        final CupertinoThemeData
+                                            datePickedCupertinoTheme =
+                                            CupertinoTheme.of(context);
+                                        return Container(
+                                          height: MediaQuery.of(context)
+                                                  .size
+                                                  .height /
+                                              3,
+                                          width:
+                                              MediaQuery.of(context).size.width,
+                                          color: FlutterFlowTheme.of(context)
+                                              .secondaryBackground,
+                                          child: CupertinoTheme(
+                                            data: datePickedCupertinoTheme
+                                                .copyWith(
+                                              textTheme:
+                                                  datePickedCupertinoTheme
+                                                      .textTheme
+                                                      .copyWith(
+                                                dateTimePickerTextStyle:
+                                                    FlutterFlowTheme.of(
+                                                  context,
+                                                ).headlineMedium.override(
+                                                          fontFamily:
+                                                              "Readex Pro",
+                                                          color: FlutterFlowTheme
+                                                                  .of(context)
+                                                              .primaryText,
+                                                          letterSpacing: 0,
+                                                        ),
                                               ),
                                             ),
-                                          );
-                                        });
+                                            child: CupertinoDatePicker(
+                                              mode:
+                                                  CupertinoDatePickerMode.time,
+                                              minimumDate: DateTime(1900),
+                                              initialDateTime:
+                                                  getCurrentTimestamp,
+                                              maximumDate: DateTime(2050),
+                                              backgroundColor:
+                                                  FlutterFlowTheme.of(context)
+                                                      .secondaryBackground,
+                                              onDateTimeChanged:
+                                                  (final newDateTime) =>
+                                                      safeSetState(() {
+                                                _model.datePicked = newDateTime;
+                                              }),
+                                            ),
+                                          ),
+                                        );
+                                      },
+                                    );
                                   },
                                   child: Container(
                                     width:
@@ -221,7 +225,11 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                     child: Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              16, 16, 16, 16),
+                                        16,
+                                        16,
+                                        16,
+                                        16,
+                                      ),
                                       child: Row(
                                         mainAxisAlignment:
                                             MainAxisAlignment.spaceBetween,
@@ -249,8 +257,8 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                                   "jm",
                                                   _model.datePicked,
                                                   locale: FFLocalizations.of(
-                                                          context)
-                                                      .languageCode,
+                                                    context,
+                                                  ).languageCode,
                                                 ),
                                                 style:
                                                     FlutterFlowTheme.of(context)
@@ -284,16 +292,17 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
                           0,
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
-                          0),
+                        ),
+                        0,
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
+                          0,
+                        ),
+                        0,
+                      ),
                       child: Material(
                         color: Colors.transparent,
                         elevation: 2,
@@ -309,7 +318,11 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                           ),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                20, 20, 20, 20),
+                              20,
+                              20,
+                              20,
+                              20,
+                            ),
                             child: Column(
                               children: [
                                 Row(
@@ -337,8 +350,8 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
+                                                    context,
+                                                  ).secondaryText,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -348,8 +361,9 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                     Switch(
                                       value: _model.switchValue2!,
                                       onChanged: (final newValue) {
-                                        safeSetState(() =>
-                                            _model.switchValue2 = newValue);
+                                        safeSetState(
+                                          () => _model.switchValue2 = newValue,
+                                        );
                                       },
                                     ),
                                   ],
@@ -362,16 +376,17 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
                           0,
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
-                          0),
+                        ),
+                        0,
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
+                          0,
+                        ),
+                        0,
+                      ),
                       child: Material(
                         color: Colors.transparent,
                         elevation: 2,
@@ -387,7 +402,11 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                           ),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                20, 20, 20, 20),
+                              20,
+                              20,
+                              20,
+                              20,
+                            ),
                             child: Column(
                               children: [
                                 Row(
@@ -415,8 +434,8 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
+                                                    context,
+                                                  ).secondaryText,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -426,8 +445,9 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                     Switch(
                                       value: _model.switchValue3!,
                                       onChanged: (final newValue) {
-                                        safeSetState(() =>
-                                            _model.switchValue3 = newValue);
+                                        safeSetState(
+                                          () => _model.switchValue3 = newValue,
+                                        );
                                       },
                                     ),
                                   ],
@@ -440,16 +460,17 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
                           0,
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
-                          0),
+                        ),
+                        0,
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
+                          0,
+                        ),
+                        0,
+                      ),
                       child: Material(
                         color: Colors.transparent,
                         elevation: 2,
@@ -465,7 +486,11 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                           ),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                20, 20, 20, 20),
+                              20,
+                              20,
+                              20,
+                              20,
+                            ),
                             child: Column(
                               children: [
                                 Row(
@@ -493,8 +518,8 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
+                                                    context,
+                                                  ).secondaryText,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -504,8 +529,9 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                                     Switch(
                                       value: _model.switchValue4!,
                                       onChanged: (final newValue) {
-                                        safeSetState(() =>
-                                            _model.switchValue4 = newValue);
+                                        safeSetState(
+                                          () => _model.switchValue4 = newValue,
+                                        );
                                       },
                                     ),
                                   ],
@@ -518,16 +544,17 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
                           0,
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
-                          0),
+                        ),
+                        0,
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
+                          0,
+                        ),
+                        0,
+                      ),
                       child: Text(
                         "Changes are saved automatically",
                         textAlign: TextAlign.center,
@@ -549,7 +576,11 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey", scaffoldKey));
+    properties.add(
+      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+        "scaffoldKey",
+        scaffoldKey,
+      ),
+    );
   }
 }
