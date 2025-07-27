@@ -1,4 +1,3 @@
-import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
 
@@ -34,28 +33,6 @@ class FlutterFlowIconButton extends StatefulWidget {
 
   @override
   State<FlutterFlowIconButton> createState() => _FlutterFlowIconButtonState();
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DoubleProperty("borderRadius", borderRadius))
-      ..add(DoubleProperty("buttonSize", buttonSize))
-      ..add(ColorProperty("fillColor", fillColor))
-      ..add(ColorProperty("disabledColor", disabledColor))
-      ..add(ColorProperty("disabledIconColor", disabledIconColor))
-      ..add(ColorProperty("hoverColor", hoverColor))
-      ..add(ColorProperty("hoverIconColor", hoverIconColor))
-      ..add(ColorProperty("borderColor", borderColor))
-      ..add(DoubleProperty("borderWidth", borderWidth))
-      ..add(
-        DiagnosticsProperty<bool>(
-          "showLoadingIndicator",
-          showLoadingIndicator,
-        ),
-      )
-      ..add(ObjectFlagProperty<Function()?>.has("onPressed", onPressed));
-  }
 }
 
 class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> {
@@ -187,14 +164,5 @@ class _FlutterFlowIconButtonState extends State<FlutterFlowIconButton> {
         ),
       ),
     );
-  }
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty<bool>("loading", loading))
-      ..add(DoubleProperty("iconSize", iconSize))
-      ..add(ColorProperty("iconColor", iconColor));
   }
 }

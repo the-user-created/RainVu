@@ -1,4 +1,3 @@
-import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter/scheduler.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
@@ -69,44 +68,6 @@ class FlutterFlowChoiceChips extends StatefulWidget {
 
   @override
   State<FlutterFlowChoiceChips> createState() => _FlutterFlowChoiceChipsState();
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(IterableProperty<ChipData>("options", options))
-      ..add(
-        ObjectFlagProperty<void Function(List<String>? p1)?>.has(
-          "onChanged",
-          onChanged,
-        ),
-      )
-      ..add(
-        DiagnosticsProperty<FormFieldController<List<String>>>(
-          "controller",
-          controller,
-        ),
-      )
-      ..add(
-        DiagnosticsProperty<ChipStyle>(
-          "selectedChipStyle",
-          selectedChipStyle,
-        ),
-      )
-      ..add(
-        DiagnosticsProperty<ChipStyle>(
-          "unselectedChipStyle",
-          unselectedChipStyle,
-        ),
-      )
-      ..add(DoubleProperty("chipSpacing", chipSpacing))
-      ..add(DoubleProperty("rowSpacing", rowSpacing))
-      ..add(DiagnosticsProperty<bool>("multiselect", multiselect))
-      ..add(DiagnosticsProperty<bool>("initialized", initialized))
-      ..add(EnumProperty<WrapAlignment>("alignment", alignment))
-      ..add(ColorProperty("disabledColor", disabledColor))
-      ..add(DiagnosticsProperty<bool>("wrapped", wrapped));
-  }
 }
 
 class _FlutterFlowChoiceChipsState extends State<FlutterFlowChoiceChips> {
@@ -213,13 +174,5 @@ class _FlutterFlowChoiceChipsState extends State<FlutterFlowChoiceChips> {
         ),
       );
     }
-  }
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(IterableProperty<String>("choiceChipValues", choiceChipValues))
-      ..add(IterableProperty<String>("selectedValues", selectedValues));
   }
 }

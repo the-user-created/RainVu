@@ -1,4 +1,3 @@
-import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/components/add_gauge/add_gauge_widget.dart";
 import "package:rain_wise/components/rain_gauge/rain_gauge_widget.dart";
@@ -201,15 +200,4 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
           ),
         ),
       );
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(
-      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey",
-        scaffoldKey,
-      ),
-    );
-  }
 }

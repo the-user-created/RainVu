@@ -1,4 +1,3 @@
-import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/components/manage_plan/manage_plan_widget.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
@@ -760,15 +759,4 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
           ),
         ),
       );
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(
-      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey",
-        scaffoldKey,
-      ),
-    );
-  }
 }
