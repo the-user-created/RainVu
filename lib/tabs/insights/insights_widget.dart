@@ -5,9 +5,6 @@ import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/index.dart";
-import "package:rain_wise/tabs/insights/insights_model.dart";
-
-export "insights_model.dart";
 
 class InsightsWidget extends StatefulWidget {
   const InsightsWidget({super.key});
@@ -20,29 +17,14 @@ class InsightsWidget extends StatefulWidget {
 }
 
 class _InsightsWidgetState extends State<InsightsWidget> {
-  late InsightsModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, InsightsModel.new);
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
-  }
 
   // TODO: Make dynamic with rainfall entries
   // TODO: Info button in app bar
-  // TODO(david): Make each of the cards expand to fill the entire column area upon being tapped - provide more detail when this happens
-  // TODO(david): Add info dialogs to each info-icon
-  // TODO(david): Allow user to change this to a yearly trend
-  // TODO(david): when each month is tapped on, take the user to the respective monthly breakdown
+  // TODO: Make each of the cards expand to fill the entire column area upon being tapped - provide more detail when this happens
+  // TODO: Add info dialogs to each info-icon
+  // TODO: Allow user to change this to a yearly trend
+  // TODO: when each month is tapped on, take the user to the respective monthly breakdown
 
   @override
   Widget build(final BuildContext context) => GestureDetector(
@@ -109,8 +91,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                         ],
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child:
-                          Padding(
+                      child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                             valueOrDefault<double>(
                               FFAppConstants.horiEdgePadding.toDouble(),
@@ -959,8 +940,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                         ],
                         borderRadius: BorderRadius.circular(16),
                       ),
-                      child:
-                          Align(
+                      child: Align(
                         alignment: AlignmentDirectional.center,
                         child: GridView(
                           padding: const EdgeInsets.fromLTRB(
@@ -977,90 +957,42 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                           ),
                           shrinkWrap: true,
                           scrollDirection: Axis.horizontal,
-                          children: [
-                            wrapWithModel(
-                              model: _model.mtdBreakdownModel1,
-                              updateCallback: () => safeSetState(() {}),
-                              child: const MtdBreakdownWidget(
-                                month: "January",
-                              ),
+                          children: const [
+                            MtdBreakdownWidget(
+                              month: "January",
                             ),
-                            wrapWithModel(
-                              model: _model.mtdBreakdownModel2,
-                              updateCallback: () => safeSetState(() {}),
-                              child: const MtdBreakdownWidget(
-                                month: "February",
-                              ),
+                            MtdBreakdownWidget(
+                              month: "February",
                             ),
-                            wrapWithModel(
-                              model: _model.mtdBreakdownModel3,
-                              updateCallback: () => safeSetState(() {}),
-                              child: const MtdBreakdownWidget(
-                                month: "March",
-                              ),
+                            MtdBreakdownWidget(
+                              month: "March",
                             ),
-                            wrapWithModel(
-                              model: _model.mtdBreakdownModel4,
-                              updateCallback: () => safeSetState(() {}),
-                              child: const MtdBreakdownWidget(
-                                month: "April",
-                              ),
+                            MtdBreakdownWidget(
+                              month: "April",
                             ),
-                            wrapWithModel(
-                              model: _model.mtdBreakdownModel5,
-                              updateCallback: () => safeSetState(() {}),
-                              child: const MtdBreakdownWidget(
-                                month: "May",
-                              ),
+                            MtdBreakdownWidget(
+                              month: "May",
                             ),
-                            wrapWithModel(
-                              model: _model.mtdBreakdownModel6,
-                              updateCallback: () => safeSetState(() {}),
-                              child: const MtdBreakdownWidget(
-                                month: "June",
-                              ),
+                            MtdBreakdownWidget(
+                              month: "June",
                             ),
-                            wrapWithModel(
-                              model: _model.mtdBreakdownModel7,
-                              updateCallback: () => safeSetState(() {}),
-                              child: const MtdBreakdownWidget(
-                                month: "July",
-                              ),
+                            MtdBreakdownWidget(
+                              month: "July",
                             ),
-                            wrapWithModel(
-                              model: _model.mtdBreakdownModel8,
-                              updateCallback: () => safeSetState(() {}),
-                              child: const MtdBreakdownWidget(
-                                month: "August",
-                              ),
+                            MtdBreakdownWidget(
+                              month: "August",
                             ),
-                            wrapWithModel(
-                              model: _model.mtdBreakdownModel9,
-                              updateCallback: () => safeSetState(() {}),
-                              child: const MtdBreakdownWidget(
-                                month: "September",
-                              ),
+                            MtdBreakdownWidget(
+                              month: "September",
                             ),
-                            wrapWithModel(
-                              model: _model.mtdBreakdownModel10,
-                              updateCallback: () => safeSetState(() {}),
-                              child: const MtdBreakdownWidget(
-                                month: "October",
-                              ),
+                            MtdBreakdownWidget(
+                              month: "October",
                             ),
-                            wrapWithModel(
-                              model: _model.mtdBreakdownModel11,
-                              updateCallback: () => safeSetState(() {}),
-                              child: const MtdBreakdownWidget(
-                                month: "November",
-                              ),
+                            MtdBreakdownWidget(
+                              month: "November",
                             ),
-                            wrapWithModel(
-                              model: _model.mtdBreakdownModel12,
-                              updateCallback: () => safeSetState(() {}),
-                              child: const MtdBreakdownWidget(
-                                month: "December",
-                              ),
+                            MtdBreakdownWidget(
+                              month: "December",
                             ),
                           ],
                         ),

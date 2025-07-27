@@ -4,9 +4,6 @@ import "package:rain_wise/components/ticket/ticket_widget.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
-import "package:rain_wise/settings/help/help_model.dart";
-
-export "help_model.dart";
 
 class HelpWidget extends StatefulWidget {
   const HelpWidget({super.key});
@@ -19,25 +16,10 @@ class HelpWidget extends StatefulWidget {
 }
 
 class _HelpWidgetState extends State<HelpWidget> {
-  late HelpModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, HelpModel.new);
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
-  }
-
-  // TODO(david): Add better FAQs, and make into a searchable list
-  // TODO(david): Should have hover/tap animation, open user's default email app
+  // TODO: Add better FAQs, and make into a searchable list
+  // TODO: Should have hover/tap animation, open user's default email app
 
   @override
   Widget build(final BuildContext context) => GestureDetector(

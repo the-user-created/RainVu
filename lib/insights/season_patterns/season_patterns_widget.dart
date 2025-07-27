@@ -2,9 +2,6 @@ import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/insights/season_patterns/season_patterns_model.dart";
-
-export "season_patterns_model.dart";
 
 class SeasonPatternsWidget extends StatefulWidget {
   const SeasonPatternsWidget({super.key});
@@ -17,22 +14,7 @@ class SeasonPatternsWidget extends StatefulWidget {
 }
 
 class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
-  late SeasonPatternsModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, SeasonPatternsModel.new);
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
-  }
 
   // TODO(david): Allow user to add seasons (and provide default seasons based on location)
   // TODO(david): interactive area for a line chart that displays historical rainfall trends for the selected season. This chart should clearly mark data points with smooth transitions, enabling users to tap on any point to reveal detailed tooltips that show the exact rainfall amounts, percentage differences from previous years, and contextual notes where applicable.

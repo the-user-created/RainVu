@@ -4,9 +4,6 @@ import "package:rain_wise/components/edit_entry/edit_entry_widget.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/misc/rainfall_entries/rainfall_entries_model.dart";
-
-export "rainfall_entries_model.dart";
 
 class RainfallEntriesWidget extends StatefulWidget {
   const RainfallEntriesWidget({super.key});
@@ -19,22 +16,8 @@ class RainfallEntriesWidget extends StatefulWidget {
 }
 
 class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
-  late RainfallEntriesModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, RainfallEntriesModel.new);
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
-  }
 
   // TODO: Many rendering library issues here
 

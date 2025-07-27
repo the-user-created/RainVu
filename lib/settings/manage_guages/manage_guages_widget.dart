@@ -5,9 +5,6 @@ import "package:rain_wise/components/rain_gauge/rain_gauge_widget.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
-import "package:rain_wise/settings/manage_guages/manage_guages_model.dart";
-
-export "manage_guages_model.dart";
 
 class ManageGuagesWidget extends StatefulWidget {
   const ManageGuagesWidget({super.key});
@@ -20,23 +17,8 @@ class ManageGuagesWidget extends StatefulWidget {
 }
 
 class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
-  late ManageGuagesModel _model;
 
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, ManageGuagesModel.new);
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
-  }
-
   // TODO: Null check operator used on a null value
 
   @override
@@ -135,15 +117,11 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                                 primary: false,
                                 shrinkWrap: true,
                                 children: [
-                                  wrapWithModel(
-                                    model: _model.rainGaugeModel,
-                                    updateCallback: () => safeSetState(() {}),
-                                    // TODO: Update this to show the list of rain gauges
-                                    child: const RainGaugeWidget(
-                                      gaugeName: "",
-                                      gaugeID: "",
-                                      location: LatLng(0, 0),
-                                    ),
+                                  // TODO: Update this to show the list of rain gauges
+                                  const RainGaugeWidget(
+                                    gaugeName: "Backyard, Gauge",
+                                    location: LatLng(0, 0),
+                                    gaugeID: "1234567890abcdef",
                                   ),
                                 ].divide(const SizedBox(height: 12)),
                               ),
