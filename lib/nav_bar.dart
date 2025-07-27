@@ -3,7 +3,10 @@ import "package:flutter/material.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/index.dart";
+import "package:rain_wise/tabs/home/home_widget.dart";
+import "package:rain_wise/tabs/insights/insights_widget.dart";
+import "package:rain_wise/tabs/map/map_widget.dart";
+import "package:rain_wise/tabs/settings/settings_widget.dart";
 
 class NavBarPage extends StatefulWidget {
   const NavBarPage({super.key, this.initialPage, this.page});

@@ -2,7 +2,12 @@ import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/index.dart";
+import "package:rain_wise/misc/coming_soon/coming_soon_widget.dart";
+import "package:rain_wise/settings/data_ex_import/data_ex_import_widget.dart";
+import "package:rain_wise/settings/help/help_widget.dart";
+import "package:rain_wise/settings/manage_guages/manage_guages_widget.dart";
+import "package:rain_wise/settings/my_subscription/my_subscription_widget.dart";
+import "package:rain_wise/settings/notifications/notifications_widget.dart";
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget({super.key});
