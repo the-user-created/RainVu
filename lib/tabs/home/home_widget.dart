@@ -7,9 +7,6 @@ import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/index.dart";
-import "package:rain_wise/tabs/home/home_model.dart";
-
-export "home_model.dart";
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
@@ -22,26 +19,10 @@ class HomeWidget extends StatefulWidget {
 }
 
 class _HomeWidgetState extends State<HomeWidget> {
-  late HomeModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, HomeModel.new);
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
-  }
 
   // TODO: Make widgets dynamic with rainfall entries
   // TODO: Rainfall Trends widget - make 30 days and 7 days selectable
-  // TODO:
 
   @override
   Widget build(final BuildContext context) => GestureDetector(

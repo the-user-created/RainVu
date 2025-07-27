@@ -1,10 +1,6 @@
-import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
-import "package:rain_wise/components/mtd_breakdown/mtd_breakdown_model.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-
-export "mtd_breakdown_model.dart";
 
 class MtdBreakdownWidget extends StatefulWidget {
   const MtdBreakdownWidget({
@@ -25,40 +21,9 @@ class MtdBreakdownWidget extends StatefulWidget {
 
   @override
   State<MtdBreakdownWidget> createState() => _MtdBreakdownWidgetState();
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(StringProperty("month", month))
-      ..add(IntProperty("mtdTotal", mtdTotal))
-      ..add(IntProperty("twoYrAvg", twoYrAvg))
-      ..add(IntProperty("fiveYrAvg", fiveYrAvg));
-  }
 }
 
 class _MtdBreakdownWidgetState extends State<MtdBreakdownWidget> {
-  late MtdBreakdownModel _model;
-
-  @override
-  void setState(final VoidCallback callback) {
-    super.setState(callback);
-    _model.onUpdate();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, MtdBreakdownModel.new);
-  }
-
-  @override
-  void dispose() {
-    _model.maybeDispose();
-
-    super.dispose();
-  }
-
   @override
   Widget build(final BuildContext context) => Padding(
         padding: const EdgeInsetsDirectional.fromSTEB(0, 12, 0, 12),

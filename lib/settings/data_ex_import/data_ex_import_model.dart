@@ -21,8 +21,6 @@ class DataExImportModel extends FlutterFlowModel<DataExImportWidget> {
   // State field(s) for Checkbox widget.
   bool? checkboxValue;
   bool isDataUploading = false;
-  FFUploadedFile uploadedLocalFile =
-      FFUploadedFile(bytes: Uint8List.fromList([]));
 
   @override
   void initState(final BuildContext context) {}

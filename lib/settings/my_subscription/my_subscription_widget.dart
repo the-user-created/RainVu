@@ -5,9 +5,6 @@ import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
 import "package:rain_wise/index.dart";
-import "package:rain_wise/settings/my_subscription/my_subscription_model.dart";
-
-export "my_subscription_model.dart";
 
 class MySubscriptionWidget extends StatefulWidget {
   const MySubscriptionWidget({super.key});
@@ -20,22 +17,7 @@ class MySubscriptionWidget extends StatefulWidget {
 }
 
 class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
-  late MySubscriptionModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, MySubscriptionModel.new);
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
-  }
 
   // TODO: Make buttons work
   // TODO: make dynamic

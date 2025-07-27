@@ -8,8 +8,6 @@ import "package:rain_wise/nav_bar.dart";
 
 export "package:go_router/go_router.dart";
 
-export "serialization_util.dart";
-
 const kTransitionInfoKey = "__transition_info__";
 
 GlobalKey<NavigatorState> appNavigatorKey = GlobalKey<NavigatorState>();
@@ -287,32 +285,6 @@ class FFParameters {
       )
           .onError((final _, final __) => [false])
           .then((final v) => v.every((final e) => e));
-
-  dynamic getParam<T>(
-    final String paramName,
-    final ParamType type, {
-    final bool isList = false,
-    final List<String>? collectionNamePath,
-  }) {
-    if (futureParamValues.containsKey(paramName)) {
-      return futureParamValues[paramName];
-    }
-    if (!state.allParams.containsKey(paramName)) {
-      return null;
-    }
-    final dynamic param = state.allParams[paramName];
-    // Got parameter from `extras`, so just directly return it.
-    if (param is! String) {
-      return param;
-    }
-    // Return serialized value.
-    return deserializeParam<T>(
-      param,
-      type,
-      isList: isList,
-      collectionNamePath: collectionNamePath,
-    );
-  }
 }
 
 class FFRoute {

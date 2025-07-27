@@ -1,12 +1,9 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/components/manage_plan/manage_plan_model.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
 import "package:rain_wise/index.dart";
-
-export "manage_plan_model.dart";
 
 class ManagePlanWidget extends StatefulWidget {
   const ManagePlanWidget({super.key});
@@ -16,26 +13,6 @@ class ManagePlanWidget extends StatefulWidget {
 }
 
 class _ManagePlanWidgetState extends State<ManagePlanWidget> {
-  late ManagePlanModel _model;
-
-  @override
-  void setState(final VoidCallback callback) {
-    super.setState(callback);
-    _model.onUpdate();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, ManagePlanModel.new);
-  }
-
-  @override
-  void dispose() {
-    _model.maybeDispose();
-
-    super.dispose();
-  }
 
   // TODO: Make dynamic
   // TODO: Payment gateway integration?

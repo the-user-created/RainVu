@@ -2,9 +2,6 @@ import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/misc/coming_soon/coming_soon_model.dart";
-
-export "coming_soon_model.dart";
 
 class ComingSoonWidget extends StatefulWidget {
   const ComingSoonWidget({super.key});
@@ -17,22 +14,7 @@ class ComingSoonWidget extends StatefulWidget {
 }
 
 class _ComingSoonWidgetState extends State<ComingSoonWidget> {
-  late ComingSoonModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, ComingSoonModel.new);
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
-  }
 
   @override
   Widget build(final BuildContext context) => GestureDetector(

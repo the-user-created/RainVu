@@ -1,12 +1,9 @@
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/components/modify_gauge/modify_gauge_widget.dart";
-import "package:rain_wise/components/rain_gauge/rain_gauge_model.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-
-export "rain_gauge_model.dart";
 
 class RainGaugeWidget extends StatefulWidget {
   const RainGaugeWidget({
@@ -22,38 +19,9 @@ class RainGaugeWidget extends StatefulWidget {
 
   @override
   State<RainGaugeWidget> createState() => _RainGaugeWidgetState();
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(StringProperty("gaugeName", gaugeName))
-      ..add(DiagnosticsProperty<LatLng?>("location", location))
-      ..add(StringProperty("gaugeID", gaugeID));
-  }
 }
 
 class _RainGaugeWidgetState extends State<RainGaugeWidget> {
-  late RainGaugeModel _model;
-
-  @override
-  void setState(final VoidCallback callback) {
-    super.setState(callback);
-    _model.onUpdate();
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, RainGaugeModel.new);
-  }
-
-  @override
-  void dispose() {
-    _model.maybeDispose();
-
-    super.dispose();
-  }
 
   @override
   Widget build(final BuildContext context) => Container(

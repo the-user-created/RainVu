@@ -3,9 +3,6 @@ import "package:flutter/material.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/index.dart";
-import "package:rain_wise/tabs/settings/settings_model.dart";
-
-export "settings_model.dart";
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget({super.key});
@@ -18,26 +15,9 @@ class SettingsWidget extends StatefulWidget {
 }
 
 class _SettingsWidgetState extends State<SettingsWidget> {
-  late SettingsModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, SettingsModel.new);
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
-  }
-
-  // TODO: Organize settings options into (using collapsible sections):
-  //  Account Management, Subscription, Data Management, Notifications,
-  //  Legal & Support
+  // TODO: Organize settings options
   // TODO: Remove "App Version"
   // TODO: "Hide last synced" if user does not have a Pro subscription??
   // TODO: Write Privacy Policy & Terms of Service

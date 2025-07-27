@@ -2,9 +2,6 @@ import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/insights/anomaly_explore/anomaly_explore_model.dart";
-
-export "anomaly_explore_model.dart";
 
 class AnomalyExploreWidget extends StatefulWidget {
   const AnomalyExploreWidget({super.key});
@@ -17,22 +14,7 @@ class AnomalyExploreWidget extends StatefulWidget {
 }
 
 class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
-  late AnomalyExploreModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
-
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, AnomalyExploreModel.new);
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
-  }
 
   // TODO: Make dynamic with rainfall data
   // TODO: Date range picker for filtering and severity selection
