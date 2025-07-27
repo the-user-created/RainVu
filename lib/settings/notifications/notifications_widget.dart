@@ -1,5 +1,4 @@
 import "package:flutter/cupertino.dart";
-import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
@@ -572,15 +571,4 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
           ),
         ),
       );
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(
-      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey",
-        scaffoldKey,
-      ),
-    );
-  }
 }

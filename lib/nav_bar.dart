@@ -1,4 +1,3 @@
-import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
@@ -16,12 +15,6 @@ class NavBarPage extends StatefulWidget {
 
   @override
   NavBarPageState createState() => NavBarPageState();
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(StringProperty("initialPage", initialPage));
-  }
 }
 
 /// This is the private State class that goes with NavBarPage.

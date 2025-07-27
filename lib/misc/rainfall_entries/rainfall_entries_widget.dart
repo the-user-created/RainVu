@@ -1,4 +1,3 @@
-import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/components/edit_entry/edit_entry_widget.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
@@ -606,15 +605,4 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
           ),
         ),
       );
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(
-      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey",
-        scaffoldKey,
-      ),
-    );
-  }
 }

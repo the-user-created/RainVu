@@ -1,5 +1,4 @@
 import "package:dropdown_button2/dropdown_button2.dart";
-import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/flutter_flow/form_field_controller.dart";
 
@@ -84,67 +83,6 @@ class FlutterFlowDropDown<T> extends StatefulWidget {
 
   @override
   State<FlutterFlowDropDown<T>> createState() => _FlutterFlowDropDownState<T>();
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(
-        DiagnosticsProperty<FormFieldController<T?>?>(
-          "controller",
-          controller,
-        ),
-      )
-      ..add(
-        DiagnosticsProperty<FormFieldController<List<T>?>?>(
-          "multiSelectController",
-          multiSelectController,
-        ),
-      )
-      ..add(StringProperty("hintText", hintText))
-      ..add(StringProperty("searchHintText", searchHintText))
-      ..add(IterableProperty<T>("options", options))
-      ..add(IterableProperty<String>("optionLabels", optionLabels))
-      ..add(ObjectFlagProperty<Function(T? p1)?>.has("onChanged", onChanged))
-      ..add(
-        ObjectFlagProperty<Function(List<T>? p1)?>.has(
-          "onMultiSelectChanged",
-          onMultiSelectChanged,
-        ),
-      )
-      ..add(DoubleProperty("width", width))
-      ..add(DoubleProperty("height", height))
-      ..add(DoubleProperty("maxHeight", maxHeight))
-      ..add(ColorProperty("fillColor", fillColor))
-      ..add(
-        DiagnosticsProperty<TextStyle?>(
-          "searchHintTextStyle",
-          searchHintTextStyle,
-        ),
-      )
-      ..add(DiagnosticsProperty<TextStyle?>("searchTextStyle", searchTextStyle))
-      ..add(ColorProperty("searchCursorColor", searchCursorColor))
-      ..add(DiagnosticsProperty<TextStyle>("textStyle", textStyle))
-      ..add(DoubleProperty("elevation", elevation))
-      ..add(DoubleProperty("borderWidth", borderWidth))
-      ..add(DoubleProperty("borderRadius", borderRadius))
-      ..add(ColorProperty("borderColor", borderColor))
-      ..add(DiagnosticsProperty<EdgeInsetsGeometry>("margin", margin))
-      ..add(DiagnosticsProperty<bool>("hidesUnderline", hidesUnderline))
-      ..add(DiagnosticsProperty<bool>("disabled", disabled))
-      ..add(DiagnosticsProperty<bool>("isOverButton", isOverButton))
-      ..add(DiagnosticsProperty<Offset?>("menuOffset", menuOffset))
-      ..add(DiagnosticsProperty<bool>("isSearchable", isSearchable))
-      ..add(DiagnosticsProperty<bool>("isMultiSelect", isMultiSelect))
-      ..add(StringProperty("labelText", labelText))
-      ..add(DiagnosticsProperty<TextStyle?>("labelTextStyle", labelTextStyle))
-      ..add(
-        DiagnosticsProperty<bool>(
-          "optionsHasValueKeys",
-          optionsHasValueKeys,
-        ),
-      );
-  }
 }
 
 class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
@@ -445,33 +383,5 @@ class _FlutterFlowDropDownState<T> extends State<FlutterFlowDropDown<T>> {
             }
           : null,
     );
-  }
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty<bool>("isMultiSelect", isMultiSelect))
-      ..add(
-        DiagnosticsProperty<FormFieldController<T?>>(
-          "controller",
-          controller,
-        ),
-      )
-      ..add(
-        DiagnosticsProperty<FormFieldController<List<T>?>>(
-          "multiSelectController",
-          multiSelectController,
-        ),
-      )
-      ..add(DiagnosticsProperty<T?>("currentValue", currentValue))
-      ..add(IterableProperty<T>("currentValues", currentValues))
-      ..add(DiagnosticsProperty<Map<T, String>>("optionLabels", optionLabels))
-      ..add(
-        DiagnosticsProperty<EdgeInsetsGeometry>(
-          "horizontalMargin",
-          horizontalMargin,
-        ),
-      );
   }
 }

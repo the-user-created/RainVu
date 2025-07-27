@@ -1,5 +1,4 @@
 import "package:auto_size_text/auto_size_text.dart";
-import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
 
@@ -71,22 +70,6 @@ class FFButtonWidget extends StatefulWidget {
 
   @override
   State<FFButtonWidget> createState() => _FFButtonWidgetState();
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(StringProperty("text", text))
-      ..add(DiagnosticsProperty<IconData?>("iconData", iconData))
-      ..add(ObjectFlagProperty<Function()?>.has("onPressed", onPressed))
-      ..add(DiagnosticsProperty<FFButtonOptions>("options", options))
-      ..add(
-        DiagnosticsProperty<bool>(
-          "showLoadingIndicator",
-          showLoadingIndicator,
-        ),
-      );
-  }
 }
 
 class _FFButtonWidgetState extends State<FFButtonWidget> {
@@ -263,15 +246,6 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
         child: textWidget,
       ),
     );
-  }
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty<bool>("loading", loading))
-      ..add(IntProperty("maxLines", maxLines))
-      ..add(StringProperty("text", text));
   }
 }
 

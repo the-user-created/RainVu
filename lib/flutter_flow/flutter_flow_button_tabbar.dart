@@ -52,17 +52,6 @@ class _TabLabelBarRenderer extends RenderFlex {
     }
     onPerformLayout(xOffsets, textDirection!, size.width);
   }
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(
-      ObjectFlagProperty<_LayoutCallback>.has(
-        "onPerformLayout",
-        onPerformLayout,
-      ),
-    );
-  }
 }
 
 // This class and its renderer class only exist to report the widths of the tabs
@@ -101,17 +90,6 @@ class _TabLabelBar extends Flex {
   ) {
     super.updateRenderObject(context, renderObject);
     renderObject.onPerformLayout = onPerformLayout;
-  }
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(
-      ObjectFlagProperty<_LayoutCallback>.has(
-        "onPerformLayout",
-        onPerformLayout,
-      ),
-    );
   }
 }
 
@@ -406,60 +384,6 @@ class FlutterFlowButtonTabBar extends StatefulWidget
   @override
   State<FlutterFlowButtonTabBar> createState() =>
       _FlutterFlowButtonTabBarState();
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(DiagnosticsProperty<TabController?>("controller", controller))
-      ..add(DiagnosticsProperty<bool>("isScrollable", isScrollable))
-      ..add(
-        DiagnosticsProperty<bool>(
-          "useToggleButtonStyle",
-          useToggleButtonStyle,
-        ),
-      )
-      ..add(ColorProperty("backgroundColor", backgroundColor))
-      ..add(
-        ColorProperty("unselectedBackgroundColor", unselectedBackgroundColor),
-      )
-      ..add(DiagnosticsProperty<BoxDecoration?>("decoration", decoration))
-      ..add(
-        DiagnosticsProperty<BoxDecoration?>(
-          "unselectedDecoration",
-          unselectedDecoration,
-        ),
-      )
-      ..add(DiagnosticsProperty<TextStyle?>("labelStyle", labelStyle))
-      ..add(ColorProperty("labelColor", labelColor))
-      ..add(ColorProperty("unselectedLabelColor", unselectedLabelColor))
-      ..add(
-        DiagnosticsProperty<TextStyle?>(
-          "unselectedLabelStyle",
-          unselectedLabelStyle,
-        ),
-      )
-      ..add(DoubleProperty("borderWidth", borderWidth))
-      ..add(ColorProperty("borderColor", borderColor))
-      ..add(ColorProperty("unselectedBorderColor", unselectedBorderColor))
-      ..add(
-        DiagnosticsProperty<EdgeInsetsGeometry>("labelPadding", labelPadding),
-      )
-      ..add(
-        DiagnosticsProperty<EdgeInsetsGeometry>("buttonMargin", buttonMargin),
-      )
-      ..add(DiagnosticsProperty<EdgeInsetsGeometry?>("padding", padding))
-      ..add(DoubleProperty("borderRadius", borderRadius))
-      ..add(DoubleProperty("elevation", elevation))
-      ..add(
-        EnumProperty<DragStartBehavior>(
-          "dragStartBehavior",
-          dragStartBehavior,
-        ),
-      )
-      ..add(ObjectFlagProperty<ValueChanged<int>?>.has("onTap", onTap))
-      ..add(DiagnosticsProperty<ScrollPhysics?>("physics", physics));
-  }
 }
 
 class _FlutterFlowButtonTabBarState extends State<FlutterFlowButtonTabBar>
@@ -972,11 +896,5 @@ class _FlutterFlowButtonTabBarState extends State<FlutterFlowButtonTabBar>
     }
 
     return tabBar;
-  }
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(IntProperty("maxTabIndex", maxTabIndex));
   }
 }

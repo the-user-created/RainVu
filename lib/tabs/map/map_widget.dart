@@ -1,4 +1,3 @@
-import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_animations.dart";
@@ -621,22 +620,4 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
           ),
         ),
       );
-
-  @override
-  void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties
-      ..add(
-        DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-          "scaffoldKey",
-          scaffoldKey,
-        ),
-      )
-      ..add(
-        DiagnosticsProperty<Map<String, AnimationInfo>>(
-          "animationsMap",
-          animationsMap,
-        ),
-      );
-  }
 }
