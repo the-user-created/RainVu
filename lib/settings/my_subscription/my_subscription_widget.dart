@@ -4,7 +4,7 @@ import "package:rain_wise/components/manage_plan/manage_plan_widget.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
-import "package:rain_wise/index.dart";
+import "package:rain_wise/settings/help/help_widget.dart";
 
 class MySubscriptionWidget extends StatefulWidget {
   const MySubscriptionWidget({super.key});

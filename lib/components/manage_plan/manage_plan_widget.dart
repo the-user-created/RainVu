@@ -3,7 +3,7 @@ import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
-import "package:rain_wise/index.dart";
+import "package:rain_wise/settings/help/help_widget.dart";
 
 class ManagePlanWidget extends StatefulWidget {
   const ManagePlanWidget({super.key});

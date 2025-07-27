@@ -6,7 +6,7 @@ import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
-import "package:rain_wise/index.dart";
+import "package:rain_wise/tabs/insights/insights_widget.dart";
 import "package:rain_wise/tabs/map/map_model.dart";
 
 export "map_model.dart";

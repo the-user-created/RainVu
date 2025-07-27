@@ -3,8 +3,34 @@ import "dart:async";
 import "package:flutter/material.dart";
 import "package:provider/provider.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/index.dart";
+import "package:rain_wise/insights/anomaly_explore/anomaly_explore_widget.dart"
+    show AnomalyExploreWidget;
+import "package:rain_wise/insights/comparative_analysis/comparative_analysis_widget.dart"
+    show ComparativeAnalysisWidget;
+import "package:rain_wise/insights/monthly_breakdown/monthly_breakdown_widget.dart"
+    show MonthlyBreakdownWidget;
+import "package:rain_wise/insights/season_patterns/season_patterns_widget.dart"
+    show SeasonPatternsWidget;
+import "package:rain_wise/misc/coming_soon/coming_soon_widget.dart"
+    show ComingSoonWidget;
+import "package:rain_wise/misc/rainfall_entries/rainfall_entries_widget.dart"
+    show RainfallEntriesWidget;
 import "package:rain_wise/nav_bar.dart";
+import "package:rain_wise/settings/data_ex_import/data_ex_import_widget.dart"
+    show DataExImportWidget;
+import "package:rain_wise/settings/help/help_widget.dart" show HelpWidget;
+import "package:rain_wise/settings/manage_guages/manage_guages_widget.dart"
+    show ManageGuagesWidget;
+import "package:rain_wise/settings/my_subscription/my_subscription_widget.dart"
+    show MySubscriptionWidget;
+import "package:rain_wise/settings/notifications/notifications_widget.dart"
+    show NotificationsWidget;
+import "package:rain_wise/tabs/home/home_widget.dart" show HomeWidget;
+import "package:rain_wise/tabs/insights/insights_widget.dart"
+    show InsightsWidget;
+import "package:rain_wise/tabs/map/map_widget.dart" show MapWidget;
+import "package:rain_wise/tabs/settings/settings_widget.dart"
+    show SettingsWidget;
 
 export "package:go_router/go_router.dart";
 
@@ -50,7 +76,8 @@ GoRouter createRouter(final AppStateNotifier appStateNotifier) => GoRouter(
       debugLogDiagnostics: true,
       refreshListenable: appStateNotifier,
       navigatorKey: appNavigatorKey,
-      errorBuilder: (final context, final state) => const NavBarPage(), // TODO: Handle errors properly.
+      errorBuilder: (final context, final state) => const NavBarPage(),
+      // TODO: Handle errors properly.
       routes: [
         FFRoute(
           name: "_initialize",

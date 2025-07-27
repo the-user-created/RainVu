@@ -4,7 +4,10 @@ import "package:rain_wise/components/mtd_breakdown/mtd_breakdown_widget.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/index.dart";
+import "package:rain_wise/insights/anomaly_explore/anomaly_explore_widget.dart";
+import "package:rain_wise/insights/comparative_analysis/comparative_analysis_widget.dart";
+import "package:rain_wise/insights/monthly_breakdown/monthly_breakdown_widget.dart";
+import "package:rain_wise/insights/season_patterns/season_patterns_widget.dart";
 
 class InsightsWidget extends StatefulWidget {
   const InsightsWidget({super.key});

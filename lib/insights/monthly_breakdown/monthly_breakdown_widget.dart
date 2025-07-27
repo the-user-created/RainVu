@@ -3,10 +3,7 @@ import "package:flutter/material.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/index.dart";
-import "package:rain_wise/insights/monthly_breakdown/monthly_breakdown_model.dart";
-
-export "monthly_breakdown_model.dart";
+import "package:rain_wise/misc/rainfall_entries/rainfall_entries_widget.dart";
 
 class MonthlyBreakdownWidget extends StatefulWidget {
   const MonthlyBreakdownWidget({super.key});
@@ -19,22 +16,9 @@ class MonthlyBreakdownWidget extends StatefulWidget {
 }
 
 class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
-  late MonthlyBreakdownModel _model;
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
-  @override
-  void initState() {
-    super.initState();
-    _model = createModel(context, MonthlyBreakdownModel.new);
-  }
-
-  @override
-  void dispose() {
-    _model.dispose();
-
-    super.dispose();
-  }
+  DateTime? datePicked;
 
   // TODO: Invalid argument(s): No host specified in URI file:/// for "Daily Rainfall" widget
 
@@ -108,15 +92,15 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
 
                       if (datePickedDate != null) {
                         safeSetState(() {
-                          _model.datePicked = DateTime(
+                          datePicked = DateTime(
                             datePickedDate.year,
                             datePickedDate.month,
                             datePickedDate.day,
                           );
                         });
-                      } else if (_model.datePicked != null) {
+                      } else if (datePicked != null) {
                         safeSetState(() {
-                          _model.datePicked = getCurrentTimestamp;
+                          datePicked = getCurrentTimestamp;
                         });
                       }
                     },

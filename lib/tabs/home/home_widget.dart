@@ -6,7 +6,8 @@ import "package:rain_wise/components/log_rain/log_rain_widget.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/index.dart";
+import "package:rain_wise/insights/monthly_breakdown/monthly_breakdown_widget.dart";
+import "package:rain_wise/tabs/insights/insights_widget.dart";
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
