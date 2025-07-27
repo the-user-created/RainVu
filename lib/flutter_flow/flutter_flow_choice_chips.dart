@@ -75,14 +75,30 @@ class FlutterFlowChoiceChips extends StatefulWidget {
     super.debugFillProperties(properties);
     properties
       ..add(IterableProperty<ChipData>("options", options))
-      ..add(ObjectFlagProperty<void Function(List<String>? p1)?>.has(
-          "onChanged", onChanged))
-      ..add(DiagnosticsProperty<FormFieldController<List<String>>>(
-          "controller", controller))
-      ..add(DiagnosticsProperty<ChipStyle>(
-          "selectedChipStyle", selectedChipStyle))
-      ..add(DiagnosticsProperty<ChipStyle>(
-          "unselectedChipStyle", unselectedChipStyle))
+      ..add(
+        ObjectFlagProperty<void Function(List<String>? p1)?>.has(
+          "onChanged",
+          onChanged,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<FormFieldController<List<String>>>(
+          "controller",
+          controller,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<ChipStyle>(
+          "selectedChipStyle",
+          selectedChipStyle,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<ChipStyle>(
+          "unselectedChipStyle",
+          unselectedChipStyle,
+        ),
+      )
       ..add(DoubleProperty("chipSpacing", chipSpacing))
       ..add(DoubleProperty("rowSpacing", rowSpacing))
       ..add(DiagnosticsProperty<bool>("multiselect", multiselect))

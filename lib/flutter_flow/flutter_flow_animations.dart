@@ -34,13 +34,17 @@ class AnimationInfo {
 }
 
 void createAnimation(
-    final AnimationInfo animation, final TickerProvider vsync) {
+  final AnimationInfo animation,
+  final TickerProvider vsync,
+) {
   final newController = AnimationController(vsync: vsync);
   animation.controller = newController;
 }
 
 void setupAnimations(
-    final Iterable<AnimationInfo> animations, final TickerProvider vsync) {
+  final Iterable<AnimationInfo> animations,
+  final TickerProvider vsync,
+) {
   for (final AnimationInfo animation in animations) {
     createAnimation(animation, vsync);
   }
@@ -76,7 +80,8 @@ extension AnimatedWidgetExtension on Widget {
             controller: animationInfo.controller,
             autoPlay: false,
             effects: animationInfo.effects,
-            child: this)
+            child: this,
+          )
         : this;
   }
 }

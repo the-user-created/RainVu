@@ -56,16 +56,17 @@ class _TicketWidgetState extends State<TicketWidget> {
         ),
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(
-              valueOrDefault<double>(
-                FFAppConstants.horiEdgePadding.toDouble(),
-                0,
-              ),
-              16,
-              valueOrDefault<double>(
-                FFAppConstants.horiEdgePadding.toDouble(),
-                0,
-              ),
-              16),
+            valueOrDefault<double>(
+              FFAppConstants.horiEdgePadding.toDouble(),
+              0,
+            ),
+            16,
+            valueOrDefault<double>(
+              FFAppConstants.horiEdgePadding.toDouble(),
+              0,
+            ),
+            16,
+          ),
           child: Column(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -96,7 +97,7 @@ class _TicketWidgetState extends State<TicketWidget> {
                   "Feature Request",
                   "General Feedback",
                   "Billing Issue",
-                  "Other"
+                  "Other",
                 ],
                 onChanged: (final val) =>
                     safeSetState(() => _model.dropDownValue = val),
@@ -121,7 +122,6 @@ class _TicketWidgetState extends State<TicketWidget> {
                 margin: const EdgeInsetsDirectional.fromSTEB(12, 0, 12, 0),
                 hidesUnderline: true,
               ),
-
               TextFormField(
                 controller: _model.textController1,
                 focusNode: _model.textFieldFocusNode1,
@@ -168,7 +168,6 @@ class _TicketWidgetState extends State<TicketWidget> {
                 minLines: 3,
                 validator: _model.textController1Validator.asValidator(context),
               ),
-
               TextFormField(
                 controller: _model.textController2,
                 focusNode: _model.textFieldFocusNode2,

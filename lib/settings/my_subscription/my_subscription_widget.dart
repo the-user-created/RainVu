@@ -53,16 +53,17 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                 children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        24,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      24,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -81,13 +82,17 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                 0,
                                 2,
                               ),
-                            )
+                            ),
                           ],
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              24, 24, 24, 24),
+                            24,
+                            24,
+                            24,
+                            24,
+                          ),
                           child: Column(
                             children: [
                               Column(
@@ -96,7 +101,11 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                   Padding(
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
-                                            4, 0, 4, 0),
+                                      4,
+                                      0,
+                                      4,
+                                      0,
+                                    ),
                                     child: Text(
                                       "Pro Plan",
                                       style: FlutterFlowTheme.of(context)
@@ -126,13 +135,12 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                             child: Text(
                                               "Active",
                                               style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .bodySmall
-                                                  .override(
+                                                context,
+                                              ).bodySmall.override(
                                                     fontFamily: "Inter",
                                                     color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primaryText,
+                                                      context,
+                                                    ).primaryText,
                                                     letterSpacing: 0,
                                                     fontWeight: FontWeight.w600,
                                                   ),
@@ -158,7 +166,11 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16, 0, 16, 0),
+                                  16,
+                                  0,
+                                  16,
+                                  0,
+                                ),
                                 child: Text(
                                   "Next renewal on June 15, 2024",
                                   style: FlutterFlowTheme.of(context)
@@ -173,7 +185,11 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                               ),
                               Padding(
                                 padding: const EdgeInsetsDirectional.fromSTEB(
-                                    16, 0, 16, 0),
+                                  16,
+                                  0,
+                                  16,
+                                  0,
+                                ),
                                 child: Column(
                                   children: [
                                     Row(
@@ -331,16 +347,17 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -359,13 +376,17 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                 0,
                                 2,
                               ),
-                            )
+                            ),
                           ],
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              24, 24, 24, 24),
+                            24,
+                            24,
+                            24,
+                            24,
+                          ),
                           child: Column(
                             children: [
                               Text(
@@ -455,16 +476,17 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -483,13 +505,17 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                 0,
                                 2,
                               ),
-                            )
+                            ),
                           ],
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              24, 24, 24, 24),
+                            24,
+                            24,
+                            24,
+                            24,
+                          ),
                           child: Column(
                             children: [
                               Text(
@@ -527,8 +553,8 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
+                                                    context,
+                                                  ).secondaryText,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -569,8 +595,8 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
+                                                    context,
+                                                  ).secondaryText,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -611,8 +637,8 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
+                                                    context,
+                                                  ).secondaryText,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -639,16 +665,17 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        24),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      24,
+                    ),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -667,13 +694,17 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                 0,
                                 2,
                               ),
-                            )
+                            ),
                           ],
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              24, 24, 24, 24),
+                            24,
+                            24,
+                            24,
+                            24,
+                          ),
                           child: Column(
                             children: [
                               Text(
@@ -733,7 +764,11 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey", scaffoldKey));
+    properties.add(
+      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+        "scaffoldKey",
+        scaffoldKey,
+      ),
+    );
   }
 }

@@ -90,16 +90,17 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                 // Location Search
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(
-                      valueOrDefault<double>(
-                        FFAppConstants.horiEdgePadding.toDouble(),
-                        0,
-                      ),
+                    valueOrDefault<double>(
+                      FFAppConstants.horiEdgePadding.toDouble(),
                       0,
-                      valueOrDefault<double>(
-                        FFAppConstants.horiEdgePadding.toDouble(),
-                        0,
-                      ),
-                      0),
+                    ),
+                    0,
+                    valueOrDefault<double>(
+                      FFAppConstants.horiEdgePadding.toDouble(),
+                      0,
+                    ),
+                    0,
+                  ),
                   child: SafeArea(
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 1.0,
@@ -113,13 +114,17 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                               0,
                               2,
                             ),
-                          )
+                          ),
                         ],
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                            12, 16, 12, 16),
+                          12,
+                          16,
+                          12,
+                          16,
+                        ),
                         child: DecoratedBox(
                           decoration: BoxDecoration(
                             color: FlutterFlowTheme.of(context).alternate,
@@ -127,7 +132,11 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                           ),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                12, 8, 12, 8),
+                              12,
+                              8,
+                              12,
+                              8,
+                            ),
                             child: Expanded(
                               child: TextFormField(
                                 controller: _model.textController,
@@ -294,7 +303,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                               0,
                               2,
                             ),
-                          )
+                          ),
                         ],
                         borderRadius: const BorderRadius.only(
                           topLeft: Radius.circular(32),
@@ -303,7 +312,11 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                       ),
                       child: Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                            24, 24, 24, 24),
+                          24,
+                          24,
+                          24,
+                          24,
+                        ),
                         child: SingleChildScrollView(
                           primary: false,
                           child: Column(
@@ -330,7 +343,11 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                                     options: FFButtonOptions(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              8, 16, 8, 16),
+                                        8,
+                                        16,
+                                        8,
+                                        16,
+                                      ),
                                       iconPadding: EdgeInsetsDirectional.zero,
                                       color:
                                           FlutterFlowTheme.of(context).primary,
@@ -358,7 +375,11 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      16, 16, 16, 16),
+                                    16,
+                                    16,
+                                    16,
+                                    16,
+                                  ),
                                   child: Column(
                                     children: [
                                       Row(
@@ -412,9 +433,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                                                   Text(
                                                     "25",
                                                     style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .titleLarge
-                                                        .override(
+                                                      context,
+                                                    ).titleLarge.override(
                                                           fontFamily:
                                                               "Readex Pro",
                                                           color: FlutterFlowTheme
@@ -426,9 +446,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                                                   Text(
                                                     "mm",
                                                     style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodySmall
-                                                        .override(
+                                                      context,
+                                                    ).bodySmall.override(
                                                           fontFamily: "Inter",
                                                           color: FlutterFlowTheme
                                                                   .of(context)
@@ -457,8 +476,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
+                                                    context,
+                                                  ).secondaryText,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -477,7 +496,11 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      16, 16, 16, 16),
+                                    16,
+                                    16,
+                                    16,
+                                    16,
+                                  ),
                                   child: Column(
                                     children: [
                                       Row(
@@ -530,9 +553,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                                                   Text(
                                                     "12",
                                                     style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .titleLarge
-                                                        .override(
+                                                      context,
+                                                    ).titleLarge.override(
                                                           fontFamily:
                                                               "Readex Pro",
                                                           color: FlutterFlowTheme
@@ -544,9 +566,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                                                   Text(
                                                     "mm",
                                                     style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodySmall
-                                                        .override(
+                                                      context,
+                                                    ).bodySmall.override(
                                                           fontFamily: "Inter",
                                                           color: FlutterFlowTheme
                                                                   .of(context)
@@ -575,8 +596,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
+                                                    context,
+                                                  ).secondaryText,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -592,7 +613,8 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                       ),
                     ),
                   ).animateOnPageLoad(
-                      animationsMap["containerOnPageLoadAnimation"]!),
+                    animationsMap["containerOnPageLoadAnimation"]!,
+                  ),
                 ),
               ],
             ),
@@ -604,9 +626,17 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
     properties
-      ..add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-          "scaffoldKey", scaffoldKey))
-      ..add(DiagnosticsProperty<Map<String, AnimationInfo>>(
-          "animationsMap", animationsMap));
+      ..add(
+        DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+          "scaffoldKey",
+          scaffoldKey,
+        ),
+      )
+      ..add(
+        DiagnosticsProperty<Map<String, AnimationInfo>>(
+          "animationsMap",
+          animationsMap,
+        ),
+      );
   }
 }

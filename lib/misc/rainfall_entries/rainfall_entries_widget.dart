@@ -16,7 +16,6 @@ class RainfallEntriesWidget extends StatefulWidget {
 }
 
 class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
 
   // TODO: Many rendering library issues here
@@ -72,7 +71,11 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                     children: [
                       Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                            16, 12, 16, 24),
+                          16,
+                          12,
+                          16,
+                          24,
+                        ),
                         child: ListView(
                           padding: EdgeInsets.zero,
                           primary: false,
@@ -80,7 +83,11 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                           children: [
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 0, 0, 12),
+                                0,
+                                0,
+                                0,
+                                12,
+                              ),
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
@@ -93,7 +100,7 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -115,9 +122,8 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                 Text(
                                                   "Apr 1, 2023",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .titleMedium
-                                                      .override(
+                                                    context,
+                                                  ).titleMedium.override(
                                                         fontFamily:
                                                             "Readex Pro",
                                                         letterSpacing: 0,
@@ -132,9 +138,8 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                   child: Text(
                                                     "12.5 mm - Main Gauge",
                                                     style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
+                                                      context,
+                                                    ).bodyMedium.override(
                                                           fontFamily: "Inter",
                                                           color: FlutterFlowTheme
                                                                   .of(context)
@@ -152,13 +157,13 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                   buttonSize: 44,
                                                   fillColor:
                                                       FlutterFlowTheme.of(
-                                                              context)
-                                                          .accent1,
+                                                    context,
+                                                  ).accent1,
                                                   icon: Icon(
                                                     Icons.edit_outlined,
                                                     color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
+                                                      context,
+                                                    ).primary,
                                                     size: 24,
                                                   ),
                                                   onPressed: () async {
@@ -181,20 +186,23 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                         child: Padding(
                                                           padding: MediaQuery
                                                               .viewInsetsOf(
-                                                                  context),
+                                                            context,
+                                                          ),
                                                           child: SizedBox(
                                                             height: MediaQuery
-                                                                        .sizeOf(
-                                                                            context)
-                                                                    .height *
+                                                                    .sizeOf(
+                                                                  context,
+                                                                ).height *
                                                                 0.7,
                                                             child:
                                                                 const EditEntryWidget(),
                                                           ),
                                                         ),
                                                       ),
-                                                    ).then((final value) =>
-                                                        safeSetState(() {}));
+                                                    ).then(
+                                                      (final value) =>
+                                                          safeSetState(() {}),
+                                                    );
                                                   },
                                                 ),
                                                 Padding(
@@ -206,19 +214,20 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                     buttonSize: 44,
                                                     fillColor:
                                                         FlutterFlowTheme.of(
-                                                                context)
-                                                            .accent1,
+                                                      context,
+                                                    ).accent1,
                                                     icon: Icon(
                                                       Icons.delete_outline,
                                                       color:
                                                           FlutterFlowTheme.of(
-                                                                  context)
-                                                              .error,
+                                                        context,
+                                                      ).error,
                                                       size: 24,
                                                     ),
                                                     onPressed: () {
                                                       debugPrint(
-                                                          "IconButton pressed ...");
+                                                        "IconButton pressed ...",
+                                                      );
                                                     },
                                                   ),
                                                 ),
@@ -244,7 +253,11 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 0, 0, 12),
+                                0,
+                                0,
+                                0,
+                                12,
+                              ),
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
@@ -257,7 +270,7 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -279,9 +292,8 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                 Text(
                                                   "Apr 2, 2023",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .titleMedium
-                                                      .override(
+                                                    context,
+                                                  ).titleMedium.override(
                                                         fontFamily:
                                                             "Readex Pro",
                                                         letterSpacing: 0,
@@ -296,9 +308,8 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                   child: Text(
                                                     "8.2 mm - Backyard Gauge",
                                                     style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
+                                                      context,
+                                                    ).bodyMedium.override(
                                                           fontFamily: "Inter",
                                                           color: FlutterFlowTheme
                                                                   .of(context)
@@ -316,13 +327,13 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                   buttonSize: 44,
                                                   fillColor:
                                                       FlutterFlowTheme.of(
-                                                              context)
-                                                          .accent1,
+                                                    context,
+                                                  ).accent1,
                                                   icon: Icon(
                                                     Icons.edit_outlined,
                                                     color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .primary,
+                                                      context,
+                                                    ).primary,
                                                     size: 24,
                                                   ),
                                                   onPressed: () async {
@@ -345,7 +356,8 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                         child: Padding(
                                                           padding: MediaQuery
                                                               .viewInsetsOf(
-                                                                  context),
+                                                            context,
+                                                          ),
                                                           child: const SizedBox(
                                                             height: 70,
                                                             child:
@@ -353,8 +365,10 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                           ),
                                                         ),
                                                       ),
-                                                    ).then((final value) =>
-                                                        safeSetState(() {}));
+                                                    ).then(
+                                                      (final value) =>
+                                                          safeSetState(() {}),
+                                                    );
                                                   },
                                                 ),
                                                 Padding(
@@ -366,19 +380,20 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                     buttonSize: 44,
                                                     fillColor:
                                                         FlutterFlowTheme.of(
-                                                                context)
-                                                            .accent1,
+                                                      context,
+                                                    ).accent1,
                                                     icon: Icon(
                                                       Icons.delete_outline,
                                                       color:
                                                           FlutterFlowTheme.of(
-                                                                  context)
-                                                              .error,
+                                                        context,
+                                                      ).error,
                                                       size: 24,
                                                     ),
                                                     onPressed: () {
                                                       debugPrint(
-                                                          "IconButton pressed ...");
+                                                        "IconButton pressed ...",
+                                                      );
                                                     },
                                                   ),
                                                 ),
@@ -404,7 +419,11 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                             ),
                             Padding(
                               padding: const EdgeInsetsDirectional.fromSTEB(
-                                  0, 0, 0, 12),
+                                0,
+                                0,
+                                0,
+                                12,
+                              ),
                               child: DecoratedBox(
                                 decoration: BoxDecoration(
                                   color: FlutterFlowTheme.of(context)
@@ -417,7 +436,7 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(12),
                                 ),
@@ -439,9 +458,8 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                 Text(
                                                   "Apr 3, 2023",
                                                   style: FlutterFlowTheme.of(
-                                                          context)
-                                                      .titleMedium
-                                                      .override(
+                                                    context,
+                                                  ).titleMedium.override(
                                                         fontFamily:
                                                             "Readex Pro",
                                                         letterSpacing: 0,
@@ -456,9 +474,8 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                   child: Text(
                                                     "No entry",
                                                     style: FlutterFlowTheme.of(
-                                                            context)
-                                                        .bodyMedium
-                                                        .override(
+                                                      context,
+                                                    ).bodyMedium.override(
                                                           fontFamily: "Inter",
                                                           color: FlutterFlowTheme
                                                                   .of(context)
@@ -482,14 +499,14 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                     buttonSize: 44,
                                                     fillColor:
                                                         FlutterFlowTheme.of(
-                                                                context)
-                                                            .accent1,
+                                                      context,
+                                                    ).accent1,
                                                     icon: Icon(
                                                       Icons.edit_outlined,
                                                       color:
                                                           FlutterFlowTheme.of(
-                                                                  context)
-                                                              .primary,
+                                                        context,
+                                                      ).primary,
                                                       size: 24,
                                                     ),
                                                     onPressed: () async {
@@ -505,8 +522,8 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                                 GestureDetector(
                                                           onTap: () {
                                                             FocusScope.of(
-                                                                    context)
-                                                                .unfocus();
+                                                              context,
+                                                            ).unfocus();
                                                             FocusManager
                                                                 .instance
                                                                 .primaryFocus
@@ -515,7 +532,8 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                           child: Padding(
                                                             padding: MediaQuery
                                                                 .viewInsetsOf(
-                                                                    context),
+                                                              context,
+                                                            ),
                                                             child:
                                                                 const SizedBox(
                                                               height: 70,
@@ -524,8 +542,10 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                             ),
                                                           ),
                                                         ),
-                                                      ).then((final value) =>
-                                                          safeSetState(() {}));
+                                                      ).then(
+                                                        (final value) =>
+                                                            safeSetState(() {}),
+                                                      );
                                                     },
                                                   ),
                                                 ),
@@ -538,19 +558,20 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
                                                     buttonSize: 44,
                                                     fillColor:
                                                         FlutterFlowTheme.of(
-                                                                context)
-                                                            .accent1,
+                                                      context,
+                                                    ).accent1,
                                                     icon: Icon(
                                                       Icons.delete_outline,
                                                       color:
                                                           FlutterFlowTheme.of(
-                                                                  context)
-                                                              .error,
+                                                        context,
+                                                      ).error,
                                                       size: 24,
                                                     ),
                                                     onPressed: () {
                                                       debugPrint(
-                                                          "IconButton pressed ...");
+                                                        "IconButton pressed ...",
+                                                      );
                                                     },
                                                   ),
                                                 ),
@@ -589,7 +610,11 @@ class _RainfallEntriesWidgetState extends State<RainfallEntriesWidget> {
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey", scaffoldKey));
+    properties.add(
+      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+        "scaffoldKey",
+        scaffoldKey,
+      ),
+    );
   }
 }

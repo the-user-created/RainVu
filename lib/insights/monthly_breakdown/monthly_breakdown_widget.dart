@@ -117,16 +117,17 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                 children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        24,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      24,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -141,7 +142,11 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              20, 20, 20, 20),
+                            20,
+                            20,
+                            20,
+                            20,
+                          ),
                           child: Column(
                             children: [
                               Row(
@@ -190,7 +195,8 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                       ),
                                       onPressed: () async {
                                         await context.pushNamed(
-                                            RainfallEntriesWidget.routeName);
+                                          RainfallEntriesWidget.routeName,
+                                        );
                                       },
                                     ),
                                   ),
@@ -285,16 +291,17 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -309,7 +316,11 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              20, 20, 20, 20),
+                            20,
+                            20,
+                            20,
+                            20,
+                          ),
                           child: Column(
                             children: [
                               Text(
@@ -353,8 +364,8 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .tertiary,
+                                                    context,
+                                                  ).tertiary,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -405,8 +416,8 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .tertiary,
+                                                    context,
+                                                  ).tertiary,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -457,8 +468,8 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .error,
+                                                    context,
+                                                  ).error,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -485,16 +496,17 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -510,7 +522,11 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              20, 20, 20, 20),
+                            20,
+                            20,
+                            20,
+                            20,
+                          ),
                           child: Column(
                             children: [
                               Text(
@@ -538,16 +554,17 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        48),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      48,
+                    ),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -562,7 +579,11 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              20, 20, 20, 20),
+                            20,
+                            20,
+                            20,
+                            20,
+                          ),
                           child: Column(
                             children: [
                               Text(
@@ -615,8 +636,8 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .tertiary,
+                                                    context,
+                                                  ).tertiary,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -661,8 +682,8 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .error,
+                                                    context,
+                                                  ).error,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -707,8 +728,8 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .tertiary,
+                                                    context,
+                                                  ).tertiary,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -753,8 +774,8 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
+                                                    context,
+                                                  ).secondaryText,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -799,8 +820,8 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .tertiary,
+                                                    context,
+                                                  ).tertiary,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -826,7 +847,11 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey", scaffoldKey));
+    properties.add(
+      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+        "scaffoldKey",
+        scaffoldKey,
+      ),
+    );
   }
 }

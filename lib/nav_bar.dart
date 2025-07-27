@@ -88,7 +88,7 @@ class NavBarPageState extends State<NavBarPage> {
             ),
             label: "Settings",
             tooltip: "",
-          )
+          ),
         ],
       ),
     );

@@ -13,7 +13,6 @@ class ManagePlanWidget extends StatefulWidget {
 }
 
 class _ManagePlanWidgetState extends State<ManagePlanWidget> {
-
   // TODO: Make dynamic
   // TODO: Payment gateway integration?
 
@@ -43,16 +42,17 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                 children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
@@ -85,16 +85,17 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: Container(
                       width: MediaQuery.sizeOf(context).width * 1.0,
                       decoration: BoxDecoration(
@@ -107,13 +108,17 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                               0,
                               2,
                             ),
-                          )
+                          ),
                         ],
                         borderRadius: BorderRadius.circular(12),
                       ),
                       child: Padding(
                         padding: const EdgeInsetsDirectional.fromSTEB(
-                            16, 16, 16, 16),
+                          16,
+                          16,
+                          16,
+                          16,
+                        ),
                         child: Row(
                           children: [
                             Container(
@@ -167,16 +172,17 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -195,13 +201,17 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                                 0,
                                 2,
                               ),
-                            )
+                            ),
                           ],
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              16, 16, 16, 16),
+                            16,
+                            16,
+                            16,
+                            16,
+                          ),
                           child: Column(
                             children: [
                               Row(
@@ -403,16 +413,17 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -431,13 +442,17 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                                 0,
                                 2,
                               ),
-                            )
+                            ),
                           ],
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              16, 16, 16, 16),
+                            16,
+                            16,
+                            16,
+                            16,
+                          ),
                           child: Column(
                             children: [
                               Row(
@@ -490,7 +505,11 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                                     child: Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              4, 0, 4, 0),
+                                        4,
+                                        0,
+                                        4,
+                                        0,
+                                      ),
                                       child: Text(
                                         "Current",
                                         textAlign: TextAlign.center,
@@ -666,16 +685,17 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: FFButtonWidget(
                       onPressed: () {
                         debugPrint("Button pressed ...");
@@ -703,16 +723,17 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: FFButtonWidget(
                       onPressed: () {
                         debugPrint("Button pressed ...");
@@ -742,16 +763,17 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: Column(
                       children: [
                         Text(

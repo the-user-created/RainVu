@@ -17,8 +17,8 @@ class ManageGuagesWidget extends StatefulWidget {
 }
 
 class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
-
   final scaffoldKey = GlobalKey<ScaffoldState>();
+
   // TODO: Null check operator used on a null value
 
   @override
@@ -54,16 +54,17 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                   children: [
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
                           0,
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
-                          0),
+                        ),
+                        0,
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
+                          0,
+                        ),
+                        0,
+                      ),
                       child: Container(
                         width: MediaQuery.sizeOf(context).width * 1.0,
                         decoration: BoxDecoration(
@@ -76,13 +77,17 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                                 0,
                                 2,
                               ),
-                            )
+                            ),
                           ],
                           borderRadius: BorderRadius.circular(12),
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              16, 16, 16, 16),
+                            16,
+                            16,
+                            16,
+                            16,
+                          ),
                           child: Column(
                             children: [
                               Row(
@@ -132,16 +137,17 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
                           0,
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
-                          0),
+                        ),
+                        0,
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
+                          0,
+                        ),
+                        0,
+                      ),
                       child: FFButtonWidget(
                         onPressed: () async {
                           await showModalBottomSheet(
@@ -199,7 +205,11 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey", scaffoldKey));
+    properties.add(
+      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+        "scaffoldKey",
+        scaffoldKey,
+      ),
+    );
   }
 }

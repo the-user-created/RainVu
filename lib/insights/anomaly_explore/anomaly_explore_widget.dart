@@ -59,7 +59,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                             0,
                             2,
                           ),
-                        )
+                        ),
                       ],
                       borderRadius: const BorderRadius.only(
                         bottomLeft: Radius.circular(16),
@@ -93,7 +93,11 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                   child: Padding(
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
-                                            12, 16, 12, 16),
+                                      12,
+                                      16,
+                                      12,
+                                      16,
+                                    ),
                                     child: Row(
                                       children: [
                                         Icon(
@@ -127,7 +131,11 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                   child: Padding(
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
-                                            12, 16, 12, 16),
+                                      12,
+                                      16,
+                                      12,
+                                      16,
+                                    ),
                                     child: Row(
                                       children: [
                                         const Icon(
@@ -168,7 +176,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                             0,
                             2,
                           ),
-                        )
+                        ),
                       ],
                       borderRadius: BorderRadius.circular(12),
                     ),
@@ -199,7 +207,11 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                     child: Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              4, 8, 4, 8),
+                                        4,
+                                        8,
+                                        4,
+                                        8,
+                                      ),
                                       child: Text(
                                         "Normal",
                                         style: FlutterFlowTheme.of(context)
@@ -220,7 +232,11 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                     child: Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              4, 8, 4, 8),
+                                        4,
+                                        8,
+                                        4,
+                                        8,
+                                      ),
                                       child: Text(
                                         "Anomaly",
                                         style: FlutterFlowTheme.of(context)
@@ -278,13 +294,17 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                   0,
                                   2,
                                 ),
-                              )
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                16, 16, 16, 16),
+                              16,
+                              16,
+                              16,
+                              16,
+                            ),
                             child: Column(
                               children: [
                                 Row(
@@ -351,13 +371,17 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                   0,
                                   2,
                                 ),
-                              )
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                16, 16, 16, 16),
+                              16,
+                              16,
+                              16,
+                              16,
+                            ),
                             child: Column(
                               children: [
                                 Row(
@@ -424,13 +448,17 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                   0,
                                   2,
                                 ),
-                              )
+                              ),
                             ],
                             borderRadius: BorderRadius.circular(12),
                           ),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                16, 16, 16, 16),
+                              16,
+                              16,
+                              16,
+                              16,
+                            ),
                             child: Column(
                               children: [
                                 Row(
@@ -497,7 +525,11 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey", scaffoldKey));
+    properties.add(
+      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+        "scaffoldKey",
+        scaffoldKey,
+      ),
+    );
   }
 }

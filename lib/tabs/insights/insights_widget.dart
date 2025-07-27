@@ -90,22 +90,23 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                               0,
                               2,
                             ),
-                          )
+                          ),
                         ],
                         borderRadius: BorderRadius.circular(16),
                       ),
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
-                            valueOrDefault<double>(
-                              FFAppConstants.horiEdgePadding.toDouble(),
-                              0,
-                            ),
-                            24,
-                            valueOrDefault<double>(
-                              FFAppConstants.horiEdgePadding.toDouble(),
-                              0,
-                            ),
-                            24),
+                          valueOrDefault<double>(
+                            FFAppConstants.horiEdgePadding.toDouble(),
+                            0,
+                          ),
+                          24,
+                          valueOrDefault<double>(
+                            FFAppConstants.horiEdgePadding.toDouble(),
+                            0,
+                          ),
+                          24,
+                        ),
                         child: Column(
                           children: [
                             Text(
@@ -141,14 +142,18 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                             0,
                                             2,
                                           ),
-                                        )
+                                        ),
                                       ],
                                       borderRadius: BorderRadius.circular(16),
                                     ),
                                     child: Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              16, 16, 16, 16),
+                                        16,
+                                        16,
+                                        16,
+                                        16,
+                                      ),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -194,8 +199,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .success,
+                                                    context,
+                                                  ).success,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -225,14 +230,18 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                             0,
                                             2,
                                           ),
-                                        )
+                                        ),
                                       ],
                                       borderRadius: BorderRadius.circular(16),
                                     ),
                                     child: Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              16, 16, 16, 16),
+                                        16,
+                                        16,
+                                        16,
+                                        16,
+                                      ),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -278,8 +287,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .error,
+                                                    context,
+                                                  ).error,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -314,14 +323,18 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                             0,
                                             2,
                                           ),
-                                        )
+                                        ),
                                       ],
                                       borderRadius: BorderRadius.circular(16),
                                     ),
                                     child: Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              16, 16, 16, 16),
+                                        16,
+                                        16,
+                                        16,
+                                        16,
+                                      ),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -367,8 +380,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .success,
+                                                    context,
+                                                  ).success,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -398,14 +411,18 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                             0,
                                             2,
                                           ),
-                                        )
+                                        ),
                                       ],
                                       borderRadius: BorderRadius.circular(16),
                                     ),
                                     child: Padding(
                                       padding:
                                           const EdgeInsetsDirectional.fromSTEB(
-                                              16, 16, 16, 16),
+                                        16,
+                                        16,
+                                        16,
+                                        16,
+                                      ),
                                       child: Column(
                                         crossAxisAlignment:
                                             CrossAxisAlignment.start,
@@ -451,8 +468,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
+                                                    context,
+                                                  ).secondaryText,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -485,13 +502,17 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                 0,
                                 2,
                               ),
-                            )
+                            ),
                           ],
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              20, 20, 20, 20),
+                            20,
+                            20,
+                            20,
+                            20,
+                          ),
                           child: Column(
                             children: [
                               Row(
@@ -534,7 +555,11 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      16, 16, 16, 16),
+                                    16,
+                                    16,
+                                    16,
+                                    16,
+                                  ),
                                   child: Column(
                                     mainAxisAlignment: MainAxisAlignment.end,
                                     children: [
@@ -551,8 +576,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 height: 120,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       const BorderRadius.only(
                                                     topLeft: Radius.circular(4),
@@ -580,8 +605,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 height: 80,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       const BorderRadius.only(
                                                     topLeft: Radius.circular(4),
@@ -609,8 +634,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 height: 150,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       const BorderRadius.only(
                                                     topLeft: Radius.circular(4),
@@ -638,8 +663,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 height: 90,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       const BorderRadius.only(
                                                     topLeft: Radius.circular(4),
@@ -667,8 +692,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 height: 60,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       const BorderRadius.only(
                                                     topLeft: Radius.circular(4),
@@ -696,8 +721,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 height: 100,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       const BorderRadius.only(
                                                     topLeft: Radius.circular(4),
@@ -725,8 +750,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 height: 130,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       const BorderRadius.only(
                                                     topLeft: Radius.circular(4),
@@ -754,8 +779,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 height: 70,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       const BorderRadius.only(
                                                     topLeft: Radius.circular(4),
@@ -783,8 +808,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 height: 110,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       const BorderRadius.only(
                                                     topLeft: Radius.circular(4),
@@ -812,8 +837,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 height: 140,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       const BorderRadius.only(
                                                     topLeft: Radius.circular(4),
@@ -841,8 +866,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 height: 95,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       const BorderRadius.only(
                                                     topLeft: Radius.circular(4),
@@ -870,8 +895,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                 height: 85,
                                                 decoration: BoxDecoration(
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   borderRadius:
                                                       const BorderRadius.only(
                                                     topLeft: Radius.circular(4),
@@ -905,16 +930,17 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
                           0,
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
-                          0),
+                        ),
+                        0,
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
+                          0,
+                        ),
+                        0,
+                      ),
                       child: Text(
                         "Monthly Comparison",
                         style: FlutterFlowTheme.of(context)
@@ -939,7 +965,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                               0,
                               2,
                             ),
-                          )
+                          ),
                         ],
                         borderRadius: BorderRadius.circular(16),
                       ),
@@ -1005,16 +1031,17 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                       children: [
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
-                                0,
-                              ),
+                            valueOrDefault<double>(
+                              FFAppConstants.horiEdgePadding.toDouble(),
                               0,
-                              valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
-                                0,
-                              ),
-                              0),
+                            ),
+                            0,
+                            valueOrDefault<double>(
+                              FFAppConstants.horiEdgePadding.toDouble(),
+                              0,
+                            ),
+                            0,
+                          ),
                           child: Text(
                             "Detailed Analysis",
                             style: FlutterFlowTheme.of(context)
@@ -1029,16 +1056,17 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
-                                0,
-                              ),
+                            valueOrDefault<double>(
+                              FFAppConstants.horiEdgePadding.toDouble(),
                               0,
-                              valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
-                                0,
-                              ),
-                              0),
+                            ),
+                            0,
+                            valueOrDefault<double>(
+                              FFAppConstants.horiEdgePadding.toDouble(),
+                              0,
+                            ),
+                            0,
+                          ),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
@@ -1067,7 +1095,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(16),
                                 ),
@@ -1103,8 +1131,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
+                                                          context,
+                                                        ).secondaryText,
                                                         letterSpacing: 0,
                                                       ),
                                             ),
@@ -1126,16 +1154,17 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
-                                0,
-                              ),
+                            valueOrDefault<double>(
+                              FFAppConstants.horiEdgePadding.toDouble(),
                               0,
-                              valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
-                                0,
-                              ),
-                              0),
+                            ),
+                            0,
+                            valueOrDefault<double>(
+                              FFAppConstants.horiEdgePadding.toDouble(),
+                              0,
+                            ),
+                            0,
+                          ),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
@@ -1164,7 +1193,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(16),
                                 ),
@@ -1200,8 +1229,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
+                                                          context,
+                                                        ).secondaryText,
                                                         letterSpacing: 0,
                                                       ),
                                             ),
@@ -1223,16 +1252,17 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
-                                0,
-                              ),
+                            valueOrDefault<double>(
+                              FFAppConstants.horiEdgePadding.toDouble(),
                               0,
-                              valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
-                                0,
-                              ),
-                              0),
+                            ),
+                            0,
+                            valueOrDefault<double>(
+                              FFAppConstants.horiEdgePadding.toDouble(),
+                              0,
+                            ),
+                            0,
+                          ),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
@@ -1261,7 +1291,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(16),
                                 ),
@@ -1297,8 +1327,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
+                                                          context,
+                                                        ).secondaryText,
                                                         letterSpacing: 0,
                                                       ),
                                             ),
@@ -1320,16 +1350,17 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                         ),
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
-                              valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
-                                0,
-                              ),
+                            valueOrDefault<double>(
+                              FFAppConstants.horiEdgePadding.toDouble(),
                               0,
-                              valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
-                                0,
-                              ),
-                              0),
+                            ),
+                            0,
+                            valueOrDefault<double>(
+                              FFAppConstants.horiEdgePadding.toDouble(),
+                              0,
+                            ),
+                            0,
+                          ),
                           child: InkWell(
                             splashColor: Colors.transparent,
                             focusColor: Colors.transparent,
@@ -1337,7 +1368,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               await context.pushNamed(
-                                  ComparativeAnalysisWidget.routeName);
+                                ComparativeAnalysisWidget.routeName,
+                              );
                             },
                             child: Material(
                               color: Colors.transparent,
@@ -1358,7 +1390,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                         0,
                                         2,
                                       ),
-                                    )
+                                    ),
                                   ],
                                   borderRadius: BorderRadius.circular(16),
                                 ),
@@ -1394,8 +1426,8 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                                                         fontFamily: "Inter",
                                                         color:
                                                             FlutterFlowTheme.of(
-                                                                    context)
-                                                                .secondaryText,
+                                                          context,
+                                                        ).secondaryText,
                                                         letterSpacing: 0,
                                                       ),
                                             ),
@@ -1431,7 +1463,11 @@ class _InsightsWidgetState extends State<InsightsWidget> {
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey", scaffoldKey));
+    properties.add(
+      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+        "scaffoldKey",
+        scaffoldKey,
+      ),
+    );
   }
 }

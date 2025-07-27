@@ -1,4 +1,3 @@
-import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/components/modify_gauge/modify_gauge_widget.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
@@ -22,7 +21,6 @@ class RainGaugeWidget extends StatefulWidget {
 }
 
 class _RainGaugeWidgetState extends State<RainGaugeWidget> {
-
   @override
   Widget build(final BuildContext context) => Container(
         width: MediaQuery.sizeOf(context).width * 1.0,
@@ -97,7 +95,8 @@ class _RainGaugeWidgetState extends State<RainGaugeWidget> {
                             builder: (final alertDialogContext) => AlertDialog(
                               title: const Text("Confirm Deletion"),
                               content: const Text(
-                                  "Are you sure you want to delete this rain guage?"),
+                                "Are you sure you want to delete this rain guage?",
+                              ),
                               actions: [
                                 TextButton(
                                   onPressed: () =>

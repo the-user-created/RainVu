@@ -37,8 +37,11 @@ void _setTimeagoLocales() {
   timeago.setLocaleMessages("en_short", timeago.EnShortMessages());
 }
 
-String dateTimeFormat(final String format, final DateTime? dateTime,
-    {final String? locale}) {
+String dateTimeFormat(
+  final String format,
+  final DateTime? dateTime, {
+  final String? locale,
+}) {
   if (dateTime == null) {
     return "";
   }
@@ -100,19 +103,20 @@ Theme wrapInMaterialDatePickerTheme(
       ),
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-            foregroundColor: WidgetStatePropertyAll(
-              actionButtonForegroundColor,
-            ),
-            overlayColor: WidgetStateProperty.resolveWith((final states) {
-              if (states.contains(WidgetState.hovered)) {
-                return actionButtonForegroundColor.applyAlpha(0.04);
-              }
-              if (states.contains(WidgetState.focused) ||
-                  states.contains(WidgetState.pressed)) {
-                return actionButtonForegroundColor.applyAlpha(0.12);
-              }
-              return null;
-            })),
+          foregroundColor: WidgetStatePropertyAll(
+            actionButtonForegroundColor,
+          ),
+          overlayColor: WidgetStateProperty.resolveWith((final states) {
+            if (states.contains(WidgetState.hovered)) {
+              return actionButtonForegroundColor.applyAlpha(0.04);
+            }
+            if (states.contains(WidgetState.focused) ||
+                states.contains(WidgetState.pressed)) {
+              return actionButtonForegroundColor.applyAlpha(0.12);
+            }
+            return null;
+          }),
+        ),
       ),
       datePickerTheme: DatePickerThemeData(
         backgroundColor: pickerBackgroundColor,
@@ -154,39 +158,43 @@ Theme wrapInMaterialTimePickerTheme(
       ),
       textButtonTheme: TextButtonThemeData(
         style: ButtonStyle(
-            foregroundColor: WidgetStatePropertyAll(
-              actionButtonForegroundColor,
-            ),
-            overlayColor: WidgetStateProperty.resolveWith((final states) {
-              if (states.contains(WidgetState.hovered)) {
-                return actionButtonForegroundColor.applyAlpha(0.04);
-              }
-              if (states.contains(WidgetState.focused) ||
-                  states.contains(WidgetState.pressed)) {
-                return actionButtonForegroundColor.applyAlpha(0.12);
-              }
-              return null;
-            })),
+          foregroundColor: WidgetStatePropertyAll(
+            actionButtonForegroundColor,
+          ),
+          overlayColor: WidgetStateProperty.resolveWith((final states) {
+            if (states.contains(WidgetState.hovered)) {
+              return actionButtonForegroundColor.applyAlpha(0.04);
+            }
+            if (states.contains(WidgetState.focused) ||
+                states.contains(WidgetState.pressed)) {
+              return actionButtonForegroundColor.applyAlpha(0.12);
+            }
+            return null;
+          }),
+        ),
       ),
       timePickerTheme: baseTheme.timePickerTheme.copyWith(
         backgroundColor: pickerBackgroundColor,
         hourMinuteTextColor: pickerForegroundColor,
         dialHandColor: selectedDateTimeBackgroundColor,
-        dialTextColor: WidgetStateColor.resolveWith((final states) =>
-            states.contains(WidgetState.selected)
-                ? selectedDateTimeForegroundColor
-                : pickerForegroundColor),
+        dialTextColor: WidgetStateColor.resolveWith(
+          (final states) => states.contains(WidgetState.selected)
+              ? selectedDateTimeForegroundColor
+              : pickerForegroundColor,
+        ),
         dayPeriodBorderSide: BorderSide(
           color: pickerForegroundColor,
         ),
-        dayPeriodTextColor: WidgetStateColor.resolveWith((final states) =>
-            states.contains(WidgetState.selected)
-                ? selectedDateTimeForegroundColor
-                : pickerForegroundColor),
-        dayPeriodColor: WidgetStateColor.resolveWith((final states) =>
-            states.contains(WidgetState.selected)
-                ? selectedDateTimeBackgroundColor
-                : Colors.transparent),
+        dayPeriodTextColor: WidgetStateColor.resolveWith(
+          (final states) => states.contains(WidgetState.selected)
+              ? selectedDateTimeForegroundColor
+              : pickerForegroundColor,
+        ),
+        dayPeriodColor: WidgetStateColor.resolveWith(
+          (final states) => states.contains(WidgetState.selected)
+              ? selectedDateTimeBackgroundColor
+              : Colors.transparent,
+        ),
         entryModeIconColor: pickerForegroundColor,
       ),
     ),
@@ -317,7 +325,7 @@ extension DateTimeComparisonOperators on DateTime {
       this > other || isAtSameMomentAs(other);
 }
 
-T? castToType<T>(final dynamic value) {
+T? castToType<T>(final value) {
   if (value == null) {
     return null;
   }
@@ -336,8 +344,11 @@ T? castToType<T>(final dynamic value) {
   return value as T;
 }
 
-dynamic getJsonField(final dynamic response, final String jsonPath,
-    {final bool isForList = false}) {
+dynamic getJsonField(
+  final response,
+  final String jsonPath, {
+  final bool isForList = false,
+}) {
   final Iterable<JsonPathMatch> field = JsonPath(jsonPath).read(response);
   if (field.isEmpty) {
     return null;
@@ -409,12 +420,16 @@ extension FFTextEditingControllerExt on TextEditingController? {
 }
 
 extension IterableExt<T> on Iterable<T> {
-  List<T> sortedList<S extends Comparable>(
-      {final S Function(T)? keyOf, final bool desc = false}) {
+  List<T> sortedList<S extends Comparable>({
+    final S Function(T)? keyOf,
+    final bool desc = false,
+  }) {
     final List<T> sortedAscending = toList()
-      ..sort(keyOf == null
-          ? null
-          : ((final a, final b) => keyOf(a).compareTo(keyOf(b))));
+      ..sort(
+        keyOf == null
+            ? null
+            : ((final a, final b) => keyOf(a).compareTo(keyOf(b))),
+      );
     if (desc) {
       return sortedAscending.reversed.toList();
     }
@@ -463,8 +478,10 @@ void showSnackbar(
 }
 
 extension FFStringExt on String {
-  String maybeHandleOverflow(
-          {final int? maxChars, final String replacement = ""}) =>
+  String maybeHandleOverflow({
+    final int? maxChars,
+    final String replacement = "",
+  }) =>
       maxChars != null && length > maxChars
           ? replaceRange(maxChars, null, replacement)
           : this;
@@ -484,9 +501,11 @@ extension MapFilterExtensions<T> on Map<String, T?> {
 }
 
 extension MapListContainsExt on List<dynamic> {
-  bool containsMap(final dynamic map) => map is Map
-      ? any((final e) =>
-          e is Map && const DeepCollectionEquality().equals(e, map))
+  bool containsMap(final map) => map is Map
+      ? any(
+          (final e) =>
+              e is Map && const DeepCollectionEquality().equals(e, map),
+        )
       : contains(map);
 }
 
@@ -497,8 +516,10 @@ extension ListDivideExt<T extends Widget> on Iterable<T> {
       isEmpty
           ? []
           : (enumerate
-              .map((final e) =>
-                  [e.value, if (filterFn == null || filterFn(e.key)) t])
+              .map(
+                (final e) =>
+                    [e.value, if (filterFn == null || filterFn(e.key)) t],
+              )
               .expand((final i) => i)
               .toList()
             ..removeLast());

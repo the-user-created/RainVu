@@ -35,16 +35,17 @@ class _ComingSoonWidgetState extends State<ComingSoonWidget> {
           body: SafeArea(
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(
-                  valueOrDefault<double>(
-                    FFAppConstants.horiEdgePadding.toDouble(),
-                    0,
-                  ),
-                  24,
-                  valueOrDefault<double>(
-                    FFAppConstants.horiEdgePadding.toDouble(),
-                    0,
-                  ),
-                  24),
+                valueOrDefault<double>(
+                  FFAppConstants.horiEdgePadding.toDouble(),
+                  0,
+                ),
+                24,
+                valueOrDefault<double>(
+                  FFAppConstants.horiEdgePadding.toDouble(),
+                  0,
+                ),
+                24,
+              ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
@@ -75,7 +76,11 @@ class _ComingSoonWidgetState extends State<ComingSoonWidget> {
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey", scaffoldKey));
+    properties.add(
+      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+        "scaffoldKey",
+        scaffoldKey,
+      ),
+    );
   }
 }

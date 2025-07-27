@@ -48,8 +48,12 @@ class FlutterFlowIconButton extends StatefulWidget {
       ..add(ColorProperty("hoverIconColor", hoverIconColor))
       ..add(ColorProperty("borderColor", borderColor))
       ..add(DoubleProperty("borderWidth", borderWidth))
-      ..add(DiagnosticsProperty<bool>(
-          "showLoadingIndicator", showLoadingIndicator))
+      ..add(
+        DiagnosticsProperty<bool>(
+          "showLoadingIndicator",
+          showLoadingIndicator,
+        ),
+      )
       ..add(ObjectFlagProperty<Function()?>.has("onPressed", onPressed));
   }
 }

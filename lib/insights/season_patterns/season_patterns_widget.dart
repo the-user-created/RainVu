@@ -71,7 +71,11 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              20, 20, 20, 20),
+                            20,
+                            20,
+                            20,
+                            20,
+                          ),
                           child: Column(
                             children: [
                               Text(
@@ -85,7 +89,6 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                                       letterSpacing: 0,
                                     ),
                               ),
-
                               Container(
                                 width: MediaQuery.sizeOf(context).width * 1.0,
                                 decoration: BoxDecoration(
@@ -94,7 +97,11 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      16, 16, 16, 16),
+                                    16,
+                                    16,
+                                    16,
+                                    16,
+                                  ),
                                   child: Row(
                                     mainAxisAlignment:
                                         MainAxisAlignment.spaceBetween,
@@ -117,8 +124,8 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .primary,
+                                                    context,
+                                                  ).primary,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -141,16 +148,17 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
                           0,
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
-                          0),
+                        ),
+                        0,
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
+                          0,
+                        ),
+                        0,
+                      ),
                       child: Material(
                         color: Colors.transparent,
                         elevation: 2,
@@ -165,10 +173,13 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                                 FlutterFlowTheme.of(context).primaryBackground,
                             borderRadius: BorderRadius.circular(16),
                           ),
-                          child:
-                              Padding(
+                          child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                20, 20, 20, 20),
+                              20,
+                              20,
+                              20,
+                              20,
+                            ),
                             child: Column(
                               mainAxisAlignment: MainAxisAlignment.spaceBetween,
                               children: [
@@ -197,16 +208,17 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                     ),
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
                           0,
-                          valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
-                            0,
-                          ),
-                          0),
+                        ),
+                        0,
+                        valueOrDefault<double>(
+                          FFAppConstants.horiEdgePadding.toDouble(),
+                          0,
+                        ),
+                        0,
+                      ),
                       child: Material(
                         color: Colors.transparent,
                         elevation: 2,
@@ -222,7 +234,11 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                           ),
                           child: Padding(
                             padding: const EdgeInsetsDirectional.fromSTEB(
-                                20, 20, 20, 20),
+                              20,
+                              20,
+                              20,
+                              20,
+                            ),
                             child: Column(
                               children: [
                                 Text(
@@ -301,13 +317,12 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                                             Text(
                                               "+12%",
                                               style: FlutterFlowTheme.of(
-                                                      context)
-                                                  .headlineSmall
-                                                  .override(
+                                                context,
+                                              ).headlineSmall.override(
                                                     fontFamily: "Readex Pro",
                                                     color: FlutterFlowTheme.of(
-                                                            context)
-                                                        .tertiary,
+                                                      context,
+                                                    ).tertiary,
                                                     letterSpacing: 0,
                                                   ),
                                             ),
@@ -411,7 +426,11 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              20, 20, 20, 20),
+                            20,
+                            20,
+                            20,
+                            20,
+                          ),
                           child: Column(
                             children: [
                               Text(
@@ -450,7 +469,11 @@ class _SeasonPatternsWidgetState extends State<SeasonPatternsWidget> {
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey", scaffoldKey));
+    properties.add(
+      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+        "scaffoldKey",
+        scaffoldKey,
+      ),
+    );
   }
 }

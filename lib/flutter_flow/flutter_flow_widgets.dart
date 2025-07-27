@@ -80,8 +80,12 @@ class FFButtonWidget extends StatefulWidget {
       ..add(DiagnosticsProperty<IconData?>("iconData", iconData))
       ..add(ObjectFlagProperty<Function()?>.has("onPressed", onPressed))
       ..add(DiagnosticsProperty<FFButtonOptions>("options", options))
-      ..add(DiagnosticsProperty<bool>(
-          "showLoadingIndicator", showLoadingIndicator));
+      ..add(
+        DiagnosticsProperty<bool>(
+          "showLoadingIndicator",
+          showLoadingIndicator,
+        ),
+      );
   }
 }
 
@@ -189,8 +193,10 @@ class _FFButtonWidgetState extends State<FFButtonWidget> {
         }
         return widget.options.hoverColor == null ? null : Colors.transparent;
       }),
-      padding: WidgetStateProperty.all(widget.options.padding ??
-          const EdgeInsets.symmetric(horizontal: 12, vertical: 4)),
+      padding: WidgetStateProperty.all(
+        widget.options.padding ??
+            const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
+      ),
       elevation: WidgetStateProperty.resolveWith<double?>(
         (final states) {
           if (states.contains(WidgetState.hovered) &&
@@ -302,7 +308,10 @@ extension _WithoutColorExtension on TextStyle {
 
 // Slightly hacky method of getting the layout width of the provided text.
 double? _getTextWidth(
-        final String? text, final TextStyle? style, final int maxLines) =>
+  final String? text,
+  final TextStyle? style,
+  final int maxLines,
+) =>
     text != null
         ? (TextPainter(
             text: TextSpan(text: text, style: style),

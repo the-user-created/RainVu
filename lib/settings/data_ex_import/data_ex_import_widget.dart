@@ -74,16 +74,17 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                 children: [
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        24,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        0),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      24,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      0,
+                    ),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -98,7 +99,11 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              20, 20, 20, 20),
+                            20,
+                            20,
+                            20,
+                            20,
+                          ),
                           child: Column(
                             children: [
                               Text(
@@ -190,7 +195,11 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                   child: Padding(
                                     padding:
                                         const EdgeInsetsDirectional.fromSTEB(
-                                            16, 16, 16, 16),
+                                      16,
+                                      16,
+                                      16,
+                                      16,
+                                    ),
                                     child: Row(
                                       mainAxisAlignment:
                                           MainAxisAlignment.spaceBetween,
@@ -229,10 +238,12 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                 options: const [
                                   ChipData("CSV"),
                                   ChipData("PDF"),
-                                  ChipData("JSON")
+                                  ChipData("JSON"),
                                 ],
-                                onChanged: (final val) => safeSetState(() =>
-                                    _model.choiceChipsValue = val?.firstOrNull),
+                                onChanged: (final val) => safeSetState(
+                                  () => _model.choiceChipsValue =
+                                      val?.firstOrNull,
+                                ),
                                 selectedChipStyle: ChipStyle(
                                   backgroundColor:
                                       FlutterFlowTheme.of(context).primary,
@@ -289,8 +300,9 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                     child: Checkbox(
                                       value: _model.checkboxValue ??= false,
                                       onChanged: (final newValue) {
-                                        safeSetState(() =>
-                                            _model.checkboxValue = newValue);
+                                        safeSetState(
+                                          () => _model.checkboxValue = newValue,
+                                        );
                                       },
                                       side: BorderSide(
                                         width: 2,
@@ -349,16 +361,17 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                   ),
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
                         0,
-                        valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
-                          0,
-                        ),
-                        32),
+                      ),
+                      0,
+                      valueOrDefault<double>(
+                        FFAppConstants.horiEdgePadding.toDouble(),
+                        0,
+                      ),
+                      32,
+                    ),
                     child: Material(
                       color: Colors.transparent,
                       elevation: 2,
@@ -373,7 +386,11 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                         ),
                         child: Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
-                              20, 20, 20, 20),
+                            20,
+                            20,
+                            20,
+                            20,
+                          ),
                           child: Column(
                             children: [
                               Text(
@@ -401,9 +418,7 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                 focusColor: Colors.transparent,
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
-                                onTap: () {
-
-                                },
+                                onTap: () {},
                                 child: Container(
                                   width: MediaQuery.sizeOf(context).width * 1.0,
                                   height: 120,
@@ -451,8 +466,8 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                                 .override(
                                                   fontFamily: "Inter",
                                                   color: FlutterFlowTheme.of(
-                                                          context)
-                                                      .secondaryText,
+                                                    context,
+                                                  ).secondaryText,
                                                   letterSpacing: 0,
                                                 ),
                                           ),
@@ -470,7 +485,11 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
                                 ),
                                 child: Padding(
                                   padding: const EdgeInsetsDirectional.fromSTEB(
-                                      16, 16, 16, 16),
+                                    16,
+                                    16,
+                                    16,
+                                    16,
+                                  ),
                                   child: Column(
                                     children: [
                                       Text(
@@ -544,7 +563,11 @@ class _DataExImportWidgetState extends State<DataExImportWidget> {
   @override
   void debugFillProperties(final DiagnosticPropertiesBuilder properties) {
     super.debugFillProperties(properties);
-    properties.add(DiagnosticsProperty<GlobalKey<ScaffoldState>>(
-        "scaffoldKey", scaffoldKey));
+    properties.add(
+      DiagnosticsProperty<GlobalKey<ScaffoldState>>(
+        "scaffoldKey",
+        scaffoldKey,
+      ),
+    );
   }
 }
