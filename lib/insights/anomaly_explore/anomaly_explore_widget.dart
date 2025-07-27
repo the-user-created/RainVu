@@ -83,7 +83,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                           Row(
                             mainAxisAlignment: MainAxisAlignment.spaceBetween,
                             children: [
-                              // TODO(david): Add date range picker
+                              // TODO: Add date range picker
                               Expanded(
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
@@ -117,7 +117,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                                 ),
                               ),
 
-                              // TODO(david): Add severity selection
+                              // TODO: Add severity selection
                               Expanded(
                                 child: DecoratedBox(
                                   decoration: BoxDecoration(
@@ -238,7 +238,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                             ],
                           ),
 
-                          // TODO(david): Add interactive timeline/linechart that presents rainfall data over time, with anomalies clearly highlighted using markers
+                          // TODO: Add interactive timeline/linechart that presents rainfall data over time, with anomalies clearly highlighted using markers
                           Image.network(
                             "",
                             width: MediaQuery.sizeOf(context).width * 1.0,
@@ -264,7 +264,7 @@ class _AnomalyExploreWidgetState extends State<AnomalyExploreWidget> {
                       primary: false,
                       shrinkWrap: true,
                       children: [
-                        // TODO(david): Upon tapping  a card, lead the user to a dedicated detail view that offers a deeper dive into that specific anomaly, including historical comparisons, contextual weather data, and graphical breakdowns.
+                        // TODO: Upon tapping  a card, lead the user to a dedicated detail view that offers a deeper dive into that specific anomaly, including historical comparisons, contextual weather data, and graphical breakdowns.
                         Container(
                           width: MediaQuery.sizeOf(context).width * 1.0,
                           decoration: BoxDecoration(

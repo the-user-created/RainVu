@@ -523,7 +523,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                     ),
                               ),
 
-                              // TODO(david): interactive chart—either a line or bar chart—that visually represents daily rainfall totals for the month. Ensure that tapping or hovering on any data point reveals a tooltip with detailed information, including the exact rainfall amount and historical comparison for that day.
+                              // TODO: interactive chart—either a line or bar chart—that visually represents daily rainfall totals for the month. Ensure that tapping or hovering on any data point reveals a tooltip with detailed information, including the exact rainfall amount and historical comparison for that day.
                               Image.network(
                                 "",
                                 width: MediaQuery.sizeOf(context).width * 1.0,
@@ -575,7 +575,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                     ),
                               ),
 
-                              // TODO(david): scrollable table or list that provides a detailed day-by-day breakdown, with columns for the date, recorded rainfall, and the variance from historical averages.
+                              // TODO: scrollable table or list that provides a detailed day-by-day breakdown, with columns for the date, recorded rainfall, and the variance from historical averages.
                               Column(
                                 children: [
                                   Row(

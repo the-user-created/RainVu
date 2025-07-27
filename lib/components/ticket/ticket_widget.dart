@@ -43,8 +43,8 @@ class _TicketWidgetState extends State<TicketWidget> {
     super.dispose();
   }
 
-  // TODO(david): Make description textfield scrollable when the number of lines of text exceeds the original height of the textfield.
-  // TODO(david): Hide email input if logged in
+  // TODO: Make description textfield scrollable when the number of lines of text exceeds the original height of the textfield.
+  // TODO: Hide email input if logged in
   // TODO: Fix keyboard
 
   @override

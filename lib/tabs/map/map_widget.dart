@@ -183,7 +183,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                       child: Column(
                         mainAxisAlignment: MainAxisAlignment.spaceEvenly,
                         children: [
-                          // TODO(david): Add modal/dialog for setting date range to display
+                          // TODO: Add modal/dialog for setting date range to display
                           FlutterFlowIconButton(
                             borderRadius: 20,
                             buttonSize: 40,
@@ -202,7 +202,7 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
 
                           // Switches between heatmap and pin mode
                           //
-                          // TODO(david): Add bar with 2 options that pop out when tapped
+                          // TODO: Add bar with 2 options that pop out when tapped
                           FlutterFlowIconButton(
                             borderRadius: 500,
                             buttonSize: 40,

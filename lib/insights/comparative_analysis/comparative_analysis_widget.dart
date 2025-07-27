@@ -93,7 +93,7 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                           ),
                         ),
                         child:
-                            // TODO(david): include interactive filter controls that enable users to select specific years or a range of years, as well as choose which metrics to compare, such as total annual rainfall, month-to-date totals, or seasonal averages.
+                            // TODO: include interactive filter controls that enable users to select specific years or a range of years, as well as choose which metrics to compare, such as total annual rainfall, month-to-date totals, or seasonal averages.
                             Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               16, 16, 16, 16),
@@ -329,7 +329,7 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                               ],
                             ),
 
-                            // TODO(david): a dynamic, interactive chart that presents side-by-side comparisons of key metrics across the selected years. This chart could take the form of grouped bar charts, an overlay of line graphs, or a hybrid visualization that allows users to clearly see differences between years at a glance. Users should be able to tap on specific data points on the chart to reveal detailed information, such as exact rainfall measurements and percentage differences compared to previous years.
+                            // TODO: a dynamic, interactive chart that presents side-by-side comparisons of key metrics across the selected years. This chart could take the form of grouped bar charts, an overlay of line graphs, or a hybrid visualization that allows users to clearly see differences between years at a glance. Users should be able to tap on specific data points on the chart to reveal detailed information, such as exact rainfall measurements and percentage differences compared to previous years.
                             Image.network(
                               "",
                               width: MediaQuery.sizeOf(context).width * 1.0,
@@ -366,7 +366,7 @@ class _ComparativeAnalysisWidgetState extends State<ComparativeAnalysisWidget> {
                           borderRadius: BorderRadius.circular(16),
                         ),
                         child:
-                            // TODO(david): a scrollable list of summary cards where each card represents data for a single year. Each card should display the total rainfall for that year, as well as additional data points like month-to-date and year-to-date totals. Incorporate visual indicators such as subtle color changes or directional icons to quickly inform the user if a year’s performance is above, below, or in line with historical trends.
+                            // TODO: a scrollable list of summary cards where each card represents data for a single year. Each card should display the total rainfall for that year, as well as additional data points like month-to-date and year-to-date totals. Incorporate visual indicators such as subtle color changes or directional icons to quickly inform the user if a year’s performance is above, below, or in line with historical trends.
                             Padding(
                           padding: const EdgeInsetsDirectional.fromSTEB(
                               16, 16, 16, 16),
