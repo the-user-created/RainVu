@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:rain_wise/core/navigation/app_route_names.dart";
 import "package:rain_wise/core/ui/scaffold_with_nav_bar.dart";
+import "package:rain_wise/features/settings/presentation/screens/settings_screen.dart";
 import "package:rain_wise/insights/anomaly_explore/anomaly_explore_widget.dart";
 import "package:rain_wise/insights/comparative_analysis/comparative_analysis_widget.dart";
 import "package:rain_wise/insights/monthly_breakdown/monthly_breakdown_widget.dart";
@@ -13,143 +14,29 @@ import "package:rain_wise/settings/help/help_widget.dart";
 import "package:rain_wise/settings/manage_guages/manage_guages_widget.dart";
 import "package:rain_wise/settings/my_subscription/my_subscription_widget.dart";
 import "package:rain_wise/settings/notifications/notifications_widget.dart";
-
-// Import all screen/widget files
 import "package:rain_wise/tabs/home/home_widget.dart";
 import "package:rain_wise/tabs/insights/insights_widget.dart";
 import "package:rain_wise/tabs/map/map_widget.dart";
-import "package:rain_wise/tabs/settings/settings_widget.dart";
 
 /// Defines the route configuration for the application.
 class AppRoutes {
-  static final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "root");
-  static final _homeNavigatorKey =
-      GlobalKey<NavigatorState>(debugLabel: "home");
-  static final _insightsNavigatorKey =
+  // Private constructor to prevent instantiation
+  AppRoutes._();
+
+  // Navigator keys as instance members of a singleton
+  final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "root");
+  final _homeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "home");
+  final _insightsNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: "insights");
-  static final _mapNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "map");
-  static final _settingsNavigatorKey =
+  final _mapNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "map");
+  final _settingsNavigatorKey =
       GlobalKey<NavigatorState>(debugLabel: "settings");
 
-  static final List<RouteBase> routes = [
-    GoRoute(
-      path: "/",
-      redirect: (final _, final __) => AppRouteNames.homePath,
-    ),
-    StatefulShellRoute.indexedStack(
-      builder: (final context, final state, final navigationShell) =>
-          ScaffoldWithNavBar(navigationShell: navigationShell),
-      branches: [
-        StatefulShellBranch(
-          navigatorKey: _homeNavigatorKey,
-          routes: [
-            GoRoute(
-              path: AppRouteNames.homePath,
-              name: AppRouteNames.homeName,
-              pageBuilder: (final context, final state) =>
-                  const NoTransitionPage(child: HomeWidget()),
-              routes: [
-                _buildSubRoute(
-                  AppRouteNames.rainfallEntriesPath,
-                  AppRouteNames.rainfallEntriesName,
-                  const RainfallEntriesWidget(),
-                ),
-              ],
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          navigatorKey: _insightsNavigatorKey,
-          routes: [
-            GoRoute(
-              path: AppRouteNames.insightsPath,
-              name: AppRouteNames.insightsName,
-              pageBuilder: (final context, final state) =>
-                  const NoTransitionPage(child: InsightsWidget()),
-              routes: [
-                _buildSubRoute(
-                  AppRouteNames.monthlyBreakdownPath,
-                  AppRouteNames.monthlyBreakdownName,
-                  const MonthlyBreakdownWidget(),
-                ),
-                _buildSubRoute(
-                  AppRouteNames.seasonPatternsPath,
-                  AppRouteNames.seasonPatternsName,
-                  const SeasonPatternsWidget(),
-                ),
-                _buildSubRoute(
-                  AppRouteNames.anomalyExplorePath,
-                  AppRouteNames.anomalyExploreName,
-                  const AnomalyExploreWidget(),
-                ),
-                _buildSubRoute(
-                  AppRouteNames.comparativeAnalysisPath,
-                  AppRouteNames.comparativeAnalysisName,
-                  const ComparativeAnalysisWidget(),
-                ),
-              ],
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          navigatorKey: _mapNavigatorKey,
-          routes: [
-            GoRoute(
-              path: AppRouteNames.mapPath,
-              name: AppRouteNames.mapName,
-              pageBuilder: (final context, final state) =>
-                  const NoTransitionPage(child: MapWidget()),
-            ),
-          ],
-        ),
-        StatefulShellBranch(
-          navigatorKey: _settingsNavigatorKey,
-          routes: [
-            GoRoute(
-              path: AppRouteNames.settingsPath,
-              name: AppRouteNames.settingsName,
-              pageBuilder: (final context, final state) =>
-                  const NoTransitionPage(child: SettingsWidget()),
-              routes: [
-                _buildSubRoute(
-                  AppRouteNames.manageGaugesPath,
-                  AppRouteNames.manageGaugesName,
-                  const ManageGuagesWidget(),
-                ),
-                _buildSubRoute(
-                  AppRouteNames.notificationsPath,
-                  AppRouteNames.notificationsName,
-                  const NotificationsWidget(),
-                ),
-                _buildSubRoute(
-                  AppRouteNames.helpPath,
-                  AppRouteNames.helpName,
-                  const HelpWidget(),
-                ),
-                _buildSubRoute(
-                  AppRouteNames.mySubscriptionPath,
-                  AppRouteNames.mySubscriptionName,
-                  const MySubscriptionWidget(),
-                ),
-                _buildSubRoute(
-                  AppRouteNames.dataExImportPath,
-                  AppRouteNames.dataExImportName,
-                  const DataExImportWidget(),
-                ),
-              ],
-            ),
-          ],
-        ),
-      ],
-    ),
-    GoRoute(
-      path: AppRouteNames.comingSoonPath,
-      name: AppRouteNames.comingSoonName,
-      builder: (final context, final state) => const ComingSoonWidget(),
-    ),
-  ];
+  // Singleton instance
+  static final AppRoutes instance = AppRoutes._();
 
-  static GoRoute _buildSubRoute(
+  // Helper method to build sub-routes
+  GoRoute _buildSubRoute(
     final String path,
     final String name,
     final Widget child,
@@ -160,4 +47,123 @@ class AppRoutes {
         parentNavigatorKey: rootNavigatorKey,
         builder: (final context, final state) => child,
       );
+
+  // Routes as instance getter
+  List<RouteBase> get routes => [
+        GoRoute(
+          path: "/",
+          redirect: (final _, final __) => AppRouteNames.homePath,
+        ),
+        StatefulShellRoute.indexedStack(
+          builder: (final context, final state, final navigationShell) =>
+              ScaffoldWithNavBar(navigationShell: navigationShell),
+          branches: [
+            StatefulShellBranch(
+              navigatorKey: _homeNavigatorKey,
+              routes: [
+                GoRoute(
+                  path: AppRouteNames.homePath,
+                  name: AppRouteNames.homeName,
+                  pageBuilder: (final context, final state) =>
+                      const NoTransitionPage(child: HomeWidget()),
+                  routes: [
+                    _buildSubRoute(
+                      AppRouteNames.rainfallEntriesPath,
+                      AppRouteNames.rainfallEntriesName,
+                      const RainfallEntriesWidget(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              navigatorKey: _insightsNavigatorKey,
+              routes: [
+                GoRoute(
+                  path: AppRouteNames.insightsPath,
+                  name: AppRouteNames.insightsName,
+                  pageBuilder: (final context, final state) =>
+                      const NoTransitionPage(child: InsightsWidget()),
+                  routes: [
+                    _buildSubRoute(
+                      AppRouteNames.monthlyBreakdownPath,
+                      AppRouteNames.monthlyBreakdownName,
+                      const MonthlyBreakdownWidget(),
+                    ),
+                    _buildSubRoute(
+                      AppRouteNames.seasonPatternsPath,
+                      AppRouteNames.seasonPatternsName,
+                      const SeasonPatternsWidget(),
+                    ),
+                    _buildSubRoute(
+                      AppRouteNames.anomalyExplorePath,
+                      AppRouteNames.anomalyExploreName,
+                      const AnomalyExploreWidget(),
+                    ),
+                    _buildSubRoute(
+                      AppRouteNames.comparativeAnalysisPath,
+                      AppRouteNames.comparativeAnalysisName,
+                      const ComparativeAnalysisWidget(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              navigatorKey: _mapNavigatorKey,
+              routes: [
+                GoRoute(
+                  path: AppRouteNames.mapPath,
+                  name: AppRouteNames.mapName,
+                  pageBuilder: (final context, final state) =>
+                      const NoTransitionPage(child: MapWidget()),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              navigatorKey: _settingsNavigatorKey,
+              routes: [
+                GoRoute(
+                  path: AppRouteNames.settingsPath,
+                  name: AppRouteNames.settingsName,
+                  pageBuilder: (final context, final state) =>
+                      const NoTransitionPage(child: SettingsScreen()),
+                  routes: [
+                    _buildSubRoute(
+                      AppRouteNames.manageGaugesPath,
+                      AppRouteNames.manageGaugesName,
+                      const ManageGuagesWidget(),
+                    ),
+                    _buildSubRoute(
+                      AppRouteNames.notificationsPath,
+                      AppRouteNames.notificationsName,
+                      const NotificationsWidget(),
+                    ),
+                    _buildSubRoute(
+                      AppRouteNames.helpPath,
+                      AppRouteNames.helpName,
+                      const HelpWidget(),
+                    ),
+                    _buildSubRoute(
+                      AppRouteNames.mySubscriptionPath,
+                      AppRouteNames.mySubscriptionName,
+                      const MySubscriptionWidget(),
+                    ),
+                    _buildSubRoute(
+                      AppRouteNames.dataExImportPath,
+                      AppRouteNames.dataExImportName,
+                      const DataExImportWidget(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+        GoRoute(
+          path: AppRouteNames.comingSoonPath,
+          name: AppRouteNames.comingSoonName,
+          builder: (final context, final state) => const ComingSoonWidget(),
+        ),
+      ];
 }
