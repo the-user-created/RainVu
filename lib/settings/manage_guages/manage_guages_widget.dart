@@ -8,9 +8,6 @@ import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
 class ManageGuagesWidget extends StatefulWidget {
   const ManageGuagesWidget({super.key});
 
-  static String routeName = "manage_guages";
-  static String routePath = "/manageGuages";
-
   @override
   State<ManageGuagesWidget> createState() => _ManageGuagesWidgetState();
 }

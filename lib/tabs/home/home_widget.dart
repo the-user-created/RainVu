@@ -1,18 +1,15 @@
 import "dart:ui";
 
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
 import "package:rain_wise/components/log_rain/log_rain_widget.dart";
+import "package:rain_wise/core/navigation/app_route_names.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/insights/monthly_breakdown/monthly_breakdown_widget.dart";
-import "package:rain_wise/tabs/insights/insights_widget.dart";
 
 class HomeWidget extends StatefulWidget {
   const HomeWidget({super.key});
-
-  static String routeName = "home";
-  static String routePath = "/home";
 
   @override
   State<HomeWidget> createState() => _HomeWidgetState();
@@ -320,7 +317,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
                                   await context.pushNamed(
-                                    MonthlyBreakdownWidget.routeName,
+                                    AppRouteNames.monthlyBreakdownName,
                                   );
                                 },
                                 child: DecoratedBox(
@@ -342,7 +339,7 @@ class _HomeWidgetState extends State<HomeWidget> {
                                       highlightColor: Colors.transparent,
                                       onTap: () async {
                                         await context.pushNamed(
-                                          MonthlyBreakdownWidget.routeName,
+                                          AppRouteNames.monthlyBreakdownName,
                                         );
                                       },
                                       child: Row(
@@ -1237,9 +1234,9 @@ class _HomeWidgetState extends State<HomeWidget> {
                                     focusColor: Colors.transparent,
                                     hoverColor: Colors.transparent,
                                     highlightColor: Colors.transparent,
-                                    onTap: () async {
-                                      await context
-                                          .pushNamed(InsightsWidget.routeName);
+                                    onTap: () {
+                                      context
+                                          .goNamed(AppRouteNames.insightsName);
                                     },
                                     child: Row(
                                       mainAxisSize: MainAxisSize.min,

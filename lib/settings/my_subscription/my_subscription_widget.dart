@@ -1,15 +1,13 @@
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
 import "package:rain_wise/components/manage_plan/manage_plan_widget.dart";
+import "package:rain_wise/core/navigation/app_route_names.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
-import "package:rain_wise/settings/help/help_widget.dart";
 
 class MySubscriptionWidget extends StatefulWidget {
   const MySubscriptionWidget({super.key});
-
-  static String routeName = "my_subscription";
-  static String routePath = "/mySubscription";
 
   @override
   State<MySubscriptionWidget> createState() => _MySubscriptionWidgetState();
@@ -732,7 +730,9 @@ class _MySubscriptionWidgetState extends State<MySubscriptionWidget> {
                                 hoverColor: Colors.transparent,
                                 highlightColor: Colors.transparent,
                                 onTap: () async {
-                                  await context.pushNamed(HelpWidget.routeName);
+                                  await context.pushNamed(
+                                    AppRouteNames.helpName,
+                                  );
                                 },
                                 child: Text(
                                   "For billing support, please visit our Help Center",

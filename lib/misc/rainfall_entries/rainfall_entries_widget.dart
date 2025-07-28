@@ -7,9 +7,6 @@ import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 class RainfallEntriesWidget extends StatefulWidget {
   const RainfallEntriesWidget({super.key});
 
-  static String routeName = "rainfallEntries";
-  static String routePath = "/rainfallEntries";
-
   @override
   State<RainfallEntriesWidget> createState() => _RainfallEntriesWidgetState();
 }

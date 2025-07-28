@@ -1,18 +1,11 @@
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
+import "package:rain_wise/core/navigation/app_route_names.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/misc/coming_soon/coming_soon_widget.dart";
-import "package:rain_wise/settings/data_ex_import/data_ex_import_widget.dart";
-import "package:rain_wise/settings/help/help_widget.dart";
-import "package:rain_wise/settings/manage_guages/manage_guages_widget.dart";
-import "package:rain_wise/settings/my_subscription/my_subscription_widget.dart";
-import "package:rain_wise/settings/notifications/notifications_widget.dart";
 
 class SettingsWidget extends StatefulWidget {
   const SettingsWidget({super.key});
-
-  static String routeName = "settings";
-  static String routePath = "/settings";
 
   @override
   State<SettingsWidget> createState() => _SettingsWidgetState();
@@ -83,8 +76,9 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                await context
-                                    .pushNamed(MySubscriptionWidget.routeName);
+                                await context.pushNamed(
+                                  AppRouteNames.mySubscriptionName,
+                                );
                               },
                               child: Container(
                                 width: double.infinity,
@@ -150,7 +144,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 await context
-                                    .pushNamed(DataExImportWidget.routeName);
+                                    .pushNamed(AppRouteNames.dataExImportName);
                               },
                               child: Container(
                                 width: double.infinity,
@@ -216,7 +210,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 await context
-                                    .pushNamed(ManageGuagesWidget.routeName);
+                                    .pushNamed(AppRouteNames.manageGaugesName);
                               },
                               child: Container(
                                 width: double.infinity,
@@ -282,7 +276,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 await context
-                                    .pushNamed(NotificationsWidget.routeName);
+                                    .pushNamed(AppRouteNames.notificationsName);
                               },
                               child: Container(
                                 width: double.infinity,
@@ -348,7 +342,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 await context
-                                    .pushNamed(ComingSoonWidget.routeName);
+                                    .pushNamed(AppRouteNames.comingSoonName);
                               },
                               child: Container(
                                 width: double.infinity,
@@ -414,7 +408,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               highlightColor: Colors.transparent,
                               onTap: () async {
                                 await context
-                                    .pushNamed(ComingSoonWidget.routeName);
+                                    .pushNamed(AppRouteNames.comingSoonName);
                               },
                               child: Container(
                                 width: double.infinity,
@@ -479,7 +473,7 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                               hoverColor: Colors.transparent,
                               highlightColor: Colors.transparent,
                               onTap: () async {
-                                await context.pushNamed(HelpWidget.routeName);
+                                await context.pushNamed(AppRouteNames.helpName);
                               },
                               child: Container(
                                 width: double.infinity,

@@ -5,9 +5,6 @@ import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 class ComingSoonWidget extends StatefulWidget {
   const ComingSoonWidget({super.key});
 
-  static String routeName = "coming_soon";
-  static String routePath = "/comingSoon";
-
   @override
   State<ComingSoonWidget> createState() => _ComingSoonWidgetState();
 }

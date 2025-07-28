@@ -5,9 +5,6 @@ import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 class SeasonPatternsWidget extends StatefulWidget {
   const SeasonPatternsWidget({super.key});
 
-  static String routeName = "season_patterns";
-  static String routePath = "/seasonPatterns";
-
   @override
   State<SeasonPatternsWidget> createState() => _SeasonPatternsWidgetState();
 }

@@ -5,9 +5,6 @@ import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 class AnomalyExploreWidget extends StatefulWidget {
   const AnomalyExploreWidget({super.key});
 
-  static String routeName = "anomaly_explore";
-  static String routePath = "/anomalyExplore";
-
   @override
   State<AnomalyExploreWidget> createState() => _AnomalyExploreWidgetState();
 }

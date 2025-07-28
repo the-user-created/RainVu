@@ -11,9 +11,6 @@ export "data_ex_import_model.dart";
 class DataExImportWidget extends StatefulWidget {
   const DataExImportWidget({super.key});
 
-  static String routeName = "data_ex_import";
-  static String routePath = "/dataExImport";
-
   @override
   State<DataExImportWidget> createState() => _DataExImportWidgetState();
 }

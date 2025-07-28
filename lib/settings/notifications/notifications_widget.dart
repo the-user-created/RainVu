@@ -10,9 +10,6 @@ export "notifications_model.dart";
 class NotificationsWidget extends StatefulWidget {
   const NotificationsWidget({super.key});
 
-  static String routeName = "notifications";
-  static String routePath = "/notifications";
-
   @override
   State<NotificationsWidget> createState() => _NotificationsWidgetState();
 }

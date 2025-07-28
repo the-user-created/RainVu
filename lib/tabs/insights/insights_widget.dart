@@ -1,18 +1,13 @@
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
 import "package:rain_wise/components/mtd_breakdown/mtd_breakdown_widget.dart";
+import "package:rain_wise/core/navigation/app_route_names.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/insights/anomaly_explore/anomaly_explore_widget.dart";
-import "package:rain_wise/insights/comparative_analysis/comparative_analysis_widget.dart";
-import "package:rain_wise/insights/monthly_breakdown/monthly_breakdown_widget.dart";
-import "package:rain_wise/insights/season_patterns/season_patterns_widget.dart";
 
 class InsightsWidget extends StatefulWidget {
   const InsightsWidget({super.key});
-
-  static String routeName = "insights";
-  static String routePath = "/insights";
 
   @override
   State<InsightsWidget> createState() => _InsightsWidgetState();
@@ -1072,8 +1067,9 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                             hoverColor: Colors.transparent,
                             highlightColor: Colors.transparent,
                             onTap: () async {
-                              await context
-                                  .pushNamed(MonthlyBreakdownWidget.routeName);
+                              await context.pushNamed(
+                                AppRouteNames.monthlyBreakdownName,
+                              );
                             },
                             child: Material(
                               color: Colors.transparent,
@@ -1171,7 +1167,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               await context
-                                  .pushNamed(SeasonPatternsWidget.routeName);
+                                  .pushNamed(AppRouteNames.seasonPatternsName);
                             },
                             child: Material(
                               color: Colors.transparent,
@@ -1269,7 +1265,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               await context
-                                  .pushNamed(AnomalyExploreWidget.routeName);
+                                  .pushNamed(AppRouteNames.anomalyExploreName);
                             },
                             child: Material(
                               color: Colors.transparent,
@@ -1367,7 +1363,7 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                             highlightColor: Colors.transparent,
                             onTap: () async {
                               await context.pushNamed(
-                                ComparativeAnalysisWidget.routeName,
+                                AppRouteNames.comparativeAnalysisName,
                               );
                             },
                             child: Material(

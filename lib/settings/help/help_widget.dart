@@ -7,9 +7,6 @@ import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
 class HelpWidget extends StatefulWidget {
   const HelpWidget({super.key});
 
-  static String routeName = "help";
-  static String routePath = "/help";
-
   @override
   State<HelpWidget> createState() => _HelpWidgetState();
 }
