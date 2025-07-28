@@ -1,20 +1,18 @@
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
+import "package:go_router/go_router.dart";
+import "package:rain_wise/core/navigation/app_route_names.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_animations.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
-import "package:rain_wise/tabs/insights/insights_widget.dart";
 import "package:rain_wise/tabs/map/map_model.dart";
 
 export "map_model.dart";
 
 class MapWidget extends StatefulWidget {
   const MapWidget({super.key});
-
-  static String routeName = "map";
-  static String routePath = "/map";
 
   @override
   State<MapWidget> createState() => _MapWidgetState();
@@ -334,9 +332,9 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                                         ),
                                   ),
                                   FFButtonWidget(
-                                    onPressed: () async {
-                                      await context
-                                          .pushNamed(InsightsWidget.routeName);
+                                    onPressed: () {
+                                      context
+                                          .goNamed(AppRouteNames.insightsName);
                                     },
                                     text: "View Graph",
                                     options: FFButtonOptions(

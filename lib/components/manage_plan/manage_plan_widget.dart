@@ -1,9 +1,10 @@
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
+import "package:rain_wise/core/navigation/app_route_names.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
-import "package:rain_wise/settings/help/help_widget.dart";
 
 class ManagePlanWidget extends StatefulWidget {
   const ManagePlanWidget({super.key});
@@ -796,7 +797,7 @@ class _ManagePlanWidgetState extends State<ManagePlanWidget> {
                           hoverColor: Colors.transparent,
                           highlightColor: Colors.transparent,
                           onTap: () async {
-                            await context.pushNamed(HelpWidget.routeName);
+                            await context.pushNamed(AppRouteNames.helpName);
                           },
                           child: Text(
                             "Need help with billing?",

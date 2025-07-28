@@ -1,14 +1,12 @@
 import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
+import "package:rain_wise/core/navigation/app_route_names.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/misc/rainfall_entries/rainfall_entries_widget.dart";
 
 class MonthlyBreakdownWidget extends StatefulWidget {
   const MonthlyBreakdownWidget({super.key});
-
-  static String routeName = "monthly_breakdown";
-  static String routePath = "/monthlyBreakdown";
 
   @override
   State<MonthlyBreakdownWidget> createState() => _MonthlyBreakdownWidgetState();
@@ -194,7 +192,7 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                                       ),
                                       onPressed: () async {
                                         await context.pushNamed(
-                                          RainfallEntriesWidget.routeName,
+                                          AppRouteNames.rainfallEntriesName,
                                         );
                                       },
                                     ),

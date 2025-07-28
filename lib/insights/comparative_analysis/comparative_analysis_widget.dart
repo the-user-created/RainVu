@@ -10,9 +10,6 @@ export "comparative_analysis_model.dart";
 class ComparativeAnalysisWidget extends StatefulWidget {
   const ComparativeAnalysisWidget({super.key});
 
-  static String routeName = "comparative_analysis";
-  static String routePath = "/comparativeAnalysis";
-
   @override
   State<ComparativeAnalysisWidget> createState() =>
       _ComparativeAnalysisWidgetState();
