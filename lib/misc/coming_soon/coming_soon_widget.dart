@@ -32,12 +32,12 @@ class _ComingSoonWidgetState extends State<ComingSoonWidget> {
             child: Padding(
               padding: EdgeInsetsDirectional.fromSTEB(
                 valueOrDefault<double>(
-                  FFAppConstants.horiEdgePadding.toDouble(),
+                  AppConstants.horiEdgePadding.toDouble(),
                   0,
                 ),
                 24,
                 valueOrDefault<double>(
-                  FFAppConstants.horiEdgePadding.toDouble(),
+                  AppConstants.horiEdgePadding.toDouble(),
                   0,
                 ),
                 24,

@@ -51,12 +51,12 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
@@ -134,12 +134,12 @@ class _ManageGuagesWidgetState extends State<ManageGuagesWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,

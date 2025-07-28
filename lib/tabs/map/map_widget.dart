@@ -88,12 +88,12 @@ class _MapWidgetState extends State<MapWidget> with TickerProviderStateMixin {
                 Padding(
                   padding: EdgeInsetsDirectional.fromSTEB(
                     valueOrDefault<double>(
-                      FFAppConstants.horiEdgePadding.toDouble(),
+                      AppConstants.horiEdgePadding.toDouble(),
                       0,
                     ),
                     0,
                     valueOrDefault<double>(
-                      FFAppConstants.horiEdgePadding.toDouble(),
+                      AppConstants.horiEdgePadding.toDouble(),
                       0,
                     ),
                     0,

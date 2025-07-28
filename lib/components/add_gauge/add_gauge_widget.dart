@@ -48,12 +48,12 @@ class _AddGaugeWidgetState extends State<AddGaugeWidget> {
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(
             valueOrDefault<double>(
-              FFAppConstants.horiEdgePadding.toDouble(),
+              AppConstants.horiEdgePadding.toDouble(),
               0,
             ),
             16,
             valueOrDefault<double>(
-              FFAppConstants.horiEdgePadding.toDouble(),
+              AppConstants.horiEdgePadding.toDouble(),
               0,
             ),
             16,

@@ -91,12 +91,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
@@ -387,12 +387,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
@@ -898,12 +898,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
@@ -1279,12 +1279,12 @@ class _HomeWidgetState extends State<HomeWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,

@@ -60,12 +60,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                               valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
+                                AppConstants.horiEdgePadding.toDouble(),
                                 0,
                               ),
                               0,
                               valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
+                                AppConstants.horiEdgePadding.toDouble(),
                                 0,
                               ),
                               0,
@@ -127,12 +127,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                               valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
+                                AppConstants.horiEdgePadding.toDouble(),
                                 0,
                               ),
                               0,
                               valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
+                                AppConstants.horiEdgePadding.toDouble(),
                                 0,
                               ),
                               0,
@@ -193,12 +193,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                               valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
+                                AppConstants.horiEdgePadding.toDouble(),
                                 0,
                               ),
                               0,
                               valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
+                                AppConstants.horiEdgePadding.toDouble(),
                                 0,
                               ),
                               0,
@@ -259,12 +259,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                               valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
+                                AppConstants.horiEdgePadding.toDouble(),
                                 0,
                               ),
                               0,
                               valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
+                                AppConstants.horiEdgePadding.toDouble(),
                                 0,
                               ),
                               0,
@@ -325,12 +325,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                               valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
+                                AppConstants.horiEdgePadding.toDouble(),
                                 0,
                               ),
                               0,
                               valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
+                                AppConstants.horiEdgePadding.toDouble(),
                                 0,
                               ),
                               0,
@@ -391,12 +391,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                               valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
+                                AppConstants.horiEdgePadding.toDouble(),
                                 0,
                               ),
                               0,
                               valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
+                                AppConstants.horiEdgePadding.toDouble(),
                                 0,
                               ),
                               0,
@@ -457,12 +457,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                           Padding(
                             padding: EdgeInsetsDirectional.fromSTEB(
                               valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
+                                AppConstants.horiEdgePadding.toDouble(),
                                 0,
                               ),
                               0,
                               valueOrDefault<double>(
-                                FFAppConstants.horiEdgePadding.toDouble(),
+                                AppConstants.horiEdgePadding.toDouble(),
                                 0,
                               ),
                               0,
@@ -528,12 +528,12 @@ class _SettingsWidgetState extends State<SettingsWidget> {
                       Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                           valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
+                            AppConstants.horiEdgePadding.toDouble(),
                             0,
                           ),
                           12,
                           valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
+                            AppConstants.horiEdgePadding.toDouble(),
                             0,
                           ),
                           12,

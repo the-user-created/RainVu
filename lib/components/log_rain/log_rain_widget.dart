@@ -59,12 +59,12 @@ class _LogRainWidgetState extends State<LogRainWidget> {
         child: Padding(
           padding: EdgeInsetsDirectional.fromSTEB(
             valueOrDefault<double>(
-              FFAppConstants.horiEdgePadding.toDouble(),
+              AppConstants.horiEdgePadding.toDouble(),
               0,
             ),
             16,
             valueOrDefault<double>(
-              FFAppConstants.horiEdgePadding.toDouble(),
+              AppConstants.horiEdgePadding.toDouble(),
               0,
             ),
             16,
@@ -229,7 +229,7 @@ class _LogRainWidgetState extends State<LogRainWidget> {
                             0,
                             0,
                             valueOrDefault<double>(
-                              FFAppConstants.horiEdgePadding.toDouble(),
+                              AppConstants.horiEdgePadding.toDouble(),
                               0,
                             ),
                             0,
