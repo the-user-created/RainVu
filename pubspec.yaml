@@ -53,12 +53,14 @@ dependencies:
 
 dev_dependencies:
   build_runner: ^2.5.4
+  custom_lint: ^0.7.6
   flutter_lints: ^6.0.0
 
   flutter_test:
     sdk: flutter
 
   freezed: ^3.1.0
+  freezed_lint: ^0.0.10
   lints: ^6.0.0
   riverpod_generator: ^2.6.5
 
