@@ -115,12 +115,12 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
                       valueOrDefault<double>(
-                        FFAppConstants.horiEdgePadding.toDouble(),
+                        AppConstants.horiEdgePadding.toDouble(),
                         0,
                       ),
                       24,
                       valueOrDefault<double>(
-                        FFAppConstants.horiEdgePadding.toDouble(),
+                        AppConstants.horiEdgePadding.toDouble(),
                         0,
                       ),
                       0,
@@ -289,12 +289,12 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
                       valueOrDefault<double>(
-                        FFAppConstants.horiEdgePadding.toDouble(),
+                        AppConstants.horiEdgePadding.toDouble(),
                         0,
                       ),
                       0,
                       valueOrDefault<double>(
-                        FFAppConstants.horiEdgePadding.toDouble(),
+                        AppConstants.horiEdgePadding.toDouble(),
                         0,
                       ),
                       0,
@@ -494,12 +494,12 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
                       valueOrDefault<double>(
-                        FFAppConstants.horiEdgePadding.toDouble(),
+                        AppConstants.horiEdgePadding.toDouble(),
                         0,
                       ),
                       0,
                       valueOrDefault<double>(
-                        FFAppConstants.horiEdgePadding.toDouble(),
+                        AppConstants.horiEdgePadding.toDouble(),
                         0,
                       ),
                       0,
@@ -552,12 +552,12 @@ class _MonthlyBreakdownWidgetState extends State<MonthlyBreakdownWidget> {
                   Padding(
                     padding: EdgeInsetsDirectional.fromSTEB(
                       valueOrDefault<double>(
-                        FFAppConstants.horiEdgePadding.toDouble(),
+                        AppConstants.horiEdgePadding.toDouble(),
                         0,
                       ),
                       0,
                       valueOrDefault<double>(
-                        FFAppConstants.horiEdgePadding.toDouble(),
+                        AppConstants.horiEdgePadding.toDouble(),
                         0,
                       ),
                       48,

@@ -73,12 +73,12 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
@@ -289,12 +289,12 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
@@ -373,12 +373,12 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
@@ -457,12 +457,12 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
@@ -541,12 +541,12 @@ class _NotificationsWidgetState extends State<NotificationsWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,

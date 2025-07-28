@@ -91,12 +91,12 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                       child: Padding(
                         padding: EdgeInsetsDirectional.fromSTEB(
                           valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
+                            AppConstants.horiEdgePadding.toDouble(),
                             0,
                           ),
                           24,
                           valueOrDefault<double>(
-                            FFAppConstants.horiEdgePadding.toDouble(),
+                            AppConstants.horiEdgePadding.toDouble(),
                             0,
                           ),
                           24,
@@ -925,12 +925,12 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                     Padding(
                       padding: EdgeInsetsDirectional.fromSTEB(
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
                         valueOrDefault<double>(
-                          FFAppConstants.horiEdgePadding.toDouble(),
+                          AppConstants.horiEdgePadding.toDouble(),
                           0,
                         ),
                         0,
@@ -1026,12 +1026,12 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                             valueOrDefault<double>(
-                              FFAppConstants.horiEdgePadding.toDouble(),
+                              AppConstants.horiEdgePadding.toDouble(),
                               0,
                             ),
                             0,
                             valueOrDefault<double>(
-                              FFAppConstants.horiEdgePadding.toDouble(),
+                              AppConstants.horiEdgePadding.toDouble(),
                               0,
                             ),
                             0,
@@ -1051,12 +1051,12 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                             valueOrDefault<double>(
-                              FFAppConstants.horiEdgePadding.toDouble(),
+                              AppConstants.horiEdgePadding.toDouble(),
                               0,
                             ),
                             0,
                             valueOrDefault<double>(
-                              FFAppConstants.horiEdgePadding.toDouble(),
+                              AppConstants.horiEdgePadding.toDouble(),
                               0,
                             ),
                             0,
@@ -1150,12 +1150,12 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                             valueOrDefault<double>(
-                              FFAppConstants.horiEdgePadding.toDouble(),
+                              AppConstants.horiEdgePadding.toDouble(),
                               0,
                             ),
                             0,
                             valueOrDefault<double>(
-                              FFAppConstants.horiEdgePadding.toDouble(),
+                              AppConstants.horiEdgePadding.toDouble(),
                               0,
                             ),
                             0,
@@ -1248,12 +1248,12 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                             valueOrDefault<double>(
-                              FFAppConstants.horiEdgePadding.toDouble(),
+                              AppConstants.horiEdgePadding.toDouble(),
                               0,
                             ),
                             0,
                             valueOrDefault<double>(
-                              FFAppConstants.horiEdgePadding.toDouble(),
+                              AppConstants.horiEdgePadding.toDouble(),
                               0,
                             ),
                             0,
@@ -1346,12 +1346,12 @@ class _InsightsWidgetState extends State<InsightsWidget> {
                         Padding(
                           padding: EdgeInsetsDirectional.fromSTEB(
                             valueOrDefault<double>(
-                              FFAppConstants.horiEdgePadding.toDouble(),
+                              AppConstants.horiEdgePadding.toDouble(),
                               0,
                             ),
                             0,
                             valueOrDefault<double>(
-                              FFAppConstants.horiEdgePadding.toDouble(),
+                              AppConstants.horiEdgePadding.toDouble(),
                               0,
                             ),
                             0,
