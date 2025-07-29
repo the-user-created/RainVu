@@ -3,12 +3,9 @@ import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/home/application/home_providers.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_choice_chips.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_drop_down.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
-import "package:rain_wise/flutter_flow/form_field_controller.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
 class LogRainSheet extends ConsumerStatefulWidget {
@@ -24,10 +21,8 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
 
   // State for form fields
   String? _selectedGaugeId;
-  late FormFieldController<String> _gaugeController;
 
   String _selectedUnit = "mm"; // TODO: Load from user preferences
-  late FormFieldController<List<String>> _unitController;
 
   DateTime _selectedDateTime = DateTime.now();
 
@@ -35,15 +30,11 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
   void initState() {
     super.initState();
     _amountController = TextEditingController();
-    _gaugeController = FormFieldController<String>(null);
-    _unitController = FormFieldController<List<String>>([_selectedUnit]);
   }
 
   @override
   void dispose() {
     _amountController.dispose();
-    _gaugeController.dispose();
-    _unitController.dispose();
     super.dispose();
   }
 
@@ -119,13 +110,6 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
     if (!(_formKey.currentState?.validate() ?? false)) {
       return;
     }
-    if (_selectedGaugeId == null) {
-      // Show a snackbar or some feedback to the user
-      ScaffoldMessenger.of(context).showSnackBar(
-        const SnackBar(content: Text("Please select a rain gauge.")),
-      );
-      return;
-    }
 
     final bool success =
         await ref.read(logRainControllerProvider.notifier).saveEntry(
@@ -177,23 +161,58 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                   loading: () => const AppLoader(),
                   error: (final err, final st) =>
                       Text("Error loading gauges: $err"),
-                  data: (final gauges) => FlutterFlowDropDown<String>(
-                    controller: _gaugeController,
-                    options: gauges.map((final g) => g.id).toList(),
-                    optionLabels: gauges.map((final g) => g.name).toList(),
-                    onChanged: (final val) =>
-                        setState(() => _selectedGaugeId = val),
-                    width: double.infinity,
-                    height: 60,
-                    textStyle: FlutterFlowTheme.of(context).bodyMedium,
-                    hintText: "Select...",
-                    fillColor: FlutterFlowTheme.of(context).secondaryBackground,
-                    elevation: 2,
-                    borderColor: FlutterFlowTheme.of(context).alternate,
-                    borderWidth: 1,
-                    borderRadius: 8,
-                    margin: const EdgeInsets.symmetric(horizontal: 12),
-                    hidesUnderline: true,
+                  data: (final gauges) => DropdownButtonFormField<String>(
+                    value: _selectedGaugeId,
+                    isExpanded: true,
+                    onChanged: (final newValue) {
+                      setState(() {
+                        _selectedGaugeId = newValue;
+                      });
+                    },
+                    items: gauges
+                        .map(
+                          (final gauge) => DropdownMenuItem(
+                            value: gauge.id,
+                            child: Text(gauge.name),
+                          ),
+                        )
+                        .toList(),
+                    validator: (final value) =>
+                        value == null ? "Please select a gauge" : null,
+                    style: FlutterFlowTheme.of(context).bodyMedium,
+                    dropdownColor:
+                        FlutterFlowTheme.of(context).secondaryBackground,
+                    decoration: InputDecoration(
+                      hintText: "Select...",
+                      hintStyle: FlutterFlowTheme.of(context).bodyLarge,
+                      fillColor:
+                          FlutterFlowTheme.of(context).secondaryBackground,
+                      filled: true,
+                      enabledBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).alternate,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).primary,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      errorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).error,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                      focusedErrorBorder: OutlineInputBorder(
+                        borderSide: BorderSide(
+                          color: FlutterFlowTheme.of(context).error,
+                        ),
+                        borderRadius: BorderRadius.circular(8),
+                      ),
+                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
@@ -240,27 +259,36 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                       style: FlutterFlowTheme.of(context).bodyLarge,
                     ),
                     const SizedBox(width: 8),
-                    FlutterFlowChoiceChips(
-                      options: const [ChipData("mm"), ChipData("in")],
-                      onChanged: (final val) => setState(
-                        () => _selectedUnit = val?.firstOrNull ?? "mm",
+                    ToggleButtons(
+                      isSelected: [
+                        _selectedUnit == "mm",
+                        _selectedUnit == "in",
+                      ],
+                      onPressed: (final index) {
+                        setState(() {
+                          _selectedUnit = index == 0 ? "mm" : "in";
+                        });
+                      },
+                      borderRadius: BorderRadius.circular(16),
+                      selectedBorderColor: FlutterFlowTheme.of(context).accent1,
+                      borderColor: FlutterFlowTheme.of(context).alternate,
+                      selectedColor: Colors.white,
+                      color: FlutterFlowTheme.of(context).secondaryText,
+                      fillColor: FlutterFlowTheme.of(context).accent1,
+                      constraints: const BoxConstraints(
+                        minHeight: 40,
+                        minWidth: 60,
                       ),
-                      selectedChipStyle: ChipStyle(
-                        backgroundColor: FlutterFlowTheme.of(context).accent1,
-                        textStyle: const TextStyle(color: Colors.white),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      unselectedChipStyle: ChipStyle(
-                        backgroundColor:
-                            FlutterFlowTheme.of(context).secondaryBackground,
-                        textStyle: TextStyle(
-                          color: FlutterFlowTheme.of(context).secondaryText,
+                      children: const [
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          child: Text("mm"),
                         ),
-                        borderRadius: BorderRadius.circular(16),
-                      ),
-                      chipSpacing: 8,
-                      multiselect: false,
-                      controller: _unitController,
+                        Padding(
+                          padding: EdgeInsets.symmetric(horizontal: 12),
+                          child: Text("in"),
+                        ),
+                      ],
                     ),
                   ],
                 ),
