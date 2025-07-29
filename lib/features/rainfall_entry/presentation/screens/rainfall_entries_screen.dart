@@ -1,0 +1,68 @@
+import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:go_router/go_router.dart";
+import "package:intl/intl.dart";
+import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
+import "package:rain_wise/features/rainfall_entry/domain/rainfall_entry.dart";
+import "package:rain_wise/features/rainfall_entry/presentation/widgets/rainfall_entry_list_item.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
+import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/shared/widgets/app_loader.dart";
+
+class RainfallEntriesScreen extends ConsumerWidget {
+  const RainfallEntriesScreen({
+    // Expects a 'YYYY-MM' string from router
+    required this.month,
+    super.key,
+  });
+
+  final String month;
+
+  @override
+  Widget build(final BuildContext context, final WidgetRef ref) {
+    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final DateTime selectedMonth =
+        DateTime.tryParse("$month-01") ?? DateTime.now();
+    final AsyncValue<List<RainfallEntry>> entriesAsync =
+        ref.watch(rainfallEntriesForMonthProvider(selectedMonth));
+
+    return Scaffold(
+      backgroundColor: theme.primaryBackground,
+      appBar: AppBar(
+        backgroundColor: theme.primaryBackground,
+        elevation: 1,
+        leading: FlutterFlowIconButton(
+          borderRadius: 8,
+          buttonSize: 40,
+          icon: Icon(Icons.arrow_back_rounded, color: theme.primaryText),
+          onPressed: context.pop,
+        ),
+        title: Text(
+          DateFormat.yMMMM().format(selectedMonth),
+          style: theme.headlineMedium,
+        ),
+        centerTitle: true,
+      ),
+      body: entriesAsync.when(
+        loading: () => const AppLoader(),
+        error: (final err, final stack) => Center(child: Text("Error: $err")),
+        data: (final entries) {
+          if (entries.isEmpty) {
+            return Center(
+              child: Text(
+                "No entries for this month.",
+                style: theme.bodyLarge,
+              ),
+            );
+          }
+          return ListView.builder(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+            itemCount: entries.length,
+            itemBuilder: (final context, final index) =>
+                RainfallEntryListItem(entry: entries[index]),
+          );
+        },
+      ),
+    );
+  }
+}

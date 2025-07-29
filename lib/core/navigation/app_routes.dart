@@ -5,18 +5,18 @@ import "package:rain_wise/core/ui/scaffold_with_nav_bar.dart";
 import "package:rain_wise/features/data_tools/presentation/screens/data_tools_screen.dart";
 import "package:rain_wise/features/home/presentation/screens/home_screen.dart";
 import "package:rain_wise/features/insights/presentation/screens/insights_screen.dart";
+import "package:rain_wise/features/insights/presentation/screens/monthly_breakdown_screen.dart";
 import "package:rain_wise/features/manage_gauges/presentation/screens/manage_gauges_screen.dart";
 import "package:rain_wise/features/map/presentation/screens/map_screen.dart";
+import "package:rain_wise/features/rainfall_entry/presentation/screens/rainfall_entries_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/help_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/notifications_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/settings_screen.dart";
 import "package:rain_wise/features/subscription/presentation/screens/subscription_details_screen.dart";
 import "package:rain_wise/insights/anomaly_explore/anomaly_explore_widget.dart";
 import "package:rain_wise/insights/comparative_analysis/comparative_analysis_widget.dart";
-import "package:rain_wise/insights/monthly_breakdown/monthly_breakdown_widget.dart";
 import "package:rain_wise/insights/season_patterns/season_patterns_widget.dart";
 import "package:rain_wise/misc/coming_soon/coming_soon_widget.dart";
-import "package:rain_wise/misc/rainfall_entries/rainfall_entries_widget.dart";
 
 /// Defines the route configuration for the application.
 class AppRoutes {
@@ -67,10 +67,14 @@ class AppRoutes {
                   pageBuilder: (final context, final state) =>
                       const NoTransitionPage(child: HomeScreen()),
                   routes: [
-                    _buildSubRoute(
-                      AppRouteNames.rainfallEntriesPath,
-                      AppRouteNames.rainfallEntriesName,
-                      const RainfallEntriesWidget(),
+                    GoRoute(
+                      path: "rainfall-entries/:month",
+                      name: AppRouteNames.rainfallEntriesName,
+                      parentNavigatorKey: rootNavigatorKey,
+                      builder: (final context, final state) {
+                        final String month = state.pathParameters["month"]!;
+                        return RainfallEntriesScreen(month: month);
+                      },
                     ),
                   ],
                 ),
@@ -88,7 +92,7 @@ class AppRoutes {
                     _buildSubRoute(
                       AppRouteNames.monthlyBreakdownPath,
                       AppRouteNames.monthlyBreakdownName,
-                      const MonthlyBreakdownWidget(),
+                      const MonthlyBreakdownScreen(),
                     ),
                     _buildSubRoute(
                       AppRouteNames.seasonPatternsPath,
