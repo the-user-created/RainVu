@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:rain_wise/core/navigation/app_route_names.dart";
 import "package:rain_wise/core/ui/scaffold_with_nav_bar.dart";
+import "package:rain_wise/features/data_tools/presentation/screens/data_tools_screen.dart";
 import "package:rain_wise/features/home/presentation/screens/home_screen.dart";
 import "package:rain_wise/features/insights/presentation/screens/insights_screen.dart";
 import "package:rain_wise/features/manage_gauges/presentation/screens/manage_gauges_screen.dart";
@@ -15,7 +16,6 @@ import "package:rain_wise/insights/monthly_breakdown/monthly_breakdown_widget.da
 import "package:rain_wise/insights/season_patterns/season_patterns_widget.dart";
 import "package:rain_wise/misc/coming_soon/coming_soon_widget.dart";
 import "package:rain_wise/misc/rainfall_entries/rainfall_entries_widget.dart";
-import "package:rain_wise/settings/data_ex_import/data_ex_import_widget.dart";
 import "package:rain_wise/settings/my_subscription/my_subscription_widget.dart";
 
 /// Defines the route configuration for the application.
@@ -150,9 +150,9 @@ class AppRoutes {
                       const MySubscriptionWidget(),
                     ),
                     _buildSubRoute(
-                      AppRouteNames.dataExImportPath,
-                      AppRouteNames.dataExImportName,
-                      const DataExImportWidget(),
+                      AppRouteNames.dataToolsPath,
+                      AppRouteNames.dataToolsName,
+                      const DataToolsScreen(),
                     ),
                   ],
                 ),

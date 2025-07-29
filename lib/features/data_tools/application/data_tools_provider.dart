@@ -1,0 +1,71 @@
+import "dart:io";
+
+import "package:flutter/material.dart";
+import "package:rain_wise/features/data_tools/data/data_tools_repository.dart";
+import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
+import "package:riverpod_annotation/riverpod_annotation.dart";
+
+part "data_tools_provider.g.dart";
+
+@riverpod
+class DataToolsNotifier extends _$DataToolsNotifier {
+  @override
+  DataToolsState build() => const DataToolsState();
+
+  void setExportFormat(final ExportFormat format) {
+    state = state.copyWith(exportFormat: format);
+  }
+
+  void setDateRange(final DateTimeRange? range) {
+    state = state.copyWith(dateRange: range);
+  }
+
+  Future<void> pickFileForImport() async {
+    final File? file = await ref.read(dataToolsRepositoryProvider).pickFile();
+    if (file != null) {
+      state = state.copyWith(fileToImport: file);
+    }
+  }
+
+  void clearImportFile() {
+    state = state.copyWith(fileToImport: null);
+  }
+
+  Future<void> exportData() async {
+    if (state.isExporting) {
+      return;
+    }
+    state = state.copyWith(isExporting: true, errorMessage: null);
+
+    try {
+      await ref.read(dataToolsRepositoryProvider).exportData(
+            format: state.exportFormat,
+            dateRange: state.dateRange,
+          );
+      // In a real app, you might show a success message or a file save dialog.
+    } catch (e) {
+      state = state.copyWith(errorMessage: "Export failed: $e");
+    } finally {
+      state = state.copyWith(isExporting: false);
+    }
+  }
+
+  Future<void> importData() async {
+    if (state.isImporting || state.fileToImport == null) {
+      return;
+    }
+    state = state.copyWith(isImporting: true, errorMessage: null);
+
+    try {
+      await ref
+          .read(dataToolsRepositoryProvider)
+          .importData(state.fileToImport!);
+      // On success, clear the selected file.
+      state = state.copyWith(fileToImport: null);
+    } catch (e) {
+      state = state.copyWith(errorMessage: "Import failed: $e");
+    } finally {
+      state = state.copyWith(isImporting: false);
+    }
+  }
+}

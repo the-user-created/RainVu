@@ -42,7 +42,7 @@ class SettingsScreen extends ConsumerWidget {
             children: [
               SettingsListTile(
                 title: "Data Export/Import",
-                onTap: () => context.pushNamed(AppRouteNames.dataExImportName),
+                onTap: () => context.pushNamed(AppRouteNames.dataToolsName),
               ),
               SettingsListTile(
                 title: "Manage Rain Gauges",
