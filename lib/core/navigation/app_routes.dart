@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
+import "package:rain_wise/common/domain/coming_soon_args.dart";
+import "package:rain_wise/common/presentation/screens/coming_soon_screen.dart";
 import "package:rain_wise/core/navigation/app_route_names.dart";
 import "package:rain_wise/core/ui/scaffold_with_nav_bar.dart";
 import "package:rain_wise/features/data_tools/presentation/screens/data_tools_screen.dart";
@@ -16,7 +18,6 @@ import "package:rain_wise/features/settings/presentation/screens/help_screen.dar
 import "package:rain_wise/features/settings/presentation/screens/notifications_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/settings_screen.dart";
 import "package:rain_wise/features/subscription/presentation/screens/subscription_details_screen.dart";
-import "package:rain_wise/misc/coming_soon/coming_soon_widget.dart";
 
 /// Defines the route configuration for the application.
 class AppRoutes {
@@ -167,7 +168,21 @@ class AppRoutes {
         GoRoute(
           path: AppRouteNames.comingSoonPath,
           name: AppRouteNames.comingSoonName,
-          builder: (final context, final state) => const ComingSoonWidget(),
+          builder: (final context, final state) {
+            // Default arguments if none are provided.
+            ComingSoonScreenArgs args = const ComingSoonScreenArgs();
+
+            // Safely check and cast the extra parameter.
+            if (state.extra is ComingSoonScreenArgs) {
+              args = state.extra! as ComingSoonScreenArgs;
+            }
+
+            return ComingSoonScreen(
+              pageTitle: args.pageTitle,
+              headline: args.headline,
+              message: args.message,
+            );
+          },
         ),
       ];
 }

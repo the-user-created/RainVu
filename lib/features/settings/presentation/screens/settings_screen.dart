@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
+import "package:rain_wise/common/domain/coming_soon_args.dart";
 import "package:rain_wise/core/navigation/app_route_names.dart";
 import "package:rain_wise/features/settings/presentation/widgets/app_info_footer.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
@@ -63,11 +64,19 @@ class SettingsScreen extends ConsumerWidget {
               ),
               SettingsListTile(
                 title: "Privacy Policy",
-                onTap: () => context.pushNamed(AppRouteNames.comingSoonName),
+                onTap: () => context.pushNamed(
+                  AppRouteNames.comingSoonName,
+                  extra:
+                      const ComingSoonScreenArgs(pageTitle: "Privacy Policy"),
+                ),
               ),
               SettingsListTile(
                 title: "Terms of Service",
-                onTap: () => context.pushNamed(AppRouteNames.comingSoonName),
+                onTap: () => context.pushNamed(
+                  AppRouteNames.comingSoonName,
+                  extra:
+                      const ComingSoonScreenArgs(pageTitle: "Terms of Service"),
+                ),
               ),
             ],
           ),
