@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:rain_wise/core/navigation/app_route_names.dart";
 import "package:rain_wise/core/ui/scaffold_with_nav_bar.dart";
+import "package:rain_wise/features/insights/presentation/screens/insights_screen.dart";
 import "package:rain_wise/features/map/presentation/screens/map_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/settings_screen.dart";
 import "package:rain_wise/insights/anomaly_explore/anomaly_explore_widget.dart";
@@ -16,7 +17,6 @@ import "package:rain_wise/settings/manage_guages/manage_guages_widget.dart";
 import "package:rain_wise/settings/my_subscription/my_subscription_widget.dart";
 import "package:rain_wise/settings/notifications/notifications_widget.dart";
 import "package:rain_wise/tabs/home/home_widget.dart";
-import "package:rain_wise/tabs/insights/insights_widget.dart";
 
 /// Defines the route configuration for the application.
 class AppRoutes {
@@ -83,7 +83,7 @@ class AppRoutes {
                   path: AppRouteNames.insightsPath,
                   name: AppRouteNames.insightsName,
                   pageBuilder: (final context, final state) =>
-                      const NoTransitionPage(child: InsightsWidget()),
+                      const NoTransitionPage(child: InsightsScreen()),
                   routes: [
                     _buildSubRoute(
                       AppRouteNames.monthlyBreakdownPath,
