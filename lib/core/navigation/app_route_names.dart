@@ -38,8 +38,8 @@ abstract class AppRouteNames {
   static const String helpPath = "help";
   static const String mySubscriptionName = "mySubscription";
   static const String mySubscriptionPath = "my-subscription";
-  static const String dataExImportName = "dataExImport";
-  static const String dataExImportPath = "data-ex-import";
+  static const String dataToolsName = "dataTools";
+  static const String dataToolsPath = "data-tools";
 
   // --- Top-level Routes (No Shell) ---
   static const String comingSoonName = "comingSoon";
