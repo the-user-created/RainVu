@@ -8,6 +8,32 @@ import "package:shared_preferences/shared_preferences.dart";
 const kThemeModeKey = "__theme_mode__";
 SharedPreferences? _prefs;
 
+// Cache for resolved font family names to avoid repeated lookups.
+final Map<String, String> _fontFamilyCache = {};
+
+/// Resolves the original Google Fonts family name from a decorated name.
+///
+/// e.g., "ReadexPro_600" -> "Readex Pro"
+String _getOriginalFontFamily(final String decoratedFamily) {
+  if (_fontFamilyCache.containsKey(decoratedFamily)) {
+    return _fontFamilyCache[decoratedFamily]!;
+  }
+
+  final String baseName = decoratedFamily.split("_").first;
+  final Iterable<String> fontFamilies = GoogleFonts.asMap().keys;
+
+  for (final String family in fontFamilies) {
+    if (family.replaceAll(" ", "") == baseName) {
+      _fontFamilyCache[decoratedFamily] = family;
+      return family;
+    }
+  }
+
+  // Fallback if no match is found.
+  _fontFamilyCache[decoratedFamily] = decoratedFamily;
+  return decoratedFamily;
+}
+
 abstract class FlutterFlowTheme {
   static Future initialize() async =>
       _prefs = await SharedPreferences.getInstance();
@@ -436,7 +462,7 @@ extension TextStyleHelper on TextStyle {
   }) =>
       useGoogleFonts
           ? GoogleFonts.getFont(
-              fontFamily!,
+              fontFamily ?? _getOriginalFontFamily(this.fontFamily!),
               color: color ?? this.color,
               fontSize: fontSize ?? this.fontSize,
               letterSpacing: letterSpacing ?? this.letterSpacing,
