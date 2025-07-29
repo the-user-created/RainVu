@@ -6,6 +6,7 @@ import "package:rain_wise/features/home/presentation/screens/home_screen.dart";
 import "package:rain_wise/features/insights/presentation/screens/insights_screen.dart";
 import "package:rain_wise/features/manage_gauges/presentation/screens/manage_gauges_screen.dart";
 import "package:rain_wise/features/map/presentation/screens/map_screen.dart";
+import "package:rain_wise/features/settings/presentation/screens/help_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/notifications_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/settings_screen.dart";
 import "package:rain_wise/insights/anomaly_explore/anomaly_explore_widget.dart";
@@ -15,7 +16,6 @@ import "package:rain_wise/insights/season_patterns/season_patterns_widget.dart";
 import "package:rain_wise/misc/coming_soon/coming_soon_widget.dart";
 import "package:rain_wise/misc/rainfall_entries/rainfall_entries_widget.dart";
 import "package:rain_wise/settings/data_ex_import/data_ex_import_widget.dart";
-import "package:rain_wise/settings/help/help_widget.dart";
 import "package:rain_wise/settings/my_subscription/my_subscription_widget.dart";
 
 /// Defines the route configuration for the application.
@@ -142,7 +142,7 @@ class AppRoutes {
                     _buildSubRoute(
                       AppRouteNames.helpPath,
                       AppRouteNames.helpName,
-                      const HelpWidget(),
+                      const HelpScreen(),
                     ),
                     _buildSubRoute(
                       AppRouteNames.mySubscriptionPath,
