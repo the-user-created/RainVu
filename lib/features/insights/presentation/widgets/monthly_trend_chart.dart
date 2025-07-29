@@ -2,7 +2,6 @@ import "dart:math";
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/insights_data.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 
 class MonthlyTrendChart extends StatelessWidget {
   const MonthlyTrendChart({
