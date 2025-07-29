@@ -5,6 +5,7 @@ import "package:rain_wise/core/ui/scaffold_with_nav_bar.dart";
 import "package:rain_wise/features/home/presentation/screens/home_screen.dart";
 import "package:rain_wise/features/insights/presentation/screens/insights_screen.dart";
 import "package:rain_wise/features/map/presentation/screens/map_screen.dart";
+import "package:rain_wise/features/settings/presentation/screens/notifications_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/settings_screen.dart";
 import "package:rain_wise/insights/anomaly_explore/anomaly_explore_widget.dart";
 import "package:rain_wise/insights/comparative_analysis/comparative_analysis_widget.dart";
@@ -16,7 +17,6 @@ import "package:rain_wise/settings/data_ex_import/data_ex_import_widget.dart";
 import "package:rain_wise/settings/help/help_widget.dart";
 import "package:rain_wise/settings/manage_guages/manage_guages_widget.dart";
 import "package:rain_wise/settings/my_subscription/my_subscription_widget.dart";
-import "package:rain_wise/settings/notifications/notifications_widget.dart";
 
 /// Defines the route configuration for the application.
 class AppRoutes {
@@ -137,7 +137,7 @@ class AppRoutes {
                     _buildSubRoute(
                       AppRouteNames.notificationsPath,
                       AppRouteNames.notificationsName,
-                      const NotificationsWidget(),
+                      const NotificationsScreen(),
                     ),
                     _buildSubRoute(
                       AppRouteNames.helpPath,
