@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
 import "package:go_router/go_router.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 /// A Scaffold with a persistent BottomNavigationBar for nested navigation.
 ///
@@ -18,47 +19,50 @@ class ScaffoldWithNavBar extends StatelessWidget {
   final StatefulNavigationShell navigationShell;
 
   @override
-  Widget build(final BuildContext context) => Scaffold(
-        body: navigationShell,
-        bottomNavigationBar: BottomNavigationBar(
-          // Set the current index from the navigation shell
-          currentIndex: navigationShell.currentIndex,
-          // Navigate to the selected branch when a tab is tapped
-          onTap: (final index) {
-            // Use goBranch to switch tabs while preserving stack state
-            navigationShell.goBranch(
-              index,
-              initialLocation: index == navigationShell.currentIndex,
-            );
-          },
-          backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
-          selectedItemColor: FlutterFlowTheme.of(context).secondary,
-          unselectedItemColor: FlutterFlowTheme.of(context).secondaryText,
-          showSelectedLabels: false,
-          showUnselectedLabels: false,
-          type: BottomNavigationBarType.fixed,
-          items: const <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.house),
-              label: "Home",
-              tooltip: "Home",
-            ),
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.chartLine),
-              label: "Insights",
-              tooltip: "Insights",
-            ),
-            BottomNavigationBarItem(
-              icon: FaIcon(FontAwesomeIcons.mapLocationDot),
-              label: "Map",
-              tooltip: "Map",
-            ),
-            BottomNavigationBarItem(
-              icon: Icon(Icons.settings_rounded),
-              label: "Settings",
-              tooltip: "Settings",
-            ),
-          ],
-        ),
-      );
+  Widget build(final BuildContext context) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    return Scaffold(
+      body: navigationShell,
+      bottomNavigationBar: BottomNavigationBar(
+        // Set the current index from the navigation shell
+        currentIndex: navigationShell.currentIndex,
+        // Navigate to the selected branch when a tab is tapped
+        onTap: (final index) {
+          // Use goBranch to switch tabs while preserving stack state
+          navigationShell.goBranch(
+            index,
+            initialLocation: index == navigationShell.currentIndex,
+          );
+        },
+        backgroundColor: FlutterFlowTheme.of(context).primaryBackground,
+        selectedItemColor: FlutterFlowTheme.of(context).secondary,
+        unselectedItemColor: FlutterFlowTheme.of(context).secondaryText,
+        showSelectedLabels: false,
+        showUnselectedLabels: false,
+        type: BottomNavigationBarType.fixed,
+        items: <BottomNavigationBarItem>[
+          BottomNavigationBarItem(
+            icon: const FaIcon(FontAwesomeIcons.house),
+            label: l10n.navHome,
+            tooltip: l10n.navHome,
+          ),
+          BottomNavigationBarItem(
+            icon: const FaIcon(FontAwesomeIcons.chartLine),
+            label: l10n.navInsights,
+            tooltip: l10n.navInsights,
+          ),
+          BottomNavigationBarItem(
+            icon: const FaIcon(FontAwesomeIcons.mapLocationDot),
+            label: l10n.navMap,
+            tooltip: l10n.navMap,
+          ),
+          BottomNavigationBarItem(
+            icon: const Icon(Icons.settings_rounded),
+            label: l10n.navSettings,
+            tooltip: l10n.navSettings,
+          ),
+        ],
+      ),
+    );
+  }
 }
