@@ -6,9 +6,9 @@ import "package:rain_wise/features/insights/presentation/widgets/detailed_analys
 import "package:rain_wise/features/insights/presentation/widgets/key_metrics_section.dart";
 import "package:rain_wise/features/insights/presentation/widgets/monthly_comparison_grid.dart";
 import "package:rain_wise/features/insights/presentation/widgets/monthly_trend_chart.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class InsightsScreen extends ConsumerWidget {
   const InsightsScreen({super.key});
@@ -30,11 +30,8 @@ class InsightsScreen extends ConsumerWidget {
         ),
         actions: [
           Padding(
-            padding: const EdgeInsetsDirectional.fromSTEB(0, 0, 12, 0),
-            child: FlutterFlowIconButton(
-              borderRadius: 50,
-              buttonSize: 40,
-              fillColor: theme.alternate,
+            padding: const EdgeInsets.only(right: 12),
+            child: AppIconButton(
               icon: Icon(
                 Icons.info_outline,
                 color: theme.primaryText,
@@ -43,6 +40,9 @@ class InsightsScreen extends ConsumerWidget {
               onPressed: () {
                 // TODO: Implement info dialog
               },
+              tooltip: "Info",
+              backgroundColor: theme.alternate,
+              borderRadius: BorderRadius.circular(20),
             ),
           ),
         ],

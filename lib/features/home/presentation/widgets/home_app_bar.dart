@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({
@@ -23,15 +23,14 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 8),
-          child: FlutterFlowIconButton(
-            borderRadius: 50,
-            buttonSize: 52,
+          child: AppIconButton(
             icon: Icon(
               Icons.add_circle_outline,
               color: theme.secondary,
-              size: 36,
             ),
+            iconSize: 36,
             onPressed: onAddPressed,
+            tooltip: "Log Rainfall",
           ),
         ),
       ],

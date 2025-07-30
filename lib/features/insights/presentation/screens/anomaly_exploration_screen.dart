@@ -6,9 +6,9 @@ import "package:rain_wise/features/insights/domain/anomaly_data.dart";
 import "package:rain_wise/features/insights/presentation/widgets/anomaly_exploration/anomaly_filter_options.dart";
 import "package:rain_wise/features/insights/presentation/widgets/anomaly_exploration/anomaly_list.dart";
 import "package:rain_wise/features/insights/presentation/widgets/anomaly_exploration/anomaly_timeline_chart.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class AnomalyExplorationScreen extends ConsumerWidget {
   const AnomalyExplorationScreen({super.key});
@@ -23,9 +23,10 @@ class AnomalyExplorationScreen extends ConsumerWidget {
       backgroundColor: theme.secondaryBackground,
       appBar: AppBar(
         backgroundColor: theme.primaryBackground,
-        leading: FlutterFlowIconButton(
+        leading: AppIconButton(
           icon: Icon(Icons.arrow_back_rounded, color: theme.primaryText),
           onPressed: context.pop,
+          tooltip: "Back",
         ),
         title: Text("Anomaly Exploration", style: theme.headlineMedium),
         centerTitle: false,

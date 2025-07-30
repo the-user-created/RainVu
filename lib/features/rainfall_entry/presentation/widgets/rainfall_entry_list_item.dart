@@ -4,8 +4,8 @@ import "package:intl/intl.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
 import "package:rain_wise/features/rainfall_entry/domain/rainfall_entry.dart";
 import "package:rain_wise/features/rainfall_entry/presentation/widgets/edit_entry_sheet.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class RainfallEntryListItem extends ConsumerWidget {
   const RainfallEntryListItem({required this.entry, super.key});
@@ -88,27 +88,25 @@ class RainfallEntryListItem extends ConsumerWidget {
             ),
             Row(
               children: [
-                FlutterFlowIconButton(
-                  borderRadius: 8,
-                  buttonSize: 44,
-                  fillColor: theme.alternate,
+                AppIconButton(
+                  backgroundColor: theme.alternate,
                   icon: Icon(
                     Icons.edit_outlined,
                     color: theme.primary,
                     size: 24,
                   ),
+                  tooltip: "Edit Entry",
                   onPressed: () => _showEditSheet(context),
                 ),
                 const SizedBox(width: 8),
-                FlutterFlowIconButton(
-                  borderRadius: 8,
-                  buttonSize: 44,
-                  fillColor: theme.alternate,
+                AppIconButton(
+                  backgroundColor: theme.alternate,
                   icon: Icon(
                     Icons.delete_outline,
                     color: theme.error,
                     size: 24,
                   ),
+                  tooltip: "Delete Entry",
                   onPressed: () => _deleteEntry(context, ref),
                 ),
               ],

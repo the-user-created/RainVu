@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class SubscriptionActionsCard extends StatelessWidget {
   const SubscriptionActionsCard({
@@ -28,32 +28,17 @@ class SubscriptionActionsCard extends StatelessWidget {
             children: [
               Text("Manage Subscription", style: theme.headlineSmall),
               const SizedBox(height: 16),
-              FFButtonWidget(
+              AppButton(
                 onPressed: onManagePlan,
-                text: "Manage Plan",
-                options: FFButtonOptions(
-                  width: double.infinity,
-                  height: 50,
-                  color: theme.accent1,
-                  textStyle: theme.titleSmall.override(color: Colors.white),
-                  elevation: 0,
-                  borderRadius: BorderRadius.circular(25),
-                ),
+                label: "Manage Plan",
+                isExpanded: true,
               ),
               const SizedBox(height: 16),
-              FFButtonWidget(
+              AppButton(
                 onPressed: onCancel,
-                text: "Cancel Subscription",
-                options: FFButtonOptions(
-                  width: double.infinity,
-                  height: 50,
-                  color: const Color(0x00FFFFFF),
-                  textStyle: theme.titleSmall.override(color: theme.error),
-                  elevation: 0,
-                  borderSide: BorderSide(color: theme.error),
-                  borderRadius: BorderRadius.circular(25),
-                  hoverColor: const Color(0x21D93C4D),
-                ),
+                label: "Cancel Subscription",
+                isExpanded: true,
+                style: AppButtonStyle.outlineDestructive,
               ),
             ],
           ),

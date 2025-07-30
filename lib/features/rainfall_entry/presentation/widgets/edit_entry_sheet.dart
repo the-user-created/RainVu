@@ -6,8 +6,8 @@ import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
 import "package:rain_wise/features/rainfall_entry/domain/rainfall_entry.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class EditEntrySheet extends ConsumerStatefulWidget {
   const EditEntrySheet({required this.entry, super.key});
@@ -105,7 +105,12 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
         ref.watch(rainGaugesProvider);
 
     return Container(
-      padding: const EdgeInsets.all(24),
+      padding: EdgeInsets.fromLTRB(
+        24,
+        24,
+        24,
+        MediaQuery.of(context).viewInsets.bottom + 24,
+      ),
       decoration: BoxDecoration(
         color: theme.secondaryBackground,
         borderRadius: const BorderRadius.only(
@@ -199,33 +204,22 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
               ),
               const SizedBox(height: 32),
               if (_isLoading)
-                const AppLoader()
+                const Center(child: AppLoader())
               else
                 Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    FFButtonWidget(
-                      onPressed: _onSaveChanges,
-                      text: "Save Changes",
-                      options: FFButtonOptions(
-                        width: 150,
-                        height: 50,
-                        color: theme.accent1,
-                        textStyle:
-                            theme.titleSmall.override(color: Colors.white),
-                        borderRadius: BorderRadius.circular(25),
+                    Expanded(
+                      child: AppButton(
+                        onPressed: _onSaveChanges,
+                        label: "Save Changes",
                       ),
                     ),
-                    FFButtonWidget(
-                      onPressed: _onDelete,
-                      text: "Delete Entry",
-                      options: FFButtonOptions(
-                        width: 150,
-                        height: 50,
-                        color: theme.error,
-                        textStyle:
-                            theme.titleSmall.override(color: Colors.white),
-                        borderRadius: BorderRadius.circular(25),
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: AppButton(
+                        onPressed: _onDelete,
+                        label: "Delete",
+                        style: AppButtonStyle.destructive,
                       ),
                     ),
                   ],
