@@ -68,6 +68,7 @@ dev_dependencies:
   riverpod_generator: ^2.6.5
 
 flutter:
+  generate: true
   uses-material-design: true
 
   assets:

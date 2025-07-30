@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 /// A generic placeholder screen for features that are not yet implemented.
 ///
@@ -26,14 +27,14 @@ class ComingSoonScreen extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    // Using FlutterFlowTheme to maintain visual consistency with the rest of the app.
     final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     return Scaffold(
       backgroundColor: theme.secondaryBackground,
       appBar: AppBar(
         title: Text(
-          pageTitle ?? "Coming Soon",
+          pageTitle ?? l10n.comingSoon,
           style: theme.titleLarge,
         ),
         backgroundColor: theme.primaryBackground,
@@ -56,14 +57,13 @@ class ComingSoonScreen extends StatelessWidget {
                 ),
                 const SizedBox(height: 32),
                 Text(
-                  headline ?? "This Feature is on its Way!",
+                  headline ?? l10n.comingSoonHeadline,
                   style: theme.displaySmall,
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 16),
                 Text(
-                  message ??
-                      "We're working hard to bring you something amazing. Please check back later!",
+                  message ?? l10n.comingSoonMessage,
                   style: theme.bodyLarge.copyWith(color: theme.secondaryText),
                   textAlign: TextAlign.center,
                 ),
