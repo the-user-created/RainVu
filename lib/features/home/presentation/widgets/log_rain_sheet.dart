@@ -7,6 +7,8 @@ import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
+import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
 
 class LogRainSheet extends ConsumerStatefulWidget {
   const LogRainSheet({super.key});
@@ -21,9 +23,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
 
   // State for form fields
   String? _selectedGaugeId;
-
   String _selectedUnit = "mm"; // TODO: Load from user preferences
-
   DateTime _selectedDateTime = DateTime.now();
 
   @override
@@ -123,7 +123,6 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
     if (mounted && success) {
       Navigator.pop(context);
     }
-    // Error state is handled by the provider/listener if needed
   }
 
   @override
@@ -162,9 +161,9 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                   loading: () => const AppLoader(),
                   error: (final err, final st) =>
                       Text("Error loading gauges: $err"),
-                  data: (final gauges) => DropdownButtonFormField<String>(
+                  data: (final gauges) => AppDropdownFormField<String>(
                     value: _selectedGaugeId,
-                    isExpanded: true,
+                    hintText: "Select...",
                     onChanged: (final newValue) {
                       setState(() {
                         _selectedGaugeId = newValue;
@@ -180,116 +179,74 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                         .toList(),
                     validator: (final value) =>
                         value == null ? "Please select a gauge" : null,
-                    style: FlutterFlowTheme.of(context).bodyMedium,
-                    dropdownColor:
-                        FlutterFlowTheme.of(context).secondaryBackground,
-                    decoration: InputDecoration(
-                      hintText: "Select...",
-                      hintStyle: FlutterFlowTheme.of(context).bodyLarge,
-                      fillColor:
-                          FlutterFlowTheme.of(context).secondaryBackground,
-                      filled: true,
-                      enabledBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).alternate,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      focusedBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).primary,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      errorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                      focusedErrorBorder: OutlineInputBorder(
-                        borderSide: BorderSide(
-                          color: FlutterFlowTheme.of(context).error,
-                        ),
-                        borderRadius: BorderRadius.circular(8),
-                      ),
-                    ),
                   ),
                 ),
                 const SizedBox(height: 16),
                 _buildSectionHeader("Rainfall Amount"),
-                TextFormField(
-                  controller: _amountController,
-                  decoration: InputDecoration(
-                    hintText: "Enter amount",
-                    hintStyle: FlutterFlowTheme.of(context).bodyLarge,
-                    enabledBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).alternate,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                    focusedBorder: OutlineInputBorder(
-                      borderSide: BorderSide(
-                        color: FlutterFlowTheme.of(context).primary,
-                      ),
-                      borderRadius: BorderRadius.circular(8),
-                    ),
-                  ),
-                  style: FlutterFlowTheme.of(context).bodyMedium,
-                  keyboardType:
-                      const TextInputType.numberWithOptions(decimal: true),
-                  validator: (final val) {
-                    if (val == null || val.isEmpty) {
-                      return "Amount cannot be empty";
-                    }
-                    if (double.tryParse(val) == null) {
-                      return "Please enter a valid number";
-                    }
-                    return null;
-                  },
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d*")),
-                  ],
-                ),
-                const SizedBox(height: 8),
                 Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    Text(
-                      "Unit:",
-                      style: FlutterFlowTheme.of(context).bodyLarge,
+                    Expanded(
+                      flex: 3,
+                      child: TextFormField(
+                        controller: _amountController,
+                        decoration: InputDecoration(
+                          hintText: "Enter amount",
+                          hintStyle: FlutterFlowTheme.of(context).bodyLarge,
+                          enabledBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).alternate,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                          focusedBorder: OutlineInputBorder(
+                            borderSide: BorderSide(
+                              color: FlutterFlowTheme.of(context).primary,
+                            ),
+                            borderRadius: BorderRadius.circular(8),
+                          ),
+                        ),
+                        style: FlutterFlowTheme.of(context).bodyMedium,
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        validator: (final val) {
+                          if (val == null || val.isEmpty) {
+                            return "Amount cannot be empty";
+                          }
+                          if (double.tryParse(val) == null) {
+                            return "Please enter a valid number";
+                          }
+                          return null;
+                        },
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp(r"^\d+\.?\d*"),
+                          ),
+                        ],
+                      ),
                     ),
                     const SizedBox(width: 8),
-                    ToggleButtons(
-                      isSelected: [
-                        _selectedUnit == "mm",
-                        _selectedUnit == "in",
-                      ],
-                      onPressed: (final index) {
-                        setState(() {
-                          _selectedUnit = index == 0 ? "mm" : "in";
-                        });
-                      },
-                      borderRadius: BorderRadius.circular(16),
-                      selectedBorderColor: FlutterFlowTheme.of(context).accent1,
-                      borderColor: FlutterFlowTheme.of(context).alternate,
-                      selectedColor: Colors.white,
-                      color: FlutterFlowTheme.of(context).secondaryText,
-                      fillColor: FlutterFlowTheme.of(context).accent1,
-                      constraints: const BoxConstraints(
-                        minHeight: 40,
-                        minWidth: 60,
+                    Expanded(
+                      flex: 2,
+                      child: AppSegmentedControl<String>(
+                        selectedValue: _selectedUnit,
+                        onSelectionChanged: (final value) {
+                          setState(() {
+                            _selectedUnit = value;
+                          });
+                        },
+                        segments: const [
+                          SegmentOption(
+                            value: "mm",
+                            label: Text("mm"),
+                          ),
+                          SegmentOption(
+                            value: "in",
+                            label: Text("in"),
+                          ),
+                        ],
                       ),
-                      children: const [
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Text("mm"),
-                        ),
-                        Padding(
-                          padding: EdgeInsets.symmetric(horizontal: 12),
-                          child: Text("in"),
-                        ),
-                      ],
                     ),
                   ],
                 ),

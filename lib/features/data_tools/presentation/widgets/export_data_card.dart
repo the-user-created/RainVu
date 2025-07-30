@@ -6,6 +6,7 @@ import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rain_wise/shared/widgets/forms/app_choice_chips.dart";
 
 class ExportDataCard extends ConsumerWidget {
   const ExportDataCard({super.key});
@@ -52,9 +53,17 @@ class ExportDataCard extends ConsumerWidget {
               const SizedBox(height: 16),
               Text("Export Format", style: theme.bodyMedium),
               const SizedBox(height: 8),
-              _FormatSelectorChips(
-                selectedFormat: state.exportFormat,
-                onFormatSelected: notifier.setExportFormat,
+              AppChoiceChips<ExportFormat>(
+                selectedValue: state.exportFormat,
+                onSelected: notifier.setExportFormat,
+                options: ExportFormat.values
+                    .map(
+                      (final format) => ChipOption(
+                        value: format,
+                        label: format.name.toUpperCase(),
+                      ),
+                    )
+                    .toList(),
               ),
               const SizedBox(height: 24),
               AppButton(
@@ -111,40 +120,6 @@ class _DateRangePickerTile extends StatelessWidget {
           ],
         ),
       ),
-    );
-  }
-}
-
-class _FormatSelectorChips extends StatelessWidget {
-  const _FormatSelectorChips({
-    required this.selectedFormat,
-    required this.onFormatSelected,
-  });
-
-  final ExportFormat selectedFormat;
-  final ValueChanged<ExportFormat> onFormatSelected;
-
-  @override
-  Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
-    return Wrap(
-      spacing: 8,
-      children: ExportFormat.values.map((final format) {
-        final bool isSelected = selectedFormat == format;
-        return ChoiceChip(
-          label: Text(format.name.toUpperCase()),
-          selected: isSelected,
-          onSelected: (final _) => onFormatSelected(format),
-          labelStyle: isSelected
-              ? theme.bodyMedium.copyWith(color: theme.secondaryBackground)
-              : theme.bodyMedium,
-          selectedColor: theme.primary,
-          backgroundColor: theme.alternate,
-          shape: RoundedRectangleBorder(
-            borderRadius: BorderRadius.circular(20),
-          ),
-        );
-      }).toList(),
     );
   }
 }
