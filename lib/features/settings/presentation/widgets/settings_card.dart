@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
+import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 
 /// A styled card that wraps a list of setting tiles.
 /// It provides a consistent background, shadow, and dividers.
@@ -13,11 +13,8 @@ class SettingsCard extends StatelessWidget {
   Widget build(final BuildContext context) {
     final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
     return Padding(
-      padding: EdgeInsets.symmetric(
-        horizontal: valueOrDefault<double>(
-          AppConstants.horiEdgePadding.toDouble(),
-          16,
-        ),
+      padding: const EdgeInsets.symmetric(
+        horizontal: AppConstants.horiEdgePadding,
       ),
       child: Card(
         clipBehavior: Clip.antiAlias,

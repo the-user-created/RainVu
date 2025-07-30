@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
+import "package:intl/intl.dart";
 import "package:rain_wise/features/subscription/domain/subscription_plan.dart";
 import "package:rain_wise/features/subscription/domain/user_subscription.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/plan_feature_list.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 
 class CurrentPlanCard extends StatelessWidget {
   const CurrentPlanCard({required this.subscription, super.key});

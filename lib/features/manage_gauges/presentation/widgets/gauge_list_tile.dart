@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/edit_gauge_sheet.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class GaugeListTile extends ConsumerWidget {

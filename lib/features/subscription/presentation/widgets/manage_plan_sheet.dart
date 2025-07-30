@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/subscription/application/subscription_provider.dart";
 import "package:rain_wise/features/subscription/domain/subscription_plan.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/plan_comparison_card.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
