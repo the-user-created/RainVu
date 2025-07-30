@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:url_launcher/url_launcher.dart";
 
 /// A tappable tile for contacting support, which launches a URL (e.g., mailto).
@@ -29,15 +28,17 @@ class ContactSupportTile extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
     return ListTile(
       onTap: () => _launchUrl(context),
-      title: Text(title, style: theme.bodyLarge),
+      title: Text(title, style: textTheme.bodyLarge),
       subtitle: Text(
         subtitle,
-        style: theme.bodyMedium.copyWith(color: theme.primary),
+        style: textTheme.bodyMedium?.copyWith(color: colorScheme.secondary),
       ),
-      trailing: Icon(icon, color: theme.primary, size: 24),
+      trailing: Icon(icon, color: colorScheme.secondary, size: 24),
       contentPadding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
     );
   }

@@ -3,20 +3,21 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/features/insights/application/anomaly_exploration_provider.dart";
 import "package:rain_wise/features/insights/domain/anomaly_data.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class AnomalyFilterOptions extends ConsumerWidget {
   const AnomalyFilterOptions({super.key});
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
 
     return Container(
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: theme.primaryBackground,
+        color: colorScheme.background,
         boxShadow: const [
           BoxShadow(
             blurRadius: 4,
@@ -28,7 +29,7 @@ class AnomalyFilterOptions extends ConsumerWidget {
       ),
       child: Column(
         children: [
-          Text("Filter Options", style: theme.titleMedium),
+          Text("Filter Options", style: textTheme.titleMedium),
           const SizedBox(height: 16),
           Row(
             children: [
@@ -46,7 +47,9 @@ class AnomalyFilterOptions extends ConsumerWidget {
 class _DateRangePicker extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
     final DateTimeRange dateRange = ref
         .watch(anomalyFilterNotifierProvider.select((final f) => f.dateRange));
     final String dateText =
@@ -66,19 +69,20 @@ class _DateRangePicker extends ConsumerWidget {
       },
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: theme.alternate,
+          color: colorScheme.surfaceVariant,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           child: Row(
             children: [
-              Icon(Icons.calendar_today, color: theme.primary, size: 20),
+              Icon(Icons.calendar_today,
+                  color: colorScheme.secondary, size: 20),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
                   dateText,
-                  style: theme.bodyMedium,
+                  style: textTheme.bodyMedium,
                   overflow: TextOverflow.ellipsis,
                 ),
               ),
@@ -93,22 +97,24 @@ class _DateRangePicker extends ConsumerWidget {
 class _SeveritySelector extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
 
     return InkWell(
       onTap: () => _showSeverityDialog(context, ref),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: theme.alternate,
+          color: colorScheme.surfaceVariant,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           child: Row(
             children: [
-              Icon(Icons.warning, color: theme.warning, size: 20),
+              const Icon(Icons.warning, color: Colors.amber, size: 20),
               const SizedBox(width: 8),
-              Text("Severity", style: theme.bodyMedium),
+              Text("Severity", style: textTheme.bodyMedium),
             ],
           ),
         ),

@@ -4,7 +4,6 @@ import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/gauge_form.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class EditGaugeSheet extends ConsumerWidget {
   const EditGaugeSheet({required this.gauge, super.key});
@@ -13,7 +12,7 @@ class EditGaugeSheet extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
 
     return SingleChildScrollView(
       child: Container(
@@ -24,23 +23,25 @@ class EditGaugeSheet extends ConsumerWidget {
           16 + MediaQuery.of(context).viewInsets.bottom,
         ),
         decoration: BoxDecoration(
-          color: theme.secondaryBackground,
+          color: theme.colorScheme.surface,
           borderRadius: const BorderRadius.only(
-            topLeft: Radius.circular(12),
-            topRight: Radius.circular(12),
+            topLeft: Radius.circular(16),
+            topRight: Radius.circular(16),
           ),
         ),
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("Edit Rain Gauge", style: theme.headlineSmall),
+            Text("Edit Rain Gauge", style: theme.textTheme.headlineSmall),
             const SizedBox(height: 24),
             GaugeForm(
               gauge: gauge,
               onSave: (final name) {
                 final RainGauge updatedGauge = gauge.copyWith(name: name);
                 ref.read(gaugesProvider.notifier).updateGauge(updatedGauge);
-                Navigator.pop(context);
+                if (context.mounted) {
+                  Navigator.pop(context);
+                }
               },
             ),
           ],

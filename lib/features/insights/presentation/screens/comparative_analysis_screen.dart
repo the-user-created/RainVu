@@ -6,7 +6,6 @@ import "package:rain_wise/features/insights/domain/comparative_analysis_data.dar
 import "package:rain_wise/features/insights/presentation/widgets/comparative_analysis/comparative_analysis_chart.dart";
 import "package:rain_wise/features/insights/presentation/widgets/comparative_analysis/comparative_analysis_filters.dart";
 import "package:rain_wise/features/insights/presentation/widgets/comparative_analysis/yearly_summary_list.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -15,18 +14,16 @@ class ComparativeAnalysisScreen extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final AsyncValue<ComparativeAnalysisData> dataAsync =
         ref.watch(comparativeAnalysisDataProvider);
 
     return Scaffold(
-      backgroundColor: theme.secondaryBackground,
       appBar: AppBar(
-        backgroundColor: theme.primaryBackground,
         leading: AppIconButton(
           icon: Icon(
             Icons.arrow_back_rounded,
-            color: theme.primaryText,
+            color: theme.colorScheme.onBackground,
             size: 30,
           ),
           onPressed: context.pop,
@@ -34,7 +31,7 @@ class ComparativeAnalysisScreen extends ConsumerWidget {
         ),
         title: Text(
           "Comparative Analysis",
-          style: theme.headlineMedium,
+          style: theme.textTheme.headlineMedium,
         ),
         centerTitle: false,
         elevation: 0,

@@ -3,7 +3,6 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
 import "package:rain_wise/features/settings/application/notifications_providers.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class ReminderTimeTile extends ConsumerWidget {
   const ReminderTimeTile({super.key});
@@ -16,7 +15,9 @@ class ReminderTimeTile extends ConsumerWidget {
         ref.read(notificationSettingsNotifierProvider.notifier);
     final TimeOfDay currentTime =
         ref.read(notificationSettingsNotifierProvider).reminderTime;
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
 
     await showModalBottomSheet<void>(
       context: context,
@@ -24,14 +25,11 @@ class ReminderTimeTile extends ConsumerWidget {
         final CupertinoThemeData cupertinoTheme = CupertinoTheme.of(context);
         return Container(
           height: MediaQuery.sizeOf(context).height / 3,
-          color: theme.secondaryBackground,
+          color: colorScheme.surface,
           child: CupertinoTheme(
             data: cupertinoTheme.copyWith(
               textTheme: cupertinoTheme.textTheme.copyWith(
-                dateTimePickerTextStyle: theme.headlineMedium.override(
-                  fontFamily: "Readex Pro",
-                  color: theme.primaryText,
-                ),
+                dateTimePickerTextStyle: textTheme.headlineMedium,
               ),
             ),
             child: CupertinoDatePicker(
@@ -52,7 +50,9 @@ class ReminderTimeTile extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
     final TimeOfDay reminderTime = ref.watch(
       notificationSettingsNotifierProvider.select((final s) => s.reminderTime),
     );
@@ -63,26 +63,26 @@ class ReminderTimeTile extends ConsumerWidget {
         margin: const EdgeInsets.fromLTRB(20, 0, 20, 20),
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: theme.alternate,
+          color: colorScheme.surfaceVariant,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Reminder Time", style: theme.bodyMedium),
+            Text("Reminder Time", style: textTheme.bodyMedium),
             Row(
               children: [
-                Icon(Icons.access_time, color: theme.primaryText, size: 20),
+                Icon(Icons.access_time, color: colorScheme.onSurface, size: 20),
                 const SizedBox(width: 8),
                 Text(
                   reminderTime.format(context),
-                  style: theme.bodyMedium.override(color: theme.primaryText),
+                  style: textTheme.bodyMedium,
                 ),
               ],
             ),
             FaIcon(
               FontAwesomeIcons.chevronDown,
-              color: theme.primaryText,
+              color: colorScheme.onSurface,
               size: 18,
             ),
           ],

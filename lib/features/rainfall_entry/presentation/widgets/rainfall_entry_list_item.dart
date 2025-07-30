@@ -4,7 +4,6 @@ import "package:intl/intl.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
 import "package:rain_wise/features/rainfall_entry/domain/rainfall_entry.dart";
 import "package:rain_wise/features/rainfall_entry/presentation/widgets/edit_entry_sheet.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class RainfallEntryListItem extends ConsumerWidget {
@@ -56,14 +55,14 @@ class RainfallEntryListItem extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final String gaugeName = entry.gauge?.name ?? "Loading...";
 
     return Card(
       elevation: 2,
       margin: const EdgeInsets.symmetric(vertical: 8),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      color: theme.secondaryBackground,
+      color: theme.colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Row(
@@ -75,13 +74,13 @@ class RainfallEntryListItem extends ConsumerWidget {
                 children: [
                   Text(
                     DateFormat.yMMMd().format(entry.date),
-                    style: theme.titleMedium,
+                    style: theme.textTheme.titleMedium,
                   ),
                   const SizedBox(height: 4),
                   Text(
                     "${entry.amount} ${entry.unit} - $gaugeName",
-                    style:
-                        theme.bodyMedium.override(color: theme.secondaryText),
+                    style: theme.textTheme.bodyMedium
+                        ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                   ),
                 ],
               ),
@@ -89,10 +88,10 @@ class RainfallEntryListItem extends ConsumerWidget {
             Row(
               children: [
                 AppIconButton(
-                  backgroundColor: theme.alternate,
+                  backgroundColor: theme.colorScheme.surfaceVariant,
                   icon: Icon(
                     Icons.edit_outlined,
-                    color: theme.primary,
+                    color: theme.colorScheme.secondary,
                     size: 24,
                   ),
                   tooltip: "Edit Entry",
@@ -100,10 +99,10 @@ class RainfallEntryListItem extends ConsumerWidget {
                 ),
                 const SizedBox(width: 8),
                 AppIconButton(
-                  backgroundColor: theme.alternate,
+                  backgroundColor: theme.colorScheme.surfaceVariant,
                   icon: Icon(
                     Icons.delete_outline,
-                    color: theme.error,
+                    color: theme.colorScheme.error,
                     size: 24,
                   ),
                   tooltip: "Delete Entry",

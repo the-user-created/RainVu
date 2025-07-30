@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 /// An expandable tile for displaying a Frequently Asked Question.
 class FaqTile extends StatelessWidget {
@@ -14,16 +13,19 @@ class FaqTile extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
     return ExpansionTile(
-      title: Text(question, style: theme.bodyLarge),
-      iconColor: theme.primaryText,
-      collapsedIconColor: theme.primaryText,
+      title: Text(question, style: textTheme.bodyLarge),
+      iconColor: colorScheme.onSurface,
+      collapsedIconColor: colorScheme.onSurface,
       childrenPadding: const EdgeInsets.fromLTRB(16, 0, 16, 16),
       children: [
         Text(
           answer,
-          style: theme.bodyMedium.copyWith(color: theme.secondaryText),
+          style: textTheme.bodyMedium
+              ?.copyWith(color: colorScheme.onSurfaceVariant),
         ),
       ],
     );

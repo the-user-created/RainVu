@@ -1,7 +1,6 @@
 import "dart:math";
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/insights_data.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class MonthlyTrendChart extends StatelessWidget {
   const MonthlyTrendChart({
@@ -13,7 +12,9 @@ class MonthlyTrendChart extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
 
     const double chartContainerHeight = 200;
     const double chartContainerVPadding = 32;
@@ -26,63 +27,55 @@ class MonthlyTrendChart extends StatelessWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
-      child: Material(
-        color: Colors.transparent,
+      child: Card(
         elevation: 2,
+        color: colorScheme.background,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
         ),
-        child: Container(
-          width: double.infinity,
-          decoration: BoxDecoration(
-            color: theme.primaryBackground,
-            borderRadius: BorderRadius.circular(16),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.all(20),
-            child: Column(
-              children: [
-                Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text("Monthly Trend", style: theme.headlineSmall),
-                    Text(
-                      "Last 12 Months",
-                      style: theme.bodyMedium.override(
-                        fontFamily: "Inter",
-                        color: theme.secondaryText,
-                      ),
+        child: Padding(
+          padding: const EdgeInsets.all(20),
+          child: Column(
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Text("Monthly Trend", style: textTheme.headlineSmall),
+                  Text(
+                    "Last 12 Months",
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
                     ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                Container(
-                  width: double.infinity,
-                  height: chartContainerHeight,
-                  decoration: BoxDecoration(
-                    color: theme.secondaryBackground,
-                    borderRadius: BorderRadius.circular(12),
-                    border: Border.all(color: theme.alternate),
                   ),
-                  padding: const EdgeInsets.all(16),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    crossAxisAlignment: CrossAxisAlignment.end,
-                    children: trends.map((final point) {
-                      final double normalizedHeight = maxRainfall > 0
-                          ? (point.rainfall / maxRainfall) * maxChartHeight
-                          : 0.0;
-                      return Expanded(
-                        child: _ChartBar(
-                          label: point.month,
-                          height: normalizedHeight.clamp(5.0, maxChartHeight),
-                        ),
-                      );
-                    }).toList(),
-                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              Container(
+                width: double.infinity,
+                height: chartContainerHeight,
+                decoration: BoxDecoration(
+                  color: colorScheme.surface,
+                  borderRadius: BorderRadius.circular(12),
+                  border: Border.all(color: colorScheme.outline),
                 ),
-              ],
-            ),
+                padding: const EdgeInsets.all(16),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: trends.map((final point) {
+                    final double normalizedHeight = maxRainfall > 0
+                        ? (point.rainfall / maxRainfall) * maxChartHeight
+                        : 0.0;
+                    return Expanded(
+                      child: _ChartBar(
+                        label: point.month,
+                        height: normalizedHeight.clamp(5.0, maxChartHeight),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ),
+            ],
           ),
         ),
       ),
@@ -98,7 +91,7 @@ class _ChartBar extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Column(
       mainAxisAlignment: MainAxisAlignment.end,
       children: [
@@ -106,7 +99,7 @@ class _ChartBar extends StatelessWidget {
           width: 20,
           height: height,
           decoration: BoxDecoration(
-            color: theme.primary,
+            color: theme.colorScheme.secondary,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(4),
               topRight: Radius.circular(4),
@@ -116,7 +109,7 @@ class _ChartBar extends StatelessWidget {
         const SizedBox(height: 4),
         Text(
           label,
-          style: theme.bodySmall.override(fontFamily: "Inter"),
+          style: theme.textTheme.bodySmall,
         ),
       ],
     );

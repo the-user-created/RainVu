@@ -6,7 +6,6 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/data_tools/application/data_tools_provider.dart";
 import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -15,7 +14,7 @@ class ImportDataCard extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final DataToolsState state = ref.watch(dataToolsNotifierProvider);
     final DataToolsNotifier notifier =
         ref.read(dataToolsNotifierProvider.notifier);
@@ -30,13 +29,14 @@ class ImportDataCard extends ConsumerWidget {
               Text(
                 "Import Your Data",
                 textAlign: TextAlign.center,
-                style: theme.headlineSmall,
+                style: theme.textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
               Text(
                 "Import your previously exported rainfall data",
                 textAlign: TextAlign.center,
-                style: theme.bodyMedium.copyWith(color: theme.secondaryText),
+                style: theme.textTheme.bodyMedium
+                    ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
               ),
               const SizedBox(height: 24),
               if (state.fileToImport == null)
@@ -72,32 +72,40 @@ class _FilePickerBox extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return InkWell(
       onTap: onTap,
       child: DottedBorder(
         options: RoundedRectDottedBorderOptions(
-          color: theme.primaryText,
+          color: theme.colorScheme.onSurface,
           dashPattern: const [6, 4],
           radius: const Radius.circular(12),
         ),
         child: Container(
           height: 120,
           decoration: BoxDecoration(
-            color: theme.alternate,
+            color: theme.colorScheme.surfaceVariant,
             borderRadius: BorderRadius.circular(12),
           ),
           child: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Icon(Icons.upload_file, color: theme.primaryText, size: 32),
+                Icon(
+                  Icons.upload_file,
+                  color: theme.colorScheme.onSurface,
+                  size: 32,
+                ),
                 const SizedBox(height: 8),
-                Text("Select File to Import", style: theme.bodyMedium),
+                Text(
+                  "Select File to Import",
+                  style: theme.textTheme.bodyMedium,
+                ),
                 const SizedBox(height: 4),
                 Text(
                   "CSV or JSON files only",
-                  style: theme.bodySmall.copyWith(color: theme.secondaryText),
+                  style: theme.textTheme.bodySmall
+                      ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                 ),
               ],
             ),
@@ -116,28 +124,28 @@ class _FilePreview extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     // Get file name from path
     final String fileName = file.path.split("/").last;
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: theme.alternate,
+        color: theme.colorScheme.surfaceVariant,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
         children: [
-          Icon(Icons.description_outlined, color: theme.primaryText),
+          Icon(Icons.description_outlined, color: theme.colorScheme.onSurface),
           const SizedBox(width: 12),
           Expanded(
             child: Text(
               fileName,
-              style: theme.bodyMedium,
+              style: theme.textTheme.bodyMedium,
               overflow: TextOverflow.ellipsis,
             ),
           ),
           AppIconButton(
-            icon: Icon(Icons.close, color: theme.secondaryText),
+            icon: Icon(Icons.close, color: theme.colorScheme.onSurfaceVariant),
             onPressed: onClear,
             tooltip: "Clear selection",
           ),

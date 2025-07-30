@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/features/settings/application/settings_providers.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 /// A footer widget that displays the "Last Synced" time.
 /// It conditionally renders based on the user's subscription status.
@@ -11,7 +10,7 @@ class AppInfoFooter extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final bool isPro = ref.watch(isProUserProvider);
 
     if (!isPro) {
@@ -25,14 +24,14 @@ class AppInfoFooter extends ConsumerWidget {
       child: Center(
         child: Column(
           children: [
-            Text("Last Synced", style: theme.bodyMedium),
+            Text("Last Synced", style: theme.textTheme.bodyMedium),
             const SizedBox(height: 4),
             lastSyncedAsync.when(
               data: (final date) => Text(
                 date != null
                     ? DateFormat("MM/dd/yyyy HH:mm").format(date)
                     : "Never",
-                style: theme.labelMedium,
+                style: theme.textTheme.labelMedium,
               ),
               loading: () => const SizedBox(
                 width: 16,
@@ -41,7 +40,8 @@ class AppInfoFooter extends ConsumerWidget {
               ),
               error: (final err, final stack) => Text(
                 "Could not load data",
-                style: theme.labelMedium.override(color: theme.error),
+                style: theme.textTheme.labelMedium
+                    ?.copyWith(color: theme.colorScheme.error),
               ),
             ),
           ],

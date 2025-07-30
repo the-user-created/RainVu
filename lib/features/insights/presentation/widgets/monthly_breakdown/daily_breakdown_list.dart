@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/features/insights/domain/monthly_breakdown_data.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/core/ui/custom_colors.dart";
 
 class DailyBreakdownList extends StatelessWidget {
   const DailyBreakdownList({required this.breakdownItems, super.key});
@@ -10,16 +10,15 @@ class DailyBreakdownList extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
     return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Daily Breakdown", style: theme.titleMedium),
+            Text("Daily Breakdown", style: textTheme.titleMedium),
             const SizedBox(height: 16),
             ListView.separated(
               shrinkWrap: true,
@@ -44,18 +43,20 @@ class _DailyBreakdownListItem extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
     final Color varianceColor;
     final IconData varianceIcon;
 
     if (item.variance > 0) {
-      varianceColor = theme.success;
+      varianceColor = colorScheme.success;
       varianceIcon = Icons.arrow_upward;
     } else if (item.variance < 0) {
-      varianceColor = theme.error;
+      varianceColor = colorScheme.error;
       varianceIcon = Icons.arrow_downward;
     } else {
-      varianceColor = theme.secondaryText;
+      varianceColor = colorScheme.onSurfaceVariant;
       varianceIcon = Icons.remove;
     }
 
@@ -64,10 +65,10 @@ class _DailyBreakdownListItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(DateFormat("MMM d").format(item.date), style: theme.bodyMedium),
+          Text(DateFormat("MMM d").format(item.date), style: textTheme.bodyMedium),
           Text(
             "${item.rainfall.toStringAsFixed(1)}mm",
-            style: theme.bodyMedium,
+            style: textTheme.bodyMedium,
           ),
           Row(
             children: [
@@ -75,7 +76,7 @@ class _DailyBreakdownListItem extends StatelessWidget {
               const SizedBox(width: 4),
               Text(
                 "${item.variance.toStringAsFixed(1)}mm",
-                style: theme.bodySmall.override(color: varianceColor),
+                style: textTheme.bodySmall?.copyWith(color: varianceColor),
               ),
             ],
           ),

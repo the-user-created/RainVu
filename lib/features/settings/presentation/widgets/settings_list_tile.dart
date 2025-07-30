@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 /// A reusable, tappable list tile for a single setting item.
 /// It uses a standard [ListTile] for consistency and accessibility.
@@ -15,16 +14,16 @@ class SettingsListTile extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
 
     return ListTile(
       title: Text(
         title,
-        style: theme.titleLarge,
+        style: theme.textTheme.titleLarge,
       ),
       trailing: Icon(
         Icons.chevron_right_rounded,
-        color: theme.secondaryText,
+        color: theme.colorScheme.onSurfaceVariant,
         size: 24,
       ),
       onTap: onTap,

@@ -4,7 +4,6 @@ import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/subscription/application/subscription_provider.dart";
 import "package:rain_wise/features/subscription/domain/payment_transaction.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/payment_history_tile.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
 class PaymentHistoryCard extends ConsumerWidget {
@@ -12,7 +11,7 @@ class PaymentHistoryCard extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final AsyncValue<List<PaymentTransaction>> historyAsync =
         ref.watch(paymentHistoryProvider);
 
@@ -21,13 +20,12 @@ class PaymentHistoryCard extends ConsumerWidget {
       child: Card(
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        color: theme.primaryBackground,
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text("Payment History", style: theme.headlineSmall),
+              Text("Payment History", style: theme.textTheme.headlineSmall),
               const SizedBox(height: 16),
               historyAsync.when(
                 data: (final history) => Column(

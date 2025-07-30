@@ -4,7 +4,6 @@ import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/edit_gauge_sheet.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class GaugeListTile extends ConsumerWidget {
@@ -17,7 +16,12 @@ class GaugeListTile extends ConsumerWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (final _) => EditGaugeSheet(gauge: gauge),
+      useSafeArea: true,
+      builder: (final context) => Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: EditGaugeSheet(gauge: gauge),
+      ),
     );
   }
 
@@ -37,49 +41,67 @@ class GaugeListTile extends ConsumerWidget {
           ),
           TextButton(
             onPressed: () => Navigator.pop(alertDialogContext, true),
-            child: const Text("Confirm"),
+            child: Text(
+              "Delete",
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
+            ),
           ),
         ],
       ),
     );
 
-    if (confirmed == true) {
+    if (confirmed == true && context.mounted) {
       ref.read(gaugesProvider.notifier).deleteGauge(gauge.id);
     }
   }
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
-        color: theme.alternate,
+        color: theme.colorScheme.surfaceVariant.withOpacity(0.5),
         borderRadius: BorderRadius.circular(8),
       ),
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(gauge.name, style: theme.bodyLarge),
-              // TODO: Display location if available
-              Text("No location set", style: theme.bodySmall),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(gauge.name, style: theme.textTheme.bodyLarge),
+                // TODO: Display location if available
+                Text(
+                  "No location set",
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ),
           ),
           Row(
             children: [
               AppIconButton(
-                icon: Icon(Icons.edit, color: theme.primaryText, size: 20),
-                backgroundColor: theme.primaryBackground,
+                icon: Icon(
+                  Icons.edit,
+                  color: theme.colorScheme.onSurface,
+                  size: 20,
+                ),
+                backgroundColor: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(30),
                 onPressed: () => _showEditSheet(context),
                 tooltip: "Edit Gauge",
               ),
               AppIconButton(
-                icon: Icon(Icons.delete_outline, color: theme.error, size: 20),
-                backgroundColor: theme.primaryBackground,
+                icon: Icon(
+                  Icons.delete_outline,
+                  color: theme.colorScheme.error,
+                  size: 20,
+                ),
+                backgroundColor: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(30),
                 onPressed: () => _showDeleteDialog(context, ref),
                 tooltip: "Delete Gauge",

@@ -1,65 +1,52 @@
-import 'package:flutter/material.dart';
-import 'package:rain_wise/features/insights/domain/insights_data.dart';
-import 'package:rain_wise/flutter_flow/flutter_flow_theme.dart';
+import "package:flutter/material.dart";
+import "package:rain_wise/features/insights/domain/insights_data.dart";
 
 class MtdBreakdownCard extends StatelessWidget {
   const MtdBreakdownCard({
-    super.key,
     required this.data,
+    super.key,
   });
 
   final MonthlyComparisonData data;
 
   @override
-  Widget build(BuildContext context) {
-    final theme = FlutterFlowTheme.of(context);
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
 
-    return Material(
-      color: Colors.transparent,
+    return Card(
       elevation: 2,
+      color: theme.colorScheme.surfaceVariant,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Container(
-        decoration: BoxDecoration(
-          color: theme.alternate,
-          boxShadow: const [
-            BoxShadow(
-              blurRadius: 4,
-              color: Color(0x33000000),
-              offset: Offset(0, 2),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Text(
+              data.month,
+              style: textTheme.titleMedium,
+            ),
+            const SizedBox(height: 8),
+            _DataRow(
+              label: "Total",
+              value: "${data.mtdTotal}mm",
+            ),
+            const SizedBox(height: 8),
+            _ComparisonRow(
+              label: "2yr avg",
+              currentValue: data.mtdTotal,
+              comparisonValue: data.twoYrAvg,
+            ),
+            const SizedBox(height: 8),
+            _ComparisonRow(
+              label: "5yr avg",
+              currentValue: data.mtdTotal,
+              comparisonValue: data.fiveYrAvg,
             ),
           ],
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              Text(
-                data.month,
-                style: theme.titleMedium,
-              ),
-              const SizedBox(height: 8),
-              _DataRow(
-                label: 'Total',
-                value: '${data.mtdTotal}mm',
-              ),
-              const SizedBox(height: 8),
-              _ComparisonRow(
-                label: '2yr avg',
-                currentValue: data.mtdTotal,
-                comparisonValue: data.twoYrAvg,
-              ),
-              const SizedBox(height: 8),
-              _ComparisonRow(
-                label: '5yr avg',
-                currentValue: data.mtdTotal,
-                comparisonValue: data.fiveYrAvg,
-              ),
-            ],
-          ),
         ),
       ),
     );
@@ -73,21 +60,23 @@ class _DataRow extends StatelessWidget {
   final String value;
 
   @override
-  Widget build(BuildContext context) {
-    final theme = FlutterFlowTheme.of(context);
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           label,
-          style: theme.bodySmall.override(
-            fontFamily: 'Inter',
-            color: theme.secondaryText,
+          style: textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurfaceVariant,
           ),
         ),
         Text(
           value,
-          style: theme.bodyMedium,
+          style: textTheme.bodyMedium,
         ),
       ],
     );
@@ -106,16 +95,18 @@ class _ComparisonRow extends StatelessWidget {
   final int comparisonValue;
 
   @override
-  Widget build(BuildContext context) {
-    final theme = FlutterFlowTheme.of(context);
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
+
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Text(
           label,
-          style: theme.bodySmall.override(
-            fontFamily: 'Inter',
-            color: theme.secondaryText,
+          style: textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurfaceVariant,
           ),
         ),
         Row(
@@ -127,8 +118,8 @@ class _ComparisonRow extends StatelessWidget {
             ),
             const SizedBox(width: 4),
             Text(
-              '${comparisonValue}mm',
-              style: theme.bodyMedium,
+              "${comparisonValue}mm",
+              style: textTheme.bodyMedium,
             ),
           ],
         ),
@@ -144,15 +135,19 @@ class _ComparisonIcon extends StatelessWidget {
   final int comparison;
 
   @override
-  Widget build(BuildContext context) {
-    final theme = FlutterFlowTheme.of(context);
+  Widget build(final BuildContext context) {
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
     if (comparison > current) {
-      return Icon(Icons.arrow_upward, color: theme.success, size: 16);
+      return Icon(Icons.arrow_upward, color: colorScheme.tertiary, size: 16);
     } else if (comparison < current) {
-      return Icon(Icons.arrow_downward, color: theme.error, size: 16);
+      return Icon(Icons.arrow_downward, color: colorScheme.error, size: 16);
     } else {
-      return Icon(Icons.horizontal_rule, color: theme.info, size: 16);
+      return Icon(
+        Icons.horizontal_rule,
+        color: colorScheme.secondary,
+        size: 16,
+      );
     }
   }
 }

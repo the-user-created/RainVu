@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/anomaly_data.dart";
 import "package:rain_wise/features/insights/presentation/widgets/anomaly_exploration/anomaly_list_item.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class AnomalyList extends StatelessWidget {
   const AnomalyList({
@@ -13,14 +12,14 @@ class AnomalyList extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final TextTheme textTheme = Theme.of(context).textTheme;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text("Detected Anomalies", style: theme.titleMedium),
+          Text("Detected Anomalies", style: textTheme.titleMedium),
           const SizedBox(height: 12),
           if (anomalies.isEmpty)
             Center(
@@ -28,7 +27,7 @@ class AnomalyList extends StatelessWidget {
                 padding: const EdgeInsets.all(24),
                 child: Text(
                   "No anomalies found for the selected filters.",
-                  style: theme.bodyLarge,
+                  style: textTheme.bodyLarge,
                   textAlign: TextAlign.center,
                 ),
               ),

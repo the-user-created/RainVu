@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/subscription/domain/subscription_plan.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/plan_feature_list.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class PlanComparisonCard extends StatelessWidget {
@@ -14,12 +13,12 @@ class PlanComparisonCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
     final isFree = plan.id == "free_plan";
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      color: theme.primaryBackground,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -33,12 +32,12 @@ class PlanComparisonCard extends StatelessWidget {
                   children: [
                     Text(
                       plan.name,
-                      style: theme.headlineSmall,
+                      style: theme.textTheme.headlineSmall,
                     ),
                     Text(
                       plan.price,
-                      style: theme.bodyMedium.override(
-                        color: theme.secondaryText,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ],
@@ -48,13 +47,13 @@ class PlanComparisonCard extends StatelessWidget {
                     padding:
                         const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                     decoration: BoxDecoration(
-                      color: theme.primary,
+                      color: colorScheme.secondary,
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Text(
                       "Current",
-                      style: theme.bodySmall.override(
-                        color: theme.primaryText,
+                      style: theme.textTheme.bodySmall?.copyWith(
+                        color: colorScheme.onSecondary,
                         fontWeight: FontWeight.w600,
                       ),
                     ),

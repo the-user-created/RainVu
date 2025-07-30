@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class GaugeForm extends StatefulWidget {
@@ -39,18 +38,16 @@ class _GaugeFormState extends State<GaugeForm> {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Form(
       key: _formKey,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          // Rain Gauge Name Field
           Text(
             "Rain Gauge Name",
-            style: theme.bodyLarge.override(
-              fontFamily: "Inter",
+            style: theme.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -61,30 +58,9 @@ class _GaugeFormState extends State<GaugeForm> {
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
               hintText: "E.g., Garden Gauge #1",
-              hintStyle: theme.bodyLarge.override(
-                fontFamily: "Inter",
-                color: theme.secondaryText,
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: theme.alternate),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: theme.primary),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              errorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: theme.error),
-                borderRadius: BorderRadius.circular(8),
-              ),
-              focusedErrorBorder: OutlineInputBorder(
-                borderSide: BorderSide(color: theme.error),
-                borderRadius: BorderRadius.circular(8),
-              ),
               filled: true,
-              fillColor: theme.secondaryBackground,
+              fillColor: theme.colorScheme.surface,
             ),
-            style: theme.bodyMedium.override(fontFamily: "Inter"),
             validator: (final val) {
               if (val == null || val.trim().isEmpty) {
                 return "Name cannot be empty";
@@ -97,8 +73,7 @@ class _GaugeFormState extends State<GaugeForm> {
           // Location Field
           Text(
             "Location (Optional)",
-            style: theme.bodyLarge.override(
-              fontFamily: "Inter",
+            style: theme.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w500,
             ),
           ),
@@ -106,7 +81,6 @@ class _GaugeFormState extends State<GaugeForm> {
           // TODO: Implement a real Place Picker widget
           InkWell(
             onTap: () {
-              // Placeholder for place picker functionality
               ScaffoldMessenger.of(context).showSnackBar(
                 const SnackBar(content: Text("Place picker coming soon!")),
               );
@@ -115,23 +89,21 @@ class _GaugeFormState extends State<GaugeForm> {
               width: double.infinity,
               height: 50,
               decoration: BoxDecoration(
-                color: theme.secondaryBackground,
+                color: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: theme.alternate),
+                border: Border.all(color: theme.colorScheme.outline),
               ),
               child: Row(
                 children: [
                   const SizedBox(width: 12),
-                  Icon(Icons.place, color: theme.accent1, size: 20),
+                  Icon(Icons.place, color: theme.colorScheme.primary, size: 20),
                   const SizedBox(width: 12),
-                  Text("Select Location", style: theme.bodyMedium),
+                  Text("Select Location", style: theme.textTheme.bodyMedium),
                 ],
               ),
             ),
           ),
           const SizedBox(height: 24),
-
-          // Action Buttons
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [

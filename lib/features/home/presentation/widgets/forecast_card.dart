@@ -2,7 +2,6 @@ import "dart:ui";
 
 import "package:flutter/material.dart";
 import "package:rain_wise/core/utils/extensions.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 // TODO: Create domain models for forecast data
 class ForecastDay {
@@ -60,7 +59,7 @@ class ForecastCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -72,7 +71,10 @@ class ForecastCard extends StatelessWidget {
           ),
         ],
         gradient: LinearGradient(
-          colors: [theme.primaryBackground, theme.alternate],
+          colors: [
+            theme.colorScheme.background,
+            theme.colorScheme.surfaceVariant,
+          ],
           stops: const [0, 1],
           begin: Alignment.topCenter,
           end: Alignment.bottomCenter,
@@ -83,7 +85,7 @@ class ForecastCard extends StatelessWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Text("7-Day Forecast", style: theme.titleMedium),
+            Text("7-Day Forecast", style: theme.textTheme.titleMedium),
             const SizedBox(height: 16),
             SizedBox(
               height: 140,
@@ -109,7 +111,7 @@ class ForecastCard extends StatelessWidget {
               const SizedBox(height: 16),
               Text(
                 "Upgrade to Pro to unlock 7-day forecast.",
-                style: theme.bodyMedium,
+                style: theme.textTheme.bodyMedium,
                 textAlign: TextAlign.center,
               ),
             ],
@@ -127,11 +129,11 @@ class _ForecastDayItem extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Container(
       width: 80,
       decoration: BoxDecoration(
-        color: theme.secondaryBackground,
+        color: theme.colorScheme.surface,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Padding(
@@ -139,13 +141,13 @@ class _ForecastDayItem extends StatelessWidget {
         child: Column(
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
-            Text(day.day, style: theme.bodySmall),
+            Text(day.day, style: theme.textTheme.bodySmall),
             Icon(day.icon, color: day.iconColor, size: 32),
-            Text(day.temperature, style: theme.bodyMedium),
+            Text(day.temperature, style: theme.textTheme.bodyMedium),
             Text(
               day.chanceOfRain,
-              style: theme.bodySmall.override(
-                color: theme.tertiary,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.tertiary,
               ),
             ),
           ].divide(const SizedBox(height: 8)),

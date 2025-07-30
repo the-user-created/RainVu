@@ -4,7 +4,6 @@ import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/features/insights/domain/seasonal_patterns_data.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class SeasonalTrendChart extends StatelessWidget {
   const SeasonalTrendChart({required this.trendData, super.key});
@@ -13,7 +12,7 @@ class SeasonalTrendChart extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final double maxRainfall = trendData.isEmpty
         ? 10.0
         : trendData.map((final e) => e.rainfall).reduce(max);
@@ -26,7 +25,7 @@ class SeasonalTrendChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Rainfall Trends", style: theme.titleMedium),
+            Text("Rainfall Trends", style: theme.textTheme.titleMedium),
             const SizedBox(height: 24),
             SizedBox(
               height: 250,
@@ -35,8 +34,10 @@ class SeasonalTrendChart extends StatelessWidget {
                   maxY: (maxRainfall * 1.2).ceilToDouble(),
                   gridData: FlGridData(
                     drawVerticalLine: false,
-                    getDrawingHorizontalLine: (final value) =>
-                        FlLine(color: theme.alternate, strokeWidth: 1),
+                    getDrawingHorizontalLine: (final value) => FlLine(
+                      color: theme.colorScheme.outlineVariant,
+                      strokeWidth: 1,
+                    ),
                   ),
                   titlesData: _buildTitlesData(theme),
                   borderData: FlBorderData(show: false),
@@ -50,7 +51,7 @@ class SeasonalTrendChart extends StatelessWidget {
     );
   }
 
-  FlTitlesData _buildTitlesData(final FlutterFlowTheme theme) => FlTitlesData(
+  FlTitlesData _buildTitlesData(final ThemeData theme) => FlTitlesData(
         topTitles: const AxisTitles(),
         rightTitles: const AxisTitles(),
         bottomTitles: AxisTitles(
@@ -65,8 +66,10 @@ class SeasonalTrendChart extends StatelessWidget {
               final DateTime date = trendData[value.toInt()].date;
               return Padding(
                 padding: const EdgeInsets.only(top: 6),
-                child:
-                    Text(DateFormat.MMM().format(date), style: theme.bodySmall),
+                child: Text(
+                  DateFormat.MMM().format(date),
+                  style: theme.textTheme.bodySmall,
+                ),
               );
             },
           ),
@@ -76,8 +79,7 @@ class SeasonalTrendChart extends StatelessWidget {
         ),
       );
 
-  LineChartBarData _buildLineBarData(final FlutterFlowTheme theme) =>
-      LineChartBarData(
+  LineChartBarData _buildLineBarData(final ThemeData theme) => LineChartBarData(
         spots: trendData
             .asMap()
             .entries
@@ -87,7 +89,7 @@ class SeasonalTrendChart extends StatelessWidget {
             )
             .toList(),
         isCurved: true,
-        color: theme.primary,
+        color: theme.colorScheme.secondary,
         barWidth: 3,
         isStrokeCapRound: true,
         dotData: const FlDotData(show: false),
@@ -95,8 +97,8 @@ class SeasonalTrendChart extends StatelessWidget {
           show: true,
           gradient: LinearGradient(
             colors: [
-              theme.primary.withValues(alpha: 0.3),
-              theme.primary.withValues(alpha: 0),
+              theme.colorScheme.secondary.withValues(alpha: 0.3),
+              theme.colorScheme.secondary.withValues(alpha: 0),
             ],
             begin: Alignment.topCenter,
             end: Alignment.bottomCenter,

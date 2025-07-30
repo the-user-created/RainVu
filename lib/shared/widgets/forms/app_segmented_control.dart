@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 /// Represents a single option in the [AppSegmentedControl].
 class SegmentOption<T> {
@@ -50,7 +49,8 @@ class AppSegmentedControl<T> extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
     final BorderRadius effectiveBorderRadius =
         borderRadius ?? BorderRadius.circular(12);
 
@@ -59,7 +59,7 @@ class AppSegmentedControl<T> extends StatelessWidget {
       child: Container(
         height: height,
         decoration: BoxDecoration(
-          color: theme.alternate,
+          color: colorScheme.surfaceVariant,
           borderRadius: effectiveBorderRadius,
         ),
         child: Row(
@@ -73,26 +73,27 @@ class AppSegmentedControl<T> extends StatelessWidget {
                 onTap:
                     isEnabled ? () => onSelectionChanged(segment.value) : null,
                 splashColor: isEnabled
-                    ? theme.primary.withValues(alpha: 0.2)
+                    ? colorScheme.secondary.withValues(alpha: 0.2)
                     : Colors.transparent,
                 highlightColor: isEnabled
-                    ? theme.primary.withValues(alpha: 0.1)
+                    ? colorScheme.secondary.withValues(alpha: 0.1)
                     : Colors.transparent,
                 child: AnimatedContainer(
                   duration: const Duration(milliseconds: 200),
                   height: double.infinity,
                   decoration: BoxDecoration(
-                    color: isSelected ? theme.primary : Colors.transparent,
+                    color:
+                        isSelected ? colorScheme.secondary : Colors.transparent,
                   ),
                   child: Center(
                     child: DefaultTextStyle(
-                      style: theme.bodyMedium.override(
-                        fontFamily: theme.bodyMediumFamily,
+                      style: theme.textTheme.bodyMedium!.copyWith(
                         color: isSelected
-                            ? theme.primaryBackground
+                            ? colorScheme.onSecondary
                             : isEnabled
-                                ? theme.secondaryText
-                                : theme.secondaryText.withValues(alpha: 0.5),
+                                ? colorScheme.onSurfaceVariant
+                                : colorScheme.onSurfaceVariant
+                                    .withValues(alpha: 0.5),
                       ),
                       child: segment.label,
                     ),

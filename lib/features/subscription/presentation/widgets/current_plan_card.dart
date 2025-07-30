@@ -3,7 +3,6 @@ import "package:intl/intl.dart";
 import "package:rain_wise/features/subscription/domain/subscription_plan.dart";
 import "package:rain_wise/features/subscription/domain/user_subscription.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/plan_feature_list.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class CurrentPlanCard extends StatelessWidget {
   const CurrentPlanCard({required this.subscription, super.key});
@@ -12,8 +11,9 @@ class CurrentPlanCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
-    // This is mocked. In a real app, you'd fetch the full plan details.
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+
     final mockPlan = SubscriptionPlan(
       id: subscription.planId,
       name: subscription.planName,
@@ -35,7 +35,7 @@ class CurrentPlanCard extends StatelessWidget {
       child: Card(
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        color: theme.primaryBackground,
+        color: colorScheme.surface,
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
@@ -45,11 +45,14 @@ class CurrentPlanCard extends StatelessWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(subscription.planName, style: theme.headlineSmall),
+                  Text(
+                    subscription.planName,
+                    style: theme.textTheme.headlineSmall,
+                  ),
                   Text(
                     subscription.price,
-                    style: theme.headlineSmall.override(
-                      color: theme.primary,
+                    style: theme.textTheme.headlineSmall?.copyWith(
+                      color: colorScheme.secondary,
                     ),
                   ),
                 ],
@@ -59,13 +62,13 @@ class CurrentPlanCard extends StatelessWidget {
                 padding:
                     const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
                 decoration: BoxDecoration(
-                  color: theme.primary,
+                  color: colorScheme.secondary,
                   borderRadius: BorderRadius.circular(12),
                 ),
                 child: Text(
                   subscription.status.displayName,
-                  style: theme.bodySmall.override(
-                    color: theme.primaryText,
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSecondary,
                     fontWeight: FontWeight.w600,
                   ),
                 ),
@@ -77,8 +80,8 @@ class CurrentPlanCard extends StatelessWidget {
                   child: Center(
                     child: Text(
                       "Next renewal on ${DateFormat.yMMMMd().format(subscription.renewalDate!)}",
-                      style: theme.bodyMedium.override(
-                        color: theme.secondaryText,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ),

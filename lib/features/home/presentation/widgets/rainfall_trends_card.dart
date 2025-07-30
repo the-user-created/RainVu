@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:rain_wise/core/navigation/app_route_names.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 // TODO: Consider using a charting library like fl_chart
 
@@ -17,11 +16,11 @@ class _RainfallTrendsCardState extends State<RainfallTrendsCard> {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: theme.primaryBackground,
+        color: theme.colorScheme.background,
         boxShadow: const [
           BoxShadow(
             blurRadius: 4,
@@ -46,12 +45,12 @@ class _RainfallTrendsCardState extends State<RainfallTrendsCard> {
     );
   }
 
-  Widget _buildHeader(final FlutterFlowTheme theme) => Row(
+  Widget _buildHeader(final ThemeData theme) => Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             "Rainfall Trends",
-            style: theme.titleMedium.override(
+            style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
             ),
           ),
@@ -59,7 +58,7 @@ class _RainfallTrendsCardState extends State<RainfallTrendsCard> {
         ],
       );
 
-  Widget _buildTimeframeSelector(final FlutterFlowTheme theme) => Row(
+  Widget _buildTimeframeSelector(final ThemeData theme) => Row(
         mainAxisSize: MainAxisSize.min,
         children: [
           _buildTimeframeOption(
@@ -73,8 +72,8 @@ class _RainfallTrendsCardState extends State<RainfallTrendsCard> {
           ),
           Text(
             " | ",
-            style: theme.bodyMedium.override(
-              color: theme.secondaryText,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
             ),
           ),
           _buildTimeframeOption(
@@ -94,13 +93,15 @@ class _RainfallTrendsCardState extends State<RainfallTrendsCard> {
     final bool isSelected,
     final VoidCallback onTap,
   ) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return InkWell(
       onTap: onTap,
       child: Text(
         text,
-        style: theme.bodyMedium.override(
-          color: isSelected ? theme.primary : theme.secondaryText,
+        style: theme.textTheme.bodyMedium?.copyWith(
+          color: isSelected
+              ? theme.colorScheme.secondary
+              : theme.colorScheme.onSurfaceVariant,
           fontWeight: isSelected ? FontWeight.w600 : FontWeight.normal,
         ),
       ),
@@ -108,24 +109,24 @@ class _RainfallTrendsCardState extends State<RainfallTrendsCard> {
   }
 
   // TODO: Replace with a real chart widget (e.g., fl_chart) and real data
-  Widget _buildChart(final FlutterFlowTheme theme) => Container(
+  Widget _buildChart(final ThemeData theme) => Container(
         width: double.infinity,
         height: 180,
         decoration: BoxDecoration(
-          color: theme.alternate,
+          color: theme.colorScheme.surfaceVariant,
           borderRadius: BorderRadius.circular(8),
         ),
-        child: const Center(
+        child: Center(
           child: Text(
             "Chart will be displayed here",
-            style: TextStyle(color: Colors.grey),
+            style: TextStyle(color: theme.colorScheme.onSurfaceVariant),
           ),
         ),
       );
 
   Widget _buildViewInsightsButton(
     final BuildContext context,
-    final FlutterFlowTheme theme,
+    final ThemeData theme,
   ) =>
       InkWell(
         onTap: () => context.goNamed(AppRouteNames.insightsName),
@@ -135,13 +136,17 @@ class _RainfallTrendsCardState extends State<RainfallTrendsCard> {
           children: [
             Text(
               "View detailed insights",
-              style: theme.bodyMedium.override(
-                color: theme.primary,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.secondary,
                 fontWeight: FontWeight.w600,
               ),
             ),
             const SizedBox(width: 4),
-            Icon(Icons.arrow_forward, color: theme.primary, size: 18),
+            Icon(
+              Icons.arrow_forward,
+              color: theme.colorScheme.secondary,
+              size: 18,
+            ),
           ],
         ),
       );

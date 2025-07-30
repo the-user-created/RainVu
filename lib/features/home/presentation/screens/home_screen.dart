@@ -10,7 +10,6 @@ import "package:rain_wise/features/home/presentation/widgets/log_rain_sheet.dart
 import "package:rain_wise/features/home/presentation/widgets/monthly_summary_card.dart";
 import "package:rain_wise/features/home/presentation/widgets/quick_stats_card.dart";
 import "package:rain_wise/features/home/presentation/widgets/rainfall_trends_card.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
 class HomeScreen extends ConsumerWidget {
@@ -42,7 +41,6 @@ class HomeScreen extends ConsumerWidget {
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
         appBar: HomeAppBar(
           onAddPressed: () => _showLogRainSheet(context),
         ),

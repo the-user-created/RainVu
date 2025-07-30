@@ -2,7 +2,6 @@ import "package:collection/collection.dart";
 import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/comparative_analysis_data.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class ComparativeAnalysisChart extends StatelessWidget {
   const ComparativeAnalysisChart({
@@ -14,8 +13,10 @@ class ComparativeAnalysisChart extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
-    final List<Color> colors = [theme.primary, theme.tertiary];
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
+    final List<Color> colors = [colorScheme.secondary, colorScheme.tertiary];
 
     if (chartData.series.isEmpty || chartData.series.first.data.isEmpty) {
       return const SizedBox(
@@ -38,7 +39,7 @@ class ComparativeAnalysisChart extends StatelessWidget {
               children: [
                 Text(
                   "Rainfall Comparison",
-                  style: theme.titleMedium,
+                  style: textTheme.titleMedium,
                 ),
                 Row(
                   children: chartData.series
@@ -63,13 +64,13 @@ class ComparativeAnalysisChart extends StatelessWidget {
                   gridData: FlGridData(
                     drawVerticalLine: false,
                     getDrawingHorizontalLine: (final value) => FlLine(
-                      color: theme.alternate,
+                      color: colorScheme.outline,
                       strokeWidth: 1,
                     ),
                   ),
                   barTouchData: BarTouchData(
                     touchTooltipData: BarTouchTooltipData(
-                      getTooltipColor: (final _) => theme.accent1,
+                      getTooltipColor: (final _) => colorScheme.primary,
                       getTooltipItem: (
                         final group,
                         final groupIndex,
@@ -80,13 +81,13 @@ class ComparativeAnalysisChart extends StatelessWidget {
                         return BarTooltipItem(
                           "$year\n",
                           TextStyle(
-                            color: theme.primaryBackground,
+                            color: colorScheme.onPrimary,
                             fontWeight: FontWeight.bold,
                           ),
                           children: <TextSpan>[
                             TextSpan(
                               text: "${rod.toY.toStringAsFixed(1)} mm",
-                              style: TextStyle(color: theme.primaryBackground),
+                              style: TextStyle(color: colorScheme.onPrimary),
                             ),
                           ],
                         );
@@ -102,7 +103,7 @@ class ComparativeAnalysisChart extends StatelessWidget {
     );
   }
 
-  FlTitlesData _buildTitles(final FlutterFlowTheme theme) => FlTitlesData(
+  FlTitlesData _buildTitles(final ThemeData theme) => FlTitlesData(
         rightTitles: const AxisTitles(),
         topTitles: const AxisTitles(),
         bottomTitles: AxisTitles(
@@ -114,7 +115,10 @@ class ComparativeAnalysisChart extends StatelessWidget {
               if (index < chartData.labels.length) {
                 return Padding(
                   padding: const EdgeInsets.only(top: 6),
-                  child: Text(chartData.labels[index], style: theme.bodySmall),
+                  child: Text(
+                    chartData.labels[index],
+                    style: theme.textTheme.bodySmall,
+                  ),
                 );
               }
               return const Text("");
@@ -132,7 +136,10 @@ class ComparativeAnalysisChart extends StatelessWidget {
               if (value == meta.max) {
                 return const Text("");
               }
-              return Text(value.toInt().toString(), style: theme.bodySmall);
+              return Text(
+                value.toInt().toString(),
+                style: theme.textTheme.bodySmall,
+              );
             },
           ),
         ),
@@ -172,7 +179,7 @@ class _Legend extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.only(left: 12),
       child: Row(
@@ -186,7 +193,7 @@ class _Legend extends StatelessWidget {
             ),
           ),
           const SizedBox(width: 4),
-          Text(text, style: theme.bodySmall),
+          Text(text, style: theme.textTheme.bodySmall),
         ],
       ),
     );

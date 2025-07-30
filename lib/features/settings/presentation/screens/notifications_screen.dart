@@ -6,25 +6,20 @@ import "package:rain_wise/features/settings/presentation/widgets/notifications/d
 import "package:rain_wise/features/settings/presentation/widgets/notifications/notification_setting_tile.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class NotificationsScreen extends ConsumerWidget {
   const NotificationsScreen({super.key});
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
     final NotificationSettings settings =
         ref.watch(notificationSettingsNotifierProvider);
     final NotificationSettingsNotifier notifier =
         ref.read(notificationSettingsNotifierProvider.notifier);
 
     return Scaffold(
-      backgroundColor: theme.secondaryBackground,
       appBar: AppBar(
-        backgroundColor: theme.primaryBackground,
-        iconTheme: IconThemeData(color: theme.primaryText),
-        title: Text("Notifications", style: theme.headlineMedium),
+        title: const Text("Notifications"),
         centerTitle: false,
         elevation: 2,
       ),

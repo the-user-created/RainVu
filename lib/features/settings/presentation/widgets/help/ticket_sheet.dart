@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/settings/application/support_provider.dart";
 import "package:rain_wise/features/settings/domain/support_ticket.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 
@@ -77,31 +76,9 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
-
-    InputDecoration buildInputDecoration(
-      final String labelText, [
-      final String? hintText,
-    ]) =>
-        InputDecoration(
-          labelText: labelText,
-          hintText: hintText,
-          alignLabelWithHint: true,
-          border: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: theme.alternate),
-          ),
-          focusedBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: theme.primary),
-          ),
-          enabledBorder: OutlineInputBorder(
-            borderRadius: BorderRadius.circular(8),
-            borderSide: BorderSide(color: theme.alternate),
-          ),
-          filled: true,
-          fillColor: theme.secondaryBackground,
-        );
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return Padding(
       padding: EdgeInsets.only(
@@ -119,13 +96,13 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
             Text(
               "Report an Issue / Send Feedback",
               textAlign: TextAlign.center,
-              style: theme.headlineSmall,
+              style: textTheme.headlineSmall,
             ),
             const SizedBox(height: 8),
             Text(
               "Your feedback helps us improve RainWise. Please describe the issue or share your thoughts.",
               textAlign: TextAlign.center,
-              style: theme.bodyMedium,
+              style: textTheme.bodyMedium,
             ),
             const SizedBox(height: 24),
             AppDropdownFormField<TicketCategory>(
@@ -147,9 +124,12 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
             const SizedBox(height: 16),
             TextFormField(
               controller: _descriptionController,
-              decoration: buildInputDecoration(
-                "Description",
-                "Describe the issue or your feedback here...",
+              decoration: InputDecoration(
+                labelText: "Description",
+                hintText: "Describe the issue or your feedback here...",
+                alignLabelWithHint: true,
+                filled: true,
+                fillColor: colorScheme.surface,
               ),
               minLines: 4,
               maxLines: 8,
@@ -161,7 +141,12 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
             const SizedBox(height: 16),
             TextFormField(
               controller: _emailController,
-              decoration: buildInputDecoration("Your Email (Optional)"),
+              decoration: InputDecoration(
+                labelText: "Your Email (Optional)",
+                alignLabelWithHint: true,
+                filled: true,
+                fillColor: colorScheme.surface,
+              ),
               keyboardType: TextInputType.emailAddress,
               validator: (final value) {
                 if (value != null && value.isNotEmpty && !value.contains("@")) {

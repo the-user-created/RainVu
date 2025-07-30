@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/comparative_analysis_data.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class YearlySummaryCard extends StatelessWidget {
   const YearlySummaryCard({
@@ -14,9 +13,12 @@ class YearlySummaryCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
     final bool isPositive = summary.percentageChange >= 0;
-    final Color changeColor = isPositive ? theme.success : theme.error;
+    final Color changeColor =
+        isPositive ? colorScheme.tertiary : colorScheme.error;
     final IconData changeIcon =
         isPositive ? Icons.trending_up : Icons.trending_down;
 
@@ -24,7 +26,7 @@ class YearlySummaryCard extends StatelessWidget {
       elevation: 2,
       clipBehavior: Clip.antiAlias,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      color: theme.primaryBackground,
+      color: colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
@@ -34,8 +36,7 @@ class YearlySummaryCard extends StatelessWidget {
               children: [
                 Text(
                   summary.year.toString(),
-                  style: theme.headlineSmall.override(
-                    fontFamily: "Readex Pro",
+                  style: textTheme.headlineSmall?.copyWith(
                     color: color,
                   ),
                 ),
@@ -47,8 +48,7 @@ class YearlySummaryCard extends StatelessWidget {
                       const SizedBox(width: 4),
                       Text(
                         '${isPositive ? '+' : ''}${summary.percentageChange.toStringAsFixed(0)}%',
-                        style: theme.bodyMedium.override(
-                          fontFamily: "Inter",
+                        style: textTheme.bodyMedium?.copyWith(
                           color: changeColor,
                         ),
                       ),
@@ -80,23 +80,22 @@ class _StatItem extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
-          style: theme.bodySmall.override(
-            fontFamily: "Inter",
-            color: theme.secondaryText,
+          style: textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurfaceVariant,
           ),
         ),
         const SizedBox(height: 4),
         Text(
           value,
-          style: theme.titleMedium.override(
-            fontFamily: "Readex Pro",
-          ),
+          style: textTheme.titleMedium,
         ),
       ],
     );

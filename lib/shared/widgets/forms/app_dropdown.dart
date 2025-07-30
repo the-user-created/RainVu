@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 /// A custom, modern dropdown button with consistent app styling.
 class AppDropdown<T> extends StatelessWidget {
@@ -34,12 +33,14 @@ class AppDropdown<T> extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
 
-    final TextStyle effectiveStyle = style ?? theme.bodyMedium;
+    final TextStyle effectiveStyle = style ?? textTheme.bodyMedium!;
     final BorderRadius effectiveBorderRadius =
         borderRadius ?? BorderRadius.circular(8);
-    final Color effectiveFillColor = fillColor ?? theme.secondaryBackground;
+    final Color effectiveFillColor = fillColor ?? colorScheme.surface;
     final EdgeInsetsGeometry effectivePadding =
         padding ?? const EdgeInsets.symmetric(horizontal: 12, vertical: 4);
 
@@ -49,7 +50,7 @@ class AppDropdown<T> extends StatelessWidget {
         color: effectiveFillColor,
         borderRadius: effectiveBorderRadius,
         border: Border.all(
-          color: borderColor ?? theme.alternate,
+          color: borderColor ?? colorScheme.outline,
           width: 1.5,
         ),
       ),
@@ -62,15 +63,14 @@ class AppDropdown<T> extends StatelessWidget {
           hint: hintText != null
               ? Text(
                   hintText!,
-                  style: theme.bodyLarge.override(
-                    color: theme.secondaryText,
-                    fontFamily: theme.bodyLargeFamily,
+                  style: textTheme.bodyLarge?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
                   ),
                 )
               : null,
-          icon: icon ?? Icon(Icons.expand_more, color: theme.primary),
+          icon: icon ?? Icon(Icons.expand_more, color: colorScheme.secondary),
           style: effectiveStyle,
-          dropdownColor: dropdownColor ?? theme.secondaryBackground,
+          dropdownColor: dropdownColor ?? colorScheme.surface,
         ),
       ),
     );
@@ -95,7 +95,9 @@ class AppDropdownFormField<T> extends FormField<T> {
           builder: (final field) {
             final _AppDropdownFormFieldState<T> state =
                 field as _AppDropdownFormFieldState<T>;
-            final FlutterFlowTheme theme = FlutterFlowTheme.of(state.context);
+            final ThemeData theme = Theme.of(state.context);
+            final ColorScheme colorScheme = theme.colorScheme;
+            final TextTheme textTheme = theme.textTheme;
             final bool hasError = field.hasError;
 
             void handleChanged(final T? newValue) {
@@ -113,8 +115,9 @@ class AppDropdownFormField<T> extends FormField<T> {
                   value: state.value,
                   hintText: hintText,
                   isExpanded: isExpanded,
-                  fillColor: theme.secondaryBackground,
-                  borderColor: hasError ? theme.error : theme.alternate,
+                  fillColor: colorScheme.surface,
+                  borderColor:
+                      hasError ? colorScheme.error : colorScheme.outline,
                   padding: const EdgeInsets.symmetric(
                     horizontal: 16,
                     vertical: 12,
@@ -125,9 +128,8 @@ class AppDropdownFormField<T> extends FormField<T> {
                     padding: const EdgeInsets.only(left: 12, top: 5),
                     child: Text(
                       field.errorText!,
-                      style: theme.bodySmall.override(
-                        fontFamily: theme.bodySmallFamily,
-                        color: theme.error,
+                      style: textTheme.bodySmall?.copyWith(
+                        color: colorScheme.error,
                       ),
                     ),
                   ),

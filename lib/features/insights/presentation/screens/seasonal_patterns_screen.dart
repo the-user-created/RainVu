@@ -7,7 +7,6 @@ import "package:rain_wise/features/insights/presentation/widgets/seasonal_patter
 import "package:rain_wise/features/insights/presentation/widgets/seasonal_patterns/season_selector.dart";
 import "package:rain_wise/features/insights/presentation/widgets/seasonal_patterns/seasonal_summary_card.dart";
 import "package:rain_wise/features/insights/presentation/widgets/seasonal_patterns/seasonal_trend_chart.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -16,22 +15,23 @@ class SeasonalPatternsScreen extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final AsyncValue<SeasonalPatternsData> dataAsync =
         ref.watch(seasonalPatternsDataProvider);
 
     return Scaffold(
-      backgroundColor: theme.secondaryBackground,
       appBar: AppBar(
-        backgroundColor: theme.primaryBackground,
         elevation: 2,
         shadowColor: Colors.black.withValues(alpha: 0.1),
         leading: AppIconButton(
-          icon: Icon(Icons.arrow_back_rounded, color: theme.primaryText),
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            color: theme.colorScheme.onBackground,
+          ),
           onPressed: context.pop,
           tooltip: "Back",
         ),
-        title: Text("Seasonal Patterns", style: theme.headlineMedium),
+        title: Text("Seasonal Patterns", style: theme.textTheme.headlineMedium),
         centerTitle: false,
       ),
       body: SingleChildScrollView(
@@ -71,10 +71,10 @@ class _Header extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: theme.primaryBackground,
+        color: theme.colorScheme.background,
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(16),
           bottomRight: Radius.circular(16),
@@ -95,7 +95,8 @@ class _Header extends StatelessWidget {
           children: [
             Text(
               "Explore historical seasonal rainfall data and compare current trends with past patterns.",
-              style: theme.bodyMedium.override(color: theme.secondaryText),
+              style: theme.textTheme.bodyMedium
+                  ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
             ),
             const SizedBox(height: 16),
             const SeasonSelector(),

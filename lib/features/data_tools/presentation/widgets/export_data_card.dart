@@ -4,7 +4,6 @@ import "package:intl/intl.dart";
 import "package:rain_wise/features/data_tools/application/data_tools_provider.dart";
 import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_choice_chips.dart";
 
@@ -13,7 +12,7 @@ class ExportDataCard extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final DataToolsState state = ref.watch(dataToolsNotifierProvider);
     final DataToolsNotifier notifier =
         ref.read(dataToolsNotifierProvider.notifier);
@@ -28,13 +27,14 @@ class ExportDataCard extends ConsumerWidget {
               Text(
                 "Export Your Data",
                 textAlign: TextAlign.center,
-                style: theme.headlineSmall,
+                style: theme.textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
               Text(
                 "Select date range and format to export your rainfall data",
                 textAlign: TextAlign.center,
-                style: theme.bodyMedium.copyWith(color: theme.secondaryText),
+                style: theme.textTheme.bodyMedium
+                    ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
               ),
               const SizedBox(height: 24),
               _DateRangePickerTile(
@@ -47,11 +47,14 @@ class ExportDataCard extends ConsumerWidget {
                     currentDate: DateTime.now(),
                     initialDateRange: state.dateRange,
                   );
-                  notifier.setDateRange(newRange);
+                  // setDateRange can be null-aware
+                  if (newRange != null) {
+                    notifier.setDateRange(newRange);
+                  }
                 },
               ),
               const SizedBox(height: 16),
-              Text("Export Format", style: theme.bodyMedium),
+              Text("Export Format", style: theme.textTheme.bodyMedium),
               const SizedBox(height: 8),
               AppChoiceChips<ExportFormat>(
                 selectedValue: state.exportFormat,
@@ -73,7 +76,7 @@ class ExportDataCard extends ConsumerWidget {
                 isExpanded: true,
                 icon: Icon(
                   Icons.download,
-                  color: theme.secondaryBackground,
+                  color: theme.colorScheme.onPrimary,
                   size: 20,
                 ),
               ),
@@ -93,7 +96,7 @@ class _DateRangePickerTile extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final String label;
 
     if (dateRange == null) {
@@ -109,14 +112,18 @@ class _DateRangePickerTile extends StatelessWidget {
       child: Container(
         padding: const EdgeInsets.all(16),
         decoration: BoxDecoration(
-          color: theme.alternate,
+          color: theme.colorScheme.surfaceVariant,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: theme.bodyMedium),
-            Icon(Icons.calendar_today, color: theme.primaryText, size: 24),
+            Text(label, style: theme.textTheme.bodyMedium),
+            Icon(
+              Icons.calendar_today,
+              color: theme.colorScheme.onSurface,
+              size: 24,
+            ),
           ],
         ),
       ),

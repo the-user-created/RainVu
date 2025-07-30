@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class NotificationSettingTile extends StatelessWidget {
   const NotificationSettingTile({
@@ -17,7 +16,10 @@ class NotificationSettingTile extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
       child: Row(
@@ -28,15 +30,13 @@ class NotificationSettingTile extends StatelessWidget {
               children: [
                 Text(
                   title,
-                  style: theme.titleMedium,
+                  style: textTheme.titleMedium,
                 ),
                 const SizedBox(height: 4),
                 Text(
                   subtitle,
-                  style: theme.bodyMedium.override(
-                    fontFamily: "Inter",
-                    color: theme.secondaryText,
-                  ),
+                  style: textTheme.bodyMedium
+                      ?.copyWith(color: colorScheme.onSurfaceVariant),
                 ),
               ],
             ),
@@ -44,7 +44,7 @@ class NotificationSettingTile extends StatelessWidget {
           Switch(
             value: value,
             onChanged: onChanged,
-            activeColor: theme.secondary,
+            activeColor: colorScheme.tertiary,
           ),
         ],
       ),

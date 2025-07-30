@@ -7,7 +7,6 @@ import "package:rain_wise/features/insights/presentation/widgets/monthly_breakdo
 import "package:rain_wise/features/insights/presentation/widgets/monthly_breakdown/daily_rainfall_chart.dart";
 import "package:rain_wise/features/insights/presentation/widgets/monthly_breakdown/historical_comparison_card.dart";
 import "package:rain_wise/features/insights/presentation/widgets/monthly_breakdown/monthly_summary_card.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -48,25 +47,29 @@ class _MonthlyBreakdownScreenState
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final AsyncValue<MonthlyBreakdownData> breakdownDataAsync =
         ref.watch(monthlyBreakdownProvider(_selectedMonth));
 
     return Scaffold(
-      backgroundColor: theme.secondaryBackground,
       appBar: AppBar(
-        backgroundColor: theme.primaryBackground,
         leading: AppIconButton(
-          icon: Icon(Icons.arrow_back_rounded, color: theme.primaryText),
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            color: theme.colorScheme.onBackground,
+          ),
           onPressed: context.pop,
           tooltip: "Back",
         ),
-        title: Text("Monthly Breakdown", style: theme.headlineMedium),
+        title: Text("Monthly Breakdown", style: theme.textTheme.headlineMedium),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 12),
             child: AppIconButton(
-              icon: Icon(Icons.calendar_today, color: theme.primaryText),
+              icon: Icon(
+                Icons.calendar_today,
+                color: theme.colorScheme.onBackground,
+              ),
               onPressed: _pickMonth,
               tooltip: "Select Month",
             ),
@@ -76,8 +79,9 @@ class _MonthlyBreakdownScreenState
       ),
       body: breakdownDataAsync.when(
         loading: () => const AppLoader(),
-        error: (final err, final stack) =>
-            Center(child: Text("Error: $err", style: theme.bodyLarge)),
+        error: (final err, final stack) => Center(
+          child: Text("Error: $err", style: theme.textTheme.bodyLarge),
+        ),
         data: (final data) => SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
           child: Column(
