@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/app_constants.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/home/application/home_providers.dart";
 import "package:rain_wise/features/home/domain/home_data.dart";
 import "package:rain_wise/features/home/presentation/widgets/forecast_card.dart";
@@ -9,7 +11,6 @@ import "package:rain_wise/features/home/presentation/widgets/monthly_summary_car
 import "package:rain_wise/features/home/presentation/widgets/quick_stats_card.dart";
 import "package:rain_wise/features/home/presentation/widgets/rainfall_trends_card.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
 class HomeScreen extends ConsumerWidget {

@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:rain_wise/core/navigation/app_route_names.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/subscription/application/subscription_provider.dart";
 import "package:rain_wise/features/subscription/domain/user_subscription.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/current_plan_card.dart";
@@ -10,7 +11,7 @@ import "package:rain_wise/features/subscription/presentation/widgets/payment_his
 import "package:rain_wise/features/subscription/presentation/widgets/subscription_actions_card.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/subscription_terms_card.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
+import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
 class SubscriptionDetailsScreen extends ConsumerWidget {
