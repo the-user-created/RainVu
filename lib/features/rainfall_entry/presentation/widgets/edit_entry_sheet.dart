@@ -8,6 +8,7 @@ import "package:rain_wise/features/rainfall_entry/domain/rainfall_entry.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 
 class EditEntrySheet extends ConsumerStatefulWidget {
   const EditEntrySheet({required this.entry, super.key});
@@ -132,7 +133,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
               gaugesAsync.when(
                 loading: () => const AppLoader(),
                 error: (final err, final stack) => Text("Error: $err"),
-                data: (final gauges) => DropdownButtonFormField<String>(
+                data: (final gauges) => AppDropdownFormField<String>(
                   value: _selectedGaugeId,
                   items: gauges
                       .map(
@@ -144,11 +145,6 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
                       .toList(),
                   onChanged: (final value) =>
                       setState(() => _selectedGaugeId = value),
-                  decoration: InputDecoration(
-                    border: const OutlineInputBorder(),
-                    filled: true,
-                    fillColor: theme.primaryBackground,
-                  ),
                   validator: (final value) =>
                       value == null ? "Please select a gauge" : null,
                 ),

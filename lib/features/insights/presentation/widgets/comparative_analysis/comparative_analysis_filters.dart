@@ -4,6 +4,8 @@ import "package:rain_wise/features/insights/application/comparative_analysis_pro
 import "package:rain_wise/features/insights/domain/comparative_analysis_data.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
+import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
 
 class ComparativeAnalysisFilters extends ConsumerWidget {
   const ComparativeAnalysisFilters({super.key});
@@ -43,126 +45,103 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
                   children: [
-                    _YearSelector(
-                      availableYears: availableYears,
-                      selectedYear: filter.year1,
-                      otherSelectedYear: filter.year2,
-                      onChanged: (final year) {
-                        if (year != null) {
-                          ref
-                              .read(
-                                comparativeAnalysisFilterNotifierProvider
-                                    .notifier,
-                              )
-                              .setYear1(year);
-                        }
-                      },
+                    Expanded(
+                      child: AppDropdown<int>(
+                        value: filter.year1,
+                        items: availableYears
+                            .map(
+                              (final year) => DropdownMenuItem<int>(
+                                value: year,
+                                enabled: year != filter.year2,
+                                child: Text(
+                                  year.toString(),
+                                  style: theme.bodyMedium.override(
+                                    fontFamily: theme.bodyMediumFamily,
+                                    color: year != filter.year2
+                                        ? theme.primaryText
+                                        : theme.secondaryText,
+                                  ),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (final year) {
+                          if (year != null) {
+                            ref
+                                .read(
+                                  comparativeAnalysisFilterNotifierProvider
+                                      .notifier,
+                                )
+                                .setYear1(year);
+                          }
+                        },
+                      ),
                     ),
-                    _YearSelector(
-                      availableYears: availableYears,
-                      selectedYear: filter.year2,
-                      otherSelectedYear: filter.year1,
-                      onChanged: (final year) {
-                        if (year != null) {
-                          ref
-                              .read(
-                                comparativeAnalysisFilterNotifierProvider
-                                    .notifier,
-                              )
-                              .setYear2(year);
-                        }
-                      },
+                    const SizedBox(width: 16),
+                    Expanded(
+                      child: AppDropdown<int>(
+                        value: filter.year2,
+                        items: availableYears
+                            .map(
+                              (final year) => DropdownMenuItem<int>(
+                                value: year,
+                                enabled: year != filter.year1,
+                                child: Text(
+                                  year.toString(),
+                                  style: theme.bodyMedium.override(
+                                    fontFamily: theme.bodyMediumFamily,
+                                    color: year != filter.year1
+                                        ? theme.primaryText
+                                        : theme.secondaryText,
+                                  ),
+                                ),
+                              ),
+                            )
+                            .toList(),
+                        onChanged: (final year) {
+                          if (year != null) {
+                            ref
+                                .read(
+                                  comparativeAnalysisFilterNotifierProvider
+                                      .notifier,
+                                )
+                                .setYear2(year);
+                          }
+                        },
+                      ),
                     ),
                   ],
                 ),
                 const SizedBox(height: 16),
-                SegmentedButton<ComparisonType>(
-                  segments: const [
-                    ButtonSegment(
-                      value: ComparisonType.annual,
-                      label: Text("Annual"),
-                    ),
-                    ButtonSegment(
-                      value: ComparisonType.monthly,
-                      label: Text("Monthly"),
-                      enabled: false,
-                    ), // TODO: Disabled for now
-                    ButtonSegment(
-                      value: ComparisonType.seasonal,
-                      label: Text("Seasonal"),
-                      enabled: false,
-                    ), // TODO: Disabled for now
-                  ],
-                  selected: {filter.type},
+                AppSegmentedControl<ComparisonType>(
+                  selectedValue: filter.type,
                   onSelectionChanged: (final selection) {
                     ref
                         .read(
                           comparativeAnalysisFilterNotifierProvider.notifier,
                         )
-                        .setType(selection.first);
+                        .setType(selection);
                   },
-                  style: SegmentedButton.styleFrom(
-                    backgroundColor: theme.alternate,
-                    foregroundColor: theme.secondaryText,
-                    selectedBackgroundColor: theme.primary,
-                    selectedForegroundColor: theme.primaryBackground,
-                  ),
+                  segments: const [
+                    SegmentOption(
+                      value: ComparisonType.annual,
+                      label: Text("Annual"),
+                    ),
+                    SegmentOption(
+                      value: ComparisonType.monthly,
+                      label: Text("Monthly"),
+                      enabled: false,
+                    ), // TODO: Disabled for now
+                    SegmentOption(
+                      value: ComparisonType.seasonal,
+                      label: Text("Seasonal"),
+                      enabled: false,
+                    ), // TODO: Disabled for now
+                  ],
                 ),
               ],
             ),
           ),
-        ),
-      ),
-    );
-  }
-}
-
-class _YearSelector extends StatelessWidget {
-  const _YearSelector({
-    required this.availableYears,
-    required this.selectedYear,
-    required this.otherSelectedYear,
-    required this.onChanged,
-  });
-
-  final List<int> availableYears;
-  final int selectedYear;
-  final int otherSelectedYear;
-  final ValueChanged<int?> onChanged;
-
-  @override
-  Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
-    return Container(
-      width: MediaQuery.sizeOf(context).width * 0.4,
-      padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 4),
-      decoration: BoxDecoration(
-        color: theme.alternate,
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: DropdownButtonHideUnderline(
-        child: DropdownButton<int>(
-          value: selectedYear,
-          isExpanded: true,
-          icon: Icon(Icons.arrow_drop_down, color: theme.primary),
-          items: availableYears
-              .map(
-                (final year) => DropdownMenuItem<int>(
-                  value: year,
-                  // Disable selection if it's the same as the other year
-                  enabled: year != otherSelectedYear,
-                  child: Text(
-                    year.toString(),
-                    style: theme.bodyMedium.override(
-                      color: year != otherSelectedYear
-                          ? theme.primaryText
-                          : theme.secondaryText,
-                    ),
-                  ),
-                ),
-              )
-              .toList(),
-          onChanged: onChanged,
         ),
       ),
     );

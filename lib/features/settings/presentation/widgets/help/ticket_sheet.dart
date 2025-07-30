@@ -4,6 +4,7 @@ import "package:rain_wise/features/settings/application/support_provider.dart";
 import "package:rain_wise/features/settings/domain/support_ticket.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 
 /// A bottom sheet for submitting a support ticket or feedback.
 class TicketSheet extends ConsumerStatefulWidget {
@@ -78,6 +79,30 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
   Widget build(final BuildContext context) {
     final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
 
+    InputDecoration buildInputDecoration(
+      final String labelText, [
+      final String? hintText,
+    ]) =>
+        InputDecoration(
+          labelText: labelText,
+          hintText: hintText,
+          alignLabelWithHint: true,
+          border: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: theme.alternate),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: theme.primary),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderRadius: BorderRadius.circular(8),
+            borderSide: BorderSide(color: theme.alternate),
+          ),
+          filled: true,
+          fillColor: theme.secondaryBackground,
+        );
+
     return Padding(
       padding: EdgeInsets.only(
         bottom: MediaQuery.of(context).viewInsets.bottom,
@@ -103,9 +128,9 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
               style: theme.bodyMedium,
             ),
             const SizedBox(height: 24),
-            DropdownButtonFormField<TicketCategory>(
+            AppDropdownFormField<TicketCategory>(
               value: _selectedCategory,
-              hint: const Text("Select Category"),
+              hintText: "Select Category",
               items: TicketCategory.values
                   .map(
                     (final category) => DropdownMenuItem(
@@ -118,13 +143,11 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
                   setState(() => _selectedCategory = value),
               validator: (final value) =>
                   value == null ? "Please select a category" : null,
-              decoration: _inputDecoration(theme, "Category"),
             ),
             const SizedBox(height: 16),
             TextFormField(
               controller: _descriptionController,
-              decoration: _inputDecoration(
-                theme,
+              decoration: buildInputDecoration(
                 "Description",
                 "Describe the issue or your feedback here...",
               ),
@@ -138,9 +161,8 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
             const SizedBox(height: 16),
             TextFormField(
               controller: _emailController,
-              decoration: _inputDecoration(theme, "Your Email (Optional)"),
+              decoration: buildInputDecoration("Your Email (Optional)"),
               keyboardType: TextInputType.emailAddress,
-              // Basic email validation, can be improved with a regex
               validator: (final value) {
                 if (value != null && value.isNotEmpty && !value.contains("@")) {
                   return "Please enter a valid email address";
@@ -173,29 +195,4 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
       ),
     );
   }
-
-  InputDecoration _inputDecoration(
-    final FlutterFlowTheme theme,
-    final String labelText, [
-    final String? hintText,
-  ]) =>
-      InputDecoration(
-        labelText: labelText,
-        hintText: hintText,
-        alignLabelWithHint: true,
-        border: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: theme.alternate),
-        ),
-        focusedBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: theme.primary),
-        ),
-        enabledBorder: OutlineInputBorder(
-          borderRadius: BorderRadius.circular(8),
-          borderSide: BorderSide(color: theme.alternate),
-        ),
-        filled: true,
-        fillColor: theme.secondaryBackground,
-      );
 }
