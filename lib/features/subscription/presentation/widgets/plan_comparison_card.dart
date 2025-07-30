@@ -68,28 +68,16 @@ class PlanComparisonCard extends StatelessWidget {
             ),
             const SizedBox(height: 16),
             if (!plan.isCurrent)
-              isFree
-                  ? TextButton(
-                      onPressed: () {
-                        // TODO: Wire up to provider
-                      },
-                      style: TextButton.styleFrom(
-                        foregroundColor: theme.error,
-                        minimumSize: const Size(double.infinity, 50),
-                        shape: RoundedRectangleBorder(
-                          side: BorderSide(color: theme.error),
-                          borderRadius: BorderRadius.circular(25),
-                        ),
-                      ),
-                      child: const Text("Downgrade to Free"),
-                    )
-                  : AppButton(
-                      onPressed: () {
-                        // TODO: Wire up to provider
-                      },
-                      label: "Upgrade to Pro",
-                      isExpanded: true,
-                    ),
+              AppButton(
+                onPressed: () {
+                  // TODO: Wire up to provider
+                },
+                label: isFree ? "Downgrade to Free" : "Upgrade to Pro",
+                isExpanded: true,
+                style: isFree
+                    ? AppButtonStyle.outlineDestructive
+                    : AppButtonStyle.primary,
+              ),
           ],
         ),
       ),

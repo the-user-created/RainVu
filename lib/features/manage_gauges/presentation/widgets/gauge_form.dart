@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class GaugeForm extends StatefulWidget {
   const GaugeForm({super.key, this.gauge, this.onSave});
@@ -134,35 +135,18 @@ class _GaugeFormState extends State<GaugeForm> {
           Row(
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
-              OutlinedButton(
+              AppButton(
+                label: "Cancel",
                 onPressed: () => Navigator.pop(context),
-                style: OutlinedButton.styleFrom(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                  side: BorderSide(color: theme.alternate),
-                ),
-                child: Text(
-                  "Cancel",
-                  style: theme.bodyMedium.override(color: theme.primaryText),
-                ),
+                style: AppButtonStyle.outline,
+                size: AppButtonSize.small,
               ),
               const SizedBox(width: 12),
-              ElevatedButton(
+              AppButton(
+                label: "Save",
                 onPressed: _submit,
-                style: ElevatedButton.styleFrom(
-                  backgroundColor: theme.accent1,
-                  foregroundColor: Colors.white,
-                  elevation: 0,
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24, vertical: 12),
-                  shape: RoundedRectangleBorder(
-                    borderRadius: BorderRadius.circular(8),
-                  ),
-                ),
-                child: const Text("Save"),
+                size: AppButtonSize.small,
+                borderRadius: BorderRadius.circular(8),
               ),
             ],
           ),

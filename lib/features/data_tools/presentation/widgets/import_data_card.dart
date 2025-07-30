@@ -8,6 +8,7 @@ import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class ImportDataCard extends ConsumerWidget {
   const ImportDataCard({super.key});
@@ -53,11 +54,8 @@ class ImportDataCard extends ConsumerWidget {
                 label: "Import Data",
                 isLoading: state.isImporting,
                 isExpanded: true,
-                icon: Icon(
-                  Icons.cloud_upload,
-                  color: theme.secondaryBackground,
-                  size: 20,
-                ),
+                icon: const Icon(Icons.cloud_upload, size: 20),
+                style: AppButtonStyle.secondary,
               ),
             ],
           ),
@@ -138,7 +136,7 @@ class _FilePreview extends StatelessWidget {
               overflow: TextOverflow.ellipsis,
             ),
           ),
-          IconButton(
+          AppIconButton(
             icon: Icon(Icons.close, color: theme.secondaryText),
             onPressed: onClear,
             tooltip: "Clear selection",

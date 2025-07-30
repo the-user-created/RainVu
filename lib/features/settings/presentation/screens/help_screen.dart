@@ -7,6 +7,7 @@ import "package:rain_wise/features/settings/presentation/widgets/help/ticket_she
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 // Dummy data for FAQs. In a real app, this might come from a remote source.
 const _faqs = [
@@ -98,38 +99,30 @@ class HelpScreen extends ConsumerWidget {
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                ElevatedButton.icon(
+                AppButton(
                   onPressed: () => _showTicketSheet(
                     context,
                     initialCategory: TicketCategory.bugReport,
                   ),
-                  icon: const Icon(Icons.report_problem_outlined),
-                  label: const Text("Report a Problem"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: theme.error,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                    ),
+                  label: "Report a Problem",
+                  icon: const Icon(
+                    Icons.report_problem_outlined,
+                    color: Colors.white,
                   ),
+                  style: AppButtonStyle.destructive,
+                  isExpanded: true,
                 ),
                 const SizedBox(height: 12),
-                ElevatedButton.icon(
+                AppButton(
                   onPressed: () => _showTicketSheet(
                     context,
                     initialCategory: TicketCategory.generalFeedback,
                   ),
-                  icon: const Icon(Icons.feedback_outlined),
-                  label: const Text("Send Feedback"),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: theme.primary,
-                    foregroundColor: Colors.white,
-                    padding: const EdgeInsets.symmetric(vertical: 12),
-                    shape: RoundedRectangleBorder(
-                      borderRadius: BorderRadius.circular(25),
-                    ),
-                  ),
+                  label: "Send Feedback",
+                  icon:
+                      const Icon(Icons.feedback_outlined, color: Colors.white),
+                  style: AppButtonStyle.secondary,
+                  isExpanded: true,
                 ),
               ],
             ),

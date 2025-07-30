@@ -8,6 +8,7 @@ import "package:rain_wise/features/map/domain/rainfall_map_entry.dart";
 import "package:rain_wise/features/map/presentation/widgets/rainfall_list_item.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class RecentRainfallPanel extends ConsumerWidget {
   const RecentRainfallPanel({super.key});
@@ -58,31 +59,13 @@ class RecentRainfallPanel extends ConsumerWidget {
                       letterSpacing: 0,
                     ),
                   ),
-                  ElevatedButton(
+                  AppButton(
                     onPressed: () =>
                         context.goNamed(AppRouteNames.insightsName),
-                    style: ElevatedButton.styleFrom(
-                      backgroundColor: theme.primary,
-                      foregroundColor: Colors.white,
-                      elevation: 0,
-                      shape: RoundedRectangleBorder(
-                        borderRadius: BorderRadius.circular(20),
-                      ),
-                      padding: const EdgeInsets.symmetric(
-                        horizontal: 16,
-                        vertical: 8,
-                      ),
-                    ),
-                    child: Text(
-                      "View Graph",
-                      style: theme.titleSmall.override(
-                        fontFamily: "Inter",
-                        color: Colors.white,
-                        fontSize: 12,
-                        letterSpacing: 0,
-                        fontWeight: FontWeight.normal,
-                      ),
-                    ),
+                    label: "View Graph",
+                    style: AppButtonStyle.secondary,
+                    size: AppButtonSize.small,
+                    borderRadius: BorderRadius.circular(20),
                   ),
                 ],
               ),
