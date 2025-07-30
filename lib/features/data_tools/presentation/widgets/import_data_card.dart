@@ -7,7 +7,7 @@ import "package:rain_wise/features/data_tools/application/data_tools_provider.da
 import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class ImportDataCard extends ConsumerWidget {
   const ImportDataCard({super.key});
@@ -46,30 +46,17 @@ class ImportDataCard extends ConsumerWidget {
                   onClear: notifier.clearImportFile,
                 ),
               const SizedBox(height: 24),
-              FFButtonWidget(
+              AppButton(
                 onPressed: (state.isImporting || state.fileToImport == null)
                     ? null
                     : notifier.importData,
-                text: state.isImporting ? "Importing..." : "Import Data",
-                showLoadingIndicator: state.isImporting,
-                icon: state.isImporting
-                    ? null
-                    : Icon(
-                        Icons.cloud_upload,
-                        color: theme.secondaryBackground,
-                        size: 15,
-                      ),
-                options: FFButtonOptions(
-                  width: double.infinity,
-                  height: 50,
-                  color: theme.primary,
-                  disabledColor: theme.alternate,
-                  textStyle: theme.titleSmall.override(
-                    fontFamily: "Readex Pro",
-                    color: theme.secondaryBackground,
-                  ),
-                  elevation: 2,
-                  borderRadius: BorderRadius.circular(25),
+                label: "Import Data",
+                isLoading: state.isImporting,
+                isExpanded: true,
+                icon: Icon(
+                  Icons.cloud_upload,
+                  color: theme.secondaryBackground,
+                  size: 20,
                 ),
               ),
             ],

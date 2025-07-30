@@ -7,9 +7,9 @@ import "package:rain_wise/features/insights/presentation/widgets/monthly_breakdo
 import "package:rain_wise/features/insights/presentation/widgets/monthly_breakdown/daily_rainfall_chart.dart";
 import "package:rain_wise/features/insights/presentation/widgets/monthly_breakdown/historical_comparison_card.dart";
 import "package:rain_wise/features/insights/presentation/widgets/monthly_breakdown/monthly_summary_card.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class MonthlyBreakdownScreen extends ConsumerStatefulWidget {
   const MonthlyBreakdownScreen({super.key});
@@ -56,19 +56,19 @@ class _MonthlyBreakdownScreenState
       backgroundColor: theme.secondaryBackground,
       appBar: AppBar(
         backgroundColor: theme.primaryBackground,
-        leading: FlutterFlowIconButton(
+        leading: AppIconButton(
           icon: Icon(Icons.arrow_back_rounded, color: theme.primaryText),
           onPressed: context.pop,
+          tooltip: "Back",
         ),
         title: Text("Monthly Breakdown", style: theme.headlineMedium),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 12),
-            child: FlutterFlowIconButton(
-              borderRadius: 50,
-              buttonSize: 40,
+            child: AppIconButton(
               icon: Icon(Icons.calendar_today, color: theme.primaryText),
               onPressed: _pickMonth,
+              tooltip: "Select Month",
             ),
           ),
         ],

@@ -9,6 +9,7 @@ import "package:rain_wise/features/insights/presentation/widgets/seasonal_patter
 import "package:rain_wise/features/insights/presentation/widgets/seasonal_patterns/seasonal_trend_chart.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class SeasonalPatternsScreen extends ConsumerWidget {
   const SeasonalPatternsScreen({super.key});
@@ -25,9 +26,10 @@ class SeasonalPatternsScreen extends ConsumerWidget {
         backgroundColor: theme.primaryBackground,
         elevation: 2,
         shadowColor: Colors.black.withValues(alpha: 0.1),
-        leading: IconButton(
+        leading: AppIconButton(
           icon: Icon(Icons.arrow_back_rounded, color: theme.primaryText),
           onPressed: context.pop,
+          tooltip: "Back",
         ),
         title: Text("Seasonal Patterns", style: theme.headlineMedium),
         centerTitle: false,

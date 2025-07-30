@@ -3,8 +3,8 @@ import "package:go_router/go_router.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/core/navigation/app_route_names.dart";
 import "package:rain_wise/features/insights/domain/monthly_breakdown_data.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class MonthlySummaryCard extends StatelessWidget {
   const MonthlySummaryCard({
@@ -42,11 +42,11 @@ class MonthlySummaryCard extends StatelessWidget {
                     ),
                   ],
                 ),
-                FlutterFlowIconButton(
-                  borderRadius: 50,
-                  buttonSize: 48,
-                  fillColor: theme.alternate,
+                AppIconButton(
+                  backgroundColor: theme.alternate,
+                  borderRadius: BorderRadius.circular(24),
                   icon: Icon(Icons.edit, color: theme.primary, size: 28),
+                  tooltip: "Edit Entries",
                   onPressed: () {
                     final String monthParam =
                         DateFormat("yyyy-MM").format(selectedMonth);

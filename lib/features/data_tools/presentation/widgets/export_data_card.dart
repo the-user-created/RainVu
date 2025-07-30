@@ -5,7 +5,7 @@ import "package:rain_wise/features/data_tools/application/data_tools_provider.da
 import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class ExportDataCard extends ConsumerWidget {
   const ExportDataCard({super.key});
@@ -57,27 +57,15 @@ class ExportDataCard extends ConsumerWidget {
                 onFormatSelected: notifier.setExportFormat,
               ),
               const SizedBox(height: 24),
-              FFButtonWidget(
+              AppButton(
                 onPressed: state.isExporting ? null : notifier.exportData,
-                text: state.isExporting ? "Exporting..." : "Download File",
-                showLoadingIndicator: state.isExporting,
-                icon: state.isExporting
-                    ? null
-                    : Icon(
-                        Icons.download,
-                        color: theme.secondaryBackground,
-                        size: 15,
-                      ),
-                options: FFButtonOptions(
-                  width: double.infinity,
-                  height: 50,
-                  color: theme.primary,
-                  textStyle: theme.titleSmall.override(
-                    fontFamily: "Readex Pro",
-                    color: theme.secondaryBackground,
-                  ),
-                  elevation: 2,
-                  borderRadius: BorderRadius.circular(25),
+                label: "Download File",
+                isLoading: state.isExporting,
+                isExpanded: true,
+                icon: Icon(
+                  Icons.download,
+                  color: theme.secondaryBackground,
+                  size: 20,
                 ),
               ),
             ],

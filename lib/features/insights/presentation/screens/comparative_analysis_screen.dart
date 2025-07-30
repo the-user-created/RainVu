@@ -6,9 +6,9 @@ import "package:rain_wise/features/insights/domain/comparative_analysis_data.dar
 import "package:rain_wise/features/insights/presentation/widgets/comparative_analysis/comparative_analysis_chart.dart";
 import "package:rain_wise/features/insights/presentation/widgets/comparative_analysis/comparative_analysis_filters.dart";
 import "package:rain_wise/features/insights/presentation/widgets/comparative_analysis/yearly_summary_list.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class ComparativeAnalysisScreen extends ConsumerWidget {
   const ComparativeAnalysisScreen({super.key});
@@ -23,17 +23,14 @@ class ComparativeAnalysisScreen extends ConsumerWidget {
       backgroundColor: theme.secondaryBackground,
       appBar: AppBar(
         backgroundColor: theme.primaryBackground,
-        leading: FlutterFlowIconButton(
-          borderColor: Colors.transparent,
-          borderRadius: 30,
-          borderWidth: 1,
-          buttonSize: 60,
+        leading: AppIconButton(
           icon: Icon(
             Icons.arrow_back_rounded,
             color: theme.primaryText,
             size: 30,
           ),
           onPressed: context.pop,
+          tooltip: "Back",
         ),
         title: Text(
           "Comparative Analysis",

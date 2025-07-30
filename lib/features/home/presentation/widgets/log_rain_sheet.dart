@@ -5,8 +5,8 @@ import "package:rain_wise/features/home/application/home_providers.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_widgets.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class LogRainSheet extends ConsumerStatefulWidget {
   const LogRainSheet({super.key});
@@ -107,7 +107,8 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
   Future<void> _saveRainfallData() async {
     FocusScope.of(context).unfocus();
 
-    if (!(_formKey.currentState?.validate() ?? false)) {
+    if (!(_formKey.currentState?.validate() ?? false) ||
+        _selectedGaugeId == null) {
       return;
     }
 
@@ -328,21 +329,11 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                   ),
                 ),
                 const SizedBox(height: 24),
-                FFButtonWidget(
+                AppButton(
                   onPressed: _saveRainfallData,
-                  text: "Save Rainfall Data",
-                  showLoadingIndicator: logRainState.isLoading,
-                  options: FFButtonOptions(
-                    width: double.infinity,
-                    height: 50,
-                    color: FlutterFlowTheme.of(context).accent1,
-                    textStyle: FlutterFlowTheme.of(context).titleSmall.override(
-                          fontFamily: "Readex Pro",
-                          color: Colors.white,
-                        ),
-                    borderRadius: BorderRadius.circular(25),
-                    hoverColor: FlutterFlowTheme.of(context).primary,
-                  ),
+                  label: "Save Rainfall Data",
+                  isLoading: logRainState.isLoading,
+                  isExpanded: true,
                 ),
               ],
             ),

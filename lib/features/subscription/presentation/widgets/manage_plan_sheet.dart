@@ -3,10 +3,10 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/subscription/application/subscription_provider.dart";
 import "package:rain_wise/features/subscription/domain/subscription_plan.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/plan_comparison_card.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_icon_button.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class ManagePlanSheet extends ConsumerWidget {
   const ManagePlanSheet({super.key, this.scrollController});
@@ -36,11 +36,10 @@ class ManagePlanSheet extends ConsumerWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text("Manage Plan", style: theme.headlineMedium),
-                FlutterFlowIconButton(
-                  borderRadius: 20,
-                  buttonSize: 40,
+                AppIconButton(
                   icon: Icon(Icons.close, color: theme.primaryText, size: 24),
                   onPressed: () => Navigator.pop(context),
+                  tooltip: "Close",
                 ),
               ],
             ),
