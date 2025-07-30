@@ -3,6 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/settings/application/support_provider.dart";
 import "package:rain_wise/features/settings/domain/support_ticket.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 /// A bottom sheet for submitting a support ticket or feedback.
 class TicketSheet extends ConsumerStatefulWidget {
@@ -157,21 +158,12 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
                   child: const Text("Cancel"),
                 ),
                 const SizedBox(width: 12),
-                ElevatedButton(
+                AppButton(
                   onPressed: _isLoading ? null : _submit,
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: theme.accent1,
-                    foregroundColor: Colors.white,
-                  ),
-                  child: _isLoading
-                      ? const SizedBox.square(
-                          dimension: 20,
-                          child: CircularProgressIndicator(
-                            strokeWidth: 2,
-                            color: Colors.white,
-                          ),
-                        )
-                      : const Text("Submit"),
+                  label: "Submit",
+                  isLoading: _isLoading,
+                  size: AppButtonSize.small,
+                  borderRadius: BorderRadius.circular(8),
                 ),
               ],
             ),

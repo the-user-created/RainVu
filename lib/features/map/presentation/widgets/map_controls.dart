@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class MapControls extends StatelessWidget {
   const MapControls({
@@ -49,7 +50,7 @@ class MapControls extends StatelessWidget {
         ]
             .map(
               (final w) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 6),
+                padding: const EdgeInsets.symmetric(vertical: 4),
                 child: w,
               ),
             )
@@ -71,16 +72,17 @@ class _MapControlButton extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
-    return FloatingActionButton.small(
-      heroTag: tooltip,
-      // Unique heroTag for each FAB
-      onPressed: onPressed,
-      backgroundColor: theme.primaryBackground,
-      foregroundColor: theme.primaryText,
-      elevation: 4,
-      tooltip: tooltip,
+    return Material(
       shape: const CircleBorder(),
-      child: Icon(icon, size: 24),
+      color: theme.primaryBackground,
+      elevation: 4,
+      shadowColor: Colors.black38,
+      child: AppIconButton(
+        icon: Icon(icon, size: 24),
+        onPressed: onPressed,
+        tooltip: tooltip,
+        color: theme.primaryText,
+      ),
     );
   }
 }

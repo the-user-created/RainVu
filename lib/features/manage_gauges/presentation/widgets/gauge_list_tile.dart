@@ -5,6 +5,7 @@ import "package:rain_wise/features/manage_gauges/application/gauges_provider.dar
 import "package:rain_wise/features/manage_gauges/presentation/widgets/edit_gauge_sheet.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_util.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class GaugeListTile extends ConsumerWidget {
   const GaugeListTile({required this.gauge, super.key});
@@ -69,21 +70,19 @@ class GaugeListTile extends ConsumerWidget {
           ),
           Row(
             children: [
-              IconButton(
+              AppIconButton(
                 icon: Icon(Icons.edit, color: theme.primaryText, size: 20),
-                style: IconButton.styleFrom(
-                  backgroundColor: theme.primaryBackground,
-                  shape: const CircleBorder(),
-                ),
+                backgroundColor: theme.primaryBackground,
+                borderRadius: BorderRadius.circular(30),
                 onPressed: () => _showEditSheet(context),
+                tooltip: "Edit Gauge",
               ),
-              IconButton(
+              AppIconButton(
                 icon: Icon(Icons.delete_outline, color: theme.error, size: 20),
-                style: IconButton.styleFrom(
-                  backgroundColor: theme.primaryBackground,
-                  shape: const CircleBorder(),
-                ),
+                backgroundColor: theme.primaryBackground,
+                borderRadius: BorderRadius.circular(30),
                 onPressed: () => _showDeleteDialog(context, ref),
+                tooltip: "Delete Gauge",
               ),
             ].divide(const SizedBox(width: 8)),
           ),

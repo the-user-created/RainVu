@@ -3,6 +3,7 @@ import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/add_gauge_sheet.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/gauge_list.dart";
 import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class ManageGaugesScreen extends StatelessWidget {
   const ManageGaugesScreen({super.key});
@@ -35,19 +36,12 @@ class ManageGaugesScreen extends StatelessWidget {
           children: [
             const GaugeList(),
             const SizedBox(height: 16),
-            ElevatedButton.icon(
-              icon: const Icon(Icons.add, size: 20),
-              label: const Text("Add New Rain Gauge"),
+            AppButton(
+              label: "Add New Rain Gauge",
               onPressed: () => _showAddSheet(context),
-              style: ElevatedButton.styleFrom(
-                minimumSize: const Size(double.infinity, 50),
-                backgroundColor: theme.primary,
-                foregroundColor: Colors.white,
-                shape: RoundedRectangleBorder(
-                  borderRadius: BorderRadius.circular(25),
-                ),
-                textStyle: theme.titleSmall.override(color: Colors.white),
-              ),
+              icon: const Icon(Icons.add, size: 20, color: Colors.white),
+              isExpanded: true,
+              style: AppButtonStyle.secondary,
             ),
           ],
         ),
