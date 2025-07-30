@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/app_constants.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 /// A simple header widget for a section of settings.
 class SettingsSectionHeader extends StatelessWidget {
@@ -18,7 +17,7 @@ class SettingsSectionHeader extends StatelessWidget {
         ),
         child: Text(
           title,
-          style: FlutterFlowTheme.of(context).labelLarge,
+          style: Theme.of(context).textTheme.labelLarge,
         ),
       );
 }

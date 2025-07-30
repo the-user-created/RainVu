@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class QuickStat {
   const QuickStat({required this.value, required this.label});
@@ -15,11 +14,11 @@ class QuickStatsCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: theme.primaryBackground,
+        color: theme.colorScheme.background,
         boxShadow: const [
           BoxShadow(
             blurRadius: 4,
@@ -35,7 +34,7 @@ class QuickStatsCard extends StatelessWidget {
           children: [
             Text(
               "Quick Stats",
-              style: theme.titleMedium.override(
+              style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -61,13 +60,13 @@ class _StatItem extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Container(
         width: 100,
         decoration: BoxDecoration(
-          color: theme.alternate,
+          color: theme.colorScheme.surfaceVariant,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Padding(
@@ -76,8 +75,8 @@ class _StatItem extends StatelessWidget {
             children: [
               Text(
                 stat.value,
-                style: theme.titleLarge.override(
-                  color: theme.primary,
+                style: theme.textTheme.titleLarge?.copyWith(
+                  color: theme.colorScheme.secondary,
                   fontWeight: FontWeight.bold,
                 ),
               ),
@@ -85,7 +84,7 @@ class _StatItem extends StatelessWidget {
               Text(
                 stat.label,
                 textAlign: TextAlign.center,
-                style: theme.labelMedium,
+                style: theme.textTheme.labelMedium,
               ),
             ],
           ),

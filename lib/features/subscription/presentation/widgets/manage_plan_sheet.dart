@@ -4,7 +4,6 @@ import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/subscription/application/subscription_provider.dart";
 import "package:rain_wise/features/subscription/domain/subscription_plan.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/plan_comparison_card.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -15,12 +14,12 @@ class ManagePlanSheet extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final AsyncValue<List<SubscriptionPlan>> plansAsync =
         ref.watch(availablePlansProvider);
 
     return Material(
-      color: theme.secondaryBackground,
+      color: theme.colorScheme.surface,
       elevation: 4,
       shape: const RoundedRectangleBorder(
         borderRadius: BorderRadius.only(
@@ -35,9 +34,13 @@ class ManagePlanSheet extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Manage Plan", style: theme.headlineMedium),
+                Text("Manage Plan", style: theme.textTheme.headlineMedium),
                 AppIconButton(
-                  icon: Icon(Icons.close, color: theme.primaryText, size: 24),
+                  icon: Icon(
+                    Icons.close,
+                    color: theme.colorScheme.onSurface,
+                    size: 24,
+                  ),
                   onPressed: () => Navigator.pop(context),
                   tooltip: "Close",
                 ),
@@ -58,7 +61,7 @@ class ManagePlanSheet extends ConsumerWidget {
                   Text(
                     "Subscriptions automatically renew unless canceled. Manage billing through your device's app store.",
                     textAlign: TextAlign.center,
-                    style: theme.bodySmall,
+                    style: theme.textTheme.bodySmall,
                   ),
                 ],
               ),

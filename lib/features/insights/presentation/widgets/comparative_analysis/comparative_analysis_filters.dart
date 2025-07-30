@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/insights/application/comparative_analysis_provider.dart";
 import "package:rain_wise/features/insights/domain/comparative_analysis_data.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
@@ -12,7 +11,9 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
     final AsyncValue<ComparativeFilter> filterAsync =
         ref.watch(comparativeAnalysisFilterNotifierProvider);
     final AsyncValue<List<int>> availableYearsAsync =
@@ -29,7 +30,7 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
       margin: EdgeInsets.zero,
       clipBehavior: Clip.antiAlias,
       child: Container(
-        color: theme.primaryBackground,
+        color: colorScheme.surface,
         padding: const EdgeInsets.all(16),
         child: filterAsync.when(
           loading: () => const SizedBox(height: 150, child: AppLoader()),
@@ -40,7 +41,7 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
                 Center(child: Text("Error loading years: $e")),
             data: (final availableYears) => Column(
               children: [
-                Text("Select Years to Compare", style: theme.titleMedium),
+                Text("Select Years to Compare", style: textTheme.titleMedium),
                 const SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -55,11 +56,10 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
                                 enabled: year != filter.year2,
                                 child: Text(
                                   year.toString(),
-                                  style: theme.bodyMedium.override(
-                                    fontFamily: theme.bodyMediumFamily,
+                                  style: textTheme.bodyMedium?.copyWith(
                                     color: year != filter.year2
-                                        ? theme.primaryText
-                                        : theme.secondaryText,
+                                        ? colorScheme.onSurface
+                                        : colorScheme.onSurfaceVariant,
                                   ),
                                 ),
                               ),
@@ -88,11 +88,10 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
                                 enabled: year != filter.year1,
                                 child: Text(
                                   year.toString(),
-                                  style: theme.bodyMedium.override(
-                                    fontFamily: theme.bodyMediumFamily,
+                                  style: textTheme.bodyMedium?.copyWith(
                                     color: year != filter.year1
-                                        ? theme.primaryText
-                                        : theme.secondaryText,
+                                        ? colorScheme.onSurface
+                                        : colorScheme.onSurfaceVariant,
                                   ),
                                 ),
                               ),

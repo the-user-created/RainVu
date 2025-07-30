@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/features/insights/domain/anomaly_data.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class AnomalyListItem extends StatelessWidget {
   const AnomalyListItem({
@@ -13,7 +12,9 @@ class AnomalyListItem extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
 
     final String sign = anomaly.deviationPercentage > 0 ? "+" : "";
     final String deviationText =
@@ -38,8 +39,7 @@ class AnomalyListItem extends StatelessWidget {
                 children: [
                   Text(
                     DateFormat.yMMMd().format(anomaly.date),
-                    style: theme.bodyLarge.override(
-                      fontFamily: "Inter",
+                    style: textTheme.bodyLarge?.copyWith(
                       fontWeight: FontWeight.w600,
                     ),
                   ),
@@ -53,7 +53,8 @@ class AnomalyListItem extends StatelessWidget {
               const SizedBox(height: 8),
               Text(
                 anomaly.description,
-                style: theme.bodyMedium.override(color: theme.secondaryText),
+                style: textTheme.bodyMedium
+                    ?.copyWith(color: colorScheme.onSurfaceVariant),
               ),
             ],
           ),
@@ -76,7 +77,7 @@ class _SeverityBadge extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final TextTheme textTheme = Theme.of(context).textTheme;
 
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -87,8 +88,7 @@ class _SeverityBadge extends StatelessWidget {
         padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
         child: Text(
           text,
-          style: theme.bodySmall.override(
-            fontFamily: "Inter",
+          style: textTheme.bodySmall?.copyWith(
             color: color,
             fontWeight: FontWeight.w500,
           ),

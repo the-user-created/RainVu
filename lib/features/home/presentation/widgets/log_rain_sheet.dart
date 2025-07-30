@@ -5,8 +5,6 @@ import "package:intl/intl.dart";
 import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/features/home/application/home_providers.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
-import "package:rain_wise/shared/utils/temp_picker_helpers.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
@@ -46,24 +44,6 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
       initialDate: _selectedDateTime,
       firstDate: DateTime(1900),
       lastDate: DateTime.now().add(const Duration(days: 365)),
-      builder: (final context, final child) => wrapInMaterialDatePickerTheme(
-        context,
-        child!,
-        headerBackgroundColor: FlutterFlowTheme.of(context).accent1,
-        headerForegroundColor: Colors.white,
-        headerTextStyle: FlutterFlowTheme.of(context).headlineLarge.override(
-              fontFamily: "Readex Pro",
-              fontSize: 32,
-              letterSpacing: 0,
-              fontWeight: FontWeight.w600,
-            ),
-        pickerBackgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-        pickerForegroundColor: FlutterFlowTheme.of(context).primaryText,
-        selectedDateTimeBackgroundColor: FlutterFlowTheme.of(context).accent1,
-        selectedDateTimeForegroundColor: Colors.white,
-        actionButtonForegroundColor: FlutterFlowTheme.of(context).primaryText,
-        iconSize: 24,
-      ),
     );
 
     if (pickedDate == null || !mounted) {
@@ -73,24 +53,6 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
     final TimeOfDay? pickedTime = await showTimePicker(
       context: context,
       initialTime: TimeOfDay.fromDateTime(_selectedDateTime),
-      builder: (final context, final child) => wrapInMaterialTimePickerTheme(
-        context,
-        child!,
-        headerBackgroundColor: FlutterFlowTheme.of(context).accent1,
-        headerForegroundColor: Colors.white,
-        headerTextStyle: FlutterFlowTheme.of(context).headlineLarge.override(
-              fontFamily: "Readex Pro",
-              fontSize: 32,
-              letterSpacing: 0,
-              fontWeight: FontWeight.w600,
-            ),
-        pickerBackgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
-        pickerForegroundColor: FlutterFlowTheme.of(context).primaryText,
-        selectedDateTimeBackgroundColor: FlutterFlowTheme.of(context).accent1,
-        selectedDateTimeForegroundColor: Colors.white,
-        actionButtonForegroundColor: FlutterFlowTheme.of(context).primaryText,
-        iconSize: 24,
-      ),
     );
 
     if (pickedTime != null) {
@@ -132,11 +94,12 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
     final AsyncValue<List<RainGauge>> gaugesAsync =
         ref.watch(userGaugesProvider);
     final AsyncValue<void> logRainState = ref.watch(logRainControllerProvider);
+    final ThemeData theme = Theme.of(context);
 
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: FlutterFlowTheme.of(context).secondaryBackground,
+        color: theme.colorScheme.surface,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
@@ -155,7 +118,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
               children: [
                 Text(
                   "Log Rainfall",
-                  style: FlutterFlowTheme.of(context).headlineSmall,
+                  style: theme.textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 16),
                 _buildSectionHeader("Select Rain Gauge"),
@@ -192,23 +155,9 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                       flex: 3,
                       child: TextFormField(
                         controller: _amountController,
-                        decoration: InputDecoration(
+                        decoration: const InputDecoration(
                           hintText: "Enter amount",
-                          hintStyle: FlutterFlowTheme.of(context).bodyLarge,
-                          enabledBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).alternate,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
-                          focusedBorder: OutlineInputBorder(
-                            borderSide: BorderSide(
-                              color: FlutterFlowTheme.of(context).primary,
-                            ),
-                            borderRadius: BorderRadius.circular(8),
-                          ),
                         ),
-                        style: FlutterFlowTheme.of(context).bodyMedium,
                         keyboardType: const TextInputType.numberWithOptions(
                           decimal: true,
                         ),
@@ -260,11 +209,9 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                     width: double.infinity,
                     height: 60,
                     decoration: BoxDecoration(
-                      color: FlutterFlowTheme.of(context).secondaryBackground,
+                      color: theme.colorScheme.surface,
                       borderRadius: BorderRadius.circular(8),
-                      border: Border.all(
-                        color: FlutterFlowTheme.of(context).alternate,
-                      ),
+                      border: Border.all(color: theme.colorScheme.outline),
                     ),
                     child: Padding(
                       padding: const EdgeInsets.symmetric(horizontal: 12),
@@ -275,11 +222,11 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                             DateFormat.yMMMd()
                                 .add_jm()
                                 .format(_selectedDateTime),
-                            style: FlutterFlowTheme.of(context).bodyLarge,
+                            style: theme.textTheme.bodyLarge,
                           ),
                           Icon(
                             Icons.calendar_today,
-                            color: FlutterFlowTheme.of(context).primaryText,
+                            color: theme.colorScheme.onSurface,
                             size: 24,
                           ),
                         ],
@@ -308,7 +255,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
           padding: const EdgeInsets.only(bottom: 8),
           child: Text(
             title,
-            style: FlutterFlowTheme.of(context).titleLarge,
+            style: Theme.of(context).textTheme.titleLarge,
           ),
         ),
       );

@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/insights_data.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class KeyMetricsSection extends StatelessWidget {
   const KeyMetricsSection({
@@ -12,11 +11,16 @@ class KeyMetricsSection extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
+    final Color successColor = colorScheme.tertiary;
+    final Color errorColor = colorScheme.error;
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: theme.primaryBackground,
+        color: colorScheme.background,
         boxShadow: const [
           BoxShadow(
             blurRadius: 4,
@@ -32,7 +36,7 @@ class KeyMetricsSection extends StatelessWidget {
           children: [
             Text(
               "Key Metrics",
-              style: theme.headlineSmall,
+              style: textTheme.headlineSmall,
             ),
             const SizedBox(height: 24),
             Row(
@@ -44,8 +48,8 @@ class KeyMetricsSection extends StatelessWidget {
                   changeText:
                       "${metrics.totalRainfallPrevYearChange}% vs last year",
                   changeColor: metrics.totalRainfallPrevYearChange >= 0
-                      ? theme.success
-                      : theme.error,
+                      ? successColor
+                      : errorColor,
                 ),
                 _MetricCard(
                   title: "MTD Total",
@@ -53,8 +57,8 @@ class KeyMetricsSection extends StatelessWidget {
                   changeText:
                       "${metrics.mtdTotalPrevMonthChange}% vs last month",
                   changeColor: metrics.mtdTotalPrevMonthChange >= 0
-                      ? theme.success
-                      : theme.error,
+                      ? successColor
+                      : errorColor,
                 ),
               ],
             ),
@@ -66,13 +70,13 @@ class KeyMetricsSection extends StatelessWidget {
                   title: "YTD Total",
                   value: "${metrics.ytdTotal} mm",
                   changeText: "On track for yearly goal",
-                  changeColor: theme.success,
+                  changeColor: successColor,
                 ),
                 _MetricCard(
                   title: "Monthly Avg",
                   value: "${metrics.monthlyAvg} mm",
                   changeText: "Based on 12 month data",
-                  changeColor: theme.secondaryText,
+                  changeColor: colorScheme.onSurfaceVariant,
                 ),
               ],
             ),
@@ -98,55 +102,53 @@ class _MetricCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
     final double cardWidth = MediaQuery.sizeOf(context).width * 0.42;
 
-    return Material(
-      color: Colors.transparent,
+    return Card(
       elevation: 2,
+      color: colorScheme.surfaceVariant,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),
       child: Container(
         width: cardWidth,
         height: 130,
-        decoration: BoxDecoration(
-          color: theme.alternate,
-          borderRadius: BorderRadius.circular(16),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                children: [
-                  Text(title, style: theme.bodyMedium),
-                  Icon(Icons.info_outline, color: theme.primary, size: 20),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Text(
-                value,
-                maxLines: 1,
-                overflow: TextOverflow.ellipsis,
-                style: theme.headlineMedium.override(
-                  fontFamily: "Readex Pro",
-                  fontSize: 26,
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(title, style: textTheme.bodyMedium),
+                Icon(
+                  Icons.info_outline,
+                  color: colorScheme.secondary,
+                  size: 20,
                 ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              value,
+              maxLines: 1,
+              overflow: TextOverflow.ellipsis,
+              style: textTheme.headlineMedium?.copyWith(
+                fontSize: 26,
               ),
-              const SizedBox(height: 8),
-              Text(
-                changeText,
-                style: theme.bodySmall.override(
-                  fontFamily: "Inter",
-                  color: changeColor,
-                ),
+            ),
+            const SizedBox(height: 8),
+            Text(
+              changeText,
+              style: textTheme.bodySmall?.copyWith(
+                color: changeColor,
               ),
-            ],
-          ),
+            ),
+          ],
         ),
       ),
     );

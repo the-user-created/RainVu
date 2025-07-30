@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/features/subscription/domain/payment_transaction.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class PaymentHistoryTile extends StatelessWidget {
   const PaymentHistoryTile({required this.transaction, super.key});
@@ -10,7 +9,7 @@ class PaymentHistoryTile extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
@@ -19,19 +18,19 @@ class PaymentHistoryTile extends StatelessWidget {
           children: [
             Text(
               DateFormat.yMMMMd().format(transaction.date),
-              style: theme.bodyMedium,
+              style: theme.textTheme.bodyMedium,
             ),
             Text(
               transaction.description,
-              style: theme.bodySmall.override(
-                color: theme.secondaryText,
+              style: theme.textTheme.bodySmall?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
               ),
             ),
           ],
         ),
         Text(
           "${transaction.currencySymbol}${transaction.amount.toStringAsFixed(0)}",
-          style: theme.bodyMedium,
+          style: theme.textTheme.bodyMedium,
         ),
       ],
     );

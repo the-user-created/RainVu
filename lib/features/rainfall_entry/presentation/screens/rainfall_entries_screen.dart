@@ -5,7 +5,6 @@ import "package:intl/intl.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
 import "package:rain_wise/features/rainfall_entry/domain/rainfall_entry.dart";
 import "package:rain_wise/features/rainfall_entry/presentation/widgets/rainfall_entry_list_item.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -20,25 +19,25 @@ class RainfallEntriesScreen extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final DateTime selectedMonth =
         DateTime.tryParse("$month-01") ?? DateTime.now();
     final AsyncValue<List<RainfallEntry>> entriesAsync =
         ref.watch(rainfallEntriesForMonthProvider(selectedMonth));
 
     return Scaffold(
-      backgroundColor: theme.primaryBackground,
       appBar: AppBar(
-        backgroundColor: theme.primaryBackground,
-        elevation: 1,
         leading: AppIconButton(
-          icon: Icon(Icons.arrow_back_rounded, color: theme.primaryText),
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            color: theme.colorScheme.onSurface,
+          ),
           onPressed: context.pop,
           tooltip: "Back",
         ),
         title: Text(
           DateFormat.yMMMM().format(selectedMonth),
-          style: theme.headlineMedium,
+          style: theme.textTheme.headlineMedium,
         ),
         centerTitle: true,
       ),
@@ -50,7 +49,7 @@ class RainfallEntriesScreen extends ConsumerWidget {
             return Center(
               child: Text(
                 "No entries for this month.",
-                style: theme.bodyLarge,
+                style: theme.textTheme.bodyLarge,
               ),
             );
           }

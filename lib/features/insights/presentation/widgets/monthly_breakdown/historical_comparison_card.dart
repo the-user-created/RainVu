@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
+import "package:rain_wise/core/ui/custom_colors.dart";
 import "package:rain_wise/features/insights/domain/monthly_breakdown_data.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class HistoricalComparisonCard extends StatelessWidget {
   const HistoricalComparisonCard({
@@ -14,16 +14,15 @@ class HistoricalComparisonCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
     return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Historical Comparison", style: theme.titleMedium),
+            Text("Historical Comparison", style: textTheme.titleMedium),
             const SizedBox(height: 16),
             _ComparisonRow(
               label: "2 Year Average",
@@ -62,10 +61,12 @@ class _ComparisonRow extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
     final double diff = currentValue - avgValue;
     final num percentage = avgValue == 0 ? 0 : (diff / avgValue) * 100;
-    final Color color = diff >= 0 ? theme.success : theme.error;
+    final Color color = diff >= 0 ? colorScheme.success : colorScheme.error;
     final IconData icon = diff >= 0 ? Icons.arrow_upward : Icons.arrow_downward;
 
     return Row(
@@ -74,20 +75,20 @@ class _ComparisonRow extends StatelessWidget {
         Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(label, style: theme.bodyMedium),
+            Text(label, style: textTheme.bodyMedium),
             Row(
               children: [
                 Icon(icon, color: color, size: 20),
                 const SizedBox(width: 4),
                 Text(
                   '${diff >= 0 ? '+' : ''}${percentage.toStringAsFixed(0)}%',
-                  style: theme.bodyMedium.override(color: color),
+                  style: textTheme.bodyMedium?.copyWith(color: color),
                 ),
               ],
             ),
           ],
         ),
-        Text("${avgValue.toStringAsFixed(1)}mm", style: theme.bodyMedium),
+        Text("${avgValue.toStringAsFixed(1)}mm", style: textTheme.bodyMedium),
       ],
     );
   }

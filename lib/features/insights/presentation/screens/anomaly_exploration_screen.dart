@@ -6,7 +6,6 @@ import "package:rain_wise/features/insights/domain/anomaly_data.dart";
 import "package:rain_wise/features/insights/presentation/widgets/anomaly_exploration/anomaly_filter_options.dart";
 import "package:rain_wise/features/insights/presentation/widgets/anomaly_exploration/anomaly_list.dart";
 import "package:rain_wise/features/insights/presentation/widgets/anomaly_exploration/anomaly_timeline_chart.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -15,20 +14,22 @@ class AnomalyExplorationScreen extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final AsyncValue<List<RainfallAnomaly>> anomaliesAsync =
         ref.watch(anomalyDataProvider);
 
     return Scaffold(
-      backgroundColor: theme.secondaryBackground,
       appBar: AppBar(
-        backgroundColor: theme.primaryBackground,
         leading: AppIconButton(
-          icon: Icon(Icons.arrow_back_rounded, color: theme.primaryText),
+          icon: Icon(
+            Icons.arrow_back_rounded,
+            color: theme.colorScheme.onBackground,
+          ),
           onPressed: context.pop,
           tooltip: "Back",
         ),
-        title: Text("Anomaly Exploration", style: theme.headlineMedium),
+        title:
+            Text("Anomaly Exploration", style: theme.textTheme.headlineMedium),
         centerTitle: false,
       ),
       body: SingleChildScrollView(

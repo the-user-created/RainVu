@@ -6,7 +6,6 @@ import "package:rain_wise/features/insights/presentation/widgets/detailed_analys
 import "package:rain_wise/features/insights/presentation/widgets/key_metrics_section.dart";
 import "package:rain_wise/features/insights/presentation/widgets/monthly_comparison_grid.dart";
 import "package:rain_wise/features/insights/presentation/widgets/monthly_trend_chart.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -15,18 +14,16 @@ class InsightsScreen extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final AsyncValue<InsightsData> insightsDataAsync =
         ref.watch(insightsScreenDataProvider);
 
     return Scaffold(
-      backgroundColor: theme.secondaryBackground,
       appBar: AppBar(
-        backgroundColor: theme.primaryBackground,
         automaticallyImplyLeading: false,
         title: Text(
           "Insights",
-          style: theme.headlineMedium,
+          style: theme.textTheme.headlineMedium,
         ),
         actions: [
           Padding(
@@ -34,14 +31,14 @@ class InsightsScreen extends ConsumerWidget {
             child: AppIconButton(
               icon: Icon(
                 Icons.info_outline,
-                color: theme.primaryText,
+                color: theme.colorScheme.onBackground,
                 size: 24,
               ),
               onPressed: () {
                 // TODO: Implement info dialog
               },
               tooltip: "Info",
-              backgroundColor: theme.alternate,
+              backgroundColor: theme.colorScheme.surfaceVariant,
               borderRadius: BorderRadius.circular(20),
             ),
           ),

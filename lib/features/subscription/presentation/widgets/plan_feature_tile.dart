@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class PlanFeatureTile extends StatelessWidget {
   const PlanFeatureTile({
@@ -13,20 +12,23 @@ class PlanFeatureTile extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
     return Row(
       children: [
         Icon(
           isIncluded ? Icons.check_circle : Icons.remove_circle_outline,
-          color: isIncluded ? theme.primary : theme.error,
+          color: isIncluded ? colorScheme.secondary : colorScheme.error,
           size: 20,
         ),
         const SizedBox(width: 12),
         Expanded(
           child: Text(
             text,
-            style: theme.bodyMedium.override(
-              color: isIncluded ? theme.primaryText : theme.secondaryText,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: isIncluded
+                  ? colorScheme.onSurface
+                  : colorScheme.onSurfaceVariant,
             ),
           ),
         ),

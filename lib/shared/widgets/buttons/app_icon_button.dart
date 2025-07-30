@@ -52,7 +52,7 @@ class AppIconButton extends StatelessWidget {
           )
         : null;
 
-    final Widget button = IconButton(
+    return IconButton(
       icon: icon,
       onPressed: onPressed,
       tooltip: tooltip,
@@ -62,16 +62,5 @@ class AppIconButton extends StatelessWidget {
       splashRadius: (iconSize ?? 24) + 16,
       style: buttonStyle,
     );
-
-    // If a background color is provided, we must wrap the button in a
-    // Material 3 theme for the 'style' property to take effect.
-    if (backgroundColor != null) {
-      return Theme(
-        data: Theme.of(context).copyWith(),
-        child: button,
-      );
-    }
-
-    return button;
   }
 }

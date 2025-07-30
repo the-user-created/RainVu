@@ -4,14 +4,13 @@ import "package:rain_wise/features/data_tools/application/data_tools_provider.da
 import "package:rain_wise/features/data_tools/presentation/widgets/export_data_card.dart";
 import "package:rain_wise/features/data_tools/presentation/widgets/import_data_card.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class DataToolsScreen extends ConsumerWidget {
   const DataToolsScreen({super.key});
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
 
     ref.listen<String?>(
       dataToolsNotifierProvider.select((final s) => s.errorMessage),
@@ -22,7 +21,7 @@ class DataToolsScreen extends ConsumerWidget {
             ..showSnackBar(
               SnackBar(
                 content: Text(errorMessage),
-                backgroundColor: theme.error,
+                backgroundColor: theme.colorScheme.error,
               ),
             );
         }
@@ -30,16 +29,9 @@ class DataToolsScreen extends ConsumerWidget {
     );
 
     return Scaffold(
-      backgroundColor: theme.secondaryBackground,
       appBar: AppBar(
-        backgroundColor: theme.primaryBackground,
-        iconTheme: IconThemeData(color: theme.primaryText),
-        title: Text(
-          "Export & Import",
-          style: theme.headlineMedium,
-        ),
+        title: const Text("Export & Import"),
         centerTitle: false,
-        elevation: 2,
       ),
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),

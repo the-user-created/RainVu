@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/core/utils/formatters.dart";
 import "package:rain_wise/features/map/domain/rainfall_map_entry.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class RainfallListItem extends StatelessWidget {
   const RainfallListItem({
@@ -14,12 +13,14 @@ class RainfallListItem extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
 
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: theme.primaryBackground,
+        color: colorScheme.surface,
         borderRadius: BorderRadius.circular(16),
       ),
       child: Padding(
@@ -34,18 +35,13 @@ class RainfallListItem extends StatelessWidget {
                   children: [
                     Text(
                       dateTimeFormat("relative", entry.dateTime),
-                      style: theme.bodyMedium.override(
-                        fontFamily: "Inter",
-                        color: theme.secondaryText,
-                        letterSpacing: 0,
+                      style: textTheme.bodyMedium?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
                       ),
                     ),
                     Text(
                       entry.locationName,
-                      style: theme.bodyLarge.override(
-                        fontFamily: "Inter",
-                        letterSpacing: 0,
-                      ),
+                      style: textTheme.bodyLarge,
                     ),
                   ],
                 ),
@@ -53,7 +49,7 @@ class RainfallListItem extends StatelessWidget {
                   width: 60,
                   height: 60,
                   decoration: BoxDecoration(
-                    color: const Color(0xFFE3F2FD),
+                    color: colorScheme.secondaryContainer,
                     borderRadius: BorderRadius.circular(30),
                   ),
                   child: Padding(
@@ -64,18 +60,15 @@ class RainfallListItem extends StatelessWidget {
                       children: [
                         Text(
                           entry.amount.toStringAsFixed(0),
-                          style: theme.titleLarge.override(
-                            fontFamily: "Readex Pro",
-                            color: theme.primary,
-                            letterSpacing: 0,
+                          style: textTheme.titleLarge?.copyWith(
+                            color: colorScheme.onSecondaryContainer,
+                            fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
                           entry.unit,
-                          style: theme.bodySmall.override(
-                            fontFamily: "Inter",
-                            color: theme.primary,
-                            letterSpacing: 0,
+                          style: textTheme.bodySmall?.copyWith(
+                            color: colorScheme.onSecondaryContainer,
                           ),
                         ),
                       ],
@@ -88,16 +81,14 @@ class RainfallListItem extends StatelessWidget {
               children: [
                 Icon(
                   Icons.location_on,
-                  color: theme.secondaryText,
+                  color: colorScheme.onSurfaceVariant,
                   size: 20,
                 ),
                 const SizedBox(width: 8),
                 Text(
                   entry.coordinates,
-                  style: theme.bodySmall.override(
-                    fontFamily: "Inter",
-                    color: theme.secondaryText,
-                    letterSpacing: 0,
+                  style: textTheme.bodySmall?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
                   ),
                 ),
               ],

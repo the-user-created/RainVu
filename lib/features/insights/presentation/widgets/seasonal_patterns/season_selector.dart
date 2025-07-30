@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/insights/application/seasonal_patterns_provider.dart";
 import "package:rain_wise/features/insights/domain/seasonal_patterns_data.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 
 class SeasonSelector extends ConsumerWidget {
@@ -10,7 +9,7 @@ class SeasonSelector extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final SeasonalFilter filter =
         ref.watch(seasonalPatternsFilterNotifierProvider);
     final SeasonalPatternsFilterNotifier notifier =
@@ -24,7 +23,7 @@ class SeasonSelector extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: theme.alternate,
+        color: colorScheme.surfaceVariant,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -45,7 +44,7 @@ class SeasonSelector extends ConsumerWidget {
                   notifier.setFilter(season, filter.year);
                 }
               },
-              fillColor: theme.alternate,
+              fillColor: colorScheme.surfaceVariant,
               borderColor: Colors.transparent,
             ),
           ),
@@ -66,7 +65,7 @@ class SeasonSelector extends ConsumerWidget {
                   notifier.setFilter(filter.season, year);
                 }
               },
-              fillColor: theme.alternate,
+              fillColor: colorScheme.surfaceVariant,
               borderColor: Colors.transparent,
             ),
           ),

@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 /// A simple, centered circular progress indicator for use as a loading spinner.
 ///
@@ -13,7 +12,7 @@ class AppLoader extends StatelessWidget {
   Widget build(final BuildContext context) => Center(
         child: CircularProgressIndicator(
           valueColor: AlwaysStoppedAnimation<Color>(
-            FlutterFlowTheme.of(context).primary,
+            Theme.of(context).colorScheme.secondary,
           ),
         ),
       );

@@ -6,7 +6,6 @@ import "package:rain_wise/core/navigation/app_route_names.dart";
 import "package:rain_wise/features/map/application/map_providers.dart";
 import "package:rain_wise/features/map/domain/rainfall_map_entry.dart";
 import "package:rain_wise/features/map/presentation/widgets/rainfall_list_item.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
@@ -15,7 +14,7 @@ class RecentRainfallPanel extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final AsyncValue<List<RainfallMapEntry>> recentEntries =
         ref.watch(recentRainfallProvider);
 
@@ -32,7 +31,7 @@ class RecentRainfallPanel extends ConsumerWidget {
         width: MediaQuery.sizeOf(context).width,
         height: 300,
         decoration: BoxDecoration(
-          color: theme.secondaryBackground,
+          color: theme.colorScheme.surface,
           boxShadow: const [
             BoxShadow(
               blurRadius: 4,
@@ -54,10 +53,7 @@ class RecentRainfallPanel extends ConsumerWidget {
                 children: [
                   Text(
                     "Recent Rainfall",
-                    style: theme.headlineSmall.override(
-                      fontFamily: "Readex Pro",
-                      letterSpacing: 0,
-                    ),
+                    style: theme.textTheme.headlineSmall,
                   ),
                   AppButton(
                     onPressed: () =>

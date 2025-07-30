@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 /// Represents a single option for the [AppChoiceChips] widget.
 class ChipOption<T> {
@@ -57,20 +56,27 @@ class AppChoiceChips<T> extends StatelessWidget {
       );
 
   Widget _buildChip(final BuildContext context, final ChipOption<T> option) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
     final bool isSelected = selectedValue == option.value;
     final BorderRadius borderRadius = BorderRadius.circular(20);
+
+    final Color selectedColor = colorScheme.secondary;
+    final Color unselectedColor = colorScheme.surfaceVariant;
+    final Color selectedForegroundColor = colorScheme.onSecondary;
+    final Color unselectedForegroundColor = colorScheme.onSurface;
 
     return InkWell(
       onTap: () => onSelected(option.value),
       borderRadius: borderRadius,
-      splashColor: theme.primary.withValues(alpha: 0.2),
-      highlightColor: theme.primary.withValues(alpha: 0.1),
+      splashColor: selectedColor.withValues(alpha: 0.2),
+      highlightColor: selectedColor.withValues(alpha: 0.1),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
-          color: isSelected ? theme.primary : theme.alternate,
+          color: isSelected ? selectedColor : unselectedColor,
           borderRadius: borderRadius,
         ),
         child: Row(
@@ -80,17 +86,18 @@ class AppChoiceChips<T> extends StatelessWidget {
               Icon(
                 option.icon,
                 size: 18,
-                color:
-                    isSelected ? theme.secondaryBackground : theme.primaryText,
+                color: isSelected
+                    ? selectedForegroundColor
+                    : unselectedForegroundColor,
               ),
               const SizedBox(width: 8),
             ],
             Text(
               option.label,
-              style: theme.bodyMedium.override(
-                fontFamily: theme.bodyMediumFamily,
-                color:
-                    isSelected ? theme.secondaryBackground : theme.primaryText,
+              style: textTheme.bodyMedium?.copyWith(
+                color: isSelected
+                    ? selectedForegroundColor
+                    : unselectedForegroundColor,
               ),
             ),
           ],

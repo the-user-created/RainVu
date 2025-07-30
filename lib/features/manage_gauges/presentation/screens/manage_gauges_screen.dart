@@ -2,7 +2,6 @@ import "package:flutter/material.dart";
 import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/add_gauge_sheet.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/gauge_list.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class ManageGaugesScreen extends StatelessWidget {
@@ -13,20 +12,21 @@ class ManageGaugesScreen extends StatelessWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (final _) => const AddGaugeSheet(),
+      useSafeArea: true,
+      builder: (final context) => Padding(
+        padding:
+            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        child: const AddGaugeSheet(),
+      ),
     );
   }
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Scaffold(
-      backgroundColor: theme.secondaryBackground,
       appBar: AppBar(
-        backgroundColor: theme.primaryBackground,
-        iconTheme: IconThemeData(color: theme.primaryText),
-        title: Text("Rain Gauges", style: theme.headlineLarge),
-        elevation: 2,
+        title: Text("Rain Gauges", style: theme.textTheme.headlineLarge),
         centerTitle: false,
       ),
       body: SingleChildScrollView(
@@ -39,7 +39,11 @@ class ManageGaugesScreen extends StatelessWidget {
             AppButton(
               label: "Add New Rain Gauge",
               onPressed: () => _showAddSheet(context),
-              icon: const Icon(Icons.add, size: 20, color: Colors.white),
+              icon: Icon(
+                Icons.add,
+                size: 20,
+                color: theme.colorScheme.onSecondary,
+              ),
               isExpanded: true,
               style: AppButtonStyle.secondary,
             ),

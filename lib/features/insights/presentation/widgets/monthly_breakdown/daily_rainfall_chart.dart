@@ -3,7 +3,6 @@ import "dart:math";
 import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/monthly_breakdown_data.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class DailyRainfallChart extends StatelessWidget {
   const DailyRainfallChart({required this.chartData, super.key});
@@ -12,21 +11,21 @@ class DailyRainfallChart extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
     // Find the maximum rainfall value to set the chart's Y-axis limit.
     final double maxRainfall = chartData.isEmpty
         ? 10
         : chartData.map((final e) => e.rainfall).reduce(max);
 
     return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Daily Rainfall", style: theme.titleMedium),
+            Text("Daily Rainfall", style: textTheme.titleMedium),
             const SizedBox(height: 24),
             SizedBox(
               height: 200,
@@ -34,11 +33,11 @@ class DailyRainfallChart extends StatelessWidget {
                 BarChartData(
                   // Set maxY for performance and visual padding.
                   maxY: (maxRainfall * 1.2).ceilToDouble(),
-                  barTouchData: _buildBarTouchData(theme),
-                  titlesData: _buildTitlesData(theme),
-                  gridData: _buildGridData(theme),
+                  barTouchData: _buildBarTouchData(colorScheme, textTheme),
+                  titlesData: _buildTitlesData(textTheme),
+                  gridData: _buildGridData(colorScheme),
                   borderData: FlBorderData(show: false),
-                  barGroups: _buildBarGroups(theme),
+                  barGroups: _buildBarGroups(colorScheme),
                   alignment: BarChartAlignment.spaceAround,
                 ),
               ),
@@ -50,16 +49,19 @@ class DailyRainfallChart extends StatelessWidget {
   }
 
   /// Configures the interactive tooltip for the bar chart.
-  BarTouchData _buildBarTouchData(final FlutterFlowTheme theme) => BarTouchData(
+  BarTouchData _buildBarTouchData(
+    final ColorScheme colorScheme,
+    final TextTheme textTheme,
+  ) =>
+      BarTouchData(
         touchTooltipData: BarTouchTooltipData(
-          getTooltipColor: (final group) => theme.secondaryText,
-          // Display the rainfall amount with one decimal place in the tooltip.
+          getTooltipColor: (final group) => colorScheme.onSurfaceVariant,
           getTooltipItem:
               (final group, final groupIndex, final rod, final rodIndex) =>
                   BarTooltipItem(
             "${rod.toY.toStringAsFixed(1)} mm",
-            TextStyle(
-              color: theme.primaryBackground,
+            textTheme.bodySmall!.copyWith(
+              color: colorScheme.surface,
               fontWeight: FontWeight.bold,
             ),
           ),
@@ -67,7 +69,7 @@ class DailyRainfallChart extends StatelessWidget {
       );
 
   /// Configures the titles for the X and Y axes.
-  FlTitlesData _buildTitlesData(final FlutterFlowTheme theme) => FlTitlesData(
+  FlTitlesData _buildTitlesData(final TextTheme textTheme) => FlTitlesData(
         topTitles: const AxisTitles(),
         rightTitles: const AxisTitles(),
         bottomTitles: AxisTitles(
@@ -79,7 +81,10 @@ class DailyRainfallChart extends StatelessWidget {
               if (value.toInt() % 5 == 0 && value.toInt() != 0) {
                 return Padding(
                   padding: const EdgeInsets.only(top: 6),
-                  child: Text(value.toInt().toString(), style: theme.bodySmall),
+                  child: Text(
+                    value.toInt().toString(),
+                    style: textTheme.bodySmall,
+                  ),
                 );
               }
               return const Text("");
@@ -97,7 +102,7 @@ class DailyRainfallChart extends StatelessWidget {
               }
               return Text(
                 value.toInt().toString(),
-                style: theme.bodySmall,
+                style: textTheme.bodySmall,
                 textAlign: TextAlign.left,
               );
             },
@@ -106,18 +111,17 @@ class DailyRainfallChart extends StatelessWidget {
       );
 
   /// Configures the background grid of the chart.
-  FlGridData _buildGridData(final FlutterFlowTheme theme) => FlGridData(
-        drawVerticalLine: false, // Hide vertical lines for a cleaner look.
-        // Draw subtle, dashed horizontal lines.
+  FlGridData _buildGridData(final ColorScheme colorScheme) => FlGridData(
+        drawVerticalLine: false,
         getDrawingHorizontalLine: (final value) => FlLine(
-          color: theme.alternate,
+          color: colorScheme.outline,
           strokeWidth: 1,
           dashArray: [5, 5],
         ),
       );
 
   /// Creates the list of bar groups from the provided chart data.
-  List<BarChartGroupData> _buildBarGroups(final FlutterFlowTheme theme) =>
+  List<BarChartGroupData> _buildBarGroups(final ColorScheme colorScheme) =>
       chartData
           .map(
             (final data) => BarChartGroupData(
@@ -125,7 +129,7 @@ class DailyRainfallChart extends StatelessWidget {
               barRods: [
                 BarChartRodData(
                   toY: data.rainfall,
-                  color: theme.primary,
+                  color: colorScheme.secondary,
                   width: 7,
                   borderRadius: const BorderRadius.only(
                     topLeft: Radius.circular(4),

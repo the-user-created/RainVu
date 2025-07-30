@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/seasonal_patterns_data.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class SeasonalSummaryCard extends StatelessWidget {
   const SeasonalSummaryCard({required this.summary, super.key});
@@ -9,7 +8,7 @@ class SeasonalSummaryCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final TextTheme textTheme = Theme.of(context).textTheme;
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -18,7 +17,7 @@ class SeasonalSummaryCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Season Summary", style: theme.titleMedium),
+            Text("Season Summary", style: textTheme.titleMedium),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -26,7 +25,7 @@ class SeasonalSummaryCard extends StatelessWidget {
                 _MetricItem(
                   label: "Average Rainfall",
                   value: "${summary.averageRainfall.toStringAsFixed(1)} mm",
-                  valueStyle: theme.headlineSmall,
+                  valueStyle: textTheme.headlineSmall,
                 ),
                 _VerticalDivider(),
                 _TrendMetricItem(
@@ -72,15 +71,17 @@ class _MetricItem extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
           label,
-          style: theme.bodyMedium.override(color: theme.secondaryText),
+          style: textTheme.bodyMedium
+              ?.copyWith(color: colorScheme.onSurfaceVariant),
         ),
-        Text(value, style: valueStyle ?? theme.bodyLarge),
+        Text(value, style: valueStyle ?? textTheme.bodyLarge),
       ],
     );
   }
@@ -94,9 +95,10 @@ class _TrendMetricItem extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final bool isPositive = percentage >= 0;
-    final Color color = isPositive ? theme.success : theme.error;
+    final Color color = isPositive ? colorScheme.tertiary : colorScheme.error;
     final IconData icon = isPositive ? Icons.trending_up : Icons.trending_down;
 
     return Column(
@@ -104,7 +106,8 @@ class _TrendMetricItem extends StatelessWidget {
       children: [
         Text(
           label,
-          style: theme.bodyMedium.override(color: theme.secondaryText),
+          style: textTheme.bodyMedium
+              ?.copyWith(color: colorScheme.onSurfaceVariant),
         ),
         Row(
           children: [
@@ -112,7 +115,7 @@ class _TrendMetricItem extends StatelessWidget {
             const SizedBox(width: 8),
             Text(
               "${isPositive ? '+' : ''}${percentage.toStringAsFixed(0)}%",
-              style: theme.headlineSmall.override(color: color),
+              style: textTheme.headlineSmall?.copyWith(color: color),
             ),
           ],
         ),
@@ -126,6 +129,6 @@ class _VerticalDivider extends StatelessWidget {
   Widget build(final BuildContext context) => Container(
         width: 1,
         height: 40,
-        color: FlutterFlowTheme.of(context).alternate,
+        color: Theme.of(context).colorScheme.surfaceVariant,
       );
 }

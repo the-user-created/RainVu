@@ -7,7 +7,6 @@ import "package:rain_wise/features/settings/presentation/widgets/app_info_footer
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_list_tile.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 /// The main settings screen, composed of smaller, reusable widgets.
 class SettingsScreen extends ConsumerWidget {
@@ -15,14 +14,12 @@ class SettingsScreen extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
 
     return Scaffold(
-      backgroundColor: theme.secondaryBackground,
       appBar: AppBar(
-        backgroundColor: theme.primaryBackground,
         automaticallyImplyLeading: false,
-        title: Text("Settings", style: theme.headlineLarge),
+        title: Text("Settings", style: theme.textTheme.headlineLarge),
         elevation: 2,
         centerTitle: false,
       ),

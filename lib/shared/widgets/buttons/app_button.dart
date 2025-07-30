@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 /// Defines the visual style of the [AppButton].
 enum AppButtonStyle {
@@ -65,7 +64,8 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
     final bool isDisabled = onPressed == null || isLoading;
     final bool isOutline = style == AppButtonStyle.outline ||
         style == AppButtonStyle.outlineDestructive;
@@ -76,7 +76,7 @@ class AppButton extends StatelessWidget {
             child: CircularProgressIndicator(
               strokeWidth: 2,
               valueColor: AlwaysStoppedAnimation<Color>(
-                isOutline ? theme.primaryText : Colors.white,
+                isOutline ? colorScheme.onSurface : colorScheme.onPrimary,
               ),
             ),
           )
@@ -92,7 +92,7 @@ class AppButton extends StatelessWidget {
             ],
           );
 
-    final ButtonStyle buttonStyle = _getButtonStyle(theme);
+    final ButtonStyle buttonStyle = _getButtonStyle(context);
 
     final Widget button = isOutline
         ? OutlinedButton(
@@ -113,7 +113,10 @@ class AppButton extends StatelessWidget {
     return button;
   }
 
-  ButtonStyle _getButtonStyle(final FlutterFlowTheme theme) {
+  ButtonStyle _getButtonStyle(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+
     final EdgeInsets padding;
     final Size minimumSize;
 
@@ -129,8 +132,8 @@ class AppButton extends StatelessWidget {
     switch (style) {
       case AppButtonStyle.primary:
         return ElevatedButton.styleFrom(
-          backgroundColor: theme.accent1,
-          foregroundColor: Colors.white,
+          backgroundColor: colorScheme.primary,
+          foregroundColor: colorScheme.onPrimary,
           elevation: 2,
           padding: padding,
           minimumSize: minimumSize,
@@ -140,8 +143,8 @@ class AppButton extends StatelessWidget {
         );
       case AppButtonStyle.secondary:
         return ElevatedButton.styleFrom(
-          backgroundColor: theme.primary,
-          foregroundColor: Colors.white,
+          backgroundColor: colorScheme.secondary,
+          foregroundColor: colorScheme.onSecondary,
           elevation: 2,
           padding: padding,
           minimumSize: minimumSize,
@@ -151,8 +154,8 @@ class AppButton extends StatelessWidget {
         );
       case AppButtonStyle.destructive:
         return ElevatedButton.styleFrom(
-          backgroundColor: theme.error,
-          foregroundColor: Colors.white,
+          backgroundColor: colorScheme.error,
+          foregroundColor: colorScheme.onError,
           elevation: 2,
           padding: padding,
           minimumSize: minimumSize,
@@ -162,8 +165,8 @@ class AppButton extends StatelessWidget {
         );
       case AppButtonStyle.outline:
         return OutlinedButton.styleFrom(
-          foregroundColor: theme.primaryText,
-          side: BorderSide(color: theme.alternate),
+          foregroundColor: colorScheme.onSurface,
+          side: BorderSide(color: colorScheme.outline),
           elevation: 0,
           padding: padding,
           minimumSize: minimumSize,
@@ -173,8 +176,8 @@ class AppButton extends StatelessWidget {
         );
       case AppButtonStyle.outlineDestructive:
         return OutlinedButton.styleFrom(
-          foregroundColor: theme.error,
-          side: BorderSide(color: theme.error),
+          foregroundColor: colorScheme.error,
+          side: BorderSide(color: colorScheme.error),
           elevation: 0,
           padding: padding,
           minimumSize: minimumSize,
@@ -184,7 +187,7 @@ class AppButton extends StatelessWidget {
         ).copyWith(
           overlayColor: WidgetStateProperty.resolveWith<Color?>(
             (final states) => states.contains(WidgetState.hovered)
-                ? theme.error.withValues(alpha: 0.1)
+                ? colorScheme.error.withValues(alpha: 0.1)
                 : null,
           ),
         );

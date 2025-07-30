@@ -3,7 +3,6 @@ import "package:go_router/go_router.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/core/navigation/app_route_names.dart";
 import "package:rain_wise/features/insights/domain/monthly_breakdown_data.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class MonthlySummaryCard extends StatelessWidget {
@@ -18,10 +17,10 @@ class MonthlySummaryCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
     return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(20),
         child: Column(
@@ -34,18 +33,20 @@ class MonthlySummaryCard extends StatelessWidget {
                   children: [
                     Text(
                       DateFormat.yMMMM().format(selectedMonth),
-                      style: theme.headlineSmall,
+                      style: textTheme.headlineSmall,
                     ),
                     Text(
                       "Total Rainfall: ${stats.totalRainfall.toStringAsFixed(1)}mm",
-                      style: theme.titleMedium.override(color: theme.primary),
+                      style: textTheme.titleMedium
+                          ?.copyWith(color: colorScheme.secondary),
                     ),
                   ],
                 ),
                 AppIconButton(
-                  backgroundColor: theme.alternate,
+                  backgroundColor: colorScheme.surfaceVariant,
                   borderRadius: BorderRadius.circular(24),
-                  icon: Icon(Icons.edit, color: theme.primary, size: 28),
+                  icon:
+                      Icon(Icons.edit, color: colorScheme.secondary, size: 28),
                   tooltip: "Edit Entries",
                   onPressed: () {
                     final String monthParam =
@@ -91,13 +92,16 @@ class _StatItem extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
     return Column(
       children: [
-        Text(value, style: theme.headlineSmall),
+        Text(value, style: textTheme.headlineSmall),
         Text(
           label,
-          style: theme.bodySmall.override(color: theme.secondaryText),
+          style: textTheme.bodySmall
+              ?.copyWith(color: colorScheme.onSurfaceVariant),
         ),
       ],
     );

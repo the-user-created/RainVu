@@ -5,7 +5,6 @@ import "package:intl/intl.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
 import "package:rain_wise/features/rainfall_entry/domain/rainfall_entry.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
@@ -101,7 +100,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final AsyncValue<List<RainGauge>> gaugesAsync =
         ref.watch(rainGaugesProvider);
 
@@ -113,7 +112,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
         MediaQuery.of(context).viewInsets.bottom + 24,
       ),
       decoration: BoxDecoration(
-        color: theme.secondaryBackground,
+        color: theme.colorScheme.surface,
         borderRadius: const BorderRadius.only(
           topLeft: Radius.circular(16),
           topRight: Radius.circular(16),
@@ -126,9 +125,9 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Edit Rainfall Entry", style: theme.headlineSmall),
+              Text("Edit Rainfall Entry", style: theme.textTheme.headlineSmall),
               const SizedBox(height: 24),
-              Text("Rain Gauge", style: theme.titleMedium),
+              Text("Rain Gauge", style: theme.textTheme.titleMedium),
               const SizedBox(height: 8),
               gaugesAsync.when(
                 loading: () => const AppLoader(),
@@ -150,7 +149,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
                 ),
               ),
               const SizedBox(height: 16),
-              Text("Rainfall Amount", style: theme.titleMedium),
+              Text("Rainfall Amount", style: theme.textTheme.titleMedium),
               const SizedBox(height: 8),
               TextFormField(
                 controller: _amountController,
@@ -161,9 +160,8 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
                 ],
                 decoration: InputDecoration(
                   hintText: "Enter amount",
-                  border: const OutlineInputBorder(),
+                  fillColor: theme.colorScheme.background,
                   filled: true,
-                  fillColor: theme.primaryBackground,
                 ),
                 validator: (final value) {
                   if (value == null || value.isEmpty) {
@@ -176,13 +174,12 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
                 },
               ),
               const SizedBox(height: 16),
-              Text("Date & Time", style: theme.titleMedium),
+              Text("Date & Time", style: theme.textTheme.titleMedium),
               const SizedBox(height: 8),
               InkWell(
                 onTap: _pickDateTime,
                 child: InputDecorator(
                   decoration: const InputDecoration(
-                    border: OutlineInputBorder(),
                     contentPadding:
                         EdgeInsets.symmetric(horizontal: 12, vertical: 16),
                   ),
@@ -191,7 +188,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
                     children: [
                       Text(
                         DateFormat.yMMMd().add_jm().format(_selectedDate),
-                        style: theme.bodyLarge,
+                        style: theme.textTheme.bodyLarge,
                       ),
                       const Icon(Icons.calendar_today),
                     ],

@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class SubscriptionActionsCard extends StatelessWidget {
@@ -14,19 +13,18 @@ class SubscriptionActionsCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Card(
         elevation: 2,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        color: theme.primaryBackground,
         child: Padding(
           padding: const EdgeInsets.all(24),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text("Manage Subscription", style: theme.headlineSmall),
+              Text("Manage Subscription", style: theme.textTheme.headlineSmall),
               const SizedBox(height: 16),
               AppButton(
                 onPressed: onManagePlan,

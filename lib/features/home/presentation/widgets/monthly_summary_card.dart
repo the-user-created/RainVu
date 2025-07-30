@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:go_router/go_router.dart";
 import "package:rain_wise/core/navigation/app_route_names.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class RecentEntry {
   const RecentEntry({required this.dateLabel, required this.amount});
@@ -24,11 +23,11 @@ class MonthlySummaryCard extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: theme.primaryBackground,
+        color: theme.colorScheme.background,
         boxShadow: const [
           BoxShadow(
             blurRadius: 4,
@@ -61,50 +60,50 @@ class MonthlySummaryCard extends StatelessWidget {
 
   Widget _buildHeader(
     final BuildContext context,
-    final FlutterFlowTheme theme,
+    final ThemeData theme,
   ) =>
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
             "Monthly Rainfall",
-            style: theme.titleMedium.override(
+            style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
             ),
           ),
           Text(
             currentMonth,
-            style: theme.bodyMedium.override(
-              color: theme.secondaryText,
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
             ),
           ),
         ],
       );
 
-  Widget _buildTotal(final FlutterFlowTheme theme) => Row(
+  Widget _buildTotal(final ThemeData theme) => Row(
         children: [
-          Icon(Icons.water_drop, color: theme.primary, size: 36),
+          Icon(Icons.water_drop, color: theme.colorScheme.secondary, size: 36),
           const SizedBox(width: 8),
           Text(
             monthlyTotal,
-            style: theme.displaySmall.override(
-              color: theme.primary,
+            style: theme.textTheme.displaySmall?.copyWith(
+              color: theme.colorScheme.secondary,
               fontWeight: FontWeight.bold,
             ),
           ),
         ],
       );
 
-  Widget _buildRecentEntriesHeader(final FlutterFlowTheme theme) => Text(
+  Widget _buildRecentEntriesHeader(final ThemeData theme) => Text(
         "Recent Entries",
-        style: theme.labelMedium.override(
+        style: theme.textTheme.labelMedium?.copyWith(
           fontWeight: FontWeight.w600,
         ),
       );
 
   Widget _buildRecentEntryRow(
     final RecentEntry entry,
-    final FlutterFlowTheme theme,
+    final ThemeData theme,
   ) =>
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 4),
@@ -113,14 +112,14 @@ class MonthlySummaryCard extends StatelessWidget {
           children: [
             Text(
               entry.dateLabel,
-              style: theme.bodyMedium.override(
+              style: theme.textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w500,
               ),
             ),
             Text(
               entry.amount,
-              style: theme.bodyMedium.override(
-                color: theme.primary,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.secondary,
                 fontWeight: FontWeight.w600,
               ),
             ),
@@ -130,7 +129,7 @@ class MonthlySummaryCard extends StatelessWidget {
 
   Widget _buildViewHistoryButton(
     final BuildContext context,
-    final FlutterFlowTheme theme,
+    final ThemeData theme,
   ) =>
       Align(
         alignment: Alignment.centerRight,
@@ -144,13 +143,17 @@ class MonthlySummaryCard extends StatelessWidget {
             children: [
               Text(
                 "View Full History",
-                style: theme.bodyMedium.override(
-                  color: theme.primary,
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.secondary,
                   fontWeight: FontWeight.w600,
                 ),
               ),
               const SizedBox(width: 4),
-              Icon(Icons.arrow_forward_rounded, color: theme.primary, size: 20),
+              Icon(
+                Icons.arrow_forward_rounded,
+                color: theme.colorScheme.secondary,
+                size: 20,
+              ),
             ],
           ),
         ),

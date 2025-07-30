@@ -5,7 +5,6 @@ import "package:rain_wise/features/map/presentation/widgets/location_search_bar.
 import "package:rain_wise/features/map/presentation/widgets/map_controls.dart";
 import "package:rain_wise/features/map/presentation/widgets/map_view.dart";
 import "package:rain_wise/features/map/presentation/widgets/recent_rainfall_panel.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class MapScreen extends ConsumerWidget {
   const MapScreen({super.key});
@@ -16,20 +15,15 @@ class MapScreen extends ConsumerWidget {
         onTap: () => FocusScope.of(context).unfocus(),
         child: Scaffold(
           resizeToAvoidBottomInset: false,
-          backgroundColor: FlutterFlowTheme.of(context).secondaryBackground,
           body: Stack(
             children: [
               const MapView(),
-
-              // Search Bar
               const Padding(
                 padding: EdgeInsets.symmetric(
                   horizontal: AppConstants.horiEdgePadding,
                 ),
                 child: LocationSearchBar(),
               ),
-
-              // Map Controls
               Positioned(
                 top: 150,
                 right: AppConstants.horiEdgePadding - 8,
@@ -42,8 +36,6 @@ class MapScreen extends ConsumerWidget {
                   onZoomOutPressed: () => debugPrint("Zoom out pressed"),
                 ),
               ),
-
-              // Recent Rainfall Panel
               const Align(
                 alignment: Alignment.bottomCenter,
                 child: RecentRainfallPanel(),

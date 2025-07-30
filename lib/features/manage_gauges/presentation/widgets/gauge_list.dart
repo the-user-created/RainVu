@@ -3,7 +3,6 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/gauge_list_tile.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
 class GaugeList extends ConsumerWidget {
@@ -11,7 +10,7 @@ class GaugeList extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final AsyncValue<List<RainGauge>> gaugesAsync = ref.watch(gaugesProvider);
 
     return Card(
@@ -19,7 +18,7 @@ class GaugeList extends ConsumerWidget {
       elevation: 2,
       shadowColor: const Color(0x33000000),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      color: theme.primaryBackground,
+      color: theme.colorScheme.background,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: gaugesAsync.when(
@@ -31,19 +30,23 @@ class GaugeList extends ConsumerWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("My Rain Gauges", style: theme.titleLarge),
+                  Text("My Rain Gauges", style: theme.textTheme.titleLarge),
                   Text(
                     "${gauges.length} Active",
-                    style:
-                        theme.bodyMedium.override(color: theme.secondaryText),
+                    style: theme.textTheme.bodyMedium
+                        ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                   ),
                 ],
               ),
               const SizedBox(height: 16),
               if (gauges.isEmpty)
-                const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 32),
-                  child: Text("No rain gauges added yet."),
+                Padding(
+                  padding: const EdgeInsets.symmetric(vertical: 32),
+                  child: Text(
+                    "No rain gauges added yet.",
+                    style: theme.textTheme.bodyMedium
+                        ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                  ),
                 )
               else
                 ListView.separated(

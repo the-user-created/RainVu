@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class MapControls extends StatelessWidget {
@@ -71,17 +70,17 @@ class _MapControlButton extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     return Material(
       shape: const CircleBorder(),
-      color: theme.primaryBackground,
+      color: theme.colorScheme.surface,
       elevation: 4,
       shadowColor: Colors.black38,
       child: AppIconButton(
         icon: Icon(icon, size: 24),
         onPressed: onPressed,
         tooltip: tooltip,
-        color: theme.primaryText,
+        color: theme.colorScheme.onSurface,
       ),
     );
   }

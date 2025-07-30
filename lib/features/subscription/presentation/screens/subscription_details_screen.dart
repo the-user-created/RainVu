@@ -10,7 +10,6 @@ import "package:rain_wise/features/subscription/presentation/widgets/manage_plan
 import "package:rain_wise/features/subscription/presentation/widgets/payment_history_card.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/subscription_actions_card.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/subscription_terms_card.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
@@ -54,7 +53,7 @@ class SubscriptionDetailsScreen extends ConsumerWidget {
             onPressed: () => Navigator.of(context).pop(true),
             child: Text(
               "Yes, Cancel",
-              style: TextStyle(color: FlutterFlowTheme.of(context).error),
+              style: TextStyle(color: Theme.of(context).colorScheme.error),
             ),
           ),
         ],
@@ -76,17 +75,14 @@ class SubscriptionDetailsScreen extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
     final AsyncValue<UserSubscription> userSubscription =
         ref.watch(userSubscriptionProvider);
 
     return Scaffold(
       key: GlobalKey<ScaffoldState>(),
-      backgroundColor: theme.secondaryBackground,
       appBar: AppBar(
-        backgroundColor: theme.primaryBackground,
-        iconTheme: IconThemeData(color: theme.primaryText),
-        title: Text("My Subscription", style: theme.headlineMedium),
+        title: Text("My Subscription", style: theme.textTheme.headlineMedium),
         centerTitle: false,
       ),
       body: userSubscription.when(

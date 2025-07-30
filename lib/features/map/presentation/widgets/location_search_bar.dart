@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class LocationSearchBar extends StatefulWidget {
   const LocationSearchBar({super.key});
@@ -25,14 +24,14 @@ class _LocationSearchBarState extends State<LocationSearchBar> {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
 
-    // TODO: Implement location search functionality
     return SafeArea(
       child: Container(
         width: double.infinity,
         decoration: BoxDecoration(
-          color: theme.secondaryBackground,
+          color: colorScheme.surface,
           boxShadow: const [
             BoxShadow(
               blurRadius: 4,
@@ -48,35 +47,17 @@ class _LocationSearchBarState extends State<LocationSearchBar> {
             controller: _searchController,
             decoration: InputDecoration(
               hintText: "Search a location...",
-              hintStyle: theme.bodyMedium.override(
-                fontFamily: "Inter",
-                color: theme.secondaryText,
-                letterSpacing: 0,
-              ),
               prefixIcon: Icon(
                 Icons.search,
-                color: theme.primaryText,
+                color: colorScheme.onSurface,
                 size: 24,
               ),
               filled: true,
-              fillColor: theme.alternate,
-              border: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none,
-              ),
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide.none,
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.circular(12),
-                borderSide: BorderSide(color: theme.primary),
-              ),
+              fillColor: colorScheme.surfaceVariant,
+              border: InputBorder.none,
+              enabledBorder: InputBorder.none,
+              focusedBorder: InputBorder.none,
               contentPadding: const EdgeInsets.symmetric(vertical: 8),
-            ),
-            style: theme.bodyMedium.override(
-              fontFamily: "Inter",
-              letterSpacing: 0,
             ),
           ),
         ),

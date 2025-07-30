@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/comparative_analysis_data.dart";
 import "package:rain_wise/features/insights/presentation/widgets/comparative_analysis/yearly_summary_card.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 
 class YearlySummaryList extends StatelessWidget {
   const YearlySummaryList({
@@ -13,8 +12,9 @@ class YearlySummaryList extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
-    final List<Color> colors = [theme.primary, theme.tertiary];
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final List<Color> colors = [colorScheme.secondary, colorScheme.tertiary];
 
     if (summaries.isEmpty) {
       return const SizedBox.shrink();
@@ -29,7 +29,7 @@ class YearlySummaryList extends StatelessWidget {
             padding: const EdgeInsets.only(bottom: 16, left: 4),
             child: Text(
               "Yearly Summary",
-              style: theme.titleMedium,
+              style: theme.textTheme.titleMedium,
             ),
           ),
           ListView.separated(

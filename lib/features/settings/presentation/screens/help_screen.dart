@@ -6,7 +6,6 @@ import "package:rain_wise/features/settings/presentation/widgets/help/faq_tile.d
 import "package:rain_wise/features/settings/presentation/widgets/help/ticket_sheet.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
-import "package:rain_wise/flutter_flow/flutter_flow_theme.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 // Dummy data for FAQs. In a real app, this might come from a remote source.
@@ -43,7 +42,7 @@ class HelpScreen extends ConsumerWidget {
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: FlutterFlowTheme.of(context).secondaryBackground,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: const BorderRadius.only(
               topLeft: Radius.circular(16),
               topRight: Radius.circular(16),
@@ -56,79 +55,72 @@ class HelpScreen extends ConsumerWidget {
   }
 
   @override
-  Widget build(final BuildContext context, final WidgetRef ref) {
-    final FlutterFlowTheme theme = FlutterFlowTheme.of(context);
-
-    return Scaffold(
-      backgroundColor: theme.secondaryBackground,
-      appBar: AppBar(
-        backgroundColor: theme.primaryBackground,
-        iconTheme: IconThemeData(color: theme.primaryText),
-        title: Text("Help & Support", style: theme.headlineMedium),
-        elevation: 2,
-        centerTitle: false,
-      ),
-      body: ListView(
-        padding: const EdgeInsets.only(bottom: 32),
-        children: [
-          const SettingsSectionHeader(title: "FREQUENTLY ASKED QUESTIONS"),
-          SettingsCard(
-            children: _faqs
-                .map(
-                  (final faq) => FaqTile(
-                    question: faq["q"]!,
-                    answer: faq["a"]!,
-                  ),
-                )
-                .toList(),
-          ),
-          const SettingsSectionHeader(title: "CONTACT US"),
-          const SettingsCard(
-            children: [
-              ContactSupportTile(
-                title: "Email Support",
-                subtitle: "support@rainwiseapp.com",
-                icon: Icons.mail_outline,
-                url: "mailto:support@rainwiseapp.com",
-              ),
-            ],
-          ),
-          const SettingsSectionHeader(title: "HELP US IMPROVE"),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+  Widget build(final BuildContext context, final WidgetRef ref) => Scaffold(
+        appBar: AppBar(
+          title: const Text("Help & Support"),
+          elevation: 2,
+          centerTitle: false,
+        ),
+        body: ListView(
+          padding: const EdgeInsets.only(bottom: 32),
+          children: [
+            const SettingsSectionHeader(title: "FREQUENTLY ASKED QUESTIONS"),
+            SettingsCard(
+              children: _faqs
+                  .map(
+                    (final faq) => FaqTile(
+                      question: faq["q"]!,
+                      answer: faq["a"]!,
+                    ),
+                  )
+                  .toList(),
+            ),
+            const SettingsSectionHeader(title: "CONTACT US"),
+            const SettingsCard(
               children: [
-                AppButton(
-                  onPressed: () => _showTicketSheet(
-                    context,
-                    initialCategory: TicketCategory.bugReport,
-                  ),
-                  label: "Report a Problem",
-                  icon: const Icon(
-                    Icons.report_problem_outlined,
-                    color: Colors.white,
-                  ),
-                  style: AppButtonStyle.destructive,
-                  isExpanded: true,
-                ),
-                const SizedBox(height: 12),
-                AppButton(
-                  onPressed: () => _showTicketSheet(
-                    context,
-                    initialCategory: TicketCategory.generalFeedback,
-                  ),
-                  label: "Send Feedback",
-                  icon:
-                      const Icon(Icons.feedback_outlined, color: Colors.white),
-                  style: AppButtonStyle.secondary,
-                  isExpanded: true,
+                ContactSupportTile(
+                  title: "Email Support",
+                  subtitle: "support@rainwiseapp.com",
+                  icon: Icons.mail_outline,
+                  url: "mailto:support@rainwiseapp.com",
                 ),
               ],
             ),
-          ),
-        ],
-      ),
-    );
-  }
+            const SettingsSectionHeader(title: "HELP US IMPROVE"),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  AppButton(
+                    onPressed: () => _showTicketSheet(
+                      context,
+                      initialCategory: TicketCategory.bugReport,
+                    ),
+                    label: "Report a Problem",
+                    icon: const Icon(
+                      Icons.report_problem_outlined,
+                      color: Colors.white,
+                    ),
+                    style: AppButtonStyle.destructive,
+                    isExpanded: true,
+                  ),
+                  const SizedBox(height: 12),
+                  AppButton(
+                    onPressed: () => _showTicketSheet(
+                      context,
+                      initialCategory: TicketCategory.generalFeedback,
+                    ),
+                    label: "Send Feedback",
+                    icon: const Icon(Icons.feedback_outlined,
+                        color: Colors.white),
+                    style: AppButtonStyle.secondary,
+                    isExpanded: true,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      );
 }
