@@ -1,0 +1,24 @@
+{
+  "@@locale": "en",
+  "appName": "RainWise",
+  "comingSoon": "Coming Soon",
+  "@comingSoon": {
+    "description": "Default page title for a feature under development"
+  },
+  "comingSoonHeadline": "This Feature is on its Way!",
+  "comingSoonMessage": "We're working hard to bring you something amazing. Please check back later!",
+  "navHome": "Home",
+  "navInsights": "Insights",
+  "navMap": "Map",
+  "navSettings": "Settings",
+  "pageNotFound": "Page Not Found",
+  "pageNotFoundMessage": "The page you are looking for does not exist.\n\nError: {error}",
+  "@pageNotFoundMessage": {
+    "description": "Error message for a missing route, with a placeholder for the error details.",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  }
+}

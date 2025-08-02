@@ -1,0 +1,188 @@
+import "package:flutter/material.dart";
+import "package:go_router/go_router.dart";
+import "package:rain_wise/common/domain/coming_soon_args.dart";
+import "package:rain_wise/common/presentation/screens/coming_soon_screen.dart";
+import "package:rain_wise/core/navigation/app_route_names.dart";
+import "package:rain_wise/core/ui/scaffold_with_nav_bar.dart";
+import "package:rain_wise/features/data_tools/presentation/screens/data_tools_screen.dart";
+import "package:rain_wise/features/home/presentation/screens/home_screen.dart";
+import "package:rain_wise/features/insights/presentation/screens/anomaly_exploration_screen.dart";
+import "package:rain_wise/features/insights/presentation/screens/comparative_analysis_screen.dart";
+import "package:rain_wise/features/insights/presentation/screens/insights_screen.dart";
+import "package:rain_wise/features/insights/presentation/screens/monthly_breakdown_screen.dart";
+import "package:rain_wise/features/insights/presentation/screens/seasonal_patterns_screen.dart";
+import "package:rain_wise/features/manage_gauges/presentation/screens/manage_gauges_screen.dart";
+import "package:rain_wise/features/map/presentation/screens/map_screen.dart";
+import "package:rain_wise/features/rainfall_entry/presentation/screens/rainfall_entries_screen.dart";
+import "package:rain_wise/features/settings/presentation/screens/help_screen.dart";
+import "package:rain_wise/features/settings/presentation/screens/notifications_screen.dart";
+import "package:rain_wise/features/settings/presentation/screens/settings_screen.dart";
+import "package:rain_wise/features/subscription/presentation/screens/subscription_details_screen.dart";
+
+/// Defines the route configuration for the application.
+class AppRoutes {
+  // Private constructor to prevent instantiation
+  AppRoutes._();
+
+  // Navigator keys as instance members of a singleton
+  final rootNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "root");
+  final _homeNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "home");
+  final _insightsNavigatorKey =
+      GlobalKey<NavigatorState>(debugLabel: "insights");
+  final _mapNavigatorKey = GlobalKey<NavigatorState>(debugLabel: "map");
+  final _settingsNavigatorKey =
+      GlobalKey<NavigatorState>(debugLabel: "settings");
+
+  // Singleton instance
+  static final AppRoutes instance = AppRoutes._();
+
+  // Helper method to build sub-routes
+  GoRoute _buildSubRoute(
+    final String path,
+    final String name,
+    final Widget child,
+  ) =>
+      GoRoute(
+        path: path,
+        name: name,
+        parentNavigatorKey: rootNavigatorKey,
+        builder: (final context, final state) => child,
+      );
+
+  // Routes as instance getter
+  List<RouteBase> get routes => [
+        GoRoute(
+          path: "/",
+          redirect: (final _, final __) => AppRouteNames.homePath,
+        ),
+        StatefulShellRoute.indexedStack(
+          builder: (final context, final state, final navigationShell) =>
+              ScaffoldWithNavBar(navigationShell: navigationShell),
+          branches: [
+            StatefulShellBranch(
+              navigatorKey: _homeNavigatorKey,
+              routes: [
+                GoRoute(
+                  path: AppRouteNames.homePath,
+                  name: AppRouteNames.homeName,
+                  pageBuilder: (final context, final state) =>
+                      const NoTransitionPage(child: HomeScreen()),
+                  routes: [
+                    GoRoute(
+                      path: "rainfall-entries/:month",
+                      name: AppRouteNames.rainfallEntriesName,
+                      parentNavigatorKey: rootNavigatorKey,
+                      builder: (final context, final state) {
+                        final String month = state.pathParameters["month"]!;
+                        return RainfallEntriesScreen(month: month);
+                      },
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              navigatorKey: _insightsNavigatorKey,
+              routes: [
+                GoRoute(
+                  path: AppRouteNames.insightsPath,
+                  name: AppRouteNames.insightsName,
+                  pageBuilder: (final context, final state) =>
+                      const NoTransitionPage(child: InsightsScreen()),
+                  routes: [
+                    _buildSubRoute(
+                      AppRouteNames.monthlyBreakdownPath,
+                      AppRouteNames.monthlyBreakdownName,
+                      const MonthlyBreakdownScreen(),
+                    ),
+                    _buildSubRoute(
+                      AppRouteNames.seasonPatternsPath,
+                      AppRouteNames.seasonPatternsName,
+                      const SeasonalPatternsScreen(),
+                    ),
+                    _buildSubRoute(
+                      AppRouteNames.anomalyExplorePath,
+                      AppRouteNames.anomalyExploreName,
+                      const AnomalyExplorationScreen(),
+                    ),
+                    _buildSubRoute(
+                      AppRouteNames.comparativeAnalysisPath,
+                      AppRouteNames.comparativeAnalysisName,
+                      const ComparativeAnalysisScreen(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              navigatorKey: _mapNavigatorKey,
+              routes: [
+                GoRoute(
+                  path: AppRouteNames.mapPath,
+                  name: AppRouteNames.mapName,
+                  pageBuilder: (final context, final state) =>
+                      const NoTransitionPage(child: MapScreen()),
+                ),
+              ],
+            ),
+            StatefulShellBranch(
+              navigatorKey: _settingsNavigatorKey,
+              routes: [
+                GoRoute(
+                  path: AppRouteNames.settingsPath,
+                  name: AppRouteNames.settingsName,
+                  pageBuilder: (final context, final state) =>
+                      const NoTransitionPage(child: SettingsScreen()),
+                  routes: [
+                    _buildSubRoute(
+                      AppRouteNames.manageGaugesPath,
+                      AppRouteNames.manageGaugesName,
+                      const ManageGaugesScreen(),
+                    ),
+                    _buildSubRoute(
+                      AppRouteNames.notificationsPath,
+                      AppRouteNames.notificationsName,
+                      const NotificationsScreen(),
+                    ),
+                    _buildSubRoute(
+                      AppRouteNames.helpPath,
+                      AppRouteNames.helpName,
+                      const HelpScreen(),
+                    ),
+                    _buildSubRoute(
+                      AppRouteNames.mySubscriptionPath,
+                      AppRouteNames.mySubscriptionName,
+                      const SubscriptionDetailsScreen(),
+                    ),
+                    _buildSubRoute(
+                      AppRouteNames.dataToolsPath,
+                      AppRouteNames.dataToolsName,
+                      const DataToolsScreen(),
+                    ),
+                  ],
+                ),
+              ],
+            ),
+          ],
+        ),
+        GoRoute(
+          path: AppRouteNames.comingSoonPath,
+          name: AppRouteNames.comingSoonName,
+          builder: (final context, final state) {
+            // Default arguments if none are provided.
+            ComingSoonScreenArgs args = const ComingSoonScreenArgs();
+
+            // Safely check and cast the extra parameter.
+            if (state.extra is ComingSoonScreenArgs) {
+              args = state.extra! as ComingSoonScreenArgs;
+            }
+
+            return ComingSoonScreen(
+              pageTitle: args.pageTitle,
+              headline: args.headline,
+              message: args.message,
+            );
+          },
+        ),
+      ];
+}
