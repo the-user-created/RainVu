@@ -129,6 +129,6 @@ class _VerticalDivider extends StatelessWidget {
   Widget build(final BuildContext context) => Container(
         width: 1,
         height: 40,
-        color: Theme.of(context).colorScheme.surfaceVariant,
+        color: Theme.of(context).colorScheme.surfaceContainerHighest,
       );
 }

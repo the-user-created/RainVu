@@ -88,7 +88,7 @@ class RainfallEntryListItem extends ConsumerWidget {
             Row(
               children: [
                 AppIconButton(
-                  backgroundColor: theme.colorScheme.surfaceVariant,
+                  backgroundColor: theme.colorScheme.surfaceContainerHighest,
                   icon: Icon(
                     Icons.edit_outlined,
                     color: theme.colorScheme.secondary,
@@ -99,7 +99,7 @@ class RainfallEntryListItem extends ConsumerWidget {
                 ),
                 const SizedBox(width: 8),
                 AppIconButton(
-                  backgroundColor: theme.colorScheme.surfaceVariant,
+                  backgroundColor: theme.colorScheme.surfaceContainerHighest,
                   icon: Icon(
                     Icons.delete_outline,
                     color: theme.colorScheme.error,

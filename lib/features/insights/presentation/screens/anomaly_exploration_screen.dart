@@ -23,7 +23,7 @@ class AnomalyExplorationScreen extends ConsumerWidget {
         leading: AppIconButton(
           icon: Icon(
             Icons.arrow_back_rounded,
-            color: theme.colorScheme.onBackground,
+            color: theme.colorScheme.onSurface,
           ),
           onPressed: context.pop,
           tooltip: "Back",

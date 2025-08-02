@@ -63,7 +63,7 @@ class AppChoiceChips<T> extends StatelessWidget {
     final BorderRadius borderRadius = BorderRadius.circular(20);
 
     final Color selectedColor = colorScheme.secondary;
-    final Color unselectedColor = colorScheme.surfaceVariant;
+    final Color unselectedColor = colorScheme.surfaceContainerHighest;
     final Color selectedForegroundColor = colorScheme.onSecondary;
     final Color unselectedForegroundColor = colorScheme.onSurface;
 

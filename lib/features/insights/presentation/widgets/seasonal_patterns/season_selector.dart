@@ -23,7 +23,7 @@ class SeasonSelector extends ConsumerWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: colorScheme.surfaceVariant,
+        color: colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Row(
@@ -44,7 +44,7 @@ class SeasonSelector extends ConsumerWidget {
                   notifier.setFilter(season, filter.year);
                 }
               },
-              fillColor: colorScheme.surfaceVariant,
+              fillColor: colorScheme.surfaceContainerHighest,
               borderColor: Colors.transparent,
             ),
           ),
@@ -65,7 +65,7 @@ class SeasonSelector extends ConsumerWidget {
                   notifier.setFilter(filter.season, year);
                 }
               },
-              fillColor: colorScheme.surfaceVariant,
+              fillColor: colorScheme.surfaceContainerHighest,
               borderColor: Colors.transparent,
             ),
           ),

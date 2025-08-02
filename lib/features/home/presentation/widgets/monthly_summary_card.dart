@@ -27,7 +27,7 @@ class MonthlySummaryCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: theme.colorScheme.background,
+        color: theme.colorScheme.surface,
         boxShadow: const [
           BoxShadow(
             blurRadius: 4,

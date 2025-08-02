@@ -56,7 +56,7 @@ class _MonthlyBreakdownScreenState
         leading: AppIconButton(
           icon: Icon(
             Icons.arrow_back_rounded,
-            color: theme.colorScheme.onBackground,
+            color: theme.colorScheme.onSurface,
           ),
           onPressed: context.pop,
           tooltip: "Back",
@@ -68,7 +68,7 @@ class _MonthlyBreakdownScreenState
             child: AppIconButton(
               icon: Icon(
                 Icons.calendar_today,
-                color: theme.colorScheme.onBackground,
+                color: theme.colorScheme.onSurface,
               ),
               onPressed: _pickMonth,
               tooltip: "Select Month",

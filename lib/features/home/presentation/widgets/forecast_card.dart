@@ -72,8 +72,8 @@ class ForecastCard extends StatelessWidget {
         ],
         gradient: LinearGradient(
           colors: [
-            theme.colorScheme.background,
-            theme.colorScheme.surfaceVariant,
+            theme.colorScheme.surface,
+            theme.colorScheme.surfaceContainerHighest,
           ],
           stops: const [0, 1],
           begin: Alignment.topCenter,

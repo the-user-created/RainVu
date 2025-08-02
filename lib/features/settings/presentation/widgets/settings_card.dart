@@ -18,14 +18,14 @@ class SettingsCard extends StatelessWidget {
       child: Card(
         clipBehavior: Clip.antiAlias,
         shadowColor: const Color(0x33000000),
-        color: theme.colorScheme.background,
+        color: theme.colorScheme.surface,
         margin: EdgeInsets.zero,
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: ListTile.divideTiles(
             context: context,
             tiles: children,
-            color: theme.colorScheme.surfaceVariant,
+            color: theme.colorScheme.surfaceContainerHighest,
           ).toList(),
         ),
       ),
