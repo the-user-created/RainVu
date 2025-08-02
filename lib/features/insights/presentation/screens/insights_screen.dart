@@ -31,14 +31,14 @@ class InsightsScreen extends ConsumerWidget {
             child: AppIconButton(
               icon: Icon(
                 Icons.info_outline,
-                color: theme.colorScheme.onBackground,
+                color: theme.colorScheme.onSurface,
                 size: 24,
               ),
               onPressed: () {
                 // TODO: Implement info dialog
               },
               tooltip: "Info",
-              backgroundColor: theme.colorScheme.surfaceVariant,
+              backgroundColor: theme.colorScheme.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(20),
             ),
           ),

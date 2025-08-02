@@ -26,7 +26,7 @@ class SeasonalPatternsScreen extends ConsumerWidget {
         leading: AppIconButton(
           icon: Icon(
             Icons.arrow_back_rounded,
-            color: theme.colorScheme.onBackground,
+            color: theme.colorScheme.onSurface,
           ),
           onPressed: context.pop,
           tooltip: "Back",
@@ -74,7 +74,7 @@ class _Header extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return DecoratedBox(
       decoration: BoxDecoration(
-        color: theme.colorScheme.background,
+        color: theme.colorScheme.surface,
         borderRadius: const BorderRadius.only(
           bottomLeft: Radius.circular(16),
           bottomRight: Radius.circular(16),

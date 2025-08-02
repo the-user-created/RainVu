@@ -20,7 +20,7 @@ class KeyMetricsSection extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: colorScheme.background,
+        color: colorScheme.surface,
         boxShadow: const [
           BoxShadow(
             blurRadius: 4,
@@ -109,7 +109,7 @@ class _MetricCard extends StatelessWidget {
 
     return Card(
       elevation: 2,
-      color: colorScheme.surfaceVariant,
+      color: colorScheme.surfaceContainerHighest,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),

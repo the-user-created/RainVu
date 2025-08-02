@@ -53,7 +53,7 @@ class _LocationSearchBarState extends State<LocationSearchBar> {
                 size: 24,
               ),
               filled: true,
-              fillColor: colorScheme.surfaceVariant,
+              fillColor: colorScheme.surfaceContainerHighest,
               border: InputBorder.none,
               enabledBorder: InputBorder.none,
               focusedBorder: InputBorder.none,

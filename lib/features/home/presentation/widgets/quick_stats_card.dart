@@ -18,7 +18,7 @@ class QuickStatsCard extends StatelessWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: theme.colorScheme.background,
+        color: theme.colorScheme.surface,
         boxShadow: const [
           BoxShadow(
             blurRadius: 4,
@@ -66,7 +66,7 @@ class _StatItem extends StatelessWidget {
       child: Container(
         width: 100,
         decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceVariant,
+          color: theme.colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Padding(

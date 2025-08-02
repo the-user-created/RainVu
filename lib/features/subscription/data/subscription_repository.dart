@@ -105,5 +105,6 @@ class SubscriptionRepository {
 
 @riverpod
 SubscriptionRepository subscriptionRepository(
-        final SubscriptionRepositoryRef ref) =>
+  final SubscriptionRepositoryRef ref,
+) =>
     SubscriptionRepository();

@@ -17,7 +17,7 @@ class AnomalyFilterOptions extends ConsumerWidget {
       padding: const EdgeInsets.all(16),
       margin: const EdgeInsets.symmetric(horizontal: 16),
       decoration: BoxDecoration(
-        color: colorScheme.background,
+        color: colorScheme.surface,
         boxShadow: const [
           BoxShadow(
             blurRadius: 4,
@@ -69,15 +69,18 @@ class _DateRangePicker extends ConsumerWidget {
       },
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: colorScheme.surfaceVariant,
+          color: colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Padding(
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           child: Row(
             children: [
-              Icon(Icons.calendar_today,
-                  color: colorScheme.secondary, size: 20),
+              Icon(
+                Icons.calendar_today,
+                color: colorScheme.secondary,
+                size: 20,
+              ),
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
@@ -105,7 +108,7 @@ class _SeveritySelector extends ConsumerWidget {
       onTap: () => _showSeverityDialog(context, ref),
       child: DecoratedBox(
         decoration: BoxDecoration(
-          color: colorScheme.surfaceVariant,
+          color: colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Padding(

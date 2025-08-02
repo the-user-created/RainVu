@@ -26,8 +26,11 @@ String dateTimeFormat(
 
   if (format == "relative") {
     _setTimeagoLocales();
-    return timeago.format(dateTime,
-        locale: effectiveLocale, allowFromNow: true);
+    return timeago.format(
+      dateTime,
+      locale: effectiveLocale,
+      allowFromNow: true,
+    );
   }
 
   return DateFormat(format, effectiveLocale).format(dateTime);

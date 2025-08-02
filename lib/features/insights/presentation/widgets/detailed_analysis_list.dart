@@ -67,7 +67,7 @@ class _AnalysisListTile extends StatelessWidget {
 
     return Card(
       elevation: 2,
-      color: colorScheme.background,
+      color: colorScheme.surface,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),

@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
-import "package:rain_wise/features/insights/domain/monthly_breakdown_data.dart";
 import "package:rain_wise/core/ui/custom_colors.dart";
+import "package:rain_wise/features/insights/domain/monthly_breakdown_data.dart";
 
 class DailyBreakdownList extends StatelessWidget {
   const DailyBreakdownList({required this.breakdownItems, super.key});
@@ -65,7 +65,10 @@ class _DailyBreakdownListItem extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Text(DateFormat("MMM d").format(item.date), style: textTheme.bodyMedium),
+          Text(
+            DateFormat("MMM d").format(item.date),
+            style: textTheme.bodyMedium,
+          ),
           Text(
             "${item.rainfall.toStringAsFixed(1)}mm",
             style: textTheme.bodyMedium,

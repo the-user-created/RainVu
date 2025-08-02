@@ -43,7 +43,7 @@ class MonthlySummaryCard extends StatelessWidget {
                   ],
                 ),
                 AppIconButton(
-                  backgroundColor: colorScheme.surfaceVariant,
+                  backgroundColor: colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(24),
                   icon:
                       Icon(Icons.edit, color: colorScheme.secondary, size: 28),

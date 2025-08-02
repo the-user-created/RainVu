@@ -16,7 +16,7 @@ class MtdBreakdownCard extends StatelessWidget {
 
     return Card(
       elevation: 2,
-      color: theme.colorScheme.surfaceVariant,
+      color: theme.colorScheme.surfaceContainerHighest,
       shape: RoundedRectangleBorder(
         borderRadius: BorderRadius.circular(16),
       ),

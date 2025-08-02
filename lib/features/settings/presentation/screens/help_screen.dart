@@ -112,8 +112,10 @@ class HelpScreen extends ConsumerWidget {
                       initialCategory: TicketCategory.generalFeedback,
                     ),
                     label: "Send Feedback",
-                    icon: const Icon(Icons.feedback_outlined,
-                        color: Colors.white),
+                    icon: const Icon(
+                      Icons.feedback_outlined,
+                      color: Colors.white,
+                    ),
                     style: AppButtonStyle.secondary,
                     isExpanded: true,
                   ),

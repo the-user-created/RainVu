@@ -160,7 +160,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
                 ],
                 decoration: InputDecoration(
                   hintText: "Enter amount",
-                  fillColor: theme.colorScheme.background,
+                  fillColor: theme.colorScheme.surface,
                   filled: true,
                 ),
                 validator: (final value) {

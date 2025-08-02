@@ -20,7 +20,7 @@ class _RainfallTrendsCardState extends State<RainfallTrendsCard> {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        color: theme.colorScheme.background,
+        color: theme.colorScheme.surface,
         boxShadow: const [
           BoxShadow(
             blurRadius: 4,
@@ -113,7 +113,7 @@ class _RainfallTrendsCardState extends State<RainfallTrendsCard> {
         width: double.infinity,
         height: 180,
         decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceVariant,
+          color: theme.colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(8),
         ),
         child: Center(

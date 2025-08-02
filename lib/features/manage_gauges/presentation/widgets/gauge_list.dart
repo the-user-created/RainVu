@@ -18,7 +18,7 @@ class GaugeList extends ConsumerWidget {
       elevation: 2,
       shadowColor: const Color(0x33000000),
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      color: theme.colorScheme.background,
+      color: theme.colorScheme.surface,
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: gaugesAsync.when(

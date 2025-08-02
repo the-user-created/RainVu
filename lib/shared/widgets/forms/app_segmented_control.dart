@@ -59,7 +59,7 @@ class AppSegmentedControl<T> extends StatelessWidget {
       child: Container(
         height: height,
         decoration: BoxDecoration(
-          color: colorScheme.surfaceVariant,
+          color: colorScheme.surfaceContainerHighest,
           borderRadius: effectiveBorderRadius,
         ),
         child: Row(
