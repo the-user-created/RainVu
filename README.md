@@ -183,12 +183,26 @@ This project uses `flutter_dotenv` to manage environment variables for Firebase 
 ### Firebase Setup
 
 1. **Firebase Project:** Ensure you have access to the Firebase project associated with this app.
-2. **Configuration Files:**
+2. **Client Configuration Files:**
     * **Android:** Download the `google-services.json` file from your Firebase project settings and
       place it in the `android/app/` directory.
     * **iOS:** Download the `GoogleService-Info.plist` file from your Firebase project settings and
       place it in the `ios/Runner/` directory.
-    * **These files are critical and should not be committed to a public repository.**
+    * **These files are critical for connecting the app to Firebase services and should not be
+      committed
+      to a public repository.**
+3. **Backend Configuration (Firebase Console):**
+   The backend configuration (Firestore rules, indexes, and Cloud Functions) is managed directly in
+   the [Firebase Console](https://console.firebase.google.com/) and is not part of this repository.
+   You will need to configure the following:
+    * **Firestore Security Rules:** Implement rules to secure your data. At a minimum, ensure that
+      users
+      can only read and write their own documents in collections like `users`, `gauges`, and
+      `rainfall_entries`.
+    * **Firestore Indexes:** As your query complexity grows, you may need to add composite indexes.
+      The
+      Firebase Console will typically provide a direct link to create any missing indexes that your
+      app's queries require.
 
 ## Running the App
 
