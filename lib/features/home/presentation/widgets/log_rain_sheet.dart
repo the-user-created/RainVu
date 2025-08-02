@@ -1,0 +1,262 @@
+import "package:flutter/material.dart";
+import "package:flutter/services.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:intl/intl.dart";
+import "package:rain_wise/app_constants.dart";
+import "package:rain_wise/features/home/application/home_providers.dart";
+import "package:rain_wise/features/home/domain/rain_gauge.dart";
+import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
+import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
+
+class LogRainSheet extends ConsumerStatefulWidget {
+  const LogRainSheet({super.key});
+
+  @override
+  ConsumerState<LogRainSheet> createState() => _LogRainSheetState();
+}
+
+class _LogRainSheetState extends ConsumerState<LogRainSheet> {
+  final _formKey = GlobalKey<FormState>();
+  late TextEditingController _amountController;
+
+  // State for form fields
+  String? _selectedGaugeId;
+  String _selectedUnit = "mm"; // TODO: Load from user preferences
+  DateTime _selectedDateTime = DateTime.now();
+
+  @override
+  void initState() {
+    super.initState();
+    _amountController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    _amountController.dispose();
+    super.dispose();
+  }
+
+  Future<void> _selectDateTime() async {
+    final DateTime? pickedDate = await showDatePicker(
+      context: context,
+      initialDate: _selectedDateTime,
+      firstDate: DateTime(1900),
+      lastDate: DateTime.now().add(const Duration(days: 365)),
+    );
+
+    if (pickedDate == null || !mounted) {
+      return;
+    }
+
+    final TimeOfDay? pickedTime = await showTimePicker(
+      context: context,
+      initialTime: TimeOfDay.fromDateTime(_selectedDateTime),
+    );
+
+    if (pickedTime != null) {
+      setState(() {
+        _selectedDateTime = DateTime(
+          pickedDate.year,
+          pickedDate.month,
+          pickedDate.day,
+          pickedTime.hour,
+          pickedTime.minute,
+        );
+      });
+    }
+  }
+
+  Future<void> _saveRainfallData() async {
+    FocusScope.of(context).unfocus();
+
+    if (!(_formKey.currentState?.validate() ?? false) ||
+        _selectedGaugeId == null) {
+      return;
+    }
+
+    final bool success =
+        await ref.read(logRainControllerProvider.notifier).saveEntry(
+              gaugeId: _selectedGaugeId!,
+              amount: double.parse(_amountController.text),
+              unit: _selectedUnit,
+              date: _selectedDateTime,
+            );
+
+    if (mounted && success) {
+      Navigator.pop(context);
+    }
+  }
+
+  @override
+  Widget build(final BuildContext context) {
+    final AsyncValue<List<RainGauge>> gaugesAsync =
+        ref.watch(userGaugesProvider);
+    final AsyncValue<void> logRainState = ref.watch(logRainControllerProvider);
+    final ThemeData theme = Theme.of(context);
+
+    return Container(
+      width: double.infinity,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surface,
+        borderRadius: const BorderRadius.only(
+          topLeft: Radius.circular(16),
+          topRight: Radius.circular(16),
+        ),
+      ),
+      child: Padding(
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppConstants.horiEdgePadding,
+          vertical: 16,
+        ),
+        child: SingleChildScrollView(
+          child: Form(
+            key: _formKey,
+            child: Column(
+              mainAxisSize: MainAxisSize.min,
+              children: [
+                Text(
+                  "Log Rainfall",
+                  style: theme.textTheme.headlineSmall,
+                ),
+                const SizedBox(height: 16),
+                _buildSectionHeader("Select Rain Gauge"),
+                gaugesAsync.when(
+                  loading: () => const AppLoader(),
+                  error: (final err, final st) =>
+                      Text("Error loading gauges: $err"),
+                  data: (final gauges) => AppDropdownFormField<String>(
+                    value: _selectedGaugeId,
+                    hintText: "Select...",
+                    onChanged: (final newValue) {
+                      setState(() {
+                        _selectedGaugeId = newValue;
+                      });
+                    },
+                    items: gauges
+                        .map(
+                          (final gauge) => DropdownMenuItem(
+                            value: gauge.id,
+                            child: Text(gauge.name),
+                          ),
+                        )
+                        .toList(),
+                    validator: (final value) =>
+                        value == null ? "Please select a gauge" : null,
+                  ),
+                ),
+                const SizedBox(height: 16),
+                _buildSectionHeader("Rainfall Amount"),
+                Row(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Expanded(
+                      flex: 3,
+                      child: TextFormField(
+                        controller: _amountController,
+                        decoration: const InputDecoration(
+                          hintText: "Enter amount",
+                        ),
+                        keyboardType: const TextInputType.numberWithOptions(
+                          decimal: true,
+                        ),
+                        validator: (final val) {
+                          if (val == null || val.isEmpty) {
+                            return "Amount cannot be empty";
+                          }
+                          if (double.tryParse(val) == null) {
+                            return "Please enter a valid number";
+                          }
+                          return null;
+                        },
+                        inputFormatters: [
+                          FilteringTextInputFormatter.allow(
+                            RegExp(r"^\d+\.?\d*"),
+                          ),
+                        ],
+                      ),
+                    ),
+                    const SizedBox(width: 8),
+                    Expanded(
+                      flex: 2,
+                      child: AppSegmentedControl<String>(
+                        selectedValue: _selectedUnit,
+                        onSelectionChanged: (final value) {
+                          setState(() {
+                            _selectedUnit = value;
+                          });
+                        },
+                        segments: const [
+                          SegmentOption(
+                            value: "mm",
+                            label: Text("mm"),
+                          ),
+                          SegmentOption(
+                            value: "in",
+                            label: Text("in"),
+                          ),
+                        ],
+                      ),
+                    ),
+                  ],
+                ),
+                const SizedBox(height: 16),
+                _buildSectionHeader("Date & Time"),
+                InkWell(
+                  onTap: _selectDateTime,
+                  child: Container(
+                    width: double.infinity,
+                    height: 60,
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.surface,
+                      borderRadius: BorderRadius.circular(8),
+                      border: Border.all(color: theme.colorScheme.outline),
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(horizontal: 12),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Text(
+                            DateFormat.yMMMd()
+                                .add_jm()
+                                .format(_selectedDateTime),
+                            style: theme.textTheme.bodyLarge,
+                          ),
+                          Icon(
+                            Icons.calendar_today,
+                            color: theme.colorScheme.onSurface,
+                            size: 24,
+                          ),
+                        ],
+                      ),
+                    ),
+                  ),
+                ),
+                const SizedBox(height: 24),
+                AppButton(
+                  onPressed: _saveRainfallData,
+                  label: "Save Rainfall Data",
+                  isLoading: logRainState.isLoading,
+                  isExpanded: true,
+                ),
+              ],
+            ),
+          ),
+        ),
+      ),
+    );
+  }
+
+  Widget _buildSectionHeader(final String title) => Align(
+        alignment: Alignment.centerLeft,
+        child: Padding(
+          padding: const EdgeInsets.only(bottom: 8),
+          child: Text(
+            title,
+            style: Theme.of(context).textTheme.titleLarge,
+          ),
+        ),
+      );
+}
