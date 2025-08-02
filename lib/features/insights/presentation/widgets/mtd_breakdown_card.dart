@@ -23,24 +23,21 @@ class MtdBreakdownCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
-          mainAxisSize: MainAxisSize.min,
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
               data.month,
               style: textTheme.titleMedium,
             ),
-            const SizedBox(height: 8),
             _DataRow(
               label: "Total",
               value: "${data.mtdTotal}mm",
             ),
-            const SizedBox(height: 8),
             _ComparisonRow(
               label: "2yr avg",
               currentValue: data.mtdTotal,
               comparisonValue: data.twoYrAvg,
             ),
-            const SizedBox(height: 8),
             _ComparisonRow(
               label: "5yr avg",
               currentValue: data.mtdTotal,
