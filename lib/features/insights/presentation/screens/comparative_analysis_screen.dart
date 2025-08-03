@@ -42,18 +42,12 @@ class ComparativeAnalysisScreen extends ConsumerWidget {
           Expanded(
             child: dataAsync.when(
               loading: () => const Center(child: AppLoader()),
-              error: (final err, final stack) {
-                // Ignore the custom "loading" error from the provider
-                if (err.toString().contains("loading")) {
-                  return const Center(child: AppLoader());
-                }
-                return Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Text("An error occurred: $err"),
-                  ),
-                );
-              },
+              error: (final err, final stack) => Center(
+                child: Padding(
+                  padding: const EdgeInsets.all(16),
+                  child: Text("An error occurred: $err"),
+                ),
+              ),
               data: (final data) {
                 if (data.summaries.isEmpty) {
                   return const Center(

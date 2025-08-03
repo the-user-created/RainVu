@@ -111,26 +111,18 @@ class ComparativeAnalysisFilterNotifier
 Future<ComparativeAnalysisData> comparativeAnalysisData(
   final ComparativeAnalysisDataRef ref,
 ) async {
-  final AsyncValue<ComparativeFilter> filterAsync =
-      ref.watch(comparativeAnalysisFilterNotifierProvider);
+  // Await the filter provider. This will correctly propagate loading/error states.
+  final ComparativeFilter filter =
+      await ref.watch(comparativeAnalysisFilterNotifierProvider.future);
 
-  // When the filter state is ready, fetch the data.
-  // Otherwise, propagate the loading/error state.
-  return filterAsync.when(
-    data: (final filter) {
-      if (filter.year1 == filter.year2) {
-        // Return an empty state if the same year is selected for comparison.
-        return const ComparativeAnalysisData(
-          summaries: [],
-          chartData: ComparativeChartData(labels: [], series: []),
-        );
-      }
-      return ref
-          .watch(mockComparativeAnalysisRepositoryProvider)
-          .fetchComparativeData(filter);
-    },
-    loading: () => Future.error("loading"),
-    // Custom state to keep UI in loading
-    error: Future.error,
-  );
+  if (filter.year1 == filter.year2) {
+    // Return an empty state if the same year is selected for comparison.
+    return const ComparativeAnalysisData(
+      summaries: [],
+      chartData: ComparativeChartData(labels: [], series: []),
+    );
+  }
+  return ref
+      .watch(mockComparativeAnalysisRepositoryProvider)
+      .fetchComparativeData(filter);
 }
