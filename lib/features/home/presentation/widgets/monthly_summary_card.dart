@@ -1,12 +1,6 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/core/navigation/app_router.dart";
-
-class RecentEntry {
-  const RecentEntry({required this.dateLabel, required this.amount});
-
-  final String dateLabel;
-  final String amount;
-}
+import "package:rain_wise/features/home/domain/home_data.dart";
 
 class MonthlySummaryCard extends StatelessWidget {
   const MonthlySummaryCard({

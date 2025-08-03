@@ -1,65 +1,23 @@
 import "dart:ui";
 
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/utils/extensions.dart";
+import "package:rain_wise/features/home/application/home_providers.dart";
+import "package:rain_wise/features/home/domain/forecast.dart";
+import "package:rain_wise/shared/widgets/app_loader.dart";
 
-// TODO: Create domain models for forecast data
-class ForecastDay {
-  const ForecastDay({
-    required this.day,
-    required this.icon,
-    required this.iconColor,
-    required this.temperature,
-    required this.chanceOfRain,
-  });
-
-  final String day;
-  final IconData icon;
-  final Color iconColor;
-  final String temperature;
-  final String chanceOfRain;
-}
-
-class ForecastCard extends StatelessWidget {
+class ForecastCard extends ConsumerWidget {
   const ForecastCard({this.isProUser = false, super.key});
 
   final bool isProUser;
 
-  // TODO: Replace with real data from a provider
-  final List<ForecastDay> forecastDays = const [
-    ForecastDay(
-      day: "Today",
-      icon: Icons.wb_sunny,
-      iconColor: Color(0xFFFFC107),
-      temperature: "24°C",
-      chanceOfRain: "10%",
-    ),
-    ForecastDay(
-      day: "Tue",
-      icon: Icons.cloud,
-      iconColor: Color(0xFF90A4AE),
-      temperature: "22°C",
-      chanceOfRain: "30%",
-    ),
-    ForecastDay(
-      day: "Wed",
-      icon: Icons.grain,
-      iconColor: Color(0xFF6995A7),
-      temperature: "20°C",
-      chanceOfRain: "80%",
-    ),
-    ForecastDay(
-      day: "Thu",
-      icon: Icons.wb_cloudy,
-      iconColor: Color(0xFF90A4AE),
-      temperature: "23°C",
-      chanceOfRain: "20%",
-    ),
-  ];
-
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AsyncValue<List<ForecastDay>> forecastAsync =
+        ref.watch(forecastProvider);
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -94,16 +52,21 @@ class ForecastCard extends StatelessWidget {
                   sigmaX: isProUser ? 0 : 3,
                   sigmaY: isProUser ? 0 : 3,
                 ),
-                child: ListView.separated(
-                  padding: EdgeInsets.zero,
-                  scrollDirection: Axis.horizontal,
-                  itemCount: forecastDays.length,
-                  separatorBuilder: (final context, final index) =>
-                      const SizedBox(width: 16),
-                  itemBuilder: (final context, final index) {
-                    final ForecastDay day = forecastDays[index];
-                    return _ForecastDayItem(day: day);
-                  },
+                child: forecastAsync.when(
+                  loading: () => const AppLoader(),
+                  error: (final err, final _) =>
+                      Center(child: Text("Error: $err")),
+                  data: (final forecastDays) => ListView.separated(
+                    padding: EdgeInsets.zero,
+                    scrollDirection: Axis.horizontal,
+                    itemCount: forecastDays.length,
+                    separatorBuilder: (final context, final index) =>
+                        const SizedBox(width: 16),
+                    itemBuilder: (final context, final index) {
+                      final ForecastDay day = forecastDays[index];
+                      return _ForecastDayItem(day: day);
+                    },
+                  ),
                 ),
               ),
             ),

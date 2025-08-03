@@ -1,6 +1,4 @@
 import "package:freezed_annotation/freezed_annotation.dart";
-import "package:rain_wise/features/home/presentation/widgets/monthly_summary_card.dart";
-import "package:rain_wise/features/home/presentation/widgets/quick_stats_card.dart";
 
 part "home_data.freezed.dart";
 
@@ -14,4 +12,18 @@ abstract class HomeData with _$HomeData {
     required final List<QuickStat> quickStats,
     // We would add forecast and trends data here too
   }) = _HomeData;
+}
+
+class RecentEntry {
+  const RecentEntry({required this.dateLabel, required this.amount});
+
+  final String dateLabel;
+  final String amount;
+}
+
+class QuickStat {
+  const QuickStat({required this.value, required this.label});
+
+  final String value;
+  final String label;
 }

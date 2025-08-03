@@ -1,3 +1,5 @@
+import "package:rain_wise/features/settings/data/settings_repository.dart";
+import "package:rain_wise/features/settings/domain/faq.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "settings_providers.g.dart";
@@ -7,7 +9,6 @@ part "settings_providers.g.dart";
 @riverpod
 bool isProUser(final IsProUserRef ref) => true;
 // Mock implementation: Assume the user is a Pro user.
-// To test the alternative (hiding the 'Last Synced' footer), return false.
 
 /// Provider to get the last sync timestamp.
 /// In a real app, this would fetch from a repository or local storage.
@@ -18,3 +19,8 @@ Future<DateTime?> lastSynced(final LastSyncedRef ref) async {
   await Future.delayed(const Duration(milliseconds: 500));
   return DateTime.now().subtract(const Duration(minutes: 15));
 }
+
+/// Provider to fetch the list of Frequently Asked Questions.
+@riverpod
+Future<List<Faq>> faqs(final FaqsRef ref) async =>
+    ref.watch(settingsRepositoryProvider).getFaqs();
