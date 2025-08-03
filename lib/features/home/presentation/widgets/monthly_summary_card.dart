@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
-import "package:go_router/go_router.dart";
-import "package:rain_wise/core/navigation/app_route_names.dart";
+import "package:rain_wise/core/navigation/app_router.dart";
 
 class RecentEntry {
   const RecentEntry({required this.dateLabel, required this.amount});
@@ -136,7 +135,7 @@ class MonthlySummaryCard extends StatelessWidget {
         child: InkWell(
           onTap: () {
             // TODO: Take user to monthly breakdown for the *current* month
-            context.pushNamed(AppRouteNames.monthlyBreakdownName);
+            const MonthlyBreakdownRoute().push(context);
           },
           child: Row(
             mainAxisSize: MainAxisSize.min,

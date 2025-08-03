@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
-import "package:go_router/go_router.dart";
 import "package:intl/intl.dart";
-import "package:rain_wise/core/navigation/app_route_names.dart";
+import "package:rain_wise/core/navigation/app_router.dart";
 import "package:rain_wise/features/insights/domain/monthly_breakdown_data.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -51,9 +50,8 @@ class MonthlySummaryCard extends StatelessWidget {
                   onPressed: () {
                     final String monthParam =
                         DateFormat("yyyy-MM").format(selectedMonth);
-                    context.pushNamed(
-                      AppRouteNames.rainfallEntriesName,
-                      pathParameters: {"month": monthParam},
+                    RainfallEntriesRoute(month: monthParam).push(
+                      context,
                     );
                   },
                 ),

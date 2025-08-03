@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
-import "package:go_router/go_router.dart";
-import "package:rain_wise/core/navigation/app_route_names.dart";
+import "package:rain_wise/core/navigation/app_router.dart";
 
 class DetailedAnalysisList extends StatelessWidget {
   const DetailedAnalysisList({super.key});
@@ -21,26 +20,25 @@ class DetailedAnalysisList extends StatelessWidget {
           _AnalysisListTile(
             title: "Monthly Breakdown",
             subtitle: "View detailed monthly statistics",
-            onTap: () => context.pushNamed(AppRouteNames.monthlyBreakdownName),
+            onTap: () => const MonthlyBreakdownRoute().push(context),
           ),
           const SizedBox(height: 16),
           _AnalysisListTile(
             title: "Seasonal Patterns",
             subtitle: "Analyze rainfall patterns by season",
-            onTap: () => context.pushNamed(AppRouteNames.seasonPatternsName),
+            onTap: () => const SeasonalPatternsRoute().push(context),
           ),
           const SizedBox(height: 16),
           _AnalysisListTile(
             title: "Anomaly Exploration",
             subtitle: "Analyze unusual patterns in rainfall data",
-            onTap: () => context.pushNamed(AppRouteNames.anomalyExploreName),
+            onTap: () => const AnomalyExplorationRoute().push(context),
           ),
           const SizedBox(height: 16),
           _AnalysisListTile(
             title: "Comparative Yearly Analysis",
             subtitle: "See side-by-side comparisons of multiple years",
-            onTap: () =>
-                context.pushNamed(AppRouteNames.comparativeAnalysisName),
+            onTap: () => const ComparativeAnalysisRoute().push(context),
           ),
         ],
       ),

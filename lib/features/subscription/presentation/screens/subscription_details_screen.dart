@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:go_router/go_router.dart";
-import "package:rain_wise/core/navigation/app_route_names.dart";
+import "package:rain_wise/core/navigation/app_router.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/subscription/application/subscription_provider.dart";
 import "package:rain_wise/features/subscription/domain/user_subscription.dart";
@@ -70,7 +69,7 @@ class SubscriptionDetailsScreen extends ConsumerWidget {
   }
 
   void _onViewBillingHelp(final BuildContext context) {
-    context.pushNamed(AppRouteNames.helpName);
+    const HelpRoute().push(context);
   }
 
   @override

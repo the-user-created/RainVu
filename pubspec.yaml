@@ -65,6 +65,7 @@ dev_dependencies:
 
   freezed: ^3.1.0
   freezed_lint: ^0.0.10
+  go_router_builder: ^3.0.0
   lints: ^6.0.0
   riverpod_generator: ^2.6.5
 

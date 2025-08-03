@@ -1,8 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:go_router/go_router.dart";
-import "package:rain_wise/core/navigation/app_route_names.dart";
+import "package:rain_wise/core/navigation/app_router.dart";
 import "package:rain_wise/features/map/application/map_providers.dart";
 import "package:rain_wise/features/map/domain/rainfall_map_entry.dart";
 import "package:rain_wise/features/map/presentation/widgets/rainfall_list_item.dart";
@@ -56,8 +55,7 @@ class RecentRainfallPanel extends ConsumerWidget {
                     style: theme.textTheme.headlineSmall,
                   ),
                   AppButton(
-                    onPressed: () =>
-                        context.goNamed(AppRouteNames.insightsName),
+                    onPressed: () => const InsightsRoute().go(context),
                     label: "View Graph",
                     style: AppButtonStyle.secondary,
                     size: AppButtonSize.small,
