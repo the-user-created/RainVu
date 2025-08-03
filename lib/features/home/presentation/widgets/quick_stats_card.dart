@@ -1,11 +1,5 @@
 import "package:flutter/material.dart";
-
-class QuickStat {
-  const QuickStat({required this.value, required this.label});
-
-  final String value;
-  final String label;
-}
+import "package:rain_wise/features/home/domain/home_data.dart";
 
 class QuickStatsCard extends StatelessWidget {
   const QuickStatsCard({required this.stats, super.key});
