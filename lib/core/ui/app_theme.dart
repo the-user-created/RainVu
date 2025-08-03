@@ -115,9 +115,25 @@ class AppTheme {
           foregroundColor: colorScheme.onPrimary,
           shape:
               RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
-          minimumSize: const Size(double.infinity, 50),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
           textStyle:
               textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+        ),
+      ),
+      outlinedButtonTheme: OutlinedButtonThemeData(
+        style: OutlinedButton.styleFrom(
+          foregroundColor: colorScheme.primary,
+          side: BorderSide(color: colorScheme.outline),
+          shape:
+              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+          padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
+          textStyle:
+              textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+        ),
+      ),
+      iconButtonTheme: IconButtonThemeData(
+        style: IconButton.styleFrom(
+          foregroundColor: colorScheme.onSurface,
         ),
       ),
       inputDecorationTheme: InputDecorationTheme(
