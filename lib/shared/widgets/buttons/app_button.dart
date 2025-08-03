@@ -64,19 +64,19 @@ class AppButton extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
     final bool isDisabled = onPressed == null || isLoading;
     final bool isOutline = style == AppButtonStyle.outline ||
         style == AppButtonStyle.outlineDestructive;
+
+    final ButtonStyle buttonStyle = _getButtonStyle(context);
 
     final Widget buttonChild = isLoading
         ? SizedBox.square(
             dimension: size == AppButtonSize.small ? 18 : 24,
             child: CircularProgressIndicator(
               strokeWidth: 2,
-              valueColor: AlwaysStoppedAnimation<Color>(
-                isOutline ? colorScheme.onSurface : colorScheme.onPrimary,
+              valueColor: AlwaysStoppedAnimation<Color?>(
+                buttonStyle.foregroundColor?.resolve({}),
               ),
             ),
           )
@@ -91,8 +91,6 @@ class AppButton extends StatelessWidget {
               Text(label),
             ],
           );
-
-    final ButtonStyle buttonStyle = _getButtonStyle(context);
 
     final Widget button = isOutline
         ? OutlinedButton(
@@ -122,75 +120,57 @@ class AppButton extends StatelessWidget {
 
     switch (size) {
       case AppButtonSize.regular:
-        padding = const EdgeInsets.symmetric(horizontal: 24, vertical: 12);
+        padding = const EdgeInsets.symmetric(horizontal: 24, vertical: 16);
         minimumSize = const Size(88, 50);
       case AppButtonSize.small:
         padding = const EdgeInsets.symmetric(horizontal: 16, vertical: 8);
         minimumSize = const Size(64, 36);
     }
 
+    final ButtonStyle sizeStyle = ButtonStyle(
+      padding: WidgetStateProperty.all(padding),
+      minimumSize: WidgetStateProperty.all(minimumSize),
+      shape: borderRadius != null
+          ? WidgetStateProperty.all(
+              RoundedRectangleBorder(borderRadius: borderRadius!),
+            )
+          : null,
+    );
+
     switch (style) {
       case AppButtonStyle.primary:
-        return ElevatedButton.styleFrom(
-          backgroundColor: colorScheme.primary,
-          foregroundColor: colorScheme.onPrimary,
-          elevation: 2,
-          padding: padding,
-          minimumSize: minimumSize,
-          shape: RoundedRectangleBorder(
-            borderRadius: borderRadius ?? BorderRadius.circular(25),
-          ),
-        );
+        return (theme.elevatedButtonTheme.style ?? const ButtonStyle())
+            .merge(sizeStyle);
       case AppButtonStyle.secondary:
-        return ElevatedButton.styleFrom(
-          backgroundColor: colorScheme.secondary,
-          foregroundColor: colorScheme.onSecondary,
-          elevation: 2,
-          padding: padding,
-          minimumSize: minimumSize,
-          shape: RoundedRectangleBorder(
-            borderRadius: borderRadius ?? BorderRadius.circular(25),
-          ),
-        );
+        return (theme.elevatedButtonTheme.style ?? const ButtonStyle())
+            .copyWith(
+              backgroundColor: WidgetStateProperty.all(colorScheme.secondary),
+              foregroundColor: WidgetStateProperty.all(colorScheme.onSecondary),
+            )
+            .merge(sizeStyle);
       case AppButtonStyle.destructive:
-        return ElevatedButton.styleFrom(
-          backgroundColor: colorScheme.error,
-          foregroundColor: colorScheme.onError,
-          elevation: 2,
-          padding: padding,
-          minimumSize: minimumSize,
-          shape: RoundedRectangleBorder(
-            borderRadius: borderRadius ?? BorderRadius.circular(25),
-          ),
-        );
+        return (theme.elevatedButtonTheme.style ?? const ButtonStyle())
+            .copyWith(
+              backgroundColor: WidgetStateProperty.all(colorScheme.error),
+              foregroundColor: WidgetStateProperty.all(colorScheme.onError),
+            )
+            .merge(sizeStyle);
       case AppButtonStyle.outline:
-        return OutlinedButton.styleFrom(
-          foregroundColor: colorScheme.onSurface,
-          side: BorderSide(color: colorScheme.outline),
-          elevation: 0,
-          padding: padding,
-          minimumSize: minimumSize,
-          shape: RoundedRectangleBorder(
-            borderRadius: borderRadius ?? BorderRadius.circular(8),
-          ),
-        );
+        return (theme.outlinedButtonTheme.style ?? const ButtonStyle())
+            .merge(sizeStyle);
       case AppButtonStyle.outlineDestructive:
-        return OutlinedButton.styleFrom(
-          foregroundColor: colorScheme.error,
-          side: BorderSide(color: colorScheme.error),
-          elevation: 0,
-          padding: padding,
-          minimumSize: minimumSize,
-          shape: RoundedRectangleBorder(
-            borderRadius: borderRadius ?? BorderRadius.circular(25),
-          ),
-        ).copyWith(
-          overlayColor: WidgetStateProperty.resolveWith<Color?>(
-            (final states) => states.contains(WidgetState.hovered)
-                ? colorScheme.error.withValues(alpha: 0.1)
-                : null,
-          ),
-        );
+        return (theme.outlinedButtonTheme.style ?? const ButtonStyle())
+            .copyWith(
+              foregroundColor: WidgetStateProperty.all(colorScheme.error),
+              side:
+                  WidgetStateProperty.all(BorderSide(color: colorScheme.error)),
+              overlayColor: WidgetStateProperty.resolveWith<Color?>(
+                (final states) => states.contains(WidgetState.hovered)
+                    ? colorScheme.error.withValues(alpha: 0.1)
+                    : null,
+              ),
+            )
+            .merge(sizeStyle);
     }
   }
 }

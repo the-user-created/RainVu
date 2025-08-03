@@ -41,14 +41,20 @@ class AppIconButton extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    // The button style to apply.
+    final ThemeData theme = Theme.of(context);
+
+    // Start with the theme's defined style, or an empty one, and extend it.
     final ButtonStyle? buttonStyle = backgroundColor != null
-        ? IconButton.styleFrom(
-            backgroundColor: backgroundColor,
-            shape: RoundedRectangleBorder(
-              borderRadius: borderRadius ?? BorderRadius.circular(8),
+        ? (theme.iconButtonTheme.style ?? const ButtonStyle()).copyWith(
+            backgroundColor: WidgetStateProperty.all(backgroundColor),
+            shape: WidgetStateProperty.all(
+              RoundedRectangleBorder(
+                borderRadius: borderRadius ?? BorderRadius.circular(8),
+              ),
             ),
-            minimumSize: const Size(44, 44), // Ensure consistent tap target
+            minimumSize: const WidgetStatePropertyAll(
+              Size(44, 44),
+            ), // Ensure consistent tap target
           )
         : null;
 
