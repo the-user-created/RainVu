@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
-import "package:go_router/go_router.dart";
-import "package:rain_wise/core/navigation/app_route_names.dart";
+import "package:rain_wise/core/navigation/app_router.dart";
 
 // TODO: Consider using a charting library like fl_chart
 
@@ -129,7 +128,7 @@ class _RainfallTrendsCardState extends State<RainfallTrendsCard> {
     final ThemeData theme,
   ) =>
       InkWell(
-        onTap: () => context.goNamed(AppRouteNames.insightsName),
+        onTap: () => const InsightsRoute().go(context),
         child: Row(
           mainAxisSize: MainAxisSize.min,
           mainAxisAlignment: MainAxisAlignment.center,
