@@ -9,6 +9,7 @@ import "package:rain_wise/features/subscription/presentation/widgets/manage_plan
 import "package:rain_wise/features/subscription/presentation/widgets/payment_history_card.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/subscription_actions_card.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/subscription_terms_card.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
@@ -37,21 +38,22 @@ class SubscriptionDetailsScreen extends ConsumerWidget {
     final BuildContext context,
     final WidgetRef ref,
   ) async {
+    final l10n = AppLocalizations.of(context);
     // Show a confirmation dialog before cancelling
     final bool? confirmed = await showDialog<bool>(
       context: context,
       builder: (final context) => AlertDialog(
-        title: const Text("Cancel Subscription"),
-        content: const Text("Are you sure you want to cancel your Pro plan?"),
+        title: Text(l10n.subscriptionCancelDialogTitle),
+        content: Text(l10n.subscriptionCancelDialogContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text("No"),
+            child: Text(l10n.subscriptionCancelDialogDeny),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
             child: Text(
-              "Yes, Cancel",
+              l10n.subscriptionCancelDialogConfirm,
               style: TextStyle(color: Theme.of(context).colorScheme.error),
             ),
           ),
@@ -63,7 +65,7 @@ class SubscriptionDetailsScreen extends ConsumerWidget {
       // TODO: Add loading state indicator
       await ref.read(subscriptionServiceProvider.notifier).cancelSubscription();
       if (context.mounted) {
-        showSnackbar(context, "Subscription cancelled successfully.");
+        showSnackbar(context, l10n.subscriptionCancelledSuccessMessage);
       }
     }
   }
@@ -75,13 +77,15 @@ class SubscriptionDetailsScreen extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<UserSubscription> userSubscription =
         ref.watch(userSubscriptionProvider);
 
     return Scaffold(
       key: GlobalKey<ScaffoldState>(),
       appBar: AppBar(
-        title: Text("My Subscription", style: theme.textTheme.headlineMedium),
+        title:
+            Text(l10n.subscriptionTitle, style: theme.textTheme.headlineMedium),
         centerTitle: false,
       ),
       body: userSubscription.when(
@@ -103,7 +107,7 @@ class SubscriptionDetailsScreen extends ConsumerWidget {
         ),
         loading: () => const AppLoader(),
         error: (final error, final stack) => Center(
-          child: Text("Failed to load subscription: $error"),
+          child: Text(l10n.subscriptionLoadFailed(error)),
         ),
       ),
     );

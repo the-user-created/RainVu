@@ -4,6 +4,7 @@ import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/subscription/application/subscription_provider.dart";
 import "package:rain_wise/features/subscription/domain/subscription_plan.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/plan_comparison_card.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -15,6 +16,7 @@ class ManagePlanSheet extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<List<SubscriptionPlan>> plansAsync =
         ref.watch(availablePlansProvider);
 
@@ -34,7 +36,10 @@ class ManagePlanSheet extends ConsumerWidget {
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Manage Plan", style: theme.textTheme.headlineMedium),
+                Text(
+                  l10n.subscriptionManagePlanSheetTitle,
+                  style: theme.textTheme.headlineMedium,
+                ),
                 AppIconButton(
                   icon: Icon(
                     Icons.close,
@@ -42,7 +47,7 @@ class ManagePlanSheet extends ConsumerWidget {
                     size: 24,
                   ),
                   onPressed: () => Navigator.pop(context),
-                  tooltip: "Close",
+                  tooltip: l10n.subscriptionCloseButtonTooltip,
                 ),
               ],
             ),
@@ -59,15 +64,16 @@ class ManagePlanSheet extends ConsumerWidget {
                       .divide(const SizedBox(height: 16)),
                   const SizedBox(height: 24),
                   Text(
-                    "Subscriptions automatically renew unless canceled. Manage billing through your device's app store.",
+                    l10n.subscriptionManagePlanFooter,
                     textAlign: TextAlign.center,
                     style: theme.textTheme.bodySmall,
                   ),
                 ],
               ),
               loading: () => const AppLoader(),
-              error: (final err, final stack) =>
-                  Center(child: Text("Error loading plans: $err")),
+              error: (final err, final stack) => Center(
+                child: Text(l10n.subscriptionAvailablePlansLoadFailed(err)),
+              ),
             ),
           ),
         ],

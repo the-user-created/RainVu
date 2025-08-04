@@ -5,6 +5,7 @@ import "package:rain_wise/features/subscription/application/subscription_provide
 import "package:rain_wise/features/subscription/domain/subscription_plan.dart";
 import "package:rain_wise/features/subscription/domain/user_subscription.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/plan_feature_list.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
 class CurrentPlanCard extends ConsumerWidget {
@@ -16,6 +17,7 @@ class CurrentPlanCard extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<List<SubscriptionPlan>> plansAsync =
         ref.watch(availablePlansProvider);
 
@@ -29,7 +31,7 @@ class CurrentPlanCard extends ConsumerWidget {
           loading: () => const SizedBox(height: 200, child: AppLoader()),
           error: (final err, final _) => Padding(
             padding: const EdgeInsets.all(24),
-            child: Center(child: Text("Error loading plan: $err")),
+            child: Center(child: Text(l10n.subscriptionPlanLoadFailed(err))),
           ),
           data: (final plans) {
             final SubscriptionPlan plan = plans.firstWhere(
@@ -77,7 +79,7 @@ class CurrentPlanCard extends ConsumerWidget {
                       borderRadius: BorderRadius.circular(12),
                     ),
                     child: Text(
-                      subscription.status.displayName,
+                      subscription.status.displayName(l10n),
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: colorScheme.onSecondary,
                         fontWeight: FontWeight.w600,
@@ -90,7 +92,10 @@ class CurrentPlanCard extends ConsumerWidget {
                       padding: const EdgeInsets.only(bottom: 16),
                       child: Center(
                         child: Text(
-                          "Next renewal on ${DateFormat.yMMMMd().format(subscription.renewalDate!)}",
+                          l10n.subscriptionNextRenewalDate(
+                            DateFormat.yMMMMd()
+                                .format(subscription.renewalDate!),
+                          ),
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: colorScheme.onSurfaceVariant,
                           ),

@@ -2,6 +2,7 @@ import "package:collection/collection.dart";
 import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/comparative_analysis_data.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class ComparativeAnalysisChart extends StatelessWidget {
   const ComparativeAnalysisChart({
@@ -14,14 +15,15 @@ class ComparativeAnalysisChart extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final List<Color> colors = [colorScheme.secondary, colorScheme.tertiary];
 
     if (chartData.series.isEmpty || chartData.series.first.data.isEmpty) {
-      return const SizedBox(
+      return SizedBox(
         height: 300,
-        child: Center(child: Text("Not enough data to display chart.")),
+        child: Center(child: Text(l10n.comparativeAnalysisChartNoData)),
       );
     }
 
@@ -38,7 +40,7 @@ class ComparativeAnalysisChart extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Rainfall Comparison",
+                  l10n.comparativeAnalysisChartTitle,
                   style: textTheme.titleMedium,
                 ),
                 Row(
@@ -86,7 +88,8 @@ class ComparativeAnalysisChart extends StatelessWidget {
                           ),
                           children: <TextSpan>[
                             TextSpan(
-                              text: "${rod.toY.toStringAsFixed(1)} mm",
+                              text:
+                                  "${rod.toY.toStringAsFixed(1)} ${l10n.unitMM}",
                               style: TextStyle(color: colorScheme.onPrimary),
                             ),
                           ],

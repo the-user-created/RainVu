@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class GaugeForm extends StatefulWidget {
@@ -39,6 +40,7 @@ class _GaugeFormState extends State<GaugeForm> {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     return Form(
       key: _formKey,
       child: Column(
@@ -46,7 +48,7 @@ class _GaugeFormState extends State<GaugeForm> {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Rain Gauge Name",
+            l10n.gaugeFormNameLabel,
             style: theme.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w500,
             ),
@@ -57,13 +59,13 @@ class _GaugeFormState extends State<GaugeForm> {
             textCapitalization: TextCapitalization.words,
             textInputAction: TextInputAction.next,
             decoration: InputDecoration(
-              hintText: "E.g., Garden Gauge #1",
+              hintText: l10n.gaugeFormNameHint,
               filled: true,
               fillColor: theme.colorScheme.surface,
             ),
             validator: (final val) {
               if (val == null || val.trim().isEmpty) {
-                return "Name cannot be empty";
+                return l10n.gaugeFormNameValidation;
               }
               return null;
             },
@@ -72,7 +74,7 @@ class _GaugeFormState extends State<GaugeForm> {
 
           // Location Field
           Text(
-            "Location (Optional)",
+            l10n.gaugeFormLocationLabel,
             style: theme.textTheme.bodyLarge?.copyWith(
               fontWeight: FontWeight.w500,
             ),
@@ -82,7 +84,7 @@ class _GaugeFormState extends State<GaugeForm> {
           InkWell(
             onTap: () {
               ScaffoldMessenger.of(context).showSnackBar(
-                const SnackBar(content: Text("Place picker coming soon!")),
+                SnackBar(content: Text(l10n.gaugeFormLocationComingSoon)),
               );
             },
             child: Container(
@@ -98,7 +100,10 @@ class _GaugeFormState extends State<GaugeForm> {
                   const SizedBox(width: 12),
                   Icon(Icons.place, color: theme.colorScheme.primary, size: 20),
                   const SizedBox(width: 12),
-                  Text("Select Location", style: theme.textTheme.bodyMedium),
+                  Text(
+                    l10n.gaugeFormLocationButton,
+                    style: theme.textTheme.bodyMedium,
+                  ),
                 ],
               ),
             ),
@@ -108,14 +113,14 @@ class _GaugeFormState extends State<GaugeForm> {
             mainAxisAlignment: MainAxisAlignment.end,
             children: [
               AppButton(
-                label: "Cancel",
+                label: l10n.gaugeFormButtonCancel,
                 onPressed: () => Navigator.pop(context),
                 style: AppButtonStyle.outline,
                 size: AppButtonSize.small,
               ),
               const SizedBox(width: 12),
               AppButton(
-                label: "Save",
+                label: l10n.gaugeFormButtonSave,
                 onPressed: _submit,
                 size: AppButtonSize.small,
                 borderRadius: BorderRadius.circular(8),

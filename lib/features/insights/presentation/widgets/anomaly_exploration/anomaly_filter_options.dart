@@ -3,6 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/features/insights/application/anomaly_exploration_provider.dart";
 import "package:rain_wise/features/insights/domain/anomaly_data.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class AnomalyFilterOptions extends ConsumerWidget {
   const AnomalyFilterOptions({super.key});
@@ -12,6 +13,7 @@ class AnomalyFilterOptions extends ConsumerWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -29,7 +31,7 @@ class AnomalyFilterOptions extends ConsumerWidget {
       ),
       child: Column(
         children: [
-          Text("Filter Options", style: textTheme.titleMedium),
+          Text(l10n.filterOptionsTitle, style: textTheme.titleMedium),
           const SizedBox(height: 16),
           Row(
             children: [
@@ -103,9 +105,10 @@ class _SeveritySelector extends ConsumerWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     return InkWell(
-      onTap: () => _showSeverityDialog(context, ref),
+      onTap: () => _showSeverityDialog(context, ref, l10n),
       child: DecoratedBox(
         decoration: BoxDecoration(
           color: colorScheme.surfaceContainerHighest,
@@ -117,7 +120,7 @@ class _SeveritySelector extends ConsumerWidget {
             children: [
               const Icon(Icons.warning, color: Colors.amber, size: 20),
               const SizedBox(width: 8),
-              Text("Severity", style: textTheme.bodyMedium),
+              Text(l10n.severityFilterLabel, style: textTheme.bodyMedium),
             ],
           ),
         ),
@@ -125,11 +128,15 @@ class _SeveritySelector extends ConsumerWidget {
     );
   }
 
-  void _showSeverityDialog(final BuildContext context, final WidgetRef ref) {
+  void _showSeverityDialog(
+    final BuildContext context,
+    final WidgetRef ref,
+    final AppLocalizations l10n,
+  ) {
     showDialog(
       context: context,
       builder: (final context) => AlertDialog(
-        title: const Text("Select Severity Levels"),
+        title: Text(l10n.selectSeverityLevelsDialogTitle),
         content: SingleChildScrollView(
           child: Consumer(
             builder: (final context, final ref, final _) {
@@ -141,7 +148,7 @@ class _SeveritySelector extends ConsumerWidget {
                 children: AnomalySeverity.values
                     .map(
                       (final severity) => CheckboxListTile(
-                        title: Text(severity.label),
+                        title: Text(severity.getLabel(l10n)),
                         value: selected.contains(severity),
                         onChanged: (final _) {
                           ref
@@ -158,7 +165,7 @@ class _SeveritySelector extends ConsumerWidget {
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(),
-            child: const Text("Done"),
+            child: Text(l10n.doneButtonLabel),
           ),
         ],
       ),

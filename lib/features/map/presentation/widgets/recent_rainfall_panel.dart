@@ -5,6 +5,7 @@ import "package:rain_wise/core/navigation/app_router.dart";
 import "package:rain_wise/features/map/application/map_providers.dart";
 import "package:rain_wise/features/map/domain/rainfall_map_entry.dart";
 import "package:rain_wise/features/map/presentation/widgets/rainfall_list_item.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
@@ -14,6 +15,7 @@ class RecentRainfallPanel extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<List<RainfallMapEntry>> recentEntries =
         ref.watch(recentRainfallProvider);
 
@@ -51,12 +53,12 @@ class RecentRainfallPanel extends ConsumerWidget {
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
                   Text(
-                    "Recent Rainfall",
+                    l10n.map_recentRainfallListHeader,
                     style: theme.textTheme.headlineSmall,
                   ),
                   AppButton(
                     onPressed: () => const InsightsRoute().go(context),
-                    label: "View Graph",
+                    label: l10n.map_viewGraphButton,
                     style: AppButtonStyle.secondary,
                     size: AppButtonSize.small,
                     borderRadius: BorderRadius.circular(20),
@@ -68,7 +70,7 @@ class RecentRainfallPanel extends ConsumerWidget {
                 child: recentEntries.when(
                   loading: () => const AppLoader(),
                   error: (final err, final stack) =>
-                      Center(child: Text("Error: $err")),
+                      Center(child: Text(l10n.map_recentEntriesError(err))),
                   data: (final entries) => ListView.separated(
                     padding: EdgeInsets.zero,
                     itemCount: entries.length,

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/insights_data.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class MtdBreakdownCard extends StatelessWidget {
   const MtdBreakdownCard({
@@ -13,6 +14,7 @@ class MtdBreakdownCard extends StatelessWidget {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final TextTheme textTheme = theme.textTheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     return Card(
       elevation: 2,
@@ -30,16 +32,16 @@ class MtdBreakdownCard extends StatelessWidget {
               style: textTheme.titleMedium,
             ),
             _DataRow(
-              label: "Total",
-              value: "${data.mtdTotal}mm",
+              label: l10n.mtdBreakdownTotal,
+              value: l10n.valueInMm(data.mtdTotal.toString()),
             ),
             _ComparisonRow(
-              label: "2yr avg",
+              label: l10n.mtdBreakdown2yrAvg,
               currentValue: data.mtdTotal,
               comparisonValue: data.twoYrAvg,
             ),
             _ComparisonRow(
-              label: "5yr avg",
+              label: l10n.mtdBreakdown5yrAvg,
               currentValue: data.mtdTotal,
               comparisonValue: data.fiveYrAvg,
             ),
@@ -94,6 +96,7 @@ class _ComparisonRow extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
 
@@ -115,7 +118,7 @@ class _ComparisonRow extends StatelessWidget {
             ),
             const SizedBox(width: 4),
             Text(
-              "${comparisonValue}mm",
+              l10n.valueInMm(comparisonValue.toString()),
               style: textTheme.bodyMedium,
             ),
           ],

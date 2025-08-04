@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/features/settings/application/settings_providers.dart";
 import "package:rain_wise/features/settings/domain/faq.dart";
 import "package:rain_wise/features/settings/domain/support_ticket.dart";
 import "package:rain_wise/features/settings/presentation/widgets/help/contact_support_tile.dart";
@@ -8,7 +7,7 @@ import "package:rain_wise/features/settings/presentation/widgets/help/faq_tile.d
 import "package:rain_wise/features/settings/presentation/widgets/help/ticket_sheet.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
-import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class HelpScreen extends ConsumerWidget {
@@ -40,44 +39,46 @@ class HelpScreen extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final AsyncValue<List<Faq>> faqsAsync = ref.watch(faqsProvider);
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    // TODO: FAQs should be fetched from a remote source
+    final List<Faq> faqs = [
+      Faq(question: l10n.faq1Question, answer: l10n.faq1Answer),
+      Faq(question: l10n.faq2Question, answer: l10n.faq2Answer),
+      Faq(question: l10n.faq3Question, answer: l10n.faq3Answer),
+    ];
+
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Help & Support"),
+        title: Text(l10n.helpTitle),
         elevation: 2,
         centerTitle: false,
       ),
       body: ListView(
         padding: const EdgeInsets.only(bottom: 32),
         children: [
-          const SettingsSectionHeader(title: "FREQUENTLY ASKED QUESTIONS"),
-          faqsAsync.when(
-            loading: () => const Center(child: AppLoader()),
-            error: (final err, final _) =>
-                Center(child: Text("Failed to load FAQs: $err")),
-            data: (final faqs) => SettingsCard(
-              children: faqs
-                  .map(
-                    (final faq) => FaqTile(
-                      question: faq.question,
-                      answer: faq.answer,
-                    ),
-                  )
-                  .toList(),
-            ),
+          SettingsSectionHeader(title: l10n.helpSectionFaqs),
+          SettingsCard(
+            children: faqs
+                .map(
+                  (final faq) => FaqTile(
+                    question: faq.question,
+                    answer: faq.answer,
+                  ),
+                )
+                .toList(),
           ),
-          const SettingsSectionHeader(title: "CONTACT US"),
-          const SettingsCard(
+          SettingsSectionHeader(title: l10n.helpSectionContactUs),
+          SettingsCard(
             children: [
               ContactSupportTile(
-                title: "Email Support",
+                title: l10n.helpContactEmailSupport,
                 subtitle: "support@rainwiseapp.com",
                 icon: Icons.mail_outline,
                 url: "mailto:support@rainwiseapp.com",
               ),
             ],
           ),
-          const SettingsSectionHeader(title: "HELP US IMPROVE"),
+          SettingsSectionHeader(title: l10n.helpSectionImprove),
           Padding(
             padding: const EdgeInsets.symmetric(horizontal: 16),
             child: Column(
@@ -88,7 +89,7 @@ class HelpScreen extends ConsumerWidget {
                     context,
                     initialCategory: TicketCategory.bugReport,
                   ),
-                  label: "Report a Problem",
+                  label: l10n.helpReportProblemButton,
                   icon: const Icon(
                     Icons.report_problem_outlined,
                     color: Colors.white,
@@ -102,7 +103,7 @@ class HelpScreen extends ConsumerWidget {
                     context,
                     initialCategory: TicketCategory.generalFeedback,
                   ),
-                  label: "Send Feedback",
+                  label: l10n.helpSendFeedbackButton,
                   icon: const Icon(
                     Icons.feedback_outlined,
                     color: Colors.white,

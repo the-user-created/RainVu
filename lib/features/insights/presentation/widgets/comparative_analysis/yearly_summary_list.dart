@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/comparative_analysis_data.dart";
 import "package:rain_wise/features/insights/presentation/widgets/comparative_analysis/yearly_summary_card.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class YearlySummaryList extends StatelessWidget {
   const YearlySummaryList({
@@ -13,6 +14,7 @@ class YearlySummaryList extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final List<Color> colors = [colorScheme.secondary, colorScheme.tertiary];
 
@@ -28,7 +30,7 @@ class YearlySummaryList extends StatelessWidget {
           Padding(
             padding: const EdgeInsets.only(bottom: 16, left: 4),
             child: Text(
-              "Yearly Summary",
+              l10n.yearlySummaryTitle,
               style: theme.textTheme.titleMedium,
             ),
           ),

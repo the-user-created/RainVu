@@ -6,6 +6,7 @@ import "package:rain_wise/features/insights/presentation/widgets/detailed_analys
 import "package:rain_wise/features/insights/presentation/widgets/key_metrics_section.dart";
 import "package:rain_wise/features/insights/presentation/widgets/monthly_comparison_grid.dart";
 import "package:rain_wise/features/insights/presentation/widgets/monthly_trend_chart.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -15,6 +16,7 @@ class InsightsScreen extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<InsightsData> insightsDataAsync =
         ref.watch(insightsScreenDataProvider);
 
@@ -22,7 +24,7 @@ class InsightsScreen extends ConsumerWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(
-          "Insights",
+          l10n.navInsights,
           style: theme.textTheme.headlineMedium,
         ),
         actions: [
@@ -37,7 +39,7 @@ class InsightsScreen extends ConsumerWidget {
               onPressed: () {
                 // TODO: Implement info dialog
               },
-              tooltip: "Info",
+              tooltip: l10n.infoTooltip,
               backgroundColor: theme.colorScheme.surfaceContainerHighest,
               borderRadius: BorderRadius.circular(20),
             ),
@@ -47,7 +49,8 @@ class InsightsScreen extends ConsumerWidget {
       ),
       body: insightsDataAsync.when(
         loading: () => const AppLoader(),
-        error: (final err, final stack) => Center(child: Text("Error: $err")),
+        error: (final err, final stack) =>
+            Center(child: Text(l10n.insightsError(err))),
         data: (final data) => SingleChildScrollView(
           padding: const EdgeInsets.symmetric(vertical: 24),
           child: Column(

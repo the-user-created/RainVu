@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class SubscriptionActionsCard extends StatelessWidget {
@@ -14,6 +15,7 @@ class SubscriptionActionsCard extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Card(
@@ -24,17 +26,20 @@ class SubscriptionActionsCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text("Manage Subscription", style: theme.textTheme.headlineSmall),
+              Text(
+                l10n.subscriptionManageSubscriptionCardTitle,
+                style: theme.textTheme.headlineSmall,
+              ),
               const SizedBox(height: 16),
               AppButton(
                 onPressed: onManagePlan,
-                label: "Manage Plan",
+                label: l10n.subscriptionManagePlanButton,
                 isExpanded: true,
               ),
               const SizedBox(height: 16),
               AppButton(
                 onPressed: onCancel,
-                label: "Cancel Subscription",
+                label: l10n.subscriptionCancelButton,
                 isExpanded: true,
                 style: AppButtonStyle.outlineDestructive,
               ),

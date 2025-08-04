@@ -1,4 +1,5 @@
 import "package:freezed_annotation/freezed_annotation.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 part "seasonal_patterns_data.freezed.dart";
 
@@ -6,16 +7,16 @@ part "seasonal_patterns_data.freezed.dart";
 enum Season { spring, summer, autumn, winter }
 
 extension SeasonExtension on Season {
-  String get name {
+  String getName(final AppLocalizations l10n) {
     switch (this) {
       case Season.spring:
-        return "Spring";
+        return l10n.seasonSpring;
       case Season.summer:
-        return "Summer";
+        return l10n.seasonSummer;
       case Season.autumn:
-        return "Autumn";
+        return l10n.seasonAutumn;
       case Season.winter:
-        return "Winter";
+        return l10n.seasonWinter;
     }
   }
 }
@@ -34,7 +35,7 @@ abstract class SeasonalPatternsData with _$SeasonalPatternsData {
 abstract class SeasonalSummary with _$SeasonalSummary {
   const factory SeasonalSummary({
     required final double averageRainfall,
-    required final double trendVsHistory, // As a percentage change
+    required final double trendVsHistory,
     required final double highestRecorded,
     required final double lowestRecorded,
   }) = _SeasonalSummary;

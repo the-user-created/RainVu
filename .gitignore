@@ -2,6 +2,7 @@
 list_files.py
 collect_files.py
 output.txt
+diff.txt
 design_docs/
 
 # Build Runner

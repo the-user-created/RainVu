@@ -4,6 +4,7 @@ import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/edit_gauge_sheet.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class GaugeListTile extends ConsumerWidget {
@@ -28,21 +29,22 @@ class GaugeListTile extends ConsumerWidget {
   Future<void> _showDeleteDialog(
     final BuildContext context,
     final WidgetRef ref,
+    final AppLocalizations l10n,
   ) async {
     final bool? confirmed = await showDialog<bool>(
       context: context,
       builder: (final alertDialogContext) => AlertDialog(
-        title: const Text("Confirm Deletion"),
-        content: const Text("Are you sure you want to delete this rain gauge?"),
+        title: Text(l10n.deleteGaugeDialogTitle),
+        content: Text(l10n.deleteGaugeDialogContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.pop(alertDialogContext, false),
-            child: const Text("Cancel"),
+            child: Text(l10n.deleteGaugeDialogActionCancel),
           ),
           TextButton(
             onPressed: () => Navigator.pop(alertDialogContext, true),
             child: Text(
-              "Delete",
+              l10n.deleteGaugeDialogActionDelete,
               style: TextStyle(color: Theme.of(context).colorScheme.error),
             ),
           ),
@@ -58,6 +60,7 @@ class GaugeListTile extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -74,7 +77,7 @@ class GaugeListTile extends ConsumerWidget {
                 Text(gauge.name, style: theme.textTheme.bodyLarge),
                 // TODO: Display location if available
                 Text(
-                  "No location set",
+                  l10n.gaugeTileNoLocation,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
@@ -93,7 +96,7 @@ class GaugeListTile extends ConsumerWidget {
                 backgroundColor: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(30),
                 onPressed: () => _showEditSheet(context),
-                tooltip: "Edit Gauge",
+                tooltip: l10n.gaugeTileEditTooltip,
               ),
               AppIconButton(
                 icon: Icon(
@@ -103,8 +106,8 @@ class GaugeListTile extends ConsumerWidget {
                 ),
                 backgroundColor: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(30),
-                onPressed: () => _showDeleteDialog(context, ref),
-                tooltip: "Delete Gauge",
+                onPressed: () => _showDeleteDialog(context, ref, l10n),
+                tooltip: l10n.gaugeTileDeleteTooltip,
               ),
             ].divide(const SizedBox(width: 8)),
           ),

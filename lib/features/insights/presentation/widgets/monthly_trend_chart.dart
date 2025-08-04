@@ -1,6 +1,7 @@
 import "dart:math";
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/insights_data.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class MonthlyTrendChart extends StatelessWidget {
   const MonthlyTrendChart({
@@ -13,6 +14,7 @@ class MonthlyTrendChart extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
 
@@ -40,9 +42,12 @@ class MonthlyTrendChart extends StatelessWidget {
               Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
-                  Text("Monthly Trend", style: textTheme.headlineSmall),
                   Text(
-                    "Last 12 Months",
+                    l10n.monthlyTrendChartTitle,
+                    style: textTheme.headlineSmall,
+                  ),
+                  Text(
+                    l10n.monthlyTrendChartSubtitle,
                     style: textTheme.bodyMedium?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                     ),

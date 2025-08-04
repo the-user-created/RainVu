@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/seasonal_patterns_data.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class SeasonalSummaryCard extends StatelessWidget {
   const SeasonalSummaryCard({required this.summary, super.key});
@@ -9,6 +10,7 @@ class SeasonalSummaryCard extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -17,19 +19,21 @@ class SeasonalSummaryCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Season Summary", style: textTheme.titleMedium),
+            Text(l10n.seasonSummaryTitle, style: textTheme.titleMedium),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _MetricItem(
-                  label: "Average Rainfall",
-                  value: "${summary.averageRainfall.toStringAsFixed(1)} mm",
+                  label: l10n.seasonSummaryAverageRainfallLabel,
+                  value: l10n.rainfallAmountWithUnit(
+                    summary.averageRainfall.toStringAsFixed(1),
+                  ),
                   valueStyle: textTheme.headlineSmall,
                 ),
                 _VerticalDivider(),
                 _TrendMetricItem(
-                  label: "Trend vs History",
+                  label: l10n.seasonSummaryTrendVsHistoryLabel,
                   percentage: summary.trendVsHistory,
                 ),
               ],
@@ -41,13 +45,17 @@ class SeasonalSummaryCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               children: [
                 _MetricItem(
-                  label: "Highest Recorded",
-                  value: "${summary.highestRecorded.toStringAsFixed(1)} mm",
+                  label: l10n.seasonSummaryHighestRecordedLabel,
+                  value: l10n.rainfallAmountWithUnit(
+                    summary.highestRecorded.toStringAsFixed(1),
+                  ),
                 ),
                 _VerticalDivider(),
                 _MetricItem(
-                  label: "Lowest Recorded",
-                  value: "${summary.lowestRecorded.toStringAsFixed(1)} mm",
+                  label: l10n.seasonSummaryLowestRecordedLabel,
+                  value: l10n.rainfallAmountWithUnit(
+                    summary.lowestRecorded.toStringAsFixed(1),
+                  ),
                 ),
               ],
             ),

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/home/domain/home_data.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class QuickStatsCard extends StatelessWidget {
   const QuickStatsCard({required this.stats, super.key});
@@ -9,6 +10,7 @@ class QuickStatsCard extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -27,7 +29,7 @@ class QuickStatsCard extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              "Quick Stats",
+              l10n.quickStatsTitle,
               style: theme.textTheme.titleMedium?.copyWith(
                 fontWeight: FontWeight.w600,
               ),

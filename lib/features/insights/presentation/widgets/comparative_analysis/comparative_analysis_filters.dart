@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/insights/application/comparative_analysis_provider.dart";
 import "package:rain_wise/features/insights/domain/comparative_analysis_data.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
@@ -14,6 +15,7 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<ComparativeFilter> filterAsync =
         ref.watch(comparativeAnalysisFilterNotifierProvider);
     final AsyncValue<List<int>> availableYearsAsync =
@@ -34,14 +36,19 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
         padding: const EdgeInsets.all(16),
         child: filterAsync.when(
           loading: () => const SizedBox(height: 150, child: AppLoader()),
-          error: (final e, final s) => Center(child: Text("Error: $e")),
+          error: (final e, final s) =>
+              Center(child: Text(l10n.comparativeAnalysisFilterError(e))),
           data: (final filter) => availableYearsAsync.when(
             loading: () => const SizedBox(height: 150, child: AppLoader()),
-            error: (final e, final s) =>
-                Center(child: Text("Error loading years: $e")),
+            error: (final e, final s) => Center(
+              child: Text(l10n.comparativeAnalysisAvailableYearsError(e)),
+            ),
             data: (final availableYears) => Column(
               children: [
-                Text("Select Years to Compare", style: textTheme.titleMedium),
+                Text(
+                  l10n.comparativeAnalysisSelectYearsTitle,
+                  style: textTheme.titleMedium,
+                ),
                 const SizedBox(height: 16),
                 Row(
                   mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -121,19 +128,19 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
                         )
                         .setType(selection);
                   },
-                  segments: const [
+                  segments: [
                     SegmentOption(
                       value: ComparisonType.annual,
-                      label: Text("Annual"),
+                      label: Text(l10n.comparisonTypeAnnual),
                     ),
                     SegmentOption(
                       value: ComparisonType.monthly,
-                      label: Text("Monthly"),
+                      label: Text(l10n.comparisonTypeMonthly),
                       enabled: false,
                     ), // TODO: Disabled for now
                     SegmentOption(
                       value: ComparisonType.seasonal,
-                      label: Text("Seasonal"),
+                      label: Text(l10n.comparisonTypeSeasonal),
                       enabled: false,
                     ), // TODO: Disabled for now
                   ],
