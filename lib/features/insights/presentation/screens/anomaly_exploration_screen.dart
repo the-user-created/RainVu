@@ -6,6 +6,7 @@ import "package:rain_wise/features/insights/domain/anomaly_data.dart";
 import "package:rain_wise/features/insights/presentation/widgets/anomaly_exploration/anomaly_filter_options.dart";
 import "package:rain_wise/features/insights/presentation/widgets/anomaly_exploration/anomaly_list.dart";
 import "package:rain_wise/features/insights/presentation/widgets/anomaly_exploration/anomaly_timeline_chart.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -15,6 +16,7 @@ class AnomalyExplorationScreen extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<List<RainfallAnomaly>> anomaliesAsync =
         ref.watch(anomalyDataProvider);
 
@@ -26,10 +28,12 @@ class AnomalyExplorationScreen extends ConsumerWidget {
             color: theme.colorScheme.onSurface,
           ),
           onPressed: context.pop,
-          tooltip: "Back",
+          tooltip: l10n.backButtonTooltip,
         ),
-        title:
-            Text("Anomaly Exploration", style: theme.textTheme.headlineMedium),
+        title: Text(
+          l10n.anomalyExplorationTitle,
+          style: theme.textTheme.headlineMedium,
+        ),
         centerTitle: false,
       ),
       body: SingleChildScrollView(
@@ -44,7 +48,7 @@ class AnomalyExplorationScreen extends ConsumerWidget {
               loading: () => const Center(heightFactor: 5, child: AppLoader()),
               error: (final err, final stack) => Padding(
                 padding: const EdgeInsets.all(16),
-                child: Text("Error loading anomalies: $err"),
+                child: Text(l10n.anomalyExplorationError(err)),
               ),
               data: (final anomalies) => AnomalyList(anomalies: anomalies),
             ),

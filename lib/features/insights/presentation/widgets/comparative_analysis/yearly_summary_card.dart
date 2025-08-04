@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/comparative_analysis_data.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class YearlySummaryCard extends StatelessWidget {
   const YearlySummaryCard({
@@ -14,6 +15,7 @@ class YearlySummaryCard extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final bool isPositive = summary.percentageChange >= 0;
@@ -60,8 +62,9 @@ class YearlySummaryCard extends StatelessWidget {
             Row(
               children: [
                 _StatItem(
-                  label: "Total Annual Rainfall",
-                  value: "${summary.totalRainfall.toStringAsFixed(1)}mm",
+                  label: l10n.yearlySummaryTotalAnnualRainfall,
+                  value:
+                      "${summary.totalRainfall.toStringAsFixed(1)}${l10n.unitMM}",
                 ),
               ],
             ),

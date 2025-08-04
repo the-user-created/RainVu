@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class AnomalyTimelineChart extends StatelessWidget {
   const AnomalyTimelineChart({super.key});
@@ -7,6 +8,7 @@ class AnomalyTimelineChart extends StatelessWidget {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     return Card(
       elevation: 2,
@@ -20,15 +22,21 @@ class AnomalyTimelineChart extends StatelessWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text("Rainfall Trends", style: theme.textTheme.titleMedium),
+                Text(
+                  l10n.rainfallTrendsTitle,
+                  style: theme.textTheme.titleMedium,
+                ),
                 Row(
                   children: [
                     _LegendItem(
                       color: colorScheme.secondary.withValues(alpha: 0.5),
-                      text: "Normal",
+                      text: l10n.anomalyTimelineLegendNormal,
                     ),
                     const SizedBox(width: 8),
-                    _LegendItem(color: colorScheme.error, text: "Anomaly"),
+                    _LegendItem(
+                      color: colorScheme.error,
+                      text: l10n.anomalyTimelineLegendAnomaly,
+                    ),
                   ],
                 ),
               ],
@@ -40,7 +48,7 @@ class AnomalyTimelineChart extends StatelessWidget {
               // For now, this is a placeholder chart.
               child: Center(
                 child: Text(
-                  "Interactive Chart Coming Soon",
+                  l10n.anomalyTimelineChartPlaceholder,
                   style: theme.textTheme.bodyLarge?.copyWith(
                     color: colorScheme.onSurfaceVariant,
                   ),

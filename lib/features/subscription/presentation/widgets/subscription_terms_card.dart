@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class SubscriptionTermsCard extends StatelessWidget {
   const SubscriptionTermsCard({
@@ -12,6 +13,7 @@ class SubscriptionTermsCard extends StatelessWidget {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 24),
       child: Card(
@@ -22,10 +24,13 @@ class SubscriptionTermsCard extends StatelessWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text("Subscription Terms", style: theme.textTheme.headlineSmall),
+              Text(
+                l10n.subscriptionTermsCardTitle,
+                style: theme.textTheme.headlineSmall,
+              ),
               const SizedBox(height: 16),
               Text(
-                "Your subscription will automatically renew unless auto-renewal is turned off at least 24 hours before the end of the current period. You can manage your subscription and turn off auto-renewal by tapping Manage Plan above.",
+                l10n.subscriptionTermsContent,
                 style: theme.textTheme.bodyMedium
                     ?.copyWith(color: colorScheme.onSurfaceVariant),
               ),
@@ -33,7 +38,7 @@ class SubscriptionTermsCard extends StatelessWidget {
               InkWell(
                 onTap: onViewBillingHelp,
                 child: Text(
-                  "For billing support, please visit our Help Center",
+                  l10n.subscriptionBillingHelpLink,
                   style: theme.textTheme.bodyMedium?.copyWith(
                     color: colorScheme.secondary,
                     decoration: TextDecoration.underline,

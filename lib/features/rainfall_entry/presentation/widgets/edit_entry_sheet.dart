@@ -5,6 +5,7 @@ import "package:intl/intl.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
 import "package:rain_wise/features/rainfall_entry/domain/rainfall_entry.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
@@ -65,22 +66,23 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
   }
 
   Future<void> _onDelete() async {
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final bool? confirmed = await showDialog<bool>(
       context: context,
       builder: (final context) => AlertDialog(
-        title: const Text("Delete Entry?"),
-        content: const Text("This action cannot be undone."),
+        title: Text(l10n.deleteEntryDialogTitle),
+        content: Text(l10n.deleteDialogContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text("Cancel"),
+            child: Text(l10n.cancelButtonLabel),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(context).colorScheme.error,
             ),
-            child: const Text("Delete"),
+            child: Text(l10n.deleteButtonLabel),
           ),
         ],
       ),
@@ -101,6 +103,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<List<RainGauge>> gaugesAsync =
         ref.watch(rainGaugesProvider);
 
@@ -125,13 +128,20 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
-              Text("Edit Rainfall Entry", style: theme.textTheme.headlineSmall),
+              Text(
+                l10n.editEntrySheetTitle,
+                style: theme.textTheme.headlineSmall,
+              ),
               const SizedBox(height: 24),
-              Text("Rain Gauge", style: theme.textTheme.titleMedium),
+              Text(
+                l10n.editEntryGaugeHeader,
+                style: theme.textTheme.titleMedium,
+              ),
               const SizedBox(height: 8),
               gaugesAsync.when(
                 loading: () => const AppLoader(),
-                error: (final err, final stack) => Text("Error: $err"),
+                error: (final err, final stack) =>
+                    Text(l10n.rainfallEntriesError(err)),
                 data: (final gauges) => AppDropdownFormField<String>(
                   value: _selectedGaugeId,
                   items: gauges
@@ -145,11 +155,14 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
                   onChanged: (final value) =>
                       setState(() => _selectedGaugeId = value),
                   validator: (final value) =>
-                      value == null ? "Please select a gauge" : null,
+                      value == null ? l10n.editEntryGaugeValidation : null,
                 ),
               ),
               const SizedBox(height: 16),
-              Text("Rainfall Amount", style: theme.textTheme.titleMedium),
+              Text(
+                l10n.editEntryAmountHeader,
+                style: theme.textTheme.titleMedium,
+              ),
               const SizedBox(height: 8),
               TextFormField(
                 controller: _amountController,
@@ -159,22 +172,25 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
                   FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d*")),
                 ],
                 decoration: InputDecoration(
-                  hintText: "Enter amount",
+                  hintText: l10n.editEntryAmountHint,
                   fillColor: theme.colorScheme.surface,
                   filled: true,
                 ),
                 validator: (final value) {
                   if (value == null || value.isEmpty) {
-                    return "Please enter an amount";
+                    return l10n.editEntryAmountValidationEmpty;
                   }
                   if (double.tryParse(value) == null) {
-                    return "Please enter a valid number";
+                    return l10n.editEntryAmountValidationInvalid;
                   }
                   return null;
                 },
               ),
               const SizedBox(height: 16),
-              Text("Date & Time", style: theme.textTheme.titleMedium),
+              Text(
+                l10n.editEntryDateTimeHeader,
+                style: theme.textTheme.titleMedium,
+              ),
               const SizedBox(height: 8),
               InkWell(
                 onTap: _pickDateTime,
@@ -204,14 +220,14 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
                     Expanded(
                       child: AppButton(
                         onPressed: _onSaveChanges,
-                        label: "Save Changes",
+                        label: l10n.saveChangesButton,
                       ),
                     ),
                     const SizedBox(width: 16),
                     Expanded(
                       child: AppButton(
                         onPressed: _onDelete,
-                        label: "Delete",
+                        label: l10n.deleteButtonLabel,
                         style: AppButtonStyle.destructive,
                       ),
                     ),

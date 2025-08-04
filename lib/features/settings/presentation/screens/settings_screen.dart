@@ -6,6 +6,7 @@ import "package:rain_wise/features/settings/presentation/widgets/app_info_footer
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_list_tile.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 /// The main settings screen, composed of smaller, reusable widgets.
 class SettingsScreen extends ConsumerWidget {
@@ -14,51 +15,52 @@ class SettingsScreen extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text("Settings", style: theme.textTheme.headlineLarge),
+        title: Text(l10n.settingsTitle, style: theme.textTheme.headlineLarge),
         elevation: 2,
         centerTitle: false,
       ),
       body: ListView(
         children: [
-          const SettingsSectionHeader(title: "ACCOUNT"),
+          SettingsSectionHeader(title: l10n.settingsSectionAccount),
           SettingsCard(
             children: [
               SettingsListTile(
-                title: "My Subscription",
+                title: l10n.settingsAccountMySubscription,
                 onTap: () => const MySubscriptionRoute().push(context),
               ),
             ],
           ),
-          const SettingsSectionHeader(title: "DATA MANAGEMENT"),
+          SettingsSectionHeader(title: l10n.settingsSectionDataManagement),
           SettingsCard(
             children: [
               SettingsListTile(
-                title: "Data Export/Import",
+                title: l10n.settingsDataManagementExportImport,
                 onTap: () => const DataToolsRoute().push(context),
               ),
               SettingsListTile(
-                title: "Manage Rain Gauges",
+                title: l10n.settingsDataManagementManageGauges,
                 onTap: () => const ManageGaugesRoute().push(context),
               ),
               SettingsListTile(
-                title: "Notifications",
+                title: l10n.settingsDataManagementNotifications,
                 onTap: () => const NotificationsRoute().push(context),
               ),
             ],
           ),
-          const SettingsSectionHeader(title: "SUPPORT & LEGAL"),
+          SettingsSectionHeader(title: l10n.settingsSectionSupportLegal),
           SettingsCard(
             children: [
               SettingsListTile(
-                title: "Help & Support",
+                title: l10n.settingsSupportLegalHelp,
                 onTap: () => const HelpRoute().push(context),
               ),
               SettingsListTile(
-                title: "Privacy Policy",
+                title: l10n.settingsSupportLegalPrivacyPolicy,
                 onTap: () => const ComingSoonRoute(
                   $extra: ComingSoonScreenArgs(
                     pageTitle: "Privacy Policy",
@@ -66,7 +68,7 @@ class SettingsScreen extends ConsumerWidget {
                 ).push(context),
               ),
               SettingsListTile(
-                title: "Terms of Service",
+                title: l10n.settingsSupportLegalTermsOfService,
                 onTap: () => const ComingSoonRoute(
                   $extra: ComingSoonScreenArgs(
                     pageTitle: "Terms of Service",

@@ -7,6 +7,7 @@ import "package:rain_wise/features/insights/presentation/widgets/monthly_breakdo
 import "package:rain_wise/features/insights/presentation/widgets/monthly_breakdown/daily_rainfall_chart.dart";
 import "package:rain_wise/features/insights/presentation/widgets/monthly_breakdown/historical_comparison_card.dart";
 import "package:rain_wise/features/insights/presentation/widgets/monthly_breakdown/monthly_summary_card.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -48,6 +49,7 @@ class _MonthlyBreakdownScreenState
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<MonthlyBreakdownData> breakdownDataAsync =
         ref.watch(monthlyBreakdownProvider(_selectedMonth));
 
@@ -59,9 +61,12 @@ class _MonthlyBreakdownScreenState
             color: theme.colorScheme.onSurface,
           ),
           onPressed: context.pop,
-          tooltip: "Back",
+          tooltip: l10n.backButtonTooltip,
         ),
-        title: Text("Monthly Breakdown", style: theme.textTheme.headlineMedium),
+        title: Text(
+          l10n.monthlyBreakdownTitle,
+          style: theme.textTheme.headlineMedium,
+        ),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 12),
@@ -71,7 +76,7 @@ class _MonthlyBreakdownScreenState
                 color: theme.colorScheme.onSurface,
               ),
               onPressed: _pickMonth,
-              tooltip: "Select Month",
+              tooltip: l10n.selectMonthTooltip,
             ),
           ),
         ],
@@ -80,7 +85,10 @@ class _MonthlyBreakdownScreenState
       body: breakdownDataAsync.when(
         loading: () => const AppLoader(),
         error: (final err, final stack) => Center(
-          child: Text("Error: $err", style: theme.textTheme.bodyLarge),
+          child: Text(
+            l10n.monthlyBreakdownError(err),
+            style: theme.textTheme.bodyLarge,
+          ),
         ),
         data: (final data) => SingleChildScrollView(
           padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),

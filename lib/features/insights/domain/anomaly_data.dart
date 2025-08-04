@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:freezed_annotation/freezed_annotation.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 part "anomaly_data.freezed.dart";
 
@@ -12,16 +13,16 @@ enum AnomalySeverity {
 }
 
 extension AnomalySeverityExtension on AnomalySeverity {
-  String get label {
+  String getLabel(final AppLocalizations l10n) {
     switch (this) {
       case AnomalySeverity.low:
-        return "Low";
+        return l10n.anomalySeverityLow;
       case AnomalySeverity.medium:
-        return "Medium";
+        return l10n.anomalySeverityMedium;
       case AnomalySeverity.high:
-        return "High";
+        return l10n.anomalySeverityHigh;
       case AnomalySeverity.critical:
-        return "Critical";
+        return l10n.anomalySeverityCritical;
     }
   }
 
@@ -60,7 +61,7 @@ abstract class RainfallAnomaly with _$RainfallAnomaly {
     required final DateTime date,
     required final String description,
     required final AnomalySeverity severity,
-    required final double deviationPercentage, // e.g., 245.0 for +245%
+    required final double deviationPercentage,
   }) = _RainfallAnomaly;
 }
 

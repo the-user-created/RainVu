@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/core/navigation/app_router.dart";
 import "package:rain_wise/features/home/domain/home_data.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class MonthlySummaryCard extends StatelessWidget {
   const MonthlySummaryCard({
@@ -17,6 +18,7 @@ class MonthlySummaryCard extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -35,16 +37,16 @@ class MonthlySummaryCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            _buildHeader(context, theme),
+            _buildHeader(context, theme, l10n),
             const SizedBox(height: 8),
             _buildTotal(theme),
             const Divider(height: 24, thickness: 1),
-            _buildRecentEntriesHeader(theme),
+            _buildRecentEntriesHeader(theme, l10n),
             const SizedBox(height: 4),
             ...recentEntries
                 .map((final entry) => _buildRecentEntryRow(entry, theme)),
             const SizedBox(height: 8),
-            _buildViewHistoryButton(context, theme),
+            _buildViewHistoryButton(context, theme, l10n),
           ],
         ),
       ),
@@ -54,12 +56,13 @@ class MonthlySummaryCard extends StatelessWidget {
   Widget _buildHeader(
     final BuildContext context,
     final ThemeData theme,
+    final AppLocalizations l10n,
   ) =>
       Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Text(
-            "Monthly Rainfall",
+            l10n.monthlyRainfallTitle,
             style: theme.textTheme.titleMedium?.copyWith(
               fontWeight: FontWeight.w600,
             ),
@@ -87,8 +90,12 @@ class MonthlySummaryCard extends StatelessWidget {
         ],
       );
 
-  Widget _buildRecentEntriesHeader(final ThemeData theme) => Text(
-        "Recent Entries",
+  Widget _buildRecentEntriesHeader(
+    final ThemeData theme,
+    final AppLocalizations l10n,
+  ) =>
+      Text(
+        l10n.recentEntriesTitle,
         style: theme.textTheme.labelMedium?.copyWith(
           fontWeight: FontWeight.w600,
         ),
@@ -123,6 +130,7 @@ class MonthlySummaryCard extends StatelessWidget {
   Widget _buildViewHistoryButton(
     final BuildContext context,
     final ThemeData theme,
+    final AppLocalizations l10n,
   ) =>
       Align(
         alignment: Alignment.centerRight,
@@ -135,7 +143,7 @@ class MonthlySummaryCard extends StatelessWidget {
             mainAxisSize: MainAxisSize.min,
             children: [
               Text(
-                "View Full History",
+                l10n.viewFullHistoryLink,
                 style: theme.textTheme.bodyMedium?.copyWith(
                   color: theme.colorScheme.secondary,
                   fontWeight: FontWeight.w600,

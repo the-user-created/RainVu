@@ -4,6 +4,7 @@ import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/gauge_form.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class EditGaugeSheet extends ConsumerWidget {
   const EditGaugeSheet({required this.gauge, super.key});
@@ -13,6 +14,7 @@ class EditGaugeSheet extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     return SingleChildScrollView(
       child: Container(
@@ -32,7 +34,10 @@ class EditGaugeSheet extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("Edit Rain Gauge", style: theme.textTheme.headlineSmall),
+            Text(
+              l10n.editGaugeSheetTitle,
+              style: theme.textTheme.headlineSmall,
+            ),
             const SizedBox(height: 24),
             GaugeForm(
               gauge: gauge,

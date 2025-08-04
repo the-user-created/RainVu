@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/insights_data.dart";
 import "package:rain_wise/features/insights/presentation/widgets/mtd_breakdown_card.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class MonthlyComparisonGrid extends StatelessWidget {
   const MonthlyComparisonGrid({
@@ -13,6 +14,7 @@ class MonthlyComparisonGrid extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final double screenWidth = MediaQuery.sizeOf(context).width;
 
     return Padding(
@@ -21,7 +23,7 @@ class MonthlyComparisonGrid extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Monthly Comparison",
+            l10n.monthlyComparisonTitle,
             style: theme.textTheme.headlineSmall,
           ),
           const SizedBox(height: 12),

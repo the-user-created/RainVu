@@ -1,5 +1,6 @@
 import "package:cloud_firestore/cloud_firestore.dart";
 import "package:freezed_annotation/freezed_annotation.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 part "support_ticket.freezed.dart";
 
@@ -16,18 +17,18 @@ enum TicketCategory {
 
 /// Extension to provide a user-friendly display name for each category.
 extension TicketCategoryExtension on TicketCategory {
-  String get displayName {
+  String displayName(final AppLocalizations l10n) {
     switch (this) {
       case TicketCategory.bugReport:
-        return "Bug Report";
+        return l10n.ticketCategoryBugReport;
       case TicketCategory.featureRequest:
-        return "Feature Request";
+        return l10n.ticketCategoryFeatureRequest;
       case TicketCategory.generalFeedback:
-        return "General Feedback";
+        return l10n.ticketCategoryGeneralFeedback;
       case TicketCategory.billingIssue:
-        return "Billing Issue";
+        return l10n.ticketCategoryBillingIssue;
       case TicketCategory.other:
-        return "Other";
+        return l10n.ticketCategoryOther;
     }
   }
 }

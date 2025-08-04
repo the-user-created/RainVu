@@ -5,6 +5,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/home/application/home_providers.dart";
 import "package:rain_wise/features/home/domain/forecast.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
 class ForecastCard extends ConsumerWidget {
@@ -15,6 +16,7 @@ class ForecastCard extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<List<ForecastDay>> forecastAsync =
         ref.watch(forecastProvider);
 
@@ -43,7 +45,7 @@ class ForecastCard extends ConsumerWidget {
         padding: const EdgeInsets.all(16),
         child: Column(
           children: [
-            Text("7-Day Forecast", style: theme.textTheme.titleMedium),
+            Text(l10n.forecastTitle, style: theme.textTheme.titleMedium),
             const SizedBox(height: 16),
             SizedBox(
               height: 140,
@@ -55,7 +57,7 @@ class ForecastCard extends ConsumerWidget {
                 child: forecastAsync.when(
                   loading: () => const AppLoader(),
                   error: (final err, final _) =>
-                      Center(child: Text("Error: $err")),
+                      Center(child: Text(l10n.forecastError(err))),
                   data: (final forecastDays) => ListView.separated(
                     padding: EdgeInsets.zero,
                     scrollDirection: Axis.horizontal,
@@ -73,7 +75,7 @@ class ForecastCard extends ConsumerWidget {
             if (!isProUser) ...[
               const SizedBox(height: 16),
               Text(
-                "Upgrade to Pro to unlock 7-day forecast.",
+                l10n.forecastUpgradePrompt,
                 style: theme.textTheme.bodyMedium,
                 textAlign: TextAlign.center,
               ),

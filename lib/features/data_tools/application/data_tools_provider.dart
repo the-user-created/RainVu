@@ -3,6 +3,7 @@ import "dart:io";
 import "package:flutter/material.dart";
 import "package:rain_wise/features/data_tools/data/data_tools_repository.dart";
 import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "data_tools_provider.g.dart";
@@ -31,7 +32,7 @@ class DataToolsNotifier extends _$DataToolsNotifier {
     state = state.copyWith(fileToImport: null);
   }
 
-  Future<void> exportData() async {
+  Future<void> exportData(final AppLocalizations l10n) async {
     if (state.isExporting) {
       return;
     }
@@ -44,13 +45,13 @@ class DataToolsNotifier extends _$DataToolsNotifier {
           );
       // In a real app, you might show a success message or a file save dialog.
     } catch (e) {
-      state = state.copyWith(errorMessage: "Export failed: $e");
+      state = state.copyWith(errorMessage: l10n.dataToolsExportFailed(e));
     } finally {
       state = state.copyWith(isExporting: false);
     }
   }
 
-  Future<void> importData() async {
+  Future<void> importData(final AppLocalizations l10n) async {
     if (state.isImporting || state.fileToImport == null) {
       return;
     }
@@ -63,7 +64,7 @@ class DataToolsNotifier extends _$DataToolsNotifier {
       // On success, clear the selected file.
       state = state.copyWith(fileToImport: null);
     } catch (e) {
-      state = state.copyWith(errorMessage: "Import failed: $e");
+      state = state.copyWith(errorMessage: l10n.dataToolsImportFailed(e));
     } finally {
       state = state.copyWith(isImporting: false);
     }
