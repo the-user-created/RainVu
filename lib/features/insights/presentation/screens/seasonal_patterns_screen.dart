@@ -25,14 +25,6 @@ class SeasonalPatternsScreen extends ConsumerWidget {
       appBar: AppBar(
         elevation: 2,
         shadowColor: Colors.black.withValues(alpha: 0.1),
-        leading: AppIconButton(
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: theme.colorScheme.onSurface,
-          ),
-          onPressed: context.pop,
-          tooltip: l10n.backButtonTooltip,
-        ),
         title: Text(
           l10n.seasonalPatternsTitle,
           style: theme.textTheme.headlineMedium,

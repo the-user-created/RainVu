@@ -29,14 +29,6 @@ class RainfallEntriesScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: AppIconButton(
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: theme.colorScheme.onSurface,
-          ),
-          onPressed: context.pop,
-          tooltip: l10n.backButtonTooltip,
-        ),
         title: Text(
           DateFormat.yMMMM().format(selectedMonth),
           style: theme.textTheme.headlineMedium,
