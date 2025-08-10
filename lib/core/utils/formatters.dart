@@ -2,7 +2,7 @@ import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:timeago/timeago.dart" as timeago;
 
-void _setTimeagoLocales() {
+void setTimeagoLocales() {
   // TODO: Expand to include more locales
   timeago.setLocaleMessages("en", timeago.EnMessages());
   timeago.setLocaleMessages("en_short", timeago.EnShortMessages());
@@ -25,7 +25,6 @@ String dateTimeFormat(
           : "en");
 
   if (format == "relative") {
-    _setTimeagoLocales();
     return timeago.format(
       dateTime,
       locale: effectiveLocale,
