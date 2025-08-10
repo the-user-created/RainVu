@@ -3,6 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/gauge_form.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class AddGaugeSheet extends ConsumerWidget {
   const AddGaugeSheet({super.key});
@@ -10,6 +11,7 @@ class AddGaugeSheet extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     return SingleChildScrollView(
       child: Container(
@@ -29,7 +31,7 @@ class AddGaugeSheet extends ConsumerWidget {
         child: Column(
           mainAxisSize: MainAxisSize.min,
           children: [
-            Text("Add New Rain Gauge", style: theme.textTheme.headlineSmall),
+            Text(l10n.addGaugeSheetTitle, style: theme.textTheme.headlineSmall),
             const SizedBox(height: 24),
             GaugeForm(
               onSave: (final name) {

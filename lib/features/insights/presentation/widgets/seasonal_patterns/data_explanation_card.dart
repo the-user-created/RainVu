@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class DataExplanationCard extends StatelessWidget {
   const DataExplanationCard({super.key});
@@ -7,6 +8,7 @@ class DataExplanationCard extends StatelessWidget {
   Widget build(final BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -15,10 +17,10 @@ class DataExplanationCard extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Understanding the Data", style: textTheme.titleMedium),
+            Text(l10n.dataExplanationCardTitle, style: textTheme.titleMedium),
             const SizedBox(height: 16),
             Text(
-              "This analysis combines historical rainfall data from your registered rain gauges to identify seasonal patterns. The trends shown represent average daily rainfall amounts during the selected season, helping you identify typical patterns and anomalies. Use this information to plan irrigation schedules and crop timing.",
+              l10n.dataExplanationCardContent,
               style: textTheme.bodyMedium
                   ?.copyWith(color: colorScheme.onSurfaceVariant),
             ),

@@ -1,5 +1,3 @@
-import "package:rain_wise/features/settings/data/settings_repository.dart";
-import "package:rain_wise/features/settings/domain/faq.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "settings_providers.g.dart";
@@ -19,8 +17,3 @@ Future<DateTime?> lastSynced(final LastSyncedRef ref) async {
   await Future.delayed(const Duration(milliseconds: 500));
   return DateTime.now().subtract(const Duration(minutes: 15));
 }
-
-/// Provider to fetch the list of Frequently Asked Questions.
-@riverpod
-Future<List<Faq>> faqs(final FaqsRef ref) async =>
-    ref.watch(settingsRepositoryProvider).getFaqs();

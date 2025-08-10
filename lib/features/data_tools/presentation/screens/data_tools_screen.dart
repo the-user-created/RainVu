@@ -4,6 +4,7 @@ import "package:rain_wise/features/data_tools/application/data_tools_provider.da
 import "package:rain_wise/features/data_tools/presentation/widgets/export_data_card.dart";
 import "package:rain_wise/features/data_tools/presentation/widgets/import_data_card.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class DataToolsScreen extends ConsumerWidget {
   const DataToolsScreen({super.key});
@@ -11,6 +12,7 @@ class DataToolsScreen extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     ref.listen<String?>(
       dataToolsNotifierProvider.select((final s) => s.errorMessage),
@@ -30,19 +32,19 @@ class DataToolsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Export & Import"),
+        title: Text(l10n.dataToolsTitle),
         centerTitle: false,
       ),
       body: GestureDetector(
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: ListView(
           padding: const EdgeInsets.symmetric(vertical: 24),
-          children: const [
-            SettingsSectionHeader(title: "EXPORT DATA"),
-            ExportDataCard(),
-            SizedBox(height: 24),
-            SettingsSectionHeader(title: "IMPORT DATA"),
-            ImportDataCard(),
+          children: [
+            SettingsSectionHeader(title: l10n.dataToolsExportDataSectionTitle),
+            const ExportDataCard(),
+            const SizedBox(height: 24),
+            SettingsSectionHeader(title: l10n.dataToolsImportDataSectionTitle),
+            const ImportDataCard(),
           ],
         ),
       ),

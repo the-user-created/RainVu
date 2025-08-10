@@ -20,5 +20,490 @@
         "type": "Object"
       }
     }
-  }
+  },
+  "dataToolsTitle": "Export & Import",
+  "dataToolsExportDataSectionTitle": "EXPORT DATA",
+  "dataToolsImportDataSectionTitle": "IMPORT DATA",
+  "dataToolsExportFailed": "Export failed: {error}",
+  "@dataToolsExportFailed": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "dataToolsImportFailed": "Import failed: {error}",
+  "@dataToolsImportFailed": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "importDataCardTitle": "Import Your Data",
+  "importDataCardDescription": "Import your previously exported rainfall data",
+  "importDataButtonLabel": "Import Data",
+  "filePickerBoxTitle": "Select File to Import",
+  "filePickerBoxSubtitle": "CSV or JSON files only",
+  "clearSelectionTooltip": "Clear selection",
+  "exportDataCardTitle": "Export Your Data",
+  "exportDataCardDescription": "Select date range and format to export your rainfall data",
+  "dateRangeAllTime": "Date Range: All Time",
+  "exportFormatTitle": "Export Format",
+  "downloadFileButtonLabel": "Download File",
+  "exportFormatCsv": "CSV",
+  "exportFormatPdf": "PDF",
+  "exportFormatJson": "JSON",
+  "homeScreenError": "Error: {error}",
+  "@homeScreenError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "logRainfallTooltip": "Log Rainfall",
+  "forecastTitle": "7-Day Forecast",
+  "forecastError": "Error: {error}",
+  "@forecastError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "forecastUpgradePrompt": "Upgrade to Pro to unlock 7-day forecast.",
+  "logRainfallSheetTitle": "Log Rainfall",
+  "logRainfallSelectGaugeHeader": "Select Rain Gauge",
+  "logRainfallGaugesError": "Error loading gauges: {error}",
+  "@logRainfallGaugesError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "logRainfallSelectGaugeHint": "Select...",
+  "logRainfallGaugeValidation": "Please select a gauge",
+  "logRainfallAmountHeader": "Rainfall Amount",
+  "logRainfallAmountHint": "Enter amount",
+  "logRainfallAmountValidationEmpty": "Amount cannot be empty",
+  "logRainfallAmountValidationInvalid": "Please enter a valid number",
+  "unitMM": "mm",
+  "unitIn": "in",
+  "logRainfallDateTimeHeader": "Date & Time",
+  "logRainfallSaveButton": "Save Rainfall Data",
+  "monthlyRainfallTitle": "Monthly Rainfall",
+  "recentEntriesTitle": "Recent Entries",
+  "viewFullHistoryLink": "View Full History",
+  "quickStatsTitle": "Quick Stats",
+  "rainfallTrendsTitle": "Rainfall Trends",
+  "rainfallTrends7Days": "7 days",
+  "rainfallTrends30Days": "30 days",
+  "rainfallTrendsChartPlaceholder": "Chart will be displayed here",
+  "viewDetailedInsightsLink": "View detailed insights",
+  "manageGaugesTitle": "Rain Gauges",
+  "manageGaugesAddButton": "Add New Rain Gauge",
+  "addGaugeSheetTitle": "Add New Rain Gauge",
+  "editGaugeSheetTitle": "Edit Rain Gauge",
+  "gaugeListTitle": "My Rain Gauges",
+  "gaugeListActiveCount": "{count} Active",
+  "@gaugeListActiveCount": {
+    "description": "Number of active rain gauges",
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gaugeListEmpty": "No rain gauges added yet.",
+  "gaugeListError": "Error: {error}",
+  "@gaugeListError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "gaugeTileNoLocation": "No location set",
+  "gaugeTileEditTooltip": "Edit Gauge",
+  "gaugeTileDeleteTooltip": "Delete Gauge",
+  "deleteGaugeDialogTitle": "Confirm Deletion",
+  "deleteGaugeDialogContent": "Are you sure you want to delete this rain gauge?",
+  "deleteGaugeDialogActionCancel": "Cancel",
+  "deleteGaugeDialogActionDelete": "Delete",
+  "gaugeFormNameLabel": "Rain Gauge Name",
+  "gaugeFormNameHint": "E.g., Garden Gauge #1",
+  "gaugeFormNameValidation": "Name cannot be empty",
+  "gaugeFormLocationLabel": "Location (Optional)",
+  "gaugeFormLocationButton": "Select Location",
+  "gaugeFormLocationComingSoon": "Place picker coming soon!",
+  "gaugeFormButtonCancel": "Cancel",
+  "gaugeFormButtonSave": "Save",
+  "map_searchHint": "Search a location...",
+  "map_recentRainfallListHeader": "Recent Rainfall",
+  "map_viewGraphButton": "View Graph",
+  "map_recentEntriesError": "Error: {error}",
+  "@map_recentEntriesError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "map_filterListTooltip": "Filter by date",
+  "map_layersTooltip": "Change map type",
+  "map_myLocationTooltip": "Center on my location",
+  "map_zoomInTooltip": "Zoom in",
+  "map_zoomOutTooltip": "Zoom out",
+  "backButtonTooltip": "Back",
+  "rainfallEntriesError": "Error: {error}",
+  "@rainfallEntriesError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "rainfallEntriesEmpty": "No entries for this month.",
+  "editEntrySheetTitle": "Edit Rainfall Entry",
+  "editEntryGaugeHeader": "Rain Gauge",
+  "editEntryAmountHeader": "Rainfall Amount",
+  "editEntryAmountHint": "Enter amount",
+  "editEntryGaugeValidation": "Please select a gauge",
+  "editEntryAmountValidationEmpty": "Please enter an amount",
+  "editEntryAmountValidationInvalid": "Please enter a valid number",
+  "editEntryDateTimeHeader": "Date & Time",
+  "saveChangesButton": "Save Changes",
+  "deleteEntryDialogTitle": "Delete Entry?",
+  "deleteDialogContent": "This action cannot be undone.",
+  "cancelButtonLabel": "Cancel",
+  "deleteButtonLabel": "Delete",
+  "loading": "Loading...",
+  "editEntryTooltip": "Edit Entry",
+  "deleteEntryTooltip": "Delete Entry",
+  "unknownGauge": "Unknown Gauge",
+  "settingsTitle": "Settings",
+  "settingsSectionAccount": "ACCOUNT",
+  "settingsAccountMySubscription": "My Subscription",
+  "settingsSectionDataManagement": "DATA MANAGEMENT",
+  "settingsDataManagementExportImport": "Data Export/Import",
+  "settingsDataManagementManageGauges": "Manage Rain Gauges",
+  "settingsDataManagementNotifications": "Notifications",
+  "settingsSectionSupportLegal": "SUPPORT & LEGAL",
+  "settingsSupportLegalHelp": "Help & Support",
+  "settingsSupportLegalPrivacyPolicy": "Privacy Policy",
+  "settingsSupportLegalTermsOfService": "Terms of Service",
+  "notificationsTitle": "Notifications",
+  "notificationsSectionDailyLogging": "DAILY LOGGING",
+  "notificationsSectionReportsAlerts": "REPORTS & ALERTS",
+  "notificationsSectionGeneral": "GENERAL",
+  "notificationsDailyReminderTitle": "Daily Reminder",
+  "notificationsDailyReminderSubtitle": "Get reminded to log your rainfall data",
+  "notificationsWeeklySummaryTitle": "Weekly Summary Report",
+  "notificationsWeeklySummarySubtitle": "Receive weekly rainfall data overview",
+  "notificationsWeatherAlertsTitle": "Weather Alerts",
+  "notificationsWeatherAlertsSubtitle": "Get notified about severe weather conditions",
+  "notificationsAppUpdatesTitle": "App Updates",
+  "notificationsAppUpdatesSubtitle": "Stay informed about new features",
+  "notificationsReminderTime": "Reminder Time",
+  "helpTitle": "Help & Support",
+  "helpSectionFaqs": "FREQUENTLY ASKED QUESTIONS",
+  "helpFaqsError": "Failed to load FAQs: {error}",
+  "@helpFaqsError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "helpSectionContactUs": "CONTACT US",
+  "helpContactEmailSupport": "Email Support",
+  "helpSectionImprove": "HELP US IMPROVE",
+  "helpReportProblemButton": "Report a Problem",
+  "helpSendFeedbackButton": "Send Feedback",
+  "helpCouldNotOpenUrl": "Could not open {url}",
+  "@helpCouldNotOpenUrl": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "faq1Question": "How do I add a new rain gauge?",
+  "faq1Answer": "Go to the Settings tab, tap on \"Manage Rain Gauges\", and then use the \"+\" button at the bottom to add a new gauge. Fill in the details and save.",
+  "faq2Question": "How do I export my rainfall data?",
+  "faq2Answer": "Navigate to Settings > Data Export/Import. From there, you can choose your desired format (CSV, PDF, JSON) and export your complete rainfall history.",
+  "faq3Question": "How do I set up notifications?",
+  "faq3Answer": "In the Settings tab, select \"Notifications\". You can enable or disable daily reminders, set the reminder time, and toggle other alerts like weekly summaries.",
+  "ticketSheetTitle": "Report an Issue / Send Feedback",
+  "ticketSheetDescription": "Your feedback helps us improve RainWise. Please describe the issue or share your thoughts.",
+  "ticketSheetCategoryHint": "Select Category",
+  "ticketSheetCategoryValidation": "Please select a category",
+  "ticketSheetDescriptionLabel": "Description",
+  "ticketSheetDescriptionHint": "Describe the issue or your feedback here...",
+  "ticketSheetDescriptionValidation": "Please enter a description",
+  "ticketSheetEmailLabel": "Your Email (Optional)",
+  "ticketSheetEmailValidation": "Please enter a valid email address",
+  "ticketSheetSubmitButton": "Submit",
+  "ticketSheetSuccessMessage": "Thank you! Your feedback has been submitted.",
+  "ticketSheetErrorMessage": "Error: {error}",
+  "@ticketSheetErrorMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "ticketCategoryBugReport": "Bug Report",
+  "ticketCategoryFeatureRequest": "Feature Request",
+  "ticketCategoryGeneralFeedback": "General Feedback",
+  "ticketCategoryBillingIssue": "Billing Issue",
+  "ticketCategoryOther": "Other",
+  "appInfoFooterLastSynced": "Last Synced",
+  "appInfoFooterLastSyncedNever": "Never",
+  "appInfoFooterError": "Could not load data",
+  "subscriptionTitle": "My Subscription",
+  "subscriptionCancelDialogTitle": "Cancel Subscription",
+  "subscriptionCancelDialogContent": "Are you sure you want to cancel your Pro plan?",
+  "subscriptionCancelDialogConfirm": "Yes, Cancel",
+  "subscriptionCancelDialogDeny": "No",
+  "subscriptionCancelledSuccessMessage": "Subscription cancelled successfully.",
+  "subscriptionLoadFailed": "Failed to load subscription: {error}",
+  "@subscriptionLoadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "subscriptionPlanLoadFailed": "Error loading plan: {error}",
+  "@subscriptionPlanLoadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "subscriptionNextRenewalDate": "Next renewal on {date}",
+  "@subscriptionNextRenewalDate": {
+    "placeholders": {
+      "date": {
+        "type": "String"
+      }
+    }
+  },
+  "subscriptionManagePlanSheetTitle": "Manage Plan",
+  "subscriptionCloseButtonTooltip": "Close",
+  "subscriptionManagePlanFooter": "Subscriptions automatically renew unless canceled. Manage billing through your device's app store.",
+  "subscriptionAvailablePlansLoadFailed": "Error loading plans: {error}",
+  "@subscriptionAvailablePlansLoadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "subscriptionPaymentHistoryTitle": "Payment History",
+  "subscriptionPaymentHistoryLoadFailed": "Could not load history: {error}",
+  "@subscriptionPaymentHistoryLoadFailed": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "subscriptionCurrentPlanChip": "Current",
+  "subscriptionDowngradeButton": "Downgrade to Free",
+  "subscriptionUpgradeButton": "Upgrade to Pro",
+  "subscriptionManageSubscriptionCardTitle": "Manage Subscription",
+  "subscriptionManagePlanButton": "Manage Plan",
+  "subscriptionCancelButton": "Cancel Subscription",
+  "subscriptionTermsCardTitle": "Subscription Terms",
+  "subscriptionTermsContent": "Your subscription will automatically renew unless auto-renewal is turned off at least 24 hours before the end of the current period. You can manage your subscription and turn off auto-renewal by tapping Manage Plan above.",
+  "subscriptionBillingHelpLink": "For billing support, please visit our Help Center",
+  "subscriptionStatusActive": "Active",
+  "subscriptionStatusFree": "Free Plan",
+  "subscriptionStatusCancelled": "Cancelled",
+  "seasonSpring": "Spring",
+  "seasonSummer": "Summer",
+  "seasonAutumn": "Autumn",
+  "seasonWinter": "Winter",
+  "anomalySeverityLow": "Low",
+  "anomalySeverityMedium": "Medium",
+  "anomalySeverityHigh": "High",
+  "anomalySeverityCritical": "Critical",
+  "anomalyExplorationTitle": "Anomaly Exploration",
+  "anomalyExplorationError": "Error loading anomalies: {error}",
+  "@anomalyExplorationError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "anomalyTimelineLegendNormal": "Normal",
+  "anomalyTimelineLegendAnomaly": "Anomaly",
+  "anomalyTimelineChartPlaceholder": "Interactive Chart Coming Soon",
+  "detectedAnomaliesTitle": "Detected Anomalies",
+  "noAnomaliesFound": "No anomalies found for the selected filters.",
+  "anomalyDeviationVsAverage": "{deviation}% vs Average",
+  "@anomalyDeviationVsAverage": {
+    "placeholders": {
+      "deviation": {
+        "type": "String"
+      }
+    }
+  },
+  "filterOptionsTitle": "Filter Options",
+  "severityFilterLabel": "Severity",
+  "selectSeverityLevelsDialogTitle": "Select Severity Levels",
+  "doneButtonLabel": "Done",
+  "comparativeAnalysisTitle": "Comparative Analysis",
+  "comparativeAnalysisError": "An error occurred: {error}",
+  "@comparativeAnalysisError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "comparativeAnalysisNoYearsSelected": "Please select two different years to compare.",
+  "comparativeAnalysisChartNoData": "Not enough data to display chart.",
+  "comparativeAnalysisChartTitle": "Rainfall Comparison",
+  "comparativeAnalysisSelectYearsTitle": "Select Years to Compare",
+  "comparativeAnalysisFilterError": "Error: {error}",
+  "@comparativeAnalysisFilterError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "comparativeAnalysisAvailableYearsError": "Error loading years: {error}",
+  "@comparativeAnalysisAvailableYearsError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "comparisonTypeAnnual": "Annual",
+  "comparisonTypeMonthly": "Monthly",
+  "comparisonTypeSeasonal": "Seasonal",
+  "yearlySummaryTitle": "Yearly Summary",
+  "yearlySummaryTotalAnnualRainfall": "Total Annual Rainfall",
+  "monthlyBreakdownTitle": "Monthly Breakdown",
+  "selectMonthTooltip": "Select Month",
+  "monthlyBreakdownError": "Error: {error}",
+  "@monthlyBreakdownError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "historicalComparisonTitle": "Historical Comparison",
+  "twoYearAverage": "2 Year Average",
+  "fiveYearAverage": "5 Year Average",
+  "tenYearAverage": "10 Year Average",
+  "valueInMm": "{value}mm",
+  "@valueInMm": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "dailyRainfallChartTitle": "Daily Rainfall",
+  "dailyRainfallChartTooltip": "{value} mm",
+  "@dailyRainfallChartTooltip": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "dailyBreakdownTitle": "Daily Breakdown",
+  "totalRainfallValueInMm": "Total Rainfall: {value}mm",
+  "@totalRainfallValueInMm": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "editEntriesTooltip": "Edit Entries",
+  "dailyAverage": "Daily Average",
+  "highestDay": "Highest Day",
+  "lowestDay": "Lowest Day",
+  "seasonalPatternsTitle": "Seasonal Patterns",
+  "seasonalPatternsDescription": "Explore historical seasonal rainfall data and compare current trends with past patterns.",
+  "seasonalPatternsError": "Error: {error}",
+  "@seasonalPatternsError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "dataExplanationCardTitle": "Understanding the Data",
+  "dataExplanationCardContent": "This analysis combines historical rainfall data from your registered rain gauges to identify seasonal patterns. The trends shown represent average daily rainfall amounts during the selected season, helping you identify typical patterns and anomalies. Use this information to plan irrigation schedules and crop timing.",
+  "seasonSummaryTitle": "Season Summary",
+  "seasonSummaryAverageRainfallLabel": "Average Rainfall",
+  "seasonSummaryTrendVsHistoryLabel": "Trend vs History",
+  "seasonSummaryHighestRecordedLabel": "Highest Recorded",
+  "seasonSummaryLowestRecordedLabel": "Lowest Recorded",
+  "rainfallAmountWithUnit": "{value} mm",
+  "@rainfallAmountWithUnit": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "insightsError": "Error: {error}",
+  "@insightsError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "infoTooltip": "Info",
+  "keyMetricsTitle": "Key Metrics",
+  "keyMetricsTotalRainfall": "Total Rainfall",
+  "keyMetricsMtdTotal": "MTD Total",
+  "keyMetricsYtdTotal": "YTD Total",
+  "keyMetricsMonthlyAvg": "Monthly Avg",
+  "keyMetricsTotalRainfallChange": "{value}% vs last year",
+  "@keyMetricsTotalRainfallChange": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "keyMetricsMtdChange": "{value}% vs last month",
+  "@keyMetricsMtdChange": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "keyMetricsYtdGoal": "On track for yearly goal",
+  "keyMetricsMonthlyAvgSource": "Based on 12 month data",
+  "mtdBreakdownTotal": "Total",
+  "mtdBreakdown2yrAvg": "2yr avg",
+  "mtdBreakdown5yrAvg": "5yr avg",
+  "monthlyTrendChartTitle": "Monthly Trend",
+  "monthlyTrendChartSubtitle": "Last 12 Months",
+  "monthlyComparisonTitle": "Monthly Comparison",
+  "detailedAnalysisTitle": "Detailed Analysis",
+  "detailedAnalysisMonthlyBreakdownSubtitle": "View detailed monthly statistics",
+  "detailedAnalysisSeasonalPatternsSubtitle": "Analyze rainfall patterns by season",
+  "detailedAnalysisAnomalyExplorationSubtitle": "Analyze unusual patterns in rainfall data",
+  "detailedAnalysisComparativeAnalysisTitle": "Comparative Yearly Analysis",
+  "detailedAnalysisComparativeAnalysisSubtitle": "See side-by-side comparisons of multiple years"
 }

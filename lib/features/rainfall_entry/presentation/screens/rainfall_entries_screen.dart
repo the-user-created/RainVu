@@ -5,6 +5,7 @@ import "package:intl/intl.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
 import "package:rain_wise/features/rainfall_entry/domain/rainfall_entry.dart";
 import "package:rain_wise/features/rainfall_entry/presentation/widgets/rainfall_entry_list_item.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -20,6 +21,7 @@ class RainfallEntriesScreen extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final DateTime selectedMonth =
         DateTime.tryParse("$month-01") ?? DateTime.now();
     final AsyncValue<List<RainfallEntry>> entriesAsync =
@@ -33,7 +35,7 @@ class RainfallEntriesScreen extends ConsumerWidget {
             color: theme.colorScheme.onSurface,
           ),
           onPressed: context.pop,
-          tooltip: "Back",
+          tooltip: l10n.backButtonTooltip,
         ),
         title: Text(
           DateFormat.yMMMM().format(selectedMonth),
@@ -43,12 +45,13 @@ class RainfallEntriesScreen extends ConsumerWidget {
       ),
       body: entriesAsync.when(
         loading: () => const AppLoader(),
-        error: (final err, final stack) => Center(child: Text("Error: $err")),
+        error: (final err, final stack) =>
+            Center(child: Text(l10n.rainfallEntriesError(err))),
         data: (final entries) {
           if (entries.isEmpty) {
             return Center(
               child: Text(
-                "No entries for this month.",
+                l10n.rainfallEntriesEmpty,
                 style: theme.textTheme.bodyLarge,
               ),
             );

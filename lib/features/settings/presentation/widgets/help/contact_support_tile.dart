@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:url_launcher/url_launcher.dart";
 
 /// A tappable tile for contacting support, which launches a URL (e.g., mailto).
@@ -17,11 +18,14 @@ class ContactSupportTile extends StatelessWidget {
   final String url;
 
   Future<void> _launchUrl(final BuildContext context) async {
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final Uri uri = Uri.parse(url);
     if (!await launchUrl(uri)) {
-      // ignore: use_build_context_synchronously
+      if (!context.mounted) {
+        return;
+      }
       ScaffoldMessenger.of(context).showSnackBar(
-        SnackBar(content: Text("Could not open $url")),
+        SnackBar(content: Text(l10n.helpCouldNotOpenUrl(url))),
       );
     }
   }

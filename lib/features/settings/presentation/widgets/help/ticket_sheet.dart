@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/settings/application/support_provider.dart";
 import "package:rain_wise/features/settings/domain/support_ticket.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 
@@ -43,6 +44,7 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
     if (!(_formKey.currentState?.validate() ?? false)) {
       return;
     }
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     setState(() => _isLoading = true);
     try {
@@ -55,8 +57,8 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
 
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          const SnackBar(
-            content: Text("Thank you! Your feedback has been submitted."),
+          SnackBar(
+            content: Text(l10n.ticketSheetSuccessMessage),
           ),
         );
         Navigator.of(context).pop();
@@ -64,7 +66,7 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
     } catch (e) {
       if (mounted) {
         ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text("Error: $e")),
+          SnackBar(content: Text(l10n.ticketSheetErrorMessage(e))),
         );
       }
     } finally {
@@ -79,6 +81,7 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
     final ThemeData theme = Theme.of(context);
     final TextTheme textTheme = theme.textTheme;
     final ColorScheme colorScheme = theme.colorScheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     return Padding(
       padding: EdgeInsets.only(
@@ -94,39 +97,39 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
           crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             Text(
-              "Report an Issue / Send Feedback",
+              l10n.ticketSheetTitle,
               textAlign: TextAlign.center,
               style: textTheme.headlineSmall,
             ),
             const SizedBox(height: 8),
             Text(
-              "Your feedback helps us improve RainWise. Please describe the issue or share your thoughts.",
+              l10n.ticketSheetDescription,
               textAlign: TextAlign.center,
               style: textTheme.bodyMedium,
             ),
             const SizedBox(height: 24),
             AppDropdownFormField<TicketCategory>(
               value: _selectedCategory,
-              hintText: "Select Category",
+              hintText: l10n.ticketSheetCategoryHint,
               items: TicketCategory.values
                   .map(
                     (final category) => DropdownMenuItem(
                       value: category,
-                      child: Text(category.displayName),
+                      child: Text(category.displayName(l10n)),
                     ),
                   )
                   .toList(),
               onChanged: (final value) =>
                   setState(() => _selectedCategory = value),
               validator: (final value) =>
-                  value == null ? "Please select a category" : null,
+                  value == null ? l10n.ticketSheetCategoryValidation : null,
             ),
             const SizedBox(height: 16),
             TextFormField(
               controller: _descriptionController,
               decoration: InputDecoration(
-                labelText: "Description",
-                hintText: "Describe the issue or your feedback here...",
+                labelText: l10n.ticketSheetDescriptionLabel,
+                hintText: l10n.ticketSheetDescriptionHint,
                 alignLabelWithHint: true,
                 filled: true,
                 fillColor: colorScheme.surface,
@@ -135,14 +138,14 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
               maxLines: 8,
               validator: (final value) =>
                   (value == null || value.trim().isEmpty)
-                      ? "Please enter a description"
+                      ? l10n.ticketSheetDescriptionValidation
                       : null,
             ),
             const SizedBox(height: 16),
             TextFormField(
               controller: _emailController,
               decoration: InputDecoration(
-                labelText: "Your Email (Optional)",
+                labelText: l10n.ticketSheetEmailLabel,
                 alignLabelWithHint: true,
                 filled: true,
                 fillColor: colorScheme.surface,
@@ -150,7 +153,7 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
               keyboardType: TextInputType.emailAddress,
               validator: (final value) {
                 if (value != null && value.isNotEmpty && !value.contains("@")) {
-                  return "Please enter a valid email address";
+                  return l10n.ticketSheetEmailValidation;
                 }
                 return null;
               },
@@ -162,12 +165,12 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
                 TextButton(
                   onPressed:
                       _isLoading ? null : () => Navigator.of(context).pop(),
-                  child: const Text("Cancel"),
+                  child: Text(l10n.cancelButtonLabel),
                 ),
                 const SizedBox(width: 12),
                 AppButton(
                   onPressed: _isLoading ? null : _submit,
-                  label: "Submit",
+                  label: l10n.ticketSheetSubmitButton,
                   isLoading: _isLoading,
                   size: AppButtonSize.small,
                   borderRadius: BorderRadius.circular(8),

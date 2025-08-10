@@ -4,6 +4,7 @@ import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/subscription/application/subscription_provider.dart";
 import "package:rain_wise/features/subscription/domain/payment_transaction.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/payment_history_tile.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
 class PaymentHistoryCard extends ConsumerWidget {
@@ -12,6 +13,7 @@ class PaymentHistoryCard extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<List<PaymentTransaction>> historyAsync =
         ref.watch(paymentHistoryProvider);
 
@@ -25,7 +27,10 @@ class PaymentHistoryCard extends ConsumerWidget {
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text("Payment History", style: theme.textTheme.headlineSmall),
+              Text(
+                l10n.subscriptionPaymentHistoryTitle,
+                style: theme.textTheme.headlineSmall,
+              ),
               const SizedBox(height: 16),
               historyAsync.when(
                 data: (final history) => Column(
@@ -40,7 +45,7 @@ class PaymentHistoryCard extends ConsumerWidget {
                   ),
                 ),
                 error: (final err, final stack) => Center(
-                  child: Text("Could not load history: $err"),
+                  child: Text(l10n.subscriptionPaymentHistoryLoadFailed(err)),
                 ),
               ),
             ],

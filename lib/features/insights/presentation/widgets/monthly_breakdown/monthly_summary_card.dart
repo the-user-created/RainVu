@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/core/navigation/app_router.dart";
 import "package:rain_wise/features/insights/domain/monthly_breakdown_data.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class MonthlySummaryCard extends StatelessWidget {
@@ -17,6 +18,7 @@ class MonthlySummaryCard extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     return Card(
@@ -35,7 +37,9 @@ class MonthlySummaryCard extends StatelessWidget {
                       style: textTheme.headlineSmall,
                     ),
                     Text(
-                      "Total Rainfall: ${stats.totalRainfall.toStringAsFixed(1)}mm",
+                      l10n.totalRainfallValueInMm(
+                        stats.totalRainfall.toStringAsFixed(1),
+                      ),
                       style: textTheme.titleMedium
                           ?.copyWith(color: colorScheme.secondary),
                     ),
@@ -46,7 +50,7 @@ class MonthlySummaryCard extends StatelessWidget {
                   borderRadius: BorderRadius.circular(24),
                   icon:
                       Icon(Icons.edit, color: colorScheme.secondary, size: 28),
-                  tooltip: "Edit Entries",
+                  tooltip: l10n.editEntriesTooltip,
                   onPressed: () {
                     final String monthParam =
                         DateFormat("yyyy-MM").format(selectedMonth);
@@ -62,16 +66,16 @@ class MonthlySummaryCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _StatItem(
-                  value: "${stats.dailyAverage.toStringAsFixed(1)}mm",
-                  label: "Daily Average",
+                  value: l10n.valueInMm(stats.dailyAverage.toStringAsFixed(1)),
+                  label: l10n.dailyAverage,
                 ),
                 _StatItem(
-                  value: "${stats.highestDay.toStringAsFixed(1)}mm",
-                  label: "Highest Day",
+                  value: l10n.valueInMm(stats.highestDay.toStringAsFixed(1)),
+                  label: l10n.highestDay,
                 ),
                 _StatItem(
-                  value: "${stats.lowestDay.toStringAsFixed(1)}mm",
-                  label: "Lowest Day",
+                  value: l10n.valueInMm(stats.lowestDay.toStringAsFixed(1)),
+                  label: l10n.lowestDay,
                 ),
               ],
             ),

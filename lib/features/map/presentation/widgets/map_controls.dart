@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class MapControls extends StatelessWidget {
@@ -18,43 +19,46 @@ class MapControls extends StatelessWidget {
   final VoidCallback? onZoomOutPressed;
 
   @override
-  Widget build(final BuildContext context) => Column(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          _MapControlButton(
-            icon: Icons.filter_list,
-            tooltip: "Filter by date",
-            onPressed: onFilterPressed,
-          ),
-          _MapControlButton(
-            icon: Icons.layers,
-            tooltip: "Change map type",
-            onPressed: onLayersPressed,
-          ),
-          _MapControlButton(
-            icon: Icons.my_location,
-            tooltip: "Center on my location",
-            onPressed: onMyLocationPressed,
-          ),
-          _MapControlButton(
-            icon: Icons.add,
-            tooltip: "Zoom in",
-            onPressed: onZoomInPressed,
-          ),
-          _MapControlButton(
-            icon: Icons.remove,
-            tooltip: "Zoom out",
-            onPressed: onZoomOutPressed,
-          ),
-        ]
-            .map(
-              (final w) => Padding(
-                padding: const EdgeInsets.symmetric(vertical: 4),
-                child: w,
-              ),
-            )
-            .toList(),
-      );
+  Widget build(final BuildContext context) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        _MapControlButton(
+          icon: Icons.filter_list,
+          tooltip: l10n.map_filterListTooltip,
+          onPressed: onFilterPressed,
+        ),
+        _MapControlButton(
+          icon: Icons.layers,
+          tooltip: l10n.map_layersTooltip,
+          onPressed: onLayersPressed,
+        ),
+        _MapControlButton(
+          icon: Icons.my_location,
+          tooltip: l10n.map_myLocationTooltip,
+          onPressed: onMyLocationPressed,
+        ),
+        _MapControlButton(
+          icon: Icons.add,
+          tooltip: l10n.map_zoomInTooltip,
+          onPressed: onZoomInPressed,
+        ),
+        _MapControlButton(
+          icon: Icons.remove,
+          tooltip: l10n.map_zoomOutTooltip,
+          onPressed: onZoomOutPressed,
+        ),
+      ]
+          .map(
+            (final w) => Padding(
+              padding: const EdgeInsets.symmetric(vertical: 4),
+              child: w,
+            ),
+          )
+          .toList(),
+    );
+  }
 }
 
 class _MapControlButton extends StatelessWidget {

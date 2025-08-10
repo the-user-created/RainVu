@@ -4,15 +4,32 @@ import "package:intl/intl.dart";
 import "package:rain_wise/features/data_tools/application/data_tools_provider.dart";
 import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_choice_chips.dart";
 
 class ExportDataCard extends ConsumerWidget {
   const ExportDataCard({super.key});
 
+  String _getFormatLabel(
+    final BuildContext context,
+    final ExportFormat format,
+  ) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    switch (format) {
+      case ExportFormat.csv:
+        return l10n.exportFormatCsv;
+      case ExportFormat.pdf:
+        return l10n.exportFormatPdf;
+      case ExportFormat.json:
+        return l10n.exportFormatJson;
+    }
+  }
+
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final DataToolsState state = ref.watch(dataToolsNotifierProvider);
     final DataToolsNotifier notifier =
         ref.read(dataToolsNotifierProvider.notifier);
@@ -25,13 +42,13 @@ class ExportDataCard extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                "Export Your Data",
+                l10n.exportDataCardTitle,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
               Text(
-                "Select date range and format to export your rainfall data",
+                l10n.exportDataCardDescription,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyMedium
                     ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
@@ -54,7 +71,7 @@ class ExportDataCard extends ConsumerWidget {
                 },
               ),
               const SizedBox(height: 16),
-              Text("Export Format", style: theme.textTheme.bodyMedium),
+              Text(l10n.exportFormatTitle, style: theme.textTheme.bodyMedium),
               const SizedBox(height: 8),
               AppChoiceChips<ExportFormat>(
                 selectedValue: state.exportFormat,
@@ -63,15 +80,16 @@ class ExportDataCard extends ConsumerWidget {
                     .map(
                       (final format) => ChipOption(
                         value: format,
-                        label: format.name.toUpperCase(),
+                        label: _getFormatLabel(context, format),
                       ),
                     )
                     .toList(),
               ),
               const SizedBox(height: 24),
               AppButton(
-                onPressed: state.isExporting ? null : notifier.exportData,
-                label: "Download File",
+                onPressed:
+                    state.isExporting ? null : () => notifier.exportData(l10n),
+                label: l10n.downloadFileButtonLabel,
                 isLoading: state.isExporting,
                 isExpanded: true,
                 icon: Icon(
@@ -97,10 +115,11 @@ class _DateRangePickerTile extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final String label;
 
     if (dateRange == null) {
-      label = "Date Range: All Time";
+      label = l10n.dateRangeAllTime;
     } else {
       final DateFormat formatter = DateFormat.yMd();
       label =

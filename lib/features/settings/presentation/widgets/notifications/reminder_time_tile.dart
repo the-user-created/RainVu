@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:font_awesome_flutter/font_awesome_flutter.dart";
 import "package:rain_wise/features/settings/application/notifications_providers.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class ReminderTimeTile extends ConsumerWidget {
   const ReminderTimeTile({super.key});
@@ -51,6 +52,7 @@ class ReminderTimeTile extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final TimeOfDay reminderTime = ref.watch(
@@ -69,7 +71,7 @@ class ReminderTimeTile extends ConsumerWidget {
         child: Row(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text("Reminder Time", style: textTheme.bodyMedium),
+            Text(l10n.notificationsReminderTime, style: textTheme.bodyMedium),
             Row(
               children: [
                 Icon(Icons.access_time, color: colorScheme.onSurface, size: 20),

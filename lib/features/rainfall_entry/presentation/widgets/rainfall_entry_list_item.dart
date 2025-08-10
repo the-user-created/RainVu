@@ -4,6 +4,7 @@ import "package:intl/intl.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
 import "package:rain_wise/features/rainfall_entry/domain/rainfall_entry.dart";
 import "package:rain_wise/features/rainfall_entry/presentation/widgets/edit_entry_sheet.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class RainfallEntryListItem extends ConsumerWidget {
@@ -26,23 +27,24 @@ class RainfallEntryListItem extends ConsumerWidget {
   Future<void> _deleteEntry(
     final BuildContext context,
     final WidgetRef ref,
+    final AppLocalizations l10n,
   ) async {
     final bool? confirmed = await showDialog<bool>(
       context: context,
       builder: (final context) => AlertDialog(
-        title: const Text("Delete Entry?"),
-        content: const Text("This action cannot be undone."),
+        title: Text(l10n.deleteEntryDialogTitle),
+        content: Text(l10n.deleteDialogContent),
         actions: [
           TextButton(
             onPressed: () => Navigator.of(context).pop(false),
-            child: const Text("Cancel"),
+            child: Text(l10n.cancelButtonLabel),
           ),
           TextButton(
             onPressed: () => Navigator.of(context).pop(true),
             style: TextButton.styleFrom(
               foregroundColor: Theme.of(context).colorScheme.error,
             ),
-            child: const Text("Delete"),
+            child: Text(l10n.deleteButtonLabel),
           ),
         ],
       ),
@@ -56,7 +58,12 @@ class RainfallEntryListItem extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
-    final String gaugeName = entry.gauge?.name ?? "Loading...";
+    final AppLocalizations l10n = AppLocalizations.of(context);
+
+    String gaugeName = entry.gauge?.name ?? l10n.loading;
+    if (gaugeName == "Unknown Gauge") {
+      gaugeName = l10n.unknownGauge;
+    }
 
     return Card(
       elevation: 2,
@@ -94,7 +101,7 @@ class RainfallEntryListItem extends ConsumerWidget {
                     color: theme.colorScheme.secondary,
                     size: 24,
                   ),
-                  tooltip: "Edit Entry",
+                  tooltip: l10n.editEntryTooltip,
                   onPressed: () => _showEditSheet(context),
                 ),
                 const SizedBox(width: 8),
@@ -105,8 +112,8 @@ class RainfallEntryListItem extends ConsumerWidget {
                     color: theme.colorScheme.error,
                     size: 24,
                   ),
-                  tooltip: "Delete Entry",
-                  onPressed: () => _deleteEntry(context, ref),
+                  tooltip: l10n.deleteEntryTooltip,
+                  onPressed: () => _deleteEntry(context, ref, l10n),
                 ),
               ],
             ),
