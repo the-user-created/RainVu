@@ -22,11 +22,11 @@ class _RainfallTrendsCardState extends State<RainfallTrendsCard> {
       width: double.infinity,
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
             blurRadius: 4,
-            color: Color(0x1A000000),
-            offset: Offset(0, 2),
+            color: theme.shadowColor,
+            offset: const Offset(0, 2),
           ),
         ],
         borderRadius: BorderRadius.circular(16),

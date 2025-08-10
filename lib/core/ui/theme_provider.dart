@@ -22,6 +22,7 @@ class ThemeModeNotifier extends _$ThemeModeNotifier {
     // before this notifier is used.
     final AsyncValue<SharedPreferences> prefsAsyncValue =
         ref.watch(sharedPreferencesProvider);
+    // TODO: Brittle Provider Initialization: ThemeModeNotifier uses a force unwrap (.value!) which relies on pre-loading in main.dart, making it fragile.
     _prefs = prefsAsyncValue.value!;
 
     final String? themeModeString = _prefs.getString(_themeModeKey);

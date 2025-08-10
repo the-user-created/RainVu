@@ -79,7 +79,7 @@ class _MapControlButton extends StatelessWidget {
       shape: const CircleBorder(),
       color: theme.colorScheme.surface,
       elevation: 4,
-      shadowColor: Colors.black38,
+      shadowColor: theme.shadowColor,
       child: AppIconButton(
         icon: Icon(icon, size: 24),
         onPressed: onPressed,
