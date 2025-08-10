@@ -23,11 +23,11 @@ class ForecastCard extends ConsumerWidget {
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
             blurRadius: 4,
-            color: Color(0x33000000),
-            offset: Offset(0, 2),
+            color: theme.shadowColor,
+            offset: const Offset(0, 2),
           ),
         ],
         gradient: LinearGradient(

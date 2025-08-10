@@ -17,7 +17,7 @@ class SettingsCard extends StatelessWidget {
       ),
       child: Card(
         clipBehavior: Clip.antiAlias,
-        shadowColor: const Color(0x33000000),
+        shadowColor: theme.cardTheme.shadowColor,
         color: theme.colorScheme.surface,
         margin: EdgeInsets.zero,
         child: Column(

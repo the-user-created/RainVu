@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:go_router/go_router.dart";
 import "package:rain_wise/features/insights/application/seasonal_patterns_provider.dart";
 import "package:rain_wise/features/insights/domain/seasonal_patterns_data.dart";
 import "package:rain_wise/features/insights/presentation/widgets/seasonal_patterns/data_explanation_card.dart";
@@ -9,7 +8,6 @@ import "package:rain_wise/features/insights/presentation/widgets/seasonal_patter
 import "package:rain_wise/features/insights/presentation/widgets/seasonal_patterns/seasonal_trend_chart.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
-import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class SeasonalPatternsScreen extends ConsumerWidget {
   const SeasonalPatternsScreen({super.key});
@@ -24,7 +22,7 @@ class SeasonalPatternsScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         elevation: 2,
-        shadowColor: Colors.black.withValues(alpha: 0.1),
+        shadowColor: theme.shadowColor,
         title: Text(
           l10n.seasonalPatternsTitle,
           style: theme.textTheme.headlineMedium,
@@ -80,7 +78,7 @@ class _Header extends StatelessWidget {
         boxShadow: [
           BoxShadow(
             blurRadius: 2,
-            color: Colors.black.withValues(alpha: 0.05),
+            color: theme.shadowColor,
             offset: const Offset(0, 2),
           ),
         ],

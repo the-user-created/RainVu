@@ -23,11 +23,11 @@ class KeyMetricsSection extends StatelessWidget {
       width: double.infinity,
       decoration: BoxDecoration(
         color: colorScheme.surface,
-        boxShadow: const [
+        boxShadow: [
           BoxShadow(
             blurRadius: 4,
-            color: Color(0x33000000),
-            offset: Offset(0, 2),
+            color: theme.shadowColor,
+            offset: const Offset(0, 2),
           ),
         ],
         borderRadius: BorderRadius.circular(16),

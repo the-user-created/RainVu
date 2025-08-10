@@ -18,7 +18,7 @@ class GaugeList extends ConsumerWidget {
     return Card(
       clipBehavior: Clip.antiAlias,
       elevation: 2,
-      shadowColor: const Color(0x33000000),
+      shadowColor: theme.cardTheme.shadowColor,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
       color: theme.colorScheme.surface,
       child: Padding(

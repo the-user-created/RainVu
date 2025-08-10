@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:go_router/go_router.dart";
 import "package:rain_wise/features/insights/application/monthly_breakdown_provider.dart";
 import "package:rain_wise/features/insights/domain/monthly_breakdown_data.dart";
 import "package:rain_wise/features/insights/presentation/widgets/monthly_breakdown/daily_breakdown_list.dart";

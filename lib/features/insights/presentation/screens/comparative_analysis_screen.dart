@@ -1,6 +1,5 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:go_router/go_router.dart";
 import "package:rain_wise/features/insights/application/comparative_analysis_provider.dart";
 import "package:rain_wise/features/insights/domain/comparative_analysis_data.dart";
 import "package:rain_wise/features/insights/presentation/widgets/comparative_analysis/comparative_analysis_chart.dart";
@@ -8,7 +7,6 @@ import "package:rain_wise/features/insights/presentation/widgets/comparative_ana
 import "package:rain_wise/features/insights/presentation/widgets/comparative_analysis/yearly_summary_list.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
-import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class ComparativeAnalysisScreen extends ConsumerWidget {
   const ComparativeAnalysisScreen({super.key});

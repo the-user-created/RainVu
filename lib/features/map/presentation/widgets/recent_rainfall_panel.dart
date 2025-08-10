@@ -33,11 +33,11 @@ class RecentRainfallPanel extends ConsumerWidget {
         height: 300,
         decoration: BoxDecoration(
           color: theme.colorScheme.surface,
-          boxShadow: const [
+          boxShadow: [
             BoxShadow(
               blurRadius: 4,
-              color: Color(0x33000000),
-              offset: Offset(0, 2),
+              color: theme.shadowColor,
+              offset: const Offset(0, 2),
             ),
           ],
           borderRadius: const BorderRadius.only(

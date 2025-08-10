@@ -99,6 +99,7 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
+      shadowColor: Colors.black.withValues(alpha: 0.2),
       textTheme: textTheme,
       scaffoldBackgroundColor: colorScheme.surface,
       appBarTheme: AppBarTheme(
@@ -165,6 +166,7 @@ class AppTheme {
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
         color: colorScheme.surface,
         surfaceTintColor: Colors.transparent,
+        shadowColor: Colors.black.withValues(alpha: 0.2),
       ),
       datePickerTheme: DatePickerThemeData(
         backgroundColor: colorScheme.surface,
