@@ -22,15 +22,6 @@ class ComparativeAnalysisScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        leading: AppIconButton(
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: theme.colorScheme.onSurface,
-            size: 30,
-          ),
-          onPressed: context.pop,
-          tooltip: l10n.backButtonTooltip,
-        ),
         title: Text(
           l10n.comparativeAnalysisTitle,
           style: theme.textTheme.headlineMedium,

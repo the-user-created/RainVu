@@ -55,14 +55,6 @@ class _MonthlyBreakdownScreenState
 
     return Scaffold(
       appBar: AppBar(
-        leading: AppIconButton(
-          icon: Icon(
-            Icons.arrow_back_rounded,
-            color: theme.colorScheme.onSurface,
-          ),
-          onPressed: context.pop,
-          tooltip: l10n.backButtonTooltip,
-        ),
         title: Text(
           l10n.monthlyBreakdownTitle,
           style: theme.textTheme.headlineMedium,

@@ -1,6 +1,7 @@
 {
   "@@locale": "en",
   "appName": "RainWise",
+  "backButtonTooltip": "Back",
   "comingSoon": "Coming Soon",
   "@comingSoon": {
     "description": "Default page title for a feature under development"
@@ -156,7 +157,6 @@
   "map_myLocationTooltip": "Center on my location",
   "map_zoomInTooltip": "Zoom in",
   "map_zoomOutTooltip": "Zoom out",
-  "backButtonTooltip": "Back",
   "rainfallEntriesError": "Error: {error}",
   "@rainfallEntriesError": {
     "placeholders": {
