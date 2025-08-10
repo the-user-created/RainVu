@@ -6,6 +6,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/data_tools/application/data_tools_provider.dart";
 import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -15,6 +16,7 @@ class ImportDataCard extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final DataToolsState state = ref.watch(dataToolsNotifierProvider);
     final DataToolsNotifier notifier =
         ref.read(dataToolsNotifierProvider.notifier);
@@ -27,13 +29,13 @@ class ImportDataCard extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                "Import Your Data",
+                l10n.importDataCardTitle,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.headlineSmall,
               ),
               const SizedBox(height: 8),
               Text(
-                "Import your previously exported rainfall data",
+                l10n.importDataCardDescription,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyMedium
                     ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
@@ -50,8 +52,8 @@ class ImportDataCard extends ConsumerWidget {
               AppButton(
                 onPressed: (state.isImporting || state.fileToImport == null)
                     ? null
-                    : notifier.importData,
-                label: "Import Data",
+                    : () => notifier.importData(l10n),
+                label: l10n.importDataButtonLabel,
                 isLoading: state.isImporting,
                 isExpanded: true,
                 icon: const Icon(Icons.cloud_upload, size: 20),
@@ -73,6 +75,7 @@ class _FilePickerBox extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     return InkWell(
       onTap: onTap,
       child: DottedBorder(
@@ -98,12 +101,12 @@ class _FilePickerBox extends StatelessWidget {
                 ),
                 const SizedBox(height: 8),
                 Text(
-                  "Select File to Import",
+                  l10n.filePickerBoxTitle,
                   style: theme.textTheme.bodyMedium,
                 ),
                 const SizedBox(height: 4),
                 Text(
-                  "CSV or JSON files only",
+                  l10n.filePickerBoxSubtitle,
                   style: theme.textTheme.bodySmall
                       ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
                 ),
@@ -125,6 +128,7 @@ class _FilePreview extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     // Get file name from path
     final String fileName = file.path.split("/").last;
     return Container(
@@ -147,7 +151,7 @@ class _FilePreview extends StatelessWidget {
           AppIconButton(
             icon: Icon(Icons.close, color: theme.colorScheme.onSurfaceVariant),
             onPressed: onClear,
-            tooltip: "Clear selection",
+            tooltip: l10n.clearSelectionTooltip,
           ),
         ],
       ),

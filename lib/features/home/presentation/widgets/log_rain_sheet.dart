@@ -5,6 +5,7 @@ import "package:intl/intl.dart";
 import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/features/home/application/home_providers.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
@@ -95,6 +96,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
         ref.watch(userGaugesProvider);
     final AsyncValue<void> logRainState = ref.watch(logRainControllerProvider);
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     return Container(
       width: double.infinity,
@@ -117,18 +119,18 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
               mainAxisSize: MainAxisSize.min,
               children: [
                 Text(
-                  "Log Rainfall",
+                  l10n.logRainfallSheetTitle,
                   style: theme.textTheme.headlineSmall,
                 ),
                 const SizedBox(height: 16),
-                _buildSectionHeader("Select Rain Gauge"),
+                _buildSectionHeader(l10n.logRainfallSelectGaugeHeader),
                 gaugesAsync.when(
                   loading: () => const AppLoader(),
                   error: (final err, final st) =>
-                      Text("Error loading gauges: $err"),
+                      Text(l10n.logRainfallGaugesError(err)),
                   data: (final gauges) => AppDropdownFormField<String>(
                     value: _selectedGaugeId,
-                    hintText: "Select...",
+                    hintText: l10n.logRainfallSelectGaugeHint,
                     onChanged: (final newValue) {
                       setState(() {
                         _selectedGaugeId = newValue;
@@ -143,11 +145,11 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                         )
                         .toList(),
                     validator: (final value) =>
-                        value == null ? "Please select a gauge" : null,
+                        value == null ? l10n.logRainfallGaugeValidation : null,
                   ),
                 ),
                 const SizedBox(height: 16),
-                _buildSectionHeader("Rainfall Amount"),
+                _buildSectionHeader(l10n.logRainfallAmountHeader),
                 Row(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
@@ -155,18 +157,18 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                       flex: 3,
                       child: TextFormField(
                         controller: _amountController,
-                        decoration: const InputDecoration(
-                          hintText: "Enter amount",
+                        decoration: InputDecoration(
+                          hintText: l10n.logRainfallAmountHint,
                         ),
                         keyboardType: const TextInputType.numberWithOptions(
                           decimal: true,
                         ),
                         validator: (final val) {
                           if (val == null || val.isEmpty) {
-                            return "Amount cannot be empty";
+                            return l10n.logRainfallAmountValidationEmpty;
                           }
                           if (double.tryParse(val) == null) {
-                            return "Please enter a valid number";
+                            return l10n.logRainfallAmountValidationInvalid;
                           }
                           return null;
                         },
@@ -187,14 +189,14 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                             _selectedUnit = value;
                           });
                         },
-                        segments: const [
+                        segments: [
                           SegmentOption(
                             value: "mm",
-                            label: Text("mm"),
+                            label: Text(l10n.unitMM),
                           ),
                           SegmentOption(
                             value: "in",
-                            label: Text("in"),
+                            label: Text(l10n.unitIn),
                           ),
                         ],
                       ),
@@ -202,7 +204,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                   ],
                 ),
                 const SizedBox(height: 16),
-                _buildSectionHeader("Date & Time"),
+                _buildSectionHeader(l10n.logRainfallDateTimeHeader),
                 InkWell(
                   onTap: _selectDateTime,
                   child: Container(
@@ -237,7 +239,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                 const SizedBox(height: 24),
                 AppButton(
                   onPressed: _saveRainfallData,
-                  label: "Save Rainfall Data",
+                  label: l10n.logRainfallSaveButton,
                   isLoading: logRainState.isLoading,
                   isExpanded: true,
                 ),

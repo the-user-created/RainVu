@@ -1,18 +1,19 @@
 import "package:freezed_annotation/freezed_annotation.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 part "user_subscription.freezed.dart";
 
 enum SubscriptionStatus { active, free, cancelled }
 
 extension SubscriptionStatusX on SubscriptionStatus {
-  String get displayName {
+  String displayName(final AppLocalizations l10n) {
     switch (this) {
       case SubscriptionStatus.active:
-        return "Active";
+        return l10n.subscriptionStatusActive;
       case SubscriptionStatus.free:
-        return "Free Plan";
+        return l10n.subscriptionStatusFree;
       case SubscriptionStatus.cancelled:
-        return "Cancelled";
+        return l10n.subscriptionStatusCancelled;
     }
   }
 }

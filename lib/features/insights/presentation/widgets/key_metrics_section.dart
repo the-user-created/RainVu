@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/insights/domain/insights_data.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class KeyMetricsSection extends StatelessWidget {
   const KeyMetricsSection({
@@ -14,6 +15,7 @@ class KeyMetricsSection extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final Color successColor = colorScheme.tertiary;
     final Color errorColor = colorScheme.error;
 
@@ -35,7 +37,7 @@ class KeyMetricsSection extends StatelessWidget {
         child: Column(
           children: [
             Text(
-              "Key Metrics",
+              l10n.keyMetricsTitle,
               style: textTheme.headlineSmall,
             ),
             const SizedBox(height: 24),
@@ -43,19 +45,23 @@ class KeyMetricsSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _MetricCard(
-                  title: "Total Rainfall",
-                  value: "${metrics.totalRainfall} mm",
-                  changeText:
-                      "${metrics.totalRainfallPrevYearChange}% vs last year",
+                  title: l10n.keyMetricsTotalRainfall,
+                  value: l10n
+                      .rainfallAmountWithUnit(metrics.totalRainfall.toString()),
+                  changeText: l10n.keyMetricsTotalRainfallChange(
+                    metrics.totalRainfallPrevYearChange.toString(),
+                  ),
                   changeColor: metrics.totalRainfallPrevYearChange >= 0
                       ? successColor
                       : errorColor,
                 ),
                 _MetricCard(
-                  title: "MTD Total",
-                  value: "${metrics.mtdTotal} mm",
-                  changeText:
-                      "${metrics.mtdTotalPrevMonthChange}% vs last month",
+                  title: l10n.keyMetricsMtdTotal,
+                  value:
+                      l10n.rainfallAmountWithUnit(metrics.mtdTotal.toString()),
+                  changeText: l10n.keyMetricsMtdChange(
+                    metrics.mtdTotalPrevMonthChange.toString(),
+                  ),
                   changeColor: metrics.mtdTotalPrevMonthChange >= 0
                       ? successColor
                       : errorColor,
@@ -67,15 +73,17 @@ class KeyMetricsSection extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _MetricCard(
-                  title: "YTD Total",
-                  value: "${metrics.ytdTotal} mm",
-                  changeText: "On track for yearly goal",
+                  title: l10n.keyMetricsYtdTotal,
+                  value:
+                      l10n.rainfallAmountWithUnit(metrics.ytdTotal.toString()),
+                  changeText: l10n.keyMetricsYtdGoal,
                   changeColor: successColor,
                 ),
                 _MetricCard(
-                  title: "Monthly Avg",
-                  value: "${metrics.monthlyAvg} mm",
-                  changeText: "Based on 12 month data",
+                  title: l10n.keyMetricsMonthlyAvg,
+                  value: l10n
+                      .rainfallAmountWithUnit(metrics.monthlyAvg.toString()),
+                  changeText: l10n.keyMetricsMonthlyAvgSource,
                   changeColor: colorScheme.onSurfaceVariant,
                 ),
               ],
@@ -103,6 +111,7 @@ class _MetricCard extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final double cardWidth = MediaQuery.sizeOf(context).width * 0.42;
@@ -129,6 +138,7 @@ class _MetricCard extends StatelessWidget {
                   Icons.info_outline,
                   color: colorScheme.secondary,
                   size: 20,
+                  semanticLabel: l10n.infoTooltip,
                 ),
               ],
             ),

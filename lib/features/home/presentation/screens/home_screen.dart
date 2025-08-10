@@ -10,6 +10,7 @@ import "package:rain_wise/features/home/presentation/widgets/log_rain_sheet.dart
 import "package:rain_wise/features/home/presentation/widgets/monthly_summary_card.dart";
 import "package:rain_wise/features/home/presentation/widgets/quick_stats_card.dart";
 import "package:rain_wise/features/home/presentation/widgets/rainfall_trends_card.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
 class HomeScreen extends ConsumerWidget {
@@ -37,6 +38,7 @@ class HomeScreen extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AsyncValue<HomeData> homeDataAsync =
         ref.watch(homeScreenDataProvider);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     // TODO: Fetch user subscription status from a provider
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -48,7 +50,7 @@ class HomeScreen extends ConsumerWidget {
           child: homeDataAsync.when(
             loading: () => const AppLoader(),
             error: (final err, final stack) => Center(
-              child: Text("Error: $err"),
+              child: Text(l10n.homeScreenError(err)),
             ),
             data: (final homeData) => RefreshIndicator(
               onRefresh: () => ref.refresh(homeScreenDataProvider.future),

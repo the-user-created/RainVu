@@ -7,6 +7,7 @@ import "package:rain_wise/features/insights/presentation/widgets/seasonal_patter
 import "package:rain_wise/features/insights/presentation/widgets/seasonal_patterns/season_selector.dart";
 import "package:rain_wise/features/insights/presentation/widgets/seasonal_patterns/seasonal_summary_card.dart";
 import "package:rain_wise/features/insights/presentation/widgets/seasonal_patterns/seasonal_trend_chart.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
@@ -16,6 +17,7 @@ class SeasonalPatternsScreen extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<SeasonalPatternsData> dataAsync =
         ref.watch(seasonalPatternsDataProvider);
 
@@ -29,9 +31,12 @@ class SeasonalPatternsScreen extends ConsumerWidget {
             color: theme.colorScheme.onSurface,
           ),
           onPressed: context.pop,
-          tooltip: "Back",
+          tooltip: l10n.backButtonTooltip,
         ),
-        title: Text("Seasonal Patterns", style: theme.textTheme.headlineMedium),
+        title: Text(
+          l10n.seasonalPatternsTitle,
+          style: theme.textTheme.headlineMedium,
+        ),
         centerTitle: false,
       ),
       body: SingleChildScrollView(
@@ -45,7 +50,7 @@ class SeasonalPatternsScreen extends ConsumerWidget {
                 loading: () =>
                     const Center(heightFactor: 10, child: AppLoader()),
                 error: (final err, final stack) =>
-                    Center(child: Text("Error: $err")),
+                    Center(child: Text(l10n.seasonalPatternsError(err))),
                 data: (final data) => Column(
                   children: [
                     SeasonalTrendChart(trendData: data.trendData),
@@ -72,6 +77,7 @@ class _Header extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     return DecoratedBox(
       decoration: BoxDecoration(
         color: theme.colorScheme.surface,
@@ -94,7 +100,7 @@ class _Header extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              "Explore historical seasonal rainfall data and compare current trends with past patterns.",
+              l10n.seasonalPatternsDescription,
               style: theme.textTheme.bodyMedium
                   ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
             ),

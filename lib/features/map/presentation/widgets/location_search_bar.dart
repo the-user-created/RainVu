@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class LocationSearchBar extends StatefulWidget {
   const LocationSearchBar({super.key});
@@ -26,6 +27,7 @@ class _LocationSearchBarState extends State<LocationSearchBar> {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     return SafeArea(
       child: Container(
@@ -46,7 +48,7 @@ class _LocationSearchBarState extends State<LocationSearchBar> {
           child: TextFormField(
             controller: _searchController,
             decoration: InputDecoration(
-              hintText: "Search a location...",
+              hintText: l10n.map_searchHint,
               prefixIcon: Icon(
                 Icons.search,
                 color: colorScheme.onSurface,

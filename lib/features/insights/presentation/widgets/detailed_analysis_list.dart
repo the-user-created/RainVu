@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/core/navigation/app_router.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class DetailedAnalysisList extends StatelessWidget {
   const DetailedAnalysisList({super.key});
@@ -7,37 +8,38 @@ class DetailedAnalysisList extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Text(
-            "Detailed Analysis",
+            l10n.detailedAnalysisTitle,
             style: theme.textTheme.headlineSmall,
           ),
           const SizedBox(height: 12),
           _AnalysisListTile(
-            title: "Monthly Breakdown",
-            subtitle: "View detailed monthly statistics",
+            title: l10n.monthlyBreakdownTitle,
+            subtitle: l10n.detailedAnalysisMonthlyBreakdownSubtitle,
             onTap: () => const MonthlyBreakdownRoute().push(context),
           ),
           const SizedBox(height: 16),
           _AnalysisListTile(
-            title: "Seasonal Patterns",
-            subtitle: "Analyze rainfall patterns by season",
+            title: l10n.seasonalPatternsTitle,
+            subtitle: l10n.detailedAnalysisSeasonalPatternsSubtitle,
             onTap: () => const SeasonalPatternsRoute().push(context),
           ),
           const SizedBox(height: 16),
           _AnalysisListTile(
-            title: "Anomaly Exploration",
-            subtitle: "Analyze unusual patterns in rainfall data",
+            title: l10n.anomalyExplorationTitle,
+            subtitle: l10n.detailedAnalysisAnomalyExplorationSubtitle,
             onTap: () => const AnomalyExplorationRoute().push(context),
           ),
           const SizedBox(height: 16),
           _AnalysisListTile(
-            title: "Comparative Yearly Analysis",
-            subtitle: "See side-by-side comparisons of multiple years",
+            title: l10n.detailedAnalysisComparativeAnalysisTitle,
+            subtitle: l10n.detailedAnalysisComparativeAnalysisSubtitle,
             onTap: () => const ComparativeAnalysisRoute().push(context),
           ),
         ],

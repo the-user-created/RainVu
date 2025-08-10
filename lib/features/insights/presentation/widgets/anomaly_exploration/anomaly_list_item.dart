@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/features/insights/domain/anomaly_data.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class AnomalyListItem extends StatelessWidget {
   const AnomalyListItem({
@@ -15,10 +16,12 @@ class AnomalyListItem extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     final String sign = anomaly.deviationPercentage > 0 ? "+" : "";
-    final String deviationText =
-        "$sign${anomaly.deviationPercentage.toStringAsFixed(0)}% vs Average";
+    final String deviationValue =
+        "$sign${anomaly.deviationPercentage.toStringAsFixed(0)}";
+    final String deviationText = l10n.anomalyDeviationVsAverage(deviationValue);
 
     return InkWell(
       onTap: () {

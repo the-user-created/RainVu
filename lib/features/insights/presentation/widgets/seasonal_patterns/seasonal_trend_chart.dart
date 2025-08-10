@@ -4,6 +4,7 @@ import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/features/insights/domain/seasonal_patterns_data.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class SeasonalTrendChart extends StatelessWidget {
   const SeasonalTrendChart({required this.trendData, super.key});
@@ -13,6 +14,7 @@ class SeasonalTrendChart extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final double maxRainfall = trendData.isEmpty
         ? 10.0
         : trendData.map((final e) => e.rainfall).reduce(max);
@@ -25,7 +27,7 @@ class SeasonalTrendChart extends StatelessWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text("Rainfall Trends", style: theme.textTheme.titleMedium),
+            Text(l10n.rainfallTrendsTitle, style: theme.textTheme.titleMedium),
             const SizedBox(height: 24),
             SizedBox(
               height: 250,

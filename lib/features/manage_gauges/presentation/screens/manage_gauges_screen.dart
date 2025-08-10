@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/add_gauge_sheet.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/gauge_list.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class ManageGaugesScreen extends StatelessWidget {
@@ -24,9 +25,11 @@ class ManageGaugesScreen extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title: Text("Rain Gauges", style: theme.textTheme.headlineLarge),
+        title:
+            Text(l10n.manageGaugesTitle, style: theme.textTheme.headlineLarge),
         centerTitle: false,
       ),
       body: SingleChildScrollView(
@@ -37,7 +40,7 @@ class ManageGaugesScreen extends StatelessWidget {
             const GaugeList(),
             const SizedBox(height: 16),
             AppButton(
-              label: "Add New Rain Gauge",
+              label: l10n.manageGaugesAddButton,
               onPressed: () => _showAddSheet(context),
               icon: Icon(
                 Icons.add,

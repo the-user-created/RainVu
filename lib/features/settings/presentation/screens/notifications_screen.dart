@@ -6,12 +6,14 @@ import "package:rain_wise/features/settings/presentation/widgets/notifications/d
 import "package:rain_wise/features/settings/presentation/widgets/notifications/notification_setting_tile.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 class NotificationsScreen extends ConsumerWidget {
   const NotificationsScreen({super.key});
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final NotificationSettings settings =
         ref.watch(notificationSettingsNotifierProvider);
     final NotificationSettingsNotifier notifier =
@@ -19,7 +21,7 @@ class NotificationsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Notifications"),
+        title: Text(l10n.notificationsTitle),
         centerTitle: false,
         elevation: 2,
       ),
@@ -27,35 +29,37 @@ class NotificationsScreen extends ConsumerWidget {
         onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
         child: ListView(
           children: [
-            const SettingsSectionHeader(title: "DAILY LOGGING"),
+            SettingsSectionHeader(title: l10n.notificationsSectionDailyLogging),
             const SettingsCard(
               children: [
                 DailyReminderSettingsGroup(),
               ],
             ),
-            const SettingsSectionHeader(title: "REPORTS & ALERTS"),
+            SettingsSectionHeader(
+              title: l10n.notificationsSectionReportsAlerts,
+            ),
             SettingsCard(
               children: [
                 NotificationSettingTile(
-                  title: "Weekly Summary Report",
-                  subtitle: "Receive weekly rainfall data overview",
+                  title: l10n.notificationsWeeklySummaryTitle,
+                  subtitle: l10n.notificationsWeeklySummarySubtitle,
                   value: settings.weeklySummary,
                   onChanged: notifier.setWeeklySummary,
                 ),
                 NotificationSettingTile(
-                  title: "Weather Alerts",
-                  subtitle: "Get notified about severe weather conditions",
+                  title: l10n.notificationsWeatherAlertsTitle,
+                  subtitle: l10n.notificationsWeatherAlertsSubtitle,
                   value: settings.weatherAlerts,
                   onChanged: notifier.setWeatherAlerts,
                 ),
               ],
             ),
-            const SettingsSectionHeader(title: "GENERAL"),
+            SettingsSectionHeader(title: l10n.notificationsSectionGeneral),
             SettingsCard(
               children: [
                 NotificationSettingTile(
-                  title: "App Updates",
-                  subtitle: "Stay informed about new features",
+                  title: l10n.notificationsAppUpdatesTitle,
+                  subtitle: l10n.notificationsAppUpdatesSubtitle,
                   value: settings.appUpdates,
                   onChanged: notifier.setAppUpdates,
                 ),

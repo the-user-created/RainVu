@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/features/subscription/domain/subscription_plan.dart";
 import "package:rain_wise/features/subscription/presentation/widgets/plan_feature_list.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class PlanComparisonCard extends StatelessWidget {
@@ -15,6 +16,7 @@ class PlanComparisonCard extends StatelessWidget {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final isFree = plan.id == "free_plan";
     return Card(
       elevation: 2,
@@ -51,7 +53,7 @@ class PlanComparisonCard extends StatelessWidget {
                       borderRadius: BorderRadius.circular(16),
                     ),
                     child: Text(
-                      "Current",
+                      l10n.subscriptionCurrentPlanChip,
                       style: theme.textTheme.bodySmall?.copyWith(
                         color: colorScheme.onSecondary,
                         fontWeight: FontWeight.w600,
@@ -71,7 +73,9 @@ class PlanComparisonCard extends StatelessWidget {
                 onPressed: () {
                   // TODO: Wire up to provider
                 },
-                label: isFree ? "Downgrade to Free" : "Upgrade to Pro",
+                label: isFree
+                    ? l10n.subscriptionDowngradeButton
+                    : l10n.subscriptionUpgradeButton,
                 isExpanded: true,
                 style: isFree
                     ? AppButtonStyle.outlineDestructive
