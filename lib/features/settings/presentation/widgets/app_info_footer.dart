@@ -26,8 +26,10 @@ class AppInfoFooter extends ConsumerWidget {
       child: Center(
         child: Column(
           children: [
-            Text(l10n.appInfoFooterLastSynced,
-                style: theme.textTheme.bodyMedium),
+            Text(
+              l10n.appInfoFooterLastSynced,
+              style: theme.textTheme.bodyMedium,
+            ),
             const SizedBox(height: 4),
             lastSyncedAsync.when(
               data: (final date) => Text(

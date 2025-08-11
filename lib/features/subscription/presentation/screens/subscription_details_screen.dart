@@ -38,7 +38,7 @@ class SubscriptionDetailsScreen extends ConsumerWidget {
     final BuildContext context,
     final WidgetRef ref,
   ) async {
-    final l10n = AppLocalizations.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
     // Show a confirmation dialog before cancelling
     final bool? confirmed = await showDialog<bool>(
       context: context,
