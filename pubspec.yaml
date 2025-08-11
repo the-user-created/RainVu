@@ -10,17 +10,17 @@ environment:
 
 dependencies:
   auto_size_text: ^3.0.0
-  cloud_firestore: ^5.6.5
+  cloud_firestore: ^6.0.0
   collection: ^1.19.1
   crypto: ^3.0.6
   cupertino_icons: ^1.0.8
   dotted_border: ^3.1.0
   dropdown_button2: ^2.3.9
   file_picker: ^10.2.0
-  firebase_analytics: ^11.4.4
-  firebase_auth: ^5.5.1
-  firebase_core: ^3.12.1
-  firebase_crashlytics: ^4.3.4
+  firebase_analytics: ^12.0.0
+  firebase_auth: ^6.0.1
+  firebase_core: ^4.0.0
+  firebase_crashlytics: ^5.0.0
   fl_chart: ^1.0.0
   flutter:
     sdk: flutter
