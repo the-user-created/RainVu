@@ -40,7 +40,7 @@ dependencies:
   image_picker: ^1.1.2
   intl: ^0.20.2
   json_annotation: ^4.9.0
-  json_path: ^0.7.5
+  json_path: ^0.8.0
   json_serializable: ^6.9.5
   mime_type: ^1.0.1
   page_transition: ^2.2.1
