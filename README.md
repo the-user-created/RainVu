@@ -34,8 +34,6 @@ notebooks and spreadsheets, offering instant insights and historical analysis at
   to understand trends and patterns.
 * **Helps you analyze the past:** Dive deep into historical data with monthly breakdowns, seasonal
   pattern analysis, and year-over-year comparisons.
-* **Keeps your data safe:** With the Pro plan, your data is securely synced to the cloud, ensuring
-  it's never lost and is accessible across devices.
 * **Puts you in control:** Manage your rain gauges, export your data for external use, and set up
   custom notifications to stay on top of your data logging.
 
@@ -55,20 +53,12 @@ intelligence, turning guesswork into data-driven strategy.
 * 🗺️ **Interactive Rainfall Map**: Visualize recent rainfall entries on an interactive map. See
   where it rained the most and get a geographical overview of your data points.
 
-* ☁️ **Cloud Sync & Backup (Pro)**: Never lose your data. The Pro subscription enables seamless and
-  secure cloud synchronization using Firebase Firestore, keeping your records safe and accessible.
-
 * 📤 **Data Export & Import**: Take control of your data by exporting it to CSV, PDF, or JSON formats
   for use in other applications. Easily import data from previous records.
 
-* forecasting **Weather Forecasts (Pro)**: Plan ahead with a 7-day weather forecast directly within
-  the app, helping you anticipate rainfall and manage activities accordingly.
+* 🔔 **Customizable Notifications**: Stay consistent with your data logging.
 
-* 🔔 **Customizable Notifications**: Stay consistent with your data logging. Set up daily reminders
-  and receive alerts for significant weather events.
-
-* 🔒 **Secure & Private**: Uses Firebase Authentication for user and session management. Your data is
-  your own, stored locally on your device and securely in the cloud with the Pro plan.
+* 🔒 **Secure & Private**: Your data is your own, stored locally on your device.
 
 ## Tech Stack
 
@@ -77,10 +67,8 @@ intelligence, turning guesswork into data-driven strategy.
 * **State Management**: Riverpod (with `riverpod_generator`)
 * **Routing**: GoRouter
 * **Backend & Cloud Services**: Firebase
-    * **Database**: Cloud Firestore (for user data, rain gauges, and rainfall entries)
-    * **Authentication**: Firebase Authentication (Email/Password, Google Sign-In)
-    * **Analytics**: Firebase Analytics
-    * **Crash Reporting**: Firebase Crashlytics
+    * **Analytics**: Firebase Analytics[
+    * **Crash Reporting**: Firebase Crashlytics]()
 * **Local Storage**:
     * `shared_preferences` for app settings and user preferences.
     * (Future) Local database like `Isar` or `Drift` for robust offline capabilities.
@@ -180,30 +168,6 @@ This project uses `flutter_dotenv` to manage environment variables for Firebase 
 
 **Do NOT commit the `.env` file to the repository.**
 
-### Firebase Setup
-
-1. **Firebase Project:** Ensure you have access to the Firebase project associated with this app.
-2. **Client Configuration Files:**
-    * **Android:** Download the `google-services.json` file from your Firebase project settings and
-      place it in the `android/app/` directory.
-    * **iOS:** Download the `GoogleService-Info.plist` file from your Firebase project settings and
-      place it in the `ios/Runner/` directory.
-    * **These files are critical for connecting the app to Firebase services and should not be
-      committed
-      to a public repository.**
-3. **Backend Configuration (Firebase Console):**
-   The backend configuration (Firestore rules, indexes, and Cloud Functions) is managed directly in
-   the [Firebase Console](https://console.firebase.google.com/) and is not part of this repository.
-   You will need to configure the following:
-    * **Firestore Security Rules:** Implement rules to secure your data. At a minimum, ensure that
-      users
-      can only read and write their own documents in collections like `users`, `gauges`, and
-      `rainfall_entries`.
-    * **Firestore Indexes:** As your query complexity grows, you may need to add composite indexes.
-      The
-      Firebase Console will typically provide a direct link to create any missing indexes that your
-      app's queries require.
-
 ## Running the App
 
 1. Ensure an emulator/simulator is running or a physical device is connected.
@@ -238,7 +202,7 @@ We use a simple branching model:
 * `develop`: The primary branch for ongoing development and integration of new features. All feature
   branches are merged into `develop`.
 * **Feature Branches**: For new features or bug fixes, create a branch from `develop`.
-    * Naming: `feature/descriptive-name` or `fix/issue-description`.
+    * Naming: `feat/descriptive-name` or `fix/issue-description`.
 
 All tasks, bugs, and feature requests are tracked as **Issues** on GitHub. Create **Pull Requests (
 PRs)** from feature branches to merge into `develop`.
