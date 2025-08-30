@@ -26,15 +26,6 @@ class SettingsScreen extends ConsumerWidget {
       ),
       body: ListView(
         children: [
-          SettingsSectionHeader(title: l10n.settingsSectionAccount),
-          SettingsCard(
-            children: [
-              SettingsListTile(
-                title: l10n.settingsAccountMySubscription,
-                onTap: () => const MySubscriptionRoute().push(context),
-              ),
-            ],
-          ),
           SettingsSectionHeader(title: l10n.settingsSectionDataManagement),
           SettingsCard(
             children: [
@@ -77,7 +68,6 @@ class SettingsScreen extends ConsumerWidget {
               ),
             ],
           ),
-          // TODO: Add logout/login functionality
           const AppInfoFooter(),
         ],
       ),

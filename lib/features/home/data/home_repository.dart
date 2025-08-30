@@ -1,6 +1,5 @@
 import "package:flutter/foundation.dart" show kDebugMode;
 import "package:flutter/material.dart";
-import "package:rain_wise/features/home/domain/forecast.dart";
 import "package:rain_wise/features/home/domain/home_data.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
@@ -11,8 +10,6 @@ abstract class HomeRepository {
   Future<HomeData> getHomeData();
 
   Future<List<RainGauge>> getUserGauges();
-
-  Future<List<ForecastDay>> getForecast();
 
   Future<void> saveRainfallEntry({
     required final String gaugeId,
@@ -53,41 +50,6 @@ class MockHomeRepository implements HomeRepository {
       RainGauge(id: "gauge_1", name: "Backyard Gauge"),
       RainGauge(id: "gauge_2", name: "Farm - Field A"),
       RainGauge(id: "gauge_3", name: "Rooftop Collector"),
-    ];
-  }
-
-  @override
-  Future<List<ForecastDay>> getForecast() async {
-    await Future<void>.delayed(const Duration(milliseconds: 400));
-    return const [
-      ForecastDay(
-        day: "Today",
-        icon: Icons.wb_sunny,
-        iconColor: Color(0xFFFFC107),
-        temperature: "24°C",
-        chanceOfRain: "10%",
-      ),
-      ForecastDay(
-        day: "Tue",
-        icon: Icons.cloud,
-        iconColor: Color(0xFF90A4AE),
-        temperature: "22°C",
-        chanceOfRain: "30%",
-      ),
-      ForecastDay(
-        day: "Wed",
-        icon: Icons.grain,
-        iconColor: Color(0xFF6995A7),
-        temperature: "20°C",
-        chanceOfRain: "80%",
-      ),
-      ForecastDay(
-        day: "Thu",
-        icon: Icons.wb_cloudy,
-        iconColor: Color(0xFF90A4AE),
-        temperature: "23°C",
-        chanceOfRain: "20%",
-      ),
     ];
   }
 
