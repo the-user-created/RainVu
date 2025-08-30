@@ -1,7 +1,6 @@
 import "dart:async";
 
 import "package:rain_wise/features/home/data/home_repository.dart";
-import "package:rain_wise/features/home/domain/forecast.dart";
 import "package:rain_wise/features/home/domain/home_data.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
@@ -17,11 +16,6 @@ Future<HomeData> homeScreenData(final HomeScreenDataRef ref) async =>
 @riverpod
 Future<List<RainGauge>> userGauges(final UserGaugesRef ref) async =>
     ref.watch(homeRepositoryProvider).getUserGauges();
-
-/// Provider to fetch the 7-day forecast.
-@riverpod
-Future<List<ForecastDay>> forecast(final ForecastRef ref) async =>
-    ref.watch(homeRepositoryProvider).getForecast();
 
 /// Controller for handling the logic of logging a new rainfall entry.
 @riverpod

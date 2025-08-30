@@ -5,7 +5,7 @@ import "package:rain_wise/features/settings/application/settings_providers.dart"
 import "package:rain_wise/l10n/app_localizations.dart";
 
 /// A footer widget that displays the "Last Synced" time.
-/// It conditionally renders based on the user's subscription status.
+// TODO: Should not show last synced, should show the app version and build number.
 class AppInfoFooter extends ConsumerWidget {
   const AppInfoFooter({super.key});
 
@@ -13,11 +13,6 @@ class AppInfoFooter extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final bool isPro = ref.watch(isProUserProvider);
-
-    if (!isPro) {
-      return const SizedBox.shrink();
-    }
 
     final AsyncValue<DateTime?> lastSyncedAsync = ref.watch(lastSyncedProvider);
 
