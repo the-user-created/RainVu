@@ -2,12 +2,6 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "settings_providers.g.dart";
 
-/// Provider to determine if the user has a Pro subscription.
-/// In a real app, this would check the user's status from a repository.
-@riverpod
-bool isProUser(final IsProUserRef ref) => true;
-// Mock implementation: Assume the user is a Pro user.
-
 /// Provider to get the last sync timestamp.
 /// In a real app, this would fetch from a repository or local storage.
 @riverpod

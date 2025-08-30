@@ -4,7 +4,6 @@ import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/home/application/home_providers.dart";
 import "package:rain_wise/features/home/domain/home_data.dart";
-import "package:rain_wise/features/home/presentation/widgets/forecast_card.dart";
 import "package:rain_wise/features/home/presentation/widgets/home_app_bar.dart";
 import "package:rain_wise/features/home/presentation/widgets/log_rain_sheet.dart";
 import "package:rain_wise/features/home/presentation/widgets/monthly_summary_card.dart";
@@ -39,7 +38,6 @@ class HomeScreen extends ConsumerWidget {
     final AsyncValue<HomeData> homeDataAsync =
         ref.watch(homeScreenDataProvider);
     final AppLocalizations l10n = AppLocalizations.of(context);
-    // TODO: Fetch user subscription status from a provider
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
@@ -52,6 +50,7 @@ class HomeScreen extends ConsumerWidget {
             error: (final err, final stack) => Center(
               child: Text(l10n.homeScreenError(err)),
             ),
+            // TODO: Remove RefreshIndicator as its not needed without remote data
             data: (final homeData) => RefreshIndicator(
               onRefresh: () => ref.refresh(homeScreenDataProvider.future),
               child: SingleChildScrollView(
@@ -67,7 +66,6 @@ class HomeScreen extends ConsumerWidget {
                         monthlyTotal: homeData.monthlyTotal,
                         recentEntries: homeData.recentEntries,
                       ),
-                      const ForecastCard(),
                       const RainfallTrendsCard(),
                       QuickStatsCard(stats: homeData.quickStats),
                     ]
