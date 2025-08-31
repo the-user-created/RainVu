@@ -1,17 +1,19 @@
-import "dart:math";
-
-import "package:rain_wise/features/home/domain/rain_gauge.dart";
-import "package:rain_wise/features/rainfall_entry/domain/rainfall_entry.dart";
+import "package:drift/drift.dart";
+import "package:rain_wise/core/data/local/app_database.dart";
+import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
+import "package:rain_wise/features/home/domain/rain_gauge.dart" as domain_gauge;
+import "package:rain_wise/features/rainfall_entry/domain/rainfall_entry.dart"
+    as domain;
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "rainfall_entry_repository.g.dart";
 
 abstract class RainfallEntryRepository {
-  Future<List<RainfallEntry>> fetchEntriesForMonth(final DateTime month);
+  Future<List<domain.RainfallEntry>> fetchEntriesForMonth(final DateTime month);
 
-  Future<List<RainGauge>> fetchGauges();
+  Future<void> addEntry(final domain.RainfallEntry entry);
 
-  Future<void> updateEntry(final RainfallEntry entry);
+  Future<void> updateEntry(final domain.RainfallEntry entry);
 
   Future<void> deleteEntry(final String entryId);
 }
@@ -19,68 +21,67 @@ abstract class RainfallEntryRepository {
 @Riverpod(keepAlive: true)
 RainfallEntryRepository rainfallEntryRepository(
   final RainfallEntryRepositoryRef ref,
-) =>
-    MockRainfallEntryRepository();
+) {
+  final AppDatabase db = ref.watch(appDatabaseProvider);
+  return DriftRainfallEntryRepository(db.rainfallEntriesDao);
+}
 
-// Mock repository to simulate data source interactions
-class MockRainfallEntryRepository implements RainfallEntryRepository {
-  MockRainfallEntryRepository()
-      : _gauges = [
-          const RainGauge(id: "gauge1", name: "Main Gauge"),
-          const RainGauge(id: "gauge2", name: "Backyard Gauge"),
-          const RainGauge(id: "gauge3", name: "Farm Plot A"),
-        ],
-        _entries = List.generate(50, (final index) {
-          final DateTime date = DateTime.now().subtract(Duration(days: index));
-          return RainfallEntry(
-            id: "entry$index",
-            amount: (Random().nextDouble() * 20).roundToDouble(),
-            date: date,
-            gaugeId: "gauge${Random().nextInt(3) + 1}",
-            unit: "mm",
+class DriftRainfallEntryRepository implements RainfallEntryRepository {
+  DriftRainfallEntryRepository(this._dao);
+
+  final RainfallEntriesDao _dao;
+
+  @override
+  Future<List<domain.RainfallEntry>> fetchEntriesForMonth(
+    final DateTime month,
+  ) async {
+    final List<RainfallEntryWithGauge> entries =
+        await _dao.getEntriesForMonth(month);
+    return entries.map(_mapDriftToDomain).toList();
+  }
+
+  @override
+  Future<void> addEntry(final domain.RainfallEntry entry) =>
+      _dao.insertEntry(_mapDomainToCompanion(entry));
+
+  @override
+  Future<void> updateEntry(final domain.RainfallEntry entry) =>
+      _dao.updateEntry(_mapDomainToCompanion(entry));
+
+  @override
+  Future<void> deleteEntry(final String entryId) =>
+      _dao.deleteEntry(RainfallEntriesCompanion(id: Value(entryId)));
+
+  domain.RainfallEntry _mapDriftToDomain(
+    final RainfallEntryWithGauge driftEntry,
+  ) {
+    final domain_gauge.RainGauge? domainGauge = driftEntry.gauge == null
+        ? null
+        : domain_gauge.RainGauge(
+            id: driftEntry.gauge!.id,
+            name: driftEntry.gauge!.name,
+            latitude: driftEntry.gauge!.latitude,
+            longitude: driftEntry.gauge!.longitude,
           );
-        });
-  final List<RainfallEntry> _entries;
-  final List<RainGauge> _gauges;
 
-  @override
-  Future<List<RainfallEntry>> fetchEntriesForMonth(final DateTime month) async {
-    await Future.delayed(const Duration(milliseconds: 500)); // Simulate network
-    final List<RainfallEntry> entriesForMonth = _entries
-        .where(
-          (final entry) =>
-              entry.date.year == month.year && entry.date.month == month.month,
-        )
-        .toList();
+    return domain.RainfallEntry(
+      id: driftEntry.entry.id,
+      amount: driftEntry.entry.amount,
+      date: driftEntry.entry.date,
+      gaugeId: driftEntry.entry.gaugeId ?? "",
+      unit: driftEntry.entry.unit,
+      gauge: domainGauge,
+    );
+  }
 
-    // Populate gauge data
-    return entriesForMonth.map((final entry) {
-      final RainGauge gauge = _gauges.firstWhere(
-        (final g) => g.id == entry.gaugeId,
-        orElse: () => const RainGauge(id: "unknown", name: "Unknown Gauge"),
+  RainfallEntriesCompanion _mapDomainToCompanion(
+    final domain.RainfallEntry entry,
+  ) =>
+      RainfallEntriesCompanion(
+        id: entry.id == null ? const Value.absent() : Value(entry.id!),
+        amount: Value(entry.amount),
+        date: Value(entry.date),
+        gaugeId: Value(entry.gaugeId),
+        unit: Value(entry.unit),
       );
-      return entry.copyWith(gauge: gauge);
-    }).toList();
-  }
-
-  @override
-  Future<List<RainGauge>> fetchGauges() async {
-    await Future.delayed(const Duration(milliseconds: 200));
-    return _gauges;
-  }
-
-  @override
-  Future<void> updateEntry(final RainfallEntry entry) async {
-    await Future.delayed(const Duration(milliseconds: 300));
-    final int index = _entries.indexWhere((final e) => e.id == entry.id);
-    if (index != -1) {
-      _entries[index] = entry;
-    }
-  }
-
-  @override
-  Future<void> deleteEntry(final String entryId) async {
-    await Future.delayed(const Duration(milliseconds: 300));
-    _entries.removeWhere((final e) => e.id == entryId);
-  }
 }

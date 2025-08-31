@@ -8,11 +8,12 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 part "home_providers.g.dart";
 
 /// Provider to fetch all data needed for the home screen in one go.
+/// This is now a stream provider to reactively update the UI when data changes.
 @riverpod
-Future<HomeData> homeScreenData(final HomeScreenDataRef ref) async =>
-    ref.watch(homeRepositoryProvider).getHomeData();
+Stream<HomeData> homeScreenData(final HomeScreenDataRef ref) =>
+    ref.watch(homeRepositoryProvider).watchHomeData();
 
-/// Provider to fetch the list of user's rain gauges.
+/// Provider to fetch the list of user's rain gauges for selection.
 @riverpod
 Future<List<RainGauge>> userGauges(final UserGaugesRef ref) async =>
     ref.watch(homeRepositoryProvider).getUserGauges();
@@ -32,7 +33,6 @@ class LogRainController extends _$LogRainController {
     required final String unit,
     required final DateTime date,
   }) async {
-    // Set state to loading to show a spinner on the button, for example
     state = const AsyncValue.loading();
     try {
       await ref.read(homeRepositoryProvider).saveRainfallEntry(
@@ -41,9 +41,6 @@ class LogRainController extends _$LogRainController {
             unit: unit,
             date: date,
           );
-
-      // Invalidate the home screen data to force a refetch with the new entry
-      ref.invalidate(homeScreenDataProvider);
 
       state = const AsyncValue.data(null);
       return true; // Success

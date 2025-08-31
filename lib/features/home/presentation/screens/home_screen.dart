@@ -35,6 +35,7 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
+    // homeScreenDataProvider is now a StreamProvider, but .when works the same.
     final AsyncValue<HomeData> homeDataAsync =
         ref.watch(homeScreenDataProvider);
     final AppLocalizations l10n = AppLocalizations.of(context);
@@ -50,29 +51,25 @@ class HomeScreen extends ConsumerWidget {
             error: (final err, final stack) => Center(
               child: Text(l10n.homeScreenError(err)),
             ),
-            // TODO: Remove RefreshIndicator as its not needed without remote data
-            data: (final homeData) => RefreshIndicator(
-              onRefresh: () => ref.refresh(homeScreenDataProvider.future),
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppConstants.horiEdgePadding,
-                  ),
-                  child: Column(
-                    children: [
-                      MonthlySummaryCard(
-                        currentMonth: homeData.currentMonth,
-                        monthlyTotal: homeData.monthlyTotal,
-                        recentEntries: homeData.recentEntries,
-                      ),
-                      const RainfallTrendsCard(),
-                      QuickStatsCard(stats: homeData.quickStats),
-                    ]
-                        .divide(const SizedBox(height: 24))
-                        .addToStart(const SizedBox(height: 16))
-                        .addToEnd(const SizedBox(height: 32)),
-                  ),
+            data: (final homeData) => SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.horiEdgePadding,
+                ),
+                child: Column(
+                  children: [
+                    MonthlySummaryCard(
+                      currentMonth: homeData.currentMonth,
+                      monthlyTotal: homeData.monthlyTotal,
+                      recentEntries: homeData.recentEntries,
+                    ),
+                    const RainfallTrendsCard(),
+                    QuickStatsCard(stats: homeData.quickStats),
+                  ]
+                      .divide(const SizedBox(height: 24))
+                      .addToStart(const SizedBox(height: 16))
+                      .addToEnd(const SizedBox(height: 32)),
                 ),
               ),
             ),

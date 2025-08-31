@@ -1,57 +1,86 @@
-import "package:rain_wise/features/home/domain/rain_gauge.dart";
+import "package:drift/drift.dart";
+import "package:rain_wise/core/data/local/app_database.dart";
+import "package:rain_wise/core/data/local/daos/rain_gauges_dao.dart";
+import "package:rain_wise/features/home/domain/rain_gauge.dart" as domain;
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "gauges_repository.g.dart";
 
 abstract class GaugesRepository {
-  Future<List<RainGauge>> fetchGauges();
+  Stream<List<domain.RainGauge>> watchGauges();
 
-  Future<void> addGauge({required final String name});
+  Future<List<domain.RainGauge>> fetchGauges();
 
-  Future<void> updateGauge(final RainGauge updatedGauge);
+  Future<void> addGauge({
+    required final String name,
+    final double? lat,
+    final double? lng,
+  });
+
+  Future<void> updateGauge(final domain.RainGauge updatedGauge);
 
   Future<void> deleteGauge(final String gaugeId);
 }
 
 @Riverpod(keepAlive: true)
-GaugesRepository gaugesRepository(final GaugesRepositoryRef ref) =>
-    MockGaugesRepository();
+GaugesRepository gaugesRepository(final GaugesRepositoryRef ref) {
+  final AppDatabase db = ref.watch(appDatabaseProvider);
+  return DriftGaugesRepository(db.rainGaugesDao);
+}
 
-class MockGaugesRepository implements GaugesRepository {
-  final List<RainGauge> _gauges = [
-    const RainGauge(id: "1", name: "Backyard Gauge"),
-    const RainGauge(id: "2", name: "Garden Plot A"),
-    const RainGauge(id: "3", name: "Rooftop Collector"),
-  ];
+class DriftGaugesRepository implements GaugesRepository {
+  DriftGaugesRepository(this._dao);
+
+  final RainGaugesDao _dao;
 
   @override
-  Future<List<RainGauge>> fetchGauges() async {
-    // In a real app, this would fetch from Firestore or another data source.
-    await Future.delayed(const Duration(seconds: 1));
-    return _gauges;
+  Stream<List<domain.RainGauge>> watchGauges() => _dao.watchAllGauges().map(
+        (final gauges) => gauges.map(_mapDriftToDomain).toList(),
+      );
+
+  @override
+  Future<List<domain.RainGauge>> fetchGauges() async {
+    final List<RainGauge> gauges = await _dao.getAllGauges();
+    return gauges.map(_mapDriftToDomain).toList();
   }
 
   @override
-  Future<void> addGauge({required final String name}) async {
-    // Simulate API call
-    await Future.delayed(const Duration(milliseconds: 500));
-    _gauges.add(RainGauge(id: DateTime.now().toIso8601String(), name: name));
+  Future<void> addGauge({
+    required final String name,
+    final double? lat,
+    final double? lng,
+  }) {
+    final companion = RainGaugesCompanion.insert(
+      name: name,
+      latitude: Value(lat),
+      longitude: Value(lng),
+    );
+    return _dao.insertGauge(companion);
   }
 
   @override
-  Future<void> updateGauge(final RainGauge updatedGauge) async {
-    // Simulate API call
-    await Future.delayed(const Duration(milliseconds: 500));
-    final int index = _gauges.indexWhere((final g) => g.id == updatedGauge.id);
-    if (index != -1) {
-      _gauges[index] = updatedGauge;
-    }
-  }
+  Future<void> updateGauge(final domain.RainGauge updatedGauge) =>
+      _dao.updateGauge(_mapDomainToCompanion(updatedGauge));
 
   @override
-  Future<void> deleteGauge(final String gaugeId) async {
-    // Simulate API call
-    await Future.delayed(const Duration(milliseconds: 500));
-    _gauges.removeWhere((final g) => g.id == gaugeId);
-  }
+  Future<void> deleteGauge(final String gaugeId) =>
+      _dao.deleteGauge(RainGaugesCompanion(id: Value(gaugeId)));
+
+  domain.RainGauge _mapDriftToDomain(final RainGauge driftGauge) =>
+      domain.RainGauge(
+        id: driftGauge.id,
+        name: driftGauge.name,
+        latitude: driftGauge.latitude,
+        longitude: driftGauge.longitude,
+      );
+
+  RainGaugesCompanion _mapDomainToCompanion(
+    final domain.RainGauge domainGauge,
+  ) =>
+      RainGaugesCompanion(
+        id: Value(domainGauge.id),
+        name: Value(domainGauge.name),
+        latitude: Value(domainGauge.latitude),
+        longitude: Value(domainGauge.longitude),
+      );
 }

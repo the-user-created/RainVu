@@ -34,8 +34,10 @@ class AddGaugeSheet extends ConsumerWidget {
             Text(l10n.addGaugeSheetTitle, style: theme.textTheme.headlineSmall),
             const SizedBox(height: 24),
             GaugeForm(
-              onSave: (final name) {
-                ref.read(gaugesProvider.notifier).addGauge(name: name);
+              onSave: (final name, final lat, final lng) {
+                ref
+                    .read(gaugesProvider.notifier)
+                    .addGauge(name: name, lat: lat, lng: lng);
                 if (context.mounted) {
                   Navigator.pop(context);
                 }

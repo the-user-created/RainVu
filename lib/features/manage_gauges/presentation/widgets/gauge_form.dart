@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
@@ -7,7 +8,7 @@ class GaugeForm extends StatefulWidget {
   const GaugeForm({super.key, this.gauge, this.onSave});
 
   final RainGauge? gauge;
-  final Function(String name)? onSave;
+  final Function(String name, double? lat, double? lng)? onSave;
 
   @override
   State<GaugeForm> createState() => _GaugeFormState();
@@ -16,6 +17,8 @@ class GaugeForm extends StatefulWidget {
 class _GaugeFormState extends State<GaugeForm> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
+  late final TextEditingController _latController;
+  late final TextEditingController _lngController;
 
   bool get isEditing => widget.gauge != null;
 
@@ -23,17 +26,27 @@ class _GaugeFormState extends State<GaugeForm> {
   void initState() {
     super.initState();
     _nameController = TextEditingController(text: widget.gauge?.name);
+    _latController =
+        TextEditingController(text: widget.gauge?.latitude?.toString() ?? "");
+    _lngController =
+        TextEditingController(text: widget.gauge?.longitude?.toString() ?? "");
   }
 
   @override
   void dispose() {
     _nameController.dispose();
+    _latController.dispose();
+    _lngController.dispose();
     super.dispose();
   }
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
-      widget.onSave?.call(_nameController.text);
+      widget.onSave?.call(
+        _nameController.text,
+        double.tryParse(_latController.text),
+        double.tryParse(_lngController.text),
+      );
     }
   }
 
@@ -72,7 +85,7 @@ class _GaugeFormState extends State<GaugeForm> {
           ),
           const SizedBox(height: 16),
 
-          // Location Field
+          // Location Fields
           Text(
             l10n.gaugeFormLocationLabel,
             style: theme.textTheme.bodyLarge?.copyWith(
@@ -80,33 +93,36 @@ class _GaugeFormState extends State<GaugeForm> {
             ),
           ),
           const SizedBox(height: 4),
-          // TODO: Implement a real Place Picker widget
-          InkWell(
-            onTap: () {
-              ScaffoldMessenger.of(context).showSnackBar(
-                SnackBar(content: Text(l10n.gaugeFormLocationComingSoon)),
-              );
-            },
-            child: Container(
-              width: double.infinity,
-              height: 50,
-              decoration: BoxDecoration(
-                color: theme.colorScheme.surface,
-                borderRadius: BorderRadius.circular(8),
-                border: Border.all(color: theme.colorScheme.outline),
-              ),
-              child: Row(
-                children: [
-                  const SizedBox(width: 12),
-                  Icon(Icons.place, color: theme.colorScheme.primary, size: 20),
-                  const SizedBox(width: 12),
-                  Text(
-                    l10n.gaugeFormLocationButton,
-                    style: theme.textTheme.bodyMedium,
+          Row(
+            children: [
+              Expanded(
+                child: TextFormField(
+                  controller: _latController,
+                  decoration: const InputDecoration(hintText: "Latitude"),
+                  keyboardType: const TextInputType.numberWithOptions(
+                    signed: true,
+                    decimal: true,
                   ),
-                ],
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r"^-?\d+\.?\d*")),
+                  ],
+                ),
               ),
-            ),
+              const SizedBox(width: 8),
+              Expanded(
+                child: TextFormField(
+                  controller: _lngController,
+                  decoration: const InputDecoration(hintText: "Longitude"),
+                  keyboardType: const TextInputType.numberWithOptions(
+                    signed: true,
+                    decimal: true,
+                  ),
+                  inputFormatters: [
+                    FilteringTextInputFormatter.allow(RegExp(r"^-?\d+\.?\d*")),
+                  ],
+                ),
+              ),
+            ],
           ),
           const SizedBox(height: 24),
           Row(
