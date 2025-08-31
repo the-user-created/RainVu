@@ -1,5 +1,8 @@
-import "package:flutter/foundation.dart" show kDebugMode;
-import "package:flutter/material.dart";
+import "package:drift/drift.dart";
+import "package:intl/intl.dart";
+import "package:rain_wise/core/data/local/app_database.dart" hide RainGauge;
+import "package:rain_wise/core/data/local/daos/rain_gauges_dao.dart";
+import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
 import "package:rain_wise/features/home/domain/home_data.dart";
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
@@ -7,7 +10,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 part "home_repository.g.dart";
 
 abstract class HomeRepository {
-  Future<HomeData> getHomeData();
+  Stream<HomeData> watchHomeData();
 
   Future<List<RainGauge>> getUserGauges();
 
@@ -20,37 +23,78 @@ abstract class HomeRepository {
 }
 
 @Riverpod(keepAlive: true)
-HomeRepository homeRepository(final HomeRepositoryRef ref) =>
-    MockHomeRepository();
+HomeRepository homeRepository(final HomeRepositoryRef ref) {
+  final AppDatabase db = ref.watch(appDatabaseProvider);
+  return DriftHomeRepository(db.rainfallEntriesDao, db.rainGaugesDao);
+}
 
-class MockHomeRepository implements HomeRepository {
+class DriftHomeRepository implements HomeRepository {
+  DriftHomeRepository(this._entriesDao, this._gaugesDao);
+
+  final RainfallEntriesDao _entriesDao;
+  final RainGaugesDao _gaugesDao;
+
+  // TODO: This is a simplified implementation. Should combine multiple streams.
   @override
-  Future<HomeData> getHomeData() async {
-    await Future<void>.delayed(const Duration(seconds: 1));
-    return const HomeData(
-      currentMonth: "July 2024",
-      monthlyTotal: "78.5 mm",
-      recentEntries: [
-        RecentEntry(dateLabel: "Today, 9:15 AM", amount: "12.5 mm"),
-        RecentEntry(dateLabel: "Yesterday, 8:30 AM", amount: "8.2 mm"),
-        RecentEntry(dateLabel: "July 12, 7:45 AM", amount: "15.3 mm"),
-      ],
-      quickStats: [
-        QuickStat(value: "36.2", label: "mm this week"),
-        QuickStat(value: "78.5", label: "mm this month"),
-        QuickStat(value: "5.6", label: "mm daily avg"),
-      ],
-    );
-  }
+  Stream<HomeData> watchHomeData() =>
+      _entriesDao.watchRecentEntries(limit: 3).asyncMap((final recent) async {
+        final now = DateTime.now();
+        final monthStart = DateTime(now.year, now.month);
+        final DateTime weekStart =
+            now.subtract(Duration(days: now.weekday - 1));
+
+        // These would be optimized queries in a real app
+        final List<RainfallEntry> allEntries =
+            await _entriesDao.db.select(_entriesDao.rainfallEntries).get();
+
+        final Iterable<RainfallEntry> monthEntries =
+            allEntries.where((final e) => e.date.isAfter(monthStart));
+        final double monthlyTotal = monthEntries.fold<double>(
+          0,
+          (final sum, final e) => sum + e.amount,
+        );
+
+        final Iterable<RainfallEntry> weekEntries =
+            allEntries.where((final e) => e.date.isAfter(weekStart));
+        final double weeklyTotal =
+            weekEntries.fold<double>(0, (final sum, final e) => sum + e.amount);
+
+        final double dailyAvg =
+            monthEntries.isEmpty ? 0.0 : monthlyTotal / now.day;
+
+        return HomeData(
+          currentMonth: DateFormat.yMMMM().format(now),
+          monthlyTotal: "${monthlyTotal.toStringAsFixed(1)} mm",
+          recentEntries: recent
+              .map(
+                (final e) => RecentEntry(
+                  dateLabel: DateFormat.yMd().add_jm().format(e.entry.date),
+                  amount:
+                      "${e.entry.amount.toStringAsFixed(1)} ${e.entry.unit}",
+                ),
+              )
+              .toList(),
+          quickStats: [
+            QuickStat(
+              value: weeklyTotal.toStringAsFixed(1),
+              label: "mm this week",
+            ),
+            QuickStat(
+              value: monthlyTotal.toStringAsFixed(1),
+              label: "mm this month",
+            ),
+            QuickStat(
+              value: dailyAvg.toStringAsFixed(1),
+              label: "mm daily avg",
+            ),
+          ],
+        );
+      });
 
   @override
   Future<List<RainGauge>> getUserGauges() async {
-    await Future<void>.delayed(const Duration(milliseconds: 500));
-    return const [
-      RainGauge(id: "gauge_1", name: "Backyard Gauge"),
-      RainGauge(id: "gauge_2", name: "Farm - Field A"),
-      RainGauge(id: "gauge_3", name: "Rooftop Collector"),
-    ];
+    final gauges = await _gaugesDao.getAllGauges();
+    return gauges.map((final g) => RainGauge(id: g.id, name: g.name)).toList();
   }
 
   @override
@@ -60,11 +104,12 @@ class MockHomeRepository implements HomeRepository {
     required final String unit,
     required final DateTime date,
   }) async {
-    if (kDebugMode) {
-      debugPrint(
-        "Saving entry: Gauge $gaugeId, $amount $unit on ${date.toIso8601String()}",
-      );
-    }
-    await Future<void>.delayed(const Duration(seconds: 1));
+    final companion = RainfallEntriesCompanion.insert(
+      gaugeId: Value(gaugeId),
+      amount: amount,
+      unit: unit,
+      date: date,
+    );
+    await _entriesDao.insertEntry(companion);
   }
 }

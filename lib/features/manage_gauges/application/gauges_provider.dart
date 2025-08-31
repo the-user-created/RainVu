@@ -9,33 +9,24 @@ part "gauges_provider.g.dart";
 @riverpod
 class Gauges extends _$Gauges {
   @override
-  FutureOr<List<RainGauge>> build() =>
-      ref.watch(gaugesRepositoryProvider).fetchGauges();
+  Stream<List<RainGauge>> build() =>
+      ref.watch(gaugesRepositoryProvider).watchGauges();
 
-  Future<void> addGauge({required final String name}) async {
-    final GaugesRepository repo = ref.read(gaugesRepositoryProvider);
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
-      await repo.addGauge(name: name);
-      return repo.fetchGauges();
-    });
+  Future<void> addGauge({
+    required final String name,
+    final double? lat,
+    final double? lng,
+  }) async {
+    await ref
+        .read(gaugesRepositoryProvider)
+        .addGauge(name: name, lat: lat, lng: lng);
   }
 
   Future<void> updateGauge(final RainGauge updatedGauge) async {
-    final GaugesRepository repo = ref.read(gaugesRepositoryProvider);
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
-      await repo.updateGauge(updatedGauge);
-      return repo.fetchGauges();
-    });
+    await ref.read(gaugesRepositoryProvider).updateGauge(updatedGauge);
   }
 
   Future<void> deleteGauge(final String gaugeId) async {
-    final GaugesRepository repo = ref.read(gaugesRepositoryProvider);
-    state = const AsyncLoading();
-    state = await AsyncValue.guard(() async {
-      await repo.deleteGauge(gaugeId);
-      return repo.fetchGauges();
-    });
+    await ref.read(gaugesRepositoryProvider).deleteGauge(gaugeId);
   }
 }

@@ -1,4 +1,5 @@
 import "package:rain_wise/features/home/domain/rain_gauge.dart";
+import "package:rain_wise/features/manage_gauges/data/gauges_repository.dart"; // Updated import
 import "package:rain_wise/features/rainfall_entry/data/rainfall_entry_repository.dart";
 import "package:rain_wise/features/rainfall_entry/domain/rainfall_entry.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
@@ -13,8 +14,9 @@ Future<List<RainfallEntry>> rainfallEntriesForMonth(
     ref.watch(rainfallEntryRepositoryProvider).fetchEntriesForMonth(month);
 
 @riverpod
-Future<List<RainGauge>> rainGauges(final RainGaugesRef ref) =>
-    ref.watch(rainfallEntryRepositoryProvider).fetchGauges();
+Future<List<RainGauge>> rainGauges(final RainGaugesRef ref) => ref
+    .watch(gaugesRepositoryProvider)
+    .fetchGauges(); // Updated to use GaugesRepository
 
 @riverpod
 class RainfallEntryNotifier extends _$RainfallEntryNotifier {
