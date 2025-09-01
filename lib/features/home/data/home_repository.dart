@@ -1,6 +1,6 @@
-import "package:intl/intl.dart";
 import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/home/domain/home_data.dart";
+import "package:rain_wise/shared/domain/rainfall_entry.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "home_repository.g.dart";
@@ -20,46 +20,46 @@ class DriftHomeRepository implements HomeRepository {
 
   final RainfallRepository _rainfallRepo;
 
-  // This stream is triggered by new recent entries.
-  // It then fetches current stats to build the complete HomeData object.
+  // This stream fires on any change to the rainfall_entries table.
   @override
   Stream<HomeData> watchHomeData() =>
-      _rainfallRepo.watchRecentEntries(limit: 3).asyncMap((final recent) async {
+      _rainfallRepo.watchTableUpdates().asyncMap((final _) async {
         final now = DateTime.now();
+        final today = DateTime(now.year, now.month, now.day);
         final monthStart = DateTime(now.year, now.month);
+        // Assuming Monday is the start of the week (weekday == 1).
         final DateTime weekStart =
-            now.subtract(Duration(days: now.weekday - 1));
+            today.subtract(Duration(days: now.weekday - 1));
 
-        final double monthlyTotal =
-            await _rainfallRepo.getTotalAmountBetween(monthStart, now);
-        final double weeklyTotal =
-            await _rainfallRepo.getTotalAmountBetween(weekStart, now);
+        // Fetch all required data in parallel.
+        final List<Object> results = await Future.wait([
+          _rainfallRepo.getTotalAmountBetween(monthStart, now),
+          _rainfallRepo.getTotalAmountBetween(weekStart, now),
+          _rainfallRepo.fetchRecentEntries(),
+        ]);
 
-        final double dailyAvg = (now.day == 0) ? 0.0 : monthlyTotal / now.day;
+        final monthlyTotal = results[0] as double;
+        final weeklyTotal = results[1] as double;
+        final recentEntries = results[2] as List<RainfallEntry>;
+
+        final double dailyAvg = now.day > 0 ? monthlyTotal / now.day : 0.0;
 
         return HomeData(
-          currentMonth: DateFormat.yMMMM().format(now),
-          monthlyTotal: "${monthlyTotal.toStringAsFixed(1)} mm",
-          recentEntries: recent
-              .map(
-                (final e) => RecentEntry(
-                  dateLabel: DateFormat.yMd().add_jm().format(e.date),
-                  amount: "${e.amount.toStringAsFixed(1)} ${e.unit}",
-                ),
-              )
-              .toList(),
+          currentMonthDate: now,
+          monthlyTotal: monthlyTotal,
+          recentEntries: recentEntries,
           quickStats: [
             QuickStat(
-              value: weeklyTotal.toStringAsFixed(1),
-              label: "mm this week",
+              value: weeklyTotal,
+              type: QuickStatType.thisWeek,
             ),
             QuickStat(
-              value: monthlyTotal.toStringAsFixed(1),
-              label: "mm this month",
+              value: monthlyTotal,
+              type: QuickStatType.thisMonth,
             ),
             QuickStat(
-              value: dailyAvg.toStringAsFixed(1),
-              label: "mm daily avg",
+              value: dailyAvg,
+              type: QuickStatType.dailyAvg,
             ),
           ],
         );

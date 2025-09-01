@@ -15,7 +15,7 @@ class AnomalyExplorationScreen extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final AsyncValue<List<RainfallAnomaly>> anomaliesAsync =
+    final AsyncValue<AnomalyExplorationData> anomalyExplorationDataAsync =
         ref.watch(anomalyDataProvider);
 
     return Scaffold(
@@ -32,15 +32,22 @@ class AnomalyExplorationScreen extends ConsumerWidget {
           children: [
             const AnomalyFilterOptions(),
             const SizedBox(height: 24),
-            const AnomalyTimelineChart(),
+            anomalyExplorationDataAsync.when(
+              loading: () => const AnomalyTimelineChart(
+                  chartPoints: []), // Show empty chart
+              error: (final err, final stack) =>
+                  const SizedBox.shrink(), // Error is shown below
+              data: (final data) =>
+                  AnomalyTimelineChart(chartPoints: data.chartPoints),
+            ),
             const SizedBox(height: 24),
-            anomaliesAsync.when(
+            anomalyExplorationDataAsync.when(
               loading: () => const Center(heightFactor: 5, child: AppLoader()),
               error: (final err, final stack) => Padding(
                 padding: const EdgeInsets.all(16),
                 child: Text(l10n.anomalyExplorationError(err)),
               ),
-              data: (final anomalies) => AnomalyList(anomalies: anomalies),
+              data: (final data) => AnomalyList(anomalies: data.anomalies),
             ),
           ],
         ),

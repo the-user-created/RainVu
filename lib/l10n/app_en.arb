@@ -342,8 +342,14 @@
       }
     }
   },
-  "anomalyTimelineLegendNormal": "Normal",
-  "anomalyTimelineLegendAnomaly": "Anomaly",
+  "anomalyTimelineLegendActual": "Actual",
+  "@anomalyTimelineLegendActual": {
+    "description": "Legend text for the actual rainfall line in the anomaly timeline chart."
+  },
+  "anomalyTimelineLegendAverage": "Average",
+  "@anomalyTimelineLegendAverage": {
+    "description": "Legend text for the average rainfall line in the anomaly timeline chart."
+  },
   "anomalyTimelineChartPlaceholder": "Interactive Chart Coming Soon",
   "detectedAnomaliesTitle": "Detected Anomalies",
   "noAnomaliesFound": "No anomalies found for the selected filters.",
@@ -505,5 +511,8 @@
   "detailedAnalysisSeasonalPatternsSubtitle": "Analyze rainfall patterns by season",
   "detailedAnalysisAnomalyExplorationSubtitle": "Analyze unusual patterns in rainfall data",
   "detailedAnalysisComparativeAnalysisTitle": "Comparative Yearly Analysis",
-  "detailedAnalysisComparativeAnalysisSubtitle": "See side-by-side comparisons of multiple years"
+  "detailedAnalysisComparativeAnalysisSubtitle": "See side-by-side comparisons of multiple years",
+  "quickStatThisWeek": "This week",
+  "quickStatThisMonth": "This month",
+  "quickStatDailyAvg": "Daily avg"
 }

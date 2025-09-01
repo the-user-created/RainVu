@@ -35,7 +35,6 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    // homeScreenDataProvider is now a StreamProvider, but .when works the same.
     final AsyncValue<HomeData> homeDataAsync =
         ref.watch(homeScreenDataProvider);
     final AppLocalizations l10n = AppLocalizations.of(context);
@@ -60,9 +59,9 @@ class HomeScreen extends ConsumerWidget {
                 child: Column(
                   children: [
                     MonthlySummaryCard(
-                      currentMonth: homeData.currentMonth,
                       monthlyTotal: homeData.monthlyTotal,
                       recentEntries: homeData.recentEntries,
+                      currentMonthDate: homeData.currentMonthDate,
                     ),
                     const RainfallTrendsCard(),
                     QuickStatsCard(stats: homeData.quickStats),

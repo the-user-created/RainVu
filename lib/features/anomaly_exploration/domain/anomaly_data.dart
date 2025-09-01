@@ -4,6 +4,25 @@ import "package:rain_wise/l10n/app_localizations.dart";
 
 part "anomaly_data.freezed.dart";
 
+/// A wrapper class for all data needed on the Anomaly Exploration screen.
+@freezed
+abstract class AnomalyExplorationData with _$AnomalyExplorationData {
+  const factory AnomalyExplorationData({
+    required final List<RainfallAnomaly> anomalies,
+    required final List<AnomalyChartPoint> chartPoints,
+  }) = _AnomalyExplorationData;
+}
+
+/// Represents a single data point for the anomaly timeline chart.
+@freezed
+abstract class AnomalyChartPoint with _$AnomalyChartPoint {
+  const factory AnomalyChartPoint({
+    required final DateTime date,
+    required final double actualRainfall,
+    required final double averageRainfall,
+  }) = _AnomalyChartPoint;
+}
+
 /// Enum representing the severity of a rainfall anomaly.
 enum AnomalySeverity {
   low,

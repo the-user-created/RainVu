@@ -1,8 +1,14 @@
+import "dart:math";
+
+import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
+import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
 class AnomalyTimelineChart extends StatelessWidget {
-  const AnomalyTimelineChart({super.key});
+  const AnomalyTimelineChart({required this.chartPoints, super.key});
+
+  final List<AnomalyChartPoint> chartPoints;
 
   @override
   Widget build(final BuildContext context) {
@@ -29,13 +35,13 @@ class AnomalyTimelineChart extends StatelessWidget {
                 Row(
                   children: [
                     _LegendItem(
-                      color: colorScheme.secondary.withValues(alpha: 0.5),
-                      text: l10n.anomalyTimelineLegendNormal,
+                      color: colorScheme.secondary,
+                      text: l10n.anomalyTimelineLegendActual,
                     ),
                     const SizedBox(width: 8),
                     _LegendItem(
-                      color: colorScheme.error,
-                      text: l10n.anomalyTimelineLegendAnomaly,
+                      color: colorScheme.tertiary,
+                      text: l10n.anomalyTimelineLegendAverage,
                     ),
                   ],
                 ),
@@ -44,19 +50,82 @@ class AnomalyTimelineChart extends StatelessWidget {
             const SizedBox(height: 24),
             SizedBox(
               height: 240,
-              // TODO: Replace with real data from a provider
-              // For now, this is a placeholder chart.
-              child: Center(
-                child: Text(
-                  l10n.anomalyTimelineChartPlaceholder,
-                  style: theme.textTheme.bodyLarge?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ),
+              child: chartPoints.isEmpty
+                  ? Center(
+                      child: Text(
+                        l10n.anomalyTimelineChartPlaceholder,
+                        style: theme.textTheme.bodyLarge?.copyWith(
+                          color: colorScheme.onSurfaceVariant,
+                        ),
+                      ),
+                    )
+                  : _buildChart(context),
             ),
           ],
         ),
+      ),
+    );
+  }
+
+  Widget _buildChart(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final double maxRainfall = chartPoints.isEmpty
+        ? 10
+        : chartPoints
+            .map((final p) => max(p.actualRainfall, p.averageRainfall))
+            .reduce(max);
+
+    final List<FlSpot> averageSpots = [];
+    final List<FlSpot> actualSpots = [];
+    for (int i = 0; i < chartPoints.length; i++) {
+      final AnomalyChartPoint point = chartPoints[i];
+      averageSpots.add(FlSpot(i.toDouble(), point.averageRainfall));
+      actualSpots.add(FlSpot(i.toDouble(), point.actualRainfall));
+    }
+
+    return LineChart(
+      LineChartData(
+        maxY: (maxRainfall * 1.2).clamp(10, double.infinity),
+        gridData: FlGridData(
+          drawVerticalLine: false,
+          getDrawingHorizontalLine: (final value) => FlLine(
+            color: colorScheme.outline.withValues(alpha: 0.5),
+            strokeWidth: 1,
+            dashArray: [4, 4],
+          ),
+        ),
+        titlesData: const FlTitlesData(
+          leftTitles: AxisTitles(),
+          topTitles: AxisTitles(),
+          rightTitles: AxisTitles(),
+          bottomTitles: AxisTitles(),
+        ),
+        borderData: FlBorderData(show: false),
+        lineBarsData: [
+          // Average rainfall line
+          LineChartBarData(
+            spots: averageSpots,
+            isCurved: true,
+            color: colorScheme.tertiary,
+            isStrokeCapRound: true,
+            dotData: const FlDotData(show: false),
+            belowBarData: BarAreaData(),
+          ),
+          // Actual rainfall line
+          LineChartBarData(
+            spots: actualSpots,
+            isCurved: true,
+            color: colorScheme.secondary,
+            barWidth: 3,
+            isStrokeCapRound: true,
+            dotData: const FlDotData(show: false),
+            belowBarData: BarAreaData(
+              show: true,
+              color: colorScheme.secondary.withValues(alpha: 0.2),
+            ),
+          ),
+        ],
       ),
     );
   }
