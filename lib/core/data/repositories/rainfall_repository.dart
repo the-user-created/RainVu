@@ -12,6 +12,8 @@ abstract class RainfallRepository {
 
   Stream<List<domain.RainfallEntry>> watchRecentEntries({final int limit = 5});
 
+  Future<List<domain.RainfallEntry>> fetchRecentEntries({final int limit = 3});
+
   Future<void> addEntry(final domain.RainfallEntry entry);
 
   Future<void> updateEntry(final domain.RainfallEntry entry);
@@ -22,6 +24,8 @@ abstract class RainfallRepository {
     final DateTime start,
     final DateTime end,
   );
+
+  Stream<void> watchTableUpdates();
 }
 
 @Riverpod(keepAlive: true)
@@ -55,6 +59,15 @@ class DriftRainfallRepository implements RainfallRepository {
           .map((final e) => e.map(_mapDriftToDomain).toList());
 
   @override
+  Future<List<domain.RainfallEntry>> fetchRecentEntries({
+    final int limit = 3,
+  }) async {
+    final List<RainfallEntryWithGauge> entries =
+        await _dao.getRecentEntries(limit: limit);
+    return entries.map(_mapDriftToDomain).toList();
+  }
+
+  @override
   Future<void> addEntry(final domain.RainfallEntry entry) =>
       _dao.insertEntry(_mapDomainToCompanion(entry));
 
@@ -72,6 +85,9 @@ class DriftRainfallRepository implements RainfallRepository {
     final DateTime end,
   ) =>
       _dao.getTotalAmountBetween(start, end);
+
+  @override
+  Stream<void> watchTableUpdates() => _dao.watchTableUpdates();
 
   domain.RainfallEntry _mapDriftToDomain(
     final RainfallEntryWithGauge driftEntry,

@@ -1,19 +1,20 @@
 import "package:flutter/material.dart";
+import "package:intl/intl.dart";
 import "package:rain_wise/core/navigation/app_router.dart";
-import "package:rain_wise/features/home/domain/home_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/rainfall_entry.dart";
 
 class MonthlySummaryCard extends StatelessWidget {
   const MonthlySummaryCard({
-    required this.currentMonth,
+    required this.currentMonthDate,
     required this.monthlyTotal,
     required this.recentEntries,
     super.key,
   });
 
-  final String currentMonth;
-  final String monthlyTotal;
-  final List<RecentEntry> recentEntries;
+  final DateTime currentMonthDate;
+  final double monthlyTotal;
+  final List<RainfallEntry> recentEntries;
 
   @override
   Widget build(final BuildContext context) {
@@ -39,12 +40,12 @@ class MonthlySummaryCard extends StatelessWidget {
           children: [
             _buildHeader(context, theme, l10n),
             const SizedBox(height: 8),
-            _buildTotal(theme),
+            _buildTotal(theme, l10n),
             const Divider(height: 24, thickness: 1),
             _buildRecentEntriesHeader(theme, l10n),
             const SizedBox(height: 4),
             ...recentEntries
-                .map((final entry) => _buildRecentEntryRow(entry, theme)),
+                .map((final entry) => _buildRecentEntryRow(entry, theme, l10n)),
             const SizedBox(height: 8),
             _buildViewHistoryButton(context, theme, l10n),
           ],
@@ -68,7 +69,7 @@ class MonthlySummaryCard extends StatelessWidget {
             ),
           ),
           Text(
-            currentMonth,
+            DateFormat.yMMMM().format(currentMonthDate),
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),
@@ -76,12 +77,12 @@ class MonthlySummaryCard extends StatelessWidget {
         ],
       );
 
-  Widget _buildTotal(final ThemeData theme) => Row(
+  Widget _buildTotal(final ThemeData theme, final AppLocalizations l10n) => Row(
         children: [
           Icon(Icons.water_drop, color: theme.colorScheme.secondary, size: 36),
           const SizedBox(width: 8),
           Text(
-            monthlyTotal,
+            l10n.rainfallAmountWithUnit(monthlyTotal.toStringAsFixed(1)),
             style: theme.textTheme.displaySmall?.copyWith(
               color: theme.colorScheme.secondary,
               fontWeight: FontWeight.bold,
@@ -102,8 +103,9 @@ class MonthlySummaryCard extends StatelessWidget {
       );
 
   Widget _buildRecentEntryRow(
-    final RecentEntry entry,
+    final RainfallEntry entry,
     final ThemeData theme,
+    final AppLocalizations l10n,
   ) =>
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 4),
@@ -111,13 +113,16 @@ class MonthlySummaryCard extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
             Text(
-              entry.dateLabel,
+              DateFormat.yMd().add_jm().format(entry.date),
               style: theme.textTheme.bodyMedium?.copyWith(
                 fontWeight: FontWeight.w500,
               ),
             ),
             Text(
-              entry.amount,
+              // Assuming unit is consistent and handled by l10n
+              l10n.rainfallAmountWithUnit(
+                entry.amount.toStringAsFixed(1),
+              ),
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.secondary,
                 fontWeight: FontWeight.w600,
@@ -136,8 +141,11 @@ class MonthlySummaryCard extends StatelessWidget {
         alignment: Alignment.centerRight,
         child: InkWell(
           onTap: () {
-            // TODO: Take user to monthly breakdown for the *current* month
-            const MonthlyBreakdownRoute().push(context);
+            final String monthParam =
+                DateFormat("yyyy-MM").format(currentMonthDate);
+            RainfallEntriesRoute(month: monthParam).push(
+              context,
+            );
           },
           child: Row(
             mainAxisSize: MainAxisSize.min,
