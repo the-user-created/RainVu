@@ -1,8 +1,9 @@
 import "dart:async";
 
+import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/home/data/home_repository.dart";
 import "package:rain_wise/features/home/domain/home_data.dart";
-import "package:rain_wise/features/home/domain/rain_gauge.dart";
+import "package:rain_wise/shared/domain/rainfall_entry.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "home_providers.g.dart";
@@ -12,11 +13,6 @@ part "home_providers.g.dart";
 @riverpod
 Stream<HomeData> homeScreenData(final HomeScreenDataRef ref) =>
     ref.watch(homeRepositoryProvider).watchHomeData();
-
-/// Provider to fetch the list of user's rain gauges for selection.
-@riverpod
-Future<List<RainGauge>> userGauges(final UserGaugesRef ref) async =>
-    ref.watch(homeRepositoryProvider).getUserGauges();
 
 /// Controller for handling the logic of logging a new rainfall entry.
 @riverpod
@@ -35,12 +31,13 @@ class LogRainController extends _$LogRainController {
   }) async {
     state = const AsyncValue.loading();
     try {
-      await ref.read(homeRepositoryProvider).saveRainfallEntry(
-            gaugeId: gaugeId,
-            amount: amount,
-            unit: unit,
-            date: date,
-          );
+      final newEntry = RainfallEntry(
+        amount: amount,
+        date: date,
+        gaugeId: gaugeId,
+        unit: unit,
+      );
+      await ref.read(rainfallRepositoryProvider).addEntry(newEntry);
 
       state = const AsyncValue.data(null);
       return true; // Success

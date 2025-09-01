@@ -82,6 +82,19 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
         .watch();
   }
 
+  Future<double> getTotalAmountBetween(
+    final DateTime start,
+    final DateTime end,
+  ) async {
+    final GeneratedColumn<double> amount = rainfallEntries.amount;
+    final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
+        selectOnly(rainfallEntries)
+          ..addColumns([amount.sum()])
+          ..where(rainfallEntries.date.isBetweenValues(start, end));
+    final TypedResult result = await query.getSingle();
+    return result.read(amount.sum()) ?? 0.0;
+  }
+
   Future<List<int>> getAvailableYears() {
     final Expression<int> year = rainfallEntries.date.year;
     final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =

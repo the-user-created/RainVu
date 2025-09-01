@@ -4,9 +4,9 @@ import "package:rain_wise/core/data/local/daos/rain_gauges_dao.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart" as domain;
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
-part "gauges_repository.g.dart";
+part "rain_gauge_repository.g.dart";
 
-abstract class GaugesRepository {
+abstract class RainGaugeRepository {
   Stream<List<domain.RainGauge>> watchGauges();
 
   Future<List<domain.RainGauge>> fetchGauges();
@@ -23,13 +23,13 @@ abstract class GaugesRepository {
 }
 
 @Riverpod(keepAlive: true)
-GaugesRepository gaugesRepository(final GaugesRepositoryRef ref) {
+RainGaugeRepository rainGaugeRepository(final RainGaugeRepositoryRef ref) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
-  return DriftGaugesRepository(db.rainGaugesDao);
+  return DriftRainGaugeRepository(db.rainGaugesDao);
 }
 
-class DriftGaugesRepository implements GaugesRepository {
-  DriftGaugesRepository(this._dao);
+class DriftRainGaugeRepository implements RainGaugeRepository {
+  DriftRainGaugeRepository(this._dao);
 
   final RainGaugesDao _dao;
 
