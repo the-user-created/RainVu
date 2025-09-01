@@ -3,7 +3,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 part "settings_providers.g.dart";
 
 /// Provider to get the last sync timestamp.
-/// In a real app, this would fetch from a repository or local storage.
+/// TODO: In a real app, this would fetch from a repository or local storage.
 @riverpod
 Future<DateTime?> lastSynced(final LastSyncedRef ref) async {
   // Mock implementation: return a recent date.

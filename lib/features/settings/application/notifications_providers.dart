@@ -6,7 +6,7 @@ part "notifications_providers.g.dart";
 
 @riverpod
 class NotificationSettingsNotifier extends _$NotificationSettingsNotifier {
-  // In a real app, this would be loaded from a repository
+  // TODO: In a real app, this would be loaded from a repository
   // (e.g., SharedPreferences, Firestore)
   @override
   NotificationSettings build() => const NotificationSettings(

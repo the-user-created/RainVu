@@ -2,9 +2,9 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
-import "package:rain_wise/features/rainfall_entry/domain/rainfall_entry.dart";
 import "package:rain_wise/features/rainfall_entry/presentation/widgets/rainfall_entry_list_item.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/rainfall_entry.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
 class RainfallEntriesScreen extends ConsumerWidget {

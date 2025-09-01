@@ -5,28 +5,35 @@ import "package:rain_wise/shared/domain/rain_gauge.dart" as domain_gauge;
 import "package:rain_wise/shared/domain/rainfall_entry.dart" as domain;
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
-part "rainfall_entry_repository.g.dart";
+part "rainfall_repository.g.dart";
 
-abstract class RainfallEntryRepository {
+abstract class RainfallRepository {
   Future<List<domain.RainfallEntry>> fetchEntriesForMonth(final DateTime month);
+
+  Stream<List<domain.RainfallEntry>> watchRecentEntries({final int limit = 5});
 
   Future<void> addEntry(final domain.RainfallEntry entry);
 
   Future<void> updateEntry(final domain.RainfallEntry entry);
 
   Future<void> deleteEntry(final String entryId);
+
+  Future<double> getTotalAmountBetween(
+    final DateTime start,
+    final DateTime end,
+  );
 }
 
 @Riverpod(keepAlive: true)
-RainfallEntryRepository rainfallEntryRepository(
-  final RainfallEntryRepositoryRef ref,
+RainfallRepository rainfallRepository(
+  final RainfallRepositoryRef ref,
 ) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
-  return DriftRainfallEntryRepository(db.rainfallEntriesDao);
+  return DriftRainfallRepository(db.rainfallEntriesDao);
 }
 
-class DriftRainfallEntryRepository implements RainfallEntryRepository {
-  DriftRainfallEntryRepository(this._dao);
+class DriftRainfallRepository implements RainfallRepository {
+  DriftRainfallRepository(this._dao);
 
   final RainfallEntriesDao _dao;
 
@@ -40,6 +47,14 @@ class DriftRainfallEntryRepository implements RainfallEntryRepository {
   }
 
   @override
+  Stream<List<domain.RainfallEntry>> watchRecentEntries({
+    final int limit = 5,
+  }) =>
+      _dao
+          .watchRecentEntries(limit: limit)
+          .map((final e) => e.map(_mapDriftToDomain).toList());
+
+  @override
   Future<void> addEntry(final domain.RainfallEntry entry) =>
       _dao.insertEntry(_mapDomainToCompanion(entry));
 
@@ -50,6 +65,13 @@ class DriftRainfallEntryRepository implements RainfallEntryRepository {
   @override
   Future<void> deleteEntry(final String entryId) =>
       _dao.deleteEntry(RainfallEntriesCompanion(id: Value(entryId)));
+
+  @override
+  Future<double> getTotalAmountBetween(
+    final DateTime start,
+    final DateTime end,
+  ) =>
+      _dao.getTotalAmountBetween(start, end);
 
   domain.RainfallEntry _mapDriftToDomain(
     final RainfallEntryWithGauge driftEntry,

@@ -23,7 +23,7 @@ class MockAnomalyExplorationRepository implements AnomalyExplorationRepository {
     // Simulate network delay for fetching data.
     await Future.delayed(const Duration(milliseconds: 700));
 
-    // In a real app, this filtering would happen on the backend/database.
+    // TODO: In a real app, this filtering would happen on the backend/database.
     return _mockAnomalies.where((final anomaly) {
       final bool isAfterStart = anomaly.date.isAfter(filter.dateRange.start) ||
           anomaly.date.isAtSameMomentAs(filter.dateRange.start);

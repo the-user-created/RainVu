@@ -19,7 +19,7 @@ class SupportRepository {
           .doc(ticket.id)
           .set(ticket.toJson());
     } on FirebaseException catch (e, st) {
-      // In a real app, log this error to a monitoring service.
+      // TODO: In a real app, log this error to a monitoring service.
       Error.throwWithStackTrace(
         Exception("Failed to submit ticket. Please try again."),
         st,
