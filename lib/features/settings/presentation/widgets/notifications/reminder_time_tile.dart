@@ -6,7 +6,9 @@ import "package:rain_wise/features/settings/application/notifications_providers.
 import "package:rain_wise/l10n/app_localizations.dart";
 
 class ReminderTimeTile extends ConsumerWidget {
-  const ReminderTimeTile({super.key});
+  const ReminderTimeTile({required this.reminderTime, super.key});
+
+  final TimeOfDay reminderTime;
 
   Future<void> _showTimePicker(
     final BuildContext context,
@@ -14,8 +16,6 @@ class ReminderTimeTile extends ConsumerWidget {
   ) async {
     final NotificationSettingsNotifier settingsNotifier =
         ref.read(notificationSettingsNotifierProvider.notifier);
-    final TimeOfDay currentTime =
-        ref.read(notificationSettingsNotifierProvider).reminderTime;
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
@@ -35,8 +35,13 @@ class ReminderTimeTile extends ConsumerWidget {
             ),
             child: CupertinoDatePicker(
               mode: CupertinoDatePickerMode.time,
-              initialDateTime:
-                  DateTime(2023, 1, 1, currentTime.hour, currentTime.minute),
+              initialDateTime: DateTime(
+                2023,
+                1,
+                1,
+                reminderTime.hour,
+                reminderTime.minute,
+              ),
               use24hFormat: MediaQuery.of(context).alwaysUse24HourFormat,
               onDateTimeChanged: (final newDateTime) {
                 settingsNotifier
@@ -55,9 +60,6 @@ class ReminderTimeTile extends ConsumerWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
-    final TimeOfDay reminderTime = ref.watch(
-      notificationSettingsNotifierProvider.select((final s) => s.reminderTime),
-    );
 
     return InkWell(
       onTap: () => _showTimePicker(context, ref),

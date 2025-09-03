@@ -34,7 +34,8 @@ class AnomalyExplorationScreen extends ConsumerWidget {
             const SizedBox(height: 24),
             anomalyExplorationDataAsync.when(
               loading: () => const AnomalyTimelineChart(
-                  chartPoints: []), // Show empty chart
+                chartPoints: [],
+              ), // Show empty chart
               error: (final err, final stack) =>
                   const SizedBox.shrink(), // Error is shown below
               data: (final data) =>

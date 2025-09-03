@@ -263,6 +263,18 @@
   "appInfoFooterLastSynced": "Last Synced",
   "appInfoFooterLastSyncedNever": "Never",
   "appInfoFooterError": "Could not load data",
+  "appVersion": "Version {version} (Build {buildNumber})",
+  "@appVersion": {
+    "description": "Displays the application version and build number",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "buildNumber": {
+        "type": "String"
+      }
+    }
+  },
   "subscriptionTitle": "My Subscription",
   "subscriptionCancelDialogTitle": "Cancel Subscription",
   "subscriptionCancelDialogContent": "Are you sure you want to cancel your Pro plan?",
