@@ -33,5 +33,8 @@ abstract class DataToolsState with _$DataToolsState {
 
     /// An error message, if any operation failed.
     final String? errorMessage,
+
+    /// A success message to show after a successful operation.
+    final String? successMessage,
   }) = _DataToolsState;
 }

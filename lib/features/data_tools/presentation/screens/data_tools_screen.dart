@@ -5,6 +5,7 @@ import "package:rain_wise/features/data_tools/presentation/widgets/export_data_c
 import "package:rain_wise/features/data_tools/presentation/widgets/import_data_card.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/utils/ui_helpers.dart";
 
 class DataToolsScreen extends ConsumerWidget {
   const DataToolsScreen({super.key});
@@ -14,21 +15,30 @@ class DataToolsScreen extends ConsumerWidget {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
 
-    ref.listen<String?>(
-      dataToolsNotifierProvider.select((final s) => s.errorMessage),
-      (final _, final errorMessage) {
-        if (errorMessage != null) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text(errorMessage),
-                backgroundColor: theme.colorScheme.error,
-              ),
-            );
-        }
-      },
-    );
+    ref
+      ..listen<String?>(
+        dataToolsNotifierProvider.select((final s) => s.errorMessage),
+        (final _, final errorMessage) {
+          if (errorMessage != null) {
+            ScaffoldMessenger.of(context)
+              ..hideCurrentSnackBar()
+              ..showSnackBar(
+                SnackBar(
+                  content: Text(errorMessage),
+                  backgroundColor: theme.colorScheme.error,
+                ),
+              );
+          }
+        },
+      )
+      ..listen<String?>(
+        dataToolsNotifierProvider.select((final s) => s.successMessage),
+        (final _, final successMessage) {
+          if (successMessage != null) {
+            showSnackbar(context, successMessage);
+          }
+        },
+      );
 
     return Scaffold(
       appBar: AppBar(

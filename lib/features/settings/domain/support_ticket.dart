@@ -1,4 +1,3 @@
-import "package:cloud_firestore/cloud_firestore.dart";
 import "package:freezed_annotation/freezed_annotation.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
@@ -40,22 +39,11 @@ abstract class SupportTicket with _$SupportTicket {
     required final String id,
     required final TicketCategory category,
     required final String description,
-    @TimestampConverter() required final DateTime createdAt,
+    required final DateTime createdAt,
     final String? userId,
     final String? contactEmail,
   }) = _SupportTicket;
 
   factory SupportTicket.fromJson(final Map<String, dynamic> json) =>
       _$SupportTicketFromJson(json);
-}
-
-/// Custom converter to handle Firestore's Timestamp objects.
-class TimestampConverter implements JsonConverter<DateTime, Timestamp> {
-  const TimestampConverter();
-
-  @override
-  DateTime fromJson(final Timestamp timestamp) => timestamp.toDate();
-
-  @override
-  Timestamp toJson(final DateTime date) => Timestamp.fromDate(date);
 }

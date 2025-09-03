@@ -1,9 +1,15 @@
-class Faq {
-  const Faq({
-    required this.question,
-    required this.answer,
-  });
+import "package:freezed_annotation/freezed_annotation.dart";
 
-  final String question;
-  final String answer;
+part "faq.freezed.dart";
+
+part "faq.g.dart";
+
+@freezed
+abstract class Faq with _$Faq {
+  const factory Faq({
+    required final String question,
+    required final String answer,
+  }) = _Faq;
+
+  factory Faq.fromJson(final Map<String, dynamic> json) => _$FaqFromJson(json);
 }

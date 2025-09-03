@@ -7,13 +7,13 @@ import "package:rain_wise/features/settings/presentation/widgets/notifications/r
 import "package:rain_wise/l10n/app_localizations.dart";
 
 class DailyReminderSettingsGroup extends ConsumerWidget {
-  const DailyReminderSettingsGroup({super.key});
+  const DailyReminderSettingsGroup({required this.settings, super.key});
+
+  final NotificationSettings settings;
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final NotificationSettings settings =
-        ref.watch(notificationSettingsNotifierProvider);
     final NotificationSettingsNotifier notifier =
         ref.read(notificationSettingsNotifierProvider.notifier);
 
@@ -26,7 +26,8 @@ class DailyReminderSettingsGroup extends ConsumerWidget {
           value: settings.dailyReminder,
           onChanged: notifier.setDailyReminder,
         ),
-        if (settings.dailyReminder) const ReminderTimeTile(),
+        if (settings.dailyReminder)
+          ReminderTimeTile(reminderTime: settings.reminderTime),
       ],
     );
   }

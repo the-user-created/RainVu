@@ -1,6 +1,5 @@
-import "package:rain_wise/features/home/domain/rain_gauge.dart";
-import "package:rain_wise/features/rainfall_entry/data/rainfall_entry_repository.dart";
-import "package:rain_wise/features/rainfall_entry/domain/rainfall_entry.dart";
+import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
+import "package:rain_wise/shared/domain/rainfall_entry.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "rainfall_entry_provider.g.dart";
@@ -10,11 +9,7 @@ Future<List<RainfallEntry>> rainfallEntriesForMonth(
   final RainfallEntriesForMonthRef ref,
   final DateTime month,
 ) =>
-    ref.watch(rainfallEntryRepositoryProvider).fetchEntriesForMonth(month);
-
-@riverpod
-Future<List<RainGauge>> rainGauges(final RainGaugesRef ref) =>
-    ref.watch(rainfallEntryRepositoryProvider).fetchGauges();
+    ref.watch(rainfallRepositoryProvider).fetchEntriesForMonth(month);
 
 @riverpod
 class RainfallEntryNotifier extends _$RainfallEntryNotifier {
@@ -24,15 +19,13 @@ class RainfallEntryNotifier extends _$RainfallEntryNotifier {
   }
 
   Future<void> updateEntry(final RainfallEntry entry) async {
-    final RainfallEntryRepository repo =
-        ref.read(rainfallEntryRepositoryProvider);
+    final RainfallRepository repo = ref.read(rainfallRepositoryProvider);
     await repo.updateEntry(entry);
     ref.invalidate(rainfallEntriesForMonthProvider);
   }
 
   Future<void> deleteEntry(final String entryId) async {
-    final RainfallEntryRepository repo =
-        ref.read(rainfallEntryRepositoryProvider);
+    final RainfallRepository repo = ref.read(rainfallRepositoryProvider);
     await repo.deleteEntry(entryId);
     ref.invalidate(rainfallEntriesForMonthProvider);
   }

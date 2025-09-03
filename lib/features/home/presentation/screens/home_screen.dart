@@ -50,29 +50,25 @@ class HomeScreen extends ConsumerWidget {
             error: (final err, final stack) => Center(
               child: Text(l10n.homeScreenError(err)),
             ),
-            // TODO: Remove RefreshIndicator as its not needed without remote data
-            data: (final homeData) => RefreshIndicator(
-              onRefresh: () => ref.refresh(homeScreenDataProvider.future),
-              child: SingleChildScrollView(
-                physics: const AlwaysScrollableScrollPhysics(),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: AppConstants.horiEdgePadding,
-                  ),
-                  child: Column(
-                    children: [
-                      MonthlySummaryCard(
-                        currentMonth: homeData.currentMonth,
-                        monthlyTotal: homeData.monthlyTotal,
-                        recentEntries: homeData.recentEntries,
-                      ),
-                      const RainfallTrendsCard(),
-                      QuickStatsCard(stats: homeData.quickStats),
-                    ]
-                        .divide(const SizedBox(height: 24))
-                        .addToStart(const SizedBox(height: 16))
-                        .addToEnd(const SizedBox(height: 32)),
-                  ),
+            data: (final homeData) => SingleChildScrollView(
+              physics: const AlwaysScrollableScrollPhysics(),
+              child: Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: AppConstants.horiEdgePadding,
+                ),
+                child: Column(
+                  children: [
+                    MonthlySummaryCard(
+                      monthlyTotal: homeData.monthlyTotal,
+                      recentEntries: homeData.recentEntries,
+                      currentMonthDate: homeData.currentMonthDate,
+                    ),
+                    const RainfallTrendsCard(),
+                    QuickStatsCard(stats: homeData.quickStats),
+                  ]
+                      .divide(const SizedBox(height: 24))
+                      .addToStart(const SizedBox(height: 16))
+                      .addToEnd(const SizedBox(height: 32)),
                 ),
               ),
             ),

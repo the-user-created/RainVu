@@ -1,6 +1,6 @@
-import "dart:math";
-
 import "package:intl/intl.dart";
+import "package:rain_wise/core/data/local/app_database.dart";
+import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
 import "package:rain_wise/features/insights_dashboard/domain/insights_data.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
@@ -11,54 +11,191 @@ abstract class InsightsRepository {
 }
 
 @riverpod
-InsightsRepository insightsRepository(final InsightsRepositoryRef ref) =>
-    MockInsightsRepository();
+InsightsRepository insightsRepository(final InsightsRepositoryRef ref) {
+  final AppDatabase db = ref.watch(appDatabaseProvider);
+  return DriftInsightsRepository(db.rainfallEntriesDao);
+}
 
-class MockInsightsRepository implements InsightsRepository {
+class DriftInsightsRepository implements InsightsRepository {
+  DriftInsightsRepository(this._dao);
+
+  final RainfallEntriesDao _dao;
+
   @override
   Future<InsightsData> getInsightsData() async {
-    // Simulate network delay
-    await Future.delayed(const Duration(milliseconds: 800));
-    return _getMockInsightsData();
-  }
-
-  InsightsData _getMockInsightsData() {
     final now = DateTime.now();
-    final random = Random();
 
-    // Generate last 12 months for trend chart
-    final List<MonthlyTrendPoint> trendPoints =
-        List.generate(12, (final index) {
-      final DateTime month = now.subtract(Duration(days: 30 * index));
-      return MonthlyTrendPoint(
-        month: DateFormat.MMM().format(month),
-        rainfall: 50 + random.nextDouble() * 100,
-      );
-    }).reversed.toList();
-
-    // Generate 12 months for comparison grid
-    final List<MonthlyComparisonData> comparisonData =
-        List.generate(12, (final index) {
-      final month = DateTime(now.year, index + 1);
-      return MonthlyComparisonData(
-        month: DateFormat.MMMM().format(month),
-        mtdTotal: 50 + random.nextInt(100),
-        twoYrAvg: 60 + random.nextInt(80),
-        fiveYrAvg: 70 + random.nextInt(60),
-      );
-    });
+    final List<Object> futures = await Future.wait([
+      _calculateKeyMetrics(now),
+      _getMonthlyTrends(now),
+      _getMonthlyComparisons(now),
+    ]);
 
     return InsightsData(
-      keyMetrics: const KeyMetrics(
-        totalRainfall: 756.2,
-        totalRainfallPrevYearChange: 12.3,
-        mtdTotal: 45.7,
-        mtdTotalPrevMonthChange: -5.2,
-        ytdTotal: 342.8,
-        monthlyAvg: 63,
-      ),
-      monthlyTrends: trendPoints,
-      monthlyComparisons: comparisonData,
+      keyMetrics: futures[0] as KeyMetrics,
+      monthlyTrends: futures[1] as List<MonthlyTrendPoint>,
+      monthlyComparisons: futures[2] as List<MonthlyComparisonData>,
+    );
+  }
+
+  Future<KeyMetrics> _calculateKeyMetrics(final DateTime now) async {
+    final startOfThisYear = DateTime(now.year);
+    final startOfThisMonth = DateTime(now.year, now.month);
+    final oneYearAgo = DateTime(
+      now.year - 1,
+      now.month,
+      now.day,
+      now.hour,
+      now.minute,
+      now.second,
+    );
+
+    final startOfLastMonth = DateTime(now.year, now.month - 1);
+    final endOfLastMonthMTD = DateTime(now.year, now.month - 1, now.day);
+
+    final Future<double> totalRainfallFuture = _dao.getTotalRainfall();
+    final Future<double> ytdTotalFuture =
+        _dao.getTotalAmountBetween(startOfThisYear, now);
+    final Future<double> mtdTotalFuture =
+        _dao.getTotalAmountBetween(startOfThisMonth, now);
+    final Future<double> totalRainfallLastYearFuture =
+        _dao.getTotalAmountBetween(DateTime(1900), oneYearAgo);
+    final Future<double> mtdTotalLastMonthFuture =
+        _dao.getTotalAmountBetween(startOfLastMonth, endOfLastMonthMTD);
+    final Future<int> distinctMonthsFuture = _dao.getDistinctMonthCount();
+
+    final List<num> results = await Future.wait([
+      totalRainfallFuture,
+      ytdTotalFuture,
+      mtdTotalFuture,
+      totalRainfallLastYearFuture,
+      mtdTotalLastMonthFuture,
+      distinctMonthsFuture,
+    ]);
+
+    final totalRainfall = results[0] as double;
+    final ytdTotal = results[1] as double;
+    final mtdTotal = results[2] as double;
+    final totalRainfallLastYear = results[3] as double;
+    final mtdTotalLastMonth = results[4] as double;
+    final distinctMonths = results[5] as int;
+
+    final double totalRainfallChange =
+        _calculatePercentChange(totalRainfallLastYear, totalRainfall);
+    final double mtdChange =
+        _calculatePercentChange(mtdTotalLastMonth, mtdTotal);
+
+    double monthlyAvg = 0;
+    if (distinctMonths > 0) {
+      monthlyAvg = totalRainfall / distinctMonths;
+    }
+
+    return KeyMetrics(
+      totalRainfall: totalRainfall,
+      ytdTotal: ytdTotal,
+      mtdTotal: mtdTotal,
+      totalRainfallPrevYearChange: totalRainfallChange,
+      mtdTotalPrevMonthChange: mtdChange,
+      monthlyAvg: monthlyAvg,
+    );
+  }
+
+  double _calculatePercentChange(final double previous, final double current) {
+    if (previous == 0) {
+      return current > 0 ? 100.0 : 0.0;
+    }
+    return (current - previous) / previous * 100;
+  }
+
+  Future<List<MonthlyTrendPoint>> _getMonthlyTrends(final DateTime now) async {
+    final twelveMonthsAgo = DateTime(now.year, now.month - 11);
+    final List<MonthlyTotal> monthlyTotals = await _dao.getMonthlyTotals(
+      start: twelveMonthsAgo,
+      end: now,
+    );
+
+    final Map<String, double> trendsMap = {};
+    for (int i = 0; i < 12; i++) {
+      final monthDate = DateTime(now.year, now.month - i);
+      final key = "${monthDate.year}-${monthDate.month}";
+      trendsMap[key] = 0.0;
+    }
+
+    for (final total in monthlyTotals) {
+      final key = "${total.year}-${total.month}";
+      trendsMap[key] = total.total;
+    }
+
+    final trendPoints = <MonthlyTrendPoint>[];
+    for (int i = 11; i >= 0; i--) {
+      final monthDate = DateTime(now.year, now.month - i);
+      final key = "${monthDate.year}-${monthDate.month}";
+      trendPoints.add(
+        MonthlyTrendPoint(
+          month: DateFormat.MMM().format(monthDate),
+          rainfall: trendsMap[key]!,
+        ),
+      );
+    }
+
+    return trendPoints;
+  }
+
+  Future<List<MonthlyComparisonData>> _getMonthlyComparisons(
+    final DateTime now,
+  ) async {
+    final int currentYear = now.year;
+    final List<int> previous5Years =
+        List.generate(5, (final index) => currentYear - 1 - index);
+
+    final List<Future<MonthlyComparisonData>> futures = [];
+
+    for (int month = 1; month <= 12; month++) {
+      futures.add(_getComparisonForMonth(month, currentYear, previous5Years));
+    }
+
+    return Future.wait(futures);
+  }
+
+  Future<MonthlyComparisonData> _getComparisonForMonth(
+    final int month,
+    final int currentYear,
+    final List<int> previousYears,
+  ) async {
+    final startOfMonth = DateTime(currentYear, month);
+    final DateTime endOfMonth = DateTime(currentYear, month + 1)
+        .subtract(const Duration(microseconds: 1));
+    final Future<double> currentMonthTotalFuture =
+        _dao.getTotalAmountBetween(startOfMonth, endOfMonth);
+
+    final Future<List<YearlyTotal>> previousYearsTotalsFuture =
+        _dao.getTotalsForMonthAcrossYears(
+      month: month,
+      years: previousYears,
+    );
+
+    final List<Object> results = await Future.wait([
+      currentMonthTotalFuture,
+      previousYearsTotalsFuture,
+    ]);
+
+    final currentMonthTotal = results[0] as double;
+    final previousYearsTotals = results[1] as List<YearlyTotal>;
+
+    final double twoYrSum = previousYearsTotals
+        .where((final t) => t.year >= currentYear - 2)
+        .map((final t) => t.total)
+        .fold(0, (final a, final b) => a + b);
+
+    final double fiveYrSum = previousYearsTotals
+        .map((final t) => t.total)
+        .fold(0, (final a, final b) => a + b);
+
+    return MonthlyComparisonData(
+      month: DateFormat.MMMM().format(DateTime(0, month)),
+      mtdTotal: currentMonthTotal,
+      twoYrAvg: twoYrSum / 2,
+      fiveYrAvg: fiveYrSum / 5,
     );
   }
 }

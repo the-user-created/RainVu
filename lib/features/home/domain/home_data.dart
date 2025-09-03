@@ -1,29 +1,24 @@
 import "package:freezed_annotation/freezed_annotation.dart";
+import "package:rain_wise/shared/domain/rainfall_entry.dart";
 
 part "home_data.freezed.dart";
 
-// This file would typically also have fromJson if fetching from a single endpoint
+enum QuickStatType { thisWeek, thisMonth, dailyAvg }
+
 @freezed
 abstract class HomeData with _$HomeData {
   const factory HomeData({
-    required final String currentMonth,
-    required final String monthlyTotal,
-    required final List<RecentEntry> recentEntries,
+    required final DateTime currentMonthDate,
+    required final double monthlyTotal,
+    required final List<RainfallEntry> recentEntries,
     required final List<QuickStat> quickStats,
-    // We would add forecast and trends data here too
   }) = _HomeData;
 }
 
-class RecentEntry {
-  const RecentEntry({required this.dateLabel, required this.amount});
-
-  final String dateLabel;
-  final String amount;
-}
-
-class QuickStat {
-  const QuickStat({required this.value, required this.label});
-
-  final String value;
-  final String label;
+@freezed
+abstract class QuickStat with _$QuickStat {
+  const factory QuickStat({
+    required final double value,
+    required final QuickStatType type,
+  }) = _QuickStat;
 }
