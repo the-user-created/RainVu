@@ -1,37 +1,19 @@
-import "package:cloud_firestore/cloud_firestore.dart";
 import "package:rain_wise/features/settings/domain/support_ticket.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "support_repository.g.dart";
 
-/// Repository for managing support tickets in Firestore.
+/// Repository for managing support tickets.
 class SupportRepository {
-  SupportRepository(this._firestore);
-
-  final FirebaseFirestore _firestore;
-  static const String _ticketsPath = "supportTickets";
-
-  /// Saves a [SupportTicket] to the Firestore collection.
+  /// Saves a [SupportTicket].
+  ///
+  /// This is a mock implementation that simulates a network delay.
   Future<void> submitTicket(final SupportTicket ticket) async {
-    try {
-      await _firestore
-          .collection(_ticketsPath)
-          .doc(ticket.id)
-          .set(ticket.toJson());
-    } on FirebaseException catch (e, st) {
-      // TODO: In a real app, log this error to a monitoring service.
-      Error.throwWithStackTrace(
-        Exception("Failed to submit ticket. Please try again."),
-        st,
-      );
-    }
+    // TODO: Integrate with a Discord webhook or other support service.
+    await Future.delayed(const Duration(seconds: 1));
   }
 }
 
 @riverpod
-FirebaseFirestore firebaseFirestore(final FirebaseFirestoreRef ref) =>
-    FirebaseFirestore.instance;
-
-@riverpod
 SupportRepository supportRepository(final SupportRepositoryRef ref) =>
-    SupportRepository(ref.watch(firebaseFirestoreProvider));
+    SupportRepository();
