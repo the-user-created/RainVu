@@ -24,7 +24,7 @@ class DataToolsNotifier extends _$DataToolsNotifier {
   Future<void> pickFileForImport() async {
     final File? file = await ref.read(dataToolsRepositoryProvider).pickFile();
     if (file != null) {
-      state = state.copyWith(fileToImport: file);
+      state = state.copyWith(fileToImport: file, successMessage: null);
     }
   }
 
@@ -36,14 +36,19 @@ class DataToolsNotifier extends _$DataToolsNotifier {
     if (state.isExporting) {
       return;
     }
-    state = state.copyWith(isExporting: true, errorMessage: null);
+    state = state.copyWith(
+      isExporting: true,
+      errorMessage: null,
+      successMessage: null,
+    );
 
     try {
-      await ref.read(dataToolsRepositoryProvider).exportData(
-            format: state.exportFormat,
-            dateRange: state.dateRange,
-          );
-      // TODO: In a real app, you might show a success message or a file save dialog.
+      final String path =
+          await ref.read(dataToolsRepositoryProvider).exportData(
+                format: state.exportFormat,
+                dateRange: state.dateRange,
+              );
+      state = state.copyWith(successMessage: l10n.dataToolsExportSuccess(path));
     } catch (e) {
       state = state.copyWith(errorMessage: l10n.dataToolsExportFailed(e));
     } finally {
@@ -55,14 +60,20 @@ class DataToolsNotifier extends _$DataToolsNotifier {
     if (state.isImporting || state.fileToImport == null) {
       return;
     }
-    state = state.copyWith(isImporting: true, errorMessage: null);
+    state = state.copyWith(
+      isImporting: true,
+      errorMessage: null,
+      successMessage: null,
+    );
 
     try {
       await ref
           .read(dataToolsRepositoryProvider)
           .importData(state.fileToImport!);
-      // On success, clear the selected file.
-      state = state.copyWith(fileToImport: null);
+      state = state.copyWith(
+        fileToImport: null,
+        successMessage: l10n.dataToolsImportSuccess,
+      );
     } catch (e) {
       state = state.copyWith(errorMessage: l10n.dataToolsImportFailed(e));
     } finally {

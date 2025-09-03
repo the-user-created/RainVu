@@ -429,4 +429,48 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
         )
         .get();
   }
+
+  Future<List<RainfallEntryWithGauge>> getEntriesWithGaugesInRange(
+    final DateTime start,
+    final DateTime end,
+  ) {
+    final JoinedSelectStatement<HasResultSet, dynamic> query =
+        select(rainfallEntries).join([
+      leftOuterJoin(
+        rainGauges,
+        rainGauges.id.equalsExp(rainfallEntries.gaugeId),
+      ),
+    ])
+          ..where(rainfallEntries.date.isBetweenValues(start, end))
+          ..orderBy([OrderingTerm.desc(rainfallEntries.date)]);
+
+    return query
+        .map(
+          (final row) => RainfallEntryWithGauge(
+            entry: row.readTable(rainfallEntries),
+            gauge: row.readTableOrNull(rainGauges),
+          ),
+        )
+        .get();
+  }
+
+  Future<List<RainfallEntryWithGauge>> getAllEntriesWithGauges() {
+    final JoinedSelectStatement<HasResultSet, dynamic> query =
+        select(rainfallEntries).join([
+      leftOuterJoin(
+        rainGauges,
+        rainGauges.id.equalsExp(rainfallEntries.gaugeId),
+      ),
+    ])
+          ..orderBy([OrderingTerm.desc(rainfallEntries.date)]);
+
+    return query
+        .map(
+          (final row) => RainfallEntryWithGauge(
+            entry: row.readTable(rainfallEntries),
+            gauge: row.readTableOrNull(rainGauges),
+          ),
+        )
+        .get();
+  }
 }
