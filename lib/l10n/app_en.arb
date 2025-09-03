@@ -25,6 +25,19 @@
   "dataToolsTitle": "Export & Import",
   "dataToolsExportDataSectionTitle": "EXPORT DATA",
   "dataToolsImportDataSectionTitle": "IMPORT DATA",
+  "dataToolsExportSuccess": "Data exported successfully to {path}",
+  "@dataToolsExportSuccess": {
+    "description": "Success message shown after data is exported, with a placeholder for the file path.",
+    "placeholders": {
+      "path": {
+        "type": "String"
+      }
+    }
+  },
+  "dataToolsImportSuccess": "Data imported successfully.",
+  "@dataToolsImportSuccess": {
+    "description": "Success message shown after data is imported successfully."
+  },
   "dataToolsExportFailed": "Export failed: {error}",
   "@dataToolsExportFailed": {
     "placeholders": {
