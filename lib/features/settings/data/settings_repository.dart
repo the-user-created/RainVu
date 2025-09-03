@@ -1,9 +1,53 @@
+import "dart:convert";
+
+import "package:flutter/material.dart";
+import "package:rain_wise/core/data/local/shared_prefs.dart";
+import "package:rain_wise/features/settings/domain/notification_settings.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:shared_preferences/shared_preferences.dart";
 
 part "settings_repository.g.dart";
 
-class SettingsRepository {}
+class SettingsRepository {
+  SettingsRepository(this._prefs);
+
+  final SharedPreferences _prefs;
+
+  static const _notificationSettingsKey = "notification_settings";
+
+  /// Retrieves [NotificationSettings] from local storage.
+  /// If no settings are found, it returns a default configuration.
+  NotificationSettings getNotificationSettings() {
+    final String? jsonString = _prefs.getString(_notificationSettingsKey);
+    if (jsonString != null) {
+      return NotificationSettings.fromJson(
+        jsonDecode(jsonString) as Map<String, dynamic>,
+      );
+    }
+    // Return default settings if nothing is stored yet.
+    return const NotificationSettings(
+      dailyReminder: true,
+      reminderTime: TimeOfDay(hour: 8, minute: 0),
+      weeklySummary: true,
+      weatherAlerts: true,
+      appUpdates: true,
+    );
+  }
+
+  /// Saves the provided [NotificationSettings] to local storage.
+  Future<void> saveNotificationSettings(
+    final NotificationSettings settings,
+  ) async {
+    final String jsonString = jsonEncode(settings.toJson());
+    await _prefs.setString(_notificationSettingsKey, jsonString);
+  }
+}
 
 @riverpod
-SettingsRepository settingsRepository(final SettingsRepositoryRef ref) =>
-    SettingsRepository();
+Future<SettingsRepository> settingsRepository(
+  final SettingsRepositoryRef ref,
+) async {
+  final SharedPreferences prefs =
+      await ref.watch(sharedPreferencesProvider.future);
+  return SettingsRepository(prefs);
+}

@@ -3,9 +3,10 @@ import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/app_constants.dart";
+import "package:rain_wise/core/data/providers/data_providers.dart";
 import "package:rain_wise/features/home/application/home_providers.dart";
-import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
@@ -93,7 +94,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
   @override
   Widget build(final BuildContext context) {
     final AsyncValue<List<RainGauge>> gaugesAsync =
-        ref.watch(userGaugesProvider);
+        ref.watch(allGaugesFutureProvider);
     final AsyncValue<void> logRainState = ref.watch(logRainControllerProvider);
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);

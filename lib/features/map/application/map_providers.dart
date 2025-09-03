@@ -5,9 +5,9 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 part "map_providers.g.dart";
 
 @riverpod
-Future<List<RainfallMapEntry>> recentRainfall(
+Stream<List<RainfallMapEntry>> recentRainfall(
   final RecentRainfallRef ref,
-) async {
+) {
   final MapRepository repository = ref.watch(mapRepositoryProvider);
-  return repository.fetchRecentEntries();
+  return repository.watchRecentEntries();
 }

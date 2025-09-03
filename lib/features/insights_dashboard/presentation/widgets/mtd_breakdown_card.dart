@@ -33,7 +33,7 @@ class MtdBreakdownCard extends StatelessWidget {
             ),
             _DataRow(
               label: l10n.mtdBreakdownTotal,
-              value: l10n.valueInMm(data.mtdTotal.toString()),
+              value: l10n.valueInMm(data.mtdTotal.toStringAsFixed(1)),
             ),
             _ComparisonRow(
               label: l10n.mtdBreakdown2yrAvg,
@@ -90,8 +90,8 @@ class _ComparisonRow extends StatelessWidget {
   });
 
   final String label;
-  final int currentValue;
-  final int comparisonValue;
+  final double currentValue;
+  final double comparisonValue;
 
   @override
   Widget build(final BuildContext context) {
@@ -118,7 +118,7 @@ class _ComparisonRow extends StatelessWidget {
             ),
             const SizedBox(width: 4),
             Text(
-              l10n.valueInMm(comparisonValue.toString()),
+              l10n.valueInMm(comparisonValue.toStringAsFixed(1)),
               style: textTheme.bodyMedium,
             ),
           ],
@@ -131,8 +131,8 @@ class _ComparisonRow extends StatelessWidget {
 class _ComparisonIcon extends StatelessWidget {
   const _ComparisonIcon({required this.current, required this.comparison});
 
-  final int current;
-  final int comparison;
+  final double current;
+  final double comparison;
 
   @override
   Widget build(final BuildContext context) {

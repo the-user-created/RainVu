@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/utils/extensions.dart";
-import "package:rain_wise/features/home/domain/rain_gauge.dart";
 import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/edit_gauge_sheet.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class GaugeListTile extends ConsumerWidget {
@@ -61,6 +61,12 @@ class GaugeListTile extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
+
+    final bool hasLocation = gauge.latitude != null && gauge.longitude != null;
+    final String locationText = hasLocation
+        ? "Lat: ${gauge.latitude!.toStringAsFixed(2)}, Lng: ${gauge.longitude!.toStringAsFixed(2)}"
+        : l10n.gaugeTileNoLocation;
+
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -75,9 +81,8 @@ class GaugeListTile extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(gauge.name, style: theme.textTheme.bodyLarge),
-                // TODO: Display location if available
                 Text(
-                  l10n.gaugeTileNoLocation,
+                  locationText,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),

@@ -57,6 +57,19 @@ class _StatItem extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
+
+    String getLabel(final QuickStatType type) {
+      switch (type) {
+        case QuickStatType.thisWeek:
+          return l10n.quickStatThisWeek;
+        case QuickStatType.thisMonth:
+          return l10n.quickStatThisMonth;
+        case QuickStatType.dailyAvg:
+          return l10n.quickStatDailyAvg;
+      }
+    }
+
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 12),
       child: Container(
@@ -70,15 +83,17 @@ class _StatItem extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                stat.value,
+                l10n.rainfallAmountWithUnit(stat.value.toStringAsFixed(1)),
                 style: theme.textTheme.titleLarge?.copyWith(
                   color: theme.colorScheme.secondary,
                   fontWeight: FontWeight.bold,
                 ),
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
               ),
               const SizedBox(height: 4),
               Text(
-                stat.label,
+                getLabel(stat.type),
                 textAlign: TextAlign.center,
                 style: theme.textTheme.labelMedium,
               ),

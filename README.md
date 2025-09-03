@@ -71,7 +71,7 @@ intelligence, turning guesswork into data-driven strategy.
     * **Crash Reporting**: Firebase Crashlytics]()
 * **Local Storage**:
     * `shared_preferences` for app settings and user preferences.
-    * (Future) Local database like `Isar` or `Drift` for robust offline capabilities.
+    * `Drift` for structured, relational data storage of rain gauges and entries.
 * **UI & Charting**:
     * `fl_chart` / `syncfusion_flutter_charts`: For detailed and interactive data visualizations.
     * `flutter_animate`: For declarative, easy-to-use animations.

@@ -1,21 +1,18 @@
 import "dart:async";
 
+import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/home/data/home_repository.dart";
 import "package:rain_wise/features/home/domain/home_data.dart";
-import "package:rain_wise/features/home/domain/rain_gauge.dart";
+import "package:rain_wise/shared/domain/rainfall_entry.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "home_providers.g.dart";
 
 /// Provider to fetch all data needed for the home screen in one go.
+/// This is now a stream provider to reactively update the UI when data changes.
 @riverpod
-Future<HomeData> homeScreenData(final HomeScreenDataRef ref) async =>
-    ref.watch(homeRepositoryProvider).getHomeData();
-
-/// Provider to fetch the list of user's rain gauges.
-@riverpod
-Future<List<RainGauge>> userGauges(final UserGaugesRef ref) async =>
-    ref.watch(homeRepositoryProvider).getUserGauges();
+Stream<HomeData> homeScreenData(final HomeScreenDataRef ref) =>
+    ref.watch(homeRepositoryProvider).watchHomeData();
 
 /// Controller for handling the logic of logging a new rainfall entry.
 @riverpod
@@ -32,18 +29,15 @@ class LogRainController extends _$LogRainController {
     required final String unit,
     required final DateTime date,
   }) async {
-    // Set state to loading to show a spinner on the button, for example
     state = const AsyncValue.loading();
     try {
-      await ref.read(homeRepositoryProvider).saveRainfallEntry(
-            gaugeId: gaugeId,
-            amount: amount,
-            unit: unit,
-            date: date,
-          );
-
-      // Invalidate the home screen data to force a refetch with the new entry
-      ref.invalidate(homeScreenDataProvider);
+      final newEntry = RainfallEntry(
+        amount: amount,
+        date: date,
+        gaugeId: gaugeId,
+        unit: unit,
+      );
+      await ref.read(rainfallRepositoryProvider).addEntry(newEntry);
 
       state = const AsyncValue.data(null);
       return true; // Success

@@ -39,8 +39,8 @@ abstract class MonthlyTrendPoint with _$MonthlyTrendPoint {
 abstract class MonthlyComparisonData with _$MonthlyComparisonData {
   const factory MonthlyComparisonData({
     required final String month, // e.g., "January"
-    required final int mtdTotal,
-    required final int twoYrAvg,
-    required final int fiveYrAvg,
+    required final double mtdTotal,
+    required final double twoYrAvg,
+    required final double fiveYrAvg,
   }) = _MonthlyComparisonData;
 }

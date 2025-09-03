@@ -1,4 +1,7 @@
+import "dart:async";
+
 import "package:flutter/material.dart";
+import "package:rain_wise/features/settings/data/settings_repository.dart";
 import "package:rain_wise/features/settings/domain/notification_settings.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
@@ -6,39 +9,44 @@ part "notifications_providers.g.dart";
 
 @riverpod
 class NotificationSettingsNotifier extends _$NotificationSettingsNotifier {
-  // In a real app, this would be loaded from a repository
-  // (e.g., SharedPreferences, Firestore)
+  late SettingsRepository _repository;
+
   @override
-  NotificationSettings build() => const NotificationSettings(
-        dailyReminder: true,
-        reminderTime: TimeOfDay(hour: 8, minute: 0),
-        weeklySummary: true,
-        weatherAlerts: true,
-        appUpdates: true,
-      );
-
-  void setDailyReminder(final bool enabled) {
-    state = state.copyWith(dailyReminder: enabled);
-    // TODO: Persist change to a repository
+  Future<NotificationSettings> build() async {
+    _repository = await ref.watch(settingsRepositoryProvider.future);
+    return _repository.getNotificationSettings();
   }
 
-  void setReminderTime(final TimeOfDay time) {
-    state = state.copyWith(reminderTime: time);
-    // TODO: Persist change to a repository
+  Future<void> _updateSettings(final NotificationSettings newSettings) async {
+    state = const AsyncValue.loading();
+    state = await AsyncValue.guard(() async {
+      await _repository.saveNotificationSettings(newSettings);
+      return newSettings;
+    });
   }
 
-  void setWeeklySummary(final bool enabled) {
-    state = state.copyWith(weeklySummary: enabled);
-    // TODO: Persist change to a repository
+  Future<void> setDailyReminder(final bool enabled) async {
+    final NotificationSettings currentState = await future;
+    await _updateSettings(currentState.copyWith(dailyReminder: enabled));
   }
 
-  void setWeatherAlerts(final bool enabled) {
-    state = state.copyWith(weatherAlerts: enabled);
-    // TODO: Persist change to a repository
+  Future<void> setReminderTime(final TimeOfDay time) async {
+    final NotificationSettings currentState = await future;
+    await _updateSettings(currentState.copyWith(reminderTime: time));
   }
 
-  void setAppUpdates(final bool enabled) {
-    state = state.copyWith(appUpdates: enabled);
-    // TODO: Persist change to a repository
+  Future<void> setWeeklySummary(final bool enabled) async {
+    final NotificationSettings currentState = await future;
+    await _updateSettings(currentState.copyWith(weeklySummary: enabled));
+  }
+
+  Future<void> setWeatherAlerts(final bool enabled) async {
+    final NotificationSettings currentState = await future;
+    await _updateSettings(currentState.copyWith(weatherAlerts: enabled));
+  }
+
+  Future<void> setAppUpdates(final bool enabled) async {
+    final NotificationSettings currentState = await future;
+    await _updateSettings(currentState.copyWith(appUpdates: enabled));
   }
 }

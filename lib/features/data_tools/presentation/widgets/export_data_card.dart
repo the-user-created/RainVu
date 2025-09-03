@@ -77,6 +77,9 @@ class ExportDataCard extends ConsumerWidget {
                 selectedValue: state.exportFormat,
                 onSelected: notifier.setExportFormat,
                 options: ExportFormat.values
+                    .where(
+                      (final format) => format != ExportFormat.pdf,
+                    ) // TODO: PDF not supported
                     .map(
                       (final format) => ChipOption(
                         value: format,
