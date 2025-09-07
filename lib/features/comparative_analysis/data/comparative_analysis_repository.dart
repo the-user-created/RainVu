@@ -41,7 +41,20 @@ class DriftComparativeAnalysisRepository
   Future<ComparativeAnalysisData> fetchComparativeData(
     final ComparativeFilter filter,
   ) async {
-    // Parallel fetch for both years is more efficient.
+    switch (filter.type) {
+      case ComparisonType.annual:
+      case ComparisonType.monthly:
+        return _fetchAnnualOrMonthlyData(filter);
+      case ComparisonType.seasonal:
+        return _fetchSeasonalData(filter);
+    }
+  }
+
+  /// Fetches and processes data for a year-over-year comparison,
+  /// broken down by month. This view serves both 'Annual' and 'Monthly' types.
+  Future<ComparativeAnalysisData> _fetchAnnualOrMonthlyData(
+    final ComparativeFilter filter,
+  ) async {
     final List<List<MonthlyTotalForYear>> results = await Future.wait([
       _dao.getMonthlyTotalsForYear(filter.year1),
       _dao.getMonthlyTotalsForYear(filter.year2),
@@ -65,27 +78,79 @@ class DriftComparativeAnalysisRepository
       ],
     );
 
-    // Build Summaries
-    final double total1 = monthlyTotals1.sum;
-    final double total2 = monthlyTotals2.sum;
+    return _buildSummariesAndFinalData(
+      chartData: chartData,
+      total1: monthlyTotals1.sum,
+      total2: monthlyTotals2.sum,
+      year1: filter.year1,
+      year2: filter.year2,
+    );
+  }
 
+  /// Fetches and processes data for a year-over-year comparison,
+  /// broken down by season.
+  Future<ComparativeAnalysisData> _fetchSeasonalData(
+    final ComparativeFilter filter,
+  ) async {
+    final Map<String, List<int>> seasons = {
+      "Spring": [3, 4, 5],
+      "Summer": [6, 7, 8],
+      "Autumn": [9, 10, 11],
+      "Winter": [12, 1, 2],
+    };
+
+    final List<Future<double>> futures1 = [];
+    final List<Future<double>> futures2 = [];
+    final List<String> labels = seasons.keys.toList();
+
+    for (final List<int> months in seasons.values) {
+      futures1.add(_dao.getSeasonalTotalForYear(filter.year1, months));
+      futures2.add(_dao.getSeasonalTotalForYear(filter.year2, months));
+    }
+
+    final List<double> seasonalTotals1 = await Future.wait(futures1);
+    final List<double> seasonalTotals2 = await Future.wait(futures2);
+
+    final chartData = ComparativeChartData(
+      labels: labels,
+      series: [
+        ComparativeChartSeries(year: filter.year1, data: seasonalTotals1),
+        ComparativeChartSeries(year: filter.year2, data: seasonalTotals2),
+      ],
+    );
+
+    return _buildSummariesAndFinalData(
+      chartData: chartData,
+      total1: seasonalTotals1.sum,
+      total2: seasonalTotals2.sum,
+      year1: filter.year1,
+      year2: filter.year2,
+    );
+  }
+
+  /// Common logic to build summaries and the final data object.
+  ComparativeAnalysisData _buildSummariesAndFinalData({
+    required final ComparativeChartData chartData,
+    required final double total1,
+    required final double total2,
+    required final int year1,
+    required final int year2,
+  }) {
     final double change1vs2 = _calculatePercentageChange(total1, total2);
     final double change2vs1 = _calculatePercentageChange(total2, total1);
 
-    final summaries = [
+    final List<YearlySummary> summaries = [
       YearlySummary(
-        year: filter.year1,
+        year: year1,
         totalRainfall: total1,
         percentageChange: change1vs2,
       ),
       YearlySummary(
-        year: filter.year2,
+        year: year2,
         totalRainfall: total2,
         percentageChange: change2vs1,
       ),
-    ]
-      // Sort summaries by year descending for consistent display.
-      ..sort((final a, final b) => b.year.compareTo(a.year));
+    ]..sort((final a, final b) => b.year.compareTo(a.year));
 
     return ComparativeAnalysisData(
       summaries: summaries,
@@ -111,10 +176,6 @@ class DriftComparativeAnalysisRepository
     final double baseValue,
   ) {
     if (baseValue == 0) {
-      // Avoid division by zero. If the base is 0, any positive new value
-      // is an infinite increase. We represent this with double.infinity,
-      // and the UI can decide how to display it. If the new value is also 0,
-      // there is no change.
       return newValue > 0 ? double.infinity : 0.0;
     }
     return ((newValue - baseValue) / baseValue) * 100;
