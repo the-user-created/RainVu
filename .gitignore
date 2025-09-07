@@ -1,6 +1,7 @@
 # CUSTOM:
 list_files.py
 collect_files.py
+gen_sample_data.py
 output.txt
 diff.txt
 design_docs/

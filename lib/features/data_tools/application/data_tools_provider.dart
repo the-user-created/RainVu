@@ -21,15 +21,37 @@ class DataToolsNotifier extends _$DataToolsNotifier {
     state = state.copyWith(dateRange: range);
   }
 
-  Future<void> pickFileForImport() async {
+  Future<void> pickFileForImport(final AppLocalizations l10n) async {
+    // Clear previous messages and states
+    state = state.copyWith(
+      errorMessage: null,
+      successMessage: null,
+      importPreview: null,
+    );
+
     final File? file = await ref.read(dataToolsRepositoryProvider).pickFile();
     if (file != null) {
-      state = state.copyWith(fileToImport: file, successMessage: null);
+      state = state.copyWith(
+        fileToImport: file,
+        isParsing: true,
+      );
+      try {
+        final ImportPreview preview =
+            await ref.read(dataToolsRepositoryProvider).analyzeImportFile(file);
+        state = state.copyWith(importPreview: preview, isParsing: false);
+      } catch (e) {
+        state = state.copyWith(
+          errorMessage: l10n.dataToolsParseFailed(e),
+          isParsing: false,
+          fileToImport: null,
+          importPreview: null,
+        );
+      }
     }
   }
 
   void clearImportFile() {
-    state = state.copyWith(fileToImport: null);
+    state = state.copyWith(fileToImport: null, importPreview: null);
   }
 
   Future<void> exportData(final AppLocalizations l10n) async {
@@ -72,6 +94,7 @@ class DataToolsNotifier extends _$DataToolsNotifier {
           .importData(state.fileToImport!);
       state = state.copyWith(
         fileToImport: null,
+        importPreview: null, // Also clear preview on success
         successMessage: l10n.dataToolsImportSuccess,
       );
     } catch (e) {

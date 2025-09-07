@@ -1,5 +1,6 @@
 import "dart:convert";
 import "dart:io";
+import "dart:math";
 
 import "package:collection/collection.dart";
 import "package:csv/csv.dart";
@@ -27,6 +28,8 @@ abstract class DataToolsRepository {
 
   Future<void> importData(final File file);
 
+  Future<ImportPreview> analyzeImportFile(final File file);
+
   Future<File?> pickFile();
 }
 
@@ -38,6 +41,14 @@ DataToolsRepository dataToolsRepository(final DataToolsRepositoryRef ref) {
     db.rainGaugesDao,
     db,
   );
+}
+
+// Helper class to hold parsed data
+class _ParsedData {
+  _ParsedData(this.gauges, this.entries);
+
+  final List<domain_gauge.RainGauge> gauges;
+  final List<domain_entry.RainfallEntry> entries;
 }
 
 class DriftDataToolsRepository implements DataToolsRepository {
@@ -98,17 +109,31 @@ class DriftDataToolsRepository implements DataToolsRepository {
   }
 
   @override
-  Future<void> importData(final File file) async {
-    final String content = await file.readAsString();
-    final String extension = file.path.split(".").last.toLowerCase();
+  Future<ImportPreview> analyzeImportFile(final File file) async {
+    final _ParsedData parsedData = await _parseFile(file);
 
-    if (extension == "json") {
-      await _importFromJson(content);
-    } else if (extension == "csv") {
-      await _importFromCsv(content);
-    } else {
-      throw Exception("Unsupported file format: $extension");
-    }
+    final List<RainGauge> existingGauges = await _gaugesDao.getAllGauges();
+    final Set<String> existingGaugeNames =
+        existingGauges.map((final g) => g.name.toLowerCase()).toSet();
+
+    final List<String> newGaugeNames = parsedData.gauges
+        .where(
+          (final g) => !existingGaugeNames.contains(g.name.toLowerCase()),
+        )
+        .map((final g) => g.name)
+        .toList();
+
+    return ImportPreview(
+      newEntriesCount: parsedData.entries.length,
+      newGaugesCount: newGaugeNames.length,
+      newGaugeNames: newGaugeNames,
+    );
+  }
+
+  @override
+  Future<void> importData(final File file) async {
+    final _ParsedData parsedData = await _parseFile(file);
+    await _persistImportedData(parsedData.gauges, parsedData.entries);
   }
 
   @override
@@ -182,7 +207,20 @@ class DriftDataToolsRepository implements DataToolsRepository {
     return const ListToCsvConverter().convert(rows);
   }
 
-  Future<void> _importFromJson(final String content) async {
+  Future<_ParsedData> _parseFile(final File file) async {
+    final String content = await file.readAsString();
+    final String extension = file.path.split(".").last.toLowerCase();
+
+    if (extension == "json") {
+      return _parseJsonContent(content);
+    } else if (extension == "csv") {
+      return _parseCsvContent(content);
+    } else {
+      throw Exception("Unsupported file format: $extension");
+    }
+  }
+
+  _ParsedData _parseJsonContent(final String content) {
     final Map<String, dynamic> data = json.decode(content);
     final List<dynamic> gaugesJson = data["gauges"] ?? [];
     final List<dynamic> entriesJson = data["entries"] ?? [];
@@ -197,14 +235,15 @@ class DriftDataToolsRepository implements DataToolsRepository {
           (final e) => domain_entry.RainfallEntry.fromJson(e),
         )
         .toList();
-    await _persistImportedData(gauges, entries);
+
+    return _ParsedData(gauges, entries);
   }
 
-  Future<void> _importFromCsv(final String content) async {
+  _ParsedData _parseCsvContent(final String content) {
     final List<List<dynamic>> rows =
         const CsvToListConverter().convert(content, eol: "\n");
-    if (rows.isEmpty) {
-      return;
+    if (rows.length < 2) {
+      return _ParsedData([], []);
     }
 
     final List<String> headers =
@@ -219,7 +258,12 @@ class DriftDataToolsRepository implements DataToolsRepository {
     final Map<String, domain_gauge.RainGauge> gaugeCache = {};
 
     for (int i = 1; i < rows.length; i++) {
-      final List row = rows[i];
+      final List<dynamic> row = rows[i];
+      if (row.length <=
+          [gaugeNameIndex, dateIndex, amountIndex, unitIndex].reduce(max)) {
+        continue;
+      }
+
       final String gaugeName = row[gaugeNameIndex];
 
       domain_gauge.RainGauge? gauge = gaugeCache[gaugeName];
@@ -245,7 +289,7 @@ class DriftDataToolsRepository implements DataToolsRepository {
         ),
       );
     }
-    await _persistImportedData(gauges, entries);
+    return _ParsedData(gauges, entries);
   }
 
   Future<void> _persistImportedData(
