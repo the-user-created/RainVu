@@ -54,6 +54,29 @@
       }
     }
   },
+  "dataToolsParseFailed": "Failed to read file: {error}",
+  "@dataToolsParseFailed": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "importPreviewTitle": "Import Preview",
+  "importPreviewSummary": "This file contains {newEntriesCount} new entries and will create {newGaugesCount} new gauges.",
+  "@importPreviewSummary": {
+    "placeholders": {
+      "newEntriesCount": {
+        "type": "int"
+      },
+      "newGaugesCount": {
+        "type": "int"
+      }
+    }
+  },
+  "importPreviewNewGaugesListTitle": "New gauges to be created:",
+  "importPreviewConfirmButton": "Proceed with Import",
+  "importPreviewCancelButton": "Cancel",
   "importDataCardTitle": "Import Your Data",
   "importDataCardDescription": "Import your previously exported rainfall data",
   "importDataButtonLabel": "Import Data",

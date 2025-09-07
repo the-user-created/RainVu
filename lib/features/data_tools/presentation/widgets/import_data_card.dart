@@ -1,5 +1,3 @@
-import "dart:io";
-
 import "package:dotted_border/dotted_border.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -7,8 +5,8 @@ import "package:rain_wise/features/data_tools/application/data_tools_provider.da
 import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
-import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class ImportDataCard extends ConsumerWidget {
   const ImportDataCard({super.key});
@@ -42,23 +40,16 @@ class ImportDataCard extends ConsumerWidget {
               ),
               const SizedBox(height: 24),
               if (state.fileToImport == null)
-                _FilePickerBox(onTap: notifier.pickFileForImport)
-              else
-                _FilePreview(
-                  file: state.fileToImport!,
-                  onClear: notifier.clearImportFile,
+                _FilePickerBox(onTap: () => notifier.pickFileForImport(l10n))
+              else if (state.isParsing)
+                const _ParsingPreview()
+              else if (state.importPreview != null)
+                _ImportPreviewSummary(
+                  preview: state.importPreview!,
+                  onConfirm: () => notifier.importData(l10n),
+                  onCancel: notifier.clearImportFile,
+                  isLoading: state.isImporting,
                 ),
-              const SizedBox(height: 24),
-              AppButton(
-                onPressed: (state.isImporting || state.fileToImport == null)
-                    ? null
-                    : () => notifier.importData(l10n),
-                label: l10n.importDataButtonLabel,
-                isLoading: state.isImporting,
-                isExpanded: true,
-                icon: const Icon(Icons.cloud_upload, size: 20),
-                style: AppButtonStyle.secondary,
-              ),
             ],
           ),
         ),
@@ -119,39 +110,109 @@ class _FilePickerBox extends StatelessWidget {
   }
 }
 
-class _FilePreview extends StatelessWidget {
-  const _FilePreview({required this.file, required this.onClear});
+class _ParsingPreview extends StatelessWidget {
+  const _ParsingPreview();
 
-  final File file;
-  final VoidCallback onClear;
+  @override
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return Container(
+      height: 120,
+      decoration: BoxDecoration(
+        color: theme.colorScheme.surfaceContainerHighest,
+        borderRadius: BorderRadius.circular(12),
+      ),
+      child: const Center(
+        child: AppLoader(),
+      ),
+    );
+  }
+}
+
+class _ImportPreviewSummary extends StatelessWidget {
+  const _ImportPreviewSummary({
+    required this.preview,
+    required this.onConfirm,
+    required this.onCancel,
+    required this.isLoading,
+  });
+
+  final ImportPreview preview;
+  final VoidCallback onConfirm;
+  final VoidCallback onCancel;
+  final bool isLoading;
 
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
-    // Get file name from path
-    final String fileName = file.path.split("/").last;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: Row(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Icon(Icons.description_outlined, color: theme.colorScheme.onSurface),
-          const SizedBox(width: 12),
-          Expanded(
-            child: Text(
-              fileName,
-              style: theme.textTheme.bodyMedium,
-              overflow: TextOverflow.ellipsis,
-            ),
+          Text(
+            l10n.importPreviewTitle,
+            textAlign: TextAlign.center,
+            style: theme.textTheme.titleLarge,
           ),
-          AppIconButton(
-            icon: Icon(Icons.close, color: theme.colorScheme.onSurfaceVariant),
-            onPressed: onClear,
-            tooltip: l10n.clearSelectionTooltip,
+          const SizedBox(height: 16),
+          Text(
+            l10n.importPreviewSummary(
+              preview.newEntriesCount,
+              preview.newGaugesCount,
+            ),
+            textAlign: TextAlign.center,
+            style: theme.textTheme.bodyMedium,
+          ),
+          if (preview.newGaugeNames.isNotEmpty) ...[
+            const SizedBox(height: 16),
+            Text(
+              l10n.importPreviewNewGaugesListTitle,
+              style: theme.textTheme.bodyMedium
+                  ?.copyWith(fontWeight: FontWeight.bold),
+            ),
+            const SizedBox(height: 8),
+            Wrap(
+              spacing: 8,
+              runSpacing: 4,
+              children: preview.newGaugeNames
+                  .map(
+                    (final name) => Chip(
+                      label: Text(name),
+                      backgroundColor: theme.colorScheme.secondaryContainer,
+                      labelStyle: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSecondaryContainer,
+                      ),
+                    ),
+                  )
+                  .toList(),
+            ),
+          ],
+          const SizedBox(height: 24),
+          Row(
+            children: [
+              Expanded(
+                child: AppButton(
+                  onPressed: onCancel,
+                  label: l10n.importPreviewCancelButton,
+                  style: AppButtonStyle.outline,
+                ),
+              ),
+              const SizedBox(width: 16),
+              Expanded(
+                child: AppButton(
+                  onPressed: onConfirm,
+                  label: l10n.importPreviewConfirmButton,
+                  isLoading: isLoading,
+                ),
+              ),
+            ],
           ),
         ],
       ),

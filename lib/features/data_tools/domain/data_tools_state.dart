@@ -5,6 +5,16 @@ import "package:freezed_annotation/freezed_annotation.dart";
 
 part "data_tools_state.freezed.dart";
 
+/// A summary of the data to be imported.
+@freezed
+abstract class ImportPreview with _$ImportPreview {
+  const factory ImportPreview({
+    required final int newEntriesCount,
+    required final int newGaugesCount,
+    required final List<String> newGaugeNames,
+  }) = _ImportPreview;
+}
+
 /// The format for exporting data.
 enum ExportFormat {
   csv,
@@ -25,11 +35,17 @@ abstract class DataToolsState with _$DataToolsState {
     /// The file selected for import.
     final File? fileToImport,
 
+    /// The results of the import file analysis.
+    final ImportPreview? importPreview,
+
     /// A flag indicating if an export operation is in progress.
     @Default(false) final bool isExporting,
 
     /// A flag indicating if an import operation is in progress.
     @Default(false) final bool isImporting,
+
+    /// A flag indicating if an import file is being parsed.
+    @Default(false) final bool isParsing,
 
     /// An error message, if any operation failed.
     final String? errorMessage,
