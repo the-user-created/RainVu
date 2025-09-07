@@ -8,7 +8,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "monthly_breakdown_repository.g.dart";
 
-// TODO: Doesn't update in real-time when entries change - consider using a Stream
+// TODO: Doesn't update in real-time when entries change via the rainfall_entry subscreen
 
 abstract class MonthlyBreakdownRepository {
   Future<MonthlyBreakdownData> fetchMonthlyBreakdown(final DateTime month);
