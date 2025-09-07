@@ -1,10 +1,14 @@
 import "package:collection/collection.dart";
 import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/comparative_analysis/domain/comparative_analysis_data.dart";
+import "package:rain_wise/features/settings/application/preferences_provider.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
-class ComparativeAnalysisChart extends StatelessWidget {
+class ComparativeAnalysisChart extends ConsumerWidget {
   const ComparativeAnalysisChart({
     required this.chartData,
     super.key,
@@ -13,12 +17,16 @@ class ComparativeAnalysisChart extends StatelessWidget {
   final ComparativeChartData chartData;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final List<Color> colors = [colorScheme.secondary, colorScheme.tertiary];
+    final MeasurementUnit unit =
+        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+            MeasurementUnit.mm;
+    final bool isInch = unit == MeasurementUnit.inch;
 
     if (chartData.series.isEmpty || chartData.series.first.data.isEmpty) {
       return SizedBox(
@@ -60,7 +68,7 @@ class ComparativeAnalysisChart extends StatelessWidget {
               height: 250,
               child: BarChart(
                 BarChartData(
-                  barGroups: _generateBarGroups(colors),
+                  barGroups: _generateBarGroups(colors, isInch),
                   titlesData: _buildTitles(theme),
                   borderData: FlBorderData(show: false),
                   gridData: FlGridData(
@@ -80,6 +88,11 @@ class ComparativeAnalysisChart extends StatelessWidget {
                         final rodIndex,
                       ) {
                         final int year = chartData.series[rodIndex].year;
+                        // Rod value is already in the display unit. Convert it
+                        // back to mm for consistent formatting logic.
+                        final double valueInMm =
+                            isInch ? rod.toY.toMillimeters() : rod.toY;
+
                         return BarTooltipItem(
                           "$year\n",
                           TextStyle(
@@ -88,8 +101,7 @@ class ComparativeAnalysisChart extends StatelessWidget {
                           ),
                           children: <TextSpan>[
                             TextSpan(
-                              text:
-                                  "${rod.toY.toStringAsFixed(1)} ${l10n.unitMM}",
+                              text: valueInMm.formatRainfall(context, unit),
                               style: TextStyle(color: colorScheme.onPrimary),
                             ),
                           ],
@@ -148,7 +160,10 @@ class ComparativeAnalysisChart extends StatelessWidget {
         ),
       );
 
-  List<BarChartGroupData> _generateBarGroups(final List<Color> colors) {
+  List<BarChartGroupData> _generateBarGroups(
+    final List<Color> colors,
+    final bool isInch,
+  ) {
     const double barWidth = 12;
     const double spaceBetween = 4;
     return List.generate(
@@ -158,7 +173,7 @@ class ComparativeAnalysisChart extends StatelessWidget {
         barRods: chartData.series
             .mapIndexed(
               (final index, final series) => BarChartRodData(
-                toY: series.data[i],
+                toY: isInch ? series.data[i].toInches() : series.data[i],
                 color: colors[index % colors.length],
                 width: barWidth,
                 borderRadius: const BorderRadius.only(

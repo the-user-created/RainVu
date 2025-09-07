@@ -1,8 +1,12 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/insights_dashboard/domain/insights_data.dart";
+import "package:rain_wise/features/settings/application/preferences_provider.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
-class KeyMetricsSection extends StatelessWidget {
+class KeyMetricsSection extends ConsumerWidget {
   const KeyMetricsSection({
     required this.metrics,
     super.key,
@@ -11,13 +15,16 @@ class KeyMetricsSection extends StatelessWidget {
   final KeyMetrics metrics;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
     final Color successColor = colorScheme.tertiary;
     final Color errorColor = colorScheme.error;
+    final MeasurementUnit unit =
+        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+            MeasurementUnit.mm;
 
     return Container(
       width: double.infinity,
@@ -46,8 +53,7 @@ class KeyMetricsSection extends StatelessWidget {
               children: [
                 _MetricCard(
                   title: l10n.keyMetricsTotalRainfall,
-                  value: l10n
-                      .rainfallAmountWithUnit(metrics.totalRainfall.toString()),
+                  value: metrics.totalRainfall.formatRainfall(context, unit),
                   changeText: l10n.keyMetricsTotalRainfallChange(
                     metrics.totalRainfallPrevYearChange.toString(),
                   ),
@@ -57,8 +63,7 @@ class KeyMetricsSection extends StatelessWidget {
                 ),
                 _MetricCard(
                   title: l10n.keyMetricsMtdTotal,
-                  value:
-                      l10n.rainfallAmountWithUnit(metrics.mtdTotal.toString()),
+                  value: metrics.mtdTotal.formatRainfall(context, unit),
                   changeText: l10n.keyMetricsMtdChange(
                     metrics.mtdTotalPrevMonthChange.toString(),
                   ),
@@ -74,15 +79,13 @@ class KeyMetricsSection extends StatelessWidget {
               children: [
                 _MetricCard(
                   title: l10n.keyMetricsYtdTotal,
-                  value:
-                      l10n.rainfallAmountWithUnit(metrics.ytdTotal.toString()),
+                  value: metrics.ytdTotal.formatRainfall(context, unit),
                   changeText: l10n.keyMetricsYtdGoal,
                   changeColor: successColor,
                 ),
                 _MetricCard(
                   title: l10n.keyMetricsMonthlyAvg,
-                  value: l10n
-                      .rainfallAmountWithUnit(metrics.monthlyAvg.toString()),
+                  value: metrics.monthlyAvg.formatRainfall(context, unit),
                   changeText: l10n.keyMetricsMonthlyAvgSource,
                   changeColor: colorScheme.onSurfaceVariant,
                 ),

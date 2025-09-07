@@ -1,9 +1,13 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
+import "package:rain_wise/features/settings/application/preferences_provider.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
-class AnomalyListItem extends StatelessWidget {
+class AnomalyListItem extends ConsumerWidget {
   const AnomalyListItem({
     required this.anomaly,
     super.key,
@@ -12,16 +16,34 @@ class AnomalyListItem extends StatelessWidget {
   final RainfallAnomaly anomaly;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
+    final MeasurementUnit unit =
+        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+            MeasurementUnit.mm;
 
     final String sign = anomaly.deviationPercentage > 0 ? "+" : "";
     final String deviationValue =
         "$sign${anomaly.deviationPercentage.toStringAsFixed(0)}";
     final String deviationText = l10n.anomalyDeviationVsAverage(deviationValue);
+
+    final String description;
+    final String formattedAverage =
+        anomaly.averageRainfall.formatRainfall(context, unit);
+    if (anomaly.deviationPercentage > 0) {
+      description = l10n.anomalyDescriptionHigher(
+        anomaly.deviationPercentage.toStringAsFixed(0),
+        formattedAverage,
+      );
+    } else {
+      description = l10n.anomalyDescriptionLower(
+        anomaly.deviationPercentage.abs().toStringAsFixed(0),
+        formattedAverage,
+      );
+    }
 
     return Card(
       elevation: 2,
@@ -51,7 +73,7 @@ class AnomalyListItem extends StatelessWidget {
             ),
             const SizedBox(height: 8),
             Text(
-              anomaly.description,
+              description,
               style: textTheme.bodyMedium
                   ?.copyWith(color: colorScheme.onSurfaceVariant),
             ),

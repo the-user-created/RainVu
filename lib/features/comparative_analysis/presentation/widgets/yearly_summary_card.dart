@@ -1,8 +1,12 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/comparative_analysis/domain/comparative_analysis_data.dart";
+import "package:rain_wise/features/settings/application/preferences_provider.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
-class YearlySummaryCard extends StatelessWidget {
+class YearlySummaryCard extends ConsumerWidget {
   const YearlySummaryCard({
     required this.summary,
     required this.color,
@@ -13,7 +17,7 @@ class YearlySummaryCard extends StatelessWidget {
   final Color color;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
@@ -23,6 +27,9 @@ class YearlySummaryCard extends StatelessWidget {
         isPositive ? colorScheme.tertiary : colorScheme.error;
     final IconData changeIcon =
         isPositive ? Icons.trending_up : Icons.trending_down;
+    final MeasurementUnit unit =
+        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+            MeasurementUnit.mm;
 
     return Card(
       elevation: 2,
@@ -63,8 +70,7 @@ class YearlySummaryCard extends StatelessWidget {
               children: [
                 _StatItem(
                   label: l10n.yearlySummaryTotalAnnualRainfall,
-                  value:
-                      "${summary.totalRainfall.toStringAsFixed(1)}${l10n.unitMM}",
+                  value: summary.totalRainfall.formatRainfall(context, unit),
                 ),
               ],
             ),

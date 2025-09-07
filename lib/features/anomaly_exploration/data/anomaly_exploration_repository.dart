@@ -80,12 +80,10 @@ class DriftAnomalyExplorationRepository
           RainfallAnomaly(
             id: _uuid.v4(),
             date: date,
-            description: _getDescription(
-              deviationPercentage,
-              averageRainfall,
-            ),
             severity: severity,
             deviationPercentage: deviationPercentage,
+            actualRainfall: actualRainfall,
+            averageRainfall: averageRainfall,
           ),
         );
       }
@@ -116,16 +114,5 @@ class DriftAnomalyExplorationRepository
       return AnomalySeverity.medium;
     }
     return AnomalySeverity.low; // Already passed the 50% min threshold
-  }
-
-  String _getDescription(
-    final double deviationPercentage,
-    final double average,
-  ) {
-    if (deviationPercentage > 0) {
-      return "Rainfall was ${deviationPercentage.toStringAsFixed(0)}% higher than the historical average of ${average.toStringAsFixed(1)}mm.";
-    } else {
-      return "Rainfall was ${deviationPercentage.abs().toStringAsFixed(0)}% lower than the historical average of ${average.toStringAsFixed(1)}mm.";
-    }
   }
 }
