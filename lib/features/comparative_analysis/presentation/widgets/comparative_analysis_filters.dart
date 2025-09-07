@@ -136,13 +136,11 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
                     SegmentOption(
                       value: ComparisonType.monthly,
                       label: Text(l10n.comparisonTypeMonthly),
-                      enabled: false,
-                    ), // TODO: Disabled for now
+                    ),
                     SegmentOption(
                       value: ComparisonType.seasonal,
                       label: Text(l10n.comparisonTypeSeasonal),
-                      enabled: false,
-                    ), // TODO: Disabled for now
+                    ),
                   ],
                 ),
               ],

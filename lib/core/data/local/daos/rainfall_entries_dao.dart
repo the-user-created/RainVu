@@ -473,4 +473,19 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
         )
         .get();
   }
+
+  Future<double> getSeasonalTotalForYear(
+    final int year,
+    final List<int> months,
+  ) {
+    final Expression<double> total = rainfallEntries.amount.sum();
+    final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
+        selectOnly(rainfallEntries)
+          ..addColumns([total])
+          ..where(
+            rainfallEntries.date.year.equals(year) &
+                rainfallEntries.date.month.isIn(months),
+          );
+    return query.map((final row) => row.read(total) ?? 0.0).getSingle();
+  }
 }
