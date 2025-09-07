@@ -32,6 +32,8 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
+  // TODO: if there are no gauges and no entries, guide the user to add their first gauge and log their first measurement. This is crucial for user onboarding and retention.
+
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AsyncValue<HomeData> homeDataAsync =

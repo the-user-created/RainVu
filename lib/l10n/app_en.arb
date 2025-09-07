@@ -594,5 +594,14 @@
   "detailedAnalysisComparativeAnalysisSubtitle": "See side-by-side comparisons of multiple years",
   "quickStatThisWeek": "This week",
   "quickStatThisMonth": "This month",
-  "quickStatDailyAvg": "Daily avg"
+  "quickStatDailyAvg": "Daily avg",
+  "keyMetricsInfoSheetTitle": "About Key Metrics",
+  "keyMetricsInfoTotalRainfallTitle": "Total Rainfall",
+  "keyMetricsInfoTotalRainfallDescription": "The cumulative sum of all rainfall data you have ever logged in the app. This represents the lifetime total.",
+  "keyMetricsInfoMtdTotalTitle": "Month-to-Date (MTD) Total",
+  "keyMetricsInfoMtdTotalDescription": "The sum of all rainfall logged from the first day of the current calendar month up to today.",
+  "keyMetricsInfoYtdTotalTitle": "Year-to-Date (YTD) Total",
+  "keyMetricsInfoYtdTotalDescription": "The sum of all rainfall logged from the first day of the current calendar year up to today.",
+  "keyMetricsInfoMonthlyAvgTitle": "Monthly Average",
+  "keyMetricsInfoMonthlyAvgDescription": "The total rainfall ever recorded divided by the number of distinct months for which you have logged data. This gives you a general idea of your average rainfall per month."
 }
