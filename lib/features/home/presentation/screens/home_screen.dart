@@ -8,7 +8,6 @@ import "package:rain_wise/features/home/presentation/widgets/home_app_bar.dart";
 import "package:rain_wise/features/home/presentation/widgets/log_rain_sheet.dart";
 import "package:rain_wise/features/home/presentation/widgets/monthly_summary_card.dart";
 import "package:rain_wise/features/home/presentation/widgets/quick_stats_card.dart";
-import "package:rain_wise/features/home/presentation/widgets/rainfall_trends_card.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
@@ -63,7 +62,6 @@ class HomeScreen extends ConsumerWidget {
                       recentEntries: homeData.recentEntries,
                       currentMonthDate: homeData.currentMonthDate,
                     ),
-                    const RainfallTrendsCard(),
                     QuickStatsCard(stats: homeData.quickStats),
                   ]
                       .divide(const SizedBox(height: 24))

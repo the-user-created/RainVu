@@ -23,44 +23,39 @@ class AnomalyListItem extends StatelessWidget {
         "$sign${anomaly.deviationPercentage.toStringAsFixed(0)}";
     final String deviationText = l10n.anomalyDeviationVsAverage(deviationValue);
 
-    return InkWell(
-      onTap: () {
-        // TODO: Navigate to a dedicated detail view for this anomaly
-      },
-      child: Card(
-        elevation: 2,
-        clipBehavior: Clip.antiAlias,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-        child: Padding(
-          padding: const EdgeInsets.all(16),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    DateFormat.yMMMd().format(anomaly.date),
-                    style: textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.w600,
-                    ),
+    return Card(
+      elevation: 2,
+      clipBehavior: Clip.antiAlias,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      child: Padding(
+        padding: const EdgeInsets.all(16),
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  DateFormat.yMMMd().format(anomaly.date),
+                  style: textTheme.bodyLarge?.copyWith(
+                    fontWeight: FontWeight.w600,
                   ),
-                  _SeverityBadge(
-                    text: deviationText,
-                    color: anomaly.severity.color,
-                    backgroundColor: anomaly.severity.backgroundColor,
-                  ),
-                ],
-              ),
-              const SizedBox(height: 8),
-              Text(
-                anomaly.description,
-                style: textTheme.bodyMedium
-                    ?.copyWith(color: colorScheme.onSurfaceVariant),
-              ),
-            ],
-          ),
+                ),
+                _SeverityBadge(
+                  text: deviationText,
+                  color: anomaly.severity.color,
+                  backgroundColor: anomaly.severity.backgroundColor,
+                ),
+              ],
+            ),
+            const SizedBox(height: 8),
+            Text(
+              anomaly.description,
+              style: textTheme.bodyMedium
+                  ?.copyWith(color: colorScheme.onSurfaceVariant),
+            ),
+          ],
         ),
       ),
     );
