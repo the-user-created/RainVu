@@ -3,13 +3,17 @@ import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/core/data/providers/data_providers.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
+import "package:rain_wise/features/settings/application/preferences_provider.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/domain/rainfall_entry.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
+import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
 
 class EditEntrySheet extends ConsumerStatefulWidget {
   const EditEntrySheet({required this.entry, super.key});
@@ -24,17 +28,17 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _amountController;
   late DateTime _selectedDate;
-  late String _selectedUnit;
+  late MeasurementUnit _displayUnit;
   String? _selectedGaugeId;
   bool _isLoading = false;
+  bool _isUnitInitialized = false;
 
   @override
   void initState() {
     super.initState();
     final RainfallEntry entry = widget.entry;
-    _amountController = TextEditingController(text: entry.amount.toString());
+    _amountController = TextEditingController();
     _selectedDate = entry.date;
-    _selectedUnit = entry.unit;
     _selectedGaugeId = entry.gaugeId;
   }
 
@@ -44,16 +48,38 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
     super.dispose();
   }
 
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    if (!_isUnitInitialized) {
+      final MeasurementUnit unit =
+          ref.read(userPreferencesNotifierProvider).value?.measurementUnit ??
+              MeasurementUnit.mm;
+      _displayUnit = unit;
+      double displayAmount = widget.entry.amount;
+      if (unit == MeasurementUnit.inch) {
+        displayAmount = displayAmount.toInches();
+      }
+      _amountController.text = displayAmount.toStringAsFixed(2);
+      _isUnitInitialized = true;
+    }
+  }
+
   Future<void> _onSaveChanges() async {
     if (!_formKey.currentState!.validate()) {
       return;
     }
     setState(() => _isLoading = true);
 
+    double amount = double.tryParse(_amountController.text) ?? 0.0;
+    if (_displayUnit == MeasurementUnit.inch) {
+      amount = amount.toMillimeters();
+    }
+
     final RainfallEntry updatedEntry = widget.entry.copyWith(
-      amount: double.tryParse(_amountController.text) ?? 0.0,
+      amount: amount,
       date: _selectedDate,
-      unit: _selectedUnit,
+      unit: "mm", // Always save as mm
       gaugeId: _selectedGaugeId!,
     );
     await ref
@@ -165,27 +191,59 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
                 style: theme.textTheme.titleMedium,
               ),
               const SizedBox(height: 8),
-              TextFormField(
-                controller: _amountController,
-                keyboardType:
-                    const TextInputType.numberWithOptions(decimal: true),
-                inputFormatters: [
-                  FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d*")),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: TextFormField(
+                      controller: _amountController,
+                      keyboardType:
+                          const TextInputType.numberWithOptions(decimal: true),
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                          RegExp(r"^\d+\.?\d*"),
+                        ),
+                      ],
+                      decoration: InputDecoration(
+                        hintText: l10n.editEntryAmountHint,
+                        fillColor: theme.colorScheme.surface,
+                        filled: true,
+                      ),
+                      validator: (final value) {
+                        if (value == null || value.isEmpty) {
+                          return l10n.editEntryAmountValidationEmpty;
+                        }
+                        if (double.tryParse(value) == null) {
+                          return l10n.editEntryAmountValidationInvalid;
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    flex: 2,
+                    child: AppSegmentedControl<MeasurementUnit>(
+                      selectedValue: _displayUnit,
+                      onSelectionChanged: (final value) {
+                        setState(() {
+                          _displayUnit = value;
+                        });
+                      },
+                      segments: [
+                        SegmentOption(
+                          value: MeasurementUnit.mm,
+                          label: Text(l10n.unitMM),
+                        ),
+                        SegmentOption(
+                          value: MeasurementUnit.inch,
+                          label: Text(l10n.unitIn),
+                        ),
+                      ],
+                    ),
+                  ),
                 ],
-                decoration: InputDecoration(
-                  hintText: l10n.editEntryAmountHint,
-                  fillColor: theme.colorScheme.surface,
-                  filled: true,
-                ),
-                validator: (final value) {
-                  if (value == null || value.isEmpty) {
-                    return l10n.editEntryAmountValidationEmpty;
-                  }
-                  if (double.tryParse(value) == null) {
-                    return l10n.editEntryAmountValidationInvalid;
-                  }
-                  return null;
-                },
               ),
               const SizedBox(height: 16),
               Text(

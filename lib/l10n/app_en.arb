@@ -203,6 +203,8 @@
   "settingsDataManagementExportImport": "Data Export/Import",
   "settingsDataManagementManageGauges": "Manage Rain Gauges",
   "settingsDataManagementNotifications": "Notifications",
+  "settingsSectionPreferences": "PREFERENCES",
+  "settingsPreferencesMeasurementUnit": "Measurement Unit",
   "settingsSectionSupportLegal": "SUPPORT & LEGAL",
   "settingsSupportLegalHelp": "Help & Support",
   "settingsSupportLegalPrivacyPolicy": "Privacy Policy",
@@ -386,6 +388,28 @@
       }
     }
   },
+  "anomalyDescriptionHigher": "Rainfall was {deviation}% higher than the historical average of {average}.",
+  "@anomalyDescriptionHigher": {
+    "placeholders": {
+      "deviation": {
+        "type": "String"
+      },
+      "average": {
+        "type": "String"
+      }
+    }
+  },
+  "anomalyDescriptionLower": "Rainfall was {deviation}% lower than the historical average of {average}.",
+  "@anomalyDescriptionLower": {
+    "placeholders": {
+      "deviation": {
+        "type": "String"
+      },
+      "average": {
+        "type": "String"
+      }
+    }
+  },
   "filterOptionsTitle": "Filter Options",
   "severityFilterLabel": "Severity",
   "selectSeverityLevelsDialogTitle": "Select Severity Levels",
@@ -487,6 +511,14 @@
   "seasonSummaryLowestRecordedLabel": "Lowest Recorded",
   "rainfallAmountWithUnit": "{value} mm",
   "@rainfallAmountWithUnit": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "rainfallAmountWithUnitIn": "{value} in",
+  "@rainfallAmountWithUnitIn": {
     "placeholders": {
       "value": {
         "type": "String"

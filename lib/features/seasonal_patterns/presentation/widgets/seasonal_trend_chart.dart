@@ -2,22 +2,33 @@ import "dart:math";
 
 import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/seasonal_patterns/domain/seasonal_patterns_data.dart";
+import "package:rain_wise/features/settings/application/preferences_provider.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
-class SeasonalTrendChart extends StatelessWidget {
+class SeasonalTrendChart extends ConsumerWidget {
   const SeasonalTrendChart({required this.trendData, super.key});
 
   final List<SeasonalTrendPoint> trendData;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
+    final MeasurementUnit unit =
+        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+            MeasurementUnit.mm;
+    final bool isInch = unit == MeasurementUnit.inch;
+
     final double maxRainfall = trendData.isEmpty
         ? 10.0
         : trendData.map((final e) => e.rainfall).reduce(max);
+    final double displayMaxRainfall =
+        isInch ? maxRainfall.toInches() : maxRainfall;
 
     return Card(
       elevation: 2,
@@ -33,7 +44,7 @@ class SeasonalTrendChart extends StatelessWidget {
               height: 250,
               child: LineChart(
                 LineChartData(
-                  maxY: (maxRainfall * 1.2).ceilToDouble(),
+                  maxY: (displayMaxRainfall * 1.2).ceilToDouble(),
                   gridData: FlGridData(
                     drawVerticalLine: false,
                     getDrawingHorizontalLine: (final value) => FlLine(
@@ -43,7 +54,7 @@ class SeasonalTrendChart extends StatelessWidget {
                   ),
                   titlesData: _buildTitlesData(theme),
                   borderData: FlBorderData(show: false),
-                  lineBarsData: [_buildLineBarData(theme)],
+                  lineBarsData: [_buildLineBarData(theme, isInch)],
                 ),
               ),
             ),
@@ -81,13 +92,19 @@ class SeasonalTrendChart extends StatelessWidget {
         ),
       );
 
-  LineChartBarData _buildLineBarData(final ThemeData theme) => LineChartBarData(
+  LineChartBarData _buildLineBarData(
+    final ThemeData theme,
+    final bool isInch,
+  ) =>
+      LineChartBarData(
         spots: trendData
             .asMap()
             .entries
             .map(
-              (final entry) =>
-                  FlSpot(entry.key.toDouble(), entry.value.rainfall),
+              (final entry) => FlSpot(
+                entry.key.toDouble(),
+                isInch ? entry.value.rainfall.toInches() : entry.value.rainfall,
+              ),
             )
             .toList(),
         isCurved: true,

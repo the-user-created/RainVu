@@ -22,11 +22,10 @@ class LogRainController extends _$LogRainController {
     // No-op. This notifier is used for its methods, not its state.
   }
 
-  /// Saves a new rainfall entry.
+  /// Saves a new rainfall entry. Amount is expected in mm.
   Future<bool> saveEntry({
     required final String gaugeId,
     required final double amount,
-    required final String unit,
     required final DateTime date,
   }) async {
     state = const AsyncValue.loading();
@@ -35,7 +34,7 @@ class LogRainController extends _$LogRainController {
         amount: amount,
         date: date,
         gaugeId: gaugeId,
-        unit: unit,
+        unit: "mm",
       );
       await ref.read(rainfallRepositoryProvider).addEntry(newEntry);
 

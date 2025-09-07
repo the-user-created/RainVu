@@ -4,7 +4,10 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/data/providers/data_providers.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/home/application/home_providers.dart";
+import "package:rain_wise/features/settings/application/preferences_provider.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
@@ -25,8 +28,9 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
 
   // State for form fields
   String? _selectedGaugeId;
-  String _selectedUnit = "mm"; // TODO: Load from user preferences
+  late MeasurementUnit _selectedUnit;
   DateTime _selectedDateTime = DateTime.now();
+  bool _isUnitInitialized = false;
 
   @override
   void initState() {
@@ -78,11 +82,15 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
       return;
     }
 
+    double amount = double.parse(_amountController.text);
+    if (_selectedUnit == MeasurementUnit.inch) {
+      amount = amount.toMillimeters();
+    }
+
     final bool success =
         await ref.read(logRainControllerProvider.notifier).saveEntry(
               gaugeId: _selectedGaugeId!,
-              amount: double.parse(_amountController.text),
-              unit: _selectedUnit,
+              amount: amount,
               date: _selectedDateTime,
             );
 
@@ -98,6 +106,15 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
     final AsyncValue<void> logRainState = ref.watch(logRainControllerProvider);
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
+    final AsyncValue<UserPreferences> userPreferences =
+        ref.watch(userPreferencesNotifierProvider);
+
+    if (!_isUnitInitialized && userPreferences.hasValue) {
+      _selectedUnit = userPreferences.value!.measurementUnit;
+      _isUnitInitialized = true;
+    } else if (!_isUnitInitialized) {
+      _selectedUnit = MeasurementUnit.mm;
+    }
 
     return Container(
       width: double.infinity,
@@ -183,7 +200,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                     const SizedBox(width: 8),
                     Expanded(
                       flex: 2,
-                      child: AppSegmentedControl<String>(
+                      child: AppSegmentedControl<MeasurementUnit>(
                         selectedValue: _selectedUnit,
                         onSelectionChanged: (final value) {
                           setState(() {
@@ -192,11 +209,11 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                         },
                         segments: [
                           SegmentOption(
-                            value: "mm",
+                            value: MeasurementUnit.mm,
                             label: Text(l10n.unitMM),
                           ),
                           SegmentOption(
-                            value: "in",
+                            value: MeasurementUnit.inch,
                             label: Text(l10n.unitIn),
                           ),
                         ],

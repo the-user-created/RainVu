@@ -1,5 +1,9 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/home/domain/home_data.dart";
+import "package:rain_wise/features/settings/application/preferences_provider.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
 class QuickStatsCard extends StatelessWidget {
@@ -49,15 +53,18 @@ class QuickStatsCard extends StatelessWidget {
   }
 }
 
-class _StatItem extends StatelessWidget {
+class _StatItem extends ConsumerWidget {
   const _StatItem({required this.stat});
 
   final QuickStat stat;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
+    final MeasurementUnit unit =
+        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+            MeasurementUnit.mm;
 
     String getLabel(final QuickStatType type) {
       switch (type) {
@@ -83,7 +90,7 @@ class _StatItem extends StatelessWidget {
           child: Column(
             children: [
               Text(
-                l10n.rainfallAmountWithUnit(stat.value.toStringAsFixed(1)),
+                stat.value.formatRainfall(context, unit),
                 style: theme.textTheme.titleLarge?.copyWith(
                   color: theme.colorScheme.secondary,
                   fontWeight: FontWeight.bold,

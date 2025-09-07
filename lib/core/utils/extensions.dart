@@ -1,4 +1,6 @@
 import "package:flutter/material.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 extension ListDivideExt<T extends Widget> on Iterable<T> {
   Iterable<MapEntry<int, Widget>> get enumerate => toList().asMap().entries;
@@ -38,5 +40,30 @@ extension ListUniqueExt<T> on Iterable<T> {
       }
     }
     return distinctList;
+  }
+}
+
+extension DoubleUnitsExt on double {
+  /// Converts a value from millimeters to inches.
+  double toInches() => this / 25.4;
+
+  /// Converts a value from inches to millimeters.
+  double toMillimeters() => this * 25.4;
+
+  /// Formats the rainfall amount (assumed to be in mm) according to the
+  /// preferred measurement unit.
+  String formatRainfall(
+    final BuildContext context,
+    final MeasurementUnit unit, {
+    final int precision = 1,
+  }) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    if (unit == MeasurementUnit.inch) {
+      final double amountInInches = toInches();
+      return l10n.rainfallAmountWithUnitIn(
+        amountInInches.toStringAsFixed(precision),
+      );
+    }
+    return l10n.rainfallAmountWithUnit(toStringAsFixed(precision));
   }
 }

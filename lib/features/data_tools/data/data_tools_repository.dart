@@ -10,6 +10,7 @@ import "package:flutter/material.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/daos/rain_gauges_dao.dart";
 import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart" as domain_gauge;
 import "package:rain_wise/shared/domain/rainfall_entry.dart" as domain_entry;
@@ -228,11 +229,18 @@ class DriftDataToolsRepository implements DataToolsRepository {
         gaugeCache[gaugeName] = gauge;
       }
 
+      final String unitFromFile = row[unitIndex];
+      double amountFromFile = double.parse(row[amountIndex].toString());
+
+      if (unitFromFile.toLowerCase() == "in") {
+        amountFromFile = amountFromFile.toMillimeters();
+      }
+
       entries.add(
         domain_entry.RainfallEntry(
-          amount: double.parse(row[amountIndex].toString()),
+          amount: amountFromFile,
           date: DateTime.parse(row[dateIndex]),
-          unit: row[unitIndex],
+          unit: "mm", // Always save as mm
           gaugeId: gauge?.id ?? "",
         ),
       );
@@ -276,10 +284,15 @@ class DriftDataToolsRepository implements DataToolsRepository {
           final String? gaugeId =
               domainGauge != null ? gaugeMap[domainGauge.name] : null;
 
+          double amountInMm = entry.amount;
+          if (entry.unit.toLowerCase() == "in") {
+            amountInMm = entry.amount.toMillimeters();
+          }
+
           return RainfallEntriesCompanion.insert(
-            amount: entry.amount,
+            amount: amountInMm,
             date: entry.date,
-            unit: entry.unit,
+            unit: "mm", // Always save as mm
             gaugeId: Value(gaugeId),
           );
         },

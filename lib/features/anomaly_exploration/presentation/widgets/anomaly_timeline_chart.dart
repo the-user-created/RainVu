@@ -2,19 +2,27 @@ import "dart:math";
 
 import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
+import "package:rain_wise/features/settings/application/preferences_provider.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
-class AnomalyTimelineChart extends StatelessWidget {
+class AnomalyTimelineChart extends ConsumerWidget {
   const AnomalyTimelineChart({required this.chartPoints, super.key});
 
   final List<AnomalyChartPoint> chartPoints;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
+    final unit =
+        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+            MeasurementUnit.mm;
+    final isInch = unit == MeasurementUnit.inch;
 
     return Card(
       elevation: 2,
@@ -59,7 +67,7 @@ class AnomalyTimelineChart extends StatelessWidget {
                         ),
                       ),
                     )
-                  : _buildChart(context),
+                  : _buildChart(context, isInch),
             ),
           ],
         ),
@@ -67,7 +75,7 @@ class AnomalyTimelineChart extends StatelessWidget {
     );
   }
 
-  Widget _buildChart(final BuildContext context) {
+  Widget _buildChart(final BuildContext context, final bool isInch) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final double maxRainfall = chartPoints.isEmpty
@@ -75,18 +83,30 @@ class AnomalyTimelineChart extends StatelessWidget {
         : chartPoints
             .map((final p) => max(p.actualRainfall, p.averageRainfall))
             .reduce(max);
+    final double displayMaxRainfall =
+        isInch ? maxRainfall.toInches() : maxRainfall;
 
     final List<FlSpot> averageSpots = [];
     final List<FlSpot> actualSpots = [];
     for (int i = 0; i < chartPoints.length; i++) {
       final AnomalyChartPoint point = chartPoints[i];
-      averageSpots.add(FlSpot(i.toDouble(), point.averageRainfall));
-      actualSpots.add(FlSpot(i.toDouble(), point.actualRainfall));
+      averageSpots.add(
+        FlSpot(
+          i.toDouble(),
+          isInch ? point.averageRainfall.toInches() : point.averageRainfall,
+        ),
+      );
+      actualSpots.add(
+        FlSpot(
+          i.toDouble(),
+          isInch ? point.actualRainfall.toInches() : point.actualRainfall,
+        ),
+      );
     }
 
     return LineChart(
       LineChartData(
-        maxY: (maxRainfall * 1.2).clamp(10, double.infinity),
+        maxY: (displayMaxRainfall * 1.2).clamp(10, double.infinity),
         gridData: FlGridData(
           drawVerticalLine: false,
           getDrawingHorizontalLine: (final value) => FlLine(

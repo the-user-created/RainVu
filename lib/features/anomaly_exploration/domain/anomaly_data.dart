@@ -78,9 +78,10 @@ abstract class RainfallAnomaly with _$RainfallAnomaly {
   const factory RainfallAnomaly({
     required final String id,
     required final DateTime date,
-    required final String description,
     required final AnomalySeverity severity,
     required final double deviationPercentage,
+    required final double actualRainfall,
+    required final double averageRainfall,
   }) = _RainfallAnomaly;
 }
 

@@ -1,11 +1,15 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/core/navigation/app_router.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/monthly_breakdown/domain/monthly_breakdown_data.dart";
+import "package:rain_wise/features/settings/application/preferences_provider.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
-class MonthlySummaryCard extends StatelessWidget {
+class MonthlySummaryCard extends ConsumerWidget {
   const MonthlySummaryCard({
     required this.stats,
     required this.selectedMonth,
@@ -16,11 +20,15 @@ class MonthlySummaryCard extends StatelessWidget {
   final DateTime selectedMonth;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
+    final MeasurementUnit unit =
+        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+            MeasurementUnit.mm;
+
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -37,9 +45,7 @@ class MonthlySummaryCard extends StatelessWidget {
                       style: textTheme.headlineSmall,
                     ),
                     Text(
-                      l10n.totalRainfallValueInMm(
-                        stats.totalRainfall.toStringAsFixed(1),
-                      ),
+                      stats.totalRainfall.formatRainfall(context, unit),
                       style: textTheme.titleMedium
                           ?.copyWith(color: colorScheme.secondary),
                     ),
@@ -66,15 +72,15 @@ class MonthlySummaryCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 _StatItem(
-                  value: l10n.valueInMm(stats.dailyAverage.toStringAsFixed(1)),
+                  value: stats.dailyAverage.formatRainfall(context, unit),
                   label: l10n.dailyAverage,
                 ),
                 _StatItem(
-                  value: l10n.valueInMm(stats.highestDay.toStringAsFixed(1)),
+                  value: stats.highestDay.formatRainfall(context, unit),
                   label: l10n.highestDay,
                 ),
                 _StatItem(
-                  value: l10n.valueInMm(stats.lowestDay.toStringAsFixed(1)),
+                  value: stats.lowestDay.formatRainfall(context, unit),
                   label: l10n.lowestDay,
                 ),
               ],

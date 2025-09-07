@@ -1,9 +1,12 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/core/utils/formatters.dart";
 import "package:rain_wise/features/map/domain/rainfall_map_entry.dart";
+import "package:rain_wise/features/settings/application/preferences_provider.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
 
-class RainfallListItem extends StatelessWidget {
+class RainfallListItem extends ConsumerWidget {
   const RainfallListItem({
     required this.entry,
     super.key,
@@ -12,10 +15,19 @@ class RainfallListItem extends StatelessWidget {
   final RainfallMapEntry entry;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
+    final MeasurementUnit unit =
+        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+            MeasurementUnit.mm;
+
+    double displayAmount = entry.amount;
+    String displayUnit = unit.name;
+    if (unit == MeasurementUnit.inch) {
+      displayAmount = entry.amount.toInches();
+    }
 
     return Container(
       width: double.infinity,
@@ -59,14 +71,14 @@ class RainfallListItem extends StatelessWidget {
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: [
                         Text(
-                          entry.amount.toStringAsFixed(0),
+                          displayAmount.toStringAsFixed(1),
                           style: textTheme.titleLarge?.copyWith(
                             color: colorScheme.onSecondaryContainer,
                             fontWeight: FontWeight.bold,
                           ),
                         ),
                         Text(
-                          entry.unit,
+                          displayUnit,
                           style: textTheme.bodySmall?.copyWith(
                             color: colorScheme.onSecondaryContainer,
                           ),

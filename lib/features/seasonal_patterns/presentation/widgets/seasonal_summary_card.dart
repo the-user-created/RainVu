@@ -1,16 +1,24 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/seasonal_patterns/domain/seasonal_patterns_data.dart";
+import "package:rain_wise/features/settings/application/preferences_provider.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
-class SeasonalSummaryCard extends StatelessWidget {
+class SeasonalSummaryCard extends ConsumerWidget {
   const SeasonalSummaryCard({required this.summary, super.key});
 
   final SeasonalSummary summary;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final TextTheme textTheme = Theme.of(context).textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
+    final MeasurementUnit unit =
+        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+            MeasurementUnit.mm;
+
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
@@ -26,9 +34,7 @@ class SeasonalSummaryCard extends StatelessWidget {
               children: [
                 _MetricItem(
                   label: l10n.seasonSummaryAverageRainfallLabel,
-                  value: l10n.rainfallAmountWithUnit(
-                    summary.averageRainfall.toStringAsFixed(1),
-                  ),
+                  value: summary.averageRainfall.formatRainfall(context, unit),
                   valueStyle: textTheme.headlineSmall,
                 ),
                 _VerticalDivider(),
@@ -46,16 +52,12 @@ class SeasonalSummaryCard extends StatelessWidget {
               children: [
                 _MetricItem(
                   label: l10n.seasonSummaryHighestRecordedLabel,
-                  value: l10n.rainfallAmountWithUnit(
-                    summary.highestRecorded.toStringAsFixed(1),
-                  ),
+                  value: summary.highestRecorded.formatRainfall(context, unit),
                 ),
                 _VerticalDivider(),
                 _MetricItem(
                   label: l10n.seasonSummaryLowestRecordedLabel,
-                  value: l10n.rainfallAmountWithUnit(
-                    summary.lowestRecorded.toStringAsFixed(1),
-                  ),
+                  value: summary.lowestRecorded.formatRainfall(context, unit),
                 ),
               ],
             ),

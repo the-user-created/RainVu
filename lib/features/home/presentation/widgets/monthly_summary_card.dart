@@ -1,10 +1,14 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/core/navigation/app_router.dart";
+import "package:rain_wise/core/utils/extensions.dart";
+import "package:rain_wise/features/settings/application/preferences_provider.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rainfall_entry.dart";
 
-class MonthlySummaryCard extends StatelessWidget {
+class MonthlySummaryCard extends ConsumerWidget {
   const MonthlySummaryCard({
     required this.currentMonthDate,
     required this.monthlyTotal,
@@ -17,9 +21,13 @@ class MonthlySummaryCard extends StatelessWidget {
   final List<RainfallEntry> recentEntries;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
+    final MeasurementUnit unit =
+        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+            MeasurementUnit.mm;
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -40,12 +48,14 @@ class MonthlySummaryCard extends StatelessWidget {
           children: [
             _buildHeader(context, theme, l10n),
             const SizedBox(height: 8),
-            _buildTotal(theme, l10n),
+            _buildTotal(context, theme, l10n, unit),
             const Divider(height: 24, thickness: 1),
             _buildRecentEntriesHeader(theme, l10n),
             const SizedBox(height: 4),
-            ...recentEntries
-                .map((final entry) => _buildRecentEntryRow(entry, theme, l10n)),
+            ...recentEntries.map(
+              (final entry) =>
+                  _buildRecentEntryRow(context, entry, theme, l10n, unit),
+            ),
             const SizedBox(height: 8),
             _buildViewHistoryButton(context, theme, l10n),
           ],
@@ -77,12 +87,18 @@ class MonthlySummaryCard extends StatelessWidget {
         ],
       );
 
-  Widget _buildTotal(final ThemeData theme, final AppLocalizations l10n) => Row(
+  Widget _buildTotal(
+    final BuildContext context,
+    final ThemeData theme,
+    final AppLocalizations l10n,
+    final MeasurementUnit unit,
+  ) =>
+      Row(
         children: [
           Icon(Icons.water_drop, color: theme.colorScheme.secondary, size: 36),
           const SizedBox(width: 8),
           Text(
-            l10n.rainfallAmountWithUnit(monthlyTotal.toStringAsFixed(1)),
+            monthlyTotal.formatRainfall(context, unit),
             style: theme.textTheme.displaySmall?.copyWith(
               color: theme.colorScheme.secondary,
               fontWeight: FontWeight.bold,
@@ -103,9 +119,11 @@ class MonthlySummaryCard extends StatelessWidget {
       );
 
   Widget _buildRecentEntryRow(
+    final BuildContext context,
     final RainfallEntry entry,
     final ThemeData theme,
     final AppLocalizations l10n,
+    final MeasurementUnit unit,
   ) =>
       Padding(
         padding: const EdgeInsets.symmetric(vertical: 4),
@@ -119,10 +137,7 @@ class MonthlySummaryCard extends StatelessWidget {
               ),
             ),
             Text(
-              // Assuming unit is consistent and handled by l10n
-              l10n.rainfallAmountWithUnit(
-                entry.amount.toStringAsFixed(1),
-              ),
+              entry.amount.formatRainfall(context, unit),
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.secondary,
                 fontWeight: FontWeight.w600,
