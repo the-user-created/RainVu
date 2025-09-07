@@ -5,6 +5,8 @@ import "package:rain_wise/features/insights_dashboard/domain/insights_data.dart"
 import "package:rain_wise/features/settings/application/preferences_provider.dart";
 import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
+import "package:rain_wise/shared/widgets/sheets/info_sheet.dart";
 
 class KeyMetricsSection extends ConsumerWidget {
   const KeyMetricsSection({
@@ -60,6 +62,18 @@ class KeyMetricsSection extends ConsumerWidget {
                   changeColor: metrics.totalRainfallPrevYearChange >= 0
                       ? successColor
                       : errorColor,
+                  onInfoPressed: () => InfoSheet.show(
+                    context,
+                    title: l10n.keyMetricsInfoTotalRainfallTitle,
+                    items: [
+                      InfoSheetItem(
+                        icon: Icons.water_drop_outlined,
+                        title: "", // Title is handled by the sheet's title
+                        description:
+                            l10n.keyMetricsInfoTotalRainfallDescription,
+                      ),
+                    ],
+                  ),
                 ),
                 _MetricCard(
                   title: l10n.keyMetricsMtdTotal,
@@ -70,6 +84,17 @@ class KeyMetricsSection extends ConsumerWidget {
                   changeColor: metrics.mtdTotalPrevMonthChange >= 0
                       ? successColor
                       : errorColor,
+                  onInfoPressed: () => InfoSheet.show(
+                    context,
+                    title: l10n.keyMetricsInfoMtdTotalTitle,
+                    items: [
+                      InfoSheetItem(
+                        icon: Icons.calendar_view_month_outlined,
+                        title: "",
+                        description: l10n.keyMetricsInfoMtdTotalDescription,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -82,12 +107,34 @@ class KeyMetricsSection extends ConsumerWidget {
                   value: metrics.ytdTotal.formatRainfall(context, unit),
                   changeText: l10n.keyMetricsYtdGoal,
                   changeColor: successColor,
+                  onInfoPressed: () => InfoSheet.show(
+                    context,
+                    title: l10n.keyMetricsInfoYtdTotalTitle,
+                    items: [
+                      InfoSheetItem(
+                        icon: Icons.calendar_today_outlined,
+                        title: "",
+                        description: l10n.keyMetricsInfoYtdTotalDescription,
+                      ),
+                    ],
+                  ),
                 ),
                 _MetricCard(
                   title: l10n.keyMetricsMonthlyAvg,
                   value: metrics.monthlyAvg.formatRainfall(context, unit),
                   changeText: l10n.keyMetricsMonthlyAvgSource,
                   changeColor: colorScheme.onSurfaceVariant,
+                  onInfoPressed: () => InfoSheet.show(
+                    context,
+                    title: l10n.keyMetricsInfoMonthlyAvgTitle,
+                    items: [
+                      InfoSheetItem(
+                        icon: Icons.multiline_chart_outlined,
+                        title: "",
+                        description: l10n.keyMetricsInfoMonthlyAvgDescription,
+                      ),
+                    ],
+                  ),
                 ),
               ],
             ),
@@ -104,12 +151,14 @@ class _MetricCard extends StatelessWidget {
     required this.value,
     required this.changeText,
     required this.changeColor,
+    required this.onInfoPressed,
   });
 
   final String title;
   final String value;
   final String changeText;
   final Color changeColor;
+  final VoidCallback onInfoPressed;
 
   @override
   Widget build(final BuildContext context) {
@@ -135,17 +184,28 @@ class _MetricCard extends StatelessWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Text(title, style: textTheme.bodyMedium),
-                Icon(
-                  Icons.info_outline,
-                  color: colorScheme.secondary,
-                  size: 20,
-                  semanticLabel: l10n.infoTooltip,
+                Flexible(
+                  child: Text(title, style: textTheme.bodyMedium),
+                ),
+                SizedBox(
+                  width: 24,
+                  height: 24,
+                  child: AppIconButton(
+                    icon: Icon(
+                      Icons.info_outline,
+                      color: colorScheme.secondary,
+                      size: 20,
+                    ),
+                    onPressed: onInfoPressed,
+                    tooltip: l10n.infoTooltip,
+                    padding: EdgeInsets.zero,
+                  ),
                 ),
               ],
             ),
-            const SizedBox(height: 8),
+            const Spacer(),
             Text(
               value,
               maxLines: 1,

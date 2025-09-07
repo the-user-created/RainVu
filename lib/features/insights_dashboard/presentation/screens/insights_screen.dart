@@ -8,7 +8,6 @@ import "package:rain_wise/features/insights_dashboard/presentation/widgets/month
 import "package:rain_wise/features/insights_dashboard/presentation/widgets/monthly_trend_chart.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
-import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class InsightsScreen extends ConsumerWidget {
   const InsightsScreen({super.key});
@@ -27,24 +26,6 @@ class InsightsScreen extends ConsumerWidget {
           l10n.navInsights,
           style: theme.textTheme.headlineMedium,
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 12),
-            child: AppIconButton(
-              icon: Icon(
-                Icons.info_outline,
-                color: theme.colorScheme.onSurface,
-                size: 24,
-              ),
-              onPressed: () {
-                // TODO: Implement info dialog
-              },
-              tooltip: l10n.infoTooltip,
-              backgroundColor: theme.colorScheme.surfaceContainerHighest,
-              borderRadius: BorderRadius.circular(20),
-            ),
-          ),
-        ],
         centerTitle: false,
       ),
       body: insightsDataAsync.when(
