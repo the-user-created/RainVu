@@ -17,20 +17,21 @@ class ThemeModeNotifier extends _$ThemeModeNotifier {
   late SharedPreferences _prefs;
 
   @override
-  ThemeMode build() {
-    // We expect the SharedPreferences provider to be initialized
-    // before this notifier is used.
-    final AsyncValue<SharedPreferences> prefsAsyncValue =
-        ref.watch(sharedPreferencesProvider);
-    // TODO: Brittle Provider Initialization: ThemeModeNotifier uses a force unwrap (.value!) which relies on pre-loading in main.dart, making it fragile.
-    _prefs = prefsAsyncValue.value!;
-
-    final String? themeModeString = _prefs.getString(_themeModeKey);
-    return ThemeMode.values.firstWhere(
-      (final e) => e.toString() == themeModeString,
-      orElse: () => ThemeMode.system, // Default to system theme
-    );
-  }
+  ThemeMode build() => ref.watch(sharedPreferencesProvider).when(
+        data: (final prefs) {
+          _prefs = prefs;
+          final String? themeModeString = _prefs.getString(_themeModeKey);
+          return ThemeMode.values.firstWhere(
+            (final e) => e.toString() == themeModeString,
+            orElse: () => ThemeMode.system,
+          );
+        },
+        loading: () => ThemeMode.system,
+        error: (final error, final stack) {
+          debugPrint("Error loading theme mode: $error");
+          return ThemeMode.system;
+        },
+      );
 
   /// Sets the theme mode and persists it to SharedPreferences.
   Future<void> setThemeMode(final ThemeMode mode) async {

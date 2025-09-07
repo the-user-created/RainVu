@@ -26,9 +26,6 @@ class SeasonalPatternsFilterNotifier extends _$SeasonalPatternsFilterNotifier {
 }
 
 /// Fetches seasonal patterns data based on the current filter.
-///
-/// TODO: In a real application, this would call a repository to get data from a
-/// backend or local database. Here, it generates mock data.
 @riverpod
 Future<SeasonalPatternsData> seasonalPatternsData(
   final SeasonalPatternsDataRef ref,
