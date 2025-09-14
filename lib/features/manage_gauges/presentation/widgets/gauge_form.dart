@@ -41,6 +41,7 @@ class _GaugeFormState extends State<GaugeForm> {
   }
 
   void _submit() {
+    // TODO: Should implement validation of lat long
     if (_formKey.currentState?.validate() ?? false) {
       widget.onSave?.call(
         _nameController.text,

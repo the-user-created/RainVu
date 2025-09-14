@@ -1,15 +1,11 @@
 import "package:flutter/material.dart";
+import "package:rain_wise/core/data/local/shared_prefs.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
 part "theme_provider.g.dart";
 
 const _themeModeKey = "theme_mode";
-
-/// Provider for the SharedPreferences instance.
-@Riverpod(keepAlive: true)
-Future<SharedPreferences> sharedPreferences(final Ref ref) =>
-    SharedPreferences.getInstance();
 
 /// Notifier for managing and persisting the app's theme mode.
 @riverpod
