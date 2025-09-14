@@ -25,7 +25,7 @@ class SettingsCard extends StatelessWidget {
           children: ListTile.divideTiles(
             context: context,
             tiles: children,
-            color: theme.colorScheme.surfaceContainerHighest,
+            color: theme.colorScheme.outlineVariant,
           ).toList(),
         ),
       ),
