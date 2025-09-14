@@ -12,7 +12,7 @@ abstract class RainfallEntry with _$RainfallEntry {
     required final DateTime date,
     required final String gaugeId,
     required final String unit,
-    @JsonKey(includeIfNull: false) final String? id,
+    final String? id,
     @JsonKey(
       includeFromJson: false,
       includeToJson: false,

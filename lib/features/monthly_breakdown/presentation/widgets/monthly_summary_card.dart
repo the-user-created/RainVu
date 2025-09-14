@@ -26,7 +26,7 @@ class MonthlySummaryCard extends ConsumerWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final MeasurementUnit unit =
-        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+        ref.watch(userPreferencesProvider).value?.measurementUnit ??
             MeasurementUnit.mm;
 
     return Card(

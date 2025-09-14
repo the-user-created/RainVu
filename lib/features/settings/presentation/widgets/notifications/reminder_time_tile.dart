@@ -15,7 +15,7 @@ class ReminderTimeTile extends ConsumerWidget {
     final WidgetRef ref,
   ) async {
     final NotificationSettingsNotifier settingsNotifier =
-        ref.read(notificationSettingsNotifierProvider.notifier);
+        ref.read(notificationSettingsProvider.notifier);
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;

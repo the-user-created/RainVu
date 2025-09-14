@@ -57,7 +57,7 @@ final goRouterProvider = Provider<GoRouter>(
 
 // --- Root and Non-Shell Routes ---
 @TypedGoRoute<InitialRoute>(path: "/")
-class InitialRoute extends GoRouteData with _$InitialRoute {
+class InitialRoute extends GoRouteData with $InitialRoute {
   const InitialRoute();
 
   @override
@@ -66,7 +66,7 @@ class InitialRoute extends GoRouteData with _$InitialRoute {
 }
 
 @TypedGoRoute<ComingSoonRoute>(path: "/coming-soon")
-class ComingSoonRoute extends GoRouteData with _$ComingSoonRoute {
+class ComingSoonRoute extends GoRouteData with $ComingSoonRoute {
   const ComingSoonRoute({this.$extra});
 
   final ComingSoonScreenArgs? $extra;
@@ -178,7 +178,7 @@ class SettingsBranch extends StatefulShellBranchData {
 }
 
 // --- Base Shell Routes ---
-class HomeRoute extends GoRouteData with _$HomeRoute {
+class HomeRoute extends GoRouteData with $HomeRoute {
   const HomeRoute();
 
   @override
@@ -186,7 +186,7 @@ class HomeRoute extends GoRouteData with _$HomeRoute {
       const NoTransitionPage(child: HomeScreen());
 }
 
-class InsightsRoute extends GoRouteData with _$InsightsRoute {
+class InsightsRoute extends GoRouteData with $InsightsRoute {
   const InsightsRoute();
 
   @override
@@ -194,7 +194,7 @@ class InsightsRoute extends GoRouteData with _$InsightsRoute {
       const NoTransitionPage(child: InsightsScreen());
 }
 
-class MapRoute extends GoRouteData with _$MapRoute {
+class MapRoute extends GoRouteData with $MapRoute {
   const MapRoute();
 
   @override
@@ -202,7 +202,7 @@ class MapRoute extends GoRouteData with _$MapRoute {
       const NoTransitionPage(child: MapScreen());
 }
 
-class SettingsRoute extends GoRouteData with _$SettingsRoute {
+class SettingsRoute extends GoRouteData with $SettingsRoute {
   const SettingsRoute();
 
   @override
@@ -213,7 +213,7 @@ class SettingsRoute extends GoRouteData with _$SettingsRoute {
 // --- Sub-Routes (Pushed on Root Navigator) ---
 
 // Home Sub-Route
-class RainfallEntriesRoute extends GoRouteData with _$RainfallEntriesRoute {
+class RainfallEntriesRoute extends GoRouteData with $RainfallEntriesRoute {
   const RainfallEntriesRoute({required this.month});
 
   final String month;
@@ -226,7 +226,7 @@ class RainfallEntriesRoute extends GoRouteData with _$RainfallEntriesRoute {
 }
 
 // Insights Sub-Routes
-class MonthlyBreakdownRoute extends GoRouteData with _$MonthlyBreakdownRoute {
+class MonthlyBreakdownRoute extends GoRouteData with $MonthlyBreakdownRoute {
   const MonthlyBreakdownRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -237,7 +237,7 @@ class MonthlyBreakdownRoute extends GoRouteData with _$MonthlyBreakdownRoute {
       const MonthlyBreakdownScreen();
 }
 
-class SeasonalPatternsRoute extends GoRouteData with _$SeasonalPatternsRoute {
+class SeasonalPatternsRoute extends GoRouteData with $SeasonalPatternsRoute {
   const SeasonalPatternsRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -249,7 +249,7 @@ class SeasonalPatternsRoute extends GoRouteData with _$SeasonalPatternsRoute {
 }
 
 class AnomalyExplorationRoute extends GoRouteData
-    with _$AnomalyExplorationRoute {
+    with $AnomalyExplorationRoute {
   const AnomalyExplorationRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -261,7 +261,7 @@ class AnomalyExplorationRoute extends GoRouteData
 }
 
 class ComparativeAnalysisRoute extends GoRouteData
-    with _$ComparativeAnalysisRoute {
+    with $ComparativeAnalysisRoute {
   const ComparativeAnalysisRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -273,7 +273,7 @@ class ComparativeAnalysisRoute extends GoRouteData
 }
 
 // Settings Sub-Routes
-class ManageGaugesRoute extends GoRouteData with _$ManageGaugesRoute {
+class ManageGaugesRoute extends GoRouteData with $ManageGaugesRoute {
   const ManageGaugesRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -284,7 +284,7 @@ class ManageGaugesRoute extends GoRouteData with _$ManageGaugesRoute {
       const ManageGaugesScreen();
 }
 
-class NotificationsRoute extends GoRouteData with _$NotificationsRoute {
+class NotificationsRoute extends GoRouteData with $NotificationsRoute {
   const NotificationsRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -295,7 +295,7 @@ class NotificationsRoute extends GoRouteData with _$NotificationsRoute {
       const NotificationsScreen();
 }
 
-class HelpRoute extends GoRouteData with _$HelpRoute {
+class HelpRoute extends GoRouteData with $HelpRoute {
   const HelpRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
@@ -306,7 +306,7 @@ class HelpRoute extends GoRouteData with _$HelpRoute {
       const HelpScreen();
 }
 
-class DataToolsRoute extends GoRouteData with _$DataToolsRoute {
+class DataToolsRoute extends GoRouteData with $DataToolsRoute {
   const DataToolsRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =

@@ -17,7 +17,7 @@ abstract class SeasonalPatternsRepository {
 
 @riverpod
 SeasonalPatternsRepository seasonalPatternsRepository(
-  final SeasonalPatternsRepositoryRef ref,
+  final Ref ref,
 ) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
   return DriftSeasonalPatternsRepository(db.rainfallEntriesDao);

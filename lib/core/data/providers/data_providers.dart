@@ -7,11 +7,11 @@ part "data_providers.g.dart";
 /// Provides a stream of all user-managed rain gauges, ordered by name.
 /// Ideal for reactive UI that needs to display a list of gauges.
 @riverpod
-Stream<List<RainGauge>> allGaugesStream(final AllGaugesStreamRef ref) =>
+Stream<List<RainGauge>> allGaugesStream(final Ref ref) =>
     ref.watch(rainGaugeRepositoryProvider).watchGauges();
 
 /// Provides a future of all user-managed rain gauges.
 /// Useful for one-time fetches, like populating a dropdown menu.
 @riverpod
-Future<List<RainGauge>> allGaugesFuture(final AllGaugesFutureRef ref) =>
+Future<List<RainGauge>> allGaugesFuture(final Ref ref) =>
     ref.watch(rainGaugeRepositoryProvider).fetchGauges();

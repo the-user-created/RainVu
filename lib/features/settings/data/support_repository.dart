@@ -15,5 +15,5 @@ class SupportRepository {
 }
 
 @riverpod
-SupportRepository supportRepository(final SupportRepositoryRef ref) =>
+SupportRepository supportRepository(final Ref ref) =>
     SupportRepository();

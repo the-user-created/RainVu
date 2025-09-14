@@ -25,10 +25,9 @@ class SeasonSelector extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final SeasonalFilter filter =
-        ref.watch(seasonalPatternsFilterNotifierProvider);
+    final SeasonalFilter filter = ref.watch(seasonalPatternsFilterProvider);
     final SeasonalPatternsFilterNotifier notifier =
-        ref.read(seasonalPatternsFilterNotifierProvider.notifier);
+        ref.read(seasonalPatternsFilterProvider.notifier);
     final int currentYear = DateTime.now().year;
 
     // Generate a list of years, e.g., from 10 years ago to the current year

@@ -6,7 +6,7 @@ part "map_providers.g.dart";
 
 @riverpod
 Stream<List<RainfallMapEntry>> recentRainfall(
-  final RecentRainfallRef ref,
+  final Ref ref,
 ) {
   final MapRepository repository = ref.watch(mapRepositoryProvider);
   return repository.watchRecentEntries();

@@ -34,7 +34,7 @@ abstract class DataToolsRepository {
 }
 
 @riverpod
-DataToolsRepository dataToolsRepository(final DataToolsRepositoryRef ref) {
+DataToolsRepository dataToolsRepository(final Ref ref) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
   return DriftDataToolsRepository(
     db.rainfallEntriesDao,

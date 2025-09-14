@@ -10,7 +10,7 @@ abstract class MapRepository {
 }
 
 @riverpod
-MapRepository mapRepository(final MapRepositoryRef ref) {
+MapRepository mapRepository(final Ref ref) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
   return DriftMapRepository(db.rainfallEntriesDao);
 }

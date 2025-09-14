@@ -20,7 +20,7 @@ class SeasonalTrendChart extends ConsumerWidget {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final MeasurementUnit unit =
-        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+        ref.watch(userPreferencesProvider).value?.measurementUnit ??
             MeasurementUnit.mm;
     final bool isInch = unit == MeasurementUnit.inch;
 

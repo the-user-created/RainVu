@@ -11,7 +11,7 @@ abstract class InsightsRepository {
 }
 
 @riverpod
-InsightsRepository insightsRepository(final InsightsRepositoryRef ref) {
+InsightsRepository insightsRepository(final Ref ref) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
   return DriftInsightsRepository(db.rainfallEntriesDao);
 }

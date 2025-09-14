@@ -4,5 +4,5 @@ import "package:shared_preferences/shared_preferences.dart";
 part "shared_prefs.g.dart";
 
 @Riverpod(keepAlive: true)
-Future<SharedPreferences> sharedPreferences(final SharedPreferencesRef ref) =>
+Future<SharedPreferences> sharedPreferences(final Ref ref) =>
     SharedPreferences.getInstance();

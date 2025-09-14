@@ -107,7 +107,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<UserPreferences> userPreferences =
-        ref.watch(userPreferencesNotifierProvider);
+        ref.watch(userPreferencesProvider);
 
     if (!_isUnitInitialized && userPreferences.hasValue) {
       _selectedUnit = userPreferences.value!.measurementUnit;

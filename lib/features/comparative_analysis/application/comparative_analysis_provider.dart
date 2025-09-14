@@ -5,7 +5,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 part "comparative_analysis_provider.g.dart";
 
 @riverpod
-Future<List<int>> availableYears(final AvailableYearsRef ref) async =>
+Future<List<int>> availableYears(final Ref ref) async =>
     ref.watch(comparativeAnalysisRepositoryProvider).getAvailableYears();
 
 @riverpod
@@ -39,11 +39,11 @@ class ComparativeAnalysisFilterNotifier
 
 @riverpod
 Future<ComparativeAnalysisData> comparativeAnalysisData(
-  final ComparativeAnalysisDataRef ref,
+  final Ref ref,
 ) async {
   // Await the filter provider. This will correctly propagate loading/error states.
   final ComparativeFilter filter =
-      await ref.watch(comparativeAnalysisFilterNotifierProvider.future);
+      await ref.watch(comparativeAnalysisFilterProvider.future);
 
   if (filter.year1 == filter.year2) {
     // Return an empty state if the same year is selected for comparison.

@@ -22,7 +22,7 @@ class AnomalyListItem extends ConsumerWidget {
     final TextTheme textTheme = theme.textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
     final MeasurementUnit unit =
-        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+        ref.watch(userPreferencesProvider).value?.measurementUnit ??
             MeasurementUnit.mm;
 
     final String sign = anomaly.deviationPercentage > 0 ? "+" : "";

@@ -10,7 +10,7 @@ abstract class HomeRepository {
 }
 
 @Riverpod(keepAlive: true)
-HomeRepository homeRepository(final HomeRepositoryRef ref) {
+HomeRepository homeRepository(final Ref ref) {
   final RainfallRepository rainfallRepo = ref.watch(rainfallRepositoryProvider);
   return DriftHomeRepository(rainfallRepo);
 }

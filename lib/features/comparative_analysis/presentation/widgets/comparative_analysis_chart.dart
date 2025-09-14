@@ -24,7 +24,7 @@ class ComparativeAnalysisChart extends ConsumerWidget {
     final TextTheme textTheme = theme.textTheme;
     final List<Color> colors = [colorScheme.secondary, colorScheme.tertiary];
     final MeasurementUnit unit =
-        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+        ref.watch(userPreferencesProvider).value?.measurementUnit ??
             MeasurementUnit.mm;
     final bool isInch = unit == MeasurementUnit.inch;
 

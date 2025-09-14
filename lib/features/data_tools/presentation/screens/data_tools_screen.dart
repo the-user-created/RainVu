@@ -17,7 +17,7 @@ class DataToolsScreen extends ConsumerWidget {
 
     ref
       ..listen<String?>(
-        dataToolsNotifierProvider.select((final s) => s.errorMessage),
+        dataToolsProvider.select((final s) => s.errorMessage),
         (final _, final errorMessage) {
           if (errorMessage != null) {
             ScaffoldMessenger.of(context)
@@ -32,7 +32,7 @@ class DataToolsScreen extends ConsumerWidget {
         },
       )
       ..listen<String?>(
-        dataToolsNotifierProvider.select((final s) => s.successMessage),
+        dataToolsProvider.select((final s) => s.successMessage),
         (final _, final successMessage) {
           if (successMessage != null) {
             showSnackbar(context, successMessage);

@@ -53,7 +53,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
     super.didChangeDependencies();
     if (!_isUnitInitialized) {
       final MeasurementUnit unit =
-          ref.read(userPreferencesNotifierProvider).value?.measurementUnit ??
+          ref.read(userPreferencesProvider).value?.measurementUnit ??
               MeasurementUnit.mm;
       _displayUnit = unit;
       double displayAmount = widget.entry.amount;
@@ -82,9 +82,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
       unit: "mm", // Always save as mm
       gaugeId: _selectedGaugeId!,
     );
-    await ref
-        .read(rainfallEntryNotifierProvider.notifier)
-        .updateEntry(updatedEntry);
+    await ref.read(rainfallEntryProvider.notifier).updateEntry(updatedEntry);
 
     if (mounted) {
       setState(() => _isLoading = false);
@@ -118,7 +116,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
     if (confirmed == true && widget.entry.id != null) {
       setState(() => _isLoading = true);
       await ref
-          .read(rainfallEntryNotifierProvider.notifier)
+          .read(rainfallEntryProvider.notifier)
           .deleteEntry(widget.entry.id!);
       if (mounted) {
         setState(() => _isLoading = false);

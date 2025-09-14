@@ -34,7 +34,7 @@ class MyApp extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final GoRouter router = ref.watch(goRouterProvider);
-    final ThemeMode themeMode = ref.watch(themeModeNotifierProvider);
+    final ThemeMode themeMode = ref.watch(themeModeProvider);
 
     return MaterialApp.router(
       debugShowCheckedModeBanner: false,

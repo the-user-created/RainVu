@@ -23,7 +23,7 @@ abstract class RainGaugeRepository {
 }
 
 @Riverpod(keepAlive: true)
-RainGaugeRepository rainGaugeRepository(final RainGaugeRepositoryRef ref) {
+RainGaugeRepository rainGaugeRepository(final Ref ref) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
   return DriftRainGaugeRepository(db.rainGaugesDao);
 }

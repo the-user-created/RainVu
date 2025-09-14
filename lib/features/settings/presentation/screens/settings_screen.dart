@@ -22,7 +22,7 @@ class SettingsScreen extends ConsumerWidget {
   ) {
     final ThemeData theme = Theme.of(context);
     final AsyncValue<UserPreferences> userPreferences =
-        ref.watch(userPreferencesNotifierProvider);
+        ref.watch(userPreferencesProvider);
 
     return userPreferences.when(
       loading: () => const ListTile(title: Text("Loading...")),
@@ -44,7 +44,7 @@ class SettingsScreen extends ConsumerWidget {
                 selectedValue: preferences.measurementUnit,
                 onSelectionChanged: (final value) {
                   ref
-                      .read(userPreferencesNotifierProvider.notifier)
+                      .read(userPreferencesProvider.notifier)
                       .setMeasurementUnit(value);
                 },
                 segments: [

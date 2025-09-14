@@ -68,7 +68,7 @@ class SettingsRepository {
 
 @riverpod
 Future<SettingsRepository> settingsRepository(
-  final SettingsRepositoryRef ref,
+  final Ref ref,
 ) async {
   final SharedPreferences prefs =
       await ref.watch(sharedPreferencesProvider.future);
