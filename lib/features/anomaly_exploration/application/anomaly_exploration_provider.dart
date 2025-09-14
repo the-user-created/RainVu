@@ -35,8 +35,8 @@ class AnomalyFilterNotifier extends _$AnomalyFilterNotifier {
 }
 
 @riverpod
-Future<AnomalyExplorationData> anomalyData(final AnomalyDataRef ref) async {
-  final AnomalyFilter filter = ref.watch(anomalyFilterNotifierProvider);
+Future<AnomalyExplorationData> anomalyData(final Ref ref) async {
+  final AnomalyFilter filter = ref.watch(anomalyFilterProvider);
   final AnomalyExplorationRepository repo =
       ref.watch(anomalyExplorationRepositoryProvider);
   return repo.fetchAnomalyData(filter);

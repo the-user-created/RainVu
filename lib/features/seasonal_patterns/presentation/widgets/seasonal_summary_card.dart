@@ -16,7 +16,7 @@ class SeasonalSummaryCard extends ConsumerWidget {
     final TextTheme textTheme = Theme.of(context).textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
     final MeasurementUnit unit =
-        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+        ref.watch(userPreferencesProvider).value?.measurementUnit ??
             MeasurementUnit.mm;
 
     return Card(

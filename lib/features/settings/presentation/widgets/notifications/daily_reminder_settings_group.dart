@@ -15,7 +15,7 @@ class DailyReminderSettingsGroup extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final NotificationSettingsNotifier notifier =
-        ref.read(notificationSettingsNotifierProvider.notifier);
+        ref.read(notificationSettingsProvider.notifier);
 
     return Column(
       mainAxisSize: MainAxisSize.min,

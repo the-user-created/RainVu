@@ -11,7 +11,7 @@ part "home_providers.g.dart";
 /// Provider to fetch all data needed for the home screen in one go.
 /// This is now a stream provider to reactively update the UI when data changes.
 @riverpod
-Stream<HomeData> homeScreenData(final HomeScreenDataRef ref) =>
+Stream<HomeData> homeScreenData(final Ref ref) =>
     ref.watch(homeRepositoryProvider).watchHomeData();
 
 /// Controller for handling the logic of logging a new rainfall entry.

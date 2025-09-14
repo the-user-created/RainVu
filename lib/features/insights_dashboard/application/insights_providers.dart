@@ -5,7 +5,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 part "insights_providers.g.dart";
 
 @riverpod
-Future<InsightsData> insightsScreenData(final InsightsScreenDataRef ref) async {
+Future<InsightsData> insightsScreenData(final Ref ref) async {
   final InsightsRepository repository = ref.watch(insightsRepositoryProvider);
   return repository.getInsightsData();
 }

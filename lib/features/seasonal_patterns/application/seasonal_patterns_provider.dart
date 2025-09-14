@@ -28,10 +28,10 @@ class SeasonalPatternsFilterNotifier extends _$SeasonalPatternsFilterNotifier {
 /// Fetches seasonal patterns data based on the current filter.
 @riverpod
 Future<SeasonalPatternsData> seasonalPatternsData(
-  final SeasonalPatternsDataRef ref,
+  final Ref ref,
 ) async {
   final SeasonalFilter filter =
-      ref.watch(seasonalPatternsFilterNotifierProvider);
+      ref.watch(seasonalPatternsFilterProvider);
 
   final SeasonalPatternsRepository repository =
       ref.watch(seasonalPatternsRepositoryProvider);

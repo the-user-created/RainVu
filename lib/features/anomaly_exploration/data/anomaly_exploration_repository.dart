@@ -12,7 +12,7 @@ abstract class AnomalyExplorationRepository {
 
 @riverpod
 AnomalyExplorationRepository anomalyExplorationRepository(
-  final AnomalyExplorationRepositoryRef ref,
+  final Ref ref,
 ) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
   return DriftAnomalyExplorationRepository(db.rainfallEntriesDao);

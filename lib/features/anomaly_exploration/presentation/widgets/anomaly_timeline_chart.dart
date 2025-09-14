@@ -19,8 +19,8 @@ class AnomalyTimelineChart extends ConsumerWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final unit =
-        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+    final MeasurementUnit unit =
+        ref.watch(userPreferencesProvider).value?.measurementUnit ??
             MeasurementUnit.mm;
     final isInch = unit == MeasurementUnit.inch;
 

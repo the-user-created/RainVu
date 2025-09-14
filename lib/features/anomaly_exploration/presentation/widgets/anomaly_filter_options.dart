@@ -53,7 +53,7 @@ class _DateRangePicker extends ConsumerWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final DateTimeRange dateRange = ref
-        .watch(anomalyFilterNotifierProvider.select((final f) => f.dateRange));
+        .watch(anomalyFilterProvider.select((final f) => f.dateRange));
     final String dateText =
         "${DateFormat.yMd().format(dateRange.start)} - ${DateFormat.yMd().format(dateRange.end)}";
 
@@ -66,7 +66,7 @@ class _DateRangePicker extends ConsumerWidget {
           initialDateRange: dateRange,
         );
         if (picked != null) {
-          ref.read(anomalyFilterNotifierProvider.notifier).setDateRange(picked);
+          ref.read(anomalyFilterProvider.notifier).setDateRange(picked);
         }
       },
       child: DecoratedBox(
@@ -141,7 +141,7 @@ class _SeveritySelector extends ConsumerWidget {
           child: Consumer(
             builder: (final context, final ref, final _) {
               final Set<AnomalySeverity> selected = ref.watch(
-                anomalyFilterNotifierProvider.select((final f) => f.severities),
+                anomalyFilterProvider.select((final f) => f.severities),
               );
               return Column(
                 mainAxisSize: MainAxisSize.min,
@@ -152,7 +152,7 @@ class _SeveritySelector extends ConsumerWidget {
                         value: selected.contains(severity),
                         onChanged: (final _) {
                           ref
-                              .read(anomalyFilterNotifierProvider.notifier)
+                              .read(anomalyFilterProvider.notifier)
                               .toggleSeverity(severity);
                         },
                       ),

@@ -17,7 +17,7 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
     final TextTheme textTheme = theme.textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<ComparativeFilter> filterAsync =
-        ref.watch(comparativeAnalysisFilterNotifierProvider);
+        ref.watch(comparativeAnalysisFilterProvider);
     final AsyncValue<List<int>> availableYearsAsync =
         ref.watch(availableYearsProvider);
 
@@ -76,8 +76,7 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
                           if (year != null) {
                             ref
                                 .read(
-                                  comparativeAnalysisFilterNotifierProvider
-                                      .notifier,
+                                  comparativeAnalysisFilterProvider.notifier,
                                 )
                                 .setYear1(year);
                           }
@@ -108,8 +107,7 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
                           if (year != null) {
                             ref
                                 .read(
-                                  comparativeAnalysisFilterNotifierProvider
-                                      .notifier,
+                                  comparativeAnalysisFilterProvider.notifier,
                                 )
                                 .setYear2(year);
                           }
@@ -124,7 +122,7 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
                   onSelectionChanged: (final selection) {
                     ref
                         .read(
-                          comparativeAnalysisFilterNotifierProvider.notifier,
+                          comparativeAnalysisFilterProvider.notifier,
                         )
                         .setType(selection);
                   },

@@ -28,7 +28,7 @@ class YearlySummaryCard extends ConsumerWidget {
     final IconData changeIcon =
         isPositive ? Icons.trending_up : Icons.trending_down;
     final MeasurementUnit unit =
-        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+        ref.watch(userPreferencesProvider).value?.measurementUnit ??
             MeasurementUnit.mm;
 
     return Card(

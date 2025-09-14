@@ -17,7 +17,7 @@ abstract class ComparativeAnalysisRepository {
 
 @riverpod
 ComparativeAnalysisRepository comparativeAnalysisRepository(
-  final ComparativeAnalysisRepositoryRef ref,
+  final Ref ref,
 ) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
   return DriftComparativeAnalysisRepository(db.rainfallEntriesDao);

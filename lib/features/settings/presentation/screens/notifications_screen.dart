@@ -16,7 +16,7 @@ class NotificationsScreen extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<NotificationSettings> settingsAsync =
-        ref.watch(notificationSettingsNotifierProvider);
+        ref.watch(notificationSettingsProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -40,7 +40,7 @@ class NotificationsScreen extends ConsumerWidget {
     final NotificationSettings settings,
   ) {
     final NotificationSettingsNotifier notifier =
-        ref.read(notificationSettingsNotifierProvider.notifier);
+        ref.read(notificationSettingsProvider.notifier);
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),

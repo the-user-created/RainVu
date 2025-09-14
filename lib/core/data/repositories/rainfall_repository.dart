@@ -30,7 +30,7 @@ abstract class RainfallRepository {
 
 @Riverpod(keepAlive: true)
 RainfallRepository rainfallRepository(
-  final RainfallRepositoryRef ref,
+  final Ref ref,
 ) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
   return DriftRainfallRepository(db.rainfallEntriesDao);

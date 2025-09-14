@@ -6,7 +6,7 @@ part "rainfall_entry_provider.g.dart";
 
 @riverpod
 Future<List<RainfallEntry>> rainfallEntriesForMonth(
-  final RainfallEntriesForMonthRef ref,
+  final Ref ref,
   final DateTime month,
 ) =>
     ref.watch(rainfallRepositoryProvider).fetchEntriesForMonth(month);

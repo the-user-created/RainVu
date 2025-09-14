@@ -8,7 +8,7 @@ const _themeModeKey = "theme_mode";
 
 /// Provider for the SharedPreferences instance.
 @Riverpod(keepAlive: true)
-Future<SharedPreferences> sharedPreferences(final SharedPreferencesRef ref) =>
+Future<SharedPreferences> sharedPreferences(final Ref ref) =>
     SharedPreferences.getInstance();
 
 /// Notifier for managing and persisting the app's theme mode.

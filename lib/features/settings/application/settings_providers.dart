@@ -5,4 +5,4 @@ part "settings_providers.g.dart";
 
 /// Provider to get app version info from the platform.
 @riverpod
-Future<PackageInfo> appInfo(final AppInfoRef ref) => PackageInfo.fromPlatform();
+Future<PackageInfo> appInfo(final Ref ref) => PackageInfo.fromPlatform();

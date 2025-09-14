@@ -30,9 +30,9 @@ class ExportDataCard extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final DataToolsState state = ref.watch(dataToolsNotifierProvider);
+    final DataToolsState state = ref.watch(dataToolsProvider);
     final DataToolsNotifier notifier =
-        ref.read(dataToolsNotifierProvider.notifier);
+        ref.read(dataToolsProvider.notifier);
 
     return SettingsCard(
       children: [

@@ -7,7 +7,7 @@ part "monthly_breakdown_provider.g.dart";
 
 @riverpod
 Future<MonthlyBreakdownData> monthlyBreakdown(
-  final MonthlyBreakdownRef ref,
+  final Ref ref,
   final DateTime month,
 ) async {
   ref.watch(rainfallRepositoryProvider).watchTableUpdates();

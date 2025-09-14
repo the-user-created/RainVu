@@ -25,7 +25,7 @@ class KeyMetricsSection extends ConsumerWidget {
     final Color successColor = colorScheme.tertiary;
     final Color errorColor = colorScheme.error;
     final MeasurementUnit unit =
-        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+        ref.watch(userPreferencesProvider).value?.measurementUnit ??
             MeasurementUnit.mm;
 
     return Container(

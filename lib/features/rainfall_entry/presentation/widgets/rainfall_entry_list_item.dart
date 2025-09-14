@@ -54,7 +54,7 @@ class RainfallEntryListItem extends ConsumerWidget {
     );
 
     if (confirmed == true && entry.id != null) {
-      ref.read(rainfallEntryNotifierProvider.notifier).deleteEntry(entry.id!);
+      ref.read(rainfallEntryProvider.notifier).deleteEntry(entry.id!);
     }
   }
 
@@ -63,7 +63,7 @@ class RainfallEntryListItem extends ConsumerWidget {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final MeasurementUnit unit =
-        ref.watch(userPreferencesNotifierProvider).value?.measurementUnit ??
+        ref.watch(userPreferencesProvider).value?.measurementUnit ??
             MeasurementUnit.mm;
 
     String gaugeName = entry.gauge?.name ?? l10n.loading;

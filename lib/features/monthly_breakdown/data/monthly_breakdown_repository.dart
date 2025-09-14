@@ -16,7 +16,7 @@ abstract class MonthlyBreakdownRepository {
 
 @riverpod
 MonthlyBreakdownRepository monthlyBreakdownRepository(
-  final MonthlyBreakdownRepositoryRef ref,
+  final Ref ref,
 ) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
   return DriftMonthlyBreakdownRepository(db.rainfallEntriesDao);
