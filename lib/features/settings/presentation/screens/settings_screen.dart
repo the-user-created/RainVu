@@ -87,10 +87,6 @@ class SettingsScreen extends ConsumerWidget {
                 onTap: () => const DataToolsRoute().push(context),
               ),
               SettingsListTile(
-                title: l10n.settingsDataManagementManageGauges,
-                onTap: () => const ManageGaugesRoute().push(context),
-              ),
-              SettingsListTile(
                 title: l10n.settingsDataManagementNotifications,
                 onTap: () => const NotificationsRoute().push(context),
               ),

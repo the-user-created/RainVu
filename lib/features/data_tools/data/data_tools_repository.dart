@@ -87,8 +87,6 @@ class DriftDataToolsRepository implements DataToolsRepository {
         fileContent = _formatAsCsv(entriesWithGauges);
         extension = "csv";
         mimeType = MimeType.csv;
-      case ExportFormat.pdf:
-        throw UnimplementedError("PDF export is not yet supported.");
     }
 
     // Convert the string content to a byte list (Uint8List) for the saver.

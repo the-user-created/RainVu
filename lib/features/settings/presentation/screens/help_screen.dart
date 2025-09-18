@@ -40,7 +40,6 @@ class HelpScreen extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AppLocalizations l10n = AppLocalizations.of(context);
-    // TODO: FAQs should be fetched from a remote source?
     final List<Faq> faqs = [
       Faq(question: l10n.faq1Question, answer: l10n.faq1Answer),
       Faq(question: l10n.faq2Question, answer: l10n.faq2Answer),

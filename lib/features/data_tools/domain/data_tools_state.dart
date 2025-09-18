@@ -18,7 +18,6 @@ abstract class ImportPreview with _$ImportPreview {
 /// The format for exporting data.
 enum ExportFormat {
   csv,
-  pdf,
   json,
 }
 
