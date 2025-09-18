@@ -9,7 +9,6 @@ class SupportRepository {
   ///
   /// This is a mock implementation that simulates a network delay.
   Future<void> submitTicket(final SupportTicket ticket) async {
-    // TODO: Integrate with a Discord webhook or other support service.
     await Future.delayed(const Duration(seconds: 1));
   }
 }

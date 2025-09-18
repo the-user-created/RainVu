@@ -19,8 +19,6 @@ class ExportDataCard extends ConsumerWidget {
     switch (format) {
       case ExportFormat.csv:
         return l10n.exportFormatCsv;
-      case ExportFormat.pdf:
-        return l10n.exportFormatPdf;
       case ExportFormat.json:
         return l10n.exportFormatJson;
     }
@@ -77,9 +75,6 @@ class ExportDataCard extends ConsumerWidget {
                 selectedValue: state.exportFormat,
                 onSelected: notifier.setExportFormat,
                 options: ExportFormat.values
-                    .where(
-                      (final format) => format != ExportFormat.pdf,
-                    ) // TODO: PDF not supported
                     .map(
                       (final format) => ChipOption(
                         value: format,
