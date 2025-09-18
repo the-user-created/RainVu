@@ -8,7 +8,7 @@ class GaugeForm extends StatefulWidget {
   const GaugeForm({super.key, this.gauge, this.onSave});
 
   final RainGauge? gauge;
-  final Function(String name, double? lat, double? lng)? onSave;
+  final Function(String name)? onSave;
 
   @override
   State<GaugeForm> createState() => _GaugeFormState();
@@ -17,8 +17,6 @@ class GaugeForm extends StatefulWidget {
 class _GaugeFormState extends State<GaugeForm> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
-  late final TextEditingController _latController;
-  late final TextEditingController _lngController;
 
   bool get isEditing => widget.gauge != null;
 
@@ -26,17 +24,11 @@ class _GaugeFormState extends State<GaugeForm> {
   void initState() {
     super.initState();
     _nameController = TextEditingController(text: widget.gauge?.name);
-    _latController =
-        TextEditingController(text: widget.gauge?.latitude?.toString() ?? "");
-    _lngController =
-        TextEditingController(text: widget.gauge?.longitude?.toString() ?? "");
   }
 
   @override
   void dispose() {
     _nameController.dispose();
-    _latController.dispose();
-    _lngController.dispose();
     super.dispose();
   }
 
@@ -44,8 +36,6 @@ class _GaugeFormState extends State<GaugeForm> {
     if (_formKey.currentState?.validate() ?? false) {
       widget.onSave?.call(
         _nameController.text,
-        double.tryParse(_latController.text),
-        double.tryParse(_lngController.text),
       );
     }
   }
@@ -82,47 +72,6 @@ class _GaugeFormState extends State<GaugeForm> {
               }
               return null;
             },
-          ),
-          const SizedBox(height: 16),
-
-          // Location Fields
-          Text(
-            l10n.gaugeFormLocationLabel,
-            style: theme.textTheme.bodyLarge?.copyWith(
-              fontWeight: FontWeight.w500,
-            ),
-          ),
-          const SizedBox(height: 4),
-          Row(
-            children: [
-              Expanded(
-                child: TextFormField(
-                  controller: _latController,
-                  decoration: const InputDecoration(hintText: "Latitude"),
-                  keyboardType: const TextInputType.numberWithOptions(
-                    signed: true,
-                    decimal: true,
-                  ),
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r"^-?\d+\.?\d*")),
-                  ],
-                ),
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: TextFormField(
-                  controller: _lngController,
-                  decoration: const InputDecoration(hintText: "Longitude"),
-                  keyboardType: const TextInputType.numberWithOptions(
-                    signed: true,
-                    decimal: true,
-                  ),
-                  inputFormatters: [
-                    FilteringTextInputFormatter.allow(RegExp(r"^-?\d+\.?\d*")),
-                  ],
-                ),
-              ),
-            ],
           ),
           const SizedBox(height: 24),
           Row(

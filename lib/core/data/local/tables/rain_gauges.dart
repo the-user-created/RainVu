@@ -6,10 +6,6 @@ class RainGauges extends Table {
 
   TextColumn get name => text()();
 
-  RealColumn get latitude => real().nullable()();
-
-  RealColumn get longitude => real().nullable()();
-
   @override
   Set<Column> get primaryKey => {id};
 }

@@ -11,7 +11,6 @@
   "navHome": "Home",
   "navInsights": "Insights",
   "navGauges": "Gauges",
-  "navMap": "Map",
   "navSettings": "Settings",
   "pageNotFound": "Page Not Found",
   "pageNotFoundMessage": "The page you are looking for does not exist.\n\nError: {error}",
@@ -90,7 +89,6 @@
   "exportFormatTitle": "Export Format",
   "downloadFileButtonLabel": "Download File",
   "exportFormatCsv": "CSV",
-  "exportFormatPdf": "PDF",
   "exportFormatJson": "JSON",
   "homeScreenError": "Error: {error}",
   "@homeScreenError": {
@@ -178,22 +176,6 @@
   "gaugeFormLocationComingSoon": "Place picker coming soon!",
   "gaugeFormButtonCancel": "Cancel",
   "gaugeFormButtonSave": "Save",
-  "map_searchHint": "Search a location...",
-  "map_recentRainfallListHeader": "Recent Rainfall",
-  "map_viewGraphButton": "View Graph",
-  "map_recentEntriesError": "Error: {error}",
-  "@map_recentEntriesError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
-  "map_filterListTooltip": "Filter by date",
-  "map_layersTooltip": "Change map type",
-  "map_myLocationTooltip": "Center on my location",
-  "map_zoomInTooltip": "Zoom in",
-  "map_zoomOutTooltip": "Zoom out",
   "rainfallEntriesError": "Error: {error}",
   "@rainfallEntriesError": {
     "placeholders": {
@@ -272,7 +254,7 @@
   "faq1Question": "How do I add a new rain gauge?",
   "faq1Answer": "Go to the Settings tab, tap on \"Manage Rain Gauges\", and then use the \"+\" button at the bottom to add a new gauge. Fill in the details and save.",
   "faq2Question": "How do I export my rainfall data?",
-  "faq2Answer": "Navigate to Settings > Data Export/Import. From there, you can choose your desired format (CSV, PDF, JSON) and export your complete rainfall history.",
+  "faq2Answer": "Navigate to Settings > Data Export/Import. From there, you can choose your desired format (CSV or JSON) and export your complete rainfall history.",
   "faq3Question": "How do I set up notifications?",
   "faq3Answer": "In the Settings tab, select \"Notifications\". You can enable or disable daily reminders, set the reminder time, and toggle other alerts like weekly summaries.",
   "ticketSheetTitle": "Report an Issue / Send Feedback",

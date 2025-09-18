@@ -62,11 +62,6 @@ class GaugeListTile extends ConsumerWidget {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
 
-    final bool hasLocation = gauge.latitude != null && gauge.longitude != null;
-    final String locationText = hasLocation
-        ? "Lat: ${gauge.latitude!.toStringAsFixed(2)}, Lng: ${gauge.longitude!.toStringAsFixed(2)}"
-        : l10n.gaugeTileNoLocation;
-
     return Container(
       padding: const EdgeInsets.all(12),
       decoration: BoxDecoration(
@@ -77,18 +72,7 @@ class GaugeListTile extends ConsumerWidget {
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
           Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(gauge.name, style: theme.textTheme.bodyLarge),
-                Text(
-                  locationText,
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
-            ),
+            child: Text(gauge.name, style: theme.textTheme.bodyLarge),
           ),
           Row(
             children: [

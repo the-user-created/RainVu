@@ -14,12 +14,10 @@ class Gauges extends _$Gauges {
 
   Future<void> addGauge({
     required final String name,
-    final double? lat,
-    final double? lng,
   }) async {
     await ref
         .read(rainGaugeRepositoryProvider)
-        .addGauge(name: name, lat: lat, lng: lng);
+        .addGauge(name: name);
   }
 
   Future<void> updateGauge(final RainGauge updatedGauge) async {

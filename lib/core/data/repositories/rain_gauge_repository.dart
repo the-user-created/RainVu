@@ -13,8 +13,6 @@ abstract class RainGaugeRepository {
 
   Future<void> addGauge({
     required final String name,
-    final double? lat,
-    final double? lng,
   });
 
   Future<void> updateGauge(final domain.RainGauge updatedGauge);
@@ -47,13 +45,9 @@ class DriftRainGaugeRepository implements RainGaugeRepository {
   @override
   Future<void> addGauge({
     required final String name,
-    final double? lat,
-    final double? lng,
   }) {
     final companion = RainGaugesCompanion.insert(
       name: name,
-      latitude: Value(lat),
-      longitude: Value(lng),
     );
     return _dao.insertGauge(companion);
   }
@@ -70,8 +64,6 @@ class DriftRainGaugeRepository implements RainGaugeRepository {
       domain.RainGauge(
         id: driftGauge.id,
         name: driftGauge.name,
-        latitude: driftGauge.latitude,
-        longitude: driftGauge.longitude,
       );
 
   RainGaugesCompanion _mapDomainToCompanion(
@@ -80,7 +72,5 @@ class DriftRainGaugeRepository implements RainGaugeRepository {
       RainGaugesCompanion(
         id: Value(domainGauge.id),
         name: Value(domainGauge.name),
-        latitude: Value(domainGauge.latitude),
-        longitude: Value(domainGauge.longitude),
       );
 }

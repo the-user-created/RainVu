@@ -97,8 +97,6 @@ class DriftRainfallRepository implements RainfallRepository {
         : domain_gauge.RainGauge(
             id: driftEntry.gauge!.id,
             name: driftEntry.gauge!.name,
-            latitude: driftEntry.gauge!.latitude,
-            longitude: driftEntry.gauge!.longitude,
           );
 
     return domain.RainfallEntry(

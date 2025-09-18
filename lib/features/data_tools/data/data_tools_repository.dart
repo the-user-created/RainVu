@@ -167,8 +167,6 @@ class DriftDataToolsRepository implements DataToolsRepository {
           domain_gauge.RainGauge(
             id: item.gauge!.id,
             name: item.gauge!.name,
-            latitude: item.gauge!.latitude,
-            longitude: item.gauge!.longitude,
           ),
         );
       }
@@ -304,8 +302,6 @@ class DriftDataToolsRepository implements DataToolsRepository {
             RainGaugesCompanion.insert(
               id: Value(gauge.id),
               name: gauge.name,
-              latitude: Value(gauge.latitude),
-              longitude: Value(gauge.longitude),
             ),
           );
         }

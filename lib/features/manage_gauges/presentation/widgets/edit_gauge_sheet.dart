@@ -41,11 +41,9 @@ class EditGaugeSheet extends ConsumerWidget {
             const SizedBox(height: 24),
             GaugeForm(
               gauge: gauge,
-              onSave: (final name, final lat, final lng) {
+              onSave: (final name) {
                 final RainGauge updatedGauge = gauge.copyWith(
                   name: name,
-                  latitude: lat,
-                  longitude: lng,
                 );
                 ref.read(gaugesProvider.notifier).updateGauge(updatedGauge);
                 if (context.mounted) {

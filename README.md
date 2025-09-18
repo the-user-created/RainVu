@@ -30,8 +30,8 @@ notebooks and spreadsheets, offering instant insights and historical analysis at
 
 * **Lets you log every drop:** Easily record rainfall measurements from any number of rain gauges
   you own.
-* **Shows you the big picture:** Visualize your data through intuitive charts and an interactive map
-  to understand trends and patterns.
+* **Shows you the big picture:** Visualize your data through intuitive charts to understand trends
+  and patterns.
 * **Helps you analyze the past:** Dive deep into historical data with monthly breakdowns, seasonal
   pattern analysis, and year-over-year comparisons.
 * **Puts you in control:** Manage your rain gauges, export your data for external use, and set up
@@ -43,17 +43,13 @@ intelligence, turning guesswork into data-driven strategy.
 ## Key Features
 
 * 📊 **Log & Manage Data Effortlessly**: Quickly log rainfall entries with amount, date, and time.
-  Add, edit, and manage multiple rain gauges, each with an optional location for map-based
-  visualization.
+  Add, edit, and manage multiple rain gauges.
 
 * 📈 **Powerful Insights & Analytics**: A dedicated dashboard to uncover trends. Analyze key metrics
   like MTD and YTD totals, explore monthly trends, compare yearly data side-by-side, and identify
   seasonal patterns and anomalies.
 
-* 🗺️ **Interactive Rainfall Map**: Visualize recent rainfall entries on an interactive map. See
-  where it rained the most and get a geographical overview of your data points.
-
-* 📤 **Data Export & Import**: Take control of your data by exporting it to CSV, PDF, or JSON formats
+* 📤 **Data Export & Import**: Take control of your data by exporting it to CSV or JSON formats
   for use in other applications. Easily import data from previous records.
 
 * 🔔 **Customizable Notifications**: Stay consistent with your data logging.
@@ -75,7 +71,6 @@ intelligence, turning guesswork into data-driven strategy.
 * **UI & Charting**:
     * `fl_chart` / `syncfusion_flutter_charts`: For detailed and interactive data visualizations.
     * `flutter_animate`: For declarative, easy-to-use animations.
-    * `google_maps_flutter`: For the interactive map feature.
 * **Utilities & Tooling**:
     * `freezed`, `json_serializable`: For robust, immutable data models.
     * `intl`: For date and number formatting.
