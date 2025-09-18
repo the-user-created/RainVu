@@ -12,10 +12,11 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
 
   @override
   Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     return AppBar(
       automaticallyImplyLeading: false,
-      title: Text(l10n.appName),
+      title: Text(l10n.appName, style: theme.textTheme.headlineLarge),
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 8),

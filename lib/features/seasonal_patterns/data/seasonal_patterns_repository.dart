@@ -5,6 +5,7 @@ import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
 import "package:rain_wise/features/seasonal_patterns/application/seasonal_patterns_provider.dart";
 import "package:rain_wise/features/seasonal_patterns/domain/seasonal_patterns_data.dart";
+import "package:rain_wise/shared/domain/seasons.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "seasonal_patterns_repository.g.dart";
@@ -29,7 +30,7 @@ class DriftSeasonalPatternsRepository implements SeasonalPatternsRepository {
   final RainfallEntriesDao _dao;
 
   /// Maps a [Season] enum to a list of corresponding month integers.
-  /// Note: For simplicity, Winter uses months from the same calendar year.
+  /// TODO: should use the user's locale to determine the start of seasons.
   List<int> _getMonthsForSeason(final Season season) {
     switch (season) {
       case Season.spring:

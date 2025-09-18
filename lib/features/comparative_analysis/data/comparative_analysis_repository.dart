@@ -3,6 +3,7 @@ import "package:intl/intl.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
 import "package:rain_wise/features/comparative_analysis/domain/comparative_analysis_data.dart";
+import "package:rain_wise/shared/domain/seasons.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "comparative_analysis_repository.g.dart";
@@ -92,16 +93,21 @@ class DriftComparativeAnalysisRepository
   Future<ComparativeAnalysisData> _fetchSeasonalData(
     final ComparativeFilter filter,
   ) async {
-    final Map<String, List<int>> seasons = {
-      "Spring": [3, 4, 5],
-      "Summer": [6, 7, 8],
-      "Autumn": [9, 10, 11],
-      "Winter": [12, 1, 2],
+    final Map<Season, List<int>> seasons = {
+      Season.spring: [3, 4, 5],
+      Season.summer: [6, 7, 8],
+      Season.autumn: [9, 10, 11],
+      Season.winter: [12, 1, 2],
     };
 
     final List<Future<double>> futures1 = [];
     final List<Future<double>> futures2 = [];
-    final List<String> labels = seasons.keys.toList();
+    final List<String> labels = seasons.keys
+        .map(
+          (final season) =>
+              season.name[0].toUpperCase() + season.name.substring(1),
+        )
+        .toList();
 
     for (final List<int> months in seasons.values) {
       futures1.add(_dao.getSeasonalTotalForYear(filter.year1, months));

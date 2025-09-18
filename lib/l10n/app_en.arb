@@ -468,14 +468,6 @@
   "twoYearAverage": "2 Year Average",
   "fiveYearAverage": "5 Year Average",
   "tenYearAverage": "10 Year Average",
-  "valueInMm": "{value}mm",
-  "@valueInMm": {
-    "placeholders": {
-      "value": {
-        "type": "String"
-      }
-    }
-  },
   "dailyRainfallChartTitle": "Daily Rainfall",
   "dailyRainfallChartTooltip": "{value} mm",
   "@dailyRainfallChartTooltip": {

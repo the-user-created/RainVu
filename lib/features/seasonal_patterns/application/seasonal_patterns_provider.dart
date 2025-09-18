@@ -1,6 +1,7 @@
 import "package:freezed_annotation/freezed_annotation.dart";
 import "package:rain_wise/features/seasonal_patterns/data/seasonal_patterns_repository.dart";
 import "package:rain_wise/features/seasonal_patterns/domain/seasonal_patterns_data.dart";
+import "package:rain_wise/shared/domain/seasons.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "seasonal_patterns_provider.g.dart";

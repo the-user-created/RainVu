@@ -1,19 +1,26 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/core/ui/custom_colors.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/monthly_breakdown/domain/monthly_breakdown_data.dart";
+import "package:rain_wise/features/settings/application/preferences_provider.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
-class DailyBreakdownList extends StatelessWidget {
+class DailyBreakdownList extends ConsumerWidget {
   const DailyBreakdownList({required this.breakdownItems, super.key});
 
   final List<DailyBreakdownItem> breakdownItems;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final TextTheme textTheme = theme.textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
+    final MeasurementUnit unit =
+        ref.watch(userPreferencesProvider).value?.measurementUnit ??
+            MeasurementUnit.mm;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -29,7 +36,10 @@ class DailyBreakdownList extends StatelessWidget {
               separatorBuilder: (final context, final index) =>
                   const Divider(height: 1),
               itemBuilder: (final context, final index) =>
-                  _DailyBreakdownListItem(item: breakdownItems[index]),
+                  _DailyBreakdownListItem(
+                item: breakdownItems[index],
+                unit: unit,
+              ),
             ),
           ],
         ),
@@ -39,14 +49,14 @@ class DailyBreakdownList extends StatelessWidget {
 }
 
 class _DailyBreakdownListItem extends StatelessWidget {
-  const _DailyBreakdownListItem({required this.item});
+  const _DailyBreakdownListItem({required this.item, required this.unit});
 
   final DailyBreakdownItem item;
+  final MeasurementUnit unit;
 
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final Color varianceColor;
@@ -73,7 +83,7 @@ class _DailyBreakdownListItem extends StatelessWidget {
             style: textTheme.bodyMedium,
           ),
           Text(
-            l10n.valueInMm(item.rainfall.toStringAsFixed(1)),
+            item.rainfall.formatRainfall(context, unit),
             style: textTheme.bodyMedium,
           ),
           Row(
@@ -81,7 +91,7 @@ class _DailyBreakdownListItem extends StatelessWidget {
               Icon(varianceIcon, color: varianceColor, size: 16),
               const SizedBox(width: 4),
               Text(
-                l10n.valueInMm(item.variance.toStringAsFixed(1)),
+                item.variance.formatRainfall(context, unit),
                 style: textTheme.bodySmall?.copyWith(color: varianceColor),
               ),
             ],

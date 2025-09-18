@@ -90,7 +90,7 @@ class ComparativeAnalysisChart extends ConsumerWidget {
                         final int year = chartData.series[rodIndex].year;
                         // Rod value is already in the display unit. Convert it
                         // back to mm for consistent formatting logic.
-                        final double valueInMm =
+                        final double mmValue =
                             isInch ? rod.toY.toMillimeters() : rod.toY;
 
                         return BarTooltipItem(
@@ -101,7 +101,7 @@ class ComparativeAnalysisChart extends ConsumerWidget {
                           ),
                           children: <TextSpan>[
                             TextSpan(
-                              text: valueInMm.formatRainfall(context, unit),
+                              text: mmValue.formatRainfall(context, unit),
                               style: TextStyle(color: colorScheme.onPrimary),
                             ),
                           ],

@@ -1,10 +1,8 @@
 import "package:freezed_annotation/freezed_annotation.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/seasons.dart";
 
 part "seasonal_patterns_data.freezed.dart";
-
-/// An enumeration for the four seasons.
-enum Season { spring, summer, autumn, winter }
 
 extension SeasonExtension on Season {
   String getName(final AppLocalizations l10n) {

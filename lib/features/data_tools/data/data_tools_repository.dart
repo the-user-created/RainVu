@@ -20,6 +20,8 @@ import "package:uuid/uuid.dart";
 
 part "data_tools_repository.g.dart";
 
+// TODO: put the data import/export logic onto a background isolate or use a loading indicator for large datasets
+
 abstract class DataToolsRepository {
   Future<String> exportData({
     required final ExportFormat format,

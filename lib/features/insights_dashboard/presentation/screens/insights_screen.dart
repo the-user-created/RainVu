@@ -24,7 +24,7 @@ class InsightsScreen extends ConsumerWidget {
         automaticallyImplyLeading: false,
         title: Text(
           l10n.navInsights,
-          style: theme.textTheme.headlineMedium,
+          style: theme.textTheme.headlineLarge,
         ),
         centerTitle: false,
       ),
