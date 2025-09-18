@@ -8,8 +8,11 @@ part "rainfall_entry_provider.g.dart";
 Future<List<RainfallEntry>> rainfallEntriesForMonth(
   final Ref ref,
   final DateTime month,
-) =>
-    ref.watch(rainfallRepositoryProvider).fetchEntriesForMonth(month);
+) {
+  ref.watch(rainfallRepositoryProvider).watchTableUpdates();
+
+  return ref.watch(rainfallRepositoryProvider).fetchEntriesForMonth(month);
+}
 
 @riverpod
 class RainfallEntryNotifier extends _$RainfallEntryNotifier {
@@ -21,12 +24,10 @@ class RainfallEntryNotifier extends _$RainfallEntryNotifier {
   Future<void> updateEntry(final RainfallEntry entry) async {
     final RainfallRepository repo = ref.read(rainfallRepositoryProvider);
     await repo.updateEntry(entry);
-    ref.invalidate(rainfallEntriesForMonthProvider);
   }
 
   Future<void> deleteEntry(final String entryId) async {
     final RainfallRepository repo = ref.read(rainfallRepositoryProvider);
     await repo.deleteEntry(entryId);
-    ref.invalidate(rainfallEntriesForMonthProvider);
   }
 }

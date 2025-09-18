@@ -1,3 +1,4 @@
+import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/comparative_analysis/data/comparative_analysis_repository.dart";
 import "package:rain_wise/features/comparative_analysis/domain/comparative_analysis_data.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
@@ -41,6 +42,8 @@ class ComparativeAnalysisFilterNotifier
 Future<ComparativeAnalysisData> comparativeAnalysisData(
   final Ref ref,
 ) async {
+  ref.watch(rainfallRepositoryProvider).watchTableUpdates();
+
   // Await the filter provider. This will correctly propagate loading/error states.
   final ComparativeFilter filter =
       await ref.watch(comparativeAnalysisFilterProvider.future);

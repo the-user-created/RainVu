@@ -1,4 +1,5 @@
 import "package:freezed_annotation/freezed_annotation.dart";
+import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/seasonal_patterns/data/seasonal_patterns_repository.dart";
 import "package:rain_wise/features/seasonal_patterns/domain/seasonal_patterns_data.dart";
 import "package:rain_wise/shared/domain/seasons.dart";
@@ -31,8 +32,9 @@ class SeasonalPatternsFilterNotifier extends _$SeasonalPatternsFilterNotifier {
 Future<SeasonalPatternsData> seasonalPatternsData(
   final Ref ref,
 ) async {
-  final SeasonalFilter filter =
-      ref.watch(seasonalPatternsFilterProvider);
+  ref.watch(rainfallRepositoryProvider).watchTableUpdates();
+
+  final SeasonalFilter filter = ref.watch(seasonalPatternsFilterProvider);
 
   final SeasonalPatternsRepository repository =
       ref.watch(seasonalPatternsRepositoryProvider);

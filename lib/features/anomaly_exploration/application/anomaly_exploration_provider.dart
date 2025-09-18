@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/anomaly_exploration/data/anomaly_exploration_repository.dart";
 import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
@@ -36,6 +37,8 @@ class AnomalyFilterNotifier extends _$AnomalyFilterNotifier {
 
 @riverpod
 Future<AnomalyExplorationData> anomalyData(final Ref ref) async {
+  ref.watch(rainfallRepositoryProvider).watchTableUpdates();
+
   final AnomalyFilter filter = ref.watch(anomalyFilterProvider);
   final AnomalyExplorationRepository repo =
       ref.watch(anomalyExplorationRepositoryProvider);
