@@ -45,9 +45,9 @@ class ScaffoldWithNavBar extends StatelessWidget {
             tooltip: l10n.navInsights,
           ),
           BottomNavigationBarItem(
-            icon: const FaIcon(FontAwesomeIcons.mapLocationDot),
-            label: l10n.navMap,
-            tooltip: l10n.navMap,
+            icon: const FaIcon(FontAwesomeIcons.rulerVertical),
+            label: l10n.navGauges,
+            tooltip: l10n.navGauges,
           ),
           BottomNavigationBarItem(
             icon: const Icon(Icons.settings_rounded),

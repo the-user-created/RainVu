@@ -3,7 +3,7 @@ import "package:intl/intl.dart";
 import "package:timeago/timeago.dart" as timeago;
 
 void setTimeagoLocales() {
-  // TODO: Expand to include more locales
+  // TODO: Expand to include more locales?
   timeago.setLocaleMessages("en", timeago.EnMessages());
   timeago.setLocaleMessages("en_short", timeago.EnShortMessages());
 }

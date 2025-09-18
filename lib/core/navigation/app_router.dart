@@ -10,7 +10,6 @@ import "package:rain_wise/features/data_tools/presentation/screens/data_tools_sc
 import "package:rain_wise/features/home/presentation/screens/home_screen.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/screens/insights_screen.dart";
 import "package:rain_wise/features/manage_gauges/presentation/screens/manage_gauges_screen.dart";
-import "package:rain_wise/features/map/presentation/screens/map_screen.dart";
 import "package:rain_wise/features/monthly_breakdown/presentation/screens/monthly_breakdown_screen.dart";
 import "package:rain_wise/features/rainfall_entry/presentation/screens/rainfall_entries_screen.dart";
 import "package:rain_wise/features/seasonal_patterns/presentation/screens/seasonal_patterns_screen.dart";
@@ -28,8 +27,8 @@ final GlobalKey<NavigatorState> _homeNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: "home");
 final GlobalKey<NavigatorState> _insightsNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: "insights");
-final GlobalKey<NavigatorState> _mapNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: "map");
+final GlobalKey<NavigatorState> _gaugesNavigatorKey =
+GlobalKey<NavigatorState>(debugLabel: "gauges");
 final GlobalKey<NavigatorState> _settingsNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: "settings");
 
@@ -114,10 +113,10 @@ class ComingSoonRoute extends GoRouteData with $ComingSoonRoute {
         ),
       ],
     ),
-    // Branch 3: Map
-    TypedStatefulShellBranch<MapBranch>(
+    // Branch 3: Gauges
+    TypedStatefulShellBranch<GaugesBranch>(
       routes: <TypedGoRoute<GoRouteData>>[
-        TypedGoRoute<MapRoute>(path: "/map"),
+        TypedGoRoute<GaugesRoute>(path: "/gauges"),
       ],
     ),
     // Branch 4: Settings
@@ -126,7 +125,6 @@ class ComingSoonRoute extends GoRouteData with $ComingSoonRoute {
         TypedGoRoute<SettingsRoute>(
           path: "/settings",
           routes: <TypedGoRoute<GoRouteData>>[
-            TypedGoRoute<ManageGaugesRoute>(path: "manage-gauges"),
             TypedGoRoute<NotificationsRoute>(path: "notifications"),
             TypedGoRoute<HelpRoute>(path: "help"),
             TypedGoRoute<DataToolsRoute>(path: "data-tools"),
@@ -164,10 +162,10 @@ class InsightsBranch extends StatefulShellBranchData {
 }
 
 // ignore: avoid_classes_with_only_static_members
-class MapBranch extends StatefulShellBranchData {
-  const MapBranch();
+class GaugesBranch extends StatefulShellBranchData {
+  const GaugesBranch();
 
-  static final GlobalKey<NavigatorState> $navigatorKey = _mapNavigatorKey;
+  static final GlobalKey<NavigatorState> $navigatorKey = _gaugesNavigatorKey;
 }
 
 // ignore: avoid_classes_with_only_static_members
@@ -194,12 +192,12 @@ class InsightsRoute extends GoRouteData with $InsightsRoute {
       const NoTransitionPage(child: InsightsScreen());
 }
 
-class MapRoute extends GoRouteData with $MapRoute {
-  const MapRoute();
+class GaugesRoute extends GoRouteData with $GaugesRoute {
+  const GaugesRoute();
 
   @override
   Page<void> buildPage(final BuildContext context, final GoRouterState state) =>
-      const NoTransitionPage(child: MapScreen());
+      const NoTransitionPage(child: ManageGaugesScreen());
 }
 
 class SettingsRoute extends GoRouteData with $SettingsRoute {
@@ -273,17 +271,6 @@ class ComparativeAnalysisRoute extends GoRouteData
 }
 
 // Settings Sub-Routes
-class ManageGaugesRoute extends GoRouteData with $ManageGaugesRoute {
-  const ManageGaugesRoute();
-
-  static final GlobalKey<NavigatorState> $parentNavigatorKey =
-      _rootNavigatorKey;
-
-  @override
-  Widget build(final BuildContext context, final GoRouterState state) =>
-      const ManageGaugesScreen();
-}
-
 class NotificationsRoute extends GoRouteData with $NotificationsRoute {
   const NotificationsRoute();
 
