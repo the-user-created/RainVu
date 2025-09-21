@@ -7,10 +7,7 @@ import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
 class MtdBreakdownCard extends ConsumerWidget {
-  const MtdBreakdownCard({
-    required this.data,
-    super.key,
-  });
+  const MtdBreakdownCard({required this.data, super.key});
 
   final MonthlyComparisonData data;
 
@@ -21,23 +18,18 @@ class MtdBreakdownCard extends ConsumerWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
-            MeasurementUnit.mm;
+        MeasurementUnit.mm;
 
     return Card(
       elevation: 2,
       color: theme.colorScheme.surfaceContainerHighest,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(
-              data.month,
-              style: textTheme.titleMedium,
-            ),
+            Text(data.month, style: textTheme.titleMedium),
             _DataRow(
               label: l10n.mtdBreakdownTotal,
               value: data.mtdTotal.formatRainfall(context, unit),
@@ -74,18 +66,17 @@ class _DataRow extends StatelessWidget {
     final TextTheme textTheme = theme.textTheme;
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          label,
-          style: textTheme.bodySmall?.copyWith(
-            color: colorScheme.onSurfaceVariant,
+        Expanded(
+          child: Text(
+            label,
+            style: textTheme.bodySmall?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
+            overflow: TextOverflow.ellipsis,
           ),
         ),
-        Text(
-          value,
-          style: textTheme.bodyMedium,
-        ),
+        Text(value, style: textTheme.bodyMedium),
       ],
     );
   }
@@ -111,21 +102,20 @@ class _ComparisonRow extends StatelessWidget {
     final TextTheme textTheme = theme.textTheme;
 
     return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Text(
-          label,
-          style: textTheme.bodySmall?.copyWith(
-            color: colorScheme.onSurfaceVariant,
+        Expanded(
+          child: Text(
+            label,
+            style: textTheme.bodySmall?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
+            overflow: TextOverflow.ellipsis,
           ),
         ),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
-            _ComparisonIcon(
-              current: currentValue,
-              comparison: comparisonValue,
-            ),
+            _ComparisonIcon(current: currentValue, comparison: comparisonValue),
             const SizedBox(width: 4),
             Text(
               comparisonValue.formatRainfall(context, unit),

@@ -12,6 +12,7 @@ abstract class HomeData with _$HomeData {
     required final double monthlyTotal,
     required final List<RainfallEntry> recentEntries,
     required final List<QuickStat> quickStats,
+    required final List<MonthlyTrendPoint> monthlyTrends,
   }) = _HomeData;
 }
 
@@ -21,4 +22,13 @@ abstract class QuickStat with _$QuickStat {
     required final double value,
     required final QuickStatType type,
   }) = _QuickStat;
+}
+
+/// Represents a single data point for the monthly trend chart.
+@freezed
+abstract class MonthlyTrendPoint with _$MonthlyTrendPoint {
+  const factory MonthlyTrendPoint({
+    required final String month, // e.g., "Jan"
+    required final double rainfall,
+  }) = _MonthlyTrendPoint;
 }

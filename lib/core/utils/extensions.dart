@@ -7,15 +7,17 @@ extension ListDivideExt<T extends Widget> on Iterable<T> {
 
   List<Widget> divide(final Widget t, {final bool Function(int)? filterFn}) =>
       isEmpty
-          ? []
-          : (enumerate
-              .map(
-                (final e) =>
-                    [e.value, if (filterFn == null || filterFn(e.key)) t],
-              )
-              .expand((final i) => i)
-              .toList()
-            ..removeLast());
+      ? []
+      : (enumerate
+            .map(
+              (final e) => [
+                e.value,
+                if (filterFn == null || filterFn(e.key)) t,
+              ],
+            )
+            .expand((final i) => i)
+            .toList()
+          ..removeLast());
 
   List<Widget> around(final Widget t) => addToStart(t).addToEnd(t);
 
@@ -25,9 +27,12 @@ extension ListDivideExt<T extends Widget> on Iterable<T> {
   List<Widget> addToEnd(final Widget t) =>
       enumerate.map((final e) => e.value).toList()..add(t);
 
-  List<Padding> paddingTopEach(final double val) =>
-      map((final w) => Padding(padding: EdgeInsets.only(top: val), child: w))
-          .toList();
+  List<Padding> paddingTopEach(final double val) => map(
+    (final w) => Padding(
+      padding: EdgeInsets.only(top: val),
+      child: w,
+    ),
+  ).toList();
 }
 
 extension ListUniqueExt<T> on Iterable<T> {
@@ -56,13 +61,20 @@ extension DoubleUnitsExt on double {
     final BuildContext context,
     final MeasurementUnit unit, {
     final int precision = 1,
+    final bool withUnit = true,
   }) {
     final AppLocalizations l10n = AppLocalizations.of(context);
     if (unit == MeasurementUnit.inch) {
       final double amountInInches = toInches();
+      if (!withUnit) {
+        return amountInInches.toStringAsFixed(precision);
+      }
       return l10n.rainfallAmountWithUnitIn(
         amountInInches.toStringAsFixed(precision),
       );
+    }
+    if (!withUnit) {
+      return toStringAsFixed(precision);
     }
     return l10n.rainfallAmountWithUnit(toStringAsFixed(precision));
   }

@@ -7,6 +7,7 @@ import "package:rain_wise/features/home/domain/home_data.dart";
 import "package:rain_wise/features/home/presentation/widgets/home_app_bar.dart";
 import "package:rain_wise/features/home/presentation/widgets/log_rain_sheet.dart";
 import "package:rain_wise/features/home/presentation/widgets/monthly_summary_card.dart";
+import "package:rain_wise/features/home/presentation/widgets/monthly_trend_chart.dart";
 import "package:rain_wise/features/home/presentation/widgets/quick_stats_card.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
@@ -34,21 +35,19 @@ class HomeScreen extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final AsyncValue<HomeData> homeDataAsync =
-        ref.watch(homeScreenDataProvider);
+    final AsyncValue<HomeData> homeDataAsync = ref.watch(
+      homeScreenDataProvider,
+    );
     final AppLocalizations l10n = AppLocalizations.of(context);
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        appBar: HomeAppBar(
-          onAddPressed: () => _showLogRainSheet(context),
-        ),
+        appBar: HomeAppBar(onAddPressed: () => _showLogRainSheet(context)),
         body: SafeArea(
           child: homeDataAsync.when(
             loading: () => const AppLoader(),
-            error: (final err, final stack) => Center(
-              child: Text(l10n.homeScreenError(err)),
-            ),
+            error: (final err, final stack) =>
+                Center(child: Text(l10n.homeScreenError(err))),
             data: (final homeData) => SingleChildScrollView(
               physics: const AlwaysScrollableScrollPhysics(),
               child: Padding(
@@ -56,17 +55,19 @@ class HomeScreen extends ConsumerWidget {
                   horizontal: AppConstants.horiEdgePadding,
                 ),
                 child: Column(
-                  children: [
-                    MonthlySummaryCard(
-                      monthlyTotal: homeData.monthlyTotal,
-                      recentEntries: homeData.recentEntries,
-                      currentMonthDate: homeData.currentMonthDate,
-                    ),
-                    QuickStatsCard(stats: homeData.quickStats),
-                  ]
-                      .divide(const SizedBox(height: 24))
-                      .addToStart(const SizedBox(height: 16))
-                      .addToEnd(const SizedBox(height: 32)),
+                  children:
+                      [
+                            MonthlySummaryCard(
+                              monthlyTotal: homeData.monthlyTotal,
+                              recentEntries: homeData.recentEntries,
+                              currentMonthDate: homeData.currentMonthDate,
+                            ),
+                            QuickStatsCard(stats: homeData.quickStats),
+                            MonthlyTrendChart(trends: homeData.monthlyTrends),
+                          ]
+                          .divide(const SizedBox(height: 24))
+                          .addToStart(const SizedBox(height: 16))
+                          .addToEnd(const SizedBox(height: 32)),
                 ),
               ),
             ),

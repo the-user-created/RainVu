@@ -7,7 +7,6 @@ part "insights_data.freezed.dart";
 abstract class InsightsData with _$InsightsData {
   const factory InsightsData({
     required final KeyMetrics keyMetrics,
-    required final List<MonthlyTrendPoint> monthlyTrends,
     required final List<MonthlyComparisonData> monthlyComparisons,
   }) = _InsightsData;
 }
@@ -23,15 +22,6 @@ abstract class KeyMetrics with _$KeyMetrics {
     required final double ytdTotal,
     required final double monthlyAvg,
   }) = _KeyMetrics;
-}
-
-/// Represents a single data point for the monthly trend chart.
-@freezed
-abstract class MonthlyTrendPoint with _$MonthlyTrendPoint {
-  const factory MonthlyTrendPoint({
-    required final String month, // e.g., "Jan"
-    required final double rainfall,
-  }) = _MonthlyTrendPoint;
 }
 
 /// Represents the data for a single MTD (Month-to-Date) breakdown card.

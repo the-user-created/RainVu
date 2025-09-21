@@ -27,14 +27,12 @@ class DriftInsightsRepository implements InsightsRepository {
 
     final List<Object> futures = await Future.wait([
       _calculateKeyMetrics(now),
-      _getMonthlyTrends(now),
       _getMonthlyComparisons(now),
     ]);
 
     return InsightsData(
       keyMetrics: futures[0] as KeyMetrics,
-      monthlyTrends: futures[1] as List<MonthlyTrendPoint>,
-      monthlyComparisons: futures[2] as List<MonthlyComparisonData>,
+      monthlyComparisons: futures[1] as List<MonthlyComparisonData>,
     );
   }
 
@@ -54,14 +52,20 @@ class DriftInsightsRepository implements InsightsRepository {
     final endOfLastMonthMTD = DateTime(now.year, now.month - 1, now.day);
 
     final Future<double> totalRainfallFuture = _dao.getTotalRainfall();
-    final Future<double> ytdTotalFuture =
-        _dao.getTotalAmountBetween(startOfThisYear, now);
-    final Future<double> mtdTotalFuture =
-        _dao.getTotalAmountBetween(startOfThisMonth, now);
-    final Future<double> totalRainfallLastYearFuture =
-        _dao.getTotalAmountBetween(DateTime(1900), oneYearAgo);
-    final Future<double> mtdTotalLastMonthFuture =
-        _dao.getTotalAmountBetween(startOfLastMonth, endOfLastMonthMTD);
+    final Future<double> ytdTotalFuture = _dao.getTotalAmountBetween(
+      startOfThisYear,
+      now,
+    );
+    final Future<double> mtdTotalFuture = _dao.getTotalAmountBetween(
+      startOfThisMonth,
+      now,
+    );
+    final Future<double> totalRainfallLastYearFuture = _dao
+        .getTotalAmountBetween(DateTime(1900), oneYearAgo);
+    final Future<double> mtdTotalLastMonthFuture = _dao.getTotalAmountBetween(
+      startOfLastMonth,
+      endOfLastMonthMTD,
+    );
     final Future<int> distinctMonthsFuture = _dao.getDistinctMonthCount();
 
     final List<num> results = await Future.wait([
@@ -80,10 +84,14 @@ class DriftInsightsRepository implements InsightsRepository {
     final mtdTotalLastMonth = results[4] as double;
     final distinctMonths = results[5] as int;
 
-    final double totalRainfallChange =
-        _calculatePercentChange(totalRainfallLastYear, totalRainfall);
-    final double mtdChange =
-        _calculatePercentChange(mtdTotalLastMonth, mtdTotal);
+    final double totalRainfallChange = _calculatePercentChange(
+      totalRainfallLastYear,
+      totalRainfall,
+    );
+    final double mtdChange = _calculatePercentChange(
+      mtdTotalLastMonth,
+      mtdTotal,
+    );
 
     double monthlyAvg = 0;
     if (distinctMonths > 0) {
@@ -107,46 +115,14 @@ class DriftInsightsRepository implements InsightsRepository {
     return (current - previous) / previous * 100;
   }
 
-  Future<List<MonthlyTrendPoint>> _getMonthlyTrends(final DateTime now) async {
-    final twelveMonthsAgo = DateTime(now.year, now.month - 11);
-    final List<MonthlyTotal> monthlyTotals = await _dao.getMonthlyTotals(
-      start: twelveMonthsAgo,
-      end: now,
-    );
-
-    final Map<String, double> trendsMap = {};
-    for (int i = 0; i < 12; i++) {
-      final monthDate = DateTime(now.year, now.month - i);
-      final key = "${monthDate.year}-${monthDate.month}";
-      trendsMap[key] = 0.0;
-    }
-
-    for (final total in monthlyTotals) {
-      final key = "${total.year}-${total.month}";
-      trendsMap[key] = total.total;
-    }
-
-    final trendPoints = <MonthlyTrendPoint>[];
-    for (int i = 11; i >= 0; i--) {
-      final monthDate = DateTime(now.year, now.month - i);
-      final key = "${monthDate.year}-${monthDate.month}";
-      trendPoints.add(
-        MonthlyTrendPoint(
-          month: DateFormat.MMM().format(monthDate),
-          rainfall: trendsMap[key]!,
-        ),
-      );
-    }
-
-    return trendPoints;
-  }
-
   Future<List<MonthlyComparisonData>> _getMonthlyComparisons(
     final DateTime now,
   ) async {
     final int currentYear = now.year;
-    final List<int> previous5Years =
-        List.generate(5, (final index) => currentYear - 1 - index);
+    final List<int> previous5Years = List.generate(
+      5,
+      (final index) => currentYear - 1 - index,
+    );
 
     final List<Future<MonthlyComparisonData>> futures = [];
 
@@ -163,16 +139,17 @@ class DriftInsightsRepository implements InsightsRepository {
     final List<int> previousYears,
   ) async {
     final startOfMonth = DateTime(currentYear, month);
-    final DateTime endOfMonth = DateTime(currentYear, month + 1)
-        .subtract(const Duration(microseconds: 1));
-    final Future<double> currentMonthTotalFuture =
-        _dao.getTotalAmountBetween(startOfMonth, endOfMonth);
-
-    final Future<List<YearlyTotal>> previousYearsTotalsFuture =
-        _dao.getTotalsForMonthAcrossYears(
-      month: month,
-      years: previousYears,
+    final DateTime endOfMonth = DateTime(
+      currentYear,
+      month + 1,
+    ).subtract(const Duration(microseconds: 1));
+    final Future<double> currentMonthTotalFuture = _dao.getTotalAmountBetween(
+      startOfMonth,
+      endOfMonth,
     );
+
+    final Future<List<YearlyTotal>> previousYearsTotalsFuture = _dao
+        .getTotalsForMonthAcrossYears(month: month, years: previousYears);
 
     final List<Object> results = await Future.wait([
       currentMonthTotalFuture,

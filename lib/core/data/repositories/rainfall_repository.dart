@@ -26,12 +26,15 @@ abstract class RainfallRepository {
   );
 
   Stream<void> watchTableUpdates();
+
+  Future<List<MonthlyTotal>> getMonthlyTotals({
+    required final DateTime start,
+    required final DateTime end,
+  });
 }
 
 @Riverpod(keepAlive: true)
-RainfallRepository rainfallRepository(
-  final Ref ref,
-) {
+RainfallRepository rainfallRepository(final Ref ref) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
   return DriftRainfallRepository(db.rainfallEntriesDao);
 }
@@ -45,25 +48,26 @@ class DriftRainfallRepository implements RainfallRepository {
   Future<List<domain.RainfallEntry>> fetchEntriesForMonth(
     final DateTime month,
   ) async {
-    final List<RainfallEntryWithGauge> entries =
-        await _dao.getEntriesForMonth(month);
+    final List<RainfallEntryWithGauge> entries = await _dao.getEntriesForMonth(
+      month,
+    );
     return entries.map(_mapDriftToDomain).toList();
   }
 
   @override
   Stream<List<domain.RainfallEntry>> watchRecentEntries({
     final int limit = 5,
-  }) =>
-      _dao
-          .watchRecentEntries(limit: limit)
-          .map((final e) => e.map(_mapDriftToDomain).toList());
+  }) => _dao
+      .watchRecentEntries(limit: limit)
+      .map((final e) => e.map(_mapDriftToDomain).toList());
 
   @override
   Future<List<domain.RainfallEntry>> fetchRecentEntries({
     final int limit = 3,
   }) async {
-    final List<RainfallEntryWithGauge> entries =
-        await _dao.getRecentEntries(limit: limit);
+    final List<RainfallEntryWithGauge> entries = await _dao.getRecentEntries(
+      limit: limit,
+    );
     return entries.map(_mapDriftToDomain).toList();
   }
 
@@ -83,11 +87,16 @@ class DriftRainfallRepository implements RainfallRepository {
   Future<double> getTotalAmountBetween(
     final DateTime start,
     final DateTime end,
-  ) =>
-      _dao.getTotalAmountBetween(start, end);
+  ) => _dao.getTotalAmountBetween(start, end);
 
   @override
   Stream<void> watchTableUpdates() => _dao.watchTableUpdates();
+
+  @override
+  Future<List<MonthlyTotal>> getMonthlyTotals({
+    required final DateTime start,
+    required final DateTime end,
+  }) => _dao.getMonthlyTotals(start: start, end: end);
 
   domain.RainfallEntry _mapDriftToDomain(
     final RainfallEntryWithGauge driftEntry,
@@ -111,12 +120,11 @@ class DriftRainfallRepository implements RainfallRepository {
 
   RainfallEntriesCompanion _mapDomainToCompanion(
     final domain.RainfallEntry entry,
-  ) =>
-      RainfallEntriesCompanion(
-        id: entry.id == null ? const Value.absent() : Value(entry.id!),
-        amount: Value(entry.amount),
-        date: Value(entry.date),
-        gaugeId: Value(entry.gaugeId),
-        unit: Value(entry.unit),
-      );
+  ) => RainfallEntriesCompanion(
+    id: entry.id == null ? const Value.absent() : Value(entry.id!),
+    amount: Value(entry.amount),
+    date: Value(entry.date),
+    gaugeId: Value(entry.gaugeId),
+    unit: Value(entry.unit),
+  );
 }

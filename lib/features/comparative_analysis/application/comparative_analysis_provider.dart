@@ -5,6 +5,8 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "comparative_analysis_provider.g.dart";
 
+// TODO: User should be able to select more than 2 years to compare.
+
 @riverpod
 Future<List<int>> availableYears(final Ref ref) async =>
     ref.watch(comparativeAnalysisRepositoryProvider).getAvailableYears();

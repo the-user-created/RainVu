@@ -4,10 +4,7 @@ import "package:rain_wise/features/insights_dashboard/presentation/widgets/mtd_b
 import "package:rain_wise/l10n/app_localizations.dart";
 
 class MonthlyComparisonGrid extends StatelessWidget {
-  const MonthlyComparisonGrid({
-    required this.comparisons,
-    super.key,
-  });
+  const MonthlyComparisonGrid({required this.comparisons, super.key});
 
   final List<MonthlyComparisonData> comparisons;
 
@@ -29,15 +26,15 @@ class MonthlyComparisonGrid extends StatelessWidget {
           const SizedBox(height: 12),
           SizedBox(
             width: double.infinity,
-            height: 180,
+            height: 330,
             child: GridView.builder(
               padding: const EdgeInsets.all(16),
               scrollDirection: Axis.horizontal,
               gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 1,
+                crossAxisCount: 2,
                 crossAxisSpacing: 16,
                 mainAxisSpacing: 16,
-                mainAxisExtent: screenWidth * 0.45,
+                mainAxisExtent: screenWidth * 0.4,
               ),
               itemCount: comparisons.length,
               itemBuilder: (final context, final index) =>
