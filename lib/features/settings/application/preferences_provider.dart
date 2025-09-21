@@ -26,4 +26,9 @@ class UserPreferencesNotifier extends _$UserPreferencesNotifier {
     final UserPreferences currentState = await future;
     await _updatePreferences(currentState.copyWith(measurementUnit: unit));
   }
+
+  Future<void> setThemeMode(final AppThemeMode mode) async {
+    final UserPreferences currentState = await future;
+    await _updatePreferences(currentState.copyWith(themeMode: mode));
+  }
 }

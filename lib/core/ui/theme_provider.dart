@@ -1,37 +1,32 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/core/data/local/shared_prefs.dart";
+import "package:rain_wise/features/settings/application/preferences_provider.dart";
+import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
-import "package:shared_preferences/shared_preferences.dart";
 
 part "theme_provider.g.dart";
 
-const _themeModeKey = "theme_mode";
-
-/// Notifier for managing and persisting the app's theme mode.
 @riverpod
-class ThemeModeNotifier extends _$ThemeModeNotifier {
-  late SharedPreferences _prefs;
+ThemeMode themeMode(final Ref ref) {
+  final AsyncValue<UserPreferences> userPreferences = ref.watch(
+    userPreferencesProvider,
+  );
 
-  @override
-  ThemeMode build() => ref.watch(sharedPreferencesProvider).when(
-        data: (final prefs) {
-          _prefs = prefs;
-          final String? themeModeString = _prefs.getString(_themeModeKey);
-          return ThemeMode.values.firstWhere(
-            (final e) => e.toString() == themeModeString,
-            orElse: () => ThemeMode.system,
-          );
-        },
-        loading: () => ThemeMode.system,
-        error: (final error, final stack) {
-          debugPrint("Error loading theme mode: $error");
+  return userPreferences.when(
+    data: (final prefs) {
+      switch (prefs.themeMode) {
+        case AppThemeMode.light:
+          return ThemeMode.light;
+        case AppThemeMode.dark:
+          return ThemeMode.dark;
+        case AppThemeMode.system:
           return ThemeMode.system;
-        },
-      );
-
-  /// Sets the theme mode and persists it to SharedPreferences.
-  Future<void> setThemeMode(final ThemeMode mode) async {
-    await _prefs.setString(_themeModeKey, mode.toString());
-    state = mode;
-  }
+      }
+    },
+    // Provide a default theme mode during loading or on error
+    loading: () => ThemeMode.system,
+    error: (final err, final stack) {
+      debugPrint("Error loading theme preference: $err");
+      return ThemeMode.system;
+    },
+  );
 }

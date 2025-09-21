@@ -18,6 +18,12 @@ class AppDatabase extends _$AppDatabase {
 
   @override
   int get schemaVersion => 1;
+
+  Future<void> deleteAllData() => transaction(() async {
+    for (final TableInfo<Table, Object?> table in allTables) {
+      await delete(table).go();
+    }
+  });
 }
 
 @Riverpod(keepAlive: true)

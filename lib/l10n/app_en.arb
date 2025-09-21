@@ -219,6 +219,29 @@
   "settingsSupportLegalHelp": "Help & Support",
   "settingsSupportLegalPrivacyPolicy": "Privacy Policy",
   "settingsSupportLegalTermsOfService": "Terms of Service",
+  "settingsSectionAppearance": "APPEARANCE",
+  "settingsAppearanceTheme": "Theme",
+  "settingsThemeLight": "Light",
+  "settingsThemeDark": "Dark",
+  "settingsThemeSystem": "System",
+  "settingsSectionDangerZone": "DANGER ZONE",
+  "settingsDangerZoneResetApp": "Reset App",
+  "settingsDangerZoneDescription": "This will permanently delete all your data, including rainfall entries and rain gauges, and reset all settings to their defaults. This action cannot be undone.",
+  "settingsResetButton": "Reset App Data",
+  "resetDialogTitle": "Are you absolutely sure?",
+  "resetDialogContent": "This action is irreversible. You will lose all your rainfall data and custom settings. To proceed, please type \"RESET\" in the box below.",
+  "resetDialogTextFieldHint": "Type RESET to confirm",
+  "resetDialogConfirmButton": "I understand, reset my data",
+  "resetDialogValidationError": "Please type RESET to confirm.",
+  "resetSuccessSnackbar": "App has been reset.",
+  "resetErrorSnackbar": "An error occurred while resetting the app: {error}",
+  "@resetErrorSnackbar": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
   "helpTitle": "Help & Support",
   "helpSectionFaqs": "FREQUENTLY ASKED QUESTIONS",
   "helpFaqsError": "Failed to load FAQs: {error}",

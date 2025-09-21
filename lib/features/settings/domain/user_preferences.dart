@@ -4,10 +4,9 @@ part "user_preferences.freezed.dart";
 
 part "user_preferences.g.dart";
 
-enum MeasurementUnit {
-  mm,
-  inch,
-}
+enum MeasurementUnit { mm, inch }
+
+enum AppThemeMode { light, dark, system }
 
 extension MeasurementUnitExtension on MeasurementUnit {
   String get name {
@@ -24,6 +23,7 @@ extension MeasurementUnitExtension on MeasurementUnit {
 abstract class UserPreferences with _$UserPreferences {
   const factory UserPreferences({
     @Default(MeasurementUnit.mm) final MeasurementUnit measurementUnit,
+    @Default(AppThemeMode.system) final AppThemeMode themeMode,
   }) = _UserPreferences;
 
   factory UserPreferences.fromJson(final Map<String, dynamic> json) =>
