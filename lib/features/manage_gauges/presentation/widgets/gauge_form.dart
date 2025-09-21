@@ -1,21 +1,23 @@
 import "dart:async";
 
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
-class GaugeForm extends StatefulWidget {
+class GaugeForm extends ConsumerStatefulWidget {
   const GaugeForm({super.key, this.gauge, this.onSave});
 
   final RainGauge? gauge;
   final FutureOr<void> Function(String name)? onSave;
 
   @override
-  State<GaugeForm> createState() => _GaugeFormState();
+  ConsumerState<GaugeForm> createState() => _GaugeFormState();
 }
 
-class _GaugeFormState extends State<GaugeForm> {
+class _GaugeFormState extends ConsumerState<GaugeForm> {
   final _formKey = GlobalKey<FormState>();
   late final TextEditingController _nameController;
 
@@ -35,7 +37,7 @@ class _GaugeFormState extends State<GaugeForm> {
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
-      widget.onSave?.call(_nameController.text);
+      widget.onSave?.call(_nameController.text.trim());
     }
   }
 
@@ -43,6 +45,8 @@ class _GaugeFormState extends State<GaugeForm> {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
+    final AsyncValue<List<RainGauge>> gaugesAsync = ref.watch(gaugesProvider);
+
     return Form(
       key: _formKey,
       child: Column(
@@ -66,9 +70,26 @@ class _GaugeFormState extends State<GaugeForm> {
               fillColor: theme.colorScheme.surface,
             ),
             validator: (final val) {
-              if (val == null || val.trim().isEmpty) {
+              final String trimmedVal = val?.trim() ?? "";
+              if (trimmedVal.isEmpty) {
                 return l10n.gaugeFormNameValidation;
               }
+
+              if (gaugesAsync is AsyncData<List<RainGauge>>) {
+                final List<RainGauge> gauges = gaugesAsync.value;
+                final bool isDuplicate = gauges.any((final g) {
+                  // When editing, allow saving with the original name.
+                  if (isEditing && g.id == widget.gauge!.id) {
+                    return false;
+                  }
+                  return g.name.toLowerCase() == trimmedVal.toLowerCase();
+                });
+
+                if (isDuplicate) {
+                  return l10n.gaugeFormNameValidationDuplicate;
+                }
+              }
+
               return null;
             },
           ),

@@ -7,7 +7,6 @@ import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/data/providers/data_providers.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/home/application/home_providers.dart";
-import "package:rain_wise/features/manage_gauges/presentation/widgets/add_gauge_sheet.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
@@ -71,27 +70,6 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
           pickedTime.hour,
           pickedTime.minute,
         );
-      });
-    }
-  }
-
-  Future<void> _showAddGaugeSheet() async {
-    final RainGauge? newGauge = await showModalBottomSheet<RainGauge>(
-      context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
-      useSafeArea: true,
-      builder: (final sheetContext) => Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(sheetContext).viewInsets.bottom,
-        ),
-        child: const AddGaugeSheet(),
-      ),
-    );
-
-    if (newGauge != null && mounted) {
-      setState(() {
-        _selectedGaugeId = newGauge.id;
       });
     }
   }
@@ -196,14 +174,9 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                       value: _selectedGaugeId,
                       hintText: l10n.logRainfallSelectGaugeHint,
                       onChanged: (final newValue) {
-                        if (newValue == "__ADD_NEW__") {
-                          FocusScope.of(context).unfocus();
-                          _showAddGaugeSheet();
-                        } else {
-                          setState(() {
-                            _selectedGaugeId = newValue;
-                          });
-                        }
+                        setState(() {
+                          _selectedGaugeId = newValue;
+                        });
                       },
                       items: [
                         ...gauges.map((final gauge) {
@@ -216,24 +189,6 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                             child: Text(displayName),
                           );
                         }),
-                        DropdownMenuItem<String>(
-                          value: "__ADD_NEW__",
-                          child: Row(
-                            children: [
-                              Icon(
-                                Icons.add_circle_outline,
-                                color: Theme.of(context).colorScheme.secondary,
-                              ),
-                              const SizedBox(width: 8),
-                              Text(
-                                l10n.logRainfallAddNewGauge,
-                                style: TextStyle(
-                                  color: theme.colorScheme.secondary,
-                                ),
-                              ),
-                            ],
-                          ),
-                        ),
                       ],
                       validator: (final value) => value == null
                           ? l10n.logRainfallGaugeValidation

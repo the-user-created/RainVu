@@ -194,7 +194,6 @@
       }
     }
   },
-  "gaugeTileNoLocation": "No location set",
   "gaugeTileEditTooltip": "Edit Gauge",
   "gaugeTileDeleteTooltip": "Delete Gauge",
   "gaugeEntryCount": "{count, plural, =1 {1 entry} other {{count} entries}}",
@@ -212,9 +211,7 @@
   "gaugeFormNameLabel": "Rain Gauge Name",
   "gaugeFormNameHint": "E.g., Garden Gauge #1",
   "gaugeFormNameValidation": "Name cannot be empty",
-  "gaugeFormLocationLabel": "Location (Optional)",
-  "gaugeFormLocationButton": "Select Location",
-  "gaugeFormLocationComingSoon": "Place picker coming soon!",
+  "gaugeFormNameValidationDuplicate": "A gauge with this name already exists.",
   "gaugeFormButtonCancel": "Cancel",
   "gaugeFormButtonSave": "Save",
   "rainfallEntriesError": "Error: {error}",
@@ -645,7 +642,6 @@
       }
     }
   },
-  "logRainfallAddNewGauge": "Add new gauge...",
   "gaugeTileSetFavoriteTooltip": "Set as favorite gauge",
   "defaultGaugeName": "Default Gauge",
   "deleteGaugeWithEntriesWarning": "This gauge has {count, plural, =1 {1 associated entry} other {{count} associated entries}}. Deleting it will reassign them to the '{defaultGaugeName}' gauge.",
