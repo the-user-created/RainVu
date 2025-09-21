@@ -86,6 +86,15 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
   Future<void> insertEntry(final Insertable<RainfallEntry> entry) =>
       into(rainfallEntries).insert(entry);
 
+  Future<void> upsertEntries(final List<Insertable<RainfallEntry>> entries) =>
+      batch(
+        (final b) => b.insertAll(
+          rainfallEntries,
+          entries,
+          mode: InsertMode.insertOrReplace,
+        ),
+      );
+
   Future<void> insertEntries(final List<Insertable<RainfallEntry>> entries) =>
       batch((final b) => b.insertAll(rainfallEntries, entries));
 
@@ -103,11 +112,11 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
   ) {
     final JoinedSelectStatement<HasResultSet, dynamic> query =
         select(rainfallEntries).join([
-      leftOuterJoin(
-        rainGauges,
-        rainGauges.id.equalsExp(rainfallEntries.gaugeId),
-      ),
-    ])
+            leftOuterJoin(
+              rainGauges,
+              rainGauges.id.equalsExp(rainfallEntries.gaugeId),
+            ),
+          ])
           ..where(
             rainfallEntries.date.year.equals(month.year) &
                 rainfallEntries.date.month.equals(month.month),
@@ -129,11 +138,11 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
   }) {
     final JoinedSelectStatement<HasResultSet, dynamic> query =
         select(rainfallEntries).join([
-      leftOuterJoin(
-        rainGauges,
-        rainGauges.id.equalsExp(rainfallEntries.gaugeId),
-      ),
-    ])
+            leftOuterJoin(
+              rainGauges,
+              rainGauges.id.equalsExp(rainfallEntries.gaugeId),
+            ),
+          ])
           ..orderBy([OrderingTerm.desc(rainfallEntries.date)])
           ..limit(limit);
 
@@ -244,10 +253,7 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
 
     return query
         .map(
-          (final row) => YearlyTotal(
-            row.read(year)!,
-            row.read(total) ?? 0.0,
-          ),
+          (final row) => YearlyTotal(row.read(year)!, row.read(total) ?? 0.0),
         )
         .get();
   }
@@ -279,8 +285,9 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
   ) {
     final Expression<int> day = rainfallEntries.date.day;
     final Expression<double> total = rainfallEntries.amount.sum();
-    final Expression<int> yearCount =
-        rainfallEntries.date.year.count(distinct: true);
+    final Expression<int> yearCount = rainfallEntries.date.year.count(
+      distinct: true,
+    );
 
     final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
         selectOnly(rainfallEntries)
@@ -305,16 +312,14 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
   Stream<void> watchTableUpdates() =>
       select(rainfallEntries).watch().map((final _) => {});
 
-  Future<List<RainfallEntryWithGauge>> getRecentEntries({
-    final int limit = 3,
-  }) {
+  Future<List<RainfallEntryWithGauge>> getRecentEntries({final int limit = 3}) {
     final JoinedSelectStatement<HasResultSet, dynamic> query =
         select(rainfallEntries).join([
-      leftOuterJoin(
-        rainGauges,
-        rainGauges.id.equalsExp(rainfallEntries.gaugeId),
-      ),
-    ])
+            leftOuterJoin(
+              rainGauges,
+              rainGauges.id.equalsExp(rainfallEntries.gaugeId),
+            ),
+          ])
           ..orderBy([OrderingTerm.desc(rainfallEntries.date)])
           ..limit(limit);
 
@@ -334,8 +339,9 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
   ) {
     // Group by the date part only (YYYY-MM-DD string) to aggregate
     // multiple entries on the same day.
-    final Expression<String> dateStr =
-        rainfallEntries.date.strftime("%Y-%m-%d");
+    final Expression<String> dateStr = rainfallEntries.date.strftime(
+      "%Y-%m-%d",
+    );
     final Expression<double> total = rainfallEntries.amount.sum();
 
     final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
@@ -372,10 +378,7 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
 
     return query
         .map(
-          (final row) => YearlyTotal(
-            row.read(year)!,
-            row.read(total) ?? 0.0,
-          ),
+          (final row) => YearlyTotal(row.read(year)!, row.read(total) ?? 0.0),
         )
         .get();
   }
@@ -384,8 +387,9 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
     final DateTime start,
     final DateTime end,
   ) {
-    final Expression<String> dateStr =
-        rainfallEntries.date.strftime("%Y-%m-%d");
+    final Expression<String> dateStr = rainfallEntries.date.strftime(
+      "%Y-%m-%d",
+    );
     final Expression<DateTime> minDate = rainfallEntries.date.min();
     final Expression<double> total = rainfallEntries.amount.sum();
 
@@ -398,10 +402,8 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
 
     return query
         .map(
-          (final row) => DailyTotalWithDate(
-            row.read(minDate)!,
-            row.read(total) ?? 0.0,
-          ),
+          (final row) =>
+              DailyTotalWithDate(row.read(minDate)!, row.read(total) ?? 0.0),
         )
         .get();
   }
@@ -410,8 +412,9 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
     final Expression<int> month = rainfallEntries.date.month;
     final Expression<int> day = rainfallEntries.date.day;
     final Expression<double> total = rainfallEntries.amount.sum();
-    final Expression<int> yearCount =
-        rainfallEntries.date.year.count(distinct: true);
+    final Expression<int> yearCount = rainfallEntries.date.year.count(
+      distinct: true,
+    );
 
     final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
         selectOnly(rainfallEntries)
@@ -436,11 +439,11 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
   ) {
     final JoinedSelectStatement<HasResultSet, dynamic> query =
         select(rainfallEntries).join([
-      leftOuterJoin(
-        rainGauges,
-        rainGauges.id.equalsExp(rainfallEntries.gaugeId),
-      ),
-    ])
+            leftOuterJoin(
+              rainGauges,
+              rainGauges.id.equalsExp(rainfallEntries.gaugeId),
+            ),
+          ])
           ..where(rainfallEntries.date.isBetweenValues(start, end))
           ..orderBy([OrderingTerm.desc(rainfallEntries.date)]);
 
@@ -454,15 +457,16 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
         .get();
   }
 
+  Future<List<RainfallEntry>> getAllEntries() => select(rainfallEntries).get();
+
   Future<List<RainfallEntryWithGauge>> getAllEntriesWithGauges() {
     final JoinedSelectStatement<HasResultSet, dynamic> query =
         select(rainfallEntries).join([
-      leftOuterJoin(
-        rainGauges,
-        rainGauges.id.equalsExp(rainfallEntries.gaugeId),
-      ),
-    ])
-          ..orderBy([OrderingTerm.desc(rainfallEntries.date)]);
+          leftOuterJoin(
+            rainGauges,
+            rainGauges.id.equalsExp(rainfallEntries.gaugeId),
+          ),
+        ])..orderBy([OrderingTerm.desc(rainfallEntries.date)]);
 
     return query
         .map(
@@ -492,20 +496,22 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
   Future<int> countEntriesForGauge(final String gaugeId) async {
     final Expression<int> countExp = rainfallEntries.id.count();
     final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
-    selectOnly(rainfallEntries)
-      ..addColumns([countExp])
-      ..where(rainfallEntries.gaugeId.equals(gaugeId));
+        selectOnly(rainfallEntries)
+          ..addColumns([countExp])
+          ..where(rainfallEntries.gaugeId.equals(gaugeId));
     final TypedResult result = await query.getSingle();
     return result.read(countExp) ?? 0;
   }
 
   Future<int> reassignEntries(
-      final String fromGaugeId,
-      final String toGaugeId,
-      ) =>
-      (update(rainfallEntries)..where((final tbl) => tbl.gaugeId.equals(fromGaugeId)))
+    final String fromGaugeId,
+    final String toGaugeId,
+  ) =>
+      (update(rainfallEntries)
+            ..where((final tbl) => tbl.gaugeId.equals(fromGaugeId)))
           .write(RainfallEntriesCompanion(gaugeId: Value(toGaugeId)));
 
-  Future<int> deleteEntriesForGauge(final String gaugeId) =>
-      (delete(rainfallEntries)..where((final tbl) => tbl.gaugeId.equals(gaugeId))).go();
+  Future<int> deleteEntriesForGauge(final String gaugeId) => (delete(
+    rainfallEntries,
+  )..where((final tbl) => tbl.gaugeId.equals(gaugeId))).go();
 }

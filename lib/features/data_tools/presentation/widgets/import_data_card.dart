@@ -34,8 +34,9 @@ class ImportDataCard extends ConsumerWidget {
               Text(
                 l10n.importDataCardDescription,
                 textAlign: TextAlign.center,
-                style: theme.textTheme.bodyMedium
-                    ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
               ),
               const SizedBox(height: 24),
               if (state.fileToImport == null)
@@ -97,8 +98,9 @@ class _FilePickerBox extends StatelessWidget {
                 const SizedBox(height: 4),
                 Text(
                   l10n.filePickerBoxSubtitle,
-                  style: theme.textTheme.bodySmall
-                      ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ],
             ),
@@ -121,9 +123,7 @@ class _ParsingPreview extends StatelessWidget {
         color: theme.colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: const Center(
-        child: AppLoader(),
-      ),
+      child: const Center(child: AppLoader()),
     );
   }
 }
@@ -146,6 +146,28 @@ class _ImportPreviewSummary extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
 
+    final List<String> summaries = [];
+    if (preview.newEntriesCount > 0) {
+      summaries.add(l10n.importPreviewSummaryEntries(preview.newEntriesCount));
+    }
+    if (preview.updatedEntriesCount > 0) {
+      summaries.add(
+        l10n.importPreviewSummaryUpdated(preview.updatedEntriesCount),
+      );
+    }
+    if (preview.newGaugesCount > 0) {
+      summaries.add(l10n.importPreviewSummaryGauges(preview.newGaugesCount));
+    }
+
+    final String summaryText = summaries.isNotEmpty
+        ? summaries.join(". ")
+        : l10n.importPreviewSummaryNoChanges;
+
+    final bool hasChanges =
+        preview.newEntriesCount > 0 ||
+        preview.updatedEntriesCount > 0 ||
+        preview.newGaugesCount > 0;
+
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
@@ -162,10 +184,7 @@ class _ImportPreviewSummary extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.importPreviewSummary(
-              preview.newEntriesCount,
-              preview.newGaugesCount,
-            ),
+            summaryText,
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium,
           ),
@@ -185,8 +204,9 @@ class _ImportPreviewSummary extends StatelessWidget {
             const SizedBox(height: 16),
             Text(
               l10n.importPreviewNewGaugesListTitle,
-              style: theme.textTheme.bodyMedium
-                  ?.copyWith(fontWeight: FontWeight.bold),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                fontWeight: FontWeight.bold,
+              ),
             ),
             const SizedBox(height: 8),
             Wrap(
@@ -195,13 +215,13 @@ class _ImportPreviewSummary extends StatelessWidget {
               children: preview.newGaugeNames
                   .map(
                     (final name) => Chip(
-                  label: Text(name),
-                  backgroundColor: theme.colorScheme.secondaryContainer,
-                  labelStyle: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSecondaryContainer,
-                  ),
-                ),
-              )
+                      label: Text(name),
+                      backgroundColor: theme.colorScheme.secondaryContainer,
+                      labelStyle: theme.textTheme.bodySmall?.copyWith(
+                        color: theme.colorScheme.onSecondaryContainer,
+                      ),
+                    ),
+                  )
                   .toList(),
             ),
           ],
@@ -218,7 +238,7 @@ class _ImportPreviewSummary extends StatelessWidget {
               const SizedBox(width: 16),
               Expanded(
                 child: AppButton(
-                  onPressed: onConfirm,
+                  onPressed: hasChanges ? onConfirm : null,
                   label: l10n.importPreviewConfirmButton,
                   isLoading: isLoading,
                 ),

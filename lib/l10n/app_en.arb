@@ -34,7 +34,32 @@
       }
     }
   },
-  "importPreviewDuplicatesSummary": "It also contains {duplicateEntriesCount} duplicate entries, which will be skipped.",
+  "importPreviewSummaryNoChanges": "No new data to import. All entries in the file already exist in the app.",
+  "importPreviewSummaryEntries": "{count, plural, =1 {1 new entry will be added} other {{count} new entries will be added}}",
+  "@importPreviewSummaryEntries": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importPreviewSummaryUpdated": "{count, plural, =1 {1 existing entry will be updated} other {{count} existing entries will be updated}}",
+  "@importPreviewSummaryUpdated": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importPreviewSummaryGauges": "{count, plural, =1 {1 new gauge will be created} other {{count} new gauges will be created}}",
+  "@importPreviewSummaryGauges": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "importPreviewDuplicatesSummary": "{duplicateEntriesCount, plural, =1 {1 unchanged entry will be skipped.} other {{duplicateEntriesCount} unchanged entries will be skipped.}}",
   "@importPreviewDuplicatesSummary": {
     "placeholders": {
       "duplicateEntriesCount": {

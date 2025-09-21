@@ -2,7 +2,6 @@ import "dart:convert";
 import "dart:io";
 import "dart:math";
 
-import "package:collection/collection.dart";
 import "package:csv/csv.dart";
 import "package:drift/drift.dart";
 import "package:file_picker/file_picker.dart";
@@ -103,55 +102,68 @@ class DriftDataToolsRepository implements DataToolsRepository {
   Future<ImportPreview> analyzeImportFile(final File file) async {
     final _ParsedData parsedData = await _parseFile(file);
 
+    // --- Gauge Analysis ---
     final List<RainGauge> existingGauges = await _gaugesDao.getAllGauges();
-    final Set<String> existingGaugeNames = existingGauges
-        .map((final g) => g.name.toLowerCase())
-        .toSet();
-
-    final List<String> newGaugeNames = parsedData.gauges
-        .where((final g) => !existingGaugeNames.contains(g.name.toLowerCase()))
-        .map((final g) => g.name)
-        .toList();
-
-    // duplicate entry detection
-    final List<RainfallEntryWithGauge> existingEntriesWithGauges =
-        await _entriesDao.getAllEntriesWithGauges();
-
-    final Set<String> existingEntryKeys = existingEntriesWithGauges.map((
-      final e,
-    ) {
-      final DateTime date = e.entry.date;
-      // Convert amount to an integer representation in hundredths
-      // of mm to avoid floating point issues
-      final int amount = (e.entry.amount * 100).round();
-      final String gaugeName = e.gauge?.name ?? "";
-      return "${date.year}-${date.month}-${date.day}_${amount}_$gaugeName";
-    }).toSet();
-
-    final Map<String, String> parsedGaugeIdToNameMap = {
-      for (final g in parsedData.gauges) g.id: g.name,
+    final Map<String, RainGauge> existingGaugesByName = {
+      for (final g in existingGauges) g.name.toLowerCase(): g,
     };
 
-    int duplicateCount = 0;
-    for (final domain_entry.RainfallEntry entry in parsedData.entries) {
-      final DateTime date = entry.date;
-      final int amount = (entry.amount * 100).round();
-      final String gaugeName = parsedGaugeIdToNameMap[entry.gaugeId] ?? "";
-      final String key =
-          "${date.year}-${date.month}-${date.day}_${amount}_$gaugeName";
+    final List<String> newGaugeNames = [];
+    final Map<String, String> resolvedGaugeIdMap = {};
 
-      if (existingEntryKeys.contains(key)) {
-        duplicateCount++;
+    for (final domain_gauge.RainGauge parsedGauge in parsedData.gauges) {
+      final RainGauge? existingGauge =
+          existingGaugesByName[parsedGauge.name.toLowerCase()];
+      if (existingGauge == null) {
+        newGaugeNames.add(parsedGauge.name);
+        resolvedGaugeIdMap[parsedGauge.id] = parsedGauge.id;
+      } else {
+        resolvedGaugeIdMap[parsedGauge.id] = existingGauge.id;
       }
     }
 
-    final int newEntriesCount = parsedData.entries.length - duplicateCount;
+    // --- Entry Analysis ---
+    final List<RainfallEntry> existingDbEntries = await _entriesDao
+        .getAllEntries();
+    final Map<String, RainfallEntry> existingEntriesById = {
+      for (final e in existingDbEntries) e.id: e,
+    };
+
+    int newEntriesCount = 0;
+    int updatedEntriesCount = 0;
+    int duplicateEntriesCount = 0;
+
+    for (final domain_entry.RainfallEntry parsedEntry in parsedData.entries) {
+      if (parsedEntry.id == null ||
+          !existingEntriesById.containsKey(parsedEntry.id)) {
+        newEntriesCount++;
+        continue;
+      }
+
+      final RainfallEntry existingEntry = existingEntriesById[parsedEntry.id!]!;
+      final String? resolvedGaugeId = resolvedGaugeIdMap[parsedEntry.gaugeId];
+
+      final bool amountChanged =
+          (existingEntry.amount - parsedEntry.amount).abs() > 0.001;
+      final bool dateChanged = !existingEntry.date.isAtSameMomentAs(
+        parsedEntry.date,
+      );
+      final bool gaugeChanged =
+          (existingEntry.gaugeId ?? "") != (resolvedGaugeId ?? "");
+
+      if (amountChanged || dateChanged || gaugeChanged) {
+        updatedEntriesCount++;
+      } else {
+        duplicateEntriesCount++;
+      }
+    }
 
     return ImportPreview(
       newEntriesCount: newEntriesCount,
+      updatedEntriesCount: updatedEntriesCount,
       newGaugesCount: newGaugeNames.length,
       newGaugeNames: newGaugeNames,
-      duplicateEntriesCount: duplicateCount,
+      duplicateEntriesCount: duplicateEntriesCount,
     );
   }
 
@@ -260,6 +272,7 @@ class DriftDataToolsRepository implements DataToolsRepository {
     final List<String> headers = rows.first
         .map((final e) => e.toString().trim())
         .toList();
+    final int entryIdIndex = headers.indexOf("entry_id");
     final int gaugeNameIndex = headers.indexOf("gauge_name");
     final int dateIndex = headers.indexOf("date");
     final int amountIndex = headers.indexOf("amount");
@@ -274,6 +287,14 @@ class DriftDataToolsRepository implements DataToolsRepository {
       if (row.length <=
           [gaugeNameIndex, dateIndex, amountIndex, unitIndex].reduce(max)) {
         continue;
+      }
+
+      final String? entryId;
+      if (entryIdIndex != -1 && row.length > entryIdIndex) {
+        final String idValue = row[entryIdIndex].toString();
+        entryId = idValue.isNotEmpty ? idValue : null;
+      } else {
+        entryId = null;
       }
 
       final String gaugeName = row[gaugeNameIndex].toString().trim();
@@ -294,9 +315,11 @@ class DriftDataToolsRepository implements DataToolsRepository {
 
       entries.add(
         domain_entry.RainfallEntry(
+          id: entryId,
           amount: amountFromFile,
           date: DateTime.parse(row[dateIndex]),
-          unit: "mm", // Always save as mm
+          // Always save as mm
+          unit: "mm",
           gaugeId: gauge?.id ?? "",
         ),
       );
@@ -308,79 +331,57 @@ class DriftDataToolsRepository implements DataToolsRepository {
     final List<domain_gauge.RainGauge> gauges,
     final List<domain_entry.RainfallEntry> entries,
   ) async {
-    final List<RainfallEntryWithGauge> existingEntriesWithGauges =
-        await _entriesDao.getAllEntriesWithGauges();
-
-    final Set<String> existingEntryKeys = existingEntriesWithGauges.map((
-      final e,
-    ) {
-      final DateTime date = e.entry.date;
-      final int amount = (e.entry.amount * 100).round();
-      final String gaugeName = e.gauge?.name ?? "";
-      return "${date.year}-${date.month}-${date.day}_${amount}_$gaugeName";
-    }).toSet();
-
-    final Map<String, String> parsedGaugeIdToNameMap = {
-      for (final g in gauges) g.id: g.name,
-    };
-
-    final List<domain_entry.RainfallEntry> entriesToImport = entries.where((
-      final entry,
-    ) {
-      final DateTime date = entry.date;
-      final int amount = (entry.amount * 100).round();
-      final String gaugeName = parsedGaugeIdToNameMap[entry.gaugeId] ?? "";
-      final String key =
-          "${date.year}-${date.month}-${date.day}_${amount}_$gaugeName";
-      return !existingEntryKeys.contains(key);
-    }).toList();
-
     await _db.transaction(() async {
+      final List<RainGauge> existingGauges = await _gaugesDao.getAllGauges();
+      final Map<String, RainGauge> existingGaugesByName = {
+        for (final g in existingGauges) g.name.toLowerCase(): g,
+      };
+
       final List<RainGaugesCompanion> gaugesToInsert = [];
-      for (final gauge in gauges) {
-        final RainGauge? existing = await _gaugesDao.findGaugeByName(
-          gauge.name,
-        );
-        if (existing == null) {
+      final Map<String, String> resolvedGaugeIdMap = {};
+
+      for (final parsedGauge in gauges) {
+        final RainGauge? existingGauge =
+            existingGaugesByName[parsedGauge.name.toLowerCase()];
+        if (existingGauge == null) {
           gaugesToInsert.add(
-            RainGaugesCompanion.insert(id: Value(gauge.id), name: gauge.name),
+            RainGaugesCompanion.insert(
+              id: Value(parsedGauge.id),
+              name: parsedGauge.name,
+            ),
           );
+          resolvedGaugeIdMap[parsedGauge.id] = parsedGauge.id;
+        } else {
+          resolvedGaugeIdMap[parsedGauge.id] = existingGauge.id;
         }
       }
+
       if (gaugesToInsert.isNotEmpty) {
         await _gaugesDao.insertGauges(gaugesToInsert);
       }
 
-      final List<RainGauge> allGauges = await _gaugesDao.getAllGauges();
-      final Map<String, String> gaugeMap = {
-        for (final v in allGauges) v.name: v.id,
-      };
+      final List<RainfallEntriesCompanion> entriesToUpsert = entries.map((
+        final entry,
+      ) {
+        final String? finalGaugeId = resolvedGaugeIdMap[entry.gaugeId];
 
-      final List<RainfallEntriesCompanion> entriesToInsert = entriesToImport
-          .map((final entry) {
-            final domain_gauge.RainGauge? domainGauge = gauges.firstWhereOrNull(
-              (final g) => g.id == entry.gaugeId,
-            );
-            final String? gaugeId = domainGauge != null
-                ? gaugeMap[domainGauge.name]
-                : null;
+        double amountInMm = entry.amount;
+        if (entry.unit.toLowerCase() == "in") {
+          amountInMm = entry.amount.toMillimeters();
+        }
 
-            double amountInMm = entry.amount;
-            if (entry.unit.toLowerCase() == "in") {
-              amountInMm = entry.amount.toMillimeters();
-            }
+        return RainfallEntriesCompanion.insert(
+          id: entry.id == null ? const Value.absent() : Value(entry.id!),
+          amount: amountInMm,
+          date: entry.date,
+          // Always save as mm
+          unit: "mm",
+          gaugeId: Value(finalGaugeId),
+        );
+      }).toList();
 
-            return RainfallEntriesCompanion.insert(
-              amount: amountInMm,
-              date: entry.date,
-              unit: "mm", // Always save as mm
-              gaugeId: Value(gaugeId),
-            );
-          })
-          .toList();
-
-      if (entriesToInsert.isNotEmpty) {
-        await _entriesDao.insertEntries(entriesToInsert);
+      if (entriesToUpsert.isNotEmpty) {
+        await _entriesDao.upsertEntries(entriesToUpsert);
       }
     });
   }

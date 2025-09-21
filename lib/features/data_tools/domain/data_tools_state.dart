@@ -10,6 +10,7 @@ part "data_tools_state.freezed.dart";
 abstract class ImportPreview with _$ImportPreview {
   const factory ImportPreview({
     required final int newEntriesCount,
+    required final int updatedEntriesCount,
     required final int newGaugesCount,
     required final List<String> newGaugeNames,
     @Default(0) final int duplicateEntriesCount,

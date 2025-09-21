@@ -187,9 +187,9 @@ This project uses `flutter_dotenv` to manage environment variables for Firebase 
       configurations in `android/app/build.gradle`).
 
 * **Generating OSS Licenses:**
-  This project uses `flutter_oss_licenses` to generate a list of open-source licenses.
+  This project uses `dart_pubspec_licenses` to generate a list of open-source licenses.
   ```bash
-  dart run flutter_oss_licenses:generate
+  dart run dart_pubspec_licenses:generate
   ```
   This creates `lib/oss_licenses.dart`, which is then displayed on the "Open Source Licenses"
   screen.
