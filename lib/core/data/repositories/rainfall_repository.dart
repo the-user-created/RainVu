@@ -1,3 +1,4 @@
+// lib/core/data/repositories/rainfall_repository.dart
 import "package:drift/drift.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
@@ -31,6 +32,10 @@ abstract class RainfallRepository {
     required final DateTime start,
     required final DateTime end,
   });
+
+  Future<double> getTotalRainfall();
+
+  Future<List<int>> getAvailableYears();
 }
 
 @Riverpod(keepAlive: true)
@@ -97,6 +102,12 @@ class DriftRainfallRepository implements RainfallRepository {
     required final DateTime start,
     required final DateTime end,
   }) => _dao.getMonthlyTotals(start: start, end: end);
+
+  @override
+  Future<double> getTotalRainfall() => _dao.getTotalRainfall();
+
+  @override
+  Future<List<int>> getAvailableYears() => _dao.getAvailableYears();
 
   domain.RainfallEntry _mapDriftToDomain(
     final RainfallEntryWithGauge driftEntry,

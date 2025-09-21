@@ -1,3 +1,4 @@
+// lib/features/home/data/home_repository.dart
 import "package:intl/intl.dart";
 import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
 import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
@@ -27,38 +28,37 @@ class DriftHomeRepository implements HomeRepository {
   Stream<HomeData> watchHomeData() =>
       _rainfallRepo.watchTableUpdates().asyncMap((final _) async {
         final now = DateTime.now();
-        final today = DateTime(now.year, now.month, now.day);
         final monthStart = DateTime(now.year, now.month);
-        // Assuming Monday is the start of the week (weekday == 1).
-        final DateTime weekStart = today.subtract(
-          Duration(days: now.weekday - 1),
-        );
+        final yearStart = DateTime(now.year);
 
         // Fetch all required data in parallel.
         final List<Object> results = await Future.wait([
           _rainfallRepo.getTotalAmountBetween(monthStart, now),
-          _rainfallRepo.getTotalAmountBetween(weekStart, now),
           _rainfallRepo.fetchRecentEntries(),
           _getMonthlyTrends(now),
+          _rainfallRepo.getTotalAmountBetween(yearStart, now),
+          _rainfallRepo.getTotalRainfall(),
+          _rainfallRepo.getAvailableYears(),
         ]);
 
         final monthlyTotal = results[0] as double;
-        final weeklyTotal = results[1] as double;
-        final recentEntries = results[2] as List<RainfallEntry>;
-        final monthlyTrends = results[3] as List<MonthlyTrendPoint>;
+        final recentEntries = results[1] as List<RainfallEntry>;
+        final monthlyTrends = results[2] as List<MonthlyTrendPoint>;
+        final ytdTotal = results[3] as double;
+        final totalRainfall = results[4] as double;
+        final availableYears = results[5] as List<int>;
 
-        final double dailyAvg = now.day > 0 ? monthlyTotal / now.day : 0.0;
+        final double annualAverage = availableYears.isNotEmpty
+            ? totalRainfall / availableYears.toSet().length
+            : 0.0;
 
         return HomeData(
           currentMonthDate: now,
           monthlyTotal: monthlyTotal,
           recentEntries: recentEntries,
-          quickStats: [
-            QuickStat(value: weeklyTotal, type: QuickStatType.thisWeek),
-            QuickStat(value: monthlyTotal, type: QuickStatType.thisMonth),
-            QuickStat(value: dailyAvg, type: QuickStatType.dailyAvg),
-          ],
           monthlyTrends: monthlyTrends,
+          ytdTotal: ytdTotal,
+          annualAverage: annualAverage,
         );
       });
 

@@ -562,5 +562,14 @@
   "keyMetricsInfoYtdTotalTitle": "Year-to-Date (YTD) Total",
   "keyMetricsInfoYtdTotalDescription": "The sum of all rainfall logged from the first day of the current calendar year up to today.",
   "keyMetricsInfoMonthlyAvgTitle": "Monthly Average",
-  "keyMetricsInfoMonthlyAvgDescription": "The total rainfall ever recorded divided by the number of distinct months for which you have logged data. This gives you a general idea of your average rainfall per month."
+  "keyMetricsInfoMonthlyAvgDescription": "The total rainfall ever recorded divided by the number of distinct months for which you have logged data. This gives you a general idea of your average rainfall per month.",
+  "ytdProgressTitle": "Year-to-Date Progress",
+  "ytdAnnualAverage": "vs Annual Avg: {value}",
+  "@ytdAnnualAverage": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  }
 }
