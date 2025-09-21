@@ -14,7 +14,6 @@ multiple custom rain gauges.
     - [Prerequisites](#prerequisites)
     - [Setup](#setup)
     - [Environment Variables](#environment-variables)
-    - [Firebase Setup](#firebase-setup)
 - [Running the App](#running-the-app)
 - [Build Process](#build-process)
 - [Development Workflow](#development-workflow)
@@ -186,6 +185,14 @@ This project uses `flutter_dotenv` to manage environment variables for Firebase 
     * For a debug APK: `flutter build apk --debug`
     * For a release App Bundle: `flutter build appbundle --release` (ensure you have set up signing
       configurations in `android/app/build.gradle`).
+
+* **Generating OSS Licenses:**
+  This project uses `flutter_oss_licenses` to generate a list of open-source licenses.
+  ```bash
+  dart run flutter_oss_licenses:generate
+  ```
+  This creates `lib/oss_licenses.dart`, which is then displayed on the "Open Source Licenses"
+  screen.
 
 ## Development Workflow
 

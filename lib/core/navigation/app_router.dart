@@ -1,3 +1,4 @@
+// lib/core/navigation/app_router.dart
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
@@ -14,20 +15,24 @@ import "package:rain_wise/features/monthly_breakdown/presentation/screens/monthl
 import "package:rain_wise/features/rainfall_entry/presentation/screens/rainfall_entries_screen.dart";
 import "package:rain_wise/features/seasonal_patterns/presentation/screens/seasonal_patterns_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/help_screen.dart";
+import "package:rain_wise/features/settings/presentation/screens/oss_licenses_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/settings_screen.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
 part "app_router.g.dart";
 
 // 1. Define Navigator Keys
-final GlobalKey<NavigatorState> _rootNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: "root");
-final GlobalKey<NavigatorState> _homeNavigatorKey =
-    GlobalKey<NavigatorState>(debugLabel: "home");
+final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: "root",
+);
+final GlobalKey<NavigatorState> _homeNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: "home",
+);
 final GlobalKey<NavigatorState> _insightsNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: "insights");
-final GlobalKey<NavigatorState> _gaugesNavigatorKey =
-GlobalKey<NavigatorState>(debugLabel: "gauges");
+final GlobalKey<NavigatorState> _gaugesNavigatorKey = GlobalKey<NavigatorState>(
+  debugLabel: "gauges",
+);
 final GlobalKey<NavigatorState> _settingsNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: "settings");
 
@@ -39,13 +44,12 @@ final goRouterProvider = Provider<GoRouter>(
     debugLogDiagnostics: true,
     routes: $appRoutes,
     errorBuilder: (final context, final state) => Scaffold(
-      appBar: AppBar(
-        title: Text(AppLocalizations.of(context).pageNotFound),
-      ),
+      appBar: AppBar(title: Text(AppLocalizations.of(context).pageNotFound)),
       body: Center(
         child: Text(
-          AppLocalizations.of(context)
-              .pageNotFoundMessage(state.error?.toString() ?? "Unknown error"),
+          AppLocalizations.of(
+            context,
+          ).pageNotFoundMessage(state.error?.toString() ?? "Unknown error"),
           textAlign: TextAlign.center,
         ),
       ),
@@ -89,9 +93,7 @@ class ComingSoonRoute extends GoRouteData with $ComingSoonRoute {
         TypedGoRoute<HomeRoute>(
           path: "/home",
           routes: <TypedGoRoute<GoRouteData>>[
-            TypedGoRoute<RainfallEntriesRoute>(
-              path: "rainfall-entries/:month",
-            ),
+            TypedGoRoute<RainfallEntriesRoute>(path: "rainfall-entries/:month"),
           ],
         ),
       ],
@@ -126,6 +128,7 @@ class ComingSoonRoute extends GoRouteData with $ComingSoonRoute {
           routes: <TypedGoRoute<GoRouteData>>[
             TypedGoRoute<HelpRoute>(path: "help"),
             TypedGoRoute<DataToolsRoute>(path: "data-tools"),
+            TypedGoRoute<OssLicensesRoute>(path: "oss-licenses"),
           ],
         ),
       ],
@@ -140,8 +143,7 @@ class AppShellRoute extends StatefulShellRouteData {
     final BuildContext context,
     final GoRouterState state,
     final StatefulNavigationShell navigationShell,
-  ) =>
-      ScaffoldWithNavBar(navigationShell: navigationShell);
+  ) => ScaffoldWithNavBar(navigationShell: navigationShell);
 }
 
 // --- Shell Branches ---
@@ -289,4 +291,15 @@ class DataToolsRoute extends GoRouteData with $DataToolsRoute {
   @override
   Widget build(final BuildContext context, final GoRouterState state) =>
       const DataToolsScreen();
+}
+
+class OssLicensesRoute extends GoRouteData with $OssLicensesRoute {
+  const OssLicensesRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(final BuildContext context, final GoRouterState state) =>
+      const OssLicensesScreen();
 }

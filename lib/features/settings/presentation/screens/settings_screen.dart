@@ -15,6 +15,10 @@ import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
 
+// TODO: Add a "What's New" tile in the "Support & Legal" section that opens a dialog or screen showing the latest release notes.
+// TODO: Use the in_app_review package to prompt for a rating without leaving the app.
+// TODO: "Tell a friend" Use the share_plus package to open the native share sheet with a link to the app store page.
+
 /// The main settings screen, composed of smaller, reusable widgets.
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
@@ -155,15 +159,14 @@ class SettingsScreen extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(l10n.settingsTitle, style: theme.textTheme.headlineLarge),
+        title: Text(l10n.settingsTitle),
         elevation: 2,
-        centerTitle: false,
+        centerTitle: true,
       ),
       body: ListView(
         children: [
@@ -177,6 +180,7 @@ class SettingsScreen extends ConsumerWidget {
           SettingsCard(
             children: [
               SettingsListTile(
+                leading: const Icon(Icons.import_export_rounded),
                 title: l10n.settingsDataManagementExportImport,
                 onTap: () => const DataToolsRoute().push(context),
               ),
@@ -186,20 +190,28 @@ class SettingsScreen extends ConsumerWidget {
           SettingsCard(
             children: [
               SettingsListTile(
+                leading: const Icon(Icons.help_outline_rounded),
                 title: l10n.settingsSupportLegalHelp,
                 onTap: () => const HelpRoute().push(context),
               ),
               SettingsListTile(
+                leading: const Icon(Icons.policy_outlined),
                 title: l10n.settingsSupportLegalPrivacyPolicy,
                 onTap: () => const ComingSoonRoute(
                   $extra: ComingSoonScreenArgs(pageTitle: "Privacy Policy"),
                 ).push(context),
               ),
               SettingsListTile(
+                leading: const Icon(Icons.gavel_rounded),
                 title: l10n.settingsSupportLegalTermsOfService,
                 onTap: () => const ComingSoonRoute(
                   $extra: ComingSoonScreenArgs(pageTitle: "Terms of Service"),
                 ).push(context),
+              ),
+              SettingsListTile(
+                leading: const Icon(Icons.article_outlined),
+                title: l10n.settingsSupportLegalOssLicenses,
+                onTap: () => const OssLicensesRoute().push(context),
               ),
             ],
           ),

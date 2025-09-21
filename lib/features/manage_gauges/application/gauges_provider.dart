@@ -6,6 +6,8 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "gauges_provider.g.dart";
 
+// TODO: Allow users to set a default gauge
+
 @riverpod
 class Gauges extends _$Gauges {
   @override

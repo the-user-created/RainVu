@@ -6,10 +6,12 @@ class SettingsListTile extends StatelessWidget {
   const SettingsListTile({
     required this.title,
     super.key,
+    this.leading,
     this.onTap,
   });
 
   final String title;
+  final Widget? leading;
   final VoidCallback? onTap;
 
   @override
@@ -17,10 +19,16 @@ class SettingsListTile extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
 
     return ListTile(
-      title: Text(
-        title,
-        style: theme.textTheme.titleLarge,
-      ),
+      leading: leading != null
+          ? IconTheme(
+              data: IconThemeData(
+                color: theme.colorScheme.onSurfaceVariant,
+                size: 24,
+              ),
+              child: leading!,
+            )
+          : null,
+      title: Text(title, style: theme.textTheme.bodyLarge),
       trailing: Icon(
         Icons.chevron_right_rounded,
         color: theme.colorScheme.onSurfaceVariant,

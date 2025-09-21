@@ -15,7 +15,8 @@ class UserPreferencesNotifier extends _$UserPreferencesNotifier {
   }
 
   Future<void> _updatePreferences(final UserPreferences newPreferences) async {
-    state = const AsyncValue.loading();
+    // By not setting the state to loading, the UI will preserve the old state
+    // until the future completes, preventing a loading indicator flicker.
     state = await AsyncValue.guard(() async {
       await _repository.saveUserPreferences(newPreferences);
       return newPreferences;

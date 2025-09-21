@@ -219,6 +219,18 @@
   "settingsSupportLegalHelp": "Help & Support",
   "settingsSupportLegalPrivacyPolicy": "Privacy Policy",
   "settingsSupportLegalTermsOfService": "Terms of Service",
+  "settingsSupportLegalOssLicenses": "Open Source Licenses",
+  "ossLicensesTitle": "Open Source Licenses",
+  "ossLicensesVersion": "Version {version}",
+  "@ossLicensesVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "licenseDisclaimerTitle": "Disclaimer",
+  "licenseDisclaimerContent": "License text formatting has been adjusted for readability, but the content is unmodified.",
   "settingsSectionAppearance": "APPEARANCE",
   "settingsAppearanceTheme": "Theme",
   "settingsThemeLight": "Light",

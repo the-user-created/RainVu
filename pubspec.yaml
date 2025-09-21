@@ -59,6 +59,7 @@ dependencies:
 dev_dependencies:
   build_runner: ^2.5.4
   custom_lint: ^0.8.0
+  dart_pubspec_licenses: ^3.0.10
   drift_dev: ^2.28.0
   flutter_lints: ^6.0.0
 
