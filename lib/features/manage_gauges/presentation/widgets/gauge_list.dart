@@ -58,7 +58,7 @@ class GaugeList extends ConsumerWidget {
                   itemCount: gauges.length,
                   itemBuilder: (final _, final index) =>
                       GaugeListTile(gauge: gauges[index]),
-                  separatorBuilder: (final _, final __) =>
+                  separatorBuilder: (final _, final _) =>
                       const SizedBox(height: 12),
                 ),
             ],

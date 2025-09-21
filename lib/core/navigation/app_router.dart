@@ -14,7 +14,6 @@ import "package:rain_wise/features/monthly_breakdown/presentation/screens/monthl
 import "package:rain_wise/features/rainfall_entry/presentation/screens/rainfall_entries_screen.dart";
 import "package:rain_wise/features/seasonal_patterns/presentation/screens/seasonal_patterns_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/help_screen.dart";
-import "package:rain_wise/features/settings/presentation/screens/notifications_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/settings_screen.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
@@ -125,7 +124,6 @@ class ComingSoonRoute extends GoRouteData with $ComingSoonRoute {
         TypedGoRoute<SettingsRoute>(
           path: "/settings",
           routes: <TypedGoRoute<GoRouteData>>[
-            TypedGoRoute<NotificationsRoute>(path: "notifications"),
             TypedGoRoute<HelpRoute>(path: "help"),
             TypedGoRoute<DataToolsRoute>(path: "data-tools"),
           ],
@@ -271,17 +269,6 @@ class ComparativeAnalysisRoute extends GoRouteData
 }
 
 // Settings Sub-Routes
-class NotificationsRoute extends GoRouteData with $NotificationsRoute {
-  const NotificationsRoute();
-
-  static final GlobalKey<NavigatorState> $parentNavigatorKey =
-      _rootNavigatorKey;
-
-  @override
-  Widget build(final BuildContext context, final GoRouterState state) =>
-      const NotificationsScreen();
-}
-
 class HelpRoute extends GoRouteData with $HelpRoute {
   const HelpRoute();
 

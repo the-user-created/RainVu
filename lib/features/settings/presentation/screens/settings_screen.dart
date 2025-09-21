@@ -79,6 +79,13 @@ class SettingsScreen extends ConsumerWidget {
       ),
       body: ListView(
         children: [
+          SettingsSectionHeader(title: l10n.settingsSectionPreferences),
+          // TODO: add theme mode (light/dark/system) setting
+          SettingsCard(
+            children: [
+              _buildMeasurementUnitSetting(context, ref, l10n),
+            ],
+          ),
           SettingsSectionHeader(title: l10n.settingsSectionDataManagement),
           SettingsCard(
             children: [
@@ -86,16 +93,6 @@ class SettingsScreen extends ConsumerWidget {
                 title: l10n.settingsDataManagementExportImport,
                 onTap: () => const DataToolsRoute().push(context),
               ),
-              SettingsListTile(
-                title: l10n.settingsDataManagementNotifications,
-                onTap: () => const NotificationsRoute().push(context),
-              ),
-            ],
-          ),
-          SettingsSectionHeader(title: l10n.settingsSectionPreferences),
-          SettingsCard(
-            children: [
-              _buildMeasurementUnitSetting(context, ref, l10n),
             ],
           ),
           SettingsSectionHeader(title: l10n.settingsSectionSupportLegal),

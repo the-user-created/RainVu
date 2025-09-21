@@ -43,7 +43,6 @@ class HelpScreen extends ConsumerWidget {
     final List<Faq> faqs = [
       Faq(question: l10n.faq1Question, answer: l10n.faq1Answer),
       Faq(question: l10n.faq2Question, answer: l10n.faq2Answer),
-      Faq(question: l10n.faq3Question, answer: l10n.faq3Answer),
     ];
 
     return Scaffold(

@@ -34,8 +34,8 @@ notebooks and spreadsheets, offering instant insights and historical analysis at
   and patterns.
 * **Helps you analyze the past:** Dive deep into historical data with monthly breakdowns, seasonal
   pattern analysis, and year-over-year comparisons.
-* **Puts you in control:** Manage your rain gauges, export your data for external use, and set up
-  custom notifications to stay on top of your data logging.
+* **Puts you in control:** Manage your rain gauges, export your data for external use, and import
+  previous records.
 
 Our mission is to empower you with the tools to transform raw rainfall data into actionable
 intelligence, turning guesswork into data-driven strategy.
@@ -51,8 +51,6 @@ intelligence, turning guesswork into data-driven strategy.
 
 * 📤 **Data Export & Import**: Take control of your data by exporting it to CSV or JSON formats
   for use in other applications. Easily import data from previous records.
-
-* 🔔 **Customizable Notifications**: Stay consistent with your data logging.
 
 * 🔒 **Secure & Private**: Your data is your own, stored locally on your device.
 
