@@ -19,12 +19,11 @@ void showSnackbar(
                 height: 20,
                 width: 20,
                 child: CircularProgressIndicator(
-                  // Use a theme-aware color for the spinner
                   color: theme.colorScheme.onInverseSurface,
                 ),
               ),
             ),
-          Text(message),
+          Expanded(child: Text(message)),
         ],
       ),
       duration: Duration(seconds: duration),

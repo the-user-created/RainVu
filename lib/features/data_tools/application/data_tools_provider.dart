@@ -31,13 +31,11 @@ class DataToolsNotifier extends _$DataToolsNotifier {
 
     final File? file = await ref.read(dataToolsRepositoryProvider).pickFile();
     if (file != null) {
-      state = state.copyWith(
-        fileToImport: file,
-        isParsing: true,
-      );
+      state = state.copyWith(fileToImport: file, isParsing: true);
       try {
-        final ImportPreview preview =
-            await ref.read(dataToolsRepositoryProvider).analyzeImportFile(file);
+        final ImportPreview preview = await ref
+            .read(dataToolsRepositoryProvider)
+            .analyzeImportFile(file);
         state = state.copyWith(importPreview: preview, isParsing: false);
       } catch (e) {
         state = state.copyWith(
@@ -65,12 +63,15 @@ class DataToolsNotifier extends _$DataToolsNotifier {
     );
 
     try {
-      final String path =
-          await ref.read(dataToolsRepositoryProvider).exportData(
-                format: state.exportFormat,
-                dateRange: state.dateRange,
-              );
-      state = state.copyWith(successMessage: l10n.dataToolsExportSuccess(path));
+      final String? path = await ref
+          .read(dataToolsRepositoryProvider)
+          .exportData(format: state.exportFormat, dateRange: state.dateRange);
+      if (path != null) {
+        print(l10n.dataToolsExportSuccess(path));
+        state = state.copyWith(
+          successMessage: l10n.dataToolsExportSuccess(path),
+        );
+      }
     } catch (e) {
       state = state.copyWith(errorMessage: l10n.dataToolsExportFailed(e));
     } finally {

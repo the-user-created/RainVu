@@ -6,7 +6,6 @@ import "package:collection/collection.dart";
 import "package:csv/csv.dart";
 import "package:drift/drift.dart";
 import "package:file_picker/file_picker.dart";
-import "package:file_saver/file_saver.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/daos/rain_gauges_dao.dart";
@@ -23,7 +22,7 @@ part "data_tools_repository.g.dart";
 // TODO: put the data import/export logic onto a background isolate or use a loading indicator for large datasets
 
 abstract class DataToolsRepository {
-  Future<String> exportData({
+  Future<String?> exportData({
     required final ExportFormat format,
     final DateTimeRange? dateRange,
   });
@@ -38,11 +37,7 @@ abstract class DataToolsRepository {
 @riverpod
 DataToolsRepository dataToolsRepository(final Ref ref) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
-  return DriftDataToolsRepository(
-    db.rainfallEntriesDao,
-    db.rainGaugesDao,
-    db,
-  );
+  return DriftDataToolsRepository(db.rainfallEntriesDao, db.rainGaugesDao, db);
 }
 
 // Helper class to hold parsed data
@@ -61,7 +56,7 @@ class DriftDataToolsRepository implements DataToolsRepository {
   final AppDatabase _db;
 
   @override
-  Future<String> exportData({
+  Future<String?> exportData({
     required final ExportFormat format,
     final DateTimeRange? dateRange,
   }) async {
@@ -78,34 +73,30 @@ class DriftDataToolsRepository implements DataToolsRepository {
 
     final String fileContent;
     final String extension;
-    final MimeType mimeType;
 
     switch (format) {
       case ExportFormat.json:
         fileContent = _formatAsJson(entriesWithGauges);
         extension = "json";
-        mimeType = MimeType.json;
       case ExportFormat.csv:
         fileContent = _formatAsCsv(entriesWithGauges);
         extension = "csv";
-        mimeType = MimeType.csv;
     }
 
-    // Convert the string content to a byte list (Uint8List) for the saver.
-    final Uint8List bytes = utf8.encode(fileContent);
-
     final String fileName =
-        "rainwise_export_${DateTime.now().millisecondsSinceEpoch}";
+        "rainwise_export_${DateTime.now().millisecondsSinceEpoch}.$extension";
 
-    // Use FileSaver to save the file, which handles platform-specific logic.
-    final String filePath = await FileSaver.instance.saveFile(
-      name: fileName,
-      bytes: bytes,
-      fileExtension: extension,
-      mimeType: mimeType,
+    // Encode the file content to bytes
+    final Uint8List fileBytes = utf8.encode(fileContent);
+
+    // Use saveFile to open a system dialog for the user to choose location
+    final String? resultPath = await FilePicker.platform.saveFile(
+      dialogTitle: "Please select an output file:",
+      fileName: fileName,
+      bytes: fileBytes,
     );
 
-    return filePath;
+    return resultPath;
   }
 
   @override
@@ -113,20 +104,54 @@ class DriftDataToolsRepository implements DataToolsRepository {
     final _ParsedData parsedData = await _parseFile(file);
 
     final List<RainGauge> existingGauges = await _gaugesDao.getAllGauges();
-    final Set<String> existingGaugeNames =
-        existingGauges.map((final g) => g.name.toLowerCase()).toSet();
+    final Set<String> existingGaugeNames = existingGauges
+        .map((final g) => g.name.toLowerCase())
+        .toSet();
 
     final List<String> newGaugeNames = parsedData.gauges
-        .where(
-          (final g) => !existingGaugeNames.contains(g.name.toLowerCase()),
-        )
+        .where((final g) => !existingGaugeNames.contains(g.name.toLowerCase()))
         .map((final g) => g.name)
         .toList();
 
+    // duplicate entry detection
+    final List<RainfallEntryWithGauge> existingEntriesWithGauges =
+        await _entriesDao.getAllEntriesWithGauges();
+
+    final Set<String> existingEntryKeys = existingEntriesWithGauges.map((
+      final e,
+    ) {
+      final DateTime date = e.entry.date;
+      // Convert amount to an integer representation in hundredths
+      // of mm to avoid floating point issues
+      final int amount = (e.entry.amount * 100).round();
+      final String gaugeName = e.gauge?.name ?? "";
+      return "${date.year}-${date.month}-${date.day}_${amount}_$gaugeName";
+    }).toSet();
+
+    final Map<String, String> parsedGaugeIdToNameMap = {
+      for (final g in parsedData.gauges) g.id: g.name,
+    };
+
+    int duplicateCount = 0;
+    for (final domain_entry.RainfallEntry entry in parsedData.entries) {
+      final DateTime date = entry.date;
+      final int amount = (entry.amount * 100).round();
+      final String gaugeName = parsedGaugeIdToNameMap[entry.gaugeId] ?? "";
+      final String key =
+          "${date.year}-${date.month}-${date.day}_${amount}_$gaugeName";
+
+      if (existingEntryKeys.contains(key)) {
+        duplicateCount++;
+      }
+    }
+
+    final int newEntriesCount = parsedData.entries.length - duplicateCount;
+
     return ImportPreview(
-      newEntriesCount: parsedData.entries.length,
+      newEntriesCount: newEntriesCount,
       newGaugesCount: newGaugeNames.length,
       newGaugeNames: newGaugeNames,
+      duplicateEntriesCount: duplicateCount,
     );
   }
 
@@ -166,10 +191,7 @@ class DriftDataToolsRepository implements DataToolsRepository {
       if (item.gauge != null &&
           !gauges.any((final g) => g.id == item.gauge!.id)) {
         gauges.add(
-          domain_gauge.RainGauge(
-            id: item.gauge!.id,
-            name: item.gauge!.name,
-          ),
+          domain_gauge.RainGauge(id: item.gauge!.id, name: item.gauge!.name),
         );
       }
     }
@@ -182,14 +204,7 @@ class DriftDataToolsRepository implements DataToolsRepository {
 
   String _formatAsCsv(final List<RainfallEntryWithGauge> data) {
     final List<List<dynamic>> rows = [
-      [
-        "entry_id",
-        "date",
-        "amount",
-        "unit",
-        "gauge_id",
-        "gauge_name",
-      ]
+      ["entry_id", "date", "amount", "unit", "gauge_id", "gauge_name"],
     ];
 
     for (final item in data) {
@@ -224,28 +239,27 @@ class DriftDataToolsRepository implements DataToolsRepository {
     final List<dynamic> entriesJson = data["entries"] ?? [];
 
     final List<domain_gauge.RainGauge> gauges = gaugesJson
-        .map(
-          (final g) => domain_gauge.RainGauge.fromJson(g),
-        )
+        .map((final g) => domain_gauge.RainGauge.fromJson(g))
         .toList();
     final List<domain_entry.RainfallEntry> entries = entriesJson
-        .map(
-          (final e) => domain_entry.RainfallEntry.fromJson(e),
-        )
+        .map((final e) => domain_entry.RainfallEntry.fromJson(e))
         .toList();
 
     return _ParsedData(gauges, entries);
   }
 
   _ParsedData _parseCsvContent(final String content) {
-    final List<List<dynamic>> rows =
-        const CsvToListConverter().convert(content, eol: "\n");
+    final List<List<dynamic>> rows = const CsvToListConverter().convert(
+      content,
+      eol: "\n",
+    );
     if (rows.length < 2) {
       return _ParsedData([], []);
     }
 
-    final List<String> headers =
-        rows.first.map((final e) => e.toString().trim()).toList();
+    final List<String> headers = rows.first
+        .map((final e) => e.toString().trim())
+        .toList();
     final int gaugeNameIndex = headers.indexOf("gauge_name");
     final int dateIndex = headers.indexOf("date");
     final int amountIndex = headers.indexOf("amount");
@@ -262,7 +276,7 @@ class DriftDataToolsRepository implements DataToolsRepository {
         continue;
       }
 
-      final String gaugeName = row[gaugeNameIndex];
+      final String gaugeName = row[gaugeNameIndex].toString().trim();
 
       domain_gauge.RainGauge? gauge = gaugeCache[gaugeName];
       if (gauge == null && gaugeName.isNotEmpty) {
@@ -294,17 +308,42 @@ class DriftDataToolsRepository implements DataToolsRepository {
     final List<domain_gauge.RainGauge> gauges,
     final List<domain_entry.RainfallEntry> entries,
   ) async {
+    final List<RainfallEntryWithGauge> existingEntriesWithGauges =
+        await _entriesDao.getAllEntriesWithGauges();
+
+    final Set<String> existingEntryKeys = existingEntriesWithGauges.map((
+      final e,
+    ) {
+      final DateTime date = e.entry.date;
+      final int amount = (e.entry.amount * 100).round();
+      final String gaugeName = e.gauge?.name ?? "";
+      return "${date.year}-${date.month}-${date.day}_${amount}_$gaugeName";
+    }).toSet();
+
+    final Map<String, String> parsedGaugeIdToNameMap = {
+      for (final g in gauges) g.id: g.name,
+    };
+
+    final List<domain_entry.RainfallEntry> entriesToImport = entries.where((
+      final entry,
+    ) {
+      final DateTime date = entry.date;
+      final int amount = (entry.amount * 100).round();
+      final String gaugeName = parsedGaugeIdToNameMap[entry.gaugeId] ?? "";
+      final String key =
+          "${date.year}-${date.month}-${date.day}_${amount}_$gaugeName";
+      return !existingEntryKeys.contains(key);
+    }).toList();
+
     await _db.transaction(() async {
       final List<RainGaugesCompanion> gaugesToInsert = [];
       for (final gauge in gauges) {
-        final RainGauge? existing =
-            await _gaugesDao.findGaugeByName(gauge.name);
+        final RainGauge? existing = await _gaugesDao.findGaugeByName(
+          gauge.name,
+        );
         if (existing == null) {
           gaugesToInsert.add(
-            RainGaugesCompanion.insert(
-              id: Value(gauge.id),
-              name: gauge.name,
-            ),
+            RainGaugesCompanion.insert(id: Value(gauge.id), name: gauge.name),
           );
         }
       }
@@ -317,26 +356,28 @@ class DriftDataToolsRepository implements DataToolsRepository {
         for (final v in allGauges) v.name: v.id,
       };
 
-      final List<RainfallEntriesCompanion> entriesToInsert = entries.map(
-        (final entry) {
-          final domain_gauge.RainGauge? domainGauge =
-              gauges.firstWhereOrNull((final g) => g.id == entry.gaugeId);
-          final String? gaugeId =
-              domainGauge != null ? gaugeMap[domainGauge.name] : null;
+      final List<RainfallEntriesCompanion> entriesToInsert = entriesToImport
+          .map((final entry) {
+            final domain_gauge.RainGauge? domainGauge = gauges.firstWhereOrNull(
+              (final g) => g.id == entry.gaugeId,
+            );
+            final String? gaugeId = domainGauge != null
+                ? gaugeMap[domainGauge.name]
+                : null;
 
-          double amountInMm = entry.amount;
-          if (entry.unit.toLowerCase() == "in") {
-            amountInMm = entry.amount.toMillimeters();
-          }
+            double amountInMm = entry.amount;
+            if (entry.unit.toLowerCase() == "in") {
+              amountInMm = entry.amount.toMillimeters();
+            }
 
-          return RainfallEntriesCompanion.insert(
-            amount: amountInMm,
-            date: entry.date,
-            unit: "mm", // Always save as mm
-            gaugeId: Value(gaugeId),
-          );
-        },
-      ).toList();
+            return RainfallEntriesCompanion.insert(
+              amount: amountInMm,
+              date: entry.date,
+              unit: "mm", // Always save as mm
+              gaugeId: Value(gaugeId),
+            );
+          })
+          .toList();
 
       if (entriesToInsert.isNotEmpty) {
         await _entriesDao.insertEntries(entriesToInsert);

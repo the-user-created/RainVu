@@ -34,6 +34,14 @@
       }
     }
   },
+  "importPreviewDuplicatesSummary": "It also contains {duplicateEntriesCount} duplicate entries, which will be skipped.",
+  "@importPreviewDuplicatesSummary": {
+    "placeholders": {
+      "duplicateEntriesCount": {
+        "type": "int"
+      }
+    }
+  },
   "dataToolsImportSuccess": "Data imported successfully.",
   "@dataToolsImportSuccess": {
     "description": "Success message shown after data is imported successfully."
@@ -203,11 +211,8 @@
   "deleteEntryTooltip": "Delete Entry",
   "unknownGauge": "Unknown Gauge",
   "settingsTitle": "Settings",
-  "settingsSectionAccount": "ACCOUNT",
-  "settingsAccountMySubscription": "My Subscription",
   "settingsSectionDataManagement": "DATA MANAGEMENT",
   "settingsDataManagementExportImport": "Data Export/Import",
-  "settingsDataManagementManageGauges": "Manage Rain Gauges",
   "settingsSectionPreferences": "PREFERENCES",
   "settingsPreferencesMeasurementUnit": "Measurement Unit",
   "settingsSectionSupportLegal": "SUPPORT & LEGAL",

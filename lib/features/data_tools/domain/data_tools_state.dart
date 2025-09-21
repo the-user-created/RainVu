@@ -12,6 +12,7 @@ abstract class ImportPreview with _$ImportPreview {
     required final int newEntriesCount,
     required final int newGaugesCount,
     required final List<String> newGaugeNames,
+    @Default(0) final int duplicateEntriesCount,
   }) = _ImportPreview;
 }
 

@@ -169,6 +169,18 @@ class _ImportPreviewSummary extends StatelessWidget {
             textAlign: TextAlign.center,
             style: theme.textTheme.bodyMedium,
           ),
+          if (preview.duplicateEntriesCount > 0) ...[
+            const SizedBox(height: 8),
+            Text(
+              l10n.importPreviewDuplicatesSummary(
+                preview.duplicateEntriesCount,
+              ),
+              textAlign: TextAlign.center,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ],
           if (preview.newGaugeNames.isNotEmpty) ...[
             const SizedBox(height: 16),
             Text(
@@ -183,13 +195,13 @@ class _ImportPreviewSummary extends StatelessWidget {
               children: preview.newGaugeNames
                   .map(
                     (final name) => Chip(
-                      label: Text(name),
-                      backgroundColor: theme.colorScheme.secondaryContainer,
-                      labelStyle: theme.textTheme.bodySmall?.copyWith(
-                        color: theme.colorScheme.onSecondaryContainer,
-                      ),
-                    ),
-                  )
+                  label: Text(name),
+                  backgroundColor: theme.colorScheme.secondaryContainer,
+                  labelStyle: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSecondaryContainer,
+                  ),
+                ),
+              )
                   .toList(),
             ),
           ],
