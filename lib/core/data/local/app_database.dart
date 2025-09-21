@@ -1,4 +1,5 @@
 import "package:drift/drift.dart";
+import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/data/local/connection/mobile.dart";
 import "package:rain_wise/core/data/local/daos/rain_gauges_dao.dart";
 import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
@@ -18,6 +19,21 @@ class AppDatabase extends _$AppDatabase {
 
   @override
   int get schemaVersion => 1;
+
+  @override
+  MigrationStrategy get migration => MigrationStrategy(
+    onCreate: (final m) async {
+      await m.createAll();
+
+      // Create the default rain gauge
+      await into(rainGauges).insert(
+        const RainGaugesCompanion(
+          id: Value(AppConstants.defaultGaugeId),
+          name: Value(AppConstants.defaultGaugeName),
+        ),
+      );
+    },
+  );
 
   Future<void> deleteAllData() => transaction(() async {
     for (final TableInfo<Table, Object?> table in allTables) {

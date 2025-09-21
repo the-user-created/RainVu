@@ -613,5 +613,6 @@
     }
   },
   "logRainfallAddNewGauge": "Add new gauge...",
-  "gaugeTileSetFavoriteTooltip": "Set as favorite gauge"
+  "gaugeTileSetFavoriteTooltip": "Set as favorite gauge",
+  "defaultGaugeName": "Default Gauge"
 }

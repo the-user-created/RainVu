@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
@@ -66,8 +67,14 @@ class RainfallEntryListItem extends ConsumerWidget {
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
         MeasurementUnit.mm;
 
-    String gaugeName = entry.gauge?.name ?? l10n.loading;
-    if (gaugeName == "Unknown Gauge") {
+    final String gaugeName;
+    if (entry.gauge != null) {
+      if (entry.gauge!.id == AppConstants.defaultGaugeId) {
+        gaugeName = l10n.defaultGaugeName;
+      } else {
+        gaugeName = entry.gauge!.name;
+      }
+    } else {
       gaugeName = l10n.unknownGauge;
     }
 

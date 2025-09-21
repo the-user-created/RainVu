@@ -1,3 +1,5 @@
+import "package:drift/drift.dart";
+import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/shared_prefs.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
@@ -20,5 +22,13 @@ class AppResetService extends _$AppResetService {
 
     await db.deleteAllData();
     await prefs.clear();
+
+    // Re-insert the default gauge
+    await db.rainGaugesDao.insertGauge(
+      const RainGaugesCompanion(
+        id: Value(AppConstants.defaultGaugeId),
+        name: Value(AppConstants.defaultGaugeName),
+      ),
+    );
   }
 }

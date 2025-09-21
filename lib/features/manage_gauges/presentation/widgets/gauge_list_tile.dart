@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
@@ -68,6 +69,10 @@ class GaugeListTile extends ConsumerWidget {
         .value
         ?.favoriteGaugeId;
     final bool isFavorite = gauge.id == favoriteGaugeId;
+    final bool isDefaultGauge = gauge.id == AppConstants.defaultGaugeId;
+    final String displayName = isDefaultGauge
+        ? l10n.defaultGaugeName
+        : gauge.name;
 
     return Container(
       padding: const EdgeInsets.all(12),
@@ -78,7 +83,7 @@ class GaugeListTile extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(child: Text(gauge.name, style: theme.textTheme.bodyLarge)),
+          Expanded(child: Text(displayName, style: theme.textTheme.bodyLarge)),
           Row(
             children: [
               AppIconButton(
@@ -99,28 +104,30 @@ class GaugeListTile extends ConsumerWidget {
                 },
                 tooltip: l10n.gaugeTileSetFavoriteTooltip,
               ),
-              AppIconButton(
-                icon: Icon(
-                  Icons.edit,
-                  color: theme.colorScheme.onSurface,
-                  size: 20,
+              if (!isDefaultGauge)
+                AppIconButton(
+                  icon: Icon(
+                    Icons.edit,
+                    color: theme.colorScheme.onSurface,
+                    size: 20,
+                  ),
+                  backgroundColor: theme.colorScheme.surface,
+                  borderRadius: BorderRadius.circular(30),
+                  onPressed: () => _showEditSheet(context),
+                  tooltip: l10n.gaugeTileEditTooltip,
                 ),
-                backgroundColor: theme.colorScheme.surface,
-                borderRadius: BorderRadius.circular(30),
-                onPressed: () => _showEditSheet(context),
-                tooltip: l10n.gaugeTileEditTooltip,
-              ),
-              AppIconButton(
-                icon: Icon(
-                  Icons.delete_outline,
-                  color: theme.colorScheme.error,
-                  size: 20,
+              if (!isDefaultGauge)
+                AppIconButton(
+                  icon: Icon(
+                    Icons.delete_outline,
+                    color: theme.colorScheme.error,
+                    size: 20,
+                  ),
+                  backgroundColor: theme.colorScheme.surface,
+                  borderRadius: BorderRadius.circular(30),
+                  onPressed: () => _showDeleteDialog(context, ref, l10n),
+                  tooltip: l10n.gaugeTileDeleteTooltip,
                 ),
-                backgroundColor: theme.colorScheme.surface,
-                borderRadius: BorderRadius.circular(30),
-                onPressed: () => _showDeleteDialog(context, ref, l10n),
-                tooltip: l10n.gaugeTileDeleteTooltip,
-              ),
             ].divide(const SizedBox(width: 8)),
           ),
         ],

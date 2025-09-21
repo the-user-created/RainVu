@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/data/providers/data_providers.dart";
 import "package:rain_wise/core/utils/extensions.dart";
@@ -170,14 +171,16 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
                     Text(l10n.rainfallEntriesError(err)),
                 data: (final gauges) => AppDropdownFormField<String>(
                   value: _selectedGaugeId,
-                  items: gauges
-                      .map(
-                        (final gauge) => DropdownMenuItem(
-                          value: gauge.id,
-                          child: Text(gauge.name),
-                        ),
-                      )
-                      .toList(),
+                  items: gauges.map((final gauge) {
+                    final String displayName =
+                        gauge.id == AppConstants.defaultGaugeId
+                        ? l10n.defaultGaugeName
+                        : gauge.name;
+                    return DropdownMenuItem(
+                      value: gauge.id,
+                      child: Text(displayName),
+                    );
+                  }).toList(),
                   onChanged: (final value) =>
                       setState(() => _selectedGaugeId = value),
                   validator: (final value) =>

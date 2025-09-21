@@ -1,4 +1,5 @@
 import "package:freezed_annotation/freezed_annotation.dart";
+import "package:rain_wise/app_constants.dart";
 
 part "user_preferences.freezed.dart";
 
@@ -24,7 +25,7 @@ abstract class UserPreferences with _$UserPreferences {
   const factory UserPreferences({
     @Default(MeasurementUnit.mm) final MeasurementUnit measurementUnit,
     @Default(AppThemeMode.system) final AppThemeMode themeMode,
-    final String? favoriteGaugeId,
+    @Default(AppConstants.defaultGaugeId) final String? favoriteGaugeId,
   }) = _UserPreferences;
 
   factory UserPreferences.fromJson(final Map<String, dynamic> json) =>

@@ -206,12 +206,16 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                         }
                       },
                       items: [
-                        ...gauges.map(
-                          (final gauge) => DropdownMenuItem(
+                        ...gauges.map((final gauge) {
+                          final String displayName =
+                              gauge.id == AppConstants.defaultGaugeId
+                              ? l10n.defaultGaugeName
+                              : gauge.name;
+                          return DropdownMenuItem(
                             value: gauge.id,
-                            child: Text(gauge.name),
-                          ),
-                        ),
+                            child: Text(displayName),
+                          );
+                        }),
                         DropdownMenuItem<String>(
                           value: "__ADD_NEW__",
                           child: Row(
