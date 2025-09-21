@@ -1,11 +1,11 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/ui/custom_colors.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/monthly_breakdown/domain/monthly_breakdown_data.dart";
-import "package:rain_wise/features/settings/application/preferences_provider.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 
 class HistoricalComparisonCard extends ConsumerWidget {
   const HistoricalComparisonCard({
@@ -24,7 +24,7 @@ class HistoricalComparisonCard extends ConsumerWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
-            MeasurementUnit.mm;
+        MeasurementUnit.mm;
 
     return Card(
       child: Padding(

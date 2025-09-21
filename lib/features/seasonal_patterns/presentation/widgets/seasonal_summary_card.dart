@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/seasonal_patterns/domain/seasonal_patterns_data.dart";
-import "package:rain_wise/features/settings/application/preferences_provider.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 
 class SeasonalSummaryCard extends ConsumerWidget {
   const SeasonalSummaryCard({required this.summary, super.key});
@@ -17,7 +17,7 @@ class SeasonalSummaryCard extends ConsumerWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
-            MeasurementUnit.mm;
+        MeasurementUnit.mm;
 
     return Card(
       elevation: 2,
@@ -88,8 +88,9 @@ class _MetricItem extends StatelessWidget {
       children: [
         Text(
           label,
-          style: textTheme.bodyMedium
-              ?.copyWith(color: colorScheme.onSurfaceVariant),
+          style: textTheme.bodyMedium?.copyWith(
+            color: colorScheme.onSurfaceVariant,
+          ),
         ),
         Text(value, style: valueStyle ?? textTheme.bodyLarge),
       ],
@@ -116,8 +117,9 @@ class _TrendMetricItem extends StatelessWidget {
       children: [
         Text(
           label,
-          style: textTheme.bodyMedium
-              ?.copyWith(color: colorScheme.onSurfaceVariant),
+          style: textTheme.bodyMedium?.copyWith(
+            color: colorScheme.onSurfaceVariant,
+          ),
         ),
         Row(
           children: [
@@ -137,8 +139,8 @@ class _TrendMetricItem extends StatelessWidget {
 class _VerticalDivider extends StatelessWidget {
   @override
   Widget build(final BuildContext context) => Container(
-        width: 1,
-        height: 40,
-        color: Theme.of(context).colorScheme.surfaceContainerHighest,
-      );
+    width: 1,
+    height: 40,
+    color: Theme.of(context).colorScheme.surfaceContainerHighest,
+  );
 }

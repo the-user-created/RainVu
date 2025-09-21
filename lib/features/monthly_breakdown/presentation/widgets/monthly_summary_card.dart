@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/navigation/app_router.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/monthly_breakdown/domain/monthly_breakdown_data.dart";
-import "package:rain_wise/features/settings/application/preferences_provider.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class MonthlySummaryCard extends ConsumerWidget {
@@ -27,7 +27,7 @@ class MonthlySummaryCard extends ConsumerWidget {
     final TextTheme textTheme = theme.textTheme;
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
-            MeasurementUnit.mm;
+        MeasurementUnit.mm;
 
     return Card(
       child: Padding(
@@ -46,23 +46,26 @@ class MonthlySummaryCard extends ConsumerWidget {
                     ),
                     Text(
                       stats.totalRainfall.formatRainfall(context, unit),
-                      style: textTheme.titleMedium
-                          ?.copyWith(color: colorScheme.secondary),
+                      style: textTheme.titleMedium?.copyWith(
+                        color: colorScheme.secondary,
+                      ),
                     ),
                   ],
                 ),
                 AppIconButton(
                   backgroundColor: colorScheme.surfaceContainerHighest,
                   borderRadius: BorderRadius.circular(24),
-                  icon:
-                      Icon(Icons.edit, color: colorScheme.secondary, size: 28),
+                  icon: Icon(
+                    Icons.edit,
+                    color: colorScheme.secondary,
+                    size: 28,
+                  ),
                   tooltip: l10n.editEntriesTooltip,
                   onPressed: () {
-                    final String monthParam =
-                        DateFormat("yyyy-MM").format(selectedMonth);
-                    RainfallEntriesRoute(month: monthParam).push(
-                      context,
-                    );
+                    final String monthParam = DateFormat(
+                      "yyyy-MM",
+                    ).format(selectedMonth);
+                    RainfallEntriesRoute(month: monthParam).push(context);
                   },
                 ),
               ],
@@ -108,8 +111,9 @@ class _StatItem extends StatelessWidget {
         Text(value, style: textTheme.headlineSmall),
         Text(
           label,
-          style: textTheme.bodySmall
-              ?.copyWith(color: colorScheme.onSurfaceVariant),
+          style: textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurfaceVariant,
+          ),
         ),
       ],
     );

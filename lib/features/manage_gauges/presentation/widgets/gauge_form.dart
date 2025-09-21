@@ -1,3 +1,5 @@
+import "dart:async";
+
 import "package:flutter/material.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
@@ -7,7 +9,7 @@ class GaugeForm extends StatefulWidget {
   const GaugeForm({super.key, this.gauge, this.onSave});
 
   final RainGauge? gauge;
-  final Function(String name)? onSave;
+  final FutureOr<void> Function(String name)? onSave;
 
   @override
   State<GaugeForm> createState() => _GaugeFormState();
@@ -33,9 +35,7 @@ class _GaugeFormState extends State<GaugeForm> {
 
   void _submit() {
     if (_formKey.currentState?.validate() ?? false) {
-      widget.onSave?.call(
-        _nameController.text,
-      );
+      widget.onSave?.call(_nameController.text);
     }
   }
 

@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/edit_gauge_sheet.dart";
@@ -19,8 +20,9 @@ class GaugeListTile extends ConsumerWidget {
       backgroundColor: Colors.transparent,
       useSafeArea: true,
       builder: (final context) => Padding(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
         child: EditGaugeSheet(gauge: gauge),
       ),
     );
@@ -61,6 +63,11 @@ class GaugeListTile extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
+    final String? favoriteGaugeId = ref
+        .watch(userPreferencesProvider)
+        .value
+        ?.favoriteGaugeId;
+    final bool isFavorite = gauge.id == favoriteGaugeId;
 
     return Container(
       padding: const EdgeInsets.all(12),
@@ -71,11 +78,27 @@ class GaugeListTile extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(
-            child: Text(gauge.name, style: theme.textTheme.bodyLarge),
-          ),
+          Expanded(child: Text(gauge.name, style: theme.textTheme.bodyLarge)),
           Row(
             children: [
+              AppIconButton(
+                icon: Icon(
+                  isFavorite ? Icons.star : Icons.star_border,
+                  color: isFavorite
+                      ? Colors.amber[600]
+                      : theme.colorScheme.onSurface,
+                  size: 20,
+                ),
+                backgroundColor: theme.colorScheme.surface,
+                borderRadius: BorderRadius.circular(30),
+                onPressed: () {
+                  final String? newFavoriteId = isFavorite ? null : gauge.id;
+                  ref
+                      .read(userPreferencesProvider.notifier)
+                      .setFavoriteGauge(newFavoriteId);
+                },
+                tooltip: l10n.gaugeTileSetFavoriteTooltip,
+              ),
               AppIconButton(
                 icon: Icon(
                   Icons.edit,

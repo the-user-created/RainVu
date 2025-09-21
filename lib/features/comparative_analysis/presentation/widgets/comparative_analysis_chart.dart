@@ -2,17 +2,14 @@ import "package:collection/collection.dart";
 import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/comparative_analysis/domain/comparative_analysis_data.dart";
-import "package:rain_wise/features/settings/application/preferences_provider.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 
 class ComparativeAnalysisChart extends ConsumerWidget {
-  const ComparativeAnalysisChart({
-    required this.chartData,
-    super.key,
-  });
+  const ComparativeAnalysisChart({required this.chartData, super.key});
 
   final ComparativeChartData chartData;
 
@@ -25,7 +22,7 @@ class ComparativeAnalysisChart extends ConsumerWidget {
     final List<Color> colors = [colorScheme.secondary, colorScheme.tertiary];
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
-            MeasurementUnit.mm;
+        MeasurementUnit.mm;
     final bool isInch = unit == MeasurementUnit.inch;
 
     if (chartData.series.isEmpty || chartData.series.first.data.isEmpty) {
@@ -73,40 +70,42 @@ class ComparativeAnalysisChart extends ConsumerWidget {
                   borderData: FlBorderData(show: false),
                   gridData: FlGridData(
                     drawVerticalLine: false,
-                    getDrawingHorizontalLine: (final value) => FlLine(
-                      color: colorScheme.outline,
-                      strokeWidth: 1,
-                    ),
+                    getDrawingHorizontalLine: (final value) =>
+                        FlLine(color: colorScheme.outline, strokeWidth: 1),
                   ),
                   barTouchData: BarTouchData(
                     touchTooltipData: BarTouchTooltipData(
                       getTooltipColor: (final _) => colorScheme.primary,
-                      getTooltipItem: (
-                        final group,
-                        final groupIndex,
-                        final rod,
-                        final rodIndex,
-                      ) {
-                        final int year = chartData.series[rodIndex].year;
-                        // Rod value is already in the display unit. Convert it
-                        // back to mm for consistent formatting logic.
-                        final double mmValue =
-                            isInch ? rod.toY.toMillimeters() : rod.toY;
+                      getTooltipItem:
+                          (
+                            final group,
+                            final groupIndex,
+                            final rod,
+                            final rodIndex,
+                          ) {
+                            final int year = chartData.series[rodIndex].year;
+                            // Rod value is already in the display unit. Convert it
+                            // back to mm for consistent formatting logic.
+                            final double mmValue = isInch
+                                ? rod.toY.toMillimeters()
+                                : rod.toY;
 
-                        return BarTooltipItem(
-                          "$year\n",
-                          TextStyle(
-                            color: colorScheme.onPrimary,
-                            fontWeight: FontWeight.bold,
-                          ),
-                          children: <TextSpan>[
-                            TextSpan(
-                              text: mmValue.formatRainfall(context, unit),
-                              style: TextStyle(color: colorScheme.onPrimary),
-                            ),
-                          ],
-                        );
-                      },
+                            return BarTooltipItem(
+                              "$year\n",
+                              TextStyle(
+                                color: colorScheme.onPrimary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                              children: <TextSpan>[
+                                TextSpan(
+                                  text: mmValue.formatRainfall(context, unit),
+                                  style: TextStyle(
+                                    color: colorScheme.onPrimary,
+                                  ),
+                                ),
+                              ],
+                            );
+                          },
                     ),
                   ),
                 ),
@@ -119,46 +118,46 @@ class ComparativeAnalysisChart extends ConsumerWidget {
   }
 
   FlTitlesData _buildTitles(final ThemeData theme) => FlTitlesData(
-        rightTitles: const AxisTitles(),
-        topTitles: const AxisTitles(),
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 30,
-            getTitlesWidget: (final value, final meta) {
-              final int index = value.toInt();
-              if (index < chartData.labels.length) {
-                return Padding(
-                  padding: const EdgeInsets.only(top: 6),
-                  child: Text(
-                    chartData.labels[index],
-                    style: theme.textTheme.bodySmall,
-                  ),
-                );
-              }
-              return const Text("");
-            },
-          ),
-        ),
-        leftTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 40,
-            getTitlesWidget: (final value, final meta) {
-              if (value == 0) {
-                return const Text("");
-              }
-              if (value == meta.max) {
-                return const Text("");
-              }
-              return Text(
-                value.toInt().toString(),
+    rightTitles: const AxisTitles(),
+    topTitles: const AxisTitles(),
+    bottomTitles: AxisTitles(
+      sideTitles: SideTitles(
+        showTitles: true,
+        reservedSize: 30,
+        getTitlesWidget: (final value, final meta) {
+          final int index = value.toInt();
+          if (index < chartData.labels.length) {
+            return Padding(
+              padding: const EdgeInsets.only(top: 6),
+              child: Text(
+                chartData.labels[index],
                 style: theme.textTheme.bodySmall,
-              );
-            },
-          ),
-        ),
-      );
+              ),
+            );
+          }
+          return const Text("");
+        },
+      ),
+    ),
+    leftTitles: AxisTitles(
+      sideTitles: SideTitles(
+        showTitles: true,
+        reservedSize: 40,
+        getTitlesWidget: (final value, final meta) {
+          if (value == 0) {
+            return const Text("");
+          }
+          if (value == meta.max) {
+            return const Text("");
+          }
+          return Text(
+            value.toInt().toString(),
+            style: theme.textTheme.bodySmall,
+          );
+        },
+      ),
+    ),
+  );
 
   List<BarChartGroupData> _generateBarGroups(
     final List<Color> colors,

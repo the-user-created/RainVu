@@ -3,6 +3,7 @@ import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/daos/rain_gauges_dao.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart" as domain;
 import "package:riverpod_annotation/riverpod_annotation.dart";
+import "package:uuid/uuid.dart";
 
 part "rain_gauge_repository.g.dart";
 
@@ -11,9 +12,7 @@ abstract class RainGaugeRepository {
 
   Future<List<domain.RainGauge>> fetchGauges();
 
-  Future<void> addGauge({
-    required final String name,
-  });
+  Future<domain.RainGauge> addGauge({required final String name});
 
   Future<void> updateGauge(final domain.RainGauge updatedGauge);
 
@@ -33,8 +32,8 @@ class DriftRainGaugeRepository implements RainGaugeRepository {
 
   @override
   Stream<List<domain.RainGauge>> watchGauges() => _dao.watchAllGauges().map(
-        (final gauges) => gauges.map(_mapDriftToDomain).toList(),
-      );
+    (final gauges) => gauges.map(_mapDriftToDomain).toList(),
+  );
 
   @override
   Future<List<domain.RainGauge>> fetchGauges() async {
@@ -43,13 +42,11 @@ class DriftRainGaugeRepository implements RainGaugeRepository {
   }
 
   @override
-  Future<void> addGauge({
-    required final String name,
-  }) {
-    final companion = RainGaugesCompanion.insert(
-      name: name,
-    );
-    return _dao.insertGauge(companion);
+  Future<domain.RainGauge> addGauge({required final String name}) async {
+    final newGauge = domain.RainGauge(id: const Uuid().v4(), name: name);
+    final RainGaugesCompanion companion = _mapDomainToCompanion(newGauge);
+    await _dao.insertGauge(companion);
+    return newGauge;
   }
 
   @override
@@ -61,16 +58,12 @@ class DriftRainGaugeRepository implements RainGaugeRepository {
       _dao.deleteGauge(RainGaugesCompanion(id: Value(gaugeId)));
 
   domain.RainGauge _mapDriftToDomain(final RainGauge driftGauge) =>
-      domain.RainGauge(
-        id: driftGauge.id,
-        name: driftGauge.name,
-      );
+      domain.RainGauge(id: driftGauge.id, name: driftGauge.name);
 
   RainGaugesCompanion _mapDomainToCompanion(
     final domain.RainGauge domainGauge,
-  ) =>
-      RainGaugesCompanion(
-        id: Value(domainGauge.id),
-        name: Value(domainGauge.name),
-      );
+  ) => RainGaugesCompanion(
+    id: Value(domainGauge.id),
+    name: Value(domainGauge.name),
+  );
 }

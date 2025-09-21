@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/comparative_analysis/domain/comparative_analysis_data.dart";
-import "package:rain_wise/features/settings/application/preferences_provider.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 
 class YearlySummaryCard extends ConsumerWidget {
   const YearlySummaryCard({
@@ -23,13 +23,15 @@ class YearlySummaryCard extends ConsumerWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final bool isPositive = summary.percentageChange >= 0;
-    final Color changeColor =
-        isPositive ? colorScheme.tertiary : colorScheme.error;
-    final IconData changeIcon =
-        isPositive ? Icons.trending_up : Icons.trending_down;
+    final Color changeColor = isPositive
+        ? colorScheme.tertiary
+        : colorScheme.error;
+    final IconData changeIcon = isPositive
+        ? Icons.trending_up
+        : Icons.trending_down;
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
-            MeasurementUnit.mm;
+        MeasurementUnit.mm;
 
     return Card(
       elevation: 2,
@@ -45,9 +47,7 @@ class YearlySummaryCard extends ConsumerWidget {
               children: [
                 Text(
                   summary.year.toString(),
-                  style: textTheme.headlineSmall?.copyWith(
-                    color: color,
-                  ),
+                  style: textTheme.headlineSmall?.copyWith(color: color),
                 ),
                 if (summary.percentageChange.isFinite &&
                     summary.percentageChange != 0)
@@ -102,10 +102,7 @@ class _StatItem extends StatelessWidget {
           ),
         ),
         const SizedBox(height: 4),
-        Text(
-          value,
-          style: textTheme.titleMedium,
-        ),
+        Text(value, style: textTheme.titleMedium),
       ],
     );
   }

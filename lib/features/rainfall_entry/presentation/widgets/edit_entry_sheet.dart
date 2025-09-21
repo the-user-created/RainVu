@@ -2,14 +2,14 @@ import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/data/providers/data_providers.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
-import "package:rain_wise/features/settings/application/preferences_provider.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/domain/rainfall_entry.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
@@ -54,7 +54,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
     if (!_isUnitInitialized) {
       final MeasurementUnit unit =
           ref.read(userPreferencesProvider).value?.measurementUnit ??
-              MeasurementUnit.mm;
+          MeasurementUnit.mm;
       _displayUnit = unit;
       double displayAmount = widget.entry.amount;
       if (unit == MeasurementUnit.inch) {
@@ -129,8 +129,9 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final AsyncValue<List<RainGauge>> gaugesAsync =
-        ref.watch(allGaugesFutureProvider);
+    final AsyncValue<List<RainGauge>> gaugesAsync = ref.watch(
+      allGaugesFutureProvider,
+    );
 
     return Container(
       padding: EdgeInsets.fromLTRB(
@@ -196,8 +197,9 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
                     flex: 3,
                     child: TextFormField(
                       controller: _amountController,
-                      keyboardType:
-                          const TextInputType.numberWithOptions(decimal: true),
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
                       inputFormatters: [
                         FilteringTextInputFormatter.allow(
                           RegExp(r"^\d+\.?\d*"),
@@ -253,8 +255,10 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
                 onTap: _pickDateTime,
                 child: InputDecorator(
                   decoration: const InputDecoration(
-                    contentPadding:
-                        EdgeInsets.symmetric(horizontal: 12, vertical: 16),
+                    contentPadding: EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 16,
+                    ),
                   ),
                   child: Row(
                     mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -315,8 +319,13 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
       return;
     }
     setState(() {
-      _selectedDate =
-          DateTime(date.year, date.month, date.day, time.hour, time.minute);
+      _selectedDate = DateTime(
+        date.year,
+        date.month,
+        date.day,
+        time.hour,
+        time.minute,
+      );
     });
   }
 }

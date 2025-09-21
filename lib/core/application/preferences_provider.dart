@@ -1,16 +1,16 @@
-import "package:rain_wise/features/settings/data/settings_repository.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
+import "package:rain_wise/core/data/repositories/preferences_repository.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "preferences_provider.g.dart";
 
 @riverpod
 class UserPreferencesNotifier extends _$UserPreferencesNotifier {
-  late SettingsRepository _repository;
+  late PreferencesRepository _repository;
 
   @override
   Future<UserPreferences> build() async {
-    _repository = await ref.watch(settingsRepositoryProvider.future);
+    _repository = await ref.watch(preferencesRepositoryProvider.future);
     return _repository.getUserPreferences();
   }
 
@@ -31,5 +31,10 @@ class UserPreferencesNotifier extends _$UserPreferencesNotifier {
   Future<void> setThemeMode(final AppThemeMode mode) async {
     final UserPreferences currentState = await future;
     await _updatePreferences(currentState.copyWith(themeMode: mode));
+  }
+
+  Future<void> setFavoriteGauge(final String? gaugeId) async {
+    final UserPreferences currentState = await future;
+    await _updatePreferences(currentState.copyWith(favoriteGaugeId: gaugeId));
   }
 }

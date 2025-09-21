@@ -1,14 +1,14 @@
 import "dart:convert";
 
 import "package:rain_wise/core/data/local/shared_prefs.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
-part "settings_repository.g.dart";
+part "preferences_repository.g.dart";
 
-class SettingsRepository {
-  SettingsRepository(this._prefs);
+class PreferencesRepository {
+  PreferencesRepository(this._prefs);
 
   final SharedPreferences _prefs;
 
@@ -28,19 +28,16 @@ class SettingsRepository {
   }
 
   /// Saves the provided [UserPreferences] to local storage.
-  Future<void> saveUserPreferences(
-    final UserPreferences preferences,
-  ) async {
+  Future<void> saveUserPreferences(final UserPreferences preferences) async {
     final String jsonString = jsonEncode(preferences.toJson());
     await _prefs.setString(_userPreferencesKey, jsonString);
   }
 }
 
 @riverpod
-Future<SettingsRepository> settingsRepository(
-  final Ref ref,
-) async {
-  final SharedPreferences prefs =
-      await ref.watch(sharedPreferencesProvider.future);
-  return SettingsRepository(prefs);
+Future<PreferencesRepository> preferencesRepository(final Ref ref) async {
+  final SharedPreferences prefs = await ref.watch(
+    sharedPreferencesProvider.future,
+  );
+  return PreferencesRepository(prefs);
 }

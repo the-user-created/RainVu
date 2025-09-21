@@ -3,11 +3,11 @@ import "dart:math";
 import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
-import "package:rain_wise/features/settings/application/preferences_provider.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 
 class AnomalyTimelineChart extends ConsumerWidget {
   const AnomalyTimelineChart({required this.chartPoints, super.key});
@@ -21,7 +21,7 @@ class AnomalyTimelineChart extends ConsumerWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
-            MeasurementUnit.mm;
+        MeasurementUnit.mm;
     final isInch = unit == MeasurementUnit.inch;
 
     return Card(
@@ -81,10 +81,11 @@ class AnomalyTimelineChart extends ConsumerWidget {
     final double maxRainfall = chartPoints.isEmpty
         ? 10
         : chartPoints
-            .map((final p) => max(p.actualRainfall, p.averageRainfall))
-            .reduce(max);
-    final double displayMaxRainfall =
-        isInch ? maxRainfall.toInches() : maxRainfall;
+              .map((final p) => max(p.actualRainfall, p.averageRainfall))
+              .reduce(max);
+    final double displayMaxRainfall = isInch
+        ? maxRainfall.toInches()
+        : maxRainfall;
 
     final List<FlSpot> averageSpots = [];
     final List<FlSpot> actualSpots = [];
@@ -152,10 +153,7 @@ class AnomalyTimelineChart extends ConsumerWidget {
 }
 
 class _LegendItem extends StatelessWidget {
-  const _LegendItem({
-    required this.color,
-    required this.text,
-  });
+  const _LegendItem({required this.color, required this.text});
 
   final Color color;
   final String text;
@@ -168,10 +166,7 @@ class _LegendItem extends StatelessWidget {
         Container(
           width: 12,
           height: 12,
-          decoration: BoxDecoration(
-            color: color,
-            shape: BoxShape.circle,
-          ),
+          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
         ),
         const SizedBox(width: 4),
         Text(text, style: textTheme.bodySmall),

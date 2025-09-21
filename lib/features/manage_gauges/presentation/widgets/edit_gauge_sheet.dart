@@ -41,11 +41,11 @@ class EditGaugeSheet extends ConsumerWidget {
             const SizedBox(height: 24),
             GaugeForm(
               gauge: gauge,
-              onSave: (final name) {
-                final RainGauge updatedGauge = gauge.copyWith(
-                  name: name,
-                );
-                ref.read(gaugesProvider.notifier).updateGauge(updatedGauge);
+              onSave: (final name) async {
+                final RainGauge updatedGauge = gauge.copyWith(name: name);
+                await ref
+                    .read(gaugesProvider.notifier)
+                    .updateGauge(updatedGauge);
                 if (context.mounted) {
                   Navigator.pop(context);
                 }

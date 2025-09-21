@@ -1,17 +1,14 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
-import "package:rain_wise/features/settings/application/preferences_provider.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 
 class AnomalyListItem extends ConsumerWidget {
-  const AnomalyListItem({
-    required this.anomaly,
-    super.key,
-  });
+  const AnomalyListItem({required this.anomaly, super.key});
 
   final RainfallAnomaly anomaly;
 
@@ -23,7 +20,7 @@ class AnomalyListItem extends ConsumerWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
-            MeasurementUnit.mm;
+        MeasurementUnit.mm;
 
     final String sign = anomaly.deviationPercentage > 0 ? "+" : "";
     final String deviationValue =
@@ -31,8 +28,10 @@ class AnomalyListItem extends ConsumerWidget {
     final String deviationText = l10n.anomalyDeviationVsAverage(deviationValue);
 
     final String description;
-    final String formattedAverage =
-        anomaly.averageRainfall.formatRainfall(context, unit);
+    final String formattedAverage = anomaly.averageRainfall.formatRainfall(
+      context,
+      unit,
+    );
     if (anomaly.deviationPercentage > 0) {
       description = l10n.anomalyDescriptionHigher(
         anomaly.deviationPercentage.toStringAsFixed(0),
@@ -74,8 +73,9 @@ class AnomalyListItem extends ConsumerWidget {
             const SizedBox(height: 8),
             Text(
               description,
-              style: textTheme.bodyMedium
-                  ?.copyWith(color: colorScheme.onSurfaceVariant),
+              style: textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
             ),
           ],
         ),

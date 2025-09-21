@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/ui/custom_colors.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/monthly_breakdown/domain/monthly_breakdown_data.dart";
-import "package:rain_wise/features/settings/application/preferences_provider.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 
 class DailyBreakdownList extends ConsumerWidget {
   const DailyBreakdownList({required this.breakdownItems, super.key});
@@ -20,7 +20,7 @@ class DailyBreakdownList extends ConsumerWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
-            MeasurementUnit.mm;
+        MeasurementUnit.mm;
     return Card(
       child: Padding(
         padding: const EdgeInsets.all(20),
@@ -37,9 +37,9 @@ class DailyBreakdownList extends ConsumerWidget {
                   const Divider(height: 1),
               itemBuilder: (final context, final index) =>
                   _DailyBreakdownListItem(
-                item: breakdownItems[index],
-                unit: unit,
-              ),
+                    item: breakdownItems[index],
+                    unit: unit,
+                  ),
             ),
           ],
         ),

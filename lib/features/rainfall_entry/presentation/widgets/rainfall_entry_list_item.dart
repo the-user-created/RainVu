@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
 import "package:rain_wise/features/rainfall_entry/presentation/widgets/edit_entry_sheet.dart";
-import "package:rain_wise/features/settings/application/preferences_provider.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rainfall_entry.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class RainfallEntryListItem extends ConsumerWidget {
@@ -64,7 +64,7 @@ class RainfallEntryListItem extends ConsumerWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
-            MeasurementUnit.mm;
+        MeasurementUnit.mm;
 
     String gaugeName = entry.gauge?.name ?? l10n.loading;
     if (gaugeName == "Unknown Gauge") {
@@ -92,8 +92,9 @@ class RainfallEntryListItem extends ConsumerWidget {
                   const SizedBox(height: 4),
                   Text(
                     "${entry.amount.formatRainfall(context, unit)} - $gaugeName",
-                    style: theme.textTheme.bodyMedium
-                        ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
                 ],
               ),

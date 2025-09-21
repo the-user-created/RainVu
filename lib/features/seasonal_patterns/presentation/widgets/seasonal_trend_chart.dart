@@ -4,11 +4,11 @@ import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/seasonal_patterns/domain/seasonal_patterns_data.dart";
-import "package:rain_wise/features/settings/application/preferences_provider.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 
 class SeasonalTrendChart extends ConsumerWidget {
   const SeasonalTrendChart({required this.trendData, super.key});
@@ -21,14 +21,15 @@ class SeasonalTrendChart extends ConsumerWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
-            MeasurementUnit.mm;
+        MeasurementUnit.mm;
     final bool isInch = unit == MeasurementUnit.inch;
 
     final double maxRainfall = trendData.isEmpty
         ? 10.0
         : trendData.map((final e) => e.rainfall).reduce(max);
-    final double displayMaxRainfall =
-        isInch ? maxRainfall.toInches() : maxRainfall;
+    final double displayMaxRainfall = isInch
+        ? maxRainfall.toInches()
+        : maxRainfall;
 
     return Card(
       elevation: 2,
@@ -65,63 +66,62 @@ class SeasonalTrendChart extends ConsumerWidget {
   }
 
   FlTitlesData _buildTitlesData(final ThemeData theme) => FlTitlesData(
-        topTitles: const AxisTitles(),
-        rightTitles: const AxisTitles(),
-        bottomTitles: AxisTitles(
-          sideTitles: SideTitles(
-            showTitles: true,
-            reservedSize: 30,
-            interval: (trendData.length / 4).floorToDouble(),
-            getTitlesWidget: (final value, final meta) {
-              if (value.toInt() >= trendData.length) {
-                return const Text("");
-              }
-              final DateTime date = trendData[value.toInt()].date;
-              return Padding(
-                padding: const EdgeInsets.only(top: 6),
-                child: Text(
-                  DateFormat.MMM().format(date),
-                  style: theme.textTheme.bodySmall,
-                ),
-              );
-            },
-          ),
-        ),
-        leftTitles: const AxisTitles(
-          sideTitles: SideTitles(showTitles: true, reservedSize: 40),
-        ),
-      );
+    topTitles: const AxisTitles(),
+    rightTitles: const AxisTitles(),
+    bottomTitles: AxisTitles(
+      sideTitles: SideTitles(
+        showTitles: true,
+        reservedSize: 30,
+        interval: (trendData.length / 4).floorToDouble(),
+        getTitlesWidget: (final value, final meta) {
+          if (value.toInt() >= trendData.length) {
+            return const Text("");
+          }
+          final DateTime date = trendData[value.toInt()].date;
+          return Padding(
+            padding: const EdgeInsets.only(top: 6),
+            child: Text(
+              DateFormat.MMM().format(date),
+              style: theme.textTheme.bodySmall,
+            ),
+          );
+        },
+      ),
+    ),
+    leftTitles: const AxisTitles(
+      sideTitles: SideTitles(showTitles: true, reservedSize: 40),
+    ),
+  );
 
   LineChartBarData _buildLineBarData(
     final ThemeData theme,
     final bool isInch,
-  ) =>
-      LineChartBarData(
-        spots: trendData
-            .asMap()
-            .entries
-            .map(
-              (final entry) => FlSpot(
-                entry.key.toDouble(),
-                isInch ? entry.value.rainfall.toInches() : entry.value.rainfall,
-              ),
-            )
-            .toList(),
-        isCurved: true,
-        color: theme.colorScheme.secondary,
-        barWidth: 3,
-        isStrokeCapRound: true,
-        dotData: const FlDotData(show: false),
-        belowBarData: BarAreaData(
-          show: true,
-          gradient: LinearGradient(
-            colors: [
-              theme.colorScheme.secondary.withValues(alpha: 0.3),
-              theme.colorScheme.secondary.withValues(alpha: 0),
-            ],
-            begin: Alignment.topCenter,
-            end: Alignment.bottomCenter,
+  ) => LineChartBarData(
+    spots: trendData
+        .asMap()
+        .entries
+        .map(
+          (final entry) => FlSpot(
+            entry.key.toDouble(),
+            isInch ? entry.value.rainfall.toInches() : entry.value.rainfall,
           ),
-        ),
-      );
+        )
+        .toList(),
+    isCurved: true,
+    color: theme.colorScheme.secondary,
+    barWidth: 3,
+    isStrokeCapRound: true,
+    dotData: const FlDotData(show: false),
+    belowBarData: BarAreaData(
+      show: true,
+      gradient: LinearGradient(
+        colors: [
+          theme.colorScheme.secondary.withValues(alpha: 0.3),
+          theme.colorScheme.secondary.withValues(alpha: 0),
+        ],
+        begin: Alignment.topCenter,
+        end: Alignment.bottomCenter,
+      ),
+    ),
+  );
 }

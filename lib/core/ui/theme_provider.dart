@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/features/settings/application/preferences_provider.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "theme_provider.g.dart";

@@ -3,13 +3,14 @@ import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/app_constants.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/data/providers/data_providers.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/home/application/home_providers.dart";
-import "package:rain_wise/features/settings/application/preferences_provider.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
+import "package:rain_wise/features/manage_gauges/presentation/widgets/add_gauge_sheet.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
@@ -74,6 +75,27 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
     }
   }
 
+  Future<void> _showAddGaugeSheet() async {
+    final RainGauge? newGauge = await showModalBottomSheet<RainGauge>(
+      context: context,
+      isScrollControlled: true,
+      backgroundColor: Colors.transparent,
+      useSafeArea: true,
+      builder: (final sheetContext) => Padding(
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(sheetContext).viewInsets.bottom,
+        ),
+        child: const AddGaugeSheet(),
+      ),
+    );
+
+    if (newGauge != null && mounted) {
+      setState(() {
+        _selectedGaugeId = newGauge.id;
+      });
+    }
+  }
+
   Future<void> _saveRainfallData() async {
     FocusScope.of(context).unfocus();
 
@@ -87,12 +109,13 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
       amount = amount.toMillimeters();
     }
 
-    final bool success =
-        await ref.read(logRainControllerProvider.notifier).saveEntry(
-              gaugeId: _selectedGaugeId!,
-              amount: amount,
-              date: _selectedDateTime,
-            );
+    final bool success = await ref
+        .read(logRainControllerProvider.notifier)
+        .saveEntry(
+          gaugeId: _selectedGaugeId!,
+          amount: amount,
+          date: _selectedDateTime,
+        );
 
     if (mounted && success) {
       Navigator.pop(context);
@@ -101,13 +124,15 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
 
   @override
   Widget build(final BuildContext context) {
-    final AsyncValue<List<RainGauge>> gaugesAsync =
-        ref.watch(allGaugesFutureProvider);
+    final AsyncValue<List<RainGauge>> gaugesAsync = ref.watch(
+      allGaugesStreamProvider,
+    );
     final AsyncValue<void> logRainState = ref.watch(logRainControllerProvider);
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final AsyncValue<UserPreferences> userPreferences =
-        ref.watch(userPreferencesProvider);
+    final AsyncValue<UserPreferences> userPreferences = ref.watch(
+      userPreferencesProvider,
+    );
 
     if (!_isUnitInitialized && userPreferences.hasValue) {
       _selectedUnit = userPreferences.value!.measurementUnit;
@@ -146,25 +171,71 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                   loading: () => const AppLoader(),
                   error: (final err, final st) =>
                       Text(l10n.logRainfallGaugesError(err)),
-                  data: (final gauges) => AppDropdownFormField<String>(
-                    value: _selectedGaugeId,
-                    hintText: l10n.logRainfallSelectGaugeHint,
-                    onChanged: (final newValue) {
-                      setState(() {
-                        _selectedGaugeId = newValue;
-                      });
-                    },
-                    items: gauges
-                        .map(
+                  data: (final gauges) {
+                    String? effectiveGaugeId = _selectedGaugeId;
+                    if (effectiveGaugeId == null) {
+                      final String? favoriteGaugeId =
+                          userPreferences.value?.favoriteGaugeId;
+                      if (favoriteGaugeId != null) {
+                        effectiveGaugeId = favoriteGaugeId;
+                      }
+                    }
+
+                    if (effectiveGaugeId != null &&
+                        !gauges.any((final g) => g.id == effectiveGaugeId)) {
+                      effectiveGaugeId = null;
+                    }
+
+                    // Update local state if the effective ID has changed.
+                    // This handles auto-selecting favorite and clearing invalid IDs.
+                    if (_selectedGaugeId != effectiveGaugeId) {
+                      _selectedGaugeId = effectiveGaugeId;
+                    }
+
+                    return AppDropdownFormField<String>(
+                      value: _selectedGaugeId,
+                      hintText: l10n.logRainfallSelectGaugeHint,
+                      onChanged: (final newValue) {
+                        if (newValue == "__ADD_NEW__") {
+                          FocusScope.of(context).unfocus();
+                          _showAddGaugeSheet();
+                        } else {
+                          setState(() {
+                            _selectedGaugeId = newValue;
+                          });
+                        }
+                      },
+                      items: [
+                        ...gauges.map(
                           (final gauge) => DropdownMenuItem(
                             value: gauge.id,
                             child: Text(gauge.name),
                           ),
-                        )
-                        .toList(),
-                    validator: (final value) =>
-                        value == null ? l10n.logRainfallGaugeValidation : null,
-                  ),
+                        ),
+                        DropdownMenuItem<String>(
+                          value: "__ADD_NEW__",
+                          child: Row(
+                            children: [
+                              Icon(
+                                Icons.add_circle_outline,
+                                color: Theme.of(context).colorScheme.secondary,
+                              ),
+                              const SizedBox(width: 8),
+                              Text(
+                                l10n.logRainfallAddNewGauge,
+                                style: TextStyle(
+                                  color: theme.colorScheme.secondary,
+                                ),
+                              ),
+                            ],
+                          ),
+                        ),
+                      ],
+                      validator: (final value) => value == null
+                          ? l10n.logRainfallGaugeValidation
+                          : null,
+                    );
+                  },
                 ),
                 const SizedBox(height: 16),
                 _buildSectionHeader(l10n.logRainfallAmountHeader),
@@ -239,9 +310,9 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                         mainAxisAlignment: MainAxisAlignment.spaceBetween,
                         children: [
                           Text(
-                            DateFormat.yMMMd()
-                                .add_jm()
-                                .format(_selectedDateTime),
+                            DateFormat.yMMMd().add_jm().format(
+                              _selectedDateTime,
+                            ),
                             style: theme.textTheme.bodyLarge,
                           ),
                           Icon(
@@ -270,13 +341,10 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
   }
 
   Widget _buildSectionHeader(final String title) => Align(
-        alignment: Alignment.centerLeft,
-        child: Padding(
-          padding: const EdgeInsets.only(bottom: 8),
-          child: Text(
-            title,
-            style: Theme.of(context).textTheme.titleLarge,
-          ),
-        ),
-      );
+    alignment: Alignment.centerLeft,
+    child: Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Text(title, style: Theme.of(context).textTheme.titleLarge),
+    ),
+  );
 }

@@ -1,18 +1,15 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/insights_dashboard/domain/insights_data.dart";
-import "package:rain_wise/features/settings/application/preferences_provider.dart";
-import "package:rain_wise/features/settings/domain/user_preferences.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/sheets/info_sheet.dart";
 
 class KeyMetricsSection extends ConsumerWidget {
-  const KeyMetricsSection({
-    required this.metrics,
-    super.key,
-  });
+  const KeyMetricsSection({required this.metrics, super.key});
 
   final KeyMetrics metrics;
 
@@ -26,7 +23,7 @@ class KeyMetricsSection extends ConsumerWidget {
     final Color errorColor = colorScheme.error;
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
-            MeasurementUnit.mm;
+        MeasurementUnit.mm;
 
     return Container(
       width: double.infinity,
@@ -45,10 +42,7 @@ class KeyMetricsSection extends ConsumerWidget {
         padding: const EdgeInsets.all(24),
         child: Column(
           children: [
-            Text(
-              l10n.keyMetricsTitle,
-              style: textTheme.headlineSmall,
-            ),
+            Text(l10n.keyMetricsTitle, style: textTheme.headlineSmall),
             const SizedBox(height: 24),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -171,9 +165,7 @@ class _MetricCard extends StatelessWidget {
     return Card(
       elevation: 2,
       color: colorScheme.surfaceContainerHighest,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Container(
         width: cardWidth,
         height: 130,
@@ -186,9 +178,7 @@ class _MetricCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Flexible(
-                  child: Text(title, style: textTheme.bodyMedium),
-                ),
+                Flexible(child: Text(title, style: textTheme.bodyMedium)),
                 SizedBox(
                   width: 24,
                   height: 24,
@@ -210,16 +200,12 @@ class _MetricCard extends StatelessWidget {
               value,
               maxLines: 1,
               overflow: TextOverflow.ellipsis,
-              style: textTheme.headlineMedium?.copyWith(
-                fontSize: 26,
-              ),
+              style: textTheme.headlineMedium?.copyWith(fontSize: 26),
             ),
             const SizedBox(height: 8),
             Text(
               changeText,
-              style: textTheme.bodySmall?.copyWith(
-                color: changeColor,
-              ),
+              style: textTheme.bodySmall?.copyWith(color: changeColor),
             ),
           ],
         ),
