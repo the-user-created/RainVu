@@ -488,4 +488,24 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
           );
     return query.map((final row) => row.read(total) ?? 0.0).getSingle();
   }
+
+  Future<int> countEntriesForGauge(final String gaugeId) async {
+    final Expression<int> countExp = rainfallEntries.id.count();
+    final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
+    selectOnly(rainfallEntries)
+      ..addColumns([countExp])
+      ..where(rainfallEntries.gaugeId.equals(gaugeId));
+    final TypedResult result = await query.getSingle();
+    return result.read(countExp) ?? 0;
+  }
+
+  Future<int> reassignEntries(
+      final String fromGaugeId,
+      final String toGaugeId,
+      ) =>
+      (update(rainfallEntries)..where((final tbl) => tbl.gaugeId.equals(fromGaugeId)))
+          .write(RainfallEntriesCompanion(gaugeId: Value(toGaugeId)));
+
+  Future<int> deleteEntriesForGauge(final String gaugeId) =>
+      (delete(rainfallEntries)..where((final tbl) => tbl.gaugeId.equals(gaugeId))).go();
 }

@@ -35,6 +35,8 @@ abstract class RainfallRepository {
   Future<double> getTotalRainfall();
 
   Future<List<int>> getAvailableYears();
+
+  Future<int> countEntriesForGauge(final String gaugeId);
 }
 
 @Riverpod(keepAlive: true)
@@ -107,6 +109,10 @@ class DriftRainfallRepository implements RainfallRepository {
 
   @override
   Future<List<int>> getAvailableYears() => _dao.getAvailableYears();
+
+  @override
+  Future<int> countEntriesForGauge(final String gaugeId) =>
+      _dao.countEntriesForGauge(gaugeId);
 
   domain.RainfallEntry _mapDriftToDomain(
     final RainfallEntryWithGauge driftEntry,

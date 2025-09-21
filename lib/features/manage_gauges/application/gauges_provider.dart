@@ -8,6 +8,8 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "gauges_provider.g.dart";
 
+enum DeleteGaugeAction { reassign, deleteEntries }
+
 @riverpod
 class Gauges extends _$Gauges {
   @override
@@ -21,7 +23,10 @@ class Gauges extends _$Gauges {
     await ref.read(rainGaugeRepositoryProvider).updateGauge(updatedGauge);
   }
 
-  Future<void> deleteGauge(final String gaugeId) async {
+  Future<void> deleteGauge(
+    final String gaugeId, {
+    final DeleteGaugeAction? action,
+  }) async {
     final UserPreferencesNotifier prefsNotifier = ref.read(
       userPreferencesProvider.notifier,
     );
@@ -31,6 +36,13 @@ class Gauges extends _$Gauges {
     if (currentPrefs.favoriteGaugeId == gaugeId) {
       await prefsNotifier.setFavoriteGauge(null);
     }
-    await ref.read(rainGaugeRepositoryProvider).deleteGauge(gaugeId);
+
+    if (action == DeleteGaugeAction.deleteEntries) {
+      await ref
+          .read(rainGaugeRepositoryProvider)
+          .deleteGaugeAndEntries(gaugeId);
+    } else {
+      await ref.read(rainGaugeRepositoryProvider).deleteGauge(gaugeId);
+    }
   }
 }

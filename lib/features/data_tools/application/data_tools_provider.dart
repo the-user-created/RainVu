@@ -67,7 +67,6 @@ class DataToolsNotifier extends _$DataToolsNotifier {
           .read(dataToolsRepositoryProvider)
           .exportData(format: state.exportFormat, dateRange: state.dateRange);
       if (path != null) {
-        print(l10n.dataToolsExportSuccess(path));
         state = state.copyWith(
           successMessage: l10n.dataToolsExportSuccess(path),
         );

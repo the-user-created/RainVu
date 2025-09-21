@@ -172,6 +172,14 @@
   "gaugeTileNoLocation": "No location set",
   "gaugeTileEditTooltip": "Edit Gauge",
   "gaugeTileDeleteTooltip": "Delete Gauge",
+  "gaugeEntryCount": "{count, plural, =1 {1 entry} other {{count} entries}}",
+  "@gaugeEntryCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
   "deleteGaugeDialogTitle": "Confirm Deletion",
   "deleteGaugeDialogContent": "Are you sure you want to delete this rain gauge?",
   "deleteGaugeDialogActionCancel": "Cancel",
@@ -614,5 +622,24 @@
   },
   "logRainfallAddNewGauge": "Add new gauge...",
   "gaugeTileSetFavoriteTooltip": "Set as favorite gauge",
-  "defaultGaugeName": "Default Gauge"
+  "defaultGaugeName": "Default Gauge",
+  "deleteGaugeWithEntriesWarning": "This gauge has {count, plural, =1 {1 associated entry} other {{count} associated entries}}. Deleting it will reassign them to the '{defaultGaugeName}' gauge.",
+  "@deleteGaugeWithEntriesWarning": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "defaultGaugeName": {
+        "type": "String"
+      }
+    }
+  },
+  "deleteGaugeAndEntriesOption": "Also delete all {count, plural, =1 {1 associated entry} other {{count} associated entries}}.",
+  "@deleteGaugeAndEntriesOption": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  }
 }

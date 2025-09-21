@@ -1,3 +1,5 @@
+// ignore_for_file: prefer_const_constructors
+
 import "package:drift/drift.dart";
 import "package:uuid/uuid.dart";
 

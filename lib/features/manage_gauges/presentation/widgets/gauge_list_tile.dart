@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
+import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/edit_gauge_sheet.dart";
@@ -34,29 +35,86 @@ class GaugeListTile extends ConsumerWidget {
     final WidgetRef ref,
     final AppLocalizations l10n,
   ) async {
+    final int entryCount = await ref
+        .read(rainfallRepositoryProvider)
+        .countEntriesForGauge(gauge.id);
+
+    if (entryCount == 0) {
+      final bool? confirmed = await showDialog<bool>(
+        context: context,
+        builder: (final alertDialogContext) => AlertDialog(
+          title: Text(l10n.deleteGaugeDialogTitle),
+          content: Text(l10n.deleteGaugeDialogContent),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(alertDialogContext, false),
+              child: Text(l10n.deleteGaugeDialogActionCancel),
+            ),
+            TextButton(
+              onPressed: () => Navigator.pop(alertDialogContext, true),
+              child: Text(
+                l10n.deleteGaugeDialogActionDelete,
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
+            ),
+          ],
+        ),
+      );
+      if (confirmed == true && context.mounted) {
+        ref.read(gaugesProvider.notifier).deleteGauge(gauge.id);
+      }
+      return;
+    }
+
+    bool deleteEntries = false;
     final bool? confirmed = await showDialog<bool>(
       context: context,
-      builder: (final alertDialogContext) => AlertDialog(
-        title: Text(l10n.deleteGaugeDialogTitle),
-        content: Text(l10n.deleteGaugeDialogContent),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.pop(alertDialogContext, false),
-            child: Text(l10n.deleteGaugeDialogActionCancel),
+      builder: (final context) => StatefulBuilder(
+        builder: (final context, final setState) => AlertDialog(
+          title: Text(l10n.deleteGaugeDialogTitle),
+          content: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(
+                l10n.deleteGaugeWithEntriesWarning(
+                  entryCount,
+                  l10n.defaultGaugeName,
+                ),
+              ),
+              const SizedBox(height: 16),
+              CheckboxListTile(
+                title: Text(l10n.deleteGaugeAndEntriesOption(entryCount)),
+                value: deleteEntries,
+                onChanged: (final val) =>
+                    setState(() => deleteEntries = val ?? false),
+                controlAffinity: ListTileControlAffinity.leading,
+                contentPadding: EdgeInsets.zero,
+              ),
+            ],
           ),
-          TextButton(
-            onPressed: () => Navigator.pop(alertDialogContext, true),
-            child: Text(
-              l10n.deleteGaugeDialogActionDelete,
-              style: TextStyle(color: Theme.of(context).colorScheme.error),
+          actions: [
+            TextButton(
+              onPressed: () => Navigator.pop(context, false),
+              child: Text(l10n.deleteGaugeDialogActionCancel),
             ),
-          ),
-        ],
+            TextButton(
+              onPressed: () => Navigator.pop(context, true),
+              child: Text(
+                l10n.deleteGaugeDialogActionDelete,
+                style: TextStyle(color: Theme.of(context).colorScheme.error),
+              ),
+            ),
+          ],
+        ),
       ),
     );
 
     if (confirmed == true && context.mounted) {
-      ref.read(gaugesProvider.notifier).deleteGauge(gauge.id);
+      final DeleteGaugeAction action = deleteEntries
+          ? DeleteGaugeAction.deleteEntries
+          : DeleteGaugeAction.reassign;
+      ref.read(gaugesProvider.notifier).deleteGauge(gauge.id, action: action);
     }
   }
 
@@ -83,7 +141,21 @@ class GaugeListTile extends ConsumerWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          Expanded(child: Text(displayName, style: theme.textTheme.bodyLarge)),
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(displayName, style: theme.textTheme.bodyLarge),
+                const SizedBox(height: 2),
+                Text(
+                  l10n.gaugeEntryCount(gauge.entryCount),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+              ],
+            ),
+          ),
           Row(
             children: [
               AppIconButton(

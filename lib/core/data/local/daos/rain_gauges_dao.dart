@@ -1,25 +1,81 @@
 import "package:drift/drift.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/tables/rain_gauges.dart";
+import "package:rain_wise/core/data/local/tables/rainfall_entries.dart";
 
 part "rain_gauges_dao.g.dart";
 
-@DriftAccessor(tables: [RainGauges])
+class RainGaugeWithEntryCount {
+  RainGaugeWithEntryCount(this.gauge, this.entryCount);
+
+  final RainGauge gauge;
+  final int entryCount;
+}
+
+@DriftAccessor(tables: [RainGauges, RainfallEntries])
 class RainGaugesDao extends DatabaseAccessor<AppDatabase>
     with _$RainGaugesDaoMixin {
   RainGaugesDao(super.attachedDatabase);
 
-  Stream<List<RainGauge>> watchAllGauges() => (select(rainGauges)
-        ..orderBy([(final t) => OrderingTerm(expression: t.name)]))
-      .watch();
+  Stream<List<RainGaugeWithEntryCount>> watchAllGaugesWithEntryCount() {
+    final Expression<int> entryCount = rainfallEntries.id.count();
+    final JoinedSelectStatement<HasResultSet, dynamic> query =
+        select(rainGauges).join([
+            leftOuterJoin(
+              rainfallEntries,
+              rainfallEntries.gaugeId.equalsExp(rainGauges.id),
+            ),
+          ])
+          ..addColumns([entryCount])
+          ..groupBy([rainGauges.id])
+          ..orderBy([OrderingTerm.asc(rainGauges.name)]);
 
-  Future<List<RainGauge>> getAllGauges() => (select(rainGauges)
-        ..orderBy([(final t) => OrderingTerm(expression: t.name)]))
-      .get();
+    return query.watch().map(
+      (final rows) => rows
+          .map(
+            (final row) => RainGaugeWithEntryCount(
+              row.readTable(rainGauges),
+              row.read(entryCount) ?? 0,
+            ),
+          )
+          .toList(),
+    );
+  }
 
-  Future<RainGauge?> findGaugeByName(final String name) =>
-      (select(rainGauges)..where((final tbl) => tbl.name.equals(name)))
-          .getSingleOrNull();
+  Future<List<RainGaugeWithEntryCount>> getAllGaugesWithEntryCount() {
+    final Expression<int> entryCount = rainfallEntries.id.count();
+    final JoinedSelectStatement<HasResultSet, dynamic> query =
+        select(rainGauges).join([
+            leftOuterJoin(
+              rainfallEntries,
+              rainfallEntries.gaugeId.equalsExp(rainGauges.id),
+            ),
+          ])
+          ..addColumns([entryCount])
+          ..groupBy([rainGauges.id])
+          ..orderBy([OrderingTerm.asc(rainGauges.name)]);
+
+    return query
+        .map(
+          (final row) => RainGaugeWithEntryCount(
+            row.readTable(rainGauges),
+            row.read(entryCount) ?? 0,
+          ),
+        )
+        .get();
+  }
+
+  Stream<List<RainGauge>> watchAllGauges() => (select(
+    rainGauges,
+  )..orderBy([(final t) => OrderingTerm(expression: t.name)])).watch();
+
+  Future<List<RainGauge>> getAllGauges() => (select(
+    rainGauges,
+  )..orderBy([(final t) => OrderingTerm(expression: t.name)])).get();
+
+  Future<RainGauge?> findGaugeByName(final String name) => (select(
+    rainGauges,
+  )..where((final tbl) => tbl.name.equals(name))).getSingleOrNull();
 
   Future<void> insertGauge(final Insertable<RainGauge> gauge) =>
       into(rainGauges).insert(gauge);
