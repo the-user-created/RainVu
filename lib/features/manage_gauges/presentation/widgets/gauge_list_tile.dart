@@ -9,6 +9,7 @@ import "package:rain_wise/features/manage_gauges/presentation/widgets/edit_gauge
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
+import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
 
 class GaugeListTile extends ConsumerWidget {
   const GaugeListTile({required this.gauge, super.key});
@@ -20,13 +21,7 @@ class GaugeListTile extends ConsumerWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      useSafeArea: true,
-      builder: (final context) => Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        child: EditGaugeSheet(gauge: gauge),
-      ),
+      builder: (final context) => EditGaugeSheet(gauge: gauge),
     );
   }
 
@@ -42,8 +37,8 @@ class GaugeListTile extends ConsumerWidget {
     if (entryCount == 0) {
       final bool? confirmed = await showDialog<bool>(
         context: context,
-        builder: (final alertDialogContext) => AlertDialog(
-          title: Text(l10n.deleteGaugeDialogTitle),
+        builder: (final alertDialogContext) => AppAlertDialog(
+          title: l10n.deleteGaugeDialogTitle,
           content: Text(l10n.deleteGaugeDialogContent),
           actions: [
             TextButton(
@@ -70,8 +65,8 @@ class GaugeListTile extends ConsumerWidget {
     final bool? confirmed = await showDialog<bool>(
       context: context,
       builder: (final context) => StatefulBuilder(
-        builder: (final context, final setState) => AlertDialog(
-          title: Text(l10n.deleteGaugeDialogTitle),
+        builder: (final context, final setState) => AppAlertDialog(
+          title: l10n.deleteGaugeDialogTitle,
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,

@@ -19,17 +19,8 @@ class HomeScreen extends ConsumerWidget {
     showModalBottomSheet<void>(
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      useSafeArea: true,
       context: context,
-      builder: (final context) => GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: Padding(
-          padding: EdgeInsets.only(
-            bottom: MediaQuery.of(context).viewInsets.bottom,
-          ),
-          child: const LogRainSheet(),
-        ),
-      ),
+      builder: (final context) => const LogRainSheet(),
     );
   }
 

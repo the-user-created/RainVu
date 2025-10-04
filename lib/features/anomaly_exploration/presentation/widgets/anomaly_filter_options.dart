@@ -8,6 +8,8 @@ import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart"
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/pickers/date_range_picker.dart";
 
+// TODO: it would be better if the filter options were re-arranged so that the date range can be viewed properly (currently it is truncated because of the severity filter button)
+
 class AnomalyFilterOptions extends ConsumerWidget {
   const AnomalyFilterOptions({super.key});
 

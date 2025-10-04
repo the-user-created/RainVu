@@ -3,6 +3,7 @@ import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
 
 /// Shows a modal bottom sheet for selecting a month and year.
 ///
@@ -16,10 +17,7 @@ Future<DateTime?> showMonthYearPicker(
 }) async => showModalBottomSheet<DateTime>(
   context: context,
   isScrollControlled: true,
-  backgroundColor: Theme.of(context).colorScheme.surface,
-  shape: const RoundedRectangleBorder(
-    borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-  ),
+  backgroundColor: Colors.transparent,
   builder: (final context) => _MonthYearPicker(
     initialDate: initialDate,
     firstDate: firstDate,
@@ -80,35 +78,14 @@ class _MonthYearPickerState extends State<_MonthYearPicker> {
         : 12;
     _selectedMonth = _selectedMonth.clamp(firstValidMonth, lastValidMonth);
 
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 20, 24, 24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-            Text(l10n.selectMonthTitle, style: theme.textTheme.headlineSmall),
-            const SizedBox(height: 16),
-            SizedBox(
-              height: 200,
-              child: Row(
-                children: [_buildMonthPicker(theme), _buildYearPicker(theme)],
-              ),
-            ),
-            const SizedBox(height: 24),
-            _buildActionButtons(l10n),
-          ],
+    return InteractiveSheet(
+      title: Text(l10n.selectMonthTitle),
+      titleAlign: TextAlign.start,
+      actions: _buildActionButtons(l10n),
+      child: SizedBox(
+        height: 200,
+        child: Row(
+          children: [_buildMonthPicker(theme), _buildYearPicker(theme)],
         ),
       ),
     );
@@ -156,26 +133,24 @@ class _MonthYearPickerState extends State<_MonthYearPicker> {
     );
   }
 
-  Widget _buildActionButtons(final AppLocalizations l10n) => Row(
-    mainAxisAlignment: MainAxisAlignment.end,
-    children: [
-      AppButton(
-        onPressed: () => Navigator.of(context).pop(),
-        label: l10n.cancelButtonLabel,
-        style: AppButtonStyle.outline,
-        size: AppButtonSize.small,
-      ),
-      const SizedBox(width: 12),
-      AppButton(
-        onPressed: () {
-          final DateTime result = DateTime(_selectedYear, _selectedMonth);
-          Navigator.of(context).pop(result);
-        },
-        label: l10n.okButtonLabel,
-        size: AppButtonSize.small,
-      ),
-    ],
-  );
+  // TODO: Remove the cancel button and move the OK button to the top right corner and make it a circular check icon. instead
+  List<Widget> _buildActionButtons(final AppLocalizations l10n) => [
+    AppButton(
+      onPressed: () => Navigator.of(context).pop(),
+      label: l10n.cancelButtonLabel,
+      style: AppButtonStyle.outline,
+      size: AppButtonSize.small,
+    ),
+    const SizedBox(width: 12),
+    AppButton(
+      onPressed: () {
+        final DateTime result = DateTime(_selectedYear, _selectedMonth);
+        Navigator.of(context).pop(result);
+      },
+      label: l10n.okButtonLabel,
+      size: AppButtonSize.small,
+    ),
+  ];
 }
 
 /// A stateful wrapper for the month `CupertinoPicker`.

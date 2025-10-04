@@ -89,7 +89,6 @@ class _MonthlyBreakdownScreenState
             ),
           ),
         ],
-        centerTitle: false,
       ),
       body: SafeArea(
         child: breakdownDataAsync.when(

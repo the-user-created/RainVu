@@ -14,6 +14,7 @@ import "package:rain_wise/shared/domain/seasons.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
 import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
 
 // TODO: Add a "What's New" tile in the "Support & Legal" section that opens a dialog or screen showing the latest release notes.
@@ -314,8 +315,8 @@ class _ResetDialogState extends State<_ResetDialog> {
   Widget build(final BuildContext context) {
     final AppLocalizations l10n = AppLocalizations.of(context);
 
-    return AlertDialog(
-      title: Text(l10n.resetDialogTitle),
+    return AppAlertDialog(
+      title: l10n.resetDialogTitle,
       content: SingleChildScrollView(
         child: ListBody(
           children: <Widget>[

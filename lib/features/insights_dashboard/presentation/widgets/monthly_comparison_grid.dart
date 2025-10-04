@@ -8,6 +8,9 @@ class MonthlyComparisonGrid extends StatelessWidget {
 
   final List<MonthlyComparisonData> comparisons;
 
+  // TODO: Make cards tappable to show more details in a bottom sheet or new screen.
+  // TODO: Cards should have a consistent height, and should only grow in width. Currently the monthly breakdown cards grow vertically when the text wraps, causing a jarring format.
+
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);

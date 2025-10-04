@@ -13,13 +13,7 @@ class ManageGaugesScreen extends StatelessWidget {
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      useSafeArea: true,
-      builder: (final context) => Padding(
-        padding: EdgeInsets.only(
-          bottom: MediaQuery.of(context).viewInsets.bottom,
-        ),
-        child: const AddGaugeSheet(),
-      ),
+      builder: (final context) => const AddGaugeSheet(),
     );
   }
 

@@ -33,6 +33,8 @@ class ComparativeAnalysisChart extends ConsumerWidget {
       );
     }
 
+    // TODO: The chart gets very cramped on monthly view on tighter screens (there is 0 gap between bars for different months). Consider making the chart horizontally scrollable if there are too many groups.
+
     return Card(
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),

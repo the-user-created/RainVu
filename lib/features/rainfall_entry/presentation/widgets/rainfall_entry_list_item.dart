@@ -10,6 +10,7 @@ import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rainfall_entry.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
+import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
 
 class RainfallEntryListItem extends ConsumerWidget {
   const RainfallEntryListItem({required this.entry, super.key});
@@ -17,14 +18,11 @@ class RainfallEntryListItem extends ConsumerWidget {
   final RainfallEntry entry;
 
   void _showEditSheet(final BuildContext context) {
-    showModalBottomSheet(
+    showModalBottomSheet<void>(
       context: context,
       isScrollControlled: true,
       backgroundColor: Colors.transparent,
-      builder: (final _) => Padding(
-        padding: MediaQuery.of(context).viewInsets,
-        child: EditEntrySheet(entry: entry),
-      ),
+      builder: (final _) => EditEntrySheet(entry: entry),
     );
   }
 
@@ -35,8 +33,8 @@ class RainfallEntryListItem extends ConsumerWidget {
   ) async {
     final bool? confirmed = await showDialog<bool>(
       context: context,
-      builder: (final context) => AlertDialog(
-        title: Text(l10n.deleteEntryDialogTitle),
+      builder: (final context) => AppAlertDialog(
+        title: l10n.deleteEntryDialogTitle,
         content: Text(l10n.deleteDialogContent),
         actions: [
           TextButton(

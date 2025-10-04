@@ -16,6 +16,7 @@ import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
+import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
 
 class EditEntrySheet extends ConsumerStatefulWidget {
   const EditEntrySheet({required this.entry, super.key});
@@ -115,163 +116,139 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
       allGaugesFutureProvider,
     );
 
-    return Container(
-      padding: EdgeInsets.fromLTRB(
-        24,
-        24,
-        24,
-        MediaQuery.of(context).viewInsets.bottom + 24,
-      ),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-        ),
-      ),
+    return InteractiveSheet(
+      title: Text(l10n.editEntrySheetTitle),
       child: Form(
         key: _formKey,
-        child: SingleChildScrollView(
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                l10n.editEntrySheetTitle,
-                style: theme.textTheme.headlineSmall,
+        child: Column(
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(l10n.editEntryGaugeHeader, style: theme.textTheme.titleMedium),
+            const SizedBox(height: 8),
+            gaugesAsync.when(
+              loading: () => const AppLoader(),
+              error: (final err, final stack) =>
+                  Text(l10n.rainfallEntriesError(err)),
+              data: (final gauges) => AppDropdownFormField<String>(
+                value: _selectedGaugeId,
+                items: gauges.map((final gauge) {
+                  final String displayName =
+                      gauge.id == AppConstants.defaultGaugeId
+                      ? l10n.defaultGaugeName
+                      : gauge.name;
+                  return DropdownMenuItem(
+                    value: gauge.id,
+                    child: Text(displayName),
+                  );
+                }).toList(),
+                onChanged: (final value) =>
+                    setState(() => _selectedGaugeId = value),
+                validator: (final value) =>
+                    value == null ? l10n.editEntryGaugeValidation : null,
               ),
-              const SizedBox(height: 24),
-              Text(
-                l10n.editEntryGaugeHeader,
-                style: theme.textTheme.titleMedium,
-              ),
-              const SizedBox(height: 8),
-              gaugesAsync.when(
-                loading: () => const AppLoader(),
-                error: (final err, final stack) =>
-                    Text(l10n.rainfallEntriesError(err)),
-                data: (final gauges) => AppDropdownFormField<String>(
-                  value: _selectedGaugeId,
-                  items: gauges.map((final gauge) {
-                    final String displayName =
-                        gauge.id == AppConstants.defaultGaugeId
-                        ? l10n.defaultGaugeName
-                        : gauge.name;
-                    return DropdownMenuItem(
-                      value: gauge.id,
-                      child: Text(displayName),
-                    );
-                  }).toList(),
-                  onChanged: (final value) =>
-                      setState(() => _selectedGaugeId = value),
-                  validator: (final value) =>
-                      value == null ? l10n.editEntryGaugeValidation : null,
+            ),
+            const SizedBox(height: 16),
+            Text(
+              l10n.editEntryAmountHeader,
+              style: theme.textTheme.titleMedium,
+            ),
+            const SizedBox(height: 8),
+            Row(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Expanded(
+                  flex: 3,
+                  child: TextFormField(
+                    controller: _amountController,
+                    keyboardType: const TextInputType.numberWithOptions(
+                      decimal: true,
+                    ),
+                    inputFormatters: [
+                      FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d*")),
+                    ],
+                    decoration: InputDecoration(
+                      hintText: l10n.editEntryAmountHint,
+                      fillColor: theme.colorScheme.surface,
+                      filled: true,
+                    ),
+                    validator: (final value) {
+                      if (value == null || value.isEmpty) {
+                        return l10n.editEntryAmountValidationEmpty;
+                      }
+                      if (double.tryParse(value) == null) {
+                        return l10n.editEntryAmountValidationInvalid;
+                      }
+                      return null;
+                    },
+                  ),
+                ),
+                const SizedBox(width: 8),
+                Expanded(
+                  flex: 2,
+                  child: AppSegmentedControl<MeasurementUnit>(
+                    selectedValue: _displayUnit,
+                    onSelectionChanged: (final value) {
+                      setState(() {
+                        _displayUnit = value;
+                      });
+                    },
+                    segments: [
+                      SegmentOption(
+                        value: MeasurementUnit.mm,
+                        label: Text(l10n.unitMM),
+                      ),
+                      SegmentOption(
+                        value: MeasurementUnit.inch,
+                        label: Text(l10n.unitIn),
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
+            const SizedBox(height: 16),
+            Text(
+              l10n.editEntryDateTimeHeader,
+              style: theme.textTheme.titleMedium,
+            ),
+            const SizedBox(height: 8),
+            InkWell(
+              onTap: _pickDateTime,
+              child: InputDecorator(
+                decoration: const InputDecoration(
+                  contentPadding: EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 16,
+                  ),
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Text(
+                      DateFormat.yMMMd().add_jm().format(_selectedDate),
+                      style: theme.textTheme.bodyLarge,
+                    ),
+                    const Icon(Icons.calendar_today),
+                  ],
                 ),
               ),
-              const SizedBox(height: 16),
-              Text(
-                l10n.editEntryAmountHeader,
-                style: theme.textTheme.titleMedium,
-              ),
-              const SizedBox(height: 8),
+            ),
+            const SizedBox(height: 32),
+            if (_isLoading)
+              const Center(child: AppLoader())
+            else
               Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
                   Expanded(
-                    flex: 3,
-                    child: TextFormField(
-                      controller: _amountController,
-                      keyboardType: const TextInputType.numberWithOptions(
-                        decimal: true,
-                      ),
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                          RegExp(r"^\d+\.?\d*"),
-                        ),
-                      ],
-                      decoration: InputDecoration(
-                        hintText: l10n.editEntryAmountHint,
-                        fillColor: theme.colorScheme.surface,
-                        filled: true,
-                      ),
-                      validator: (final value) {
-                        if (value == null || value.isEmpty) {
-                          return l10n.editEntryAmountValidationEmpty;
-                        }
-                        if (double.tryParse(value) == null) {
-                          return l10n.editEntryAmountValidationInvalid;
-                        }
-                        return null;
-                      },
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    flex: 2,
-                    child: AppSegmentedControl<MeasurementUnit>(
-                      selectedValue: _displayUnit,
-                      onSelectionChanged: (final value) {
-                        setState(() {
-                          _displayUnit = value;
-                        });
-                      },
-                      segments: [
-                        SegmentOption(
-                          value: MeasurementUnit.mm,
-                          label: Text(l10n.unitMM),
-                        ),
-                        SegmentOption(
-                          value: MeasurementUnit.inch,
-                          label: Text(l10n.unitIn),
-                        ),
-                      ],
+                    child: AppButton(
+                      onPressed: _onSaveChanges,
+                      label: l10n.saveChangesButton,
                     ),
                   ),
                 ],
               ),
-              const SizedBox(height: 16),
-              Text(
-                l10n.editEntryDateTimeHeader,
-                style: theme.textTheme.titleMedium,
-              ),
-              const SizedBox(height: 8),
-              InkWell(
-                onTap: _pickDateTime,
-                child: InputDecorator(
-                  decoration: const InputDecoration(
-                    contentPadding: EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 16,
-                    ),
-                  ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Text(
-                        DateFormat.yMMMd().add_jm().format(_selectedDate),
-                        style: theme.textTheme.bodyLarge,
-                      ),
-                      const Icon(Icons.calendar_today),
-                    ],
-                  ),
-                ),
-              ),
-              const SizedBox(height: 32),
-              if (_isLoading)
-                const Center(child: AppLoader())
-              else
-                Row(
-                  children: [
-                    Expanded(
-                      child: AppButton(
-                        onPressed: _onSaveChanges,
-                        label: l10n.saveChangesButton,
-                      ),
-                    ),
-                  ],
-                ),
-            ],
-          ),
+          ],
         ),
       ),
     );

@@ -5,13 +5,11 @@ import "package:rain_wise/features/settings/domain/support_ticket.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
+import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
 
 /// A bottom sheet for submitting a support ticket or feedback.
 class TicketSheet extends ConsumerStatefulWidget {
-  const TicketSheet({
-    super.key,
-    this.initialCategory,
-  });
+  const TicketSheet({super.key, this.initialCategory});
 
   final TicketCategory? initialCategory;
 
@@ -49,18 +47,18 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
     setState(() => _isLoading = true);
     try {
       final String contactEmail = _emailController.text.trim();
-      await ref.read(supportServiceProvider.notifier).submitTicket(
+      await ref
+          .read(supportServiceProvider.notifier)
+          .submitTicket(
             category: _selectedCategory!,
             description: _descriptionController.text.trim(),
             contactEmail: contactEmail.isNotEmpty ? contactEmail : null,
           );
 
       if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(
-            content: Text(l10n.ticketSheetSuccessMessage),
-          ),
-        );
+        ScaffoldMessenger.of(
+          context,
+        ).showSnackBar(SnackBar(content: Text(l10n.ticketSheetSuccessMessage)));
         Navigator.of(context).pop();
       }
     } catch (e) {
@@ -83,30 +81,29 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
     final ColorScheme colorScheme = theme.colorScheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
 
-    return Padding(
-      padding: EdgeInsets.only(
-        bottom: MediaQuery.of(context).viewInsets.bottom,
-        left: 24,
-        right: 24,
-        top: 24,
-      ),
+    return InteractiveSheet(
+      title: Text(l10n.ticketSheetTitle),
+      actions: [
+        TextButton(
+          onPressed: _isLoading ? null : () => Navigator.of(context).pop(),
+          child: Text(l10n.cancelButtonLabel),
+        ),
+        const SizedBox(width: 12),
+        AppButton(
+          onPressed: _isLoading ? null : _submit,
+          label: l10n.ticketSheetSubmitButton,
+          isLoading: _isLoading,
+          size: AppButtonSize.small,
+          borderRadius: BorderRadius.circular(8),
+        ),
+      ],
       child: Form(
         key: _formKey,
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(
-              l10n.ticketSheetTitle,
-              textAlign: TextAlign.center,
-              style: textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 8),
-            Text(
-              l10n.ticketSheetDescription,
-              textAlign: TextAlign.center,
-              style: textTheme.bodyMedium,
-            ),
+            Text(l10n.ticketSheetDescription, style: textTheme.bodyMedium),
             const SizedBox(height: 24),
             AppDropdownFormField<TicketCategory>(
               value: _selectedCategory,
@@ -138,8 +135,8 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
               maxLines: 8,
               validator: (final value) =>
                   (value == null || value.trim().isEmpty)
-                      ? l10n.ticketSheetDescriptionValidation
-                      : null,
+                  ? l10n.ticketSheetDescriptionValidation
+                  : null,
             ),
             const SizedBox(height: 16),
             TextFormField(
@@ -158,26 +155,6 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
                 return null;
               },
             ),
-            const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                TextButton(
-                  onPressed:
-                      _isLoading ? null : () => Navigator.of(context).pop(),
-                  child: Text(l10n.cancelButtonLabel),
-                ),
-                const SizedBox(width: 12),
-                AppButton(
-                  onPressed: _isLoading ? null : _submit,
-                  label: l10n.ticketSheetSubmitButton,
-                  isLoading: _isLoading,
-                  size: AppButtonSize.small,
-                  borderRadius: BorderRadius.circular(8),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
           ],
         ),
       ),

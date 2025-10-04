@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
 
 /// A data model for a single informational item displayed in the [InfoSheet].
 class InfoSheetItem {
@@ -22,14 +23,7 @@ class InfoSheetItem {
 ///
 /// It presents a list of [InfoSheetItem]s in a clean, readable format.
 class InfoSheet extends StatelessWidget {
-  const InfoSheet({
-    required this.title,
-    required this.items,
-    super.key,
-  });
-
-  /// The main title of the bottom sheet.
-  final String title;
+  const InfoSheet({required this.items, super.key});
 
   /// The list of items to display.
   final List<InfoSheetItem> items;
@@ -39,66 +33,37 @@ class InfoSheet extends StatelessWidget {
     final BuildContext context, {
     required final String title,
     required final List<InfoSheetItem> items,
-  }) async =>
-      showModalBottomSheet<void>(
-        context: context,
-        isScrollControlled: true,
-        backgroundColor: Theme.of(context).colorScheme.surface,
-        shape: const RoundedRectangleBorder(
-          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-        ),
-        builder: (final context) => InfoSheet(title: title, items: items),
-      );
+  }) async => showModalBottomSheet<void>(
+    context: context,
+    isScrollControlled: true,
+    backgroundColor: Colors.transparent,
+    builder: (final context) => InteractiveSheet(
+      title: Text(title),
+      titleAlign: TextAlign.start,
+      child: InfoSheet(items: items),
+    ),
+  );
 
   @override
-  Widget build(final BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
-
-    return SafeArea(
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(24, 20, 24, 24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                decoration: BoxDecoration(
-                  color: colorScheme.onSurface.withValues(alpha: 0.3),
-                  borderRadius: BorderRadius.circular(2),
-                ),
-              ),
-            ),
-            const SizedBox(height: 24),
-            Text(
-              title,
-              style: textTheme.headlineSmall,
-            ),
-            const SizedBox(height: 16),
-            Divider(color: colorScheme.outline.withValues(alpha: 0.5)),
-            const SizedBox(height: 16),
-            Flexible(
-              child: ListView.separated(
-                shrinkWrap: true,
-                physics: const BouncingScrollPhysics(),
-                itemCount: items.length,
-                itemBuilder: (final context, final index) {
-                  final InfoSheetItem item = items[index];
-                  return _InfoListItem(item: item);
-                },
-                separatorBuilder: (final context, final index) =>
-                    const SizedBox(height: 20),
-              ),
-            ),
-          ],
-        ),
+  Widget build(final BuildContext context) => Column(
+    mainAxisSize: MainAxisSize.min,
+    crossAxisAlignment: CrossAxisAlignment.start,
+    children: [
+      const Divider(),
+      const SizedBox(height: 16),
+      ListView.separated(
+        shrinkWrap: true,
+        physics: const NeverScrollableScrollPhysics(),
+        itemCount: items.length,
+        itemBuilder: (final context, final index) {
+          final InfoSheetItem item = items[index];
+          return _InfoListItem(item: item);
+        },
+        separatorBuilder: (final context, final index) =>
+            const SizedBox(height: 20),
       ),
-    );
-  }
+    ],
+  );
 }
 
 /// A private widget to render a single item within the [InfoSheet].
@@ -131,10 +96,7 @@ class _InfoListItem extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               if (item.title.isNotEmpty) ...[
-                Text(
-                  item.title,
-                  style: textTheme.titleMedium,
-                ),
+                Text(item.title, style: textTheme.titleMedium),
                 const SizedBox(height: 4),
               ],
               Text(

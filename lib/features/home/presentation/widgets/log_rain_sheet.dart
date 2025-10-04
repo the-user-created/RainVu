@@ -15,6 +15,7 @@ import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
+import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
 
 class LogRainSheet extends ConsumerStatefulWidget {
   const LogRainSheet({super.key});
@@ -105,180 +106,160 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
       _selectedUnit = MeasurementUnit.mm;
     }
 
-    return Container(
-      width: double.infinity,
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: const BorderRadius.only(
-          topLeft: Radius.circular(16),
-          topRight: Radius.circular(16),
-        ),
-      ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(
-          horizontal: AppConstants.horiEdgePadding,
-          vertical: 16,
-        ),
-        child: SingleChildScrollView(
-          child: Form(
-            key: _formKey,
-            child: Column(
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                Text(
-                  l10n.logRainfallSheetTitle,
-                  style: theme.textTheme.headlineSmall,
-                ),
-                const SizedBox(height: 16),
-                _buildSectionHeader(l10n.logRainfallSelectGaugeHeader),
-                gaugesAsync.when(
-                  loading: () => const AppLoader(),
-                  error: (final err, final st) =>
-                      Text(l10n.logRainfallGaugesError(err)),
-                  data: (final gauges) {
-                    String? effectiveGaugeId = _selectedGaugeId;
-                    if (effectiveGaugeId == null) {
-                      final String? favoriteGaugeId =
-                          userPreferences.value?.favoriteGaugeId;
-                      if (favoriteGaugeId != null) {
-                        effectiveGaugeId = favoriteGaugeId;
-                      }
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: InteractiveSheet(
+        title: Text(l10n.logRainfallSheetTitle),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildSectionHeader(l10n.logRainfallSelectGaugeHeader),
+              gaugesAsync.when(
+                loading: () => const AppLoader(),
+                error: (final err, final st) =>
+                    Text(l10n.logRainfallGaugesError(err)),
+                data: (final gauges) {
+                  String? effectiveGaugeId = _selectedGaugeId;
+                  if (effectiveGaugeId == null) {
+                    final String? favoriteGaugeId =
+                        userPreferences.value?.favoriteGaugeId;
+                    if (favoriteGaugeId != null) {
+                      effectiveGaugeId = favoriteGaugeId;
                     }
+                  }
 
-                    if (effectiveGaugeId != null &&
-                        !gauges.any((final g) => g.id == effectiveGaugeId)) {
-                      effectiveGaugeId = null;
-                    }
+                  if (effectiveGaugeId != null &&
+                      !gauges.any((final g) => g.id == effectiveGaugeId)) {
+                    effectiveGaugeId = null;
+                  }
 
-                    // Update local state if the effective ID has changed.
-                    // This handles auto-selecting favorite and clearing invalid IDs.
-                    if (_selectedGaugeId != effectiveGaugeId) {
-                      _selectedGaugeId = effectiveGaugeId;
-                    }
+                  // Update local state if the effective ID has changed.
+                  // This handles auto-selecting favorite and clearing invalid IDs.
+                  if (_selectedGaugeId != effectiveGaugeId) {
+                    _selectedGaugeId = effectiveGaugeId;
+                  }
 
-                    return AppDropdownFormField<String>(
-                      value: _selectedGaugeId,
-                      hintText: l10n.logRainfallSelectGaugeHint,
-                      onChanged: (final newValue) {
+                  return AppDropdownFormField<String>(
+                    value: _selectedGaugeId,
+                    hintText: l10n.logRainfallSelectGaugeHint,
+                    onChanged: (final newValue) {
+                      setState(() {
+                        _selectedGaugeId = newValue;
+                      });
+                    },
+                    items: [
+                      ...gauges.map((final gauge) {
+                        final String displayName =
+                            gauge.id == AppConstants.defaultGaugeId
+                            ? l10n.defaultGaugeName
+                            : gauge.name;
+                        return DropdownMenuItem(
+                          value: gauge.id,
+                          child: Text(displayName),
+                        );
+                      }),
+                    ],
+                    validator: (final value) =>
+                        value == null ? l10n.logRainfallGaugeValidation : null,
+                  );
+                },
+              ),
+              const SizedBox(height: 16),
+              _buildSectionHeader(l10n.logRainfallAmountHeader),
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Expanded(
+                    flex: 3,
+                    child: TextFormField(
+                      controller: _amountController,
+                      decoration: InputDecoration(
+                        hintText: l10n.logRainfallAmountHint,
+                      ),
+                      keyboardType: const TextInputType.numberWithOptions(
+                        decimal: true,
+                      ),
+                      validator: (final val) {
+                        if (val == null || val.isEmpty) {
+                          return l10n.logRainfallAmountValidationEmpty;
+                        }
+                        if (double.tryParse(val) == null) {
+                          return l10n.logRainfallAmountValidationInvalid;
+                        }
+                        return null;
+                      },
+                      inputFormatters: [
+                        FilteringTextInputFormatter.allow(
+                          RegExp(r"^\d+\.?\d*"),
+                        ),
+                      ],
+                    ),
+                  ),
+                  const SizedBox(width: 8),
+                  Expanded(
+                    flex: 2,
+                    child: AppSegmentedControl<MeasurementUnit>(
+                      selectedValue: _selectedUnit,
+                      onSelectionChanged: (final value) {
                         setState(() {
-                          _selectedGaugeId = newValue;
+                          _selectedUnit = value;
                         });
                       },
-                      items: [
-                        ...gauges.map((final gauge) {
-                          final String displayName =
-                              gauge.id == AppConstants.defaultGaugeId
-                              ? l10n.defaultGaugeName
-                              : gauge.name;
-                          return DropdownMenuItem(
-                            value: gauge.id,
-                            child: Text(displayName),
-                          );
-                        }),
+                      segments: [
+                        SegmentOption(
+                          value: MeasurementUnit.mm,
+                          label: Text(l10n.unitMM),
+                        ),
+                        SegmentOption(
+                          value: MeasurementUnit.inch,
+                          label: Text(l10n.unitIn),
+                        ),
                       ],
-                      validator: (final value) => value == null
-                          ? l10n.logRainfallGaugeValidation
-                          : null,
-                    );
-                  },
-                ),
-                const SizedBox(height: 16),
-                _buildSectionHeader(l10n.logRainfallAmountHeader),
-                Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Expanded(
-                      flex: 3,
-                      child: TextFormField(
-                        controller: _amountController,
-                        decoration: InputDecoration(
-                          hintText: l10n.logRainfallAmountHint,
+                    ),
+                  ),
+                ],
+              ),
+              const SizedBox(height: 16),
+              _buildSectionHeader(l10n.logRainfallDateTimeHeader),
+              InkWell(
+                onTap: _selectDateTime,
+                child: Container(
+                  width: double.infinity,
+                  height: 60,
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surface,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: theme.colorScheme.outline),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Text(
+                          DateFormat.yMMMd().add_jm().format(_selectedDateTime),
+                          style: theme.textTheme.bodyLarge,
                         ),
-                        keyboardType: const TextInputType.numberWithOptions(
-                          decimal: true,
+                        Icon(
+                          Icons.calendar_today,
+                          color: theme.colorScheme.onSurface,
+                          size: 24,
                         ),
-                        validator: (final val) {
-                          if (val == null || val.isEmpty) {
-                            return l10n.logRainfallAmountValidationEmpty;
-                          }
-                          if (double.tryParse(val) == null) {
-                            return l10n.logRainfallAmountValidationInvalid;
-                          }
-                          return null;
-                        },
-                        inputFormatters: [
-                          FilteringTextInputFormatter.allow(
-                            RegExp(r"^\d+\.?\d*"),
-                          ),
-                        ],
-                      ),
-                    ),
-                    const SizedBox(width: 8),
-                    Expanded(
-                      flex: 2,
-                      child: AppSegmentedControl<MeasurementUnit>(
-                        selectedValue: _selectedUnit,
-                        onSelectionChanged: (final value) {
-                          setState(() {
-                            _selectedUnit = value;
-                          });
-                        },
-                        segments: [
-                          SegmentOption(
-                            value: MeasurementUnit.mm,
-                            label: Text(l10n.unitMM),
-                          ),
-                          SegmentOption(
-                            value: MeasurementUnit.inch,
-                            label: Text(l10n.unitIn),
-                          ),
-                        ],
-                      ),
-                    ),
-                  ],
-                ),
-                const SizedBox(height: 16),
-                _buildSectionHeader(l10n.logRainfallDateTimeHeader),
-                InkWell(
-                  onTap: _selectDateTime,
-                  child: Container(
-                    width: double.infinity,
-                    height: 60,
-                    decoration: BoxDecoration(
-                      color: theme.colorScheme.surface,
-                      borderRadius: BorderRadius.circular(8),
-                      border: Border.all(color: theme.colorScheme.outline),
-                    ),
-                    child: Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                        children: [
-                          Text(
-                            DateFormat.yMMMd().add_jm().format(
-                              _selectedDateTime,
-                            ),
-                            style: theme.textTheme.bodyLarge,
-                          ),
-                          Icon(
-                            Icons.calendar_today,
-                            color: theme.colorScheme.onSurface,
-                            size: 24,
-                          ),
-                        ],
-                      ),
+                      ],
                     ),
                   ),
                 ),
-                const SizedBox(height: 24),
-                AppButton(
-                  onPressed: _saveRainfallData,
-                  label: l10n.logRainfallSaveButton,
-                  isLoading: logRainState.isLoading,
-                  isExpanded: true,
-                ),
-              ],
-            ),
+              ),
+              const SizedBox(height: 24),
+              AppButton(
+                onPressed: _saveRainfallData,
+                label: l10n.logRainfallSaveButton,
+                isLoading: logRainState.isLoading,
+                isExpanded: true,
+              ),
+            ],
           ),
         ),
       ),

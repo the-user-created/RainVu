@@ -2,6 +2,7 @@ import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
 
 /// Shows a modal bottom sheet for selecting a date range.
 ///
@@ -15,10 +16,7 @@ Future<DateTimeRange?> showDateRangePickerModal(
 }) async => showModalBottomSheet<DateTimeRange>(
   context: context,
   isScrollControlled: true,
-  backgroundColor: Theme.of(context).colorScheme.surface,
-  shape: const RoundedRectangleBorder(
-    borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
-  ),
+  backgroundColor: Colors.transparent,
   builder: (final context) => _DateRangePickerModal(
     initialDateRange: initialDateRange,
     firstDate: firstDate,
@@ -102,85 +100,56 @@ class _DateRangePickerModalState extends State<_DateRangePickerModal> {
 
   @override
   Widget build(final BuildContext context) {
-    final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
 
-    return SafeArea(
-      child: SingleChildScrollView(
-        child: Padding(
-          padding: const EdgeInsets.fromLTRB(24, 20, 24, 24),
-          child: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              // Drag handle and Title
-              Center(
-                child: Container(
-                  width: 40,
-                  height: 4,
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.onSurface.withValues(alpha: 0.3),
-                    borderRadius: BorderRadius.circular(2),
-                  ),
-                ),
-              ),
-              const SizedBox(height: 24),
-              Text(
-                l10n.selectDateRangeTitle,
-                style: theme.textTheme.headlineSmall,
-              ),
-              const SizedBox(height: 24),
-
-              // Start and End Date Display/Selectors
-              _DateSelector(
-                startDate: _startDate,
-                endDate: _endDate,
-                selectionMode: _selectionMode,
-                onModeChanged: (final mode) =>
-                    setState(() => _selectionMode = mode),
-              ),
-              const SizedBox(height: 16),
-
-              // Calendar
-              CalendarDatePicker(
-                key: ValueKey(_selectionMode),
-                initialDate: _selectionMode == _DateSelectionMode.start
-                    ? _startDate
-                    : _endDate,
-                firstDate: widget.firstDate,
-                lastDate: widget.lastDate,
-                onDateChanged: _onDateSelected,
-              ),
-
-              const SizedBox(height: 24),
-
-              // Action Buttons
-              Row(
-                mainAxisAlignment: MainAxisAlignment.end,
-                children: [
-                  AppButton(
-                    onPressed: () => Navigator.of(context).pop(),
-                    label: l10n.cancelButtonLabel,
-                    style: AppButtonStyle.outline,
-                    size: AppButtonSize.small,
-                  ),
-                  const SizedBox(width: 12),
-                  AppButton(
-                    onPressed: () {
-                      final DateTimeRange result = DateTimeRange(
-                        start: _startDate,
-                        end: _endDate,
-                      );
-                      Navigator.of(context).pop(result);
-                    },
-                    label: l10n.applyButtonLabel,
-                    size: AppButtonSize.small,
-                  ),
-                ],
-              ),
-            ],
-          ),
+    return InteractiveSheet(
+      title: Text(l10n.selectDateRangeTitle),
+      titleAlign: TextAlign.start,
+      actions: [
+        AppButton(
+          onPressed: () => Navigator.of(context).pop(),
+          label: l10n.cancelButtonLabel,
+          style: AppButtonStyle.outline,
+          size: AppButtonSize.small,
         ),
+        const SizedBox(width: 12),
+        AppButton(
+          onPressed: () {
+            final DateTimeRange result = DateTimeRange(
+              start: _startDate,
+              end: _endDate,
+            );
+            Navigator.of(context).pop(result);
+          },
+          label: l10n.applyButtonLabel,
+          size: AppButtonSize.small,
+        ),
+      ],
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          // Start and End Date Display/Selectors
+          _DateSelector(
+            startDate: _startDate,
+            endDate: _endDate,
+            selectionMode: _selectionMode,
+            onModeChanged: (final mode) =>
+                setState(() => _selectionMode = mode),
+          ),
+          const SizedBox(height: 16),
+
+          // Calendar
+          CalendarDatePicker(
+            key: ValueKey(_selectionMode),
+            initialDate: _selectionMode == _DateSelectionMode.start
+                ? _startDate
+                : _endDate,
+            firstDate: widget.firstDate,
+            lastDate: widget.lastDate,
+            onDateChanged: _onDateSelected,
+          ),
+        ],
       ),
     );
   }
