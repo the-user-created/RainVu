@@ -1,5 +1,6 @@
 import "package:freezed_annotation/freezed_annotation.dart";
 import "package:rain_wise/app_constants.dart";
+import "package:rain_wise/shared/domain/seasons.dart";
 
 part "user_preferences.freezed.dart";
 
@@ -26,6 +27,7 @@ abstract class UserPreferences with _$UserPreferences {
     @Default(MeasurementUnit.mm) final MeasurementUnit measurementUnit,
     @Default(AppThemeMode.system) final AppThemeMode themeMode,
     @Default(AppConstants.defaultGaugeId) final String? favoriteGaugeId,
+    @Default(Hemisphere.northern) final Hemisphere hemisphere,
   }) = _UserPreferences;
 
   factory UserPreferences.fromJson(final Map<String, dynamic> json) =>

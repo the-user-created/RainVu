@@ -1,4 +1,5 @@
 import "package:rain_wise/core/data/repositories/preferences_repository.dart";
+import "package:rain_wise/shared/domain/seasons.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
@@ -36,5 +37,10 @@ class UserPreferencesNotifier extends _$UserPreferencesNotifier {
   Future<void> setFavoriteGauge(final String? gaugeId) async {
     final UserPreferences currentState = await future;
     await _updatePreferences(currentState.copyWith(favoriteGaugeId: gaugeId));
+  }
+
+  Future<void> setHemisphere(final Hemisphere hemisphere) async {
+    final UserPreferences currentState = await future;
+    await _updatePreferences(currentState.copyWith(hemisphere: hemisphere));
   }
 }

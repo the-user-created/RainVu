@@ -10,6 +10,7 @@ import "package:rain_wise/features/settings/presentation/widgets/settings_card.d
 import "package:rain_wise/features/settings/presentation/widgets/settings_list_tile.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/seasons.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
@@ -129,6 +130,57 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
+  Widget _buildHemisphereSetting(
+    final BuildContext context,
+    final WidgetRef ref,
+    final AppLocalizations l10n,
+  ) {
+    final ThemeData theme = Theme.of(context);
+    final AsyncValue<UserPreferences> userPreferences = ref.watch(
+      userPreferencesProvider,
+    );
+
+    return userPreferences.when(
+      loading: () => const ListTile(title: Text("Loading...")),
+      error: (final err, final stack) => ListTile(title: Text("Error: $err")),
+      data: (final preferences) => Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Expanded(
+              child: Text(
+                l10n.settingsPreferencesHemisphere,
+                style: theme.textTheme.titleMedium,
+              ),
+            ),
+            SizedBox(
+              width: 220,
+              child: AppSegmentedControl<Hemisphere>(
+                selectedValue: preferences.hemisphere,
+                onSelectionChanged: (final value) {
+                  ref
+                      .read(userPreferencesProvider.notifier)
+                      .setHemisphere(value);
+                },
+                segments: [
+                  SegmentOption(
+                    value: Hemisphere.northern,
+                    label: Text(l10n.hemisphereNorthern),
+                  ),
+                  SegmentOption(
+                    value: Hemisphere.southern,
+                    label: Text(l10n.hemisphereSouthern),
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+
   Future<void> _showResetConfirmationDialog(
     final BuildContext context,
     final WidgetRef ref,
@@ -174,7 +226,10 @@ class SettingsScreen extends ConsumerWidget {
           SettingsCard(children: [_buildThemeSetting(context, ref, l10n)]),
           SettingsSectionHeader(title: l10n.settingsSectionPreferences),
           SettingsCard(
-            children: [_buildMeasurementUnitSetting(context, ref, l10n)],
+            children: [
+              _buildMeasurementUnitSetting(context, ref, l10n),
+              _buildHemisphereSetting(context, ref, l10n),
+            ],
           ),
           SettingsSectionHeader(title: l10n.settingsSectionDataManagement),
           SettingsCard(

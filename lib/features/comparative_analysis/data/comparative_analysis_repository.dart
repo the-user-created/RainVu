@@ -13,13 +13,12 @@ abstract class ComparativeAnalysisRepository {
 
   Future<ComparativeAnalysisData> fetchComparativeData(
     final ComparativeFilter filter,
+    final Hemisphere hemisphere,
   );
 }
 
 @riverpod
-ComparativeAnalysisRepository comparativeAnalysisRepository(
-  final Ref ref,
-) {
+ComparativeAnalysisRepository comparativeAnalysisRepository(final Ref ref) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
   return DriftComparativeAnalysisRepository(db.rainfallEntriesDao);
 }
@@ -41,13 +40,14 @@ class DriftComparativeAnalysisRepository
   @override
   Future<ComparativeAnalysisData> fetchComparativeData(
     final ComparativeFilter filter,
+    final Hemisphere hemisphere,
   ) async {
     switch (filter.type) {
       case ComparisonType.annual:
       case ComparisonType.monthly:
         return _fetchAnnualOrMonthlyData(filter);
       case ComparisonType.seasonal:
-        return _fetchSeasonalData(filter);
+        return _fetchSeasonalData(filter, hemisphere);
     }
   }
 
@@ -65,9 +65,7 @@ class DriftComparativeAnalysisRepository
     final List<double> monthlyTotals2 = _processMonthlyTotals(results[1]);
 
     // Build Chart Data
-    final List<String> labels = DateFormat.MMMM()
-        .dateSymbols
-        .STANDALONEMONTHS
+    final List<String> labels = DateFormat.MMMM().dateSymbols.STANDALONEMONTHS
         .map((final m) => m.substring(0, 3))
         .toList();
 
@@ -89,27 +87,22 @@ class DriftComparativeAnalysisRepository
   }
 
   /// Fetches and processes data for a year-over-year comparison,
-  /// broken down by season.
+  /// broken down by season, respecting the user's hemisphere.
   Future<ComparativeAnalysisData> _fetchSeasonalData(
     final ComparativeFilter filter,
+    final Hemisphere hemisphere,
   ) async {
-    final Map<Season, List<int>> seasons = {
-      Season.spring: [3, 4, 5],
-      Season.summer: [6, 7, 8],
-      Season.autumn: [9, 10, 11],
-      Season.winter: [12, 1, 2],
-    };
-
     final List<Future<double>> futures1 = [];
     final List<Future<double>> futures2 = [];
-    final List<String> labels = seasons.keys
+    final List<String> labels = Season.values
         .map(
           (final season) =>
               season.name[0].toUpperCase() + season.name.substring(1),
         )
         .toList();
 
-    for (final List<int> months in seasons.values) {
+    for (final Season season in Season.values) {
+      final List<int> months = getMonthsForSeason(season, hemisphere);
       futures1.add(_dao.getSeasonalTotalForYear(filter.year1, months));
       futures2.add(_dao.getSeasonalTotalForYear(filter.year2, months));
     }
@@ -158,10 +151,7 @@ class DriftComparativeAnalysisRepository
       ),
     ]..sort((final a, final b) => b.year.compareTo(a.year));
 
-    return ComparativeAnalysisData(
-      summaries: summaries,
-      chartData: chartData,
-    );
+    return ComparativeAnalysisData(summaries: summaries, chartData: chartData);
   }
 
   /// Processes the raw query result from the DAO into a 12-element list

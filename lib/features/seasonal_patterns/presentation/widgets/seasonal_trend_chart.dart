@@ -25,7 +25,7 @@ class SeasonalTrendChart extends ConsumerWidget {
     final bool isInch = unit == MeasurementUnit.inch;
 
     final double maxRainfall = trendData.isEmpty
-        ? 10.0
+        ? 0.0
         : trendData.map((final e) => e.rainfall).reduce(max);
     final double displayMaxRainfall = isInch
         ? maxRainfall.toInches()
@@ -45,11 +45,15 @@ class SeasonalTrendChart extends ConsumerWidget {
               height: 250,
               child: LineChart(
                 LineChartData(
-                  maxY: (displayMaxRainfall * 1.2).ceilToDouble(),
+                  maxY: displayMaxRainfall > 0
+                      ? (displayMaxRainfall * 1.2).ceilToDouble()
+                      : 5.0,
                   gridData: FlGridData(
                     drawVerticalLine: false,
                     getDrawingHorizontalLine: (final value) => FlLine(
-                      color: theme.colorScheme.outlineVariant,
+                      color: theme.colorScheme.outlineVariant.withValues(
+                        alpha: 0.5,
+                      ),
                       strokeWidth: 1,
                     ),
                   ),

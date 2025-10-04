@@ -1,6 +1,8 @@
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/comparative_analysis/data/comparative_analysis_repository.dart";
 import "package:rain_wise/features/comparative_analysis/domain/comparative_analysis_data.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "comparative_analysis_provider.g.dart";
@@ -41,14 +43,14 @@ class ComparativeAnalysisFilterNotifier
 }
 
 @riverpod
-Future<ComparativeAnalysisData> comparativeAnalysisData(
-  final Ref ref,
-) async {
+Future<ComparativeAnalysisData> comparativeAnalysisData(final Ref ref) async {
   ref.watch(rainfallRepositoryProvider).watchTableUpdates();
 
   // Await the filter provider. This will correctly propagate loading/error states.
-  final ComparativeFilter filter =
-      await ref.watch(comparativeAnalysisFilterProvider.future);
+  final ComparativeFilter filter = await ref.watch(
+    comparativeAnalysisFilterProvider.future,
+  );
+  final UserPreferences prefs = await ref.watch(userPreferencesProvider.future);
 
   if (filter.year1 == filter.year2) {
     // Return an empty state if the same year is selected for comparison.
@@ -59,5 +61,5 @@ Future<ComparativeAnalysisData> comparativeAnalysisData(
   }
   return ref
       .watch(comparativeAnalysisRepositoryProvider)
-      .fetchComparativeData(filter);
+      .fetchComparativeData(filter, prefs.hemisphere);
 }

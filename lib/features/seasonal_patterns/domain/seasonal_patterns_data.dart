@@ -1,23 +1,6 @@
 import "package:freezed_annotation/freezed_annotation.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/domain/seasons.dart";
 
 part "seasonal_patterns_data.freezed.dart";
-
-extension SeasonExtension on Season {
-  String getName(final AppLocalizations l10n) {
-    switch (this) {
-      case Season.spring:
-        return l10n.seasonSpring;
-      case Season.summer:
-        return l10n.seasonSummer;
-      case Season.autumn:
-        return l10n.seasonAutumn;
-      case Season.winter:
-        return l10n.seasonWinter;
-    }
-  }
-}
 
 /// A wrapper class for all data needed on the Seasonal Patterns screen.
 @freezed

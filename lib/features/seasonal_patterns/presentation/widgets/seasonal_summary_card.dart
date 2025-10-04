@@ -5,15 +5,47 @@ import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/seasonal_patterns/domain/seasonal_patterns_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
+import "package:rain_wise/shared/widgets/sheets/info_sheet.dart";
 
 class SeasonalSummaryCard extends ConsumerWidget {
   const SeasonalSummaryCard({required this.summary, super.key});
 
   final SeasonalSummary summary;
 
+  void _showInfoSheet(final BuildContext context, final AppLocalizations l10n) {
+    InfoSheet.show(
+      context,
+      title: l10n.seasonSummaryInfoSheetTitle,
+      items: [
+        InfoSheetItem(
+          icon: Icons.water_drop_outlined,
+          title: l10n.seasonSummaryAverageRainfallLabel,
+          description: l10n.seasonSummaryInfoAverageRainfallDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.trending_up,
+          title: l10n.seasonSummaryTrendVsHistoryLabel,
+          description: l10n.seasonSummaryInfoTrendVsHistoryDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.arrow_circle_up_outlined,
+          title: l10n.seasonSummaryHighestRecordedLabel,
+          description: l10n.seasonSummaryInfoHighestRecordedDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.arrow_circle_down_outlined,
+          title: l10n.seasonSummaryLowestRecordedLabel,
+          description: l10n.seasonSummaryInfoLowestRecordedDescription,
+        ),
+      ],
+    );
+  }
+
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
@@ -27,7 +59,19 @@ class SeasonalSummaryCard extends ConsumerWidget {
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(l10n.seasonSummaryTitle, style: textTheme.titleMedium),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(l10n.seasonSummaryTitle, style: textTheme.titleMedium),
+                AppIconButton(
+                  icon: const Icon(Icons.info_outline),
+                  onPressed: () => _showInfoSheet(context, l10n),
+                  tooltip: l10n.infoTooltip,
+                  iconSize: 20,
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
+              ],
+            ),
             const SizedBox(height: 16),
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
@@ -141,6 +185,6 @@ class _VerticalDivider extends StatelessWidget {
   Widget build(final BuildContext context) => Container(
     width: 1,
     height: 40,
-    color: Theme.of(context).colorScheme.surfaceContainerHighest,
+    color: Theme.of(context).colorScheme.outlineVariant.withValues(alpha: 0.5),
   );
 }
