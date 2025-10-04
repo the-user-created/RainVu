@@ -23,24 +23,25 @@ class InsightsScreen extends ConsumerWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(l10n.navInsights, style: theme.textTheme.headlineLarge),
-        centerTitle: false,
       ),
-      body: insightsDataAsync.when(
-        loading: () => const AppLoader(),
-        error: (final err, final stack) =>
-            Center(child: Text(l10n.insightsError(err))),
-        data: (final data) => SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 24),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              KeyMetricsSection(metrics: data.keyMetrics),
-              const SizedBox(height: 24),
-              MonthlyComparisonGrid(comparisons: data.monthlyComparisons),
-              const SizedBox(height: 24),
-              const DetailedAnalysisList(),
-              const SizedBox(height: 24),
-            ],
+      body: SafeArea(
+        child: insightsDataAsync.when(
+          loading: () => const AppLoader(),
+          error: (final err, final stack) =>
+              Center(child: Text(l10n.insightsError(err))),
+          data: (final data) => SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(vertical: 24),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                KeyMetricsSection(metrics: data.keyMetrics),
+                const SizedBox(height: 24),
+                MonthlyComparisonGrid(comparisons: data.monthlyComparisons),
+                const SizedBox(height: 24),
+                const DetailedAnalysisList(),
+                const SizedBox(height: 24),
+              ],
+            ),
           ),
         ),
       ),

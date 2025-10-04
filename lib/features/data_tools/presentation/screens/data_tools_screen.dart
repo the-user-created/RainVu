@@ -16,21 +16,21 @@ class DataToolsScreen extends ConsumerWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
 
     ref
-      ..listen<String?>(
-        dataToolsProvider.select((final s) => s.errorMessage),
-        (final _, final errorMessage) {
-          if (errorMessage != null) {
-            ScaffoldMessenger.of(context)
-              ..hideCurrentSnackBar()
-              ..showSnackBar(
-                SnackBar(
-                  content: Text(errorMessage),
-                  backgroundColor: theme.colorScheme.error,
-                ),
-              );
-          }
-        },
-      )
+      ..listen<String?>(dataToolsProvider.select((final s) => s.errorMessage), (
+        final _,
+        final errorMessage,
+      ) {
+        if (errorMessage != null) {
+          ScaffoldMessenger.of(context)
+            ..hideCurrentSnackBar()
+            ..showSnackBar(
+              SnackBar(
+                content: Text(errorMessage),
+                backgroundColor: theme.colorScheme.error,
+              ),
+            );
+        }
+      })
       ..listen<String?>(
         dataToolsProvider.select((final s) => s.successMessage),
         (final _, final successMessage) {
@@ -42,20 +42,25 @@ class DataToolsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.dataToolsTitle),
-        centerTitle: false,
+        title: Text(l10n.dataToolsTitle, style: theme.textTheme.titleLarge),
       ),
-      body: GestureDetector(
-        onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
-        child: ListView(
-          padding: const EdgeInsets.symmetric(vertical: 24),
-          children: [
-            SettingsSectionHeader(title: l10n.dataToolsExportDataSectionTitle),
-            const ExportDataCard(),
-            const SizedBox(height: 24),
-            SettingsSectionHeader(title: l10n.dataToolsImportDataSectionTitle),
-            const ImportDataCard(),
-          ],
+      body: SafeArea(
+        child: GestureDetector(
+          onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+          child: ListView(
+            padding: const EdgeInsets.symmetric(vertical: 24),
+            children: [
+              SettingsSectionHeader(
+                title: l10n.dataToolsExportDataSectionTitle,
+              ),
+              const ExportDataCard(),
+              const SizedBox(height: 24),
+              SettingsSectionHeader(
+                title: l10n.dataToolsImportDataSectionTitle,
+              ),
+              const ImportDataCard(),
+            ],
+          ),
         ),
       ),
     );

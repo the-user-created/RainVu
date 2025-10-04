@@ -211,71 +211,72 @@ class SettingsScreen extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
+    final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
 
     return Scaffold(
       appBar: AppBar(
         automaticallyImplyLeading: false,
-        title: Text(l10n.settingsTitle),
-        elevation: 2,
-        centerTitle: true,
+        title: Text(l10n.settingsTitle, style: theme.textTheme.headlineLarge),
       ),
-      body: ListView(
-        children: [
-          SettingsSectionHeader(title: l10n.settingsSectionAppearance),
-          SettingsCard(children: [_buildThemeSetting(context, ref, l10n)]),
-          SettingsSectionHeader(title: l10n.settingsSectionPreferences),
-          SettingsCard(
-            children: [
-              _buildMeasurementUnitSetting(context, ref, l10n),
-              _buildHemisphereSetting(context, ref, l10n),
-            ],
-          ),
-          SettingsSectionHeader(title: l10n.settingsSectionDataManagement),
-          SettingsCard(
-            children: [
-              SettingsListTile(
-                leading: const Icon(Icons.import_export_rounded),
-                title: l10n.settingsDataManagementExportImport,
-                onTap: () => const DataToolsRoute().push(context),
-              ),
-            ],
-          ),
-          SettingsSectionHeader(title: l10n.settingsSectionSupportLegal),
-          SettingsCard(
-            children: [
-              SettingsListTile(
-                leading: const Icon(Icons.help_outline_rounded),
-                title: l10n.settingsSupportLegalHelp,
-                onTap: () => const HelpRoute().push(context),
-              ),
-              SettingsListTile(
-                leading: const Icon(Icons.policy_outlined),
-                title: l10n.settingsSupportLegalPrivacyPolicy,
-                onTap: () => const ComingSoonRoute(
-                  $extra: ComingSoonScreenArgs(pageTitle: "Privacy Policy"),
-                ).push(context),
-              ),
-              SettingsListTile(
-                leading: const Icon(Icons.gavel_rounded),
-                title: l10n.settingsSupportLegalTermsOfService,
-                onTap: () => const ComingSoonRoute(
-                  $extra: ComingSoonScreenArgs(pageTitle: "Terms of Service"),
-                ).push(context),
-              ),
-              SettingsListTile(
-                leading: const Icon(Icons.article_outlined),
-                title: l10n.settingsSupportLegalOssLicenses,
-                onTap: () => const OssLicensesRoute().push(context),
-              ),
-            ],
-          ),
-          SettingsSectionHeader(title: l10n.settingsSectionDangerZone),
-          DangerZoneCard(
-            onReset: () => _showResetConfirmationDialog(context, ref),
-          ),
-          const AppInfoFooter(),
-        ],
+      body: SafeArea(
+        child: ListView(
+          children: [
+            SettingsSectionHeader(title: l10n.settingsSectionAppearance),
+            SettingsCard(children: [_buildThemeSetting(context, ref, l10n)]),
+            SettingsSectionHeader(title: l10n.settingsSectionPreferences),
+            SettingsCard(
+              children: [
+                _buildMeasurementUnitSetting(context, ref, l10n),
+                _buildHemisphereSetting(context, ref, l10n),
+              ],
+            ),
+            SettingsSectionHeader(title: l10n.settingsSectionDataManagement),
+            SettingsCard(
+              children: [
+                SettingsListTile(
+                  leading: const Icon(Icons.import_export_rounded),
+                  title: l10n.settingsDataManagementExportImport,
+                  onTap: () => const DataToolsRoute().push(context),
+                ),
+              ],
+            ),
+            SettingsSectionHeader(title: l10n.settingsSectionSupportLegal),
+            SettingsCard(
+              children: [
+                SettingsListTile(
+                  leading: const Icon(Icons.help_outline_rounded),
+                  title: l10n.settingsSupportLegalHelp,
+                  onTap: () => const HelpRoute().push(context),
+                ),
+                SettingsListTile(
+                  leading: const Icon(Icons.policy_outlined),
+                  title: l10n.settingsSupportLegalPrivacyPolicy,
+                  onTap: () => const ComingSoonRoute(
+                    $extra: ComingSoonScreenArgs(pageTitle: "Privacy Policy"),
+                  ).push(context),
+                ),
+                SettingsListTile(
+                  leading: const Icon(Icons.gavel_rounded),
+                  title: l10n.settingsSupportLegalTermsOfService,
+                  onTap: () => const ComingSoonRoute(
+                    $extra: ComingSoonScreenArgs(pageTitle: "Terms of Service"),
+                  ).push(context),
+                ),
+                SettingsListTile(
+                  leading: const Icon(Icons.article_outlined),
+                  title: l10n.settingsSupportLegalOssLicenses,
+                  onTap: () => const OssLicensesRoute().push(context),
+                ),
+              ],
+            ),
+            SettingsSectionHeader(title: l10n.settingsSectionDangerZone),
+            DangerZoneCard(
+              onReset: () => _showResetConfirmationDialog(context, ref),
+            ),
+            const AppInfoFooter(),
+          ],
+        ),
       ),
     );
   }

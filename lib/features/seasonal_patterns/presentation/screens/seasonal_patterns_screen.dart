@@ -21,44 +21,43 @@ class SeasonalPatternsScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        elevation: 2,
-        shadowColor: theme.shadowColor,
         title: Text(
           l10n.seasonalPatternsTitle,
-          style: theme.textTheme.headlineMedium,
+          style: theme.textTheme.titleLarge,
         ),
-        centerTitle: false,
       ),
-      body: dataAsync.when(
-        loading: () => const Center(child: AppLoader()),
-        error: (final err, final stack) =>
-            Center(child: Text(l10n.seasonalPatternsError(err))),
-        data: (final data) {
-          final bool hasData =
-              data.summary.highestRecorded > 0 ||
-              data.summary.lowestRecorded > 0;
+      body: SafeArea(
+        child: dataAsync.when(
+          loading: () => const Center(child: AppLoader()),
+          error: (final err, final stack) =>
+              Center(child: Text(l10n.seasonalPatternsError(err))),
+          data: (final data) {
+            final bool hasData =
+                data.summary.highestRecorded > 0 ||
+                data.summary.lowestRecorded > 0;
 
-          return ListView(
-            padding: const EdgeInsets.only(bottom: 24),
-            children: [
-              const _Header(),
-              const SizedBox(height: 24),
-              if (hasData)
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 16),
-                  child: Column(
-                    children: [
-                      SeasonalTrendChart(trendData: data.trendData),
-                      const SizedBox(height: 24),
-                      SeasonalSummaryCard(summary: data.summary),
-                    ],
-                  ),
-                )
-              else
-                const _NoDataState(),
-            ],
-          );
-        },
+            return ListView(
+              padding: const EdgeInsets.only(bottom: 24),
+              children: [
+                const _Header(),
+                const SizedBox(height: 24),
+                if (hasData)
+                  Padding(
+                    padding: const EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      children: [
+                        SeasonalTrendChart(trendData: data.trendData),
+                        const SizedBox(height: 24),
+                        SeasonalSummaryCard(summary: data.summary),
+                      ],
+                    ),
+                  )
+                else
+                  const _NoDataState(),
+              ],
+            );
+          },
+        ),
       ),
     );
   }

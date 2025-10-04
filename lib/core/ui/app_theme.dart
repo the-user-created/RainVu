@@ -104,7 +104,9 @@ class AppTheme {
       scaffoldBackgroundColor: colorScheme.surface,
       appBarTheme: AppBarTheme(
         backgroundColor: colorScheme.surface,
-        elevation: 0,
+        shadowColor: Colors.black.withValues(alpha: 0.2),
+        elevation: 2,
+        centerTitle: false,
         scrolledUnderElevation: 1,
         titleTextStyle: textTheme.headlineMedium,
         iconTheme: IconThemeData(color: colorScheme.onSurface),

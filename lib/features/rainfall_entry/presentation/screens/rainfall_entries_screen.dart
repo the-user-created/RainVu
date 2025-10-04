@@ -22,37 +22,39 @@ class RainfallEntriesScreen extends ConsumerWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final DateTime selectedMonth =
         DateTime.tryParse("$month-01") ?? DateTime.now();
-    final AsyncValue<List<RainfallEntry>> entriesAsync =
-        ref.watch(rainfallEntriesForMonthProvider(selectedMonth));
+    final AsyncValue<List<RainfallEntry>> entriesAsync = ref.watch(
+      rainfallEntriesForMonthProvider(selectedMonth),
+    );
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
           DateFormat.yMMMM().format(selectedMonth),
-          style: theme.textTheme.headlineMedium,
+          style: theme.textTheme.titleLarge,
         ),
-        centerTitle: true,
       ),
-      body: entriesAsync.when(
-        loading: () => const AppLoader(),
-        error: (final err, final stack) =>
-            Center(child: Text(l10n.rainfallEntriesError(err))),
-        data: (final entries) {
-          if (entries.isEmpty) {
-            return Center(
-              child: Text(
-                l10n.rainfallEntriesEmpty,
-                style: theme.textTheme.bodyLarge,
-              ),
+      body: SafeArea(
+        child: entriesAsync.when(
+          loading: () => const AppLoader(),
+          error: (final err, final stack) =>
+              Center(child: Text(l10n.rainfallEntriesError(err))),
+          data: (final entries) {
+            if (entries.isEmpty) {
+              return Center(
+                child: Text(
+                  l10n.rainfallEntriesEmpty,
+                  style: theme.textTheme.bodyLarge,
+                ),
+              );
+            }
+            return ListView.builder(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+              itemCount: entries.length,
+              itemBuilder: (final context, final index) =>
+                  RainfallEntryListItem(entry: entries[index]),
             );
-          }
-          return ListView.builder(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-            itemCount: entries.length,
-            itemBuilder: (final context, final index) =>
-                RainfallEntryListItem(entry: entries[index]),
-          );
-        },
+          },
+        ),
       ),
     );
   }

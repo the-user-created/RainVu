@@ -39,6 +39,7 @@ class HelpScreen extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
+    final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final List<Faq> faqs = [
       Faq(question: l10n.faq1Question, answer: l10n.faq1Answer),
@@ -47,72 +48,70 @@ class HelpScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.helpTitle),
-        elevation: 2,
-        centerTitle: false,
+        title: Text(l10n.helpTitle, style: theme.textTheme.titleLarge),
       ),
-      body: ListView(
-        padding: const EdgeInsets.only(bottom: 32),
-        children: [
-          SettingsSectionHeader(title: l10n.helpSectionFaqs),
-          SettingsCard(
-            children: faqs
-                .map(
-                  (final faq) => FaqTile(
-                    question: faq.question,
-                    answer: faq.answer,
-                  ),
-                )
-                .toList(),
-          ),
-          SettingsSectionHeader(title: l10n.helpSectionContactUs),
-          SettingsCard(
-            children: [
-              ContactSupportTile(
-                title: l10n.helpContactEmailSupport,
-                subtitle: "support@rainwiseapp.com",
-                icon: Icons.mail_outline,
-                url: "mailto:support@rainwiseapp.com",
-              ),
-            ],
-          ),
-          SettingsSectionHeader(title: l10n.helpSectionImprove),
-          Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.stretch,
+      body: SafeArea(
+        child: ListView(
+          padding: const EdgeInsets.only(bottom: 32),
+          children: [
+            SettingsSectionHeader(title: l10n.helpSectionFaqs),
+            SettingsCard(
+              children: faqs
+                  .map(
+                    (final faq) =>
+                        FaqTile(question: faq.question, answer: faq.answer),
+                  )
+                  .toList(),
+            ),
+            SettingsSectionHeader(title: l10n.helpSectionContactUs),
+            SettingsCard(
               children: [
-                AppButton(
-                  onPressed: () => _showTicketSheet(
-                    context,
-                    initialCategory: TicketCategory.bugReport,
-                  ),
-                  label: l10n.helpReportProblemButton,
-                  icon: const Icon(
-                    Icons.report_problem_outlined,
-                    color: Colors.white,
-                  ),
-                  style: AppButtonStyle.destructive,
-                  isExpanded: true,
-                ),
-                const SizedBox(height: 12),
-                AppButton(
-                  onPressed: () => _showTicketSheet(
-                    context,
-                    initialCategory: TicketCategory.generalFeedback,
-                  ),
-                  label: l10n.helpSendFeedbackButton,
-                  icon: const Icon(
-                    Icons.feedback_outlined,
-                    color: Colors.white,
-                  ),
-                  style: AppButtonStyle.secondary,
-                  isExpanded: true,
+                ContactSupportTile(
+                  title: l10n.helpContactEmailSupport,
+                  subtitle: "support@rainwiseapp.com",
+                  icon: Icons.mail_outline,
+                  url: "mailto:support@rainwiseapp.com",
                 ),
               ],
             ),
-          ),
-        ],
+            SettingsSectionHeader(title: l10n.helpSectionImprove),
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  AppButton(
+                    onPressed: () => _showTicketSheet(
+                      context,
+                      initialCategory: TicketCategory.bugReport,
+                    ),
+                    label: l10n.helpReportProblemButton,
+                    icon: const Icon(
+                      Icons.report_problem_outlined,
+                      color: Colors.white,
+                    ),
+                    style: AppButtonStyle.destructive,
+                    isExpanded: true,
+                  ),
+                  const SizedBox(height: 12),
+                  AppButton(
+                    onPressed: () => _showTicketSheet(
+                      context,
+                      initialCategory: TicketCategory.generalFeedback,
+                    ),
+                    label: l10n.helpSendFeedbackButton,
+                    icon: const Icon(
+                      Icons.feedback_outlined,
+                      color: Colors.white,
+                    ),
+                    style: AppButtonStyle.secondary,
+                    isExpanded: true,
+                  ),
+                ],
+              ),
+            ),
+          ],
+        ),
       ),
     );
   }

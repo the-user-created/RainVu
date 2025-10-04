@@ -15,8 +15,9 @@ class ManageGaugesScreen extends StatelessWidget {
       backgroundColor: Colors.transparent,
       useSafeArea: true,
       builder: (final context) => Padding(
-        padding:
-            EdgeInsets.only(bottom: MediaQuery.of(context).viewInsets.bottom),
+        padding: EdgeInsets.only(
+          bottom: MediaQuery.of(context).viewInsets.bottom,
+        ),
         child: const AddGaugeSheet(),
       ),
     );
@@ -28,29 +29,33 @@ class ManageGaugesScreen extends StatelessWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     return Scaffold(
       appBar: AppBar(
-        title:
-            Text(l10n.manageGaugesTitle, style: theme.textTheme.headlineLarge),
-        centerTitle: false,
+        title: Text(
+          l10n.manageGaugesTitle,
+          style: theme.textTheme.headlineLarge,
+        ),
       ),
-      body: SingleChildScrollView(
-        padding: const EdgeInsets.all(AppConstants.horiEdgePadding)
-            .copyWith(top: 16),
-        child: Column(
-          children: [
-            const GaugeList(),
-            const SizedBox(height: 16),
-            AppButton(
-              label: l10n.manageGaugesAddButton,
-              onPressed: () => _showAddSheet(context),
-              icon: Icon(
-                Icons.add,
-                size: 20,
-                color: theme.colorScheme.onSecondary,
+      body: SafeArea(
+        child: SingleChildScrollView(
+          padding: const EdgeInsets.all(
+            AppConstants.horiEdgePadding,
+          ).copyWith(top: 16),
+          child: Column(
+            children: [
+              const GaugeList(),
+              const SizedBox(height: 16),
+              AppButton(
+                label: l10n.manageGaugesAddButton,
+                onPressed: () => _showAddSheet(context),
+                icon: Icon(
+                  Icons.add,
+                  size: 20,
+                  color: theme.colorScheme.onSecondary,
+                ),
+                isExpanded: true,
+                style: AppButtonStyle.secondary,
               ),
-              isExpanded: true,
-              style: AppButtonStyle.secondary,
-            ),
-          ],
+            ],
+          ),
         ),
       ),
     );

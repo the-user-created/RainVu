@@ -69,7 +69,7 @@ class _MonthlyBreakdownScreenState
       appBar: AppBar(
         title: Text(
           l10n.monthlyBreakdownTitle,
-          style: theme.textTheme.headlineMedium,
+          style: theme.textTheme.titleLarge,
         ),
         actions: [
           Padding(
@@ -91,32 +91,34 @@ class _MonthlyBreakdownScreenState
         ],
         centerTitle: false,
       ),
-      body: breakdownDataAsync.when(
-        loading: () => const AppLoader(),
-        error: (final err, final stack) => Center(
-          child: Text(
-            l10n.monthlyBreakdownError(err),
-            style: theme.textTheme.bodyLarge,
+      body: SafeArea(
+        child: breakdownDataAsync.when(
+          loading: () => const AppLoader(),
+          error: (final err, final stack) => Center(
+            child: Text(
+              l10n.monthlyBreakdownError(err),
+              style: theme.textTheme.bodyLarge,
+            ),
           ),
-        ),
-        data: (final data) => SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-          child: Column(
-            children: [
-              MonthlySummaryCard(
-                stats: data.summaryStats,
-                selectedMonth: _selectedMonth,
-              ),
-              const SizedBox(height: 24),
-              HistoricalComparisonCard(
-                stats: data.historicalStats,
-                currentTotal: data.summaryStats.totalRainfall,
-              ),
-              const SizedBox(height: 24),
-              DailyRainfallChart(chartData: data.dailyChartData),
-              const SizedBox(height: 24),
-              DailyBreakdownList(breakdownItems: data.dailyBreakdownList),
-            ],
+          data: (final data) => SingleChildScrollView(
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+            child: Column(
+              children: [
+                MonthlySummaryCard(
+                  stats: data.summaryStats,
+                  selectedMonth: _selectedMonth,
+                ),
+                const SizedBox(height: 24),
+                HistoricalComparisonCard(
+                  stats: data.historicalStats,
+                  currentTotal: data.summaryStats.totalRainfall,
+                ),
+                const SizedBox(height: 24),
+                DailyRainfallChart(chartData: data.dailyChartData),
+                const SizedBox(height: 24),
+                DailyBreakdownList(breakdownItems: data.dailyBreakdownList),
+              ],
+            ),
           ),
         ),
       ),

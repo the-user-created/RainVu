@@ -70,8 +70,7 @@ class LicenseDetailScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(package.name),
-        elevation: 2,
+        title: Text(package.name, style: theme.textTheme.titleLarge),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8),
@@ -83,14 +82,16 @@ class LicenseDetailScreen extends StatelessWidget {
           ),
         ],
       ),
-      body: Scrollbar(
-        thumbVisibility: true,
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.all(16),
-          child: SelectableText(
-            _reflowLicenseText(licenseText),
-            style: theme.textTheme.bodyMedium!.copyWith(
-              fontFamily: "monospace",
+      body: SafeArea(
+        child: Scrollbar(
+          thumbVisibility: true,
+          child: SingleChildScrollView(
+            padding: const EdgeInsets.all(16),
+            child: SelectableText(
+              _reflowLicenseText(licenseText),
+              style: theme.textTheme.bodyMedium!.copyWith(
+                fontFamily: "monospace",
+              ),
             ),
           ),
         ),

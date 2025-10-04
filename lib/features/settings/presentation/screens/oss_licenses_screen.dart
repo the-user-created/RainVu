@@ -20,42 +20,42 @@ class OssLicensesScreen extends StatelessWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.ossLicensesTitle),
-        centerTitle: true,
-        elevation: 2,
+        title: Text(l10n.ossLicensesTitle, style: theme.textTheme.titleLarge),
       ),
-      body: ListView.separated(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-        itemCount: packages.length,
-        separatorBuilder: (final context, final index) =>
-            const SizedBox(height: 8),
-        itemBuilder: (final context, final index) {
-          final oss.Package package = packages[index];
-          return Card(
-            clipBehavior: Clip.antiAlias,
-            child: ListTile(
-              title: Text(package.name, style: theme.textTheme.bodyLarge),
-              subtitle: Text(
-                l10n.ossLicensesVersion(package.version ?? "N/A"),
-                style: theme.textTheme.bodySmall?.copyWith(
+      body: SafeArea(
+        child: ListView.separated(
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+          itemCount: packages.length,
+          separatorBuilder: (final context, final index) =>
+              const SizedBox(height: 8),
+          itemBuilder: (final context, final index) {
+            final oss.Package package = packages[index];
+            return Card(
+              clipBehavior: Clip.antiAlias,
+              child: ListTile(
+                title: Text(package.name, style: theme.textTheme.bodyLarge),
+                subtitle: Text(
+                  l10n.ossLicensesVersion(package.version ?? "N/A"),
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                ),
+                trailing: Icon(
+                  Icons.chevron_right_rounded,
                   color: theme.colorScheme.onSurfaceVariant,
                 ),
+                onTap: () {
+                  Navigator.of(context).push(
+                    MaterialPageRoute<void>(
+                      builder: (final context) =>
+                          LicenseDetailScreen(package: package),
+                    ),
+                  );
+                },
               ),
-              trailing: Icon(
-                Icons.chevron_right_rounded,
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
-              onTap: () {
-                Navigator.of(context).push(
-                  MaterialPageRoute<void>(
-                    builder: (final context) =>
-                        LicenseDetailScreen(package: package),
-                  ),
-                );
-              },
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
     );
   }
