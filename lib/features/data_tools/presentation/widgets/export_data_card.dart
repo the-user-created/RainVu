@@ -12,6 +12,7 @@ import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_choice_chips.dart";
 import "package:rain_wise/shared/widgets/pickers/date_range_picker.dart";
+import "package:rain_wise/core/utils/snackbar_service.dart";
 
 class ExportDataCard extends ConsumerWidget {
   const ExportDataCard({super.key});
@@ -65,7 +66,10 @@ class ExportDataCard extends ConsumerWidget {
                 onTap: dateRangeAsync.when(
                   data: (final data) => () async {
                     if (data.min == null || data.max == null) {
-                      showSnackbar(context, l10n.noDataToSetDateRange);
+                      showSnackbar(
+                        l10n.noDataToSetDateRange,
+                        type: MessageType.error,
+                      );
                       return;
                     }
 

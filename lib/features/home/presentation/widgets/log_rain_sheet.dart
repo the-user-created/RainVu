@@ -6,6 +6,7 @@ import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/data/providers/data_providers.dart";
 import "package:rain_wise/core/utils/extensions.dart";
+import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/home/application/home_providers.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
@@ -63,6 +64,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
 
   Future<void> _saveRainfallData() async {
     FocusScope.of(context).unfocus();
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     if (!(_formKey.currentState?.validate() ?? false) ||
         _selectedGaugeId == null) {
@@ -83,6 +85,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
         );
 
     if (mounted && success) {
+      showSnackbar(l10n.rainfallEntryLoggedSuccess, type: MessageType.success);
       Navigator.pop(context);
     }
   }

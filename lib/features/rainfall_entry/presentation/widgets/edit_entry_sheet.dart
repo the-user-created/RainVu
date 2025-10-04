@@ -6,6 +6,7 @@ import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/data/providers/data_providers.dart";
 import "package:rain_wise/core/utils/extensions.dart";
+import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
@@ -69,6 +70,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
   }
 
   Future<void> _onSaveChanges() async {
+    final AppLocalizations l10n = AppLocalizations.of(context);
     if (!_formKey.currentState!.validate()) {
       return;
     }
@@ -88,6 +90,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
     await ref.read(rainfallEntryProvider.notifier).updateEntry(updatedEntry);
 
     if (mounted) {
+      showSnackbar(l10n.rainfallEntryUpdatedSuccess, type: MessageType.success);
       setState(() => _isLoading = false);
       Navigator.of(context).pop();
     }

@@ -8,6 +8,7 @@ import "package:rain_wise/core/navigation/app_router.dart";
 import "package:rain_wise/core/ui/app_theme.dart";
 import "package:rain_wise/core/ui/theme_provider.dart";
 import "package:rain_wise/core/utils/formatters.dart";
+import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
 void main() async {
@@ -38,6 +39,7 @@ class MyApp extends ConsumerWidget {
     final ThemeMode themeMode = ref.watch(themeModeProvider);
 
     return MaterialApp.router(
+      scaffoldMessengerKey: snackbarKey,
       debugShowCheckedModeBanner: false,
       onGenerateTitle: (final context) => AppLocalizations.of(context).appName,
       localizationsDelegates: AppLocalizations.localizationsDelegates,

@@ -1,8 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/settings/application/support_provider.dart";
 import "package:rain_wise/features/settings/domain/support_ticket.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
@@ -55,18 +57,12 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
             contactEmail: contactEmail.isNotEmpty ? contactEmail : null,
           );
 
+      showSnackbar(l10n.ticketSheetSuccessMessage, type: MessageType.success);
       if (mounted) {
-        ScaffoldMessenger.of(
-          context,
-        ).showSnackBar(SnackBar(content: Text(l10n.ticketSheetSuccessMessage)));
         Navigator.of(context).pop();
       }
     } catch (e) {
-      if (mounted) {
-        ScaffoldMessenger.of(context).showSnackBar(
-          SnackBar(content: Text(l10n.ticketSheetErrorMessage(e))),
-        );
-      }
+      showSnackbar(l10n.ticketSheetErrorMessage(e), type: MessageType.error);
     } finally {
       if (mounted) {
         setState(() => _isLoading = false);

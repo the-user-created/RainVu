@@ -4,10 +4,12 @@ import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/core/utils/extensions.dart";
+import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/edit_gauge_sheet.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
+import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
 
@@ -56,7 +58,11 @@ class GaugeListTile extends ConsumerWidget {
         ),
       );
       if (confirmed == true && context.mounted) {
-        ref.read(gaugesProvider.notifier).deleteGauge(gauge.id);
+        await ref.read(gaugesProvider.notifier).deleteGauge(gauge.id);
+        showSnackbar(
+          l10n.gaugeDeletedSuccess(gauge.name),
+          type: MessageType.success,
+        );
       }
       return;
     }
@@ -109,7 +115,13 @@ class GaugeListTile extends ConsumerWidget {
       final DeleteGaugeAction action = deleteEntries
           ? DeleteGaugeAction.deleteEntries
           : DeleteGaugeAction.reassign;
-      ref.read(gaugesProvider.notifier).deleteGauge(gauge.id, action: action);
+      await ref
+          .read(gaugesProvider.notifier)
+          .deleteGauge(gauge.id, action: action);
+      showSnackbar(
+        l10n.gaugeDeletedSuccess(gauge.name),
+        type: MessageType.success,
+      );
     }
   }
 
@@ -163,11 +175,15 @@ class GaugeListTile extends ConsumerWidget {
                 ),
                 backgroundColor: theme.colorScheme.surface,
                 borderRadius: BorderRadius.circular(30),
-                onPressed: () {
+                onPressed: () async {
                   final String? newFavoriteId = isFavorite ? null : gauge.id;
-                  ref
+                  await ref
                       .read(userPreferencesProvider.notifier)
                       .setFavoriteGauge(newFavoriteId);
+                  final String message = isFavorite
+                      ? l10n.gaugeUnsetAsFavorite(displayName)
+                      : l10n.gaugeSetAsFavorite(displayName);
+                  showSnackbar(message, type: MessageType.success);
                 },
                 tooltip: l10n.gaugeTileSetFavoriteTooltip,
               ),

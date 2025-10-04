@@ -693,5 +693,49 @@
         "type": "int"
       }
     }
-  }
+  },
+  "settingsUpdatedSuccess": "Settings updated.",
+  "gaugeAddedSuccess": "Gauge '{name}' was added successfully.",
+  "@gaugeAddedSuccess": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "gaugeUpdatedSuccess": "Gauge '{name}' was updated successfully.",
+  "@gaugeUpdatedSuccess": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "gaugeDeletedSuccess": "Gauge '{name}' was deleted.",
+  "@gaugeDeletedSuccess": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "gaugeSetAsFavorite": "'{name}' is now your favorite gauge.",
+  "@gaugeSetAsFavorite": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "gaugeUnsetAsFavorite": "'{name}' is no longer your favorite gauge.",
+  "@gaugeUnsetAsFavorite": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "rainfallEntryLoggedSuccess": "Rainfall entry logged successfully.",
+  "rainfallEntryUpdatedSuccess": "Rainfall entry updated successfully.",
+  "rainfallEntryDeletedSuccess": "Rainfall entry deleted."
 }

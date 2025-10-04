@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/data_tools/application/data_tools_provider.dart";
 import "package:rain_wise/features/data_tools/presentation/widgets/export_data_card.dart";
 import "package:rain_wise/features/data_tools/presentation/widgets/import_data_card.dart";
@@ -21,21 +22,14 @@ class DataToolsScreen extends ConsumerWidget {
         final errorMessage,
       ) {
         if (errorMessage != null) {
-          ScaffoldMessenger.of(context)
-            ..hideCurrentSnackBar()
-            ..showSnackBar(
-              SnackBar(
-                content: Text(errorMessage),
-                backgroundColor: theme.colorScheme.error,
-              ),
-            );
+          showSnackbar(errorMessage, type: MessageType.error);
         }
       })
       ..listen<String?>(
         dataToolsProvider.select((final s) => s.successMessage),
         (final _, final successMessage) {
           if (successMessage != null) {
-            showSnackbar(context, successMessage);
+            showSnackbar(successMessage, type: MessageType.success);
           }
         },
       );

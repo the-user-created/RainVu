@@ -3,6 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/common/domain/coming_soon_args.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/navigation/app_router.dart";
+import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/settings/application/app_reset_provider.dart";
 import "package:rain_wise/features/settings/presentation/widgets/app_info_footer.dart";
 import "package:rain_wise/features/settings/presentation/widgets/danger_zone_card.dart";
@@ -53,10 +54,14 @@ class SettingsScreen extends ConsumerWidget {
               width: 220,
               child: AppSegmentedControl<AppThemeMode>(
                 selectedValue: preferences.themeMode,
-                onSelectionChanged: (final value) {
-                  ref
+                onSelectionChanged: (final value) async {
+                  await ref
                       .read(userPreferencesProvider.notifier)
                       .setThemeMode(value);
+                  showSnackbar(
+                    l10n.settingsUpdatedSuccess,
+                    type: MessageType.success,
+                  );
                 },
                 segments: [
                   SegmentOption(
@@ -108,10 +113,14 @@ class SettingsScreen extends ConsumerWidget {
               width: 150,
               child: AppSegmentedControl<MeasurementUnit>(
                 selectedValue: preferences.measurementUnit,
-                onSelectionChanged: (final value) {
-                  ref
+                onSelectionChanged: (final value) async {
+                  await ref
                       .read(userPreferencesProvider.notifier)
                       .setMeasurementUnit(value);
+                  showSnackbar(
+                    l10n.settingsUpdatedSuccess,
+                    type: MessageType.success,
+                  );
                 },
                 segments: [
                   SegmentOption(
@@ -159,10 +168,14 @@ class SettingsScreen extends ConsumerWidget {
               width: 220,
               child: AppSegmentedControl<Hemisphere>(
                 selectedValue: preferences.hemisphere,
-                onSelectionChanged: (final value) {
-                  ref
+                onSelectionChanged: (final value) async {
+                  await ref
                       .read(userPreferencesProvider.notifier)
                       .setHemisphere(value);
+                  showSnackbar(
+                    l10n.settingsUpdatedSuccess,
+                    type: MessageType.success,
+                  );
                 },
                 segments: [
                   SegmentOption(
@@ -200,11 +213,11 @@ class SettingsScreen extends ConsumerWidget {
         ref.invalidate(userPreferencesProvider);
 
         if (context.mounted) {
-          showSnackbar(context, l10n.resetSuccessSnackbar);
+          showSnackbar(l10n.resetSuccessSnackbar, type: MessageType.success);
         }
       } catch (e) {
         if (context.mounted) {
-          showSnackbar(context, l10n.resetErrorSnackbar(e));
+          showSnackbar(l10n.resetErrorSnackbar(e), type: MessageType.error);
         }
       }
     }

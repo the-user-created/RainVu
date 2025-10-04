@@ -4,11 +4,13 @@ import "package:intl/intl.dart";
 import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
+import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
 import "package:rain_wise/features/rainfall_entry/presentation/widgets/edit_entry_sheet.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rainfall_entry.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
+import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
 
@@ -53,7 +55,8 @@ class RainfallEntryListItem extends ConsumerWidget {
     );
 
     if (confirmed == true && entry.id != null) {
-      ref.read(rainfallEntryProvider.notifier).deleteEntry(entry.id!);
+      await ref.read(rainfallEntryProvider.notifier).deleteEntry(entry.id!);
+      showSnackbar(l10n.rainfallEntryDeletedSuccess, type: MessageType.success);
     }
   }
 
