@@ -4,6 +4,7 @@ import "package:intl/intl.dart";
 import "package:rain_wise/features/anomaly_exploration/application/anomaly_exploration_provider.dart";
 import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/widgets/pickers/date_range_picker.dart";
 
 class AnomalyFilterOptions extends ConsumerWidget {
   const AnomalyFilterOptions({super.key});
@@ -52,15 +53,16 @@ class _DateRangePicker extends ConsumerWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
-    final DateTimeRange dateRange = ref
-        .watch(anomalyFilterProvider.select((final f) => f.dateRange));
+    final DateTimeRange dateRange = ref.watch(
+      anomalyFilterProvider.select((final f) => f.dateRange),
+    );
     final String dateText =
         "${DateFormat.yMd().format(dateRange.start)} - ${DateFormat.yMd().format(dateRange.end)}";
 
     return InkWell(
       onTap: () async {
-        final DateTimeRange? picked = await showDateRangePicker(
-          context: context,
+        final DateTimeRange? picked = await showDateRangePickerModal(
+          context,
           firstDate: DateTime(2000),
           lastDate: DateTime.now().add(const Duration(days: 365)),
           initialDateRange: dateRange,

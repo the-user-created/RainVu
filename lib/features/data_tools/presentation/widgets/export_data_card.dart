@@ -6,7 +6,9 @@ import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_choice_chips.dart";
+import "package:rain_wise/shared/widgets/pickers/date_range_picker.dart";
 
 class ExportDataCard extends ConsumerWidget {
   const ExportDataCard({super.key});
@@ -29,8 +31,7 @@ class ExportDataCard extends ConsumerWidget {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final DataToolsState state = ref.watch(dataToolsProvider);
-    final DataToolsNotifier notifier =
-        ref.read(dataToolsProvider.notifier);
+    final DataToolsNotifier notifier = ref.read(dataToolsProvider.notifier);
 
     return SettingsCard(
       children: [
@@ -48,25 +49,30 @@ class ExportDataCard extends ConsumerWidget {
               Text(
                 l10n.exportDataCardDescription,
                 textAlign: TextAlign.center,
-                style: theme.textTheme.bodyMedium
-                    ?.copyWith(color: theme.colorScheme.onSurfaceVariant),
+                style: theme.textTheme.bodyMedium?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
+                ),
               ),
               const SizedBox(height: 24),
               _DateRangePickerTile(
                 dateRange: state.dateRange,
                 onTap: () async {
-                  final DateTimeRange? newRange = await showDateRangePicker(
-                    context: context,
-                    firstDate: DateTime(2000),
-                    lastDate: DateTime.now(),
-                    currentDate: DateTime.now(),
-                    initialDateRange: state.dateRange,
+                  final DateTimeRange defaultRange = DateTimeRange(
+                    start: DateTime.now().subtract(const Duration(days: 30)),
+                    end: DateTime.now(),
                   );
-                  // setDateRange can be null-aware
+                  final DateTimeRange? newRange =
+                      await showDateRangePickerModal(
+                        context,
+                        firstDate: DateTime(2000),
+                        lastDate: DateTime.now(),
+                        initialDateRange: state.dateRange ?? defaultRange,
+                      );
                   if (newRange != null) {
                     notifier.setDateRange(newRange);
                   }
                 },
+                onClear: () => notifier.setDateRange(null),
               ),
               const SizedBox(height: 16),
               Text(l10n.exportFormatTitle, style: theme.textTheme.bodyMedium),
@@ -85,8 +91,9 @@ class ExportDataCard extends ConsumerWidget {
               ),
               const SizedBox(height: 24),
               AppButton(
-                onPressed:
-                    state.isExporting ? null : () => notifier.exportData(l10n),
+                onPressed: state.isExporting
+                    ? null
+                    : () => notifier.exportData(l10n),
                 label: l10n.downloadFileButtonLabel,
                 isLoading: state.isExporting,
                 isExpanded: true,
@@ -105,10 +112,15 @@ class ExportDataCard extends ConsumerWidget {
 }
 
 class _DateRangePickerTile extends StatelessWidget {
-  const _DateRangePickerTile({required this.onTap, this.dateRange});
+  const _DateRangePickerTile({
+    required this.onTap,
+    this.dateRange,
+    this.onClear,
+  });
 
   final DateTimeRange? dateRange;
   final VoidCallback onTap;
+  final VoidCallback? onClear;
 
   @override
   Widget build(final BuildContext context) {
@@ -126,21 +138,26 @@ class _DateRangePickerTile extends StatelessWidget {
 
     return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
       child: Container(
-        padding: const EdgeInsets.all(16),
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         decoration: BoxDecoration(
           color: theme.colorScheme.surfaceContainerHighest,
           borderRadius: BorderRadius.circular(12),
         ),
         child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
           children: [
-            Text(label, style: theme.textTheme.bodyMedium),
-            Icon(
-              Icons.calendar_today,
-              color: theme.colorScheme.onSurface,
-              size: 24,
-            ),
+            Expanded(child: Text(label, style: theme.textTheme.bodyMedium)),
+            if (dateRange != null && onClear != null)
+              AppIconButton(
+                icon: const Icon(Icons.close),
+                onPressed: onClear,
+                tooltip: l10n.clearSelectionTooltip,
+                padding: const EdgeInsets.all(4),
+                iconSize: 20,
+              )
+            else
+              const Icon(Icons.calendar_today, size: 24),
           ],
         ),
       ),
