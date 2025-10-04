@@ -8,7 +8,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 part "rainfall_repository.g.dart";
 
 abstract class RainfallRepository {
-  Future<List<domain.RainfallEntry>> fetchEntriesForMonth(final DateTime month);
+  Stream<List<domain.RainfallEntry>> watchEntriesForMonth(final DateTime month);
 
   Stream<List<domain.RainfallEntry>> watchRecentEntries({final int limit = 5});
 
@@ -51,14 +51,11 @@ class DriftRainfallRepository implements RainfallRepository {
   final RainfallEntriesDao _dao;
 
   @override
-  Future<List<domain.RainfallEntry>> fetchEntriesForMonth(
+  Stream<List<domain.RainfallEntry>> watchEntriesForMonth(
     final DateTime month,
-  ) async {
-    final List<RainfallEntryWithGauge> entries = await _dao.getEntriesForMonth(
-      month,
-    );
-    return entries.map(_mapDriftToDomain).toList();
-  }
+  ) => _dao
+      .watchEntriesForMonth(month)
+      .map((final e) => e.map(_mapDriftToDomain).toList());
 
   @override
   Stream<List<domain.RainfallEntry>> watchRecentEntries({

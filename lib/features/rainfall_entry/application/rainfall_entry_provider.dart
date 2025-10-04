@@ -5,14 +5,10 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 part "rainfall_entry_provider.g.dart";
 
 @riverpod
-Future<List<RainfallEntry>> rainfallEntriesForMonth(
+Stream<List<RainfallEntry>> rainfallEntriesForMonth(
   final Ref ref,
   final DateTime month,
-) {
-  ref.watch(rainfallRepositoryProvider).watchTableUpdates();
-
-  return ref.watch(rainfallRepositoryProvider).fetchEntriesForMonth(month);
-}
+) => ref.watch(rainfallRepositoryProvider).watchEntriesForMonth(month);
 
 @riverpod
 class RainfallEntryNotifier extends _$RainfallEntryNotifier {

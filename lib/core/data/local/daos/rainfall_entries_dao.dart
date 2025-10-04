@@ -133,6 +133,32 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
         .get();
   }
 
+  Stream<List<RainfallEntryWithGauge>> watchEntriesForMonth(
+    final DateTime month,
+  ) {
+    final JoinedSelectStatement<HasResultSet, dynamic> query =
+        select(rainfallEntries).join([
+            leftOuterJoin(
+              rainGauges,
+              rainGauges.id.equalsExp(rainfallEntries.gaugeId),
+            ),
+          ])
+          ..where(
+            rainfallEntries.date.year.equals(month.year) &
+                rainfallEntries.date.month.equals(month.month),
+          )
+          ..orderBy([OrderingTerm.desc(rainfallEntries.date)]);
+
+    return query
+        .map(
+          (final row) => RainfallEntryWithGauge(
+            entry: row.readTable(rainfallEntries),
+            gauge: row.readTableOrNull(rainGauges),
+          ),
+        )
+        .watch();
+  }
+
   Stream<List<RainfallEntryWithGauge>> watchRecentEntries({
     final int limit = 5,
   }) {
