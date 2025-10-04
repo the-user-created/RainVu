@@ -44,16 +44,46 @@ class DriftComparativeAnalysisRepository
   ) async {
     switch (filter.type) {
       case ComparisonType.annual:
+        return _fetchAnnualData(filter);
       case ComparisonType.monthly:
-        return _fetchAnnualOrMonthlyData(filter);
+        return _fetchMonthlyData(filter);
       case ComparisonType.seasonal:
         return _fetchSeasonalData(filter, hemisphere);
     }
   }
 
   /// Fetches and processes data for a year-over-year comparison,
-  /// broken down by month. This view serves both 'Annual' and 'Monthly' types.
-  Future<ComparativeAnalysisData> _fetchAnnualOrMonthlyData(
+  /// showing only the annual total.
+  Future<ComparativeAnalysisData> _fetchAnnualData(
+    final ComparativeFilter filter,
+  ) async {
+    final List<double> totals = await Future.wait([
+      _dao.getYearlyTotal(filter.year1),
+      _dao.getYearlyTotal(filter.year2),
+    ]);
+    final double total1 = totals[0];
+    final double total2 = totals[1];
+
+    final chartData = ComparativeChartData(
+      labels: const ["Total"],
+      series: [
+        ComparativeChartSeries(year: filter.year1, data: [total1]),
+        ComparativeChartSeries(year: filter.year2, data: [total2]),
+      ],
+    );
+
+    return _buildSummariesAndFinalData(
+      chartData: chartData,
+      total1: total1,
+      total2: total2,
+      year1: filter.year1,
+      year2: filter.year2,
+    );
+  }
+
+  /// Fetches and processes data for a year-over-year comparison,
+  /// broken down by month.
+  Future<ComparativeAnalysisData> _fetchMonthlyData(
     final ComparativeFilter filter,
   ) async {
     final List<List<MonthlyTotalForYear>> results = await Future.wait([

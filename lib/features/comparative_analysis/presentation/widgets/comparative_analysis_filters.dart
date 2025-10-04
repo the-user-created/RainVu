@@ -4,11 +4,38 @@ import "package:rain_wise/features/comparative_analysis/application/comparative_
 import "package:rain_wise/features/comparative_analysis/domain/comparative_analysis_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
+import "package:rain_wise/shared/widgets/sheets/info_sheet.dart";
 
 class ComparativeAnalysisFilters extends ConsumerWidget {
   const ComparativeAnalysisFilters({super.key});
+
+  void _showInfoSheet(final BuildContext context) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    InfoSheet.show(
+      context,
+      title: l10n.comparisonInfoSheetTitle,
+      items: [
+        InfoSheetItem(
+          icon: Icons.calendar_today,
+          title: l10n.comparisonInfoAnnualTitle,
+          description: l10n.comparisonInfoAnnualDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.bar_chart,
+          title: l10n.comparisonInfoMonthlyTitle,
+          description: l10n.comparisonInfoMonthlyDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.eco,
+          title: l10n.comparisonInfoSeasonalTitle,
+          description: l10n.comparisonInfoSeasonalDescription,
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
@@ -16,10 +43,12 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final AsyncValue<ComparativeFilter> filterAsync =
-        ref.watch(comparativeAnalysisFilterProvider);
-    final AsyncValue<List<int>> availableYearsAsync =
-        ref.watch(availableYearsProvider);
+    final AsyncValue<ComparativeFilter> filterAsync = ref.watch(
+      comparativeAnalysisFilterProvider,
+    );
+    final AsyncValue<List<int>> availableYearsAsync = ref.watch(
+      availableYearsProvider,
+    );
 
     return Card(
       elevation: 2,
@@ -117,27 +146,37 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
                   ],
                 ),
                 const SizedBox(height: 16),
-                AppSegmentedControl<ComparisonType>(
-                  selectedValue: filter.type,
-                  onSelectionChanged: (final selection) {
-                    ref
-                        .read(
-                          comparativeAnalysisFilterProvider.notifier,
-                        )
-                        .setType(selection);
-                  },
-                  segments: [
-                    SegmentOption(
-                      value: ComparisonType.annual,
-                      label: Text(l10n.comparisonTypeAnnual),
+                Row(
+                  children: [
+                    Expanded(
+                      child: AppSegmentedControl<ComparisonType>(
+                        selectedValue: filter.type,
+                        onSelectionChanged: (final selection) {
+                          ref
+                              .read(comparativeAnalysisFilterProvider.notifier)
+                              .setType(selection);
+                        },
+                        segments: [
+                          SegmentOption(
+                            value: ComparisonType.annual,
+                            label: Text(l10n.comparisonTypeAnnual),
+                          ),
+                          SegmentOption(
+                            value: ComparisonType.monthly,
+                            label: Text(l10n.comparisonTypeMonthly),
+                          ),
+                          SegmentOption(
+                            value: ComparisonType.seasonal,
+                            label: Text(l10n.comparisonTypeSeasonal),
+                          ),
+                        ],
+                      ),
                     ),
-                    SegmentOption(
-                      value: ComparisonType.monthly,
-                      label: Text(l10n.comparisonTypeMonthly),
-                    ),
-                    SegmentOption(
-                      value: ComparisonType.seasonal,
-                      label: Text(l10n.comparisonTypeSeasonal),
+                    const SizedBox(width: 8),
+                    AppIconButton(
+                      icon: const Icon(Icons.info_outline),
+                      tooltip: l10n.infoTooltip,
+                      onPressed: () => _showInfoSheet(context),
                     ),
                   ],
                 ),

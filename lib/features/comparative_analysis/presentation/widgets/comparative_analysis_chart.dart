@@ -24,6 +24,7 @@ class ComparativeAnalysisChart extends ConsumerWidget {
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
         MeasurementUnit.mm;
     final bool isInch = unit == MeasurementUnit.inch;
+    final bool isSingleGroup = chartData.labels.length == 1;
 
     if (chartData.series.isEmpty || chartData.series.first.data.isEmpty) {
       return SizedBox(
@@ -65,6 +66,9 @@ class ComparativeAnalysisChart extends ConsumerWidget {
               height: 250,
               child: BarChart(
                 BarChartData(
+                  alignment: isSingleGroup
+                      ? BarChartAlignment.center
+                      : BarChartAlignment.spaceBetween,
                   barGroups: _generateBarGroups(colors, isInch),
                   titlesData: _buildTitles(theme),
                   borderData: FlBorderData(show: false),
@@ -75,6 +79,7 @@ class ComparativeAnalysisChart extends ConsumerWidget {
                   ),
                   barTouchData: BarTouchData(
                     touchTooltipData: BarTouchTooltipData(
+                      fitInsideHorizontally: true,
                       getTooltipColor: (final _) => colorScheme.primary,
                       getTooltipItem:
                           (
@@ -84,6 +89,11 @@ class ComparativeAnalysisChart extends ConsumerWidget {
                             final rodIndex,
                           ) {
                             final int year = chartData.series[rodIndex].year;
+                            final String label = chartData.labels[groupIndex];
+                            final String titleText = isSingleGroup
+                                ? "$year\n"
+                                : "$year $label\n";
+
                             // Rod value is already in the display unit. Convert it
                             // back to mm for consistent formatting logic.
                             final double mmValue = isInch
@@ -91,7 +101,7 @@ class ComparativeAnalysisChart extends ConsumerWidget {
                                 : rod.toY;
 
                             return BarTooltipItem(
-                              "$year\n",
+                              titleText,
                               TextStyle(
                                 color: colorScheme.onPrimary,
                                 fontWeight: FontWeight.bold,
@@ -163,8 +173,9 @@ class ComparativeAnalysisChart extends ConsumerWidget {
     final List<Color> colors,
     final bool isInch,
   ) {
-    const double barWidth = 12;
-    const double spaceBetween = 4;
+    final double barWidth = chartData.labels.length == 1 ? 24 : 12;
+    const double spaceBetween = 0;
+
     return List.generate(
       chartData.labels.length,
       (final i) => BarChartGroupData(

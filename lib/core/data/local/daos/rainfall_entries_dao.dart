@@ -193,6 +193,16 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
         .get();
   }
 
+  Future<double> getYearlyTotal(final int year) async {
+    final GeneratedColumn<double> amount = rainfallEntries.amount;
+    final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
+        selectOnly(rainfallEntries)
+          ..addColumns([amount.sum()])
+          ..where(rainfallEntries.date.year.equals(year));
+    final TypedResult result = await query.getSingle();
+    return result.read(amount.sum()) ?? 0.0;
+  }
+
   Future<double> getTotalRainfall() async {
     final GeneratedColumn<double> amount = rainfallEntries.amount;
     final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
