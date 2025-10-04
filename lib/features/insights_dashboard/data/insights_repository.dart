@@ -50,6 +50,7 @@ class DriftInsightsRepository implements InsightsRepository {
 
     final startOfLastMonth = DateTime(now.year, now.month - 1);
     final endOfLastMonthMTD = DateTime(now.year, now.month - 1, now.day);
+    final startOfLastYear = DateTime(now.year - 1);
 
     final Future<double> totalRainfallFuture = _dao.getTotalRainfall();
     final Future<double> ytdTotalFuture = _dao.getTotalAmountBetween(
@@ -67,6 +68,10 @@ class DriftInsightsRepository implements InsightsRepository {
       endOfLastMonthMTD,
     );
     final Future<int> distinctMonthsFuture = _dao.getDistinctMonthCount();
+    final Future<double> ytdTotalLastYearFuture = _dao.getTotalAmountBetween(
+      startOfLastYear,
+      oneYearAgo,
+    );
 
     final List<num> results = await Future.wait([
       totalRainfallFuture,
@@ -75,6 +80,7 @@ class DriftInsightsRepository implements InsightsRepository {
       totalRainfallLastYearFuture,
       mtdTotalLastMonthFuture,
       distinctMonthsFuture,
+      ytdTotalLastYearFuture,
     ]);
 
     final totalRainfall = results[0] as double;
@@ -83,6 +89,7 @@ class DriftInsightsRepository implements InsightsRepository {
     final totalRainfallLastYear = results[3] as double;
     final mtdTotalLastMonth = results[4] as double;
     final distinctMonths = results[5] as int;
+    final ytdTotalLastYear = results[6] as double;
 
     final double totalRainfallChange = _calculatePercentChange(
       totalRainfallLastYear,
@@ -91,6 +98,10 @@ class DriftInsightsRepository implements InsightsRepository {
     final double mtdChange = _calculatePercentChange(
       mtdTotalLastMonth,
       mtdTotal,
+    );
+    final double ytdChange = _calculatePercentChange(
+      ytdTotalLastYear,
+      ytdTotal,
     );
 
     double monthlyAvg = 0;
@@ -104,6 +115,7 @@ class DriftInsightsRepository implements InsightsRepository {
       mtdTotal: mtdTotal,
       totalRainfallPrevYearChange: totalRainfallChange,
       mtdTotalPrevMonthChange: mtdChange,
+      ytdTotalPrevYearChange: ytdChange,
       monthlyAvg: monthlyAvg,
     );
   }

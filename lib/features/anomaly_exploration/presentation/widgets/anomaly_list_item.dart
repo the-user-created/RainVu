@@ -24,7 +24,7 @@ class AnomalyListItem extends ConsumerWidget {
 
     final String sign = anomaly.deviationPercentage > 0 ? "+" : "";
     final String deviationValue =
-        "$sign${anomaly.deviationPercentage.toStringAsFixed(0)}";
+        "$sign${anomaly.deviationPercentage.formatPercentage(precision: 0)}";
     final String deviationText = l10n.anomalyDeviationVsAverage(deviationValue);
 
     final String description;
@@ -34,12 +34,18 @@ class AnomalyListItem extends ConsumerWidget {
     );
     if (anomaly.deviationPercentage > 0) {
       description = l10n.anomalyDescriptionHigher(
-        anomaly.deviationPercentage.toStringAsFixed(0),
+        anomaly.deviationPercentage.formatPercentage(
+          precision: 0,
+          withSymbol: false,
+        ),
         formattedAverage,
       );
     } else {
       description = l10n.anomalyDescriptionLower(
-        anomaly.deviationPercentage.abs().toStringAsFixed(0),
+        anomaly.deviationPercentage.abs().formatPercentage(
+          precision: 0,
+          withSymbol: false,
+        ),
         formattedAverage,
       );
     }

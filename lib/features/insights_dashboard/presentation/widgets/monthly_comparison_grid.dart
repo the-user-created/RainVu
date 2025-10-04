@@ -12,7 +12,6 @@ class MonthlyComparisonGrid extends StatelessWidget {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final double screenWidth = MediaQuery.sizeOf(context).width;
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16),
@@ -24,24 +23,54 @@ class MonthlyComparisonGrid extends StatelessWidget {
             style: theme.textTheme.headlineSmall,
           ),
           const SizedBox(height: 12),
-          SizedBox(
-            width: double.infinity,
-            height: 330,
-            child: GridView.builder(
-              padding: const EdgeInsets.all(16),
-              scrollDirection: Axis.horizontal,
-              gridDelegate: SliverGridDelegateWithFixedCrossAxisCount(
-                crossAxisCount: 2,
-                crossAxisSpacing: 16,
-                mainAxisSpacing: 16,
-                mainAxisExtent: screenWidth * 0.4,
-              ),
-              itemCount: comparisons.length,
-              itemBuilder: (final context, final index) =>
-                  MtdBreakdownCard(data: comparisons[index]),
-            ),
-          ),
+          _buildHorizontalCardList(context, comparisons),
         ],
+      ),
+    );
+  }
+
+  Widget _buildHorizontalCardList(
+    final BuildContext context,
+    final List<MonthlyComparisonData> comparisons,
+  ) {
+    if (comparisons.isEmpty) {
+      return const SizedBox.shrink();
+    }
+
+    final double screenWidth = MediaQuery.sizeOf(context).width;
+    final double cardWidth = screenWidth * 0.4;
+
+    final List<Widget> columns = [];
+    for (int i = 0; i < comparisons.length; i += 2) {
+      columns.add(
+        Padding(
+          padding: const EdgeInsets.only(right: 16),
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              SizedBox(
+                width: cardWidth,
+                child: MtdBreakdownCard(data: comparisons[i]),
+              ),
+              if (i + 1 < comparisons.length) ...[
+                const SizedBox(height: 16),
+                SizedBox(
+                  width: cardWidth,
+                  child: MtdBreakdownCard(data: comparisons[i + 1]),
+                ),
+              ],
+            ],
+          ),
+        ),
+      );
+    }
+
+    return SingleChildScrollView(
+      scrollDirection: Axis.horizontal,
+      padding: const EdgeInsets.symmetric(vertical: 4),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: columns,
       ),
     );
   }

@@ -80,7 +80,7 @@ class _ComparisonRow extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final double diff = currentValue - avgValue;
-    final num percentage = avgValue == 0 ? 0 : (diff / avgValue) * 100;
+    final double percentage = avgValue == 0 ? 0.0 : (diff / avgValue) * 100;
     final Color color = diff >= 0 ? colorScheme.success : colorScheme.error;
     final IconData icon = diff >= 0 ? Icons.arrow_upward : Icons.arrow_downward;
 
@@ -96,7 +96,10 @@ class _ComparisonRow extends StatelessWidget {
                 Icon(icon, color: color, size: 20),
                 const SizedBox(width: 4),
                 Text(
-                  '${diff >= 0 ? '+' : ''}${percentage.toStringAsFixed(0)}%',
+                  percentage.formatPercentage(
+                    precision: 0,
+                    showPositiveSign: true,
+                  ),
                   style: textTheme.bodyMedium?.copyWith(color: color),
                 ),
               ],

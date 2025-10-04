@@ -623,7 +623,15 @@
       }
     }
   },
-  "keyMetricsYtdGoal": "On track for yearly goal",
+  "keyMetricsYtdChange": "{value}% vs last year",
+  "@keyMetricsYtdChange": {
+    "description": "The percentage change of the Year-to-Date total compared to the same period last year.",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
   "keyMetricsMonthlyAvgSource": "Based on 12 month data",
   "mtdBreakdownTotal": "Total",
   "mtdBreakdown2yrAvg": "2yr avg",

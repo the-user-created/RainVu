@@ -51,7 +51,9 @@ class KeyMetricsSection extends ConsumerWidget {
                   title: l10n.keyMetricsTotalRainfall,
                   value: metrics.totalRainfall.formatRainfall(context, unit),
                   changeText: l10n.keyMetricsTotalRainfallChange(
-                    metrics.totalRainfallPrevYearChange.toString(),
+                    metrics.totalRainfallPrevYearChange.formatPercentage(
+                      withSymbol: false,
+                    ),
                   ),
                   changeColor: metrics.totalRainfallPrevYearChange >= 0
                       ? successColor
@@ -73,7 +75,9 @@ class KeyMetricsSection extends ConsumerWidget {
                   title: l10n.keyMetricsMtdTotal,
                   value: metrics.mtdTotal.formatRainfall(context, unit),
                   changeText: l10n.keyMetricsMtdChange(
-                    metrics.mtdTotalPrevMonthChange.toString(),
+                    metrics.mtdTotalPrevMonthChange.formatPercentage(
+                      withSymbol: false,
+                    ),
                   ),
                   changeColor: metrics.mtdTotalPrevMonthChange >= 0
                       ? successColor
@@ -99,8 +103,14 @@ class KeyMetricsSection extends ConsumerWidget {
                 _MetricCard(
                   title: l10n.keyMetricsYtdTotal,
                   value: metrics.ytdTotal.formatRainfall(context, unit),
-                  changeText: l10n.keyMetricsYtdGoal,
-                  changeColor: successColor,
+                  changeText: l10n.keyMetricsYtdChange(
+                    metrics.ytdTotalPrevYearChange.formatPercentage(
+                      withSymbol: false,
+                    ),
+                  ),
+                  changeColor: metrics.ytdTotalPrevYearChange >= 0
+                      ? successColor
+                      : errorColor,
                   onInfoPressed: () => InfoSheet.show(
                     context,
                     title: l10n.keyMetricsInfoYtdTotalTitle,
@@ -168,7 +178,6 @@ class _MetricCard extends StatelessWidget {
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Container(
         width: cardWidth,
-        height: 130,
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -195,11 +204,9 @@ class _MetricCard extends StatelessWidget {
                 ),
               ],
             ),
-            const Spacer(),
+            const SizedBox(height: 12),
             Text(
               value,
-              maxLines: 1,
-              overflow: TextOverflow.ellipsis,
               style: textTheme.headlineMedium?.copyWith(fontSize: 26),
             ),
             const SizedBox(height: 8),

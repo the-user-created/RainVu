@@ -56,7 +56,10 @@ class YearlySummaryCard extends ConsumerWidget {
                       Icon(changeIcon, color: changeColor, size: 20),
                       const SizedBox(width: 4),
                       Text(
-                        '${isPositive ? '+' : ''}${summary.percentageChange.toStringAsFixed(0)}%',
+                        summary.percentageChange.formatPercentage(
+                          precision: 0,
+                          showPositiveSign: true,
+                        ),
                         style: textTheme.bodyMedium?.copyWith(
                           color: changeColor,
                         ),

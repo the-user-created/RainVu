@@ -170,7 +170,7 @@ class _TrendMetricItem extends StatelessWidget {
             Icon(icon, color: color, size: 24),
             const SizedBox(width: 8),
             Text(
-              "${isPositive ? '+' : ''}${percentage.toStringAsFixed(0)}%",
+              percentage.formatPercentage(precision: 0, showPositiveSign: true),
               style: textTheme.headlineSmall?.copyWith(color: color),
             ),
           ],

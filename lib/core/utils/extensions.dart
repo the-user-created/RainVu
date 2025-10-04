@@ -48,6 +48,30 @@ extension ListUniqueExt<T> on Iterable<T> {
   }
 }
 
+extension DoubleFormattingExt on double {
+  /// Formats a double as a percentage string with configurable precision,
+  /// symbol, and sign display.
+  String formatPercentage({
+    final int precision = 1,
+    final bool withSymbol = true,
+    final bool showPositiveSign = false,
+  }) {
+    if (isNaN || isInfinite) {
+      return "-";
+    }
+
+    String sign = "";
+    if (this > 0 && showPositiveSign) {
+      sign = "+";
+    }
+
+    final String formattedValue = toStringAsFixed(precision);
+    final String symbol = withSymbol ? "%" : "";
+
+    return "$sign$formattedValue$symbol";
+  }
+}
+
 extension DoubleUnitsExt on double {
   /// Converts a value from millimeters to inches.
   double toInches() => this / 25.4;

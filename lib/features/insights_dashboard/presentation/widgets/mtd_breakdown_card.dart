@@ -27,19 +27,30 @@ class MtdBreakdownCard extends ConsumerWidget {
       child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(data.month, style: textTheme.titleMedium),
+            SizedBox(
+              width: double.infinity,
+              child: Text(
+                data.month,
+                style: textTheme.titleMedium,
+                textAlign: TextAlign.center,
+              ),
+            ),
+            const SizedBox(height: 12),
             _DataRow(
               label: l10n.mtdBreakdownTotal,
               value: data.mtdTotal.formatRainfall(context, unit),
             ),
+            const SizedBox(height: 8),
             _ComparisonRow(
               label: l10n.mtdBreakdown2yrAvg,
               currentValue: data.mtdTotal,
               comparisonValue: data.twoYrAvg,
               unit: unit,
             ),
+            const SizedBox(height: 8),
             _ComparisonRow(
               label: l10n.mtdBreakdown5yrAvg,
               currentValue: data.mtdTotal,
@@ -73,9 +84,9 @@ class _DataRow extends StatelessWidget {
             style: textTheme.bodySmall?.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),
-            overflow: TextOverflow.ellipsis,
           ),
         ),
+        const SizedBox(width: 8),
         Text(value, style: textTheme.bodyMedium),
       ],
     );
@@ -109,9 +120,9 @@ class _ComparisonRow extends StatelessWidget {
             style: textTheme.bodySmall?.copyWith(
               color: colorScheme.onSurfaceVariant,
             ),
-            overflow: TextOverflow.ellipsis,
           ),
         ),
+        const SizedBox(width: 8),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
