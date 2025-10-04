@@ -9,6 +9,7 @@ import "package:rain_wise/features/monthly_breakdown/presentation/widgets/monthl
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
+import "package:rain_wise/shared/widgets/pickers/month_year_picker.dart";
 
 class MonthlyBreakdownScreen extends ConsumerStatefulWidget {
   const MonthlyBreakdownScreen({super.key});
@@ -29,12 +30,11 @@ class _MonthlyBreakdownScreenState
   }
 
   Future<void> _pickMonth() async {
-    final DateTime? picked = await showDatePicker(
-      context: context,
+    final DateTime? picked = await showMonthYearPicker(
+      context,
       initialDate: _selectedMonth,
       firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-      initialDatePickerMode: DatePickerMode.year,
+      lastDate: DateTime.now(),
     );
     if (picked != null &&
         (picked.year != _selectedMonth.year ||
@@ -49,8 +49,9 @@ class _MonthlyBreakdownScreenState
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final AsyncValue<MonthlyBreakdownData> breakdownDataAsync =
-        ref.watch(monthlyBreakdownProvider(_selectedMonth));
+    final AsyncValue<MonthlyBreakdownData> breakdownDataAsync = ref.watch(
+      monthlyBreakdownProvider(_selectedMonth),
+    );
 
     return Scaffold(
       appBar: AppBar(

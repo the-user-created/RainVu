@@ -10,6 +10,7 @@ import "package:rain_wise/features/home/application/home_providers.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
+import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
@@ -45,31 +46,16 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
   }
 
   Future<void> _selectDateTime() async {
-    final DateTime? pickedDate = await showDatePicker(
-      context: context,
+    final DateTime? picked = await showAppDateTimePicker(
+      context,
       initialDate: _selectedDateTime,
       firstDate: DateTime(1900),
       lastDate: DateTime.now().add(const Duration(days: 365)),
     );
 
-    if (pickedDate == null || !mounted) {
-      return;
-    }
-
-    final TimeOfDay? pickedTime = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.fromDateTime(_selectedDateTime),
-    );
-
-    if (pickedTime != null) {
+    if (picked != null) {
       setState(() {
-        _selectedDateTime = DateTime(
-          pickedDate.year,
-          pickedDate.month,
-          pickedDate.day,
-          pickedTime.hour,
-          pickedTime.minute,
-        );
+        _selectedDateTime = picked;
       });
     }
   }

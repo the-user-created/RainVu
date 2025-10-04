@@ -11,6 +11,7 @@ import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/domain/rainfall_entry.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
+import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
@@ -88,41 +89,6 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
     if (mounted) {
       setState(() => _isLoading = false);
       Navigator.of(context).pop();
-    }
-  }
-
-  Future<void> _onDelete() async {
-    final AppLocalizations l10n = AppLocalizations.of(context);
-    final bool? confirmed = await showDialog<bool>(
-      context: context,
-      builder: (final context) => AlertDialog(
-        title: Text(l10n.deleteEntryDialogTitle),
-        content: Text(l10n.deleteDialogContent),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l10n.cancelButtonLabel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            style: TextButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.error,
-            ),
-            child: Text(l10n.deleteButtonLabel),
-          ),
-        ],
-      ),
-    );
-
-    if (confirmed == true && widget.entry.id != null) {
-      setState(() => _isLoading = true);
-      await ref
-          .read(rainfallEntryProvider.notifier)
-          .deleteEntry(widget.entry.id!);
-      if (mounted) {
-        setState(() => _isLoading = false);
-        Navigator.of(context).pop();
-      }
     }
   }
 
@@ -287,14 +253,6 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
                         label: l10n.saveChangesButton,
                       ),
                     ),
-                    const SizedBox(width: 16),
-                    Expanded(
-                      child: AppButton(
-                        onPressed: _onDelete,
-                        label: l10n.deleteButtonLabel,
-                        style: AppButtonStyle.destructive,
-                      ),
-                    ),
                   ],
                 ),
             ],
@@ -305,30 +263,17 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
   }
 
   Future<void> _pickDateTime() async {
-    final DateTime? date = await showDatePicker(
-      context: context,
+    final DateTime? picked = await showAppDateTimePicker(
+      context,
       initialDate: _selectedDate,
       firstDate: DateTime(2000),
       lastDate: DateTime(2100),
     );
-    if (date == null || !mounted) {
-      return;
+
+    if (picked != null) {
+      setState(() {
+        _selectedDate = picked;
+      });
     }
-    final TimeOfDay? time = await showTimePicker(
-      context: context,
-      initialTime: TimeOfDay.fromDateTime(_selectedDate),
-    );
-    if (time == null) {
-      return;
-    }
-    setState(() {
-      _selectedDate = DateTime(
-        date.year,
-        date.month,
-        date.day,
-        time.hour,
-        time.minute,
-      );
-    });
   }
 }

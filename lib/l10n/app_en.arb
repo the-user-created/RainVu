@@ -518,6 +518,8 @@
       }
     }
   },
+  "okButtonLabel": "OK",
+  "selectMonthTitle": "Select Month & Year",
   "historicalComparisonTitle": "Historical Comparison",
   "twoYearAverage": "2 Year Average",
   "fiveYearAverage": "5 Year Average",
