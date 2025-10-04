@@ -13,13 +13,13 @@ class AppTheme {
   // --- Light Mode ColorScheme ---
   static const _lightColorScheme = ColorScheme.light(
     primary: _primary,
+    onPrimary: Colors.white,
     secondary: _secondary,
     onSecondary: Colors.white,
     tertiary: _tertiary,
     onTertiary: Colors.white,
     error: Color(0xFFD93C4D),
     surface: Color(0xFFFBF9F5),
-    // onBackground: Color(0xFF171B1E),
     onSurface: Color(0xFF171B1E),
     surfaceContainerHighest: Color(0xFFECE7E0),
     onSurfaceVariant: Color(0xFF58636A),
@@ -36,7 +36,6 @@ class AppTheme {
     onTertiary: Colors.white,
     error: Color(0xFFD93C4D),
     onError: Colors.white,
-    // background: Color(0xFF1E252A),
     surface: Color(0xFF171B1E),
     surfaceContainerHighest: Color(0xFF222A30),
     onSurfaceVariant: Color(0xFF949FA9),
@@ -45,22 +44,22 @@ class AppTheme {
 
   // --- Base TextTheme with Font sizes and weights ---
   static TextTheme get _baseTextTheme => const TextTheme(
-        displayLarge: TextStyle(fontWeight: FontWeight.w600, fontSize: 64),
-        displayMedium: TextStyle(fontWeight: FontWeight.w600, fontSize: 44),
-        displaySmall: TextStyle(fontWeight: FontWeight.w600, fontSize: 36),
-        headlineLarge: TextStyle(fontWeight: FontWeight.w600, fontSize: 32),
-        headlineMedium: TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
-        headlineSmall: TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
-        titleLarge: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
-        titleMedium: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
-        titleSmall: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
-        bodyLarge: TextStyle(fontSize: 16),
-        bodyMedium: TextStyle(fontSize: 14),
-        bodySmall: TextStyle(fontSize: 12),
-        labelLarge: TextStyle(fontSize: 16),
-        labelMedium: TextStyle(fontSize: 14),
-        labelSmall: TextStyle(fontSize: 12),
-      );
+    displayLarge: TextStyle(fontWeight: FontWeight.w600, fontSize: 64),
+    displayMedium: TextStyle(fontWeight: FontWeight.w600, fontSize: 44),
+    displaySmall: TextStyle(fontWeight: FontWeight.w600, fontSize: 36),
+    headlineLarge: TextStyle(fontWeight: FontWeight.w600, fontSize: 32),
+    headlineMedium: TextStyle(fontWeight: FontWeight.w600, fontSize: 28),
+    headlineSmall: TextStyle(fontWeight: FontWeight.w600, fontSize: 24),
+    titleLarge: TextStyle(fontWeight: FontWeight.w600, fontSize: 20),
+    titleMedium: TextStyle(fontWeight: FontWeight.w600, fontSize: 18),
+    titleSmall: TextStyle(fontWeight: FontWeight.w600, fontSize: 16),
+    bodyLarge: TextStyle(fontSize: 16),
+    bodyMedium: TextStyle(fontSize: 14),
+    bodySmall: TextStyle(fontSize: 12),
+    labelLarge: TextStyle(fontSize: 16),
+    labelMedium: TextStyle(fontSize: 14),
+    labelSmall: TextStyle(fontSize: 12),
+  );
 
   // --- Merged & Colored TextThemes ---
   static TextTheme _buildTextTheme(
@@ -91,10 +90,7 @@ class AppTheme {
   static ThemeData get dark => _buildThemeData(_darkColorScheme);
 
   static ThemeData _buildThemeData(final ColorScheme colorScheme) {
-    final TextTheme textTheme = _buildTextTheme(
-      _baseTextTheme,
-      colorScheme,
-    );
+    final TextTheme textTheme = _buildTextTheme(_baseTextTheme, colorScheme);
 
     return ThemeData(
       useMaterial3: true,
@@ -116,28 +112,30 @@ class AppTheme {
         style: ElevatedButton.styleFrom(
           backgroundColor: colorScheme.primary,
           foregroundColor: colorScheme.onPrimary,
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          textStyle:
-              textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+          textStyle: textTheme.titleSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       outlinedButtonTheme: OutlinedButtonThemeData(
         style: OutlinedButton.styleFrom(
           foregroundColor: colorScheme.primary,
           side: BorderSide(color: colorScheme.outline),
-          shape:
-              RoundedRectangleBorder(borderRadius: BorderRadius.circular(25)),
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(25),
+          ),
           padding: const EdgeInsets.symmetric(horizontal: 24, vertical: 16),
-          textStyle:
-              textTheme.titleSmall?.copyWith(fontWeight: FontWeight.bold),
+          textStyle: textTheme.titleSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
       iconButtonTheme: IconButtonThemeData(
-        style: IconButton.styleFrom(
-          foregroundColor: colorScheme.onSurface,
-        ),
+        style: IconButton.styleFrom(foregroundColor: colorScheme.onSurface),
       ),
       inputDecorationTheme: InputDecorationTheme(
         border: OutlineInputBorder(
@@ -160,8 +158,9 @@ class AppTheme {
           borderSide: BorderSide(color: colorScheme.error, width: 2),
           borderRadius: BorderRadius.circular(8),
         ),
-        hintStyle:
-            textTheme.bodyLarge?.copyWith(color: colorScheme.onSurfaceVariant),
+        hintStyle: textTheme.bodyLarge?.copyWith(
+          color: colorScheme.onSurfaceVariant,
+        ),
       ),
       cardTheme: CardThemeData(
         elevation: 2,
@@ -174,8 +173,9 @@ class AppTheme {
         backgroundColor: colorScheme.surface,
         headerBackgroundColor: colorScheme.primary,
         headerForegroundColor: colorScheme.onPrimary,
-        headerHelpStyle:
-            textTheme.headlineSmall?.copyWith(color: colorScheme.onPrimary),
+        headerHelpStyle: textTheme.headlineSmall?.copyWith(
+          color: colorScheme.onPrimary,
+        ),
         dayBackgroundColor: WidgetStateProperty.resolveWith((final states) {
           if (states.contains(WidgetState.selected)) {
             return colorScheme.primary;

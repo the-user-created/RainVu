@@ -2,7 +2,7 @@ import "package:flutter/cupertino.dart";
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
 
 /// Shows a modal bottom sheet for selecting a month and year.
@@ -79,9 +79,22 @@ class _MonthYearPickerState extends State<_MonthYearPicker> {
     _selectedMonth = _selectedMonth.clamp(firstValidMonth, lastValidMonth);
 
     return InteractiveSheet(
-      title: Text(l10n.selectMonthTitle),
-      titleAlign: TextAlign.start,
-      actions: _buildActionButtons(l10n),
+      title: Row(
+        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+        children: [
+          Text(l10n.selectMonthTitle),
+          AppIconButton(
+            icon: const Icon(Icons.check_circle_outline),
+            tooltip: l10n.okButtonLabel,
+            color: theme.colorScheme.primary,
+            iconSize: 28,
+            onPressed: () {
+              final DateTime result = DateTime(_selectedYear, _selectedMonth);
+              Navigator.of(context).pop(result);
+            },
+          ),
+        ],
+      ),
       child: SizedBox(
         height: 200,
         child: Row(
@@ -132,25 +145,6 @@ class _MonthYearPickerState extends State<_MonthYearPicker> {
       ),
     );
   }
-
-  // TODO: Remove the cancel button and move the OK button to the top right corner and make it a circular check icon. instead
-  List<Widget> _buildActionButtons(final AppLocalizations l10n) => [
-    AppButton(
-      onPressed: () => Navigator.of(context).pop(),
-      label: l10n.cancelButtonLabel,
-      style: AppButtonStyle.outline,
-      size: AppButtonSize.small,
-    ),
-    const SizedBox(width: 12),
-    AppButton(
-      onPressed: () {
-        final DateTime result = DateTime(_selectedYear, _selectedMonth);
-        Navigator.of(context).pop(result);
-      },
-      label: l10n.okButtonLabel,
-      size: AppButtonSize.small,
-    ),
-  ];
 }
 
 /// A stateful wrapper for the month `CupertinoPicker`.

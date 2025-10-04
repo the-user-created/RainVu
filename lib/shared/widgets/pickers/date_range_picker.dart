@@ -106,23 +106,18 @@ class _DateRangePickerModalState extends State<_DateRangePickerModal> {
       title: Text(l10n.selectDateRangeTitle),
       titleAlign: TextAlign.start,
       actions: [
-        AppButton(
-          onPressed: () => Navigator.of(context).pop(),
-          label: l10n.cancelButtonLabel,
-          style: AppButtonStyle.outline,
-          size: AppButtonSize.small,
-        ),
-        const SizedBox(width: 12),
-        AppButton(
-          onPressed: () {
-            final DateTimeRange result = DateTimeRange(
-              start: _startDate,
-              end: _endDate,
-            );
-            Navigator.of(context).pop(result);
-          },
-          label: l10n.applyButtonLabel,
-          size: AppButtonSize.small,
+        Expanded(
+          child: AppButton(
+            onPressed: () {
+              final DateTimeRange result = DateTimeRange(
+                start: _startDate,
+                end: _endDate,
+              );
+              Navigator.of(context).pop(result);
+            },
+            label: l10n.applyButtonLabel,
+            isExpanded: true,
+          ),
         ),
       ],
       child: Column(
