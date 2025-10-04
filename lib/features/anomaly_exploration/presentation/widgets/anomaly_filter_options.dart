@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:rain_wise/core/data/providers/data_providers.dart";
+import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/anomaly_exploration/application/anomaly_exploration_provider.dart";
 import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
@@ -58,42 +60,56 @@ class _DateRangePicker extends ConsumerWidget {
     );
     final String dateText =
         "${DateFormat.yMd().format(dateRange.start)} - ${DateFormat.yMd().format(dateRange.end)}";
+    final AsyncValue<DateRangeResult> dbDateRangeAsync = ref.watch(
+      rainfallDateRangeProvider,
+    );
 
-    return InkWell(
-      onTap: () async {
-        final DateTimeRange? picked = await showDateRangePickerModal(
-          context,
-          firstDate: DateTime(2000),
-          lastDate: DateTime.now().add(const Duration(days: 365)),
-          initialDateRange: dateRange,
-        );
-        if (picked != null) {
-          ref.read(anomalyFilterProvider.notifier).setDateRange(picked);
-        }
-      },
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: colorScheme.surfaceContainerHighest,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          child: Row(
-            children: [
-              Icon(
-                Icons.calendar_today,
-                color: colorScheme.secondary,
-                size: 20,
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  dateText,
-                  style: textTheme.bodyMedium,
-                  overflow: TextOverflow.ellipsis,
+    final bool hasData = dbDateRangeAsync.maybeWhen(
+      data: (final data) => data.min != null && data.max != null,
+      orElse: () => false,
+    );
+
+    return Opacity(
+      opacity: hasData ? 1.0 : 0.5,
+      child: InkWell(
+        onTap: hasData
+            ? () async {
+                final DateRangeResult dbDateRange = dbDateRangeAsync.value!;
+                final DateTimeRange? picked = await showDateRangePickerModal(
+                  context,
+                  firstDate: dbDateRange.min!,
+                  lastDate: dbDateRange.max!,
+                  initialDateRange: dateRange,
+                );
+                if (picked != null) {
+                  ref.read(anomalyFilterProvider.notifier).setDateRange(picked);
+                }
+              }
+            : null,
+        child: DecoratedBox(
+          decoration: BoxDecoration(
+            color: colorScheme.surfaceContainerHighest,
+            borderRadius: BorderRadius.circular(8),
+          ),
+          child: Padding(
+            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
+            child: Row(
+              children: [
+                Icon(
+                  Icons.calendar_today,
+                  color: colorScheme.secondary,
+                  size: 20,
                 ),
-              ),
-            ],
+                const SizedBox(width: 8),
+                Expanded(
+                  child: Text(
+                    dateText,
+                    style: textTheme.bodyMedium,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
+            ),
           ),
         ),
       ),

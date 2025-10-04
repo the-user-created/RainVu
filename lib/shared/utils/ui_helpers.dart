@@ -40,14 +40,14 @@ void showSnackbar(
 Future<DateTime?> showAppDateTimePicker(
   final BuildContext context, {
   required final DateTime initialDate,
-  final DateTime? firstDate,
-  final DateTime? lastDate,
+  required final DateTime firstDate,
+  required final DateTime lastDate,
 }) async {
   final DateTime? pickedDate = await showDatePicker(
     context: context,
     initialDate: initialDate,
-    firstDate: firstDate ?? DateTime(1900),
-    lastDate: lastDate ?? DateTime.now().add(const Duration(days: 365)),
+    firstDate: firstDate,
+    lastDate: lastDate,
   );
 
   if (pickedDate == null) {

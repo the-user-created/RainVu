@@ -135,6 +135,7 @@
       }
     }
   },
+  "noDataToSetDateRange": "No data available to set a date range.",
   "logRainfallTooltip": "Log Rainfall",
   "forecastTitle": "7-Day Forecast",
   "forecastError": "Error: {error}",

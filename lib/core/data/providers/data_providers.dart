@@ -22,3 +22,11 @@ Future<List<RainGauge>> allGaugesFuture(final Ref ref) =>
 @riverpod
 Stream<void> rainfallTableUpdates(final Ref ref) =>
     ref.watch(rainfallRepositoryProvider).watchTableUpdates();
+
+/// Provides the earliest and latest dates of any rainfall entry in the database.
+/// This is useful for constraining date pickers in analytical features.
+@riverpod
+Future<DateRangeResult> rainfallDateRange(final Ref ref) {
+  ref.watch(rainfallTableUpdatesProvider);
+  return ref.watch(rainfallRepositoryProvider).getDateRangeOfEntries();
+}

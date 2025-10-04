@@ -52,8 +52,32 @@ class _DateRangePickerModalState extends State<_DateRangePickerModal> {
   @override
   void initState() {
     super.initState();
-    _startDate = widget.initialDateRange.start;
-    _endDate = widget.initialDateRange.end;
+    // Clamp the initial start and end dates to be within the allowed range.
+    // This prevents assertion errors if the provided initialDateRange is
+    // outside the bounds of firstDate and lastDate.
+    DateTime safeStart = widget.initialDateRange.start;
+    if (safeStart.isAfter(widget.lastDate)) {
+      safeStart = widget.lastDate;
+    }
+    if (safeStart.isBefore(widget.firstDate)) {
+      safeStart = widget.firstDate;
+    }
+
+    DateTime safeEnd = widget.initialDateRange.end;
+    if (safeEnd.isAfter(widget.lastDate)) {
+      safeEnd = widget.lastDate;
+    }
+    if (safeEnd.isBefore(widget.firstDate)) {
+      safeEnd = widget.firstDate;
+    }
+
+    // After clamping, ensure the start date is still not after the end date.
+    if (safeStart.isAfter(safeEnd)) {
+      safeEnd = safeStart;
+    }
+
+    _startDate = safeStart;
+    _endDate = safeEnd;
   }
 
   void _onDateSelected(final DateTime newDate) {

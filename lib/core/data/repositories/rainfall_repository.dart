@@ -5,6 +5,9 @@ import "package:rain_wise/shared/domain/rain_gauge.dart" as domain_gauge;
 import "package:rain_wise/shared/domain/rainfall_entry.dart" as domain;
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
+export "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart"
+    show DateRangeResult;
+
 part "rainfall_repository.g.dart";
 
 abstract class RainfallRepository {
@@ -37,6 +40,8 @@ abstract class RainfallRepository {
   Future<List<int>> getAvailableYears();
 
   Future<int> countEntriesForGauge(final String gaugeId);
+
+  Future<DateRangeResult> getDateRangeOfEntries();
 }
 
 @Riverpod(keepAlive: true)
@@ -110,6 +115,10 @@ class DriftRainfallRepository implements RainfallRepository {
   @override
   Future<int> countEntriesForGauge(final String gaugeId) =>
       _dao.countEntriesForGauge(gaugeId);
+
+  @override
+  Future<DateRangeResult> getDateRangeOfEntries() =>
+      _dao.getDateRangeOfEntries();
 
   domain.RainfallEntry _mapDriftToDomain(
     final RainfallEntryWithGauge driftEntry,

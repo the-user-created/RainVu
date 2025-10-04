@@ -50,7 +50,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
       context,
       initialDate: _selectedDateTime,
       firstDate: DateTime(1900),
-      lastDate: DateTime.now().add(const Duration(days: 365)),
+      lastDate: DateTime.now(),
     );
 
     if (picked != null) {

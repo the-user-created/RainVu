@@ -1,10 +1,13 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:rain_wise/core/data/providers/data_providers.dart";
+import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/data_tools/application/data_tools_provider.dart";
 import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_choice_chips.dart";
@@ -32,6 +35,9 @@ class ExportDataCard extends ConsumerWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final DataToolsState state = ref.watch(dataToolsProvider);
     final DataToolsNotifier notifier = ref.read(dataToolsProvider.notifier);
+    final AsyncValue<DateRangeResult> dateRangeAsync = ref.watch(
+      rainfallDateRangeProvider,
+    );
 
     return SettingsCard(
       children: [
@@ -56,22 +62,31 @@ class ExportDataCard extends ConsumerWidget {
               const SizedBox(height: 24),
               _DateRangePickerTile(
                 dateRange: state.dateRange,
-                onTap: () async {
-                  final DateTimeRange defaultRange = DateTimeRange(
-                    start: DateTime.now().subtract(const Duration(days: 30)),
-                    end: DateTime.now(),
-                  );
-                  final DateTimeRange? newRange =
-                      await showDateRangePickerModal(
-                        context,
-                        firstDate: DateTime(2000),
-                        lastDate: DateTime.now(),
-                        initialDateRange: state.dateRange ?? defaultRange,
-                      );
-                  if (newRange != null) {
-                    notifier.setDateRange(newRange);
-                  }
-                },
+                onTap: dateRangeAsync.when(
+                  data: (final data) => () async {
+                    if (data.min == null || data.max == null) {
+                      showSnackbar(context, l10n.noDataToSetDateRange);
+                      return;
+                    }
+
+                    final DateTimeRange defaultRange = DateTimeRange(
+                      start: data.min!,
+                      end: data.max!,
+                    );
+                    final DateTimeRange? newRange =
+                        await showDateRangePickerModal(
+                          context,
+                          firstDate: data.min!,
+                          lastDate: data.max!,
+                          initialDateRange: state.dateRange ?? defaultRange,
+                        );
+                    if (newRange != null) {
+                      notifier.setDateRange(newRange);
+                    }
+                  },
+                  loading: () => null,
+                  error: (final _, final _) => null,
+                ),
                 onClear: () => notifier.setDateRange(null),
               ),
               const SizedBox(height: 16),
@@ -119,7 +134,7 @@ class _DateRangePickerTile extends StatelessWidget {
   });
 
   final DateTimeRange? dateRange;
-  final VoidCallback onTap;
+  final VoidCallback? onTap;
   final VoidCallback? onClear;
 
   @override

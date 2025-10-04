@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/data/providers/data_providers.dart";
+import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/monthly_breakdown/application/monthly_breakdown_provider.dart";
 import "package:rain_wise/features/monthly_breakdown/domain/monthly_breakdown_data.dart";
 import "package:rain_wise/features/monthly_breakdown/presentation/widgets/daily_breakdown_list.dart";
@@ -30,11 +32,18 @@ class _MonthlyBreakdownScreenState
   }
 
   Future<void> _pickMonth() async {
+    final DateRangeResult? dateRange = ref
+        .read(rainfallDateRangeProvider)
+        .value;
+    if (dateRange?.min == null || dateRange?.max == null) {
+      return;
+    }
+
     final DateTime? picked = await showMonthYearPicker(
       context,
       initialDate: _selectedMonth,
-      firstDate: DateTime(2000),
-      lastDate: DateTime.now(),
+      firstDate: dateRange!.min!,
+      lastDate: dateRange.max!,
     );
     if (picked != null &&
         (picked.year != _selectedMonth.year ||
@@ -52,6 +61,9 @@ class _MonthlyBreakdownScreenState
     final AsyncValue<MonthlyBreakdownData> breakdownDataAsync = ref.watch(
       monthlyBreakdownProvider(_selectedMonth),
     );
+    final AsyncValue<DateRangeResult> dateRangeAsync = ref.watch(
+      rainfallDateRangeProvider,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -67,7 +79,12 @@ class _MonthlyBreakdownScreenState
                 Icons.calendar_today,
                 color: theme.colorScheme.onSurface,
               ),
-              onPressed: _pickMonth,
+              onPressed: dateRangeAsync.when(
+                data: (final data) =>
+                    (data.min != null && data.max != null) ? _pickMonth : null,
+                loading: () => null,
+                error: (final _, final _) => null,
+              ),
               tooltip: l10n.selectMonthTooltip,
             ),
           ),

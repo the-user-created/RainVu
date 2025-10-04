@@ -37,6 +37,7 @@ class DailyTotal {
   final double total;
 }
 
+// Helper for historical daily data queries
 class DailyHistoricalData {
   DailyHistoricalData(this.day, this.total, this.yearCount);
 
@@ -61,6 +62,7 @@ class DailyTotalWithDate {
   final double total;
 }
 
+// Helper class for historical day info queries
 class HistoricalDayInfo {
   HistoricalDayInfo(this.month, this.day, this.total, this.yearCount);
 
@@ -76,6 +78,14 @@ class MonthlyTotalForYear {
 
   final int month;
   final double total;
+}
+
+// Helper class for date range queries
+class DateRangeResult {
+  DateRangeResult(this.min, this.max);
+
+  final DateTime? min;
+  final DateTime? max;
 }
 
 @DriftAccessor(tables: [RainfallEntries, RainGauges])
@@ -550,4 +560,13 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
   Future<int> deleteEntriesForGauge(final String gaugeId) => (delete(
     rainfallEntries,
   )..where((final tbl) => tbl.gaugeId.equals(gaugeId))).go();
+
+  Future<DateRangeResult> getDateRangeOfEntries() async {
+    final Expression<DateTime> minDate = rainfallEntries.date.min();
+    final Expression<DateTime> maxDate = rainfallEntries.date.max();
+    final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
+        selectOnly(rainfallEntries)..addColumns([minDate, maxDate]);
+    final TypedResult result = await query.getSingle();
+    return DateRangeResult(result.read(minDate), result.read(maxDate));
+  }
 }

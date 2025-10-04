@@ -92,6 +92,21 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
     }
   }
 
+  Future<void> _pickDateTime() async {
+    final DateTime? picked = await showAppDateTimePicker(
+      context,
+      initialDate: _selectedDate,
+      firstDate: DateTime(2000),
+      lastDate: DateTime.now(),
+    );
+
+    if (picked != null) {
+      setState(() {
+        _selectedDate = picked;
+      });
+    }
+  }
+
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -260,20 +275,5 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
         ),
       ),
     );
-  }
-
-  Future<void> _pickDateTime() async {
-    final DateTime? picked = await showAppDateTimePicker(
-      context,
-      initialDate: _selectedDate,
-      firstDate: DateTime(2000),
-      lastDate: DateTime(2100),
-    );
-
-    if (picked != null) {
-      setState(() {
-        _selectedDate = picked;
-      });
-    }
   }
 }
