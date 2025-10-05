@@ -443,9 +443,12 @@
     "description": "Legend text for the average rainfall line in the anomaly timeline chart."
   },
   "anomalyTimelineChartPlaceholder": "Interactive Chart Coming Soon",
+  "selectSeverityHint": "Select Severity",
+  "allSeverities": "All Severities",
+  "severitiesSelected": "{count} severities selected",
   "detectedAnomaliesTitle": "Detected Anomalies",
   "noAnomaliesFound": "No anomalies found for the selected filters.",
-  "anomalyDeviationVsAverage": "{deviation}% vs Average",
+  "anomalyDeviationVsAverage": "{deviation} vs Average",
   "@anomalyDeviationVsAverage": {
     "placeholders": {
       "deviation": {

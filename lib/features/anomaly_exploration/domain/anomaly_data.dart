@@ -24,12 +24,7 @@ abstract class AnomalyChartPoint with _$AnomalyChartPoint {
 }
 
 /// Enum representing the severity of a rainfall anomaly.
-enum AnomalySeverity {
-  low,
-  medium,
-  high,
-  critical,
-}
+enum AnomalySeverity { low, medium, high, critical }
 
 extension AnomalySeverityExtension on AnomalySeverity {
   String getLabel(final AppLocalizations l10n) {
@@ -48,7 +43,7 @@ extension AnomalySeverityExtension on AnomalySeverity {
   Color get color {
     switch (this) {
       case AnomalySeverity.low:
-        return const Color(0xFFF9CF58); // Yellow
+        return const Color(0xFF946A00); // Dark Yellow for better contrast
       case AnomalySeverity.medium:
         return const Color(0xFFEF6C00); // Orange
       case AnomalySeverity.high:

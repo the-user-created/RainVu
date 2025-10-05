@@ -1,3 +1,5 @@
+// lib/features/anomaly_exploration/presentation/widgets/anomaly_filter_options.dart
+
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
@@ -7,8 +9,6 @@ import "package:rain_wise/features/anomaly_exploration/application/anomaly_explo
 import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/pickers/date_range_picker.dart";
-
-// TODO: it would be better if the filter options were re-arranged so that the date range can be viewed properly (currently it is truncated because of the severity filter button)
 
 class AnomalyFilterOptions extends ConsumerWidget {
   const AnomalyFilterOptions({super.key});
@@ -35,16 +35,17 @@ class AnomalyFilterOptions extends ConsumerWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
-          Text(l10n.filterOptionsTitle, style: textTheme.titleMedium),
-          const SizedBox(height: 16),
-          Row(
-            children: [
-              Expanded(child: _DateRangePicker()),
-              const SizedBox(width: 12),
-              Expanded(child: _SeveritySelector()),
-            ],
+          Text(
+            l10n.filterOptionsTitle,
+            style: textTheme.titleMedium,
+            textAlign: TextAlign.center,
           ),
+          const SizedBox(height: 16),
+          _DateRangePicker(),
+          const SizedBox(height: 12),
+          _SeveritySelector(),
         ],
       ),
     );
@@ -126,6 +127,9 @@ class _SeveritySelector extends ConsumerWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
+    final Set<AnomalySeverity> selectedSeverities = ref.watch(
+      anomalyFilterProvider.select((final f) => f.severities),
+    );
 
     return InkWell(
       onTap: () => _showSeverityDialog(context, ref, l10n),
@@ -138,14 +142,41 @@ class _SeveritySelector extends ConsumerWidget {
           padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
           child: Row(
             children: [
-              const Icon(Icons.warning, color: Colors.amber, size: 20),
+              const Icon(
+                Icons.warning_amber_rounded,
+                color: Colors.amber,
+                size: 20,
+              ),
               const SizedBox(width: 8),
-              Text(l10n.severityFilterLabel, style: textTheme.bodyMedium),
+              Expanded(
+                child: Text(
+                  _buildSelectionText(selectedSeverities, l10n),
+                  style: textTheme.bodyMedium,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ),
             ],
           ),
         ),
       ),
     );
+  }
+
+  String _buildSelectionText(
+    final Set<AnomalySeverity> selected,
+    final AppLocalizations l10n,
+  ) {
+    final int count = selected.length;
+    if (count == 0) {
+      return l10n.selectSeverityHint;
+    }
+    if (count == AnomalySeverity.values.length) {
+      return l10n.allSeverities;
+    }
+    if (count <= 2) {
+      return selected.map((final s) => s.getLabel(l10n)).join(", ");
+    }
+    return l10n.severitiesSelected(count);
   }
 
   void _showSeverityDialog(
