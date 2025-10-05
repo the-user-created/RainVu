@@ -70,11 +70,9 @@ class InteractiveSheet extends StatelessWidget {
 
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: colorScheme.surface,
-          borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
-        ),
+      child: Material(
+        color: colorScheme.surface,
+        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
         child: SafeArea(
           top: false,
           child: Padding(

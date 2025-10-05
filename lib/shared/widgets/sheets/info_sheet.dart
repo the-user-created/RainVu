@@ -36,7 +36,6 @@ class InfoSheet extends StatelessWidget {
   }) async => showModalBottomSheet<void>(
     context: context,
     isScrollControlled: true,
-    backgroundColor: Colors.transparent,
     builder: (final context) => InteractiveSheet(
       title: Text(title),
       titleAlign: TextAlign.start,

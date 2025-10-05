@@ -19,6 +19,7 @@ class AppTheme {
     tertiary: _tertiary,
     onTertiary: Colors.white,
     error: Color(0xFFD93C4D),
+    onError: Colors.white,
     surface: Color(0xFFFBF9F5),
     onSurface: Color(0xFF171B1E),
     surfaceContainerHighest: Color(0xFFECE7E0),
@@ -37,6 +38,7 @@ class AppTheme {
     error: Color(0xFFD93C4D),
     onError: Colors.white,
     surface: Color(0xFF171B1E),
+    onSurface: Color(0xFFE8E8E8),
     surfaceContainerHighest: Color(0xFF222A30),
     onSurfaceVariant: Color(0xFF949FA9),
     outline: Color(0xFF182126),
@@ -108,6 +110,14 @@ class AppTheme {
         iconTheme: IconThemeData(color: colorScheme.onSurface),
         actionsIconTheme: IconThemeData(color: colorScheme.tertiary),
       ),
+      textButtonTheme: TextButtonThemeData(
+        style: TextButton.styleFrom(
+          foregroundColor: colorScheme.primary,
+          textStyle: textTheme.titleSmall?.copyWith(
+            fontWeight: FontWeight.bold,
+          ),
+        ),
+      ),
       elevatedButtonTheme: ElevatedButtonThemeData(
         style: ElevatedButton.styleFrom(
           backgroundColor: colorScheme.primary,
@@ -171,23 +181,36 @@ class AppTheme {
       ),
       datePickerTheme: DatePickerThemeData(
         backgroundColor: colorScheme.surface,
-        headerBackgroundColor: colorScheme.primary,
-        headerForegroundColor: colorScheme.onPrimary,
+        headerBackgroundColor: colorScheme.secondary,
+        headerForegroundColor: colorScheme.onSecondary,
         headerHelpStyle: textTheme.headlineSmall?.copyWith(
-          color: colorScheme.onPrimary,
+          color: colorScheme.onSecondary,
         ),
         dayBackgroundColor: WidgetStateProperty.resolveWith((final states) {
           if (states.contains(WidgetState.selected)) {
-            return colorScheme.primary;
+            return colorScheme.secondary;
           }
-          return null;
+          return Colors.transparent;
         }),
         dayForegroundColor: WidgetStateProperty.resolveWith((final states) {
           if (states.contains(WidgetState.selected)) {
-            return colorScheme.onPrimary;
+            return colorScheme.onSecondary;
           }
           if (states.contains(WidgetState.disabled)) {
             return colorScheme.onSurface.withValues(alpha: 0.38);
+          }
+          return colorScheme.onSurface;
+        }),
+        dayShape: WidgetStateProperty.all(const CircleBorder()),
+        yearBackgroundColor: WidgetStateProperty.resolveWith((final states) {
+          if (states.contains(WidgetState.selected)) {
+            return colorScheme.secondary;
+          }
+          return Colors.transparent;
+        }),
+        yearForegroundColor: WidgetStateProperty.resolveWith((final states) {
+          if (states.contains(WidgetState.selected)) {
+            return colorScheme.onSecondary;
           }
           return colorScheme.onSurface;
         }),
@@ -214,6 +237,96 @@ class AppTheme {
         showSelectedLabels: false,
         showUnselectedLabels: false,
         type: BottomNavigationBarType.fixed,
+      ),
+      bottomSheetTheme: BottomSheetThemeData(
+        backgroundColor: colorScheme.surface,
+        surfaceTintColor: Colors.transparent,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
+        ),
+        showDragHandle: false,
+        dragHandleColor: colorScheme.onSurface.withValues(alpha: 0.3),
+      ),
+      floatingActionButtonTheme: FloatingActionButtonThemeData(
+        backgroundColor: colorScheme.tertiary,
+        foregroundColor: colorScheme.onTertiary,
+        elevation: 4,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      ),
+      snackBarTheme: SnackBarThemeData(
+        backgroundColor: colorScheme.inverseSurface,
+        contentTextStyle: textTheme.bodyMedium?.copyWith(
+          color: colorScheme.onInverseSurface,
+        ),
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(10)),
+        actionTextColor: colorScheme.tertiary,
+        elevation: 4,
+      ),
+      dialogTheme: DialogThemeData(
+        backgroundColor: colorScheme.surface,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
+        titleTextStyle: textTheme.headlineSmall?.copyWith(
+          color: colorScheme.onSurface,
+        ),
+        contentTextStyle: textTheme.bodyMedium?.copyWith(
+          color: colorScheme.onSurface,
+        ),
+        actionsPadding: const EdgeInsets.fromLTRB(24, 8, 24, 16),
+        elevation: 4,
+      ),
+      chipTheme: ChipThemeData(
+        backgroundColor: colorScheme.surfaceContainerHighest,
+        deleteIconColor: colorScheme.onSurface,
+        disabledColor: colorScheme.surfaceContainerHighest.withValues(
+          alpha: 0.5,
+        ),
+        selectedColor: colorScheme.secondary,
+        secondarySelectedColor: colorScheme.secondary,
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        labelStyle: textTheme.bodyMedium?.copyWith(
+          color: colorScheme.onSurface,
+        ),
+        secondaryLabelStyle: textTheme.bodyMedium?.copyWith(
+          color: colorScheme.onSecondary,
+        ),
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
+        side: BorderSide.none,
+        elevation: 0,
+      ),
+      dropdownMenuTheme: DropdownMenuThemeData(
+        menuStyle: MenuStyle(
+          backgroundColor: WidgetStateProperty.all(colorScheme.surface),
+          surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
+          elevation: WidgetStateProperty.all(4),
+          shape: WidgetStateProperty.all(
+            RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          ),
+          padding: WidgetStateProperty.all(
+            const EdgeInsets.symmetric(vertical: 8),
+          ),
+        ),
+        textStyle: textTheme.bodyLarge,
+        inputDecorationTheme: InputDecorationTheme(
+          border: OutlineInputBorder(
+            borderSide: BorderSide(color: colorScheme.outline),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          enabledBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: colorScheme.outline),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          focusedBorder: OutlineInputBorder(
+            borderSide: BorderSide(color: colorScheme.primary, width: 2),
+            borderRadius: BorderRadius.circular(8),
+          ),
+          filled: true,
+          fillColor: colorScheme.surface,
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 12,
+          ),
+        ),
       ),
     );
   }

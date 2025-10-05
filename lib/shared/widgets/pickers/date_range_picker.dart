@@ -16,7 +16,6 @@ Future<DateTimeRange?> showDateRangePickerModal(
 }) async => showModalBottomSheet<DateTimeRange>(
   context: context,
   isScrollControlled: true,
-  backgroundColor: Colors.transparent,
   builder: (final context) => _DateRangePickerModal(
     initialDateRange: initialDateRange,
     firstDate: firstDate,

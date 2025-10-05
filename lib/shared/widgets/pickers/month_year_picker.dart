@@ -17,7 +17,6 @@ Future<DateTime?> showMonthYearPicker(
 }) async => showModalBottomSheet<DateTime>(
   context: context,
   isScrollControlled: true,
-  backgroundColor: Colors.transparent,
   builder: (final context) => _MonthYearPicker(
     initialDate: initialDate,
     firstDate: firstDate,
