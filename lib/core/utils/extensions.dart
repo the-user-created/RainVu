@@ -103,3 +103,11 @@ extension DoubleUnitsExt on double {
     return l10n.rainfallAmountWithUnit(toStringAsFixed(precision));
   }
 }
+
+extension DateTimeExtension on DateTime {
+  /// Returns a new DateTime object with the time set to the beginning of the day (00:00:00).
+  DateTime get startOfDay => DateTime(year, month, day);
+
+  /// Returns a new DateTime object with the time set to the end of the day (23:59:59.999).
+  DateTime get endOfDay => DateTime(year, month, day, 23, 59, 59, 999);
+}

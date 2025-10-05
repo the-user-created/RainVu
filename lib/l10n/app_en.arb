@@ -119,6 +119,10 @@
   "startDateLabel": "Start Date",
   "endDateLabel": "End Date",
   "applyButtonLabel": "Apply",
+  "saveButtonLabel": "Save",
+  "@saveButtonLabel": {
+    "description": "Label for the button that saves the user's selection in a dialog."
+  },
   "clearSelectionTooltip": "Clear selection",
   "exportDataCardTitle": "Export Your Data",
   "exportDataCardDescription": "Select date range and format to export your rainfall data",

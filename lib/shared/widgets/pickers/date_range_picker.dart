@@ -1,249 +1,77 @@
 import "package:flutter/material.dart";
-import "package:intl/intl.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/buttons/app_button.dart";
-import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
 
-/// Shows a modal bottom sheet for selecting a date range.
+/// Shows a Material Design date range picker.
 ///
-/// Returns a [DateTimeRange] representing the selected start and end dates,
+/// Returns a [DateTimeRange] with the time component set to the start and end of the day,
 /// or `null` if the user cancels.
-Future<DateTimeRange?> showDateRangePickerModal(
+Future<DateTimeRange?> showAppDateRangePicker(
   final BuildContext context, {
   required final DateTimeRange initialDateRange,
   required final DateTime firstDate,
   required final DateTime lastDate,
-}) async => showModalBottomSheet<DateTimeRange>(
-  context: context,
-  isScrollControlled: true,
-  builder: (final context) => _DateRangePickerModal(
-    initialDateRange: initialDateRange,
+}) async {
+  final AppLocalizations l10n = AppLocalizations.of(context);
+  final ThemeData theme = Theme.of(context);
+
+  // Helper to clamp a date within the allowed range.
+  DateTime clampDate(
+    final DateTime date,
+    final DateTime min,
+    final DateTime max,
+  ) {
+    if (date.isBefore(min)) {
+      return min;
+    }
+    if (date.isAfter(max)) {
+      return max;
+    }
+    return date;
+  }
+
+  DateTime clampedStart = clampDate(
+    initialDateRange.start,
+    firstDate,
+    lastDate,
+  );
+  DateTime clampedEnd = clampDate(initialDateRange.end, firstDate, lastDate);
+
+  if (clampedStart.isAfter(clampedEnd)) {
+    clampedStart = clampedEnd;
+  }
+
+  final DateTimeRange validInitialRange = DateTimeRange(
+    start: clampedStart,
+    end: clampedEnd,
+  );
+
+  final DateTimeRange? pickedRange = await showDateRangePicker(
+    context: context,
+    initialDateRange: validInitialRange,
     firstDate: firstDate,
     lastDate: lastDate,
-  ),
-);
-
-/// Enum for managing which date is being selected
-enum _DateSelectionMode { start, end }
-
-class _DateRangePickerModal extends StatefulWidget {
-  const _DateRangePickerModal({
-    required this.initialDateRange,
-    required this.firstDate,
-    required this.lastDate,
-  });
-
-  final DateTimeRange initialDateRange;
-  final DateTime firstDate;
-  final DateTime lastDate;
-
-  @override
-  State<_DateRangePickerModal> createState() => _DateRangePickerModalState();
-}
-
-class _DateRangePickerModalState extends State<_DateRangePickerModal> {
-  _DateSelectionMode _selectionMode = _DateSelectionMode.start;
-  late DateTime _startDate;
-  late DateTime _endDate;
-
-  @override
-  void initState() {
-    super.initState();
-    // Clamp the initial start and end dates to be within the allowed range.
-    // This prevents assertion errors if the provided initialDateRange is
-    // outside the bounds of firstDate and lastDate.
-    DateTime safeStart = widget.initialDateRange.start;
-    if (safeStart.isAfter(widget.lastDate)) {
-      safeStart = widget.lastDate;
-    }
-    if (safeStart.isBefore(widget.firstDate)) {
-      safeStart = widget.firstDate;
-    }
-
-    DateTime safeEnd = widget.initialDateRange.end;
-    if (safeEnd.isAfter(widget.lastDate)) {
-      safeEnd = widget.lastDate;
-    }
-    if (safeEnd.isBefore(widget.firstDate)) {
-      safeEnd = widget.firstDate;
-    }
-
-    // After clamping, ensure the start date is still not after the end date.
-    if (safeStart.isAfter(safeEnd)) {
-      safeEnd = safeStart;
-    }
-
-    _startDate = safeStart;
-    _endDate = safeEnd;
-  }
-
-  void _onDateSelected(final DateTime newDate) {
-    setState(() {
-      if (_selectionMode == _DateSelectionMode.start) {
-        _startDate = newDate;
-        // If the new start date is after the current end date, move the end date forward.
-        if (_startDate.isAfter(_endDate)) {
-          _endDate = _startDate;
-        }
-        // Automatically switch to picking the end date
-        _selectionMode = _DateSelectionMode.end;
-      } else {
-        _endDate = newDate;
-        // If the new end date is before the current start date, move the start date back.
-        if (_endDate.isBefore(_startDate)) {
-          _startDate = _endDate;
-        }
-      }
-    });
-  }
-
-  @override
-  Widget build(final BuildContext context) {
-    final AppLocalizations l10n = AppLocalizations.of(context);
-
-    return InteractiveSheet(
-      title: Text(l10n.selectDateRangeTitle),
-      titleAlign: TextAlign.start,
-      actions: [
-        Expanded(
-          child: AppButton(
-            onPressed: () {
-              final DateTimeRange result = DateTimeRange(
-                start: _startDate,
-                end: _endDate,
-              );
-              Navigator.of(context).pop(result);
-            },
-            label: l10n.applyButtonLabel,
-            isExpanded: true,
-          ),
-        ),
-      ],
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          // Start and End Date Display/Selectors
-          _DateSelector(
-            startDate: _startDate,
-            endDate: _endDate,
-            selectionMode: _selectionMode,
-            onModeChanged: (final mode) =>
-                setState(() => _selectionMode = mode),
-          ),
-          const SizedBox(height: 16),
-
-          // Calendar
-          CalendarDatePicker(
-            key: ValueKey(_selectionMode),
-            initialDate: _selectionMode == _DateSelectionMode.start
-                ? _startDate
-                : _endDate,
-            firstDate: widget.firstDate,
-            lastDate: widget.lastDate,
-            onDateChanged: _onDateSelected,
-          ),
-        ],
-      ),
-    );
-  }
-}
-
-class _DateSelector extends StatelessWidget {
-  const _DateSelector({
-    required this.startDate,
-    required this.endDate,
-    required this.selectionMode,
-    required this.onModeChanged,
-  });
-
-  final DateTime startDate;
-  final DateTime endDate;
-  final _DateSelectionMode selectionMode;
-  final ValueChanged<_DateSelectionMode> onModeChanged;
-
-  @override
-  Widget build(final BuildContext context) {
-    final AppLocalizations l10n = AppLocalizations.of(context);
-    return Row(
-      children: [
-        Expanded(
-          child: _DateBox(
-            label: l10n.startDateLabel,
-            date: startDate,
-            isSelected: selectionMode == _DateSelectionMode.start,
-            onTap: () => onModeChanged(_DateSelectionMode.start),
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          child: _DateBox(
-            label: l10n.endDateLabel,
-            date: endDate,
-            isSelected: selectionMode == _DateSelectionMode.end,
-            onTap: () => onModeChanged(_DateSelectionMode.end),
-          ),
-        ),
-      ],
-    );
-  }
-}
-
-class _DateBox extends StatelessWidget {
-  const _DateBox({
-    required this.label,
-    required this.date,
-    required this.isSelected,
-    required this.onTap,
-  });
-
-  final String label;
-  final DateTime date;
-  final bool isSelected;
-  final VoidCallback onTap;
-
-  @override
-  Widget build(final BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
-    final String formattedDate = DateFormat.yMMMd().format(date);
-
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.all(12),
-        decoration: BoxDecoration(
-          color: isSelected
-              ? colorScheme.secondary.withValues(alpha: 0.1)
-              : colorScheme.surfaceContainerHighest,
-          borderRadius: BorderRadius.circular(12),
-          border: Border.all(
-            color: isSelected ? colorScheme.secondary : Colors.transparent,
-            width: 1.5,
-          ),
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              label,
-              style: textTheme.bodySmall?.copyWith(
-                color: isSelected
-                    ? colorScheme.secondary
-                    : colorScheme.onSurfaceVariant,
-              ),
-            ),
-            const SizedBox(height: 4),
-            Text(
-              formattedDate,
-              style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
-            ),
-          ],
+    helpText: l10n.selectDateRangeTitle.toUpperCase(),
+    cancelText: l10n.cancelButtonLabel.toUpperCase(),
+    confirmText: l10n.applyButtonLabel.toUpperCase(),
+    saveText: l10n.saveButtonLabel.toUpperCase(),
+    builder: (final context, final child) => Theme(
+      data: theme.copyWith(
+        datePickerTheme: theme.datePickerTheme.copyWith(
+          headerHeadlineStyle: theme.textTheme.titleSmall,
         ),
       ),
+      child: child!,
+    ),
+  );
+
+  if (pickedRange != null) {
+    // Adjust the time to cover the entire selected days for inclusive queries.
+    return DateTimeRange(
+      start: pickedRange.start.startOfDay,
+      end: pickedRange.end.endOfDay,
     );
   }
+
+  return null;
 }

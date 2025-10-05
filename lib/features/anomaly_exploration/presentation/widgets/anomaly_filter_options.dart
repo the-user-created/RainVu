@@ -78,7 +78,7 @@ class _DateRangePicker extends ConsumerWidget {
         onTap: hasData
             ? () async {
                 final DateRangeResult dbDateRange = dbDateRangeAsync.value!;
-                final DateTimeRange? picked = await showDateRangePickerModal(
+                final DateTimeRange? picked = await showAppDateRangePicker(
                   context,
                   firstDate: dbDateRange.min!,
                   lastDate: dbDateRange.max!,

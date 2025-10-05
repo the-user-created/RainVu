@@ -3,6 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/core/data/providers/data_providers.dart";
 import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
+import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/data_tools/application/data_tools_provider.dart";
 import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
@@ -12,7 +13,6 @@ import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_choice_chips.dart";
 import "package:rain_wise/shared/widgets/pickers/date_range_picker.dart";
-import "package:rain_wise/core/utils/snackbar_service.dart";
 
 class ExportDataCard extends ConsumerWidget {
   const ExportDataCard({super.key});
@@ -78,7 +78,7 @@ class ExportDataCard extends ConsumerWidget {
                       end: data.max!,
                     );
                     final DateTimeRange? newRange =
-                        await showDateRangePickerModal(
+                        await showAppDateRangePicker(
                           context,
                           firstDate: data.min!,
                           lastDate: data.max!,
