@@ -737,5 +737,13 @@
   },
   "rainfallEntryLoggedSuccess": "Rainfall entry logged successfully.",
   "rainfallEntryUpdatedSuccess": "Rainfall entry updated successfully.",
-  "rainfallEntryDeletedSuccess": "Rainfall entry deleted."
+  "rainfallEntryDeletedSuccess": "Rainfall entry deleted.",
+  "previousButtonTooltip": "Previous",
+  "@previousButtonTooltip": {
+    "description": "Tooltip for the 'previous' button in pickers"
+  },
+  "nextButtonTooltip": "Next",
+  "@nextButtonTooltip": {
+    "description": "Tooltip for the 'next' button in pickers"
+  }
 }
