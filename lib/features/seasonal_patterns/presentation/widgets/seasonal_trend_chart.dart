@@ -9,6 +9,7 @@ import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/seasonal_patterns/domain/seasonal_patterns_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
+import "package:rain_wise/shared/widgets/charts/chart_card.dart";
 
 class SeasonalTrendChart extends ConsumerWidget {
   const SeasonalTrendChart({required this.trendData, super.key});
@@ -17,7 +18,6 @@ class SeasonalTrendChart extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
@@ -31,40 +31,75 @@ class SeasonalTrendChart extends ConsumerWidget {
         ? maxRainfall.toInches()
         : maxRainfall;
 
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 10),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(l10n.rainfallTrendsTitle, style: theme.textTheme.titleMedium),
-            const SizedBox(height: 24),
-            SizedBox(
-              height: 250,
-              child: LineChart(
-                LineChartData(
-                  maxY: displayMaxRainfall > 0
-                      ? (displayMaxRainfall * 1.2).ceilToDouble()
-                      : 5.0,
-                  gridData: FlGridData(
-                    drawVerticalLine: false,
-                    getDrawingHorizontalLine: (final value) => FlLine(
-                      color: theme.colorScheme.outlineVariant.withValues(
-                        alpha: 0.5,
-                      ),
-                      strokeWidth: 1,
-                    ),
-                  ),
-                  titlesData: _buildTitlesData(theme),
-                  borderData: FlBorderData(show: false),
-                  lineBarsData: [_buildLineBarData(theme, isInch)],
+    return ChartCard(
+      title: l10n.rainfallTrendsTitle,
+      margin: EdgeInsets.zero,
+      chart: LineChart(
+        LineChartData(
+          maxY: displayMaxRainfall > 0
+              ? (displayMaxRainfall * 1.2).ceilToDouble()
+              : 5.0,
+          gridData: _buildGridData(Theme.of(context).colorScheme),
+          titlesData: _buildTitlesData(Theme.of(context)),
+          borderData: FlBorderData(show: false),
+          lineTouchData: _buildLineTouchData(context, unit),
+          lineBarsData: [_buildLineBarData(Theme.of(context), isInch)],
+        ),
+      ),
+    );
+  }
+
+  FlGridData _buildGridData(final ColorScheme colorScheme) => FlGridData(
+    getDrawingHorizontalLine: (final value) => FlLine(
+      color: colorScheme.outline.withValues(alpha: 0.5),
+      strokeWidth: 1,
+      dashArray: [4, 4],
+    ),
+    getDrawingVerticalLine: (final value) => FlLine(
+      color: colorScheme.outline.withValues(alpha: 0.5),
+      strokeWidth: 1,
+      dashArray: [4, 4],
+    ),
+  );
+
+  LineTouchData _buildLineTouchData(
+    final BuildContext context,
+    final MeasurementUnit unit,
+  ) {
+    final ThemeData theme = Theme.of(context);
+    return LineTouchData(
+      touchTooltipData: LineTouchTooltipData(
+        fitInsideHorizontally: true,
+        getTooltipColor: (final spot) =>
+            theme.colorScheme.surfaceContainerHighest,
+        tooltipBorder: BorderSide(
+          color: theme.colorScheme.outline.withValues(alpha: 0.5),
+        ),
+        getTooltipItems: (final touchedSpots) => touchedSpots.map((final spot) {
+          final int index = spot.spotIndex;
+          if (index < 0 || index >= trendData.length) {
+            return null;
+          }
+          final SeasonalTrendPoint point = trendData[index];
+          final String dateText = DateFormat.yMMMd().format(point.date);
+          final String valueText = point.rainfall.formatRainfall(context, unit);
+
+          return LineTooltipItem(
+            "$dateText\n",
+            theme.textTheme.bodyMedium!.copyWith(
+              fontWeight: FontWeight.w600,
+              color: theme.colorScheme.onSurface,
+            ),
+            children: [
+              TextSpan(
+                text: valueText,
+                style: theme.textTheme.bodySmall!.copyWith(
+                  color: theme.colorScheme.onSurface,
                 ),
               ),
-            ),
-          ],
-        ),
+            ],
+          );
+        }).toList(),
       ),
     );
   }
@@ -76,7 +111,7 @@ class SeasonalTrendChart extends ConsumerWidget {
       sideTitles: SideTitles(
         showTitles: true,
         reservedSize: 30,
-        interval: (trendData.length / 4).floorToDouble(),
+        interval: (trendData.length / 4).floorToDouble().clamp(1.0, 30.0),
         getTitlesWidget: (final value, final meta) {
           if (value.toInt() >= trendData.length) {
             return const Text("");
@@ -92,8 +127,20 @@ class SeasonalTrendChart extends ConsumerWidget {
         },
       ),
     ),
-    leftTitles: const AxisTitles(
-      sideTitles: SideTitles(showTitles: true, reservedSize: 40),
+    leftTitles: AxisTitles(
+      sideTitles: SideTitles(
+        showTitles: true,
+        reservedSize: 40,
+        getTitlesWidget: (final value, final meta) {
+          if (value == meta.max || value == meta.min) {
+            return const SizedBox();
+          }
+          return Text(
+            value.round().toString(),
+            style: theme.textTheme.bodySmall,
+          );
+        },
+      ),
     ),
   );
 

@@ -11,6 +11,8 @@ import "package:rain_wise/features/anomaly_exploration/application/anomaly_explo
 import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
+import "package:rain_wise/shared/widgets/charts/chart_card.dart";
+import "package:rain_wise/shared/widgets/charts/legend_item.dart";
 
 typedef _ChartDataPoint = ({
   DateTime date,
@@ -90,79 +92,58 @@ class AnomalyTimelineChart extends ConsumerWidget {
       isMultiYear,
     );
 
-    return Card(
-      elevation: 2,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      clipBehavior: Clip.antiAlias,
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 16, 16, 8),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(
-                  l10n.rainfallTrendsTitle,
-                  style: theme.textTheme.titleMedium,
-                ),
-                Row(
-                  children: [
-                    _LegendItem(
-                      color: colorScheme.secondary,
-                      text: l10n.anomalyTimelineLegendActual,
-                    ),
-                    const SizedBox(width: 8),
-                    _LegendItem(
-                      color: colorScheme.tertiary,
-                      text: l10n.anomalyTimelineLegendAverage,
-                    ),
-                  ],
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            SizedBox(
-              height: 240,
-              child: processedPoints.isEmpty
-                  ? Center(
-                      child: Text(
-                        l10n.anomalyTimelineChartPlaceholder,
-                        style: theme.textTheme.bodyLarge?.copyWith(
-                          color: colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                    )
-                  : LayoutBuilder(
-                      builder: (final context, final constraints) {
-                        const double minPointWidth = 15;
-                        final double chartWidth = max(
-                          constraints.maxWidth,
-                          processedPoints.length * minPointWidth,
-                        );
-
-                        return SingleChildScrollView(
-                          scrollDirection: Axis.horizontal,
-                          child: SizedBox(
-                            width: chartWidth,
-                            height: 240,
-                            child: _buildChart(
-                              context,
-                              l10n: l10n,
-                              unit: unit,
-                              isInch: isInch,
-                              isMultiYear: isMultiYear,
-                              processedPoints: processedPoints,
-                              availableWidth: constraints.maxWidth,
-                            ),
-                          ),
-                        );
-                      },
-                    ),
-            ),
-          ],
-        ),
+    return ChartCard(
+      title: l10n.rainfallTrendsTitle,
+      chartHeight: 240,
+      legend: Row(
+        children: [
+          LegendItem(
+            color: colorScheme.secondary,
+            text: l10n.anomalyTimelineLegendActual,
+            shape: LegendShape.circle,
+          ),
+          LegendItem(
+            color: colorScheme.tertiary,
+            text: l10n.anomalyTimelineLegendAverage,
+            shape: LegendShape.circle,
+          ),
+        ],
       ),
+      chart: processedPoints.isEmpty
+          ? Center(
+              child: Text(
+                l10n.noDataToSetDateRange,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
+              ),
+            )
+          : LayoutBuilder(
+              builder: (final context, final constraints) {
+                const double minPointWidth = 15;
+                final double chartWidth = max(
+                  constraints.maxWidth,
+                  processedPoints.length * minPointWidth,
+                );
+
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  child: SizedBox(
+                    width: chartWidth,
+                    height: 240,
+                    child: _buildChart(
+                      context,
+                      l10n: l10n,
+                      unit: unit,
+                      isInch: isInch,
+                      isMultiYear: isMultiYear,
+                      processedPoints: processedPoints,
+                      availableWidth: constraints.maxWidth,
+                    ),
+                  ),
+                );
+              },
+            ),
     );
   }
 
@@ -350,7 +331,6 @@ class AnomalyTimelineChart extends ConsumerWidget {
                     ],
                   );
                 } else {
-                  // Return null item for second line
                   return null;
                 }
               }).toList();
@@ -377,34 +357,18 @@ class AnomalyTimelineChart extends ConsumerWidget {
             dotData: const FlDotData(show: false),
             belowBarData: BarAreaData(
               show: true,
-              color: colorScheme.secondary.withValues(alpha: 0.2),
+              gradient: LinearGradient(
+                colors: [
+                  colorScheme.secondary.withValues(alpha: 0.3),
+                  colorScheme.secondary.withValues(alpha: 0),
+                ],
+                begin: Alignment.topCenter,
+                end: Alignment.bottomCenter,
+              ),
             ),
           ),
         ],
       ),
-    );
-  }
-}
-
-class _LegendItem extends StatelessWidget {
-  const _LegendItem({required this.color, required this.text});
-
-  final Color color;
-  final String text;
-
-  @override
-  Widget build(final BuildContext context) {
-    final TextTheme textTheme = Theme.of(context).textTheme;
-    return Row(
-      children: [
-        Container(
-          width: 12,
-          height: 12,
-          decoration: BoxDecoration(color: color, shape: BoxShape.circle),
-        ),
-        const SizedBox(width: 4),
-        Text(text, style: textTheme.bodySmall),
-      ],
     );
   }
 }

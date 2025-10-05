@@ -65,7 +65,7 @@ class DriftComparativeAnalysisRepository
     final double total2 = totals[1];
 
     final chartData = ComparativeChartData(
-      labels: const ["Total"],
+      labels: const [""],
       series: [
         ComparativeChartSeries(year: filter.year1, data: [total1]),
         ComparativeChartSeries(year: filter.year2, data: [total2]),

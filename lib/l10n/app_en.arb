@@ -533,8 +533,13 @@
   "fiveYearAverage": "5 Year Average",
   "tenYearAverage": "10 Year Average",
   "dailyRainfallChartTitle": "Daily Rainfall",
-  "dailyRainfallChartTooltip": "{value} mm",
-  "@dailyRainfallChartTooltip": {
+  "totalLabel": "Total",
+  "@totalLabel": {
+    "description": "A label for a chart axis or group representing a total value."
+  },
+  "rainfallAmountTooltip": "{value}",
+  "@rainfallAmountTooltip": {
+    "description": "A generic tooltip for charts showing a formatted rainfall amount.",
     "placeholders": {
       "value": {
         "type": "String"

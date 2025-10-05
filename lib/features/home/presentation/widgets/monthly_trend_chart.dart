@@ -1,5 +1,6 @@
 import "dart:math";
 
+import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
@@ -8,47 +9,41 @@ import "package:rain_wise/features/home/domain/home_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 
-class MonthlyTrendChart extends StatelessWidget {
+class MonthlyTrendChart extends ConsumerWidget {
   const MonthlyTrendChart({required this.trends, super.key});
 
   final List<MonthlyTrendPoint> trends;
 
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
-
-    const double chartContainerHeight = 200;
-    const double chartContainerVPadding = 32;
-    const double labelAreaHeight = 24;
-    const double valueLabelHeight = 16;
-    const double maxChartHeight =
-        chartContainerHeight -
-        chartContainerVPadding -
-        labelAreaHeight -
-        valueLabelHeight;
+    final MeasurementUnit unit =
+        ref.watch(userPreferencesProvider).value?.measurementUnit ??
+        MeasurementUnit.mm;
+    final bool isInch = unit == MeasurementUnit.inch;
 
     final double maxRainfall = trends.isEmpty
         ? 1.0
         : trends.map((final e) => e.rainfall).reduce(max);
+    final double displayMaxRainfall = isInch
+        ? maxRainfall.toInches()
+        : maxRainfall;
 
     return Card(
       elevation: 2,
       color: colorScheme.surface,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+        padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
         child: Column(
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(
-                  l10n.monthlyTrendChartTitle,
-                  style: textTheme.headlineSmall,
-                ),
+                Text(l10n.monthlyTrendChartTitle, style: textTheme.titleMedium),
                 Text(
                   l10n.monthlyTrendChartSubtitle,
                   style: textTheme.bodyMedium?.copyWith(
@@ -57,31 +52,22 @@ class MonthlyTrendChart extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 16),
-            Container(
-              width: double.infinity,
-              height: chartContainerHeight,
-              decoration: BoxDecoration(
-                color: colorScheme.surface,
-                borderRadius: BorderRadius.circular(12),
-                border: Border.all(color: colorScheme.outline),
-              ),
-              padding: const EdgeInsets.all(8),
-              child: Row(
-                mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                crossAxisAlignment: CrossAxisAlignment.end,
-                children: trends.map((final point) {
-                  final double normalizedHeight = maxRainfall > 0
-                      ? (point.rainfall / maxRainfall) * maxChartHeight
-                      : 0.0;
-                  return Expanded(
-                    child: _ChartBar(
-                      label: point.month,
-                      value: point.rainfall,
-                      height: normalizedHeight.clamp(5.0, maxChartHeight),
-                    ),
-                  );
-                }).toList(),
+            const SizedBox(height: 24),
+            SizedBox(
+              height: 250,
+              child: BarChart(
+                BarChartData(
+                  maxY: (displayMaxRainfall * 1.2).clamp(
+                    isInch ? 0.5 : 10.0,
+                    double.infinity,
+                  ),
+                  barTouchData: _buildBarTouchData(context, unit),
+                  titlesData: _buildTitlesData(textTheme),
+                  gridData: _buildGridData(colorScheme),
+                  borderData: FlBorderData(show: false),
+                  barGroups: _buildBarGroups(colorScheme, isInch),
+                  alignment: BarChartAlignment.spaceAround,
+                ),
               ),
             ),
           ],
@@ -89,58 +75,115 @@ class MonthlyTrendChart extends StatelessWidget {
       ),
     );
   }
-}
 
-class _ChartBar extends ConsumerWidget {
-  const _ChartBar({
-    required this.label,
-    required this.height,
-    required this.value,
-  });
-
-  final String label;
-  final double height;
-  final double value;
-
-  @override
-  Widget build(final BuildContext context, final WidgetRef ref) {
+  BarTouchData _buildBarTouchData(
+    final BuildContext context,
+    final MeasurementUnit unit,
+  ) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
     final ThemeData theme = Theme.of(context);
-    final MeasurementUnit unit =
-        ref.watch(userPreferencesProvider).value?.measurementUnit ??
-        MeasurementUnit.mm;
+    final bool isInch = unit == MeasurementUnit.inch;
 
-    return Column(
-      mainAxisAlignment: MainAxisAlignment.end,
-      children: [
-        Text(
-          value.formatRainfall(context, unit, precision: 0, withUnit: false),
-          style: theme.textTheme.bodySmall?.copyWith(
-            color: theme.colorScheme.onSurfaceVariant,
-            fontWeight: FontWeight.w600,
-          ),
-        ),
-        const SizedBox(height: 2),
-        FractionallySizedBox(
-          widthFactor: 0.7,
-          child: Container(
-            height: height,
-            decoration: BoxDecoration(
-              color: theme.colorScheme.secondary,
-              borderRadius: const BorderRadius.only(
-                topLeft: Radius.circular(4),
-                topRight: Radius.circular(4),
-              ),
-            ),
-          ),
-        ),
-        const SizedBox(height: 4),
-        Text(
-          label,
-          style: theme.textTheme.bodySmall,
-          maxLines: 1,
-          overflow: TextOverflow.clip,
-        ),
-      ],
+    return BarTouchData(
+      touchTooltipData: BarTouchTooltipData(
+        getTooltipColor: (final group) => theme.colorScheme.primary,
+        getTooltipItem:
+            (final group, final groupIndex, final rod, final rodIndex) {
+              final double mmValue = isInch ? rod.toY.toMillimeters() : rod.toY;
+              final String formattedValue = mmValue.formatRainfall(
+                context,
+                unit,
+              );
+              final String month = trends[groupIndex].month;
+
+              return BarTooltipItem(
+                "$month\n",
+                theme.textTheme.bodyMedium!.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: theme.colorScheme.onPrimary,
+                ),
+                children: [
+                  TextSpan(
+                    text: l10n.rainfallAmountTooltip(formattedValue),
+                    style: theme.textTheme.bodySmall!.copyWith(
+                      color: theme.colorScheme.onPrimary,
+                    ),
+                  ),
+                ],
+              );
+            },
+      ),
     );
   }
+
+  FlTitlesData _buildTitlesData(final TextTheme textTheme) => FlTitlesData(
+    topTitles: const AxisTitles(),
+    rightTitles: const AxisTitles(),
+    bottomTitles: AxisTitles(
+      sideTitles: SideTitles(
+        showTitles: true,
+        reservedSize: 30,
+        getTitlesWidget: (final value, final meta) {
+          final int index = value.toInt();
+          if (index >= trends.length) {
+            return const Text("");
+          }
+          return Padding(
+            padding: const EdgeInsets.only(top: 6),
+            child: Text(trends[index].month, style: textTheme.bodySmall),
+          );
+        },
+      ),
+    ),
+    leftTitles: AxisTitles(
+      sideTitles: SideTitles(
+        showTitles: true,
+        reservedSize: 40,
+        getTitlesWidget: (final value, final meta) {
+          if (value == meta.max || value == meta.min) {
+            return const SizedBox();
+          }
+          return Text(
+            value.round().toString(),
+            style: textTheme.bodySmall,
+            textAlign: TextAlign.left,
+          );
+        },
+      ),
+    ),
+  );
+
+  FlGridData _buildGridData(final ColorScheme colorScheme) => FlGridData(
+    drawVerticalLine: false,
+    getDrawingHorizontalLine: (final value) => FlLine(
+      color: colorScheme.outline.withValues(alpha: 0.5),
+      strokeWidth: 1,
+    ),
+  );
+
+  List<BarChartGroupData> _buildBarGroups(
+    final ColorScheme colorScheme,
+    final bool isInch,
+  ) => trends
+      .asMap()
+      .entries
+      .map(
+        (final entry) => BarChartGroupData(
+          x: entry.key,
+          barRods: [
+            BarChartRodData(
+              toY: isInch
+                  ? entry.value.rainfall.toInches()
+                  : entry.value.rainfall,
+              color: colorScheme.secondary,
+              width: 12,
+              borderRadius: const BorderRadius.only(
+                topLeft: Radius.circular(2),
+                topRight: Radius.circular(2),
+              ),
+            ),
+          ],
+        ),
+      )
+      .toList();
 }
