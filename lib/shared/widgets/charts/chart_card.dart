@@ -24,7 +24,7 @@ class ChartCard extends StatelessWidget {
       elevation: 2,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       margin: margin,
-      clipBehavior: Clip.antiAlias,
+      clipBehavior: Clip.none,
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
         child: Column(

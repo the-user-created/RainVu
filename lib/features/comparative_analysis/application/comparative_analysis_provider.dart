@@ -18,10 +18,21 @@ class ComparativeAnalysisFilterNotifier
   Future<ComparativeFilter> build() async {
     // Initialize with the two most recent years.
     final List<int> years = await ref.watch(availableYearsProvider.future);
-    return ComparativeFilter(
-      year1: years.first,
-      year2: years.length > 1 ? years[1] : years.first,
-    );
+    if (years.isEmpty) {
+      // Handle case with no data to prevent crash.
+      // The UI will show a "no data" state because availableYears is empty.
+      final int currentYear = DateTime.now().year;
+      return ComparativeFilter(year1: currentYear, year2: currentYear);
+    }
+    if (years.length == 1) {
+      // Only one year available, select it for both.
+      return ComparativeFilter(year1: years.first, year2: years.first);
+    }
+
+    // Default to comparing the two most recent years, with the earlier year
+    // on the left (year1) and the later year on the right (year2).
+    // Note: availableYears is sorted descending.
+    return ComparativeFilter(year1: years[1], year2: years.first);
   }
 
   Future<void> setYear1(final int year) async {

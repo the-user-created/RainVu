@@ -640,7 +640,7 @@
   "comparisonInfoMonthlyTitle": "Monthly",
   "comparisonInfoMonthlyDescription": "Provides a month-by-month breakdown, comparing the rainfall of each month across the selected years. This helps identify variations in monthly patterns.",
   "comparisonInfoSeasonalTitle": "Seasonal",
-  "comparisonInfoSeasonalDescription": "Groups rainfall into meteorological seasons (Spring, Summer, Autumn, Winter) based on your hemisphere setting. This is useful for comparing seasonal performance year-over-year.",
+  "comparisonInfoSeasonalDescription": "Groups rainfall data into four meteorological seasons (Spring, Summer, Autumn, Winter) based on your hemisphere setting. This view is useful for comparing seasonal performance year-over-year.",
   "quickStatThisWeek": "This week",
   "quickStatThisMonth": "This month",
   "quickStatDailyAvg": "Daily avg",

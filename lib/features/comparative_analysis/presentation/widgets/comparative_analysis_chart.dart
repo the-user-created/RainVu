@@ -1,3 +1,5 @@
+import "dart:math";
+
 import "package:collection/collection.dart";
 import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
@@ -15,6 +17,10 @@ class ComparativeAnalysisChart extends ConsumerWidget {
 
   final ComparativeChartData chartData;
 
+  /// Minimum width for each bar group in a monthly/seasonal chart to ensure
+  /// readability when scrolling.
+  static const double _minBarGroupWidth = 48;
+
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
@@ -27,6 +33,9 @@ class ComparativeAnalysisChart extends ConsumerWidget {
     final bool isInch = unit == MeasurementUnit.inch;
     final bool isSingleGroup = chartData.labels.length == 1;
 
+    // Enable horizontal scrolling for charts with many labels (e.g., monthly view)
+    final bool isScrollable = chartData.labels.length > 8;
+
     if (chartData.series.isEmpty || chartData.series.first.data.isEmpty) {
       return SizedBox(
         height: 300,
@@ -34,70 +43,89 @@ class ComparativeAnalysisChart extends ConsumerWidget {
       );
     }
 
+    final barChart = BarChart(
+      BarChartData(
+        alignment: isSingleGroup
+            ? BarChartAlignment.center
+            : BarChartAlignment.spaceBetween,
+        barGroups: _generateBarGroups(colors, isInch),
+        titlesData: _buildTitles(theme, l10n, isSingleGroup),
+        borderData: FlBorderData(show: false),
+        gridData: FlGridData(
+          drawVerticalLine: false,
+          getDrawingHorizontalLine: (final value) => FlLine(
+            color: colorScheme.outline.withValues(alpha: 0.5),
+            strokeWidth: 1,
+          ),
+        ),
+        barTouchData: BarTouchData(
+          touchTooltipData: BarTouchTooltipData(
+            fitInsideHorizontally: true,
+            getTooltipColor: (final _) => colorScheme.primary,
+            getTooltipItem:
+                (final group, final groupIndex, final rod, final rodIndex) {
+                  final int year = chartData.series[rodIndex].year;
+                  final String label = isSingleGroup
+                      ? l10n.totalLabel
+                      : chartData.labels[groupIndex];
+                  final String titleText = isSingleGroup
+                      ? "$year\n"
+                      : "$year $label\n";
+
+                  final double mmValue = isInch
+                      ? rod.toY.toMillimeters()
+                      : rod.toY;
+
+                  return BarTooltipItem(
+                    titleText,
+                    TextStyle(
+                      color: colorScheme.onPrimary,
+                      fontWeight: FontWeight.bold,
+                    ),
+                    children: <TextSpan>[
+                      TextSpan(
+                        text: mmValue.formatRainfall(context, unit),
+                        style: TextStyle(color: colorScheme.onPrimary),
+                      ),
+                    ],
+                  );
+                },
+          ),
+        ),
+      ),
+    );
+
     return ChartCard(
       title: l10n.comparativeAnalysisChartTitle,
       margin: const EdgeInsets.all(16),
       legend: Row(
+        mainAxisSize: MainAxisSize.min,
         children: chartData.series
             .mapIndexed(
-              (final index, final series) => LegendItem(
-                color: colors[index % colors.length],
-                text: series.year.toString(),
+              (final index, final series) => Flexible(
+                child: LegendItem(
+                  color: colors[index % colors.length],
+                  text: series.year.toString(),
+                ),
               ),
             )
             .toList(),
       ),
-      chart: BarChart(
-        BarChartData(
-          alignment: isSingleGroup
-              ? BarChartAlignment.center
-              : BarChartAlignment.spaceBetween,
-          barGroups: _generateBarGroups(colors, isInch),
-          titlesData: _buildTitles(theme, l10n, isSingleGroup),
-          borderData: FlBorderData(show: false),
-          gridData: FlGridData(
-            drawVerticalLine: false,
-            getDrawingHorizontalLine: (final value) => FlLine(
-              color: colorScheme.outline.withValues(alpha: 0.5),
-              strokeWidth: 1,
-            ),
-          ),
-          barTouchData: BarTouchData(
-            touchTooltipData: BarTouchTooltipData(
-              fitInsideHorizontally: true,
-              getTooltipColor: (final _) => colorScheme.primary,
-              getTooltipItem:
-                  (final group, final groupIndex, final rod, final rodIndex) {
-                    final int year = chartData.series[rodIndex].year;
-                    final String label = isSingleGroup
-                        ? l10n.totalLabel
-                        : chartData.labels[groupIndex];
-                    final String titleText = isSingleGroup
-                        ? "$year\n"
-                        : "$year $label\n";
-
-                    final double mmValue = isInch
-                        ? rod.toY.toMillimeters()
-                        : rod.toY;
-
-                    return BarTooltipItem(
-                      titleText,
-                      TextStyle(
-                        color: colorScheme.onPrimary,
-                        fontWeight: FontWeight.bold,
-                      ),
-                      children: <TextSpan>[
-                        TextSpan(
-                          text: mmValue.formatRainfall(context, unit),
-                          style: TextStyle(color: colorScheme.onPrimary),
-                        ),
-                      ],
-                    );
-                  },
-            ),
-          ),
-        ),
-      ),
+      chart: isScrollable
+          ? LayoutBuilder(
+              builder: (final context, final constraints) {
+                final double chartWidth = max(
+                  constraints.maxWidth,
+                  chartData.labels.length * _minBarGroupWidth,
+                );
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  clipBehavior: Clip.none,
+                  child: SizedBox(width: chartWidth, child: barChart),
+                );
+              },
+            )
+          : barChart,
     );
   }
 
@@ -151,8 +179,18 @@ class ComparativeAnalysisChart extends ConsumerWidget {
     final List<Color> colors,
     final bool isInch,
   ) {
-    final double barWidth = chartData.labels.length == 1 ? 24 : 12;
-    const double spaceBetween = 0;
+    final double barWidth;
+    if (chartData.labels.length == 1) {
+      // Annual view
+      barWidth = 24;
+    } else if (chartData.labels.length > 1 && chartData.labels.length <= 4) {
+      // Seasonal view
+      barWidth = 20;
+    } else {
+      // Monthly view
+      barWidth = 16;
+    }
+    const double spaceBetweenRods = 4;
 
     return List.generate(
       chartData.labels.length,
@@ -171,7 +209,7 @@ class ComparativeAnalysisChart extends ConsumerWidget {
               ),
             )
             .toList(),
-        barsSpace: spaceBetween,
+        barsSpace: spaceBetweenRods,
       ),
     );
   }
