@@ -232,6 +232,8 @@
     }
   },
   "rainfallEntriesEmpty": "No entries for this month.",
+  "rainfallEntriesEmptyTitle": "No Entries Found",
+  "rainfallEntriesEmptyMessage": "There are no rainfall entries recorded for the selected month. Log a new entry or select a different month to view its history.",
   "editEntrySheetTitle": "Edit Rainfall Entry",
   "editEntryGaugeHeader": "Rain Gauge",
   "editEntryAmountHeader": "Rainfall Amount",
@@ -530,6 +532,8 @@
       }
     }
   },
+  "monthlyBreakdownEmptyTitle": "No Data for This Month",
+  "monthlyBreakdownEmptyMessage": "There are no rainfall entries recorded for the selected month. Try selecting another month or logging a new entry.",
   "okButtonLabel": "OK",
   "selectMonthTitle": "Select Month & Year",
   "historicalComparisonTitle": "Historical Comparison",

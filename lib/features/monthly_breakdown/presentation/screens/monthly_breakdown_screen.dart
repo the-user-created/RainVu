@@ -99,26 +99,74 @@ class _MonthlyBreakdownScreenState
               style: theme.textTheme.bodyLarge,
             ),
           ),
-          data: (final data) => SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-            child: Column(
-              children: [
-                MonthlySummaryCard(
-                  stats: data.summaryStats,
-                  selectedMonth: _selectedMonth,
-                ),
-                const SizedBox(height: 24),
-                HistoricalComparisonCard(
-                  stats: data.historicalStats,
-                  currentTotal: data.summaryStats.totalRainfall,
-                ),
-                const SizedBox(height: 24),
-                DailyRainfallChart(chartData: data.dailyChartData),
-                const SizedBox(height: 24),
-                DailyBreakdownList(breakdownItems: data.dailyBreakdownList),
-              ],
+          data: (final data) {
+            if (data.summaryStats.totalRainfall == 0) {
+              return const _EmptyState();
+            }
+
+            return SingleChildScrollView(
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
+              child: Column(
+                children: [
+                  MonthlySummaryCard(
+                    stats: data.summaryStats,
+                    selectedMonth: _selectedMonth,
+                  ),
+                  const SizedBox(height: 24),
+                  HistoricalComparisonCard(
+                    stats: data.historicalStats,
+                    currentTotal: data.summaryStats.totalRainfall,
+                  ),
+                  const SizedBox(height: 24),
+                  DailyRainfallChart(chartData: data.dailyChartData),
+                  const SizedBox(height: 24),
+                  DailyBreakdownList(breakdownItems: data.dailyBreakdownList),
+                ],
+              ),
+            );
+          },
+        ),
+      ),
+    );
+  }
+}
+
+class _EmptyState extends StatelessWidget {
+  const _EmptyState();
+
+  @override
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
+
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 48),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.cloud_off_outlined,
+              size: 64,
+              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
             ),
-          ),
+            const SizedBox(height: 24),
+            Text(
+              l10n.monthlyBreakdownEmptyTitle,
+              style: textTheme.headlineSmall,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              l10n.monthlyBreakdownEmptyMessage,
+              style: textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );

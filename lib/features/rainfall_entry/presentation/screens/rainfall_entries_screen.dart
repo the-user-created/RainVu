@@ -40,12 +40,7 @@ class RainfallEntriesScreen extends ConsumerWidget {
               Center(child: Text(l10n.rainfallEntriesError(err))),
           data: (final entries) {
             if (entries.isEmpty) {
-              return Center(
-                child: Text(
-                  l10n.rainfallEntriesEmpty,
-                  style: theme.textTheme.bodyLarge,
-                ),
-              );
+              return const _EmptyState();
             }
             return ListView.builder(
               padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
@@ -54,6 +49,48 @@ class RainfallEntriesScreen extends ConsumerWidget {
                   RainfallEntryListItem(entry: entries[index]),
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class _EmptyState extends StatelessWidget {
+  const _EmptyState();
+
+  @override
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
+
+    return Center(
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 32, vertical: 48),
+        child: Column(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            Icon(
+              Icons.list_alt_outlined,
+              size: 64,
+              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+            ),
+            const SizedBox(height: 24),
+            Text(
+              l10n.rainfallEntriesEmptyTitle,
+              style: textTheme.headlineSmall,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 12),
+            Text(
+              l10n.rainfallEntriesEmptyMessage,
+              style: textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
         ),
       ),
     );
