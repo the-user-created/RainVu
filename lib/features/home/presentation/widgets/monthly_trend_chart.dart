@@ -8,6 +8,7 @@ import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/home/domain/home_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
+import "package:rain_wise/shared/widgets/charts/chart_card.dart";
 
 class MonthlyTrendChart extends ConsumerWidget {
   const MonthlyTrendChart({required this.trends, super.key});
@@ -25,54 +26,57 @@ class MonthlyTrendChart extends ConsumerWidget {
         MeasurementUnit.mm;
     final bool isInch = unit == MeasurementUnit.inch;
 
-    final double maxRainfall = trends.isEmpty
-        ? 1.0
-        : trends.map((final e) => e.rainfall).reduce(max);
+    final bool hasData = trends.any((final e) => e.rainfall > 0);
+
+    final Widget legendWidget = Text(
+      l10n.monthlyTrendChartSubtitle,
+      style: textTheme.bodyMedium?.copyWith(
+        color: colorScheme.onSurfaceVariant,
+      ),
+    );
+
+    if (!hasData) {
+      return ChartCard(
+        title: l10n.monthlyTrendChartTitle,
+        legend: legendWidget,
+        margin: EdgeInsets.zero,
+        chart: Center(
+          child: Text(
+            l10n.monthlyTrendChartNoData,
+            style: textTheme.bodyLarge?.copyWith(
+              color: colorScheme.onSurfaceVariant,
+            ),
+            textAlign: TextAlign.center,
+          ),
+        ),
+      );
+    }
+
+    final double maxRainfall = trends.map((final e) => e.rainfall).reduce(max);
     final double displayMaxRainfall = isInch
         ? maxRainfall.toInches()
         : maxRainfall;
 
-    return Card(
-      elevation: 2,
-      color: colorScheme.surface,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
-        child: Column(
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(l10n.monthlyTrendChartTitle, style: textTheme.titleMedium),
-                Text(
-                  l10n.monthlyTrendChartSubtitle,
-                  style: textTheme.bodyMedium?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 24),
-            SizedBox(
-              height: 250,
-              child: BarChart(
-                BarChartData(
-                  maxY: (displayMaxRainfall * 1.2).clamp(
-                    isInch ? 0.5 : 10.0,
-                    double.infinity,
-                  ),
-                  barTouchData: _buildBarTouchData(context, unit),
-                  titlesData: _buildTitlesData(textTheme),
-                  gridData: _buildGridData(colorScheme),
-                  borderData: FlBorderData(show: false),
-                  barGroups: _buildBarGroups(colorScheme, isInch),
-                  alignment: BarChartAlignment.spaceAround,
-                ),
-              ),
-            ),
-          ],
+    final BarChart barChart = BarChart(
+      BarChartData(
+        maxY: (displayMaxRainfall * 1.2).clamp(
+          isInch ? 0.5 : 10.0,
+          double.infinity,
         ),
+        barTouchData: _buildBarTouchData(context, unit),
+        titlesData: _buildTitlesData(textTheme),
+        gridData: _buildGridData(colorScheme),
+        borderData: FlBorderData(show: false),
+        barGroups: _buildBarGroups(colorScheme, isInch),
+        alignment: BarChartAlignment.spaceAround,
       ),
+    );
+
+    return ChartCard(
+      title: l10n.monthlyTrendChartTitle,
+      legend: legendWidget,
+      margin: EdgeInsets.zero,
+      chart: barChart,
     );
   }
 
@@ -86,6 +90,7 @@ class MonthlyTrendChart extends ConsumerWidget {
 
     return BarTouchData(
       touchTooltipData: BarTouchTooltipData(
+        fitInsideHorizontally: true,
         getTooltipColor: (final group) => theme.colorScheme.primary,
         getTooltipItem:
             (final group, final groupIndex, final rod, final rodIndex) {
@@ -175,7 +180,7 @@ class MonthlyTrendChart extends ConsumerWidget {
               toY: isInch
                   ? entry.value.rainfall.toInches()
                   : entry.value.rainfall,
-              color: colorScheme.secondary,
+              color: colorScheme.tertiary,
               width: 12,
               borderRadius: const BorderRadius.only(
                 topLeft: Radius.circular(2),

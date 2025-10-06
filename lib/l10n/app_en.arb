@@ -627,6 +627,10 @@
   "mtdBreakdown5yrAvg": "5yr avg",
   "monthlyTrendChartTitle": "Monthly Trend",
   "monthlyTrendChartSubtitle": "Last 12 Months",
+  "monthlyTrendChartNoData": "Not enough data to display the monthly trend.",
+  "@monthlyTrendChartNoData": {
+    "description": "Message shown on the home screen chart when there is no data for the last 12 months."
+  },
   "monthlyComparisonTitle": "Monthly Comparison",
   "detailedAnalysisTitle": "Detailed Analysis",
   "detailedAnalysisMonthlyBreakdownSubtitle": "View detailed monthly statistics",
