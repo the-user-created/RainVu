@@ -6,10 +6,13 @@ import "package:rain_wise/features/insights_dashboard/domain/insights_data.dart"
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 
-class MtdBreakdownCard extends ConsumerWidget {
-  const MtdBreakdownCard({required this.data, super.key});
+/// A card with a fixed height and variable width, designed to show a
+/// month's rainfall total and its comparison to historical averages.
+class MonthlyComparisonCard extends ConsumerWidget {
+  const MonthlyComparisonCard({required this.data, super.key});
 
   final MonthlyComparisonData data;
+  static const double _cardHeight = 150;
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
@@ -20,44 +23,47 @@ class MtdBreakdownCard extends ConsumerWidget {
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
         MeasurementUnit.mm;
 
-    return Card(
-      elevation: 2,
-      color: theme.colorScheme.surfaceContainerHighest,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            SizedBox(
-              width: double.infinity,
-              child: Text(
-                data.month,
-                style: textTheme.titleMedium,
-                textAlign: TextAlign.center,
-              ),
+    return SizedBox(
+      height: _cardHeight,
+      child: Card(
+        elevation: 2,
+        color: theme.colorScheme.surfaceContainerHighest,
+        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+        child: IntrinsicWidth(
+          child: Padding(
+            padding: const EdgeInsets.all(16),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: [
+                Text(data.month, style: textTheme.titleMedium),
+                Column(
+                  mainAxisSize: MainAxisSize.min,
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    _DataRow(
+                      label: l10n.mtdBreakdownTotal,
+                      value: data.mtdTotal.formatRainfall(context, unit),
+                    ),
+                    const SizedBox(height: 8),
+                    _ComparisonRow(
+                      label: l10n.mtdBreakdown2yrAvg,
+                      currentValue: data.mtdTotal,
+                      comparisonValue: data.twoYrAvg,
+                      unit: unit,
+                    ),
+                    const SizedBox(height: 8),
+                    _ComparisonRow(
+                      label: l10n.mtdBreakdown5yrAvg,
+                      currentValue: data.mtdTotal,
+                      comparisonValue: data.fiveYrAvg,
+                      unit: unit,
+                    ),
+                  ],
+                ),
+              ],
             ),
-            const SizedBox(height: 12),
-            _DataRow(
-              label: l10n.mtdBreakdownTotal,
-              value: data.mtdTotal.formatRainfall(context, unit),
-            ),
-            const SizedBox(height: 8),
-            _ComparisonRow(
-              label: l10n.mtdBreakdown2yrAvg,
-              currentValue: data.mtdTotal,
-              comparisonValue: data.twoYrAvg,
-              unit: unit,
-            ),
-            const SizedBox(height: 8),
-            _ComparisonRow(
-              label: l10n.mtdBreakdown5yrAvg,
-              currentValue: data.mtdTotal,
-              comparisonValue: data.fiveYrAvg,
-              unit: unit,
-            ),
-          ],
+          ),
         ),
       ),
     );
@@ -77,16 +83,15 @@ class _DataRow extends StatelessWidget {
     final TextTheme textTheme = theme.textTheme;
 
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
-          child: Text(
-            label,
-            style: textTheme.bodySmall?.copyWith(
-              color: colorScheme.onSurfaceVariant,
-            ),
+        Text(
+          label,
+          style: textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurfaceVariant,
           ),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 24),
         Text(value, style: textTheme.bodyMedium),
       ],
     );
@@ -113,16 +118,15 @@ class _ComparisonRow extends StatelessWidget {
     final TextTheme textTheme = theme.textTheme;
 
     return Row(
+      mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Expanded(
-          child: Text(
-            label,
-            style: textTheme.bodySmall?.copyWith(
-              color: colorScheme.onSurfaceVariant,
-            ),
+        Text(
+          label,
+          style: textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurfaceVariant,
           ),
         ),
-        const SizedBox(width: 8),
+        const SizedBox(width: 24),
         Row(
           mainAxisSize: MainAxisSize.min,
           children: [
@@ -149,9 +153,11 @@ class _ComparisonIcon extends StatelessWidget {
   Widget build(final BuildContext context) {
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
 
-    if (comparison > current) {
+    // The logic is inverted from the old card.
+    // If current value is HIGHER than comparison, it's a positive trend (up arrow).
+    if (current > comparison) {
       return Icon(Icons.arrow_upward, color: colorScheme.tertiary, size: 16);
-    } else if (comparison < current) {
+    } else if (current < comparison) {
       return Icon(Icons.arrow_downward, color: colorScheme.error, size: 16);
     } else {
       return Icon(

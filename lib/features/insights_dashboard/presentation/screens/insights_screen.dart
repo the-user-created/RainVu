@@ -39,7 +39,6 @@ class InsightsScreen extends ConsumerWidget {
                 MonthlyComparisonGrid(comparisons: data.monthlyComparisons),
                 const SizedBox(height: 24),
                 const DetailedAnalysisList(),
-                const SizedBox(height: 24),
               ],
             ),
           ),
