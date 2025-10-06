@@ -25,6 +25,108 @@ class KeyMetricsSection extends ConsumerWidget {
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
         MeasurementUnit.mm;
 
+    // Responsive card sizing
+    const double horizontalPadding = 24 * 2;
+    const double cardSpacing = 16;
+    final double cardWidth =
+        (MediaQuery.sizeOf(context).width - horizontalPadding - cardSpacing) /
+        2;
+
+    final List<Widget> metricCards = [
+      _MetricCard(
+        title: l10n.keyMetricsTotalRainfall,
+        rawValue: metrics.totalRainfall,
+        unit: unit,
+        changeText: l10n.keyMetricsTotalRainfallChange(
+          metrics.totalRainfallPrevYearChange.formatPercentage(
+            withSymbol: false,
+          ),
+        ),
+        changeColor: metrics.totalRainfallPrevYearChange >= 0
+            ? successColor
+            : errorColor,
+        onInfoPressed: () => InfoSheet.show(
+          context,
+          title: l10n.keyMetricsInfoTotalRainfallTitle,
+          items: [
+            InfoSheetItem(
+              icon: Icons.water_drop_outlined,
+              title: "", // Title is handled by the sheet's title
+              description: l10n.keyMetricsInfoTotalRainfallDescription,
+            ),
+          ],
+        ),
+      ),
+      _MetricCard(
+        title: l10n.keyMetricsMonthlyAvg,
+        rawValue: metrics.monthlyAvg,
+        unit: unit,
+        changeText: l10n.keyMetricsMonthlyAvgChange(
+          metrics.monthlyAvgChangeVsCurrentMonth.formatPercentage(
+            withSymbol: false,
+          ),
+        ),
+        changeColor: metrics.monthlyAvgChangeVsCurrentMonth >= 0
+            ? successColor
+            : errorColor,
+        onInfoPressed: () => InfoSheet.show(
+          context,
+          title: l10n.keyMetricsInfoMonthlyAvgTitle,
+          items: [
+            InfoSheetItem(
+              icon: Icons.multiline_chart_outlined,
+              title: "",
+              description: l10n.keyMetricsInfoMonthlyAvgDescription,
+            ),
+          ],
+        ),
+      ),
+      _MetricCard(
+        title: l10n.keyMetricsMtdTotal,
+        rawValue: metrics.mtdTotal,
+        unit: unit,
+        changeText: l10n.keyMetricsMtdChange(
+          metrics.mtdTotalPrevMonthChange.formatPercentage(withSymbol: false),
+        ),
+        changeColor: metrics.mtdTotalPrevMonthChange >= 0
+            ? successColor
+            : errorColor,
+        onInfoPressed: () => InfoSheet.show(
+          context,
+          title: l10n.keyMetricsInfoMtdTotalTitle,
+          items: [
+            InfoSheetItem(
+              icon: Icons.calendar_view_month_outlined,
+              title: "",
+              description: l10n.keyMetricsInfoMtdTotalDescription,
+            ),
+          ],
+        ),
+      ),
+      _MetricCard(
+        title: l10n.keyMetricsYtdTotal,
+        rawValue: metrics.ytdTotal,
+        unit: unit,
+        changeText: l10n.keyMetricsYtdChange(
+          metrics.ytdTotalPrevYearChange.formatPercentage(withSymbol: false),
+        ),
+        changeColor: metrics.ytdTotalPrevYearChange >= 0
+            ? successColor
+            : errorColor,
+        onInfoPressed: () => InfoSheet.show(
+          context,
+          title: l10n.keyMetricsInfoYtdTotalTitle,
+          items: [
+            InfoSheetItem(
+              icon: Icons.calendar_today_outlined,
+              title: "",
+              description: l10n.keyMetricsInfoYtdTotalDescription,
+            ),
+          ],
+        ),
+      ),
+    ];
+
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -44,103 +146,13 @@ class KeyMetricsSection extends ConsumerWidget {
           children: [
             Text(l10n.keyMetricsTitle, style: textTheme.headlineSmall),
             const SizedBox(height: 24),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _MetricCard(
-                  title: l10n.keyMetricsTotalRainfall,
-                  value: metrics.totalRainfall.formatRainfall(context, unit),
-                  changeText: l10n.keyMetricsTotalRainfallChange(
-                    metrics.totalRainfallPrevYearChange.formatPercentage(
-                      withSymbol: false,
-                    ),
-                  ),
-                  changeColor: metrics.totalRainfallPrevYearChange >= 0
-                      ? successColor
-                      : errorColor,
-                  onInfoPressed: () => InfoSheet.show(
-                    context,
-                    title: l10n.keyMetricsInfoTotalRainfallTitle,
-                    items: [
-                      InfoSheetItem(
-                        icon: Icons.water_drop_outlined,
-                        title: "", // Title is handled by the sheet's title
-                        description:
-                            l10n.keyMetricsInfoTotalRainfallDescription,
-                      ),
-                    ],
-                  ),
-                ),
-                _MetricCard(
-                  title: l10n.keyMetricsMtdTotal,
-                  value: metrics.mtdTotal.formatRainfall(context, unit),
-                  changeText: l10n.keyMetricsMtdChange(
-                    metrics.mtdTotalPrevMonthChange.formatPercentage(
-                      withSymbol: false,
-                    ),
-                  ),
-                  changeColor: metrics.mtdTotalPrevMonthChange >= 0
-                      ? successColor
-                      : errorColor,
-                  onInfoPressed: () => InfoSheet.show(
-                    context,
-                    title: l10n.keyMetricsInfoMtdTotalTitle,
-                    items: [
-                      InfoSheetItem(
-                        icon: Icons.calendar_view_month_outlined,
-                        title: "",
-                        description: l10n.keyMetricsInfoMtdTotalDescription,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
-            ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                _MetricCard(
-                  title: l10n.keyMetricsYtdTotal,
-                  value: metrics.ytdTotal.formatRainfall(context, unit),
-                  changeText: l10n.keyMetricsYtdChange(
-                    metrics.ytdTotalPrevYearChange.formatPercentage(
-                      withSymbol: false,
-                    ),
-                  ),
-                  changeColor: metrics.ytdTotalPrevYearChange >= 0
-                      ? successColor
-                      : errorColor,
-                  onInfoPressed: () => InfoSheet.show(
-                    context,
-                    title: l10n.keyMetricsInfoYtdTotalTitle,
-                    items: [
-                      InfoSheetItem(
-                        icon: Icons.calendar_today_outlined,
-                        title: "",
-                        description: l10n.keyMetricsInfoYtdTotalDescription,
-                      ),
-                    ],
-                  ),
-                ),
-                _MetricCard(
-                  title: l10n.keyMetricsMonthlyAvg,
-                  value: metrics.monthlyAvg.formatRainfall(context, unit),
-                  changeText: l10n.keyMetricsMonthlyAvgSource,
-                  changeColor: colorScheme.onSurfaceVariant,
-                  onInfoPressed: () => InfoSheet.show(
-                    context,
-                    title: l10n.keyMetricsInfoMonthlyAvgTitle,
-                    items: [
-                      InfoSheetItem(
-                        icon: Icons.multiline_chart_outlined,
-                        title: "",
-                        description: l10n.keyMetricsInfoMonthlyAvgDescription,
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            Wrap(
+              spacing: cardSpacing,
+              runSpacing: cardSpacing,
+              alignment: WrapAlignment.center,
+              children: metricCards
+                  .map((final card) => SizedBox(width: cardWidth, child: card))
+                  .toList(),
             ),
           ],
         ),
@@ -152,14 +164,16 @@ class KeyMetricsSection extends ConsumerWidget {
 class _MetricCard extends StatelessWidget {
   const _MetricCard({
     required this.title,
-    required this.value,
+    required this.rawValue,
+    required this.unit,
     required this.changeText,
     required this.changeColor,
     required this.onInfoPressed,
   });
 
   final String title;
-  final String value;
+  final double rawValue;
+  final MeasurementUnit unit;
   final String changeText;
   final Color changeColor;
   final VoidCallback onInfoPressed;
@@ -170,14 +184,22 @@ class _MetricCard extends StatelessWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
-    final double cardWidth = MediaQuery.sizeOf(context).width * 0.42;
+
+    final String formattedValue = rawValue.formatRainfall(
+      context,
+      unit,
+      withUnit: false,
+    );
+
+    final String unitLabel = unit == MeasurementUnit.mm
+        ? l10n.unitMM
+        : l10n.unitIn;
 
     return Card(
       elevation: 2,
       color: colorScheme.surfaceContainerHighest,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Container(
-        width: cardWidth,
+      child: Padding(
         padding: const EdgeInsets.all(16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
@@ -204,10 +226,17 @@ class _MetricCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 12),
+            const SizedBox(height: 8),
             Text(
-              value,
+              formattedValue,
               style: textTheme.headlineMedium?.copyWith(fontSize: 26),
+            ),
+            const SizedBox(height: 2),
+            Text(
+              unitLabel,
+              style: textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
             ),
             const SizedBox(height: 8),
             Text(

@@ -22,6 +22,7 @@ abstract class KeyMetrics with _$KeyMetrics {
     required final double ytdTotal,
     required final double ytdTotalPrevYearChange,
     required final double monthlyAvg,
+    required final double monthlyAvgChangeVsCurrentMonth,
   }) = _KeyMetrics;
 }
 

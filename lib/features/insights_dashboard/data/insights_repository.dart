@@ -1,3 +1,4 @@
+import "package:collection/collection.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
@@ -67,19 +68,20 @@ class DriftInsightsRepository implements InsightsRepository {
       startOfLastMonth,
       endOfLastMonthMTD,
     );
-    final Future<int> distinctMonthsFuture = _dao.getDistinctMonthCount();
+    final Future<List<MonthlyTotal>> allMonthlyTotalsFuture = _dao
+        .getAllMonthlyTotals();
     final Future<double> ytdTotalLastYearFuture = _dao.getTotalAmountBetween(
       startOfLastYear,
       oneYearAgo,
     );
 
-    final List<num> results = await Future.wait([
+    final List<Object> results = await Future.wait([
       totalRainfallFuture,
       ytdTotalFuture,
       mtdTotalFuture,
       totalRainfallLastYearFuture,
       mtdTotalLastMonthFuture,
-      distinctMonthsFuture,
+      allMonthlyTotalsFuture,
       ytdTotalLastYearFuture,
     ]);
 
@@ -88,7 +90,7 @@ class DriftInsightsRepository implements InsightsRepository {
     final mtdTotal = results[2] as double;
     final totalRainfallLastYear = results[3] as double;
     final mtdTotalLastMonth = results[4] as double;
-    final distinctMonths = results[5] as int;
+    final allMonthlyTotals = results[5] as List<MonthlyTotal>;
     final ytdTotalLastYear = results[6] as double;
 
     final double totalRainfallChange = _calculatePercentChange(
@@ -104,10 +106,14 @@ class DriftInsightsRepository implements InsightsRepository {
       ytdTotal,
     );
 
-    double monthlyAvg = 0;
-    if (distinctMonths > 0) {
-      monthlyAvg = totalRainfall / distinctMonths;
-    }
+    final double monthlyAvg = allMonthlyTotals.isEmpty
+        ? 0.0
+        : allMonthlyTotals.map((final e) => e.total).average;
+
+    final double monthlyAvgChange = _calculatePercentChange(
+      monthlyAvg,
+      mtdTotal,
+    );
 
     return KeyMetrics(
       totalRainfall: totalRainfall,
@@ -117,11 +123,14 @@ class DriftInsightsRepository implements InsightsRepository {
       mtdTotalPrevMonthChange: mtdChange,
       ytdTotalPrevYearChange: ytdChange,
       monthlyAvg: monthlyAvg,
+      monthlyAvgChangeVsCurrentMonth: monthlyAvgChange,
     );
   }
 
   double _calculatePercentChange(final double previous, final double current) {
     if (previous == 0) {
+      // If previous is 0, any positive current value is an infinite increase.
+      // Represent this as 100% for simplicity in UI.
       return current > 0 ? 100.0 : 0.0;
     }
     return (current - previous) / previous * 100;
@@ -183,8 +192,8 @@ class DriftInsightsRepository implements InsightsRepository {
     return MonthlyComparisonData(
       month: DateFormat.MMMM().format(DateTime(0, month)),
       mtdTotal: currentMonthTotal,
-      twoYrAvg: twoYrSum / 2,
-      fiveYrAvg: fiveYrSum / 5,
+      twoYrAvg: twoYrSum > 0 ? twoYrSum / 2 : 0,
+      fiveYrAvg: fiveYrSum > 0 ? fiveYrSum / 5 : 0,
     );
   }
 }

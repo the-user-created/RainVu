@@ -247,15 +247,25 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
     return result.read(amount.sum()) ?? 0.0;
   }
 
-  Future<int> getDistinctMonthCount() async {
+  Future<List<MonthlyTotal>> getAllMonthlyTotals() {
     final Expression<int> year = rainfallEntries.date.year;
     final Expression<int> month = rainfallEntries.date.month;
+    final Expression<double> total = rainfallEntries.amount.sum();
 
     final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
-        selectOnly(rainfallEntries, distinct: true)..addColumns([year, month]);
+        selectOnly(rainfallEntries)
+          ..addColumns([year, month, total])
+          ..groupBy([year, month]);
 
-    final List<TypedResult> result = await query.get();
-    return result.length;
+    return query
+        .map(
+          (final row) => MonthlyTotal(
+            row.read(year)!,
+            row.read(month)!,
+            row.read(total) ?? 0.0,
+          ),
+        )
+        .get();
   }
 
   Future<List<MonthlyTotal>> getMonthlyTotals({
