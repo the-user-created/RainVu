@@ -17,7 +17,6 @@ class KeyMetricsSection extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
     final Color successColor = colorScheme.tertiary;
     final Color errorColor = colorScheme.error;
@@ -26,8 +25,8 @@ class KeyMetricsSection extends ConsumerWidget {
         MeasurementUnit.mm;
 
     // Responsive card sizing
-    const double horizontalPadding = 24 * 2;
-    const double cardSpacing = 16;
+    const double horizontalPadding = 8 * 2;
+    const double cardSpacing = 4;
     final double cardWidth =
         (MediaQuery.sizeOf(context).width - horizontalPadding - cardSpacing) /
         2;
@@ -130,14 +129,15 @@ class KeyMetricsSection extends ConsumerWidget {
             offset: const Offset(0, 2),
           ),
         ],
-        borderRadius: BorderRadius.circular(16),
+        borderRadius: const BorderRadius.only(
+          bottomLeft: Radius.circular(16),
+          bottomRight: Radius.circular(16),
+        ),
       ),
       child: Padding(
-        padding: const EdgeInsets.all(24),
+        padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
         child: Column(
           children: [
-            Text(l10n.keyMetricsTitle, style: textTheme.headlineSmall),
-            const SizedBox(height: 24),
             Wrap(
               spacing: cardSpacing,
               runSpacing: cardSpacing,

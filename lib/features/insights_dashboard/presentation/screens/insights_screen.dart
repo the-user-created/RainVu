@@ -30,7 +30,7 @@ class InsightsScreen extends ConsumerWidget {
           error: (final err, final stack) =>
               Center(child: Text(l10n.insightsError(err))),
           data: (final data) => SingleChildScrollView(
-            padding: const EdgeInsets.symmetric(vertical: 24),
+            padding: EdgeInsets.zero,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -39,6 +39,7 @@ class InsightsScreen extends ConsumerWidget {
                 MonthlyComparisonGrid(comparisons: data.monthlyComparisons),
                 const SizedBox(height: 24),
                 const DetailedAnalysisList(),
+                const SizedBox(height: 24),
               ],
             ),
           ),
