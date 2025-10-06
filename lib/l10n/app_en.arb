@@ -173,7 +173,7 @@
   "logRainfallSaveButton": "Save Rainfall Data",
   "monthlyRainfallTitle": "Monthly Rainfall",
   "recentEntriesTitle": "Recent Entries",
-  "viewFullHistoryLink": "View Full History",
+  "viewMonthDetailsTooltip": "View month details",
   "quickStatsTitle": "Quick Stats",
   "rainfallTrendsTitle": "Rainfall Trends",
   "rainfallTrends7Days": "7 days",

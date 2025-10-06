@@ -7,6 +7,7 @@ import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rainfall_entry.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class MonthlySummaryCard extends ConsumerWidget {
   const MonthlySummaryCard({
@@ -49,15 +50,15 @@ class MonthlySummaryCard extends ConsumerWidget {
             _buildHeader(context, theme, l10n),
             const SizedBox(height: 8),
             _buildTotal(context, theme, l10n, unit),
-            const Divider(height: 24, thickness: 1),
-            _buildRecentEntriesHeader(theme, l10n),
-            const SizedBox(height: 4),
-            ...recentEntries.map(
-              (final entry) =>
-                  _buildRecentEntryRow(context, entry, theme, l10n, unit),
-            ),
-            const SizedBox(height: 8),
-            _buildViewHistoryButton(context, theme, l10n),
+            if (recentEntries.isNotEmpty) ...[
+              const Divider(height: 24, thickness: 1),
+              _buildRecentEntriesHeader(theme, l10n),
+              const SizedBox(height: 4),
+              ...recentEntries.map(
+                (final entry) =>
+                    _buildRecentEntryRow(context, entry, theme, l10n, unit),
+              ),
+            ],
           ],
         ),
       ),
@@ -71,17 +72,32 @@ class MonthlySummaryCard extends ConsumerWidget {
   ) => Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Text(
-        l10n.monthlyRainfallTitle,
-        style: theme.textTheme.titleMedium?.copyWith(
-          fontWeight: FontWeight.w600,
-        ),
+      Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.monthlyRainfallTitle,
+            style: theme.textTheme.titleMedium?.copyWith(
+              fontWeight: FontWeight.w600,
+            ),
+          ),
+          Text(
+            DateFormat.yMMMM().format(currentMonthDate),
+            style: theme.textTheme.bodyMedium?.copyWith(
+              color: theme.colorScheme.onSurfaceVariant,
+            ),
+          ),
+        ],
       ),
-      Text(
-        DateFormat.yMMMM().format(currentMonthDate),
-        style: theme.textTheme.bodyMedium?.copyWith(
-          color: theme.colorScheme.onSurfaceVariant,
-        ),
+      AppIconButton(
+        icon: Icon(Icons.chevron_right, color: theme.colorScheme.secondary),
+        tooltip: l10n.viewMonthDetailsTooltip,
+        onPressed: () {
+          final String monthParam = DateFormat(
+            "yyyy-MM",
+          ).format(currentMonthDate);
+          RainfallEntriesRoute(month: monthParam).push(context);
+        },
       ),
     ],
   );
@@ -138,40 +154,6 @@ class MonthlySummaryCard extends ConsumerWidget {
           ),
         ),
       ],
-    ),
-  );
-
-  Widget _buildViewHistoryButton(
-    final BuildContext context,
-    final ThemeData theme,
-    final AppLocalizations l10n,
-  ) => Align(
-    alignment: Alignment.centerRight,
-    child: InkWell(
-      onTap: () {
-        final String monthParam = DateFormat(
-          "yyyy-MM",
-        ).format(currentMonthDate);
-        RainfallEntriesRoute(month: monthParam).push(context);
-      },
-      child: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          Text(
-            l10n.viewFullHistoryLink,
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.secondary,
-              fontWeight: FontWeight.w600,
-            ),
-          ),
-          const SizedBox(width: 4),
-          Icon(
-            Icons.arrow_forward_rounded,
-            color: theme.colorScheme.secondary,
-            size: 20,
-          ),
-        ],
-      ),
     ),
   );
 }
