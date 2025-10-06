@@ -620,30 +620,8 @@
   "keyMetricsYtdTotal": "YTD Total",
   "keyMetricsMonthlyAvg": "Monthly Avg",
   "keyMetricsTotalRainfallChange": "{value}% vs last year",
-  "@keyMetricsTotalRainfallChange": {
-    "placeholders": {
-      "value": {
-        "type": "String"
-      }
-    }
-  },
   "keyMetricsMtdChange": "{value}% vs last month",
-  "@keyMetricsMtdChange": {
-    "placeholders": {
-      "value": {
-        "type": "String"
-      }
-    }
-  },
   "keyMetricsYtdChange": "{value}% vs last year",
-  "@keyMetricsYtdChange": {
-    "description": "The percentage change of the Year-to-Date total compared to the same period last year.",
-    "placeholders": {
-      "value": {
-        "type": "String"
-      }
-    }
-  },
   "keyMetricsMonthlyAvgSource": "Based on 12 month data",
   "mtdBreakdownTotal": "Total",
   "mtdBreakdown2yrAvg": "2yr avg",
@@ -669,30 +647,27 @@
   "quickStatDailyAvg": "Daily avg",
   "keyMetricsInfoSheetTitle": "About Key Metrics",
   "keyMetricsInfoTotalRainfallTitle": "Total Rainfall",
-  "keyMetricsInfoTotalRainfallDescription": "The cumulative sum of all rainfall data you have ever logged in the app. This represents the lifetime total.",
+  "keyMetricsInfoTotalRainfallDescription": "The cumulative sum of all rainfall data you have ever logged in the app. The percentage change reflects the growth of this total over the last 12 months, comparing your current lifetime total to what it was one year ago.",
   "keyMetricsInfoMtdTotalTitle": "Month-to-Date (MTD) Total",
-  "keyMetricsInfoMtdTotalDescription": "The sum of all rainfall logged from the first day of the current calendar month up to today.",
+  "keyMetricsInfoMtdTotalDescription": "The sum of all rainfall logged from the first day of the current calendar month up to today. The percentage change compares this amount to the total from the same date range in the previous month.",
   "keyMetricsInfoYtdTotalTitle": "Year-to-Date (YTD) Total",
-  "keyMetricsInfoYtdTotalDescription": "The sum of all rainfall logged from the first day of the current calendar year up to today.",
+  "keyMetricsInfoYtdTotalDescription": "The sum of all rainfall logged from the first day of the current calendar year up to today. The percentage change compares this amount to the total from the same date range in the previous year.",
   "keyMetricsInfoMonthlyAvgTitle": "Monthly Average",
   "keyMetricsMonthlyAvgChange": "{value}% vs avg",
-  "@keyMetricsMonthlyAvgChange": {
-    "description": "The percentage change of the current month's total compared to the historical monthly average.",
-    "placeholders": {
-      "value": {
-        "type": "String"
-      }
-    }
-  },
-  "keyMetricsInfoMonthlyAvgDescription": "The total rainfall ever recorded divided by the number of distinct months you have logged data for. The percentage shown compares the current month's total rainfall to this historical average.",
+  "keyMetricsInfoMonthlyAvgDescription": "Calculated by averaging the total rainfall for every calendar month on record. The percentage compares the current month's running total against this historical average, showing if it's trending above or below your typical monthly rainfall.",
   "ytdProgressTitle": "Year-to-Date Progress",
   "ytdAnnualAverage": "vs Annual Avg: {value}",
-  "@ytdAnnualAverage": {
-    "placeholders": {
-      "value": {
-        "type": "String"
-      }
-    }
+  "keyMetricsComparisonVsLastYear": "vs last year",
+  "@keyMetricsComparisonVsLastYear": {
+    "description": "A short label indicating a comparison against the previous year."
+  },
+  "keyMetricsComparisonVsLastMonth": "vs last month",
+  "@keyMetricsComparisonVsLastMonth": {
+    "description": "A short label indicating a comparison against the previous month."
+  },
+  "keyMetricsComparisonVsAvg": "vs avg",
+  "@keyMetricsComparisonVsAvg": {
+    "description": "A short label indicating a comparison against the historical average."
   },
   "gaugeTileSetFavoriteTooltip": "Set as favorite gauge",
   "defaultGaugeName": "Default Gauge",

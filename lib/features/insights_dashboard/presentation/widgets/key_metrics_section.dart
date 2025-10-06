@@ -37,11 +37,8 @@ class KeyMetricsSection extends ConsumerWidget {
         title: l10n.keyMetricsTotalRainfall,
         rawValue: metrics.totalRainfall,
         unit: unit,
-        changeText: l10n.keyMetricsTotalRainfallChange(
-          metrics.totalRainfallPrevYearChange.formatPercentage(
-            withSymbol: false,
-          ),
-        ),
+        changeValue: metrics.totalRainfallPrevYearChange,
+        changeLabel: l10n.keyMetricsComparisonVsLastYear,
         changeColor: metrics.totalRainfallPrevYearChange >= 0
             ? successColor
             : errorColor,
@@ -58,36 +55,11 @@ class KeyMetricsSection extends ConsumerWidget {
         ),
       ),
       _MetricCard(
-        title: l10n.keyMetricsMonthlyAvg,
-        rawValue: metrics.monthlyAvg,
-        unit: unit,
-        changeText: l10n.keyMetricsMonthlyAvgChange(
-          metrics.monthlyAvgChangeVsCurrentMonth.formatPercentage(
-            withSymbol: false,
-          ),
-        ),
-        changeColor: metrics.monthlyAvgChangeVsCurrentMonth >= 0
-            ? successColor
-            : errorColor,
-        onInfoPressed: () => InfoSheet.show(
-          context,
-          title: l10n.keyMetricsInfoMonthlyAvgTitle,
-          items: [
-            InfoSheetItem(
-              icon: Icons.multiline_chart_outlined,
-              title: "",
-              description: l10n.keyMetricsInfoMonthlyAvgDescription,
-            ),
-          ],
-        ),
-      ),
-      _MetricCard(
         title: l10n.keyMetricsMtdTotal,
         rawValue: metrics.mtdTotal,
         unit: unit,
-        changeText: l10n.keyMetricsMtdChange(
-          metrics.mtdTotalPrevMonthChange.formatPercentage(withSymbol: false),
-        ),
+        changeValue: metrics.mtdTotalPrevMonthChange,
+        changeLabel: l10n.keyMetricsComparisonVsLastMonth,
         changeColor: metrics.mtdTotalPrevMonthChange >= 0
             ? successColor
             : errorColor,
@@ -107,9 +79,8 @@ class KeyMetricsSection extends ConsumerWidget {
         title: l10n.keyMetricsYtdTotal,
         rawValue: metrics.ytdTotal,
         unit: unit,
-        changeText: l10n.keyMetricsYtdChange(
-          metrics.ytdTotalPrevYearChange.formatPercentage(withSymbol: false),
-        ),
+        changeValue: metrics.ytdTotalPrevYearChange,
+        changeLabel: l10n.keyMetricsComparisonVsLastYear,
         changeColor: metrics.ytdTotalPrevYearChange >= 0
             ? successColor
             : errorColor,
@@ -121,6 +92,27 @@ class KeyMetricsSection extends ConsumerWidget {
               icon: Icons.calendar_today_outlined,
               title: "",
               description: l10n.keyMetricsInfoYtdTotalDescription,
+            ),
+          ],
+        ),
+      ),
+      _MetricCard(
+        title: l10n.keyMetricsMonthlyAvg,
+        rawValue: metrics.monthlyAvg,
+        unit: unit,
+        changeValue: metrics.monthlyAvgChangeVsCurrentMonth,
+        changeLabel: l10n.keyMetricsComparisonVsAvg,
+        changeColor: metrics.monthlyAvgChangeVsCurrentMonth >= 0
+            ? successColor
+            : errorColor,
+        onInfoPressed: () => InfoSheet.show(
+          context,
+          title: l10n.keyMetricsInfoMonthlyAvgTitle,
+          items: [
+            InfoSheetItem(
+              icon: Icons.multiline_chart_outlined,
+              title: "",
+              description: l10n.keyMetricsInfoMonthlyAvgDescription,
             ),
           ],
         ),
@@ -166,7 +158,8 @@ class _MetricCard extends StatelessWidget {
     required this.title,
     required this.rawValue,
     required this.unit,
-    required this.changeText,
+    required this.changeValue,
+    required this.changeLabel,
     required this.changeColor,
     required this.onInfoPressed,
   });
@@ -174,7 +167,8 @@ class _MetricCard extends StatelessWidget {
   final String title;
   final double rawValue;
   final MeasurementUnit unit;
-  final String changeText;
+  final double changeValue;
+  final String changeLabel;
   final Color changeColor;
   final VoidCallback onInfoPressed;
 
@@ -195,6 +189,15 @@ class _MetricCard extends StatelessWidget {
         ? l10n.unitMM
         : l10n.unitIn;
 
+    final IconData changeIcon = changeValue >= 0
+        ? Icons.arrow_upward
+        : Icons.arrow_downward;
+
+    final String formattedPercentage = changeValue.abs().formatPercentage(
+      precision: 0,
+      withSymbol: true,
+    );
+
     return Card(
       elevation: 2,
       color: colorScheme.surfaceContainerHighest,
@@ -209,7 +212,7 @@ class _MetricCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Flexible(child: Text(title, style: textTheme.bodyMedium)),
+                Flexible(child: Text(title, style: textTheme.titleSmall)),
                 SizedBox(
                   width: 24,
                   height: 24,
@@ -239,9 +242,27 @@ class _MetricCard extends StatelessWidget {
               ),
             ),
             const SizedBox(height: 8),
-            Text(
-              changeText,
-              style: textTheme.bodySmall?.copyWith(color: changeColor),
+            Row(
+              mainAxisSize: MainAxisSize.min,
+              crossAxisAlignment: CrossAxisAlignment.center,
+              children: [
+                Icon(changeIcon, color: changeColor, size: 16),
+                const SizedBox(width: 4),
+                Text(
+                  formattedPercentage,
+                  style: textTheme.bodySmall?.copyWith(color: changeColor),
+                ),
+                const SizedBox(width: 4),
+                Flexible(
+                  child: Text(
+                    changeLabel,
+                    style: textTheme.bodySmall?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ),
+              ],
             ),
           ],
         ),
