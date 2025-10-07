@@ -13,6 +13,7 @@ import "package:rain_wise/features/manage_gauges/presentation/screens/manage_gau
 import "package:rain_wise/features/monthly_breakdown/presentation/screens/monthly_breakdown_screen.dart";
 import "package:rain_wise/features/rainfall_entry/presentation/screens/rainfall_entries_screen.dart";
 import "package:rain_wise/features/seasonal_patterns/presentation/screens/seasonal_patterns_screen.dart";
+import "package:rain_wise/features/settings/presentation/screens/changelog_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/help_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/oss_licenses_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/settings_screen.dart";
@@ -128,6 +129,7 @@ class ComingSoonRoute extends GoRouteData with $ComingSoonRoute {
             TypedGoRoute<HelpRoute>(path: "help"),
             TypedGoRoute<DataToolsRoute>(path: "data-tools"),
             TypedGoRoute<OssLicensesRoute>(path: "oss-licenses"),
+            TypedGoRoute<ChangelogRoute>(path: "changelog"),
           ],
         ),
       ],
@@ -301,4 +303,15 @@ class OssLicensesRoute extends GoRouteData with $OssLicensesRoute {
   @override
   Widget build(final BuildContext context, final GoRouterState state) =>
       const OssLicensesScreen();
+}
+
+class ChangelogRoute extends GoRouteData with $ChangelogRoute {
+  const ChangelogRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(final BuildContext context, final GoRouterState state) =>
+      const ChangelogScreen();
 }
