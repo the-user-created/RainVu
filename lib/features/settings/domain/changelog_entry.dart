@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:freezed_annotation/freezed_annotation.dart";
+import "package:rain_wise/core/ui/custom_colors.dart";
 
 part "changelog_entry.freezed.dart";
 
@@ -19,16 +20,16 @@ extension ChangeCategoryExtension on ChangeCategory {
     }
   }
 
-  Color get color {
+  Color color(final ColorScheme colorScheme) {
     switch (this) {
       case ChangeCategory.added:
-        return Colors.green.shade600;
+        return colorScheme.changelogAdded;
       case ChangeCategory.changed:
-        return Colors.orange.shade700;
+        return colorScheme.changelogChanged;
       case ChangeCategory.fixed:
-        return Colors.blue.shade600;
+        return colorScheme.changelogFixed;
       case ChangeCategory.removed:
-        return Colors.red.shade600;
+        return colorScheme.changelogRemoved;
     }
   }
 }

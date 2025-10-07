@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/ui/custom_colors.dart";
 import "package:rain_wise/features/settings/application/settings_providers.dart";
 import "package:rain_wise/features/settings/domain/changelog_entry.dart";
 import "package:rain_wise/features/settings/presentation/widgets/changelog/change_group_widget.dart";
@@ -11,12 +12,18 @@ class ChangelogScreen extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
     final List<ChangelogRelease> releases = ref.watch(changelogProvider);
 
     return Scaffold(
+      backgroundColor: colorScheme.changelogBackground,
       appBar: AppBar(
         title: Text(l10n.changelogTitle, style: theme.textTheme.titleLarge),
+        backgroundColor: colorScheme.changelogBackground,
+        elevation: 0,
+        scrolledUnderElevation: 1,
+        surfaceTintColor: Colors.transparent,
       ),
       body: SafeArea(
         child: releases.isEmpty
@@ -24,8 +31,17 @@ class ChangelogScreen extends ConsumerWidget {
             : ListView.separated(
                 padding: const EdgeInsets.all(16),
                 itemCount: releases.length,
-                separatorBuilder: (final context, final index) =>
-                    const SizedBox(height: 24),
+                separatorBuilder: (final context, final index) => Padding(
+                  padding: const EdgeInsets.symmetric(
+                    vertical: 24,
+                    horizontal: 32,
+                  ),
+                  child: Divider(
+                    height: 1,
+                    thickness: 1,
+                    color: colorScheme.changelogDivider,
+                  ),
+                ),
                 itemBuilder: (final context, final index) {
                   final ChangelogRelease release = releases[index];
                   return _ReleaseEntryWidget(release: release);
@@ -45,32 +61,39 @@ class _ReleaseEntryWidget extends StatelessWidget {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 12),
-          child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            crossAxisAlignment: CrossAxisAlignment.baseline,
-            textBaseline: TextBaseline.alphabetic,
+          padding: const EdgeInsets.only(bottom: 16),
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
                 "Version ${release.version}",
-                style: textTheme.headlineSmall,
+                style: textTheme.displaySmall?.copyWith(
+                  fontWeight: FontWeight.w600,
+                  color: colorScheme.onSurface.withOpacity(0.85),
+                ),
               ),
+              const SizedBox(height: 4),
               Text(
                 release.date,
-                style: textTheme.bodyMedium?.copyWith(
-                  color: theme.colorScheme.onSurfaceVariant,
+                style: textTheme.bodyLarge?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                  fontStyle: FontStyle.italic,
                 ),
               ),
             ],
           ),
         ),
         ...release.changeGroups.map(
-          (final group) => ChangeGroupWidget(group: group),
+          (final group) => Padding(
+            padding: const EdgeInsets.only(bottom: 12),
+            child: ChangeGroupWidget(group: group),
+          ),
         ),
       ],
     );
