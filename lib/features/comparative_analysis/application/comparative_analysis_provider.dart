@@ -22,10 +22,11 @@ class ComparativeAnalysisFilterNotifier
       // Handle case with no data to prevent crash.
       // The UI will show a "no data" state because availableYears is empty.
       final int currentYear = DateTime.now().year;
-      return ComparativeFilter(year1: currentYear, year2: currentYear);
+      return ComparativeFilter(year1: currentYear, year2: currentYear - 1);
     }
     if (years.length == 1) {
       // Only one year available, select it for both.
+      // The UI will show a dedicated empty state for this scenario.
       return ComparativeFilter(year1: years.first, year2: years.first);
     }
 

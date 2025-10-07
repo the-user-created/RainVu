@@ -517,6 +517,10 @@
       }
     }
   },
+  "comparativeAnalysisSameYearSelected": "Please select two different years to see a comparison.",
+  "comparativeAnalysisNoDataForSelection": "No rainfall data was found for the selected years and comparison type. Please try a different selection.",
+  "comparativeAnalysisEmptyTitle": "Not Enough Data to Compare",
+  "comparativeAnalysisEmptyMessage": "This feature requires rainfall data from at least two different years. Once you have more data, you'll be able to compare it here.",
   "comparisonTypeAnnual": "Annual",
   "comparisonTypeMonthly": "Monthly",
   "comparisonTypeSeasonal": "Seasonal",
