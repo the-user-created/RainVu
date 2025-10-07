@@ -15,8 +15,9 @@ class AnomalyExplorationScreen extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final AsyncValue<AnomalyExplorationData> anomalyExplorationDataAsync = ref
-        .watch(anomalyDataProvider);
+    final AsyncValue<AnomalyExplorationData> anomalyDataAsync = ref.watch(
+      anomalyDataProvider,
+    );
 
     return Scaffold(
       appBar: AppBar(
@@ -26,33 +27,43 @@ class AnomalyExplorationScreen extends ConsumerWidget {
         ),
       ),
       body: SafeArea(
-        child: SingleChildScrollView(
-          padding: const EdgeInsets.symmetric(vertical: 24),
-          child: Column(
-            children: [
-              const AnomalyFilterOptions(),
-              const SizedBox(height: 24),
-              anomalyExplorationDataAsync.when(
-                loading: () => const AnomalyTimelineChart(
-                  chartPoints: [],
-                ),
-                error: (final err, final stack) =>
-                    const SizedBox.shrink(),
+        child: CustomScrollView(
+          slivers: [
+            const SliverToBoxAdapter(
+              child: Padding(
+                padding: EdgeInsets.only(top: 24),
+                child: AnomalyFilterOptions(),
+              ),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 24)),
+            SliverToBoxAdapter(
+              child: anomalyDataAsync.when(
+                // Show chart with empty data while loading to prevent layout jumps
+                loading: () => const AnomalyTimelineChart(chartPoints: []),
+                error: (final _, final __) => const SizedBox.shrink(),
                 data: (final data) =>
                     AnomalyTimelineChart(chartPoints: data.chartPoints),
               ),
-              const SizedBox(height: 24),
-              anomalyExplorationDataAsync.when(
-                loading: () =>
-                    const Center(heightFactor: 5, child: AppLoader()),
-                error: (final err, final stack) => Padding(
-                  padding: const EdgeInsets.all(16),
-                  child: Text(l10n.anomalyExplorationError(err)),
-                ),
-                data: (final data) => AnomalyList(anomalies: data.anomalies),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 24)),
+            anomalyDataAsync.when(
+              loading: () => const SliverFillRemaining(
+                hasScrollBody: false,
+                child: Center(child: AppLoader()),
               ),
-            ],
-          ),
+              error: (final err, final stack) => SliverFillRemaining(
+                hasScrollBody: false,
+                child: Center(
+                  child: Padding(
+                    padding: const EdgeInsets.all(16),
+                    child: Text(l10n.anomalyExplorationError(err)),
+                  ),
+                ),
+              ),
+              data: (final data) => AnomalyList(anomalies: data.anomalies),
+            ),
+            const SliverToBoxAdapter(child: SizedBox(height: 24)),
+          ],
         ),
       ),
     );
