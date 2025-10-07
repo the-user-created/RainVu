@@ -7,7 +7,6 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
-import "package:rain_wise/features/anomaly_exploration/application/anomaly_exploration_provider.dart";
 import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
@@ -21,9 +20,14 @@ typedef _ChartDataPoint = ({
 });
 
 class AnomalyTimelineChart extends ConsumerWidget {
-  const AnomalyTimelineChart({required this.chartPoints, super.key});
+  const AnomalyTimelineChart({
+    required this.chartPoints,
+    required this.dateRange,
+    super.key,
+  });
 
   final List<AnomalyChartPoint> chartPoints;
+  final DateTimeRange dateRange;
 
   /// Prepares chart data by either using daily points or aggregating them monthly.
   List<_ChartDataPoint> _prepareData(
@@ -82,9 +86,6 @@ class AnomalyTimelineChart extends ConsumerWidget {
         MeasurementUnit.mm;
     final bool isInch = unit == MeasurementUnit.inch;
 
-    final DateTimeRange dateRange = ref.watch(
-      anomalyFilterProvider.select((final f) => f.dateRange),
-    );
     final bool isMultiYear = dateRange.start.year != dateRange.end.year;
 
     final List<_ChartDataPoint> processedPoints = _prepareData(
@@ -128,6 +129,7 @@ class AnomalyTimelineChart extends ConsumerWidget {
 
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
+                  clipBehavior: Clip.none,
                   child: SizedBox(
                     width: chartWidth,
                     height: 240,

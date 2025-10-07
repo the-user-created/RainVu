@@ -38,11 +38,26 @@ class AnomalyExplorationScreen extends ConsumerWidget {
             const SliverToBoxAdapter(child: SizedBox(height: 24)),
             SliverToBoxAdapter(
               child: anomalyDataAsync.when(
-                // Show chart with empty data while loading to prevent layout jumps
-                loading: () => const AnomalyTimelineChart(chartPoints: []),
-                error: (final _, final __) => const SizedBox.shrink(),
-                data: (final data) =>
-                    AnomalyTimelineChart(chartPoints: data.chartPoints),
+                loading: () => AnomalyTimelineChart(
+                  chartPoints: const [],
+                  // Provide a dummy range for the loading skeleton
+                  dateRange: DateTimeRange(
+                    start: DateTime.now(),
+                    end: DateTime.now(),
+                  ),
+                ),
+                error: (final _, final _) => const SizedBox.shrink(),
+                data: (final data) {
+                  // It's safe to use requireValue here because anomalyDataProvider
+                  // depends on anomalyFilterProvider.
+                  final AnomalyFilter filter = ref
+                      .watch(anomalyFilterProvider)
+                      .requireValue;
+                  return AnomalyTimelineChart(
+                    chartPoints: data.chartPoints,
+                    dateRange: filter.dateRange,
+                  );
+                },
               ),
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 24)),

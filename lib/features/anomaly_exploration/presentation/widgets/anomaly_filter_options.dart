@@ -1,5 +1,3 @@
-// lib/features/anomaly_exploration/presentation/widgets/anomaly_filter_options.dart
-
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
@@ -8,6 +6,7 @@ import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/anomaly_exploration/application/anomaly_exploration_provider.dart";
 import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/pickers/date_range_picker.dart";
 
 class AnomalyFilterOptions extends ConsumerWidget {
@@ -19,6 +18,10 @@ class AnomalyFilterOptions extends ConsumerWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
+
+    final AsyncValue<AnomalyFilter> filterAsync = ref.watch(
+      anomalyFilterProvider,
+    );
 
     return Container(
       padding: const EdgeInsets.all(16),
@@ -34,33 +37,41 @@ class AnomalyFilterOptions extends ConsumerWidget {
         ],
         borderRadius: BorderRadius.circular(16),
       ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            l10n.filterOptionsTitle,
-            style: textTheme.titleMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16),
-          _DateRangePicker(),
-          const SizedBox(height: 12),
-          _SeveritySelector(),
-        ],
+      child: filterAsync.when(
+        loading: () => const SizedBox(
+          height: 124, // Approx height of the content to prevent layout jump
+          child: AppLoader(),
+        ),
+        error: (final err, final stack) => Center(child: Text("Error: $err")),
+        data: (final filter) => Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            Text(
+              l10n.filterOptionsTitle,
+              style: textTheme.titleMedium,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 16),
+            _DateRangePicker(dateRange: filter.dateRange),
+            const SizedBox(height: 12),
+            _SeveritySelector(severities: filter.severities),
+          ],
+        ),
       ),
     );
   }
 }
 
 class _DateRangePicker extends ConsumerWidget {
+  const _DateRangePicker({required this.dateRange});
+
+  final DateTimeRange dateRange;
+
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
-    final DateTimeRange dateRange = ref.watch(
-      anomalyFilterProvider.select((final f) => f.dateRange),
-    );
     final String dateText =
         "${DateFormat.yMd().format(dateRange.start)} - ${DateFormat.yMd().format(dateRange.end)}";
     final AsyncValue<DateRangeResult> dbDateRangeAsync = ref.watch(
@@ -121,15 +132,16 @@ class _DateRangePicker extends ConsumerWidget {
 }
 
 class _SeveritySelector extends ConsumerWidget {
+  const _SeveritySelector({required this.severities});
+
+  final Set<AnomalySeverity> severities;
+
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final Set<AnomalySeverity> selectedSeverities = ref.watch(
-      anomalyFilterProvider.select((final f) => f.severities),
-    );
 
     return InkWell(
       onTap: () => _showSeverityDialog(context, ref, l10n),
@@ -150,7 +162,7 @@ class _SeveritySelector extends ConsumerWidget {
               const SizedBox(width: 8),
               Expanded(
                 child: Text(
-                  _buildSelectionText(selectedSeverities, l10n),
+                  _buildSelectionText(severities, l10n),
                   style: textTheme.bodyMedium,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -184,15 +196,18 @@ class _SeveritySelector extends ConsumerWidget {
     final WidgetRef ref,
     final AppLocalizations l10n,
   ) {
-    showDialog(
+    showDialog<void>(
       context: context,
       builder: (final context) => AlertDialog(
         title: Text(l10n.selectSeverityLevelsDialogTitle),
         content: SingleChildScrollView(
           child: Consumer(
             builder: (final context, final ref, final _) {
+              // We watch the provider again here so the dialog rebuilds on change
               final Set<AnomalySeverity> selected = ref.watch(
-                anomalyFilterProvider.select((final f) => f.severities),
+                anomalyFilterProvider.select(
+                  (final asyncValue) => asyncValue.value?.severities ?? {},
+                ),
               );
               return Column(
                 mainAxisSize: MainAxisSize.min,
