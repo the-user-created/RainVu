@@ -80,6 +80,7 @@ class AppDropdown<T> extends StatelessWidget {
 /// A form field variant of [AppDropdown].
 ///
 /// Integrates with a [Form] to provide validation and state management.
+/// Uses [InputDecorator] to ensure visual consistency with other form fields.
 class AppDropdownFormField<T> extends FormField<T> {
   AppDropdownFormField({
     required final List<DropdownMenuItem<T>> items,
@@ -87,59 +88,43 @@ class AppDropdownFormField<T> extends FormField<T> {
     final T? value,
     final String? hintText,
     final bool isExpanded = true,
+    final InputDecoration? decoration,
     super.onSaved,
     super.validator,
     super.key,
   }) : super(
-          initialValue: value,
-          builder: (final field) {
-            final _AppDropdownFormFieldState<T> state =
-                field as _AppDropdownFormFieldState<T>;
-            final ThemeData theme = Theme.of(state.context);
-            final ColorScheme colorScheme = theme.colorScheme;
-            final TextTheme textTheme = theme.textTheme;
-            final bool hasError = field.hasError;
+         initialValue: value,
+         builder: (final field) {
+           final ThemeData theme = Theme.of(field.context);
+           final ColorScheme colorScheme = theme.colorScheme;
+           final TextTheme textTheme = theme.textTheme;
 
-            void handleChanged(final T? newValue) {
-              state.didChange(newValue);
-              onChanged(newValue);
-            }
+           final InputDecoration effectiveDecoration =
+               (decoration ?? const InputDecoration())
+                   .applyDefaults(theme.inputDecorationTheme)
+                   .copyWith(hintText: hintText, errorText: field.errorText);
 
-            return Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisSize: MainAxisSize.min,
-              children: [
-                AppDropdown<T>(
-                  items: items,
-                  onChanged: handleChanged,
-                  value: state.value,
-                  hintText: hintText,
-                  isExpanded: isExpanded,
-                  fillColor: colorScheme.surface,
-                  borderColor:
-                      hasError ? colorScheme.error : colorScheme.outline,
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 12,
-                  ),
-                ),
-                if (hasError)
-                  Padding(
-                    padding: const EdgeInsets.only(left: 12, top: 5),
-                    child: Text(
-                      field.errorText!,
-                      style: textTheme.bodySmall?.copyWith(
-                        color: colorScheme.error,
-                      ),
-                    ),
-                  ),
-              ],
-            );
-          },
-        );
+           void handleChanged(final T? newValue) {
+             field.didChange(newValue);
+             onChanged(newValue);
+           }
 
-  @override
-  FormFieldState<T> createState() => _AppDropdownFormFieldState<T>();
+           return InputDecorator(
+             decoration: effectiveDecoration,
+             isEmpty: field.value == null,
+             child: DropdownButtonHideUnderline(
+               child: DropdownButton<T>(
+                 value: field.value,
+                 items: items,
+                 onChanged: handleChanged,
+                 isExpanded: isExpanded,
+                 icon: Icon(Icons.expand_more, color: colorScheme.secondary),
+                 style: textTheme.bodyLarge,
+                 dropdownColor: colorScheme.surface,
+                 isDense: true,
+               ),
+             ),
+           );
+         },
+       );
 }
-
-class _AppDropdownFormFieldState<T> extends FormFieldState<T> {}
