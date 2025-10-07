@@ -313,15 +313,6 @@
     }
   },
   "helpTitle": "Help & Support",
-  "helpSectionFaqs": "FREQUENTLY ASKED QUESTIONS",
-  "helpFaqsError": "Failed to load FAQs: {error}",
-  "@helpFaqsError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
   "helpSectionContactUs": "CONTACT US",
   "helpContactEmailSupport": "Email Support",
   "helpSectionImprove": "HELP US IMPROVE",
@@ -335,10 +326,6 @@
       }
     }
   },
-  "faq1Question": "How do I add a new rain gauge?",
-  "faq1Answer": "Go to the Settings tab, tap on \"Manage Rain Gauges\", and then use the \"+\" button at the bottom to add a new gauge. Fill in the details and save.",
-  "faq2Question": "How do I export my rainfall data?",
-  "faq2Answer": "Navigate to Settings > Data Export/Import. From there, you can choose your desired format (CSV or JSON) and export your complete rainfall history.",
   "ticketSheetTitle": "Report an Issue / Send Feedback",
   "ticketSheetDescription": "Your feedback helps us improve RainWise. Please describe the issue or share your thoughts.",
   "ticketSheetCategoryHint": "Select Category",

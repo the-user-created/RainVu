@@ -1,9 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/features/settings/domain/faq.dart";
 import "package:rain_wise/features/settings/domain/support_ticket.dart";
 import "package:rain_wise/features/settings/presentation/widgets/help/contact_support_tile.dart";
-import "package:rain_wise/features/settings/presentation/widgets/help/faq_tile.dart";
 import "package:rain_wise/features/settings/presentation/widgets/help/ticket_sheet.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
@@ -29,10 +27,6 @@ class HelpScreen extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final List<Faq> faqs = [
-      Faq(question: l10n.faq1Question, answer: l10n.faq1Answer),
-      Faq(question: l10n.faq2Question, answer: l10n.faq2Answer),
-    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -42,15 +36,6 @@ class HelpScreen extends ConsumerWidget {
         child: ListView(
           padding: const EdgeInsets.only(bottom: 32),
           children: [
-            SettingsSectionHeader(title: l10n.helpSectionFaqs),
-            SettingsCard(
-              children: faqs
-                  .map(
-                    (final faq) =>
-                        FaqTile(question: faq.question, answer: faq.answer),
-                  )
-                  .toList(),
-            ),
             SettingsSectionHeader(title: l10n.helpSectionContactUs),
             SettingsCard(
               children: [
