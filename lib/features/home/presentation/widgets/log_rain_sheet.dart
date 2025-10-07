@@ -31,9 +31,8 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
 
   // State for form fields
   String? _selectedGaugeId;
-  late MeasurementUnit _selectedUnit;
   DateTime _selectedDateTime = DateTime.now();
-  bool _isUnitInitialized = false;
+  MeasurementUnit? _localSelectedUnit;
 
   @override
   void initState() {
@@ -71,8 +70,13 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
       return;
     }
 
+    final MeasurementUnit globalUnit =
+        ref.read(userPreferencesProvider).value?.measurementUnit ??
+        MeasurementUnit.mm;
+    final MeasurementUnit effectiveUnit = _localSelectedUnit ?? globalUnit;
+
     double amount = double.parse(_amountController.text);
-    if (_selectedUnit == MeasurementUnit.inch) {
+    if (effectiveUnit == MeasurementUnit.inch) {
       amount = amount.toMillimeters();
     }
 
@@ -102,12 +106,9 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
       userPreferencesProvider,
     );
 
-    if (!_isUnitInitialized && userPreferences.hasValue) {
-      _selectedUnit = userPreferences.value!.measurementUnit;
-      _isUnitInitialized = true;
-    } else if (!_isUnitInitialized) {
-      _selectedUnit = MeasurementUnit.mm;
-    }
+    final MeasurementUnit globalUnit =
+        userPreferences.value?.measurementUnit ?? MeasurementUnit.mm;
+    final MeasurementUnit effectiveUnit = _localSelectedUnit ?? globalUnit;
 
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
@@ -204,10 +205,10 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                   Expanded(
                     flex: 2,
                     child: AppSegmentedControl<MeasurementUnit>(
-                      selectedValue: _selectedUnit,
+                      selectedValue: effectiveUnit,
                       onSelectionChanged: (final value) {
                         setState(() {
-                          _selectedUnit = value;
+                          _localSelectedUnit = value;
                         });
                       },
                       segments: [
