@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:font_awesome_flutter/font_awesome_flutter.dart";
 import "package:go_router/go_router.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
@@ -35,27 +34,99 @@ class ScaffoldWithNavBar extends StatelessWidget {
         },
         items: <BottomNavigationBarItem>[
           BottomNavigationBarItem(
-            icon: const FaIcon(FontAwesomeIcons.house),
+            icon: _AnimatedNavIcon(
+              icon: Icons.home,
+              isSelected: navigationShell.currentIndex == 0,
+            ),
             label: l10n.navHome,
             tooltip: l10n.navHome,
           ),
           BottomNavigationBarItem(
-            icon: const FaIcon(FontAwesomeIcons.chartLine),
+            icon: _AnimatedNavIcon(
+              icon: Icons.insights,
+              isSelected: navigationShell.currentIndex == 1,
+            ),
             label: l10n.navInsights,
             tooltip: l10n.navInsights,
           ),
           BottomNavigationBarItem(
-            icon: const FaIcon(FontAwesomeIcons.rulerVertical),
+            icon: _AnimatedNavIcon(
+              icon: Icons.straighten,
+              isSelected: navigationShell.currentIndex == 2,
+            ),
             label: l10n.navGauges,
             tooltip: l10n.navGauges,
           ),
           BottomNavigationBarItem(
-            icon: const Icon(Icons.settings_rounded),
+            icon: _AnimatedNavIcon(
+              icon: Icons.settings_rounded,
+              isSelected: navigationShell.currentIndex == 3,
+            ),
             label: l10n.navSettings,
             tooltip: l10n.navSettings,
           ),
         ],
       ),
+    );
+  }
+}
+
+class _AnimatedNavIcon extends StatefulWidget {
+  const _AnimatedNavIcon({
+    required this.icon,
+    required this.isSelected,
+  });
+
+  final IconData icon;
+  final bool isSelected;
+
+  @override
+  State<_AnimatedNavIcon> createState() => _AnimatedNavIconState();
+}
+
+class _AnimatedNavIconState extends State<_AnimatedNavIcon>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _scaleAnimation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(
+      duration: const Duration(milliseconds: 200),
+      vsync: this,
+    );
+    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.2).animate(
+      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
+    );
+
+    // Set initial state based on selection
+    if (widget.isSelected) {
+      _controller.value = 1.0;
+    }
+  }
+
+  @override
+  void didUpdateWidget(_AnimatedNavIcon oldWidget) {
+    super.didUpdateWidget(oldWidget);
+    if (widget.isSelected && !oldWidget.isSelected) {
+      _controller.forward();
+    } else if (!widget.isSelected && oldWidget.isSelected) {
+      _controller.reverse();
+    }
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ScaleTransition(
+      scale: _scaleAnimation,
+      child: Icon(widget.icon),
     );
   }
 }
