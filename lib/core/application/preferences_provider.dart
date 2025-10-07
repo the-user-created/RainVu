@@ -43,4 +43,11 @@ class UserPreferencesNotifier extends _$UserPreferencesNotifier {
     final UserPreferences currentState = await future;
     await _updatePreferences(currentState.copyWith(hemisphere: hemisphere));
   }
+
+  Future<void> setAnomalyDeviationThreshold(final double threshold) async {
+    final UserPreferences currentState = await future;
+    await _updatePreferences(
+      currentState.copyWith(anomalyDeviationThreshold: threshold),
+    );
+  }
 }

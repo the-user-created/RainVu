@@ -7,7 +7,10 @@ import "package:uuid/uuid.dart";
 part "anomaly_exploration_repository.g.dart";
 
 abstract class AnomalyExplorationRepository {
-  Future<AnomalyExplorationData> fetchAnomalyData(final AnomalyFilter filter);
+  Future<AnomalyExplorationData> fetchAnomalyData(
+    final AnomalyFilter filter,
+    final double minAnomalyThreshold,
+  );
 }
 
 @riverpod
@@ -24,11 +27,11 @@ class DriftAnomalyExplorationRepository
 
   final RainfallEntriesDao _dao;
   static const _uuid = Uuid();
-  static const double _minAnomalyThreshold = 50; // TODO: 50% deviation?
 
   @override
   Future<AnomalyExplorationData> fetchAnomalyData(
     final AnomalyFilter filter,
+    final double minAnomalyThreshold,
   ) async {
     // 1. Fetch historical data and daily totals in parallel.
     final List<List<Object>> results = await Future.wait([
@@ -74,7 +77,7 @@ class DriftAnomalyExplorationRepository
       final double deviation = actualRainfall - averageRainfall;
       final double deviationPercentage = (deviation / averageRainfall) * 100;
 
-      if (deviationPercentage.abs() >= _minAnomalyThreshold) {
+      if (deviationPercentage.abs() >= minAnomalyThreshold) {
         final AnomalySeverity severity = _getSeverity(deviationPercentage);
         allAnomalies.add(
           RainfallAnomaly(
@@ -90,11 +93,12 @@ class DriftAnomalyExplorationRepository
     }
 
     // 4. Filter anomalies based on the selected severity levels.
-    final List<RainfallAnomaly> filteredAnomalies = allAnomalies
-        .where((final a) => filter.severities.contains(a.severity))
-        .toList()
-      // Sort by date descending
-      ..sort((final a, final b) => b.date.compareTo(a.date));
+    final List<RainfallAnomaly> filteredAnomalies =
+        allAnomalies
+            .where((final a) => filter.severities.contains(a.severity))
+            .toList()
+          // Sort by date descending
+          ..sort((final a, final b) => b.date.compareTo(a.date));
 
     return AnomalyExplorationData(
       anomalies: filteredAnomalies,
@@ -113,6 +117,6 @@ class DriftAnomalyExplorationRepository
     if (absDeviation >= 100) {
       return AnomalySeverity.medium;
     }
-    return AnomalySeverity.low; // Already passed the 50% min threshold
+    return AnomalySeverity.low;
   }
 }

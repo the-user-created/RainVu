@@ -272,6 +272,7 @@
   },
   "licenseDisclaimerTitle": "Disclaimer",
   "licenseDisclaimerContent": "License text formatting has been adjusted for readability, but the content is unmodified.",
+  "settingsUpdatedSuccess": "Settings updated.",
   "settingsSectionAppearance": "APPEARANCE",
   "settingsAppearanceTheme": "Theme",
   "settingsThemeLight": "Light",
@@ -281,6 +282,22 @@
   "settingsDangerZoneResetApp": "Reset App",
   "settingsDangerZoneDescription": "This will permanently delete all your data, including rainfall entries and rain gauges, and reset all settings to their defaults. This action cannot be undone.",
   "settingsResetButton": "Reset App Data",
+  "hemisphereSelectionLabel": "Hemisphere",
+  "hemisphereNorthern": "Northern",
+  "hemisphereSouthern": "Southern",
+  "settingsPreferencesHemisphere": "Hemisphere",
+  "settingsUnitsAndAnalysis": "Units & Analysis",
+  "preferencesSheetTitle": "Units & Analysis Settings",
+  "anomalyDeviationThresholdLabel": "Anomaly Deviation Threshold",
+  "anomalyDeviationThresholdDescription": "The minimum percentage difference from the historical average to be flagged as an anomaly.",
+  "anomalyDeviationThresholdValue": "{value}%",
+  "@anomalyDeviationThresholdValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
   "resetDialogTitle": "Are you absolutely sure?",
   "resetDialogContent": "This action is irreversible. You will lose all your rainfall data and custom settings. To proceed, please type \"RESET\" in the box below.",
   "resetDialogTextFieldHint": "Type RESET to confirm",
@@ -574,10 +591,6 @@
   },
   "seasonalPatternsNoDataTitle": "No Seasonal Data Yet",
   "seasonalPatternsNoDataMessage": "Once you start logging rainfall, this screen will show you trends and patterns for the selected season.",
-  "hemisphereSelectionLabel": "Hemisphere",
-  "hemisphereNorthern": "Northern",
-  "hemisphereSouthern": "Southern",
-  "settingsPreferencesHemisphere": "Hemisphere",
   "seasonSummaryInfoSheetTitle": "About Season Summary",
   "seasonSummaryInfoAverageRainfallDescription": "The average daily rainfall for the selected season and year.",
   "seasonSummaryInfoTrendVsHistoryDescription": "The percentage difference between this season's total rainfall and the historical average total for the same season across all other years.",
@@ -692,7 +705,6 @@
       }
     }
   },
-  "settingsUpdatedSuccess": "Settings updated.",
   "gaugeAddedSuccess": "Gauge '{name}' was added successfully.",
   "@gaugeAddedSuccess": {
     "placeholders": {

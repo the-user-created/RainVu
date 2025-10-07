@@ -28,6 +28,7 @@ abstract class UserPreferences with _$UserPreferences {
     @Default(AppThemeMode.system) final AppThemeMode themeMode,
     @Default(AppConstants.defaultGaugeId) final String? favoriteGaugeId,
     @Default(Hemisphere.northern) final Hemisphere hemisphere,
+    @Default(50.0) final double anomalyDeviationThreshold,
   }) = _UserPreferences;
 
   factory UserPreferences.fromJson(final Map<String, dynamic> json) =>

@@ -7,11 +7,11 @@ import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/settings/application/app_reset_provider.dart";
 import "package:rain_wise/features/settings/presentation/widgets/app_info_footer.dart";
 import "package:rain_wise/features/settings/presentation/widgets/danger_zone_card.dart";
+import "package:rain_wise/features/settings/presentation/widgets/preferences_sheet.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_list_tile.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/domain/seasons.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
@@ -25,6 +25,14 @@ import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
 /// The main settings screen, composed of smaller, reusable widgets.
 class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
+
+  void _showPreferencesSheet(final BuildContext context) {
+    showModalBottomSheet<void>(
+      context: context,
+      isScrollControlled: true,
+      builder: (final _) => const PreferencesSheet(),
+    );
+  }
 
   Widget _buildThemeSetting(
     final BuildContext context,
@@ -85,116 +93,6 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  Widget _buildMeasurementUnitSetting(
-    final BuildContext context,
-    final WidgetRef ref,
-    final AppLocalizations l10n,
-  ) {
-    final ThemeData theme = Theme.of(context);
-    final AsyncValue<UserPreferences> userPreferences = ref.watch(
-      userPreferencesProvider,
-    );
-
-    return userPreferences.when(
-      loading: () => const ListTile(title: Text("Loading...")),
-      error: (final err, final stack) => ListTile(title: Text("Error: $err")),
-      data: (final preferences) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                l10n.settingsPreferencesMeasurementUnit,
-                style: theme.textTheme.titleMedium,
-              ),
-            ),
-            SizedBox(
-              width: 150,
-              child: AppSegmentedControl<MeasurementUnit>(
-                selectedValue: preferences.measurementUnit,
-                onSelectionChanged: (final value) async {
-                  await ref
-                      .read(userPreferencesProvider.notifier)
-                      .setMeasurementUnit(value);
-                  showSnackbar(
-                    l10n.settingsUpdatedSuccess,
-                    type: MessageType.success,
-                  );
-                },
-                segments: [
-                  SegmentOption(
-                    value: MeasurementUnit.mm,
-                    label: Text(l10n.unitMM),
-                  ),
-                  SegmentOption(
-                    value: MeasurementUnit.inch,
-                    label: Text(l10n.unitIn),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _buildHemisphereSetting(
-    final BuildContext context,
-    final WidgetRef ref,
-    final AppLocalizations l10n,
-  ) {
-    final ThemeData theme = Theme.of(context);
-    final AsyncValue<UserPreferences> userPreferences = ref.watch(
-      userPreferencesProvider,
-    );
-
-    return userPreferences.when(
-      loading: () => const ListTile(title: Text("Loading...")),
-      error: (final err, final stack) => ListTile(title: Text("Error: $err")),
-      data: (final preferences) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                l10n.settingsPreferencesHemisphere,
-                style: theme.textTheme.titleMedium,
-              ),
-            ),
-            SizedBox(
-              width: 220,
-              child: AppSegmentedControl<Hemisphere>(
-                selectedValue: preferences.hemisphere,
-                onSelectionChanged: (final value) async {
-                  await ref
-                      .read(userPreferencesProvider.notifier)
-                      .setHemisphere(value);
-                  showSnackbar(
-                    l10n.settingsUpdatedSuccess,
-                    type: MessageType.success,
-                  );
-                },
-                segments: [
-                  SegmentOption(
-                    value: Hemisphere.northern,
-                    label: Text(l10n.hemisphereNorthern),
-                  ),
-                  SegmentOption(
-                    value: Hemisphere.southern,
-                    label: Text(l10n.hemisphereSouthern),
-                  ),
-                ],
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
-  }
-
   Future<void> _showResetConfirmationDialog(
     final BuildContext context,
     final WidgetRef ref,
@@ -241,8 +139,11 @@ class SettingsScreen extends ConsumerWidget {
             SettingsSectionHeader(title: l10n.settingsSectionPreferences),
             SettingsCard(
               children: [
-                _buildMeasurementUnitSetting(context, ref, l10n),
-                _buildHemisphereSetting(context, ref, l10n),
+                SettingsListTile(
+                  leading: const Icon(Icons.tune_rounded),
+                  title: l10n.settingsUnitsAndAnalysis,
+                  onTap: () => _showPreferencesSheet(context),
+                ),
               ],
             ),
             SettingsSectionHeader(title: l10n.settingsSectionDataManagement),
