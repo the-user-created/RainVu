@@ -27,7 +27,7 @@ class ChangeItemTile extends StatelessWidget {
               size: 16,
               color: item.isBreaking
                   ? colorScheme.changelogRemoved
-                  : colorScheme.onSurfaceVariant.withOpacity(0.6),
+                  : colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
             ),
           ),
           Expanded(

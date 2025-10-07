@@ -62,6 +62,7 @@ class _ReleaseEntryWidget extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final TextTheme textTheme = theme.textTheme;
     final ColorScheme colorScheme = theme.colorScheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
 
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
@@ -72,10 +73,10 @@ class _ReleaseEntryWidget extends StatelessWidget {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Text(
-                "Version ${release.version}",
+                l10n.changelogVersion(release.version),
                 style: textTheme.displaySmall?.copyWith(
                   fontWeight: FontWeight.w600,
-                  color: colorScheme.onSurface.withOpacity(0.85),
+                  color: colorScheme.onSurface.withValues(alpha: 0.85),
                 ),
               ),
               const SizedBox(height: 4),

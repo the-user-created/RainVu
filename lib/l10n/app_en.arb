@@ -270,6 +270,18 @@
   "changelogError": "Could not load changelog.",
   "changelogBreaking": "Breaking:",
   "changelogSectionLegal": "LEGAL",
+  "changelogCategoryChanged": "Changed",
+  "changelogCategoryAdded": "Added",
+  "changelogCategoryRemoved": "Removed",
+  "changelogCategoryFixed": "Fixed",
+  "changelogVersion": "Version {version}",
+  "@changelogVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "featureNotImplementedSnackbar": "This feature is not yet implemented.",
   "ossLicensesTitle": "Open Source Licenses",
   "ossLicensesVersion": "Version {version}",

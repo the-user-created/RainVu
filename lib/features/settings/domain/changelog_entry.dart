@@ -1,22 +1,23 @@
 import "package:flutter/material.dart";
 import "package:freezed_annotation/freezed_annotation.dart";
 import "package:rain_wise/core/ui/custom_colors.dart";
+import "package:rain_wise/l10n/app_localizations.dart";
 
 part "changelog_entry.freezed.dart";
 
 enum ChangeCategory { changed, added, removed, fixed }
 
 extension ChangeCategoryExtension on ChangeCategory {
-  String get title {
+  String title(final AppLocalizations l10n) {
     switch (this) {
       case ChangeCategory.changed:
-        return "Changed";
+        return l10n.changelogCategoryChanged;
       case ChangeCategory.added:
-        return "Added";
+        return l10n.changelogCategoryAdded;
       case ChangeCategory.removed:
-        return "Removed";
+        return l10n.changelogCategoryRemoved;
       case ChangeCategory.fixed:
-        return "Fixed";
+        return l10n.changelogCategoryFixed;
     }
   }
 
