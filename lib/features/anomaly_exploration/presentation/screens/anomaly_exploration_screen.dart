@@ -60,7 +60,10 @@ class AnomalyExplorationScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              data: (final data) => AnomalyList(anomalies: data.anomalies),
+              data: (final data) => AnomalyList(
+                anomalies: data.anomalies,
+                chartPoints: data.chartPoints,
+              ),
             ),
             const SliverToBoxAdapter(child: SizedBox(height: 24)),
           ],

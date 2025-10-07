@@ -454,36 +454,27 @@
   "severitiesSelected": "{count} severities selected",
   "detectedAnomaliesTitle": "Detected Anomalies",
   "noAnomaliesFound": "No anomalies found for the selected filters.",
-  "anomalyDeviationVsAverage": "{deviation} vs Average",
-  "@anomalyDeviationVsAverage": {
+  "anomalyGroupSummary": "{count, plural, =1 {1 Anomaly} other {{count} Anomalies}}",
+  "@anomalyGroupSummary": {
     "placeholders": {
-      "deviation": {
-        "type": "String"
+      "count": {
+        "type": "int"
       }
     }
   },
-  "anomalyDescriptionHigher": "Rainfall was {deviation}% higher than the historical average of {average}.",
-  "@anomalyDescriptionHigher": {
+  "anomalyGroupDeviation": "{sign}{percent}% vs avg",
+  "@anomalyGroupDeviation": {
     "placeholders": {
-      "deviation": {
+      "sign": {
         "type": "String"
       },
-      "average": {
+      "percent": {
         "type": "String"
       }
     }
   },
-  "anomalyDescriptionLower": "Rainfall was {deviation}% lower than the historical average of {average}.",
-  "@anomalyDescriptionLower": {
-    "placeholders": {
-      "deviation": {
-        "type": "String"
-      },
-      "average": {
-        "type": "String"
-      }
-    }
-  },
+  "anomalyListItemActual": "Actual",
+  "anomalyListItemAverage": "Average",
   "filterOptionsTitle": "Filter Options",
   "severityFilterLabel": "Severity",
   "selectSeverityLevelsDialogTitle": "Select Severity Levels",

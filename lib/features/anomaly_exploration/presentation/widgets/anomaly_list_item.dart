@@ -25,42 +25,15 @@ class AnomalyListItem extends ConsumerWidget {
     final String sign = anomaly.deviationPercentage > 0 ? "+" : "";
     final String deviationValue =
         "$sign${anomaly.deviationPercentage.formatPercentage(precision: 0)}";
-    final String deviationText = l10n.anomalyDeviationVsAverage(deviationValue);
 
-    final String description;
-    final String formattedAverage = anomaly.averageRainfall.formatRainfall(
-      context,
-      unit,
-    );
-    if (anomaly.deviationPercentage > 0) {
-      description = l10n.anomalyDescriptionHigher(
-        anomaly.deviationPercentage.formatPercentage(
-          precision: 0,
-          withSymbol: false,
-        ),
-        formattedAverage,
-      );
-    } else {
-      description = l10n.anomalyDescriptionLower(
-        anomaly.deviationPercentage.abs().formatPercentage(
-          precision: 0,
-          withSymbol: false,
-        ),
-        formattedAverage,
-      );
-    }
-
-    return Card(
-      elevation: 2,
-      clipBehavior: Clip.antiAlias,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
+      child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Expanded(
+            flex: 3,
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
@@ -69,23 +42,61 @@ class AnomalyListItem extends ConsumerWidget {
                     fontWeight: FontWeight.w600,
                   ),
                 ),
-                _SeverityBadge(
-                  text: deviationText,
-                  color: anomaly.severity.color,
-                  backgroundColor: anomaly.severity.backgroundColor,
+                const SizedBox(height: 4),
+                _DataRow(
+                  label: l10n.anomalyListItemActual,
+                  value: anomaly.actualRainfall.formatRainfall(context, unit),
+                  valueColor: colorScheme.secondary,
+                ),
+                _DataRow(
+                  label: l10n.anomalyListItemAverage,
+                  value: anomaly.averageRainfall.formatRainfall(context, unit),
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-            Text(
-              description,
-              style: textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSurfaceVariant,
-              ),
+          ),
+          const SizedBox(width: 16),
+          Expanded(
+            flex: 2,
+            child: _SeverityBadge(
+              text: deviationValue,
+              color: anomaly.severity.color,
+              backgroundColor: anomaly.severity.backgroundColor,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
+    );
+  }
+}
+
+class _DataRow extends StatelessWidget {
+  const _DataRow({required this.label, required this.value, this.valueColor});
+
+  final String label;
+  final String value;
+  final Color? valueColor;
+
+  @override
+  Widget build(final BuildContext context) {
+    final TextTheme textTheme = Theme.of(context).textTheme;
+    final ColorScheme colorScheme = Theme.of(context).colorScheme;
+    return Row(
+      children: [
+        Text(
+          "$label: ",
+          style: textTheme.bodySmall?.copyWith(
+            color: colorScheme.onSurfaceVariant,
+          ),
+        ),
+        Text(
+          value,
+          style: textTheme.bodySmall?.copyWith(
+            fontWeight: FontWeight.bold,
+            color: valueColor ?? colorScheme.onSurface,
+          ),
+        ),
+      ],
     );
   }
 }
@@ -105,18 +116,18 @@ class _SeverityBadge extends StatelessWidget {
   Widget build(final BuildContext context) {
     final TextTheme textTheme = Theme.of(context).textTheme;
 
-    return DecoratedBox(
+    return Container(
+      padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
       decoration: BoxDecoration(
         color: backgroundColor,
-        borderRadius: BorderRadius.circular(4),
+        borderRadius: BorderRadius.circular(20),
       ),
-      child: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 8, vertical: 4),
+      child: Center(
         child: Text(
           text,
-          style: textTheme.bodySmall?.copyWith(
+          style: textTheme.bodyMedium?.copyWith(
             color: color,
-            fontWeight: FontWeight.w500,
+            fontWeight: FontWeight.w600,
           ),
         ),
       ),
