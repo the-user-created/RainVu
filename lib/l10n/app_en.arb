@@ -283,6 +283,18 @@
     }
   },
   "featureNotImplementedSnackbar": "This feature is not yet implemented.",
+  "reviewNotAvailable": "The review feature is not available on this device.",
+  "@reviewNotAvailable": {
+    "description": "Snackbar message shown when the in-app review feature cannot be triggered."
+  },
+  "shareAppSubject": "Check out RainWise!",
+  "@shareAppSubject": {
+    "description": "The default subject line for an email when sharing the app."
+  },
+  "shareAppText": "RainWise is a great app for logging rainfall and gaining valuable weather insights. Find it on the app stores!",
+  "@shareAppText": {
+    "description": "The body text used when sharing the app."
+  },
   "ossLicensesTitle": "Open Source Licenses",
   "ossLicensesVersion": "Version {version}",
   "@ossLicensesVersion": {
