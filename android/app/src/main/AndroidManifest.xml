@@ -17,8 +17,7 @@
 
     <application
         android:icon="@mipmap/ic_launcher"
-        android:label="Rain Wise"
-        android:requestLegacyExternalStorage="true"
+        android:label="@string/app_name"
         tools:replace="android:label">
 
         <activity
