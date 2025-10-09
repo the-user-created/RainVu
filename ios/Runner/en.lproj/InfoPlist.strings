@@ -1,0 +1,13 @@
+/* 
+  InfoPlist.strings
+  Runner
+
+  Created by David Young on 2025/10/09.
+  
+*/
+
+/* The name of the app displayed on the home screen */
+"CFBundleDisplayName" = "RainWise";
+
+/* The short name of the app used in various places */
+"CFBundleName" = "RainWise";
