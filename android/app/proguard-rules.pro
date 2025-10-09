@@ -10,5 +10,22 @@
 -dontwarn org.bouncycastle.pqc.jcajce.provider.BouncyCastlePQCProvider
 -keep class org.xmlpull.v1.** { *; }
 
+########################
+# Firebase Analytics
+########################
+-keep class com.google.firebase.analytics.** { *; }
+-dontwarn com.google.firebase.analytics.**
 
+########################
+# Firebase Crashlytics
+########################
+-keepattributes SourceFile,LineNumberTable
+-keep public class * extends java.lang.Exception
+-keep class com.google.firebase.crashlytics.** { *; }
+-dontwarn com.google.firebase.crashlytics.**
 
+########################
+# Google Play services
+########################
+-keep class com.google.android.gms.** { *; }
+-dontwarn com.google.android.gms.**
