@@ -5,6 +5,8 @@ gen_sample_data.py
 output.txt
 diff.txt
 design_docs/
+/android/app/google-services.json
+/ios/Runner/GoogleService-Info.plist
 
 # Build Runner
 *.g.dart
