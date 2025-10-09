@@ -25,6 +25,7 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_animate: ^4.5.2
+  flutter_dotenv: ^6.0.0
   flutter_localizations:
     sdk: flutter
   flutter_riverpod: ^3.0.0
@@ -69,3 +70,5 @@ dev_dependencies:
 flutter:
   generate: true
   uses-material-design: true
+  assets:
+    - .env
