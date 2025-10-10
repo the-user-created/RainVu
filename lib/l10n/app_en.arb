@@ -25,6 +25,12 @@
   "dataToolsTitle": "Export & Import",
   "dataToolsExportDataSectionTitle": "EXPORT DATA",
   "dataToolsImportDataSectionTitle": "IMPORT DATA",
+  "importProgressTitle": "Importing Data",
+  "importProgressMessage": "Please wait while your data is being imported. This may take a moment...",
+  "exportProgressTitle": "Exporting Data",
+  "exportProgressFetching": "Step 1 of 2: Fetching records...",
+  "exportProgressFormatting": "Step 2 of 2: Formatting file...",
+  "exportProgressSaving": "Please choose where to save your file...",
   "dataToolsExportSuccess": "Data exported successfully to {path}",
   "@dataToolsExportSuccess": {
     "description": "Success message shown after data is exported, with a placeholder for the file path.",

@@ -18,10 +18,10 @@ abstract class ImportPreview with _$ImportPreview {
 }
 
 /// The format for exporting data.
-enum ExportFormat {
-  csv,
-  json,
-}
+enum ExportFormat { csv, json }
+
+/// The different stages of the data export process.
+enum ExportStage { none, fetching, formatting, saving }
 
 /// The state for the data tools feature.
 @freezed
@@ -38,6 +38,9 @@ abstract class DataToolsState with _$DataToolsState {
 
     /// The results of the import file analysis.
     final ImportPreview? importPreview,
+
+    /// The current stage of an export operation.
+    @Default(ExportStage.none) final ExportStage exportStage,
 
     /// A flag indicating if an export operation is in progress.
     @Default(false) final bool isExporting,

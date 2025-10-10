@@ -3,7 +3,9 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/data_tools/application/data_tools_provider.dart";
 import "package:rain_wise/features/data_tools/presentation/widgets/export_data_card.dart";
+import "package:rain_wise/features/data_tools/presentation/widgets/export_progress_dialog.dart";
 import "package:rain_wise/features/data_tools/presentation/widgets/import_data_card.dart";
+import "package:rain_wise/features/data_tools/presentation/widgets/import_progress_dialog.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
@@ -32,7 +34,35 @@ class DataToolsScreen extends ConsumerWidget {
             showSnackbar(successMessage, type: MessageType.success);
           }
         },
-      );
+      )
+      ..listen<bool>(dataToolsProvider.select((final s) => s.isImporting), (
+        final wasImporting,
+        final isImporting,
+      ) {
+        if (isImporting) {
+          showDialog<void>(
+            context: context,
+            barrierDismissible: false,
+            builder: (final _) => const ImportProgressDialog(),
+          );
+        } else if (wasImporting == true && !isImporting) {
+          Navigator.of(context, rootNavigator: true).pop();
+        }
+      })
+      ..listen<bool>(dataToolsProvider.select((final s) => s.isExporting), (
+        final wasExporting,
+        final isExporting,
+      ) {
+        if (isExporting) {
+          showDialog<void>(
+            context: context,
+            barrierDismissible: false,
+            builder: (final _) => const ExportProgressDialog(),
+          );
+        } else if (wasExporting == true && !isExporting) {
+          Navigator.of(context, rootNavigator: true).pop();
+        }
+      });
 
     return Scaffold(
       appBar: AppBar(

@@ -18,12 +18,11 @@ import "package:uuid/uuid.dart";
 
 part "data_tools_repository.g.dart";
 
-// TODO: put the data import/export logic onto a background isolate or use a loading indicator for large datasets
-
 abstract class DataToolsRepository {
   Future<String?> exportData({
     required final ExportFormat format,
     final DateTimeRange? dateRange,
+    required final void Function(ExportStage) onProgress,
   });
 
   Future<void> importData(final File file);
@@ -58,7 +57,9 @@ class DriftDataToolsRepository implements DataToolsRepository {
   Future<String?> exportData({
     required final ExportFormat format,
     final DateTimeRange? dateRange,
+    required final void Function(ExportStage) onProgress,
   }) async {
+    onProgress(ExportStage.fetching);
     final List<RainfallEntryWithGauge> entriesWithGauges = dateRange != null
         ? await _entriesDao.getEntriesWithGaugesInRange(
             dateRange.start,
@@ -69,6 +70,10 @@ class DriftDataToolsRepository implements DataToolsRepository {
     if (entriesWithGauges.isEmpty) {
       throw Exception("No data available to export in the selected range.");
     }
+
+    onProgress(ExportStage.formatting);
+    // Add a small delay to allow the UI to update with the "formatting" message
+    await Future<void>.delayed(const Duration(milliseconds: 50));
 
     final String fileContent;
     final String extension;
@@ -88,6 +93,7 @@ class DriftDataToolsRepository implements DataToolsRepository {
     // Encode the file content to bytes
     final Uint8List fileBytes = utf8.encode(fileContent);
 
+    onProgress(ExportStage.saving);
     // Use saveFile to open a system dialog for the user to choose location
     final String? resultPath = await FilePicker.platform.saveFile(
       dialogTitle: "Please select an output file:",

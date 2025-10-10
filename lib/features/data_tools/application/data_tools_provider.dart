@@ -60,12 +60,19 @@ class DataToolsNotifier extends _$DataToolsNotifier {
       isExporting: true,
       errorMessage: null,
       successMessage: null,
+      exportStage: ExportStage.none,
     );
 
     try {
       final String? path = await ref
           .read(dataToolsRepositoryProvider)
-          .exportData(format: state.exportFormat, dateRange: state.dateRange);
+          .exportData(
+            format: state.exportFormat,
+            dateRange: state.dateRange,
+            onProgress: (final stage) {
+              state = state.copyWith(exportStage: stage);
+            },
+          );
       if (path != null) {
         state = state.copyWith(
           successMessage: l10n.dataToolsExportSuccess(path),
@@ -74,12 +81,14 @@ class DataToolsNotifier extends _$DataToolsNotifier {
     } catch (e) {
       state = state.copyWith(errorMessage: l10n.dataToolsExportFailed(e));
     } finally {
-      state = state.copyWith(isExporting: false);
+      state = state.copyWith(isExporting: false, exportStage: ExportStage.none);
     }
   }
 
   Future<void> importData(final AppLocalizations l10n) async {
-    if (state.isImporting || state.fileToImport == null) {
+    if (state.isImporting ||
+        state.fileToImport == null ||
+        state.importPreview == null) {
       return;
     }
     state = state.copyWith(
