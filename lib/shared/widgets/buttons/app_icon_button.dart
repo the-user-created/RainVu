@@ -52,9 +52,8 @@ class AppIconButton extends StatelessWidget {
                 borderRadius: borderRadius ?? BorderRadius.circular(8),
               ),
             ),
-            minimumSize: const WidgetStatePropertyAll(
-              Size(44, 44),
-            ), // Ensure consistent tap target
+            minimumSize: const WidgetStatePropertyAll(Size(44, 44)),
+            tapTargetSize: MaterialTapTargetSize.padded,
           )
         : null;
 
