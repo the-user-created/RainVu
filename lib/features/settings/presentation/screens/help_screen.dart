@@ -1,20 +1,21 @@
 import "package:flutter/material.dart";
+import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/settings/domain/support_ticket.dart";
-import "package:rain_wise/features/settings/presentation/widgets/help/contact_support_tile.dart";
+import "package:rain_wise/features/settings/presentation/widgets/help/help_action_card.dart";
 import "package:rain_wise/features/settings/presentation/widgets/help/ticket_sheet.dart";
-import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
-import "package:rain_wise/features/settings/presentation/widgets/settings_list_tile.dart";
-import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
+import "package:rain_wise/shared/utils/ui_helpers.dart";
+import "package:url_launcher/url_launcher.dart";
 
 class HelpScreen extends ConsumerWidget {
   const HelpScreen({super.key});
 
   void _showTicketSheet(
     final BuildContext context, {
-    final TicketCategory? initialCategory,
+    required final TicketCategory initialCategory,
   }) {
     showAdaptiveSheet<void>(
       context: context,
@@ -22,10 +23,49 @@ class HelpScreen extends ConsumerWidget {
     );
   }
 
+  Future<void> _launchUrl(final BuildContext context, final String url) async {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final Uri uri = Uri.parse(url);
+
+    if (!await launchUrl(uri)) {
+      if (!context.mounted) {
+        return;
+      }
+      showSnackbar(l10n.helpCouldNotOpenUrl(url), type: MessageType.error);
+    }
+  }
+
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
+
+    final List<Widget> helpCards = [
+      HelpActionCard(
+        icon: Icons.bug_report_outlined,
+        title: l10n.helpReportBugTitle,
+        subtitle: l10n.helpReportBugSubtitle,
+        onTap: () => _showTicketSheet(
+          context,
+          initialCategory: TicketCategory.bugReport,
+        ),
+      ),
+      HelpActionCard(
+        icon: Icons.lightbulb_outline_rounded,
+        title: l10n.helpSuggestIdeaTitle,
+        subtitle: l10n.helpSuggestIdeaSubtitle,
+        onTap: () => _showTicketSheet(
+          context,
+          initialCategory: TicketCategory.featureRequest,
+        ),
+      ),
+      HelpActionCard(
+        icon: Icons.mail_outline_rounded,
+        title: l10n.helpEmailSupportTitle,
+        subtitle: l10n.helpEmailSupportSubtitle,
+        onTap: () => _launchUrl(context, "mailto:support@rainwiseapp.com"),
+      ),
+    ];
 
     return Scaffold(
       appBar: AppBar(
@@ -33,34 +73,31 @@ class HelpScreen extends ConsumerWidget {
       ),
       body: SafeArea(
         child: ListView(
-          padding: const EdgeInsets.only(bottom: 32),
+          padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
           children: [
-            SettingsSectionHeader(title: l10n.helpGetHelpSection),
-            SettingsCard(
-              children: [
-                ContactSupportTile(
-                  title: l10n.helpContactEmailSupport,
-                  subtitle: "support@emberworks.dev",
-                  icon: Icons.mail_outline,
-                  url: "mailto:support@emberworks.dev",
+            Padding(
+              padding: const EdgeInsets.fromLTRB(8, 8, 8, 20),
+              child: Text(
+                l10n.helpIntro,
+                style: theme.textTheme.bodyLarge?.copyWith(
+                  color: theme.colorScheme.onSurfaceVariant,
                 ),
-                SettingsListTile(
-                  leading: const Icon(Icons.bug_report_outlined),
-                  title: l10n.helpReportProblem,
-                  onTap: () => _showTicketSheet(
-                    context,
-                    initialCategory: TicketCategory.bugReport,
-                  ),
-                ),
-                SettingsListTile(
-                  leading: const Icon(Icons.feedback_outlined),
-                  title: l10n.helpSendFeedback,
-                  onTap: () => _showTicketSheet(
-                    context,
-                    initialCategory: TicketCategory.generalFeedback,
-                  ),
-                ),
-              ],
+                textAlign: TextAlign.center,
+              ),
+            ),
+            ...helpCards.asMap().entries.map(
+              (final entry) => Padding(
+                padding: const EdgeInsets.symmetric(vertical: 6),
+                child: entry.value
+                    .animate()
+                    .fade(duration: 500.ms)
+                    .slideY(
+                      begin: 0.2,
+                      duration: 400.ms,
+                      delay: (entry.key * 100).ms,
+                      curve: Curves.easeOutCubic,
+                    ),
+              ),
             ),
           ],
         ),

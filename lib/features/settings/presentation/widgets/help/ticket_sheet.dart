@@ -9,6 +9,8 @@ import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
 
+// TODO: should be updated to use choice chips for category selection and change text based on which button the user used to get here.
+
 /// A bottom sheet for submitting a support ticket or feedback.
 class TicketSheet extends ConsumerStatefulWidget {
   const TicketSheet({super.key, this.initialCategory});
