@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_animate/flutter_animate.dart";
 
 /// Defines the visual style of the [AppButton].
 enum AppButtonStyle {
@@ -19,13 +20,11 @@ enum AppButtonStyle {
 }
 
 /// Defines the size of the button, affecting padding and minimum height.
-enum AppButtonSize {
-  regular,
-  small,
-}
+enum AppButtonSize { regular, small }
 
-/// A custom, reusable button widget for the application.
-class AppButton extends StatelessWidget {
+/// A custom, reusable button widget for the application with a responsive
+/// press-and-hold animation.
+class AppButton extends StatefulWidget {
   const AppButton({
     required this.onPressed,
     required this.label,
@@ -63,58 +62,11 @@ class AppButton extends StatelessWidget {
   final BorderRadius? borderRadius;
 
   @override
-  Widget build(final BuildContext context) {
-    final bool isDisabled = onPressed == null || isLoading;
-    final bool isOutline = style == AppButtonStyle.outline ||
-        style == AppButtonStyle.outlineDestructive;
+  State<AppButton> createState() => _AppButtonState();
+}
 
-    final ButtonStyle buttonStyle = _getButtonStyle(context);
-
-    final Widget buttonChild = isLoading
-        ? SizedBox.square(
-            dimension: size == AppButtonSize.small ? 18 : 24,
-            child: CircularProgressIndicator(
-              strokeWidth: 2,
-              valueColor: AlwaysStoppedAnimation<Color?>(
-                buttonStyle.foregroundColor?.resolve({}),
-              ),
-            ),
-          )
-        : Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            mainAxisSize: MainAxisSize.min,
-            children: [
-              if (icon != null) ...[
-                icon!,
-                const SizedBox(width: 8),
-              ],
-              Flexible(
-                child: Text(
-                  label,
-                  textAlign: TextAlign.center,
-                ),
-              ),
-            ],
-          );
-
-    final Widget button = isOutline
-        ? OutlinedButton(
-            onPressed: isDisabled ? null : onPressed,
-            style: buttonStyle,
-            child: buttonChild,
-          )
-        : ElevatedButton(
-            onPressed: isDisabled ? null : onPressed,
-            style: buttonStyle,
-            child: buttonChild,
-          );
-
-    if (isExpanded) {
-      return SizedBox(width: double.infinity, child: button);
-    }
-
-    return button;
-  }
+class _AppButtonState extends State<AppButton> {
+  bool _isPressed = false;
 
   ButtonStyle _getButtonStyle(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -123,7 +75,7 @@ class AppButton extends StatelessWidget {
     final EdgeInsets padding;
     final Size minimumSize;
 
-    switch (size) {
+    switch (widget.size) {
       case AppButtonSize.regular:
         padding = const EdgeInsets.symmetric(horizontal: 24, vertical: 16);
         minimumSize = const Size(88, 50);
@@ -135,17 +87,18 @@ class AppButton extends StatelessWidget {
     final ButtonStyle sizeStyle = ButtonStyle(
       padding: WidgetStateProperty.all(padding),
       minimumSize: WidgetStateProperty.all(minimumSize),
-      shape: borderRadius != null
+      shape: widget.borderRadius != null
           ? WidgetStateProperty.all(
-              RoundedRectangleBorder(borderRadius: borderRadius!),
+              RoundedRectangleBorder(borderRadius: widget.borderRadius!),
             )
           : null,
     );
 
-    switch (style) {
+    switch (widget.style) {
       case AppButtonStyle.primary:
-        return (theme.elevatedButtonTheme.style ?? const ButtonStyle())
-            .merge(sizeStyle);
+        return (theme.elevatedButtonTheme.style ?? const ButtonStyle()).merge(
+          sizeStyle,
+        );
       case AppButtonStyle.secondary:
         return (theme.elevatedButtonTheme.style ?? const ButtonStyle())
             .copyWith(
@@ -161,14 +114,16 @@ class AppButton extends StatelessWidget {
             )
             .merge(sizeStyle);
       case AppButtonStyle.outline:
-        return (theme.outlinedButtonTheme.style ?? const ButtonStyle())
-            .merge(sizeStyle);
+        return (theme.outlinedButtonTheme.style ?? const ButtonStyle()).merge(
+          sizeStyle,
+        );
       case AppButtonStyle.outlineDestructive:
         return (theme.outlinedButtonTheme.style ?? const ButtonStyle())
             .copyWith(
               foregroundColor: WidgetStateProperty.all(colorScheme.error),
-              side:
-                  WidgetStateProperty.all(BorderSide(color: colorScheme.error)),
+              side: WidgetStateProperty.all(
+                BorderSide(color: colorScheme.error),
+              ),
               overlayColor: WidgetStateProperty.resolveWith<Color?>(
                 (final states) => states.contains(WidgetState.hovered)
                     ? colorScheme.error.withValues(alpha: 0.1)
@@ -177,5 +132,65 @@ class AppButton extends StatelessWidget {
             )
             .merge(sizeStyle);
     }
+  }
+
+  @override
+  Widget build(final BuildContext context) {
+    final bool isDisabled = widget.onPressed == null || widget.isLoading;
+    final bool isOutline =
+        widget.style == AppButtonStyle.outline ||
+        widget.style == AppButtonStyle.outlineDestructive;
+
+    final ButtonStyle buttonStyle = _getButtonStyle(context);
+
+    final Widget buttonChild = widget.isLoading
+        ? SizedBox.square(
+            dimension: widget.size == AppButtonSize.small ? 18 : 24,
+            child: CircularProgressIndicator(
+              strokeWidth: 2,
+              valueColor: AlwaysStoppedAnimation<Color?>(
+                buttonStyle.foregroundColor?.resolve({}),
+              ),
+            ),
+          )
+        : Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              if (widget.icon != null) ...[
+                widget.icon!,
+                const SizedBox(width: 8),
+              ],
+              Flexible(child: Text(widget.label, textAlign: TextAlign.center)),
+            ],
+          );
+
+    final Widget button = isOutline
+        ? OutlinedButton(
+            onPressed: isDisabled ? null : widget.onPressed,
+            style: buttonStyle,
+            child: buttonChild,
+          )
+        : ElevatedButton(
+            onPressed: isDisabled ? null : widget.onPressed,
+            style: buttonStyle,
+            child: buttonChild,
+          );
+
+    final Widget interactiveButton =
+        Listener(
+              onPointerDown: (final _) => setState(() => _isPressed = true),
+              onPointerUp: (final _) => setState(() => _isPressed = false),
+              onPointerCancel: (final _) => setState(() => _isPressed = false),
+              child: button,
+            )
+            .animate(target: _isPressed ? 1 : 0)
+            .scaleXY(end: 0.97, duration: 150.ms, curve: Curves.easeOut);
+
+    if (widget.isExpanded) {
+      return SizedBox(width: double.infinity, child: interactiveButton);
+    }
+
+    return interactiveButton;
   }
 }
