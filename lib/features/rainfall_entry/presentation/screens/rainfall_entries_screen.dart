@@ -1,14 +1,18 @@
+import "package:collection/collection.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/app_constants.dart";
+import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/data/providers/data_providers.dart";
+import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
 import "package:rain_wise/features/rainfall_entry/presentation/widgets/rainfall_entry_list_item.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/domain/rainfall_entry.dart";
+import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
 class RainfallEntriesScreen extends ConsumerStatefulWidget {
@@ -29,40 +33,6 @@ class RainfallEntriesScreen extends ConsumerStatefulWidget {
 
 class _RainfallEntriesScreenState extends ConsumerState<RainfallEntriesScreen> {
   final Set<int> _animatedIndices = {};
-  int? _staggerCountThreshold;
-
-  // Estimated height of a single RainfallEntryListItem including its margin.
-  // Card margin is 8px top/bottom (16 total) + padding/content.
-  static const double _estimatedItemHeight = 100;
-
-  @override
-  void initState() {
-    super.initState();
-    // Schedule the calculation to run after the first frame is built.
-    WidgetsBinding.instance.addPostFrameCallback((_) => _calculateThreshold());
-  }
-
-  void _calculateThreshold() {
-    if (!mounted || _staggerCountThreshold != null) {
-      return;
-    }
-
-    final MediaQueryData mediaQuery = MediaQuery.of(context);
-    const double appBarHeight = kToolbarHeight;
-    final double screenHeight = mediaQuery.size.height;
-    final double topPadding = mediaQuery.padding.top;
-    final double bottomPadding = mediaQuery.padding.bottom;
-
-    final double availableHeight =
-        screenHeight - appBarHeight - topPadding - bottomPadding;
-
-    // Calculate how many items fit and add a small buffer.
-    final int count = (availableHeight / _estimatedItemHeight).ceil() + 1;
-
-    setState(() {
-      _staggerCountThreshold = count;
-    });
-  }
 
   @override
   Widget build(final BuildContext context) {
@@ -117,38 +87,181 @@ class _RainfallEntriesScreenState extends ConsumerState<RainfallEntriesScreen> {
             if (entries.isEmpty) {
               return const _EmptyState();
             }
-            return ListView.builder(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-              itemCount: entries.length,
-              itemBuilder: (final context, final index) {
-                final Widget listItem = RainfallEntryListItem(
-                  entry: entries[index],
-                );
-                final bool hasBeenAnimated = _animatedIndices.contains(index);
 
-                if (hasBeenAnimated) {
-                  return listItem;
-                }
+            // Group entries by day
+            final Map<DateTime, List<RainfallEntry>> groupedEntries = groupBy(
+              entries,
+              (final entry) => entry.date.startOfDay,
+            );
 
-                _animatedIndices.add(index);
+            // Sort dates in descending order
+            final List<DateTime> sortedDates = groupedEntries.keys.toList()
+              ..sort((final a, final b) => b.compareTo(a));
 
-                // Use the calculated threshold, with a safe fallback.
-                final int threshold = _staggerCountThreshold ?? 10;
-                final Duration delay = (index < threshold)
-                    ? (50 * index).ms
-                    : 0.ms;
+            return CustomScrollView(
+              slivers: [
+                SliverToBoxAdapter(
+                  child: _MonthlySummaryCard(entries: entries)
+                      .animate()
+                      .fade(duration: 300.ms)
+                      .slideY(begin: -0.1, curve: Curves.easeOutCubic),
+                ),
+                SliverPadding(
+                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+                  sliver: SliverList.builder(
+                    itemCount: sortedDates.length,
+                    itemBuilder: (final context, final index) {
+                      final DateTime date = sortedDates[index];
+                      final List<RainfallEntry> dayEntries =
+                          groupedEntries[date]!;
 
-                return listItem
-                    .animate(delay: delay)
-                    .fade(duration: 300.ms)
-                    .slideX(
-                      begin: -0.25,
-                      duration: 300.ms,
-                      curve: Curves.easeOutCubic,
-                    );
-              },
+                      final Widget dateGroup = Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          if (index > 0) const SizedBox(height: 16),
+                          _DateHeader(date: date),
+                          ...dayEntries.map(
+                            (final entry) =>
+                                RainfallEntryListItem(entry: entry),
+                          ),
+                        ],
+                      );
+
+                      final bool hasBeenAnimated = _animatedIndices.contains(
+                        index,
+                      );
+
+                      // If already animated, return the widget without animation.
+                      if (hasBeenAnimated) {
+                        return dateGroup;
+                      }
+
+                      // Otherwise, add to the set and return the animated widget.
+                      _animatedIndices.add(index);
+                      return dateGroup
+                          .animate()
+                          .fade(duration: 500.ms)
+                          .slideY(
+                            begin: 0.2,
+                            duration: 400.ms,
+                            delay: (index * 50).ms,
+                            curve: Curves.easeOutCubic,
+                          );
+                    },
+                  ),
+                ),
+              ],
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class _MonthlySummaryCard extends ConsumerWidget {
+  const _MonthlySummaryCard({required this.entries});
+
+  final List<RainfallEntry> entries;
+
+  @override
+  Widget build(final BuildContext context, final WidgetRef ref) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final MeasurementUnit unit =
+        ref.watch(userPreferencesProvider).value?.measurementUnit ??
+        MeasurementUnit.mm;
+
+    final double totalRainfall = entries.map((final e) => e.amount).sum;
+
+    return Card(
+      margin: const EdgeInsets.fromLTRB(16, 16, 16, 4),
+      elevation: 2,
+      child: Padding(
+        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 16),
+        child: Wrap(
+          spacing: 16,
+          runSpacing: 16,
+          alignment: WrapAlignment.spaceEvenly,
+          children: [
+            _SummaryItem(
+              icon: Icons.water_drop_outlined,
+              label: l10n.rainfallEntriesTotalRainfall,
+              value: totalRainfall.formatRainfall(context, unit),
+            ),
+            _SummaryItem(
+              icon: Icons.format_list_numbered,
+              label: l10n.rainfallEntriesTotalEntries,
+              value: entries.length.toString(),
+            ),
+          ],
+        ),
+      ),
+    );
+  }
+}
+
+class _SummaryItem extends StatelessWidget {
+  const _SummaryItem({
+    required this.icon,
+    required this.label,
+    required this.value,
+  });
+
+  final IconData icon;
+  final String label;
+  final String value;
+
+  @override
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
+
+    return Column(
+      children: [
+        Row(
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Icon(icon, size: 16, color: colorScheme.onSurfaceVariant),
+            const SizedBox(width: 8),
+            Text(
+              label,
+              style: textTheme.bodyMedium?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
+            ),
+          ],
+        ),
+        const SizedBox(height: 8),
+        Text(
+          value,
+          style: textTheme.headlineSmall?.copyWith(
+            color: colorScheme.secondary,
+            fontWeight: FontWeight.bold,
+          ),
+          textAlign: TextAlign.center,
+        ),
+      ],
+    );
+  }
+}
+
+class _DateHeader extends StatelessWidget {
+  const _DateHeader({required this.date});
+
+  final DateTime date;
+
+  @override
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+
+    return Padding(
+      padding: const EdgeInsets.fromLTRB(4, 12, 0, 8),
+      child: Text(
+        DateFormat.yMMMd().format(date),
+        style: textTheme.titleMedium?.copyWith(
+          color: theme.colorScheme.onSurfaceVariant,
         ),
       ),
     );
@@ -172,7 +285,7 @@ class _EmptyState extends StatelessWidget {
           mainAxisAlignment: MainAxisAlignment.center,
           children: [
             Icon(
-              Icons.list_alt_outlined,
+              Icons.cloud_off_outlined,
               size: 64,
               color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
             ),
@@ -192,7 +305,7 @@ class _EmptyState extends StatelessWidget {
             ),
           ],
         ),
-      ),
+      ).animate().fade(duration: 500.ms).scale(begin: const Offset(0.95, 0.95)),
     );
   }
 }

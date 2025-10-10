@@ -240,6 +240,8 @@
   "rainfallEntriesEmpty": "No entries for this month.",
   "rainfallEntriesEmptyTitle": "No Entries Found",
   "rainfallEntriesEmptyMessage": "There are no rainfall entries recorded for the selected month. Log a new entry or select a different month to view its history.",
+  "rainfallEntriesTotalRainfall": "Total Rainfall",
+  "rainfallEntriesTotalEntries": "Total Entries",
   "editEntrySheetTitle": "Edit Rainfall Entry",
   "editEntryGaugeHeader": "Rain Gauge",
   "editEntryAmountHeader": "Rainfall Amount",

@@ -62,6 +62,8 @@ class RainfallEntryListItem extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
+    final TextTheme textTheme = theme.textTheme;
+    final ColorScheme colorScheme = theme.colorScheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
@@ -80,58 +82,82 @@ class RainfallEntryListItem extends ConsumerWidget {
 
     return Card(
       elevation: 2,
-      margin: const EdgeInsets.symmetric(vertical: 8),
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
-      color: theme.colorScheme.surface,
-      child: Padding(
-        padding: const EdgeInsets.all(16),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Text(
-                    DateFormat.yMMMd().format(entry.date),
-                    style: theme.textTheme.titleMedium,
-                  ),
-                  const SizedBox(height: 4),
-                  Text(
-                    "${entry.amount.formatRainfall(context, unit)} - $gaugeName",
-                    style: theme.textTheme.bodyMedium?.copyWith(
-                      color: theme.colorScheme.onSurfaceVariant,
+      margin: const EdgeInsets.symmetric(vertical: 6),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+      clipBehavior: Clip.antiAlias,
+      child: InkWell(
+        onTap: () => _showEditSheet(context),
+        child: Padding(
+          padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
+          child: Row(
+            children: [
+              Expanded(
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      crossAxisAlignment: CrossAxisAlignment.baseline,
+                      textBaseline: TextBaseline.alphabetic,
+                      children: [
+                        Row(
+                          crossAxisAlignment: CrossAxisAlignment.baseline,
+                          textBaseline: TextBaseline.alphabetic,
+                          children: [
+                            Text(
+                              entry.amount.formatRainfall(
+                                context,
+                                unit,
+                                withUnit: false,
+                              ),
+                              style: textTheme.headlineSmall?.copyWith(
+                                color: colorScheme.secondary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                            const SizedBox(width: 4),
+                            Padding(
+                              padding: const EdgeInsets.only(bottom: 3),
+                              child: Text(
+                                unit.name,
+                                style: textTheme.bodyMedium?.copyWith(
+                                  color: colorScheme.onSurfaceVariant,
+                                ),
+                              ),
+                            ),
+                          ],
+                        ),
+                        Text(
+                          DateFormat.jm().format(entry.date),
+                          style: textTheme.bodyLarge?.copyWith(
+                            color: colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
                     ),
-                  ),
-                ],
+                    const SizedBox(height: 8),
+                    Text(
+                      gaugeName,
+                      style: textTheme.bodyMedium?.copyWith(
+                        color: colorScheme.onSurfaceVariant.withValues(
+                          alpha: 0.8,
+                        ),
+                      ),
+                      overflow: TextOverflow.ellipsis,
+                      maxLines: 1,
+                    ),
+                  ],
+                ),
               ),
-            ),
-            Row(
-              children: [
-                AppIconButton(
-                  backgroundColor: theme.colorScheme.surfaceContainerHighest,
-                  icon: Icon(
-                    Icons.edit_outlined,
-                    color: theme.colorScheme.secondary,
-                    size: 24,
-                  ),
-                  tooltip: l10n.editEntryTooltip,
-                  onPressed: () => _showEditSheet(context),
-                ),
-                const SizedBox(width: 8),
-                AppIconButton(
-                  backgroundColor: theme.colorScheme.surfaceContainerHighest,
-                  icon: Icon(
-                    Icons.delete_outline,
-                    color: theme.colorScheme.error,
-                    size: 24,
-                  ),
-                  tooltip: l10n.deleteEntryTooltip,
-                  onPressed: () => _deleteEntry(context, ref, l10n),
-                ),
-              ],
-            ),
-          ],
+              const SizedBox(width: 8),
+              AppIconButton(
+                icon: const Icon(Icons.delete_outline, size: 22),
+                tooltip: l10n.deleteEntryTooltip,
+                onPressed: () => _deleteEntry(context, ref, l10n),
+                color: colorScheme.error,
+              ),
+            ],
+          ),
         ),
       ),
     );
