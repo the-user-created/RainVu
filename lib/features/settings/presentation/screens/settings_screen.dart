@@ -128,45 +128,72 @@ class SettingsScreen extends ConsumerWidget {
     return userPreferences.when(
       loading: () => const ListTile(title: Text("Loading...")),
       error: (final err, final stack) => ListTile(title: Text("Error: $err")),
-      data: (final preferences) => Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 20, vertical: 12),
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Expanded(
-              child: Text(
-                l10n.settingsAppearanceTheme,
-                style: theme.textTheme.titleMedium,
-              ),
+      data: (final preferences) {
+        final Widget label = Text(
+          l10n.settingsAppearanceTheme,
+          style: theme.textTheme.titleMedium,
+        );
+
+        final Widget control = AppSegmentedControl<AppThemeMode>(
+          selectedValue: preferences.themeMode,
+          onSelectionChanged: (final value) {
+            ref.read(userPreferencesProvider.notifier).setThemeMode(value);
+          },
+          segments: [
+            SegmentOption(
+              value: AppThemeMode.light,
+              label: Text(l10n.settingsThemeLight),
             ),
-            SizedBox(
-              width: 220,
-              child: AppSegmentedControl<AppThemeMode>(
-                selectedValue: preferences.themeMode,
-                onSelectionChanged: (final value) {
-                  ref
-                      .read(userPreferencesProvider.notifier)
-                      .setThemeMode(value);
-                },
-                segments: [
-                  SegmentOption(
-                    value: AppThemeMode.light,
-                    label: Text(l10n.settingsThemeLight),
-                  ),
-                  SegmentOption(
-                    value: AppThemeMode.dark,
-                    label: Text(l10n.settingsThemeDark),
-                  ),
-                  SegmentOption(
-                    value: AppThemeMode.system,
-                    label: Text(l10n.settingsThemeSystem),
-                  ),
-                ],
-              ),
+            SegmentOption(
+              value: AppThemeMode.dark,
+              label: Text(l10n.settingsThemeDark),
+            ),
+            SegmentOption(
+              value: AppThemeMode.system,
+              label: Text(l10n.settingsThemeSystem),
             ),
           ],
-        ),
-      ),
+        );
+
+        return LayoutBuilder(
+          builder: (final context, final constraints) {
+            const double breakpoint = 420;
+
+            if (constraints.maxWidth > breakpoint) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 8,
+                ),
+                child: Row(
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                  children: [
+                    Expanded(child: label),
+                    const SizedBox(width: 16),
+                    SizedBox(width: 220, child: control),
+                  ],
+                ),
+              );
+            } else {
+              // Use Column for narrower screens or large text
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    label,
+                    const SizedBox(height: 12),
+                    control, // This will take the full width
+                  ],
+                ),
+              );
+            }
+          },
+        );
+      },
     );
   }
 
@@ -316,6 +343,7 @@ class _ResetDialogState extends State<_ResetDialog> {
               ),
               autovalidateMode: AutovalidateMode.onUserInteraction,
               validator: (final value) =>
+                  // TODO: needs localization
                   (value != null && value.isNotEmpty && value != "RESET")
                   ? l10n.resetDialogValidationError
                   : null,

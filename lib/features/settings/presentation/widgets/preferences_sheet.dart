@@ -49,52 +49,48 @@ class _PreferencesSheetState extends ConsumerState<PreferencesSheet> {
             children: [
               _SettingRow(
                 label: l10n.settingsPreferencesMeasurementUnit,
-                control: SizedBox(
-                  width: 150,
-                  child: AppSegmentedControl<MeasurementUnit>(
-                    selectedValue: userPreferences.measurementUnit,
-                    onSelectionChanged: (final value) {
-                      ref
-                          .read(userPreferencesProvider.notifier)
-                          .setMeasurementUnit(value);
-                    },
-                    segments: [
-                      SegmentOption(
-                        value: MeasurementUnit.mm,
-                        label: Text(l10n.unitMM),
-                      ),
-                      SegmentOption(
-                        value: MeasurementUnit.inch,
-                        label: Text(l10n.unitIn),
-                      ),
-                    ],
-                  ),
+                control: AppSegmentedControl<MeasurementUnit>(
+                  selectedValue: userPreferences.measurementUnit,
+                  onSelectionChanged: (final value) {
+                    ref
+                        .read(userPreferencesProvider.notifier)
+                        .setMeasurementUnit(value);
+                  },
+                  segments: [
+                    SegmentOption(
+                      value: MeasurementUnit.mm,
+                      label: Text(l10n.unitMM),
+                    ),
+                    SegmentOption(
+                      value: MeasurementUnit.inch,
+                      label: Text(l10n.unitIn),
+                    ),
+                  ],
                 ),
+                controlWidth: 150,
               ),
               const SizedBox(height: 24),
               _SettingRow(
                 label: l10n.settingsPreferencesHemisphere,
-                control: SizedBox(
-                  width: 220,
-                  child: AppSegmentedControl<Hemisphere>(
-                    selectedValue: userPreferences.hemisphere,
-                    onSelectionChanged: (final value) {
-                      ref
-                          .read(userPreferencesProvider.notifier)
-                          .setHemisphere(value);
-                    },
-                    segments: [
-                      SegmentOption(
-                        value: Hemisphere.northern,
-                        label: Text(l10n.hemisphereNorthern),
-                      ),
-                      SegmentOption(
-                        value: Hemisphere.southern,
-                        label: Text(l10n.hemisphereSouthern),
-                      ),
-                    ],
-                  ),
+                control: AppSegmentedControl<Hemisphere>(
+                  selectedValue: userPreferences.hemisphere,
+                  onSelectionChanged: (final value) {
+                    ref
+                        .read(userPreferencesProvider.notifier)
+                        .setHemisphere(value);
+                  },
+                  segments: [
+                    SegmentOption(
+                      value: Hemisphere.northern,
+                      label: Text(l10n.hemisphereNorthern),
+                    ),
+                    SegmentOption(
+                      value: Hemisphere.southern,
+                      label: Text(l10n.hemisphereSouthern),
+                    ),
+                  ],
                 ),
+                controlWidth: 220,
               ),
               const SizedBox(height: 24),
               Text(
@@ -149,20 +145,43 @@ class _PreferencesSheetState extends ConsumerState<PreferencesSheet> {
 }
 
 class _SettingRow extends StatelessWidget {
-  const _SettingRow({required this.label, required this.control});
+  const _SettingRow({
+    required this.label,
+    required this.control,
+    this.controlWidth,
+  });
 
   final String label;
   final Widget control;
+  final double? controlWidth;
 
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    return Row(
-      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-      children: [
-        Expanded(child: Text(label, style: theme.textTheme.titleMedium)),
-        control,
-      ],
+    final Widget labelWidget = Text(label, style: theme.textTheme.titleMedium);
+
+    return LayoutBuilder(
+      builder: (final context, final constraints) {
+        const double breakpoint = 400;
+
+        if (constraints.maxWidth < breakpoint) {
+          // Use a Column for narrow screens or large text settings.
+          return Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [labelWidget, const SizedBox(height: 12), control],
+          );
+        } else {
+          // Use a Row for wider screens.
+          return Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Expanded(child: labelWidget),
+              const SizedBox(width: 16),
+              SizedBox(width: controlWidth, child: control),
+            ],
+          );
+        }
+      },
     );
   }
 }

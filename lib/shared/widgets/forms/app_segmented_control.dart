@@ -21,15 +21,16 @@ class SegmentOption<T> {
 /// A modern, styled segmented control widget with a sliding indicator animation.
 ///
 /// Replaces the standard [SegmentedButton] and [ToggleButtons] to provide
-/// a consistent look and feel across the app.
+/// a consistent look and feel across the app. It adapts its height to fit the
+/// label content, making it accessible for larger font sizes.
 class AppSegmentedControl<T> extends StatelessWidget {
   const AppSegmentedControl({
     required this.segments,
     required this.selectedValue,
     required this.onSelectionChanged,
     super.key,
-    this.height = 44,
     this.borderRadius,
+    this.padding = const EdgeInsets.symmetric(vertical: 12, horizontal: 8),
   });
 
   /// A list of [SegmentOption]s to display.
@@ -41,11 +42,11 @@ class AppSegmentedControl<T> extends StatelessWidget {
   /// Callback when a new segment is selected.
   final ValueChanged<T> onSelectionChanged;
 
-  /// The height of the control.
-  final double height;
-
   /// The border radius for the control.
   final BorderRadius? borderRadius;
+
+  /// The padding inside each segment.
+  final EdgeInsetsGeometry padding;
 
   @override
   Widget build(final BuildContext context) {
@@ -64,8 +65,7 @@ class AppSegmentedControl<T> extends StatelessWidget {
 
         return ClipRRect(
           borderRadius: effectiveBorderRadius,
-          child: Container(
-            height: height,
+          child: DecoratedBox(
             decoration: BoxDecoration(
               color: colorScheme.surfaceContainerHighest,
               borderRadius: effectiveBorderRadius,
@@ -77,8 +77,9 @@ class AppSegmentedControl<T> extends StatelessWidget {
                   duration: const Duration(milliseconds: 250),
                   curve: Curves.easeInOut,
                   left: selectedIndex * segmentWidth,
+                  top: 0,
+                  bottom: 0,
                   child: Container(
-                    height: height,
                     width: segmentWidth,
                     decoration: BoxDecoration(
                       color: colorScheme.secondary,
@@ -92,27 +93,38 @@ class AppSegmentedControl<T> extends StatelessWidget {
                   children: segments.map((final segment) {
                     final bool isSelected = segment.value == selectedValue;
                     final bool isEnabled = segment.enabled;
+                    final String labelText = segment.label is Text
+                        ? (segment.label as Text).data ?? ""
+                        : "";
 
                     return Expanded(
                       child: InkWell(
                         onTap: isEnabled
                             ? () => onSelectionChanged(segment.value)
                             : null,
-                        child: Container(
-                          height: double.infinity,
-                          alignment: Alignment.center,
-                          child: AnimatedDefaultTextStyle(
-                            duration: const Duration(milliseconds: 200),
-                            style: theme.textTheme.bodyMedium!.copyWith(
-                              color: isSelected
-                                  ? colorScheme.onSecondary
-                                  : isEnabled
-                                  ? colorScheme.onSurfaceVariant
-                                  : colorScheme.onSurfaceVariant.withValues(
-                                      alpha: 0.5,
-                                    ),
+                        child: Semantics(
+                          label: labelText,
+                          selected: isSelected,
+                          enabled: isEnabled,
+                          button: true,
+                          excludeSemantics: true,
+                          child: Container(
+                            padding: padding,
+                            alignment: Alignment.center,
+                            child: AnimatedDefaultTextStyle(
+                              duration: const Duration(milliseconds: 200),
+                              textAlign: TextAlign.center,
+                              style: theme.textTheme.bodyMedium!.copyWith(
+                                color: isSelected
+                                    ? colorScheme.onSecondary
+                                    : isEnabled
+                                    ? colorScheme.onSurfaceVariant
+                                    : colorScheme.onSurfaceVariant.withValues(
+                                        alpha: 0.5,
+                                      ),
+                              ),
+                              child: segment.label,
                             ),
-                            child: segment.label,
                           ),
                         ),
                       ),
