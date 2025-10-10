@@ -8,7 +8,10 @@ part "rainfall_entry_provider.g.dart";
 Stream<List<RainfallEntry>> rainfallEntriesForMonth(
   final Ref ref,
   final DateTime month,
-) => ref.watch(rainfallRepositoryProvider).watchEntriesForMonth(month);
+  final String? gaugeId,
+) => ref
+    .watch(rainfallRepositoryProvider)
+    .watchEntriesForMonth(month, gaugeId: gaugeId);
 
 @riverpod
 class RainfallEntryNotifier extends _$RainfallEntryNotifier {

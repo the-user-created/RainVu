@@ -2,9 +2,12 @@ import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:rain_wise/app_constants.dart";
+import "package:rain_wise/core/data/providers/data_providers.dart";
 import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
 import "package:rain_wise/features/rainfall_entry/presentation/widgets/rainfall_entry_list_item.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/domain/rainfall_entry.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
@@ -12,10 +15,12 @@ class RainfallEntriesScreen extends ConsumerStatefulWidget {
   const RainfallEntriesScreen({
     // Expects a 'YYYY-MM' string from router
     required this.month,
+    this.gaugeId,
     super.key,
   });
 
   final String month;
+  final String? gaugeId;
 
   @override
   ConsumerState<RainfallEntriesScreen> createState() =>
@@ -65,15 +70,42 @@ class _RainfallEntriesScreenState extends ConsumerState<RainfallEntriesScreen> {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final DateTime selectedMonth =
         DateTime.tryParse("${widget.month}-01") ?? DateTime.now();
+    final String? gaugeId = widget.gaugeId;
+
     final AsyncValue<List<RainfallEntry>> entriesAsync = ref.watch(
-      rainfallEntriesForMonthProvider(selectedMonth),
+      rainfallEntriesForMonthProvider(selectedMonth, gaugeId),
     );
+    final AsyncValue<RainGauge?> gaugeAsync = gaugeId != null
+        ? ref.watch(gaugeByIdProvider(gaugeId))
+        : const AsyncValue.data(null);
+
+    final String monthTitle = DateFormat.yMMMM().format(selectedMonth);
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          DateFormat.yMMMM().format(selectedMonth),
-          style: theme.textTheme.titleLarge,
+        title: gaugeAsync.when(
+          data: (final gauge) {
+            final String gaugeName;
+            if (gauge == null) {
+              gaugeName = "";
+            } else if (gauge.id == AppConstants.defaultGaugeId) {
+              gaugeName = l10n.defaultGaugeName;
+            } else {
+              gaugeName = gauge.name;
+            }
+            final String fullTitle = gaugeName.isNotEmpty
+                ? "$monthTitle: $gaugeName"
+                : monthTitle;
+
+            return Text(
+              fullTitle,
+              style: theme.textTheme.titleLarge,
+              overflow: TextOverflow.ellipsis,
+            );
+          },
+          loading: () => Text(monthTitle, style: theme.textTheme.titleLarge),
+          error: (final _, final _) =>
+              Text(monthTitle, style: theme.textTheme.titleLarge),
         ),
       ),
       body: SafeArea(

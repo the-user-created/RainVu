@@ -17,6 +17,11 @@ Stream<List<RainGauge>> allGaugesStream(final Ref ref) =>
 Future<List<RainGauge>> allGaugesFuture(final Ref ref) =>
     ref.watch(rainGaugeRepositoryProvider).fetchGauges();
 
+/// Provides a future to fetch a single rain gauge by its ID.
+@riverpod
+Future<RainGauge?> gaugeById(final Ref ref, final String gaugeId) =>
+    ref.watch(rainGaugeRepositoryProvider).getGaugeById(gaugeId);
+
 /// Provides a stream that emits a value whenever the rainfall_entries table
 /// is updated. Useful for invalidating other providers that depend on this data.
 @riverpod

@@ -144,20 +144,28 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
   }
 
   Stream<List<RainfallEntryWithGauge>> watchEntriesForMonth(
-    final DateTime month,
-  ) {
+    final DateTime month, {
+    final String? gaugeId,
+  }) {
     final JoinedSelectStatement<HasResultSet, dynamic> query =
         select(rainfallEntries).join([
-            leftOuterJoin(
-              rainGauges,
-              rainGauges.id.equalsExp(rainfallEntries.gaugeId),
-            ),
-          ])
-          ..where(
-            rainfallEntries.date.year.equals(month.year) &
-                rainfallEntries.date.month.equals(month.month),
-          )
-          ..orderBy([OrderingTerm.desc(rainfallEntries.date)]);
+          leftOuterJoin(
+            rainGauges,
+            rainGauges.id.equalsExp(rainfallEntries.gaugeId),
+          ),
+        ]);
+
+    Expression<bool> whereClause =
+        rainfallEntries.date.year.equals(month.year) &
+        rainfallEntries.date.month.equals(month.month);
+
+    if (gaugeId != null) {
+      whereClause = whereClause & rainfallEntries.gaugeId.equals(gaugeId);
+    }
+
+    query
+      ..where(whereClause)
+      ..orderBy([OrderingTerm.desc(rainfallEntries.date)]);
 
     return query
         .map(

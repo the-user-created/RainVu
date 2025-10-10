@@ -213,15 +213,16 @@ class SettingsRoute extends GoRouteData with $SettingsRoute {
 
 // Home Sub-Route
 class RainfallEntriesRoute extends GoRouteData with $RainfallEntriesRoute {
-  const RainfallEntriesRoute({required this.month});
+  const RainfallEntriesRoute({required this.month, this.gaugeId});
 
   final String month;
+  final String? gaugeId;
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
       _rootNavigatorKey;
 
   @override
   Widget build(final BuildContext context, final GoRouterState state) =>
-      RainfallEntriesScreen(month: month);
+      RainfallEntriesScreen(month: month, gaugeId: gaugeId);
 }
 
 // Insights Sub-Routes

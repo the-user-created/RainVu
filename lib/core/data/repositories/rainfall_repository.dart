@@ -11,7 +11,10 @@ export "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart"
 part "rainfall_repository.g.dart";
 
 abstract class RainfallRepository {
-  Stream<List<domain.RainfallEntry>> watchEntriesForMonth(final DateTime month);
+  Stream<List<domain.RainfallEntry>> watchEntriesForMonth(
+    final DateTime month, {
+    final String? gaugeId,
+  });
 
   Stream<List<domain.RainfallEntry>> watchRecentEntries({final int limit = 5});
 
@@ -57,9 +60,10 @@ class DriftRainfallRepository implements RainfallRepository {
 
   @override
   Stream<List<domain.RainfallEntry>> watchEntriesForMonth(
-    final DateTime month,
-  ) => _dao
-      .watchEntriesForMonth(month)
+    final DateTime month, {
+    final String? gaugeId,
+  }) => _dao
+      .watchEntriesForMonth(month, gaugeId: gaugeId)
       .map((final e) => e.map(_mapDriftToDomain).toList());
 
   @override

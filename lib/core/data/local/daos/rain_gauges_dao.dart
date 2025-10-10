@@ -100,6 +100,10 @@ class RainGaugesDao extends DatabaseAccessor<AppDatabase>
     rainGauges,
   )..orderBy([(final t) => OrderingTerm(expression: t.name)])).get();
 
+  Future<RainGauge?> getGaugeById(final String id) => (select(
+    rainGauges,
+  )..where((final tbl) => tbl.id.equals(id))).getSingleOrNull();
+
   Future<RainGauge?> findGaugeByName(final String name) => (select(
     rainGauges,
   )..where((final tbl) => tbl.name.equals(name))).getSingleOrNull();

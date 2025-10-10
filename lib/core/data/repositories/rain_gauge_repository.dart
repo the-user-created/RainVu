@@ -14,6 +14,8 @@ abstract class RainGaugeRepository {
 
   Future<List<domain.RainGauge>> fetchGauges();
 
+  Future<domain.RainGauge?> getGaugeById(final String gaugeId);
+
   Future<domain.RainGauge> addGauge({required final String name});
 
   Future<void> updateGauge(final domain.RainGauge updatedGauge);
@@ -49,6 +51,12 @@ class DriftRainGaugeRepository implements RainGaugeRepository {
   }
 
   @override
+  Future<domain.RainGauge?> getGaugeById(final String gaugeId) async {
+    final RainGauge? gauge = await _dao.getGaugeById(gaugeId);
+    return gauge == null ? null : _mapDriftToDomain(gauge);
+  }
+
+  @override
   Future<domain.RainGauge> addGauge({required final String name}) async {
     final newGauge = domain.RainGauge(id: const Uuid().v4(), name: name);
     final RainGaugesCompanion companion = _mapDomainToCompanion(newGauge);
@@ -75,6 +83,9 @@ class DriftRainGaugeRepository implements RainGaugeRepository {
         await _rainfallEntriesDao.deleteEntriesForGauge(gaugeId);
         await _dao.deleteGauge(RainGaugesCompanion(id: Value(gaugeId)));
       });
+
+  domain.RainGauge _mapDriftToDomain(final RainGauge driftGauge) =>
+      domain.RainGauge(id: driftGauge.id, name: driftGauge.name);
 
   domain.RainGauge _mapDriftWithCountToDomain(
     final RainGaugeWithEntryCount driftGauge,
