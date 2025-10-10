@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/ui/custom_colors.dart";
-import "package:rain_wise/features/settings/application/settings_providers.dart";
-import "package:rain_wise/features/settings/domain/changelog_entry.dart";
-import "package:rain_wise/features/settings/presentation/widgets/changelog/change_group_widget.dart";
+import "package:rain_wise/features/changelog/application/changelog_provider.dart";
+import "package:rain_wise/features/changelog/domain/changelog_entry.dart";
+import "package:rain_wise/features/changelog/presentation/widgets/change_group_widget.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
 class ChangelogScreen extends ConsumerWidget {

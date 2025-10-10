@@ -5,7 +5,7 @@ import "package:google_fonts/google_fonts.dart";
 class AppTheme {
   AppTheme._();
 
-  // --- Color Definitions from FlutterFlowTheme ---
+  // --- Color Definitions ---
   static const _primary = Color(0xFF36474F);
   static const _secondary = Color(0xFF6995A7);
   static const _tertiary = Color(0xFF14A698);
