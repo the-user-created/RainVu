@@ -1,4 +1,5 @@
 import "package:drift/drift.dart";
+import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/tables/rain_gauges.dart";
 import "package:rain_wise/core/data/local/tables/rainfall_entries.dart";
@@ -28,7 +29,20 @@ class RainGaugesDao extends DatabaseAccessor<AppDatabase>
           ])
           ..addColumns([entryCount])
           ..groupBy([rainGauges.id])
-          ..orderBy([OrderingTerm.asc(rainGauges.name)]);
+          ..orderBy([
+            OrderingTerm(
+              expression: CaseWhenExpression(
+                cases: [
+                  CaseWhen(
+                    rainGauges.id.equals(AppConstants.defaultGaugeId),
+                    then: const Constant(0),
+                  ),
+                ],
+                orElse: const Constant(1),
+              ),
+            ),
+            OrderingTerm.asc(rainGauges.name),
+          ]);
 
     return query.watch().map(
       (final rows) => rows
@@ -53,7 +67,20 @@ class RainGaugesDao extends DatabaseAccessor<AppDatabase>
           ])
           ..addColumns([entryCount])
           ..groupBy([rainGauges.id])
-          ..orderBy([OrderingTerm.asc(rainGauges.name)]);
+          ..orderBy([
+            OrderingTerm(
+              expression: CaseWhenExpression(
+                cases: [
+                  CaseWhen(
+                    rainGauges.id.equals(AppConstants.defaultGaugeId),
+                    then: const Constant(0),
+                  ),
+                ],
+                orElse: const Constant(1),
+              ),
+            ),
+            OrderingTerm.asc(rainGauges.name),
+          ]);
 
     return query
         .map(

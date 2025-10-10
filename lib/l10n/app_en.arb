@@ -712,7 +712,7 @@
   },
   "gaugeTileSetFavoriteTooltip": "Set as favorite gauge",
   "defaultGaugeName": "Default Gauge",
-  "deleteGaugeWithEntriesWarning": "This gauge has {count, plural, =1 {1 associated entry} other {{count} associated entries}}. Deleting it will reassign them to the '{defaultGaugeName}' gauge.",
+  "deleteGaugeWithEntriesWarning": "This gauge has {count, plural, =1 {1 associated entry} other {{count} associated entries}}. Deleting it will reassign them to '{defaultGaugeName}'.",
   "@deleteGaugeWithEntriesWarning": {
     "placeholders": {
       "count": {
