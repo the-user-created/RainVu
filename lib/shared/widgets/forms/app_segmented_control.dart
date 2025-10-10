@@ -18,7 +18,7 @@ class SegmentOption<T> {
   final bool enabled;
 }
 
-/// A modern, styled segmented control widget.
+/// A modern, styled segmented control widget with a sliding indicator animation.
 ///
 /// Replaces the standard [SegmentedButton] and [ToggleButtons] to provide
 /// a consistent look and feel across the app.
@@ -54,56 +54,76 @@ class AppSegmentedControl<T> extends StatelessWidget {
     final BorderRadius effectiveBorderRadius =
         borderRadius ?? BorderRadius.circular(12);
 
-    return ClipRRect(
-      borderRadius: effectiveBorderRadius,
-      child: Container(
-        height: height,
-        decoration: BoxDecoration(
-          color: colorScheme.surfaceContainerHighest,
-          borderRadius: effectiveBorderRadius,
-        ),
-        child: Row(
-          mainAxisSize: MainAxisSize.min,
-          children: segments.map((final segment) {
-            final bool isSelected = segment.value == selectedValue;
-            final bool isEnabled = segment.enabled;
+    final int selectedIndex = segments.indexWhere(
+      (final s) => s.value == selectedValue,
+    );
 
-            return Expanded(
-              child: InkWell(
-                onTap:
-                    isEnabled ? () => onSelectionChanged(segment.value) : null,
-                splashColor: isEnabled
-                    ? colorScheme.secondary.withValues(alpha: 0.2)
-                    : Colors.transparent,
-                highlightColor: isEnabled
-                    ? colorScheme.secondary.withValues(alpha: 0.1)
-                    : Colors.transparent,
-                child: AnimatedContainer(
-                  duration: const Duration(milliseconds: 200),
-                  height: double.infinity,
-                  decoration: BoxDecoration(
-                    color:
-                        isSelected ? colorScheme.secondary : Colors.transparent,
-                  ),
-                  child: Center(
-                    child: DefaultTextStyle(
-                      style: theme.textTheme.bodyMedium!.copyWith(
-                        color: isSelected
-                            ? colorScheme.onSecondary
-                            : isEnabled
-                                ? colorScheme.onSurfaceVariant
-                                : colorScheme.onSurfaceVariant
-                                    .withValues(alpha: 0.5),
-                      ),
-                      child: segment.label,
+    return LayoutBuilder(
+      builder: (final context, final constraints) {
+        final double segmentWidth = constraints.maxWidth / segments.length;
+
+        return ClipRRect(
+          borderRadius: effectiveBorderRadius,
+          child: Container(
+            height: height,
+            decoration: BoxDecoration(
+              color: colorScheme.surfaceContainerHighest,
+              borderRadius: effectiveBorderRadius,
+            ),
+            child: Stack(
+              children: [
+                // Animated sliding bubble
+                AnimatedPositioned(
+                  duration: const Duration(milliseconds: 250),
+                  curve: Curves.easeInOut,
+                  left: selectedIndex * segmentWidth,
+                  child: Container(
+                    height: height,
+                    width: segmentWidth,
+                    decoration: BoxDecoration(
+                      color: colorScheme.secondary,
+                      borderRadius: effectiveBorderRadius,
                     ),
                   ),
                 ),
-              ),
-            );
-          }).toList(),
-        ),
-      ),
+                // Segment labels and tap detectors
+                Row(
+                  mainAxisSize: MainAxisSize.min,
+                  children: segments.map((final segment) {
+                    final bool isSelected = segment.value == selectedValue;
+                    final bool isEnabled = segment.enabled;
+
+                    return Expanded(
+                      child: InkWell(
+                        onTap: isEnabled
+                            ? () => onSelectionChanged(segment.value)
+                            : null,
+                        child: Container(
+                          height: double.infinity,
+                          alignment: Alignment.center,
+                          child: AnimatedDefaultTextStyle(
+                            duration: const Duration(milliseconds: 200),
+                            style: theme.textTheme.bodyMedium!.copyWith(
+                              color: isSelected
+                                  ? colorScheme.onSecondary
+                                  : isEnabled
+                                  ? colorScheme.onSurfaceVariant
+                                  : colorScheme.onSurfaceVariant.withValues(
+                                      alpha: 0.5,
+                                    ),
+                            ),
+                            child: segment.label,
+                          ),
+                        ),
+                      ),
+                    );
+                  }).toList(),
+                ),
+              ],
+            ),
+          ),
+        );
+      },
     );
   }
 }

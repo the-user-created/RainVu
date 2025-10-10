@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_animate/flutter_animate.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
@@ -246,33 +247,37 @@ class _MonthYearPickerState extends State<_MonthYearPicker> {
           ),
         ),
       ],
-      child: SizedBox(
-        height: 340,
-        child: Column(
-          children: [
-            _PickerHeader(
-              displayedDate: _displayedDate,
-              currentView: _currentView,
-              onPrevious: _handlePrevious,
-              onNext: _handleNext,
-              onViewSwitch: _handleViewChange,
-              canGoPrevious: _canGoPrevious,
-              canGoNext: _canGoNext,
-            ),
-            const SizedBox(height: 16),
-            Expanded(
-              child: AnimatedSwitcher(
-                duration: const Duration(milliseconds: 300),
-                transitionBuilder: (final child, final animation) =>
-                    FadeTransition(opacity: animation, child: child),
-                child: _currentView == _PickerView.year
-                    ? yearPicker
-                    : decadePicker,
-              ),
-            ),
-          ],
-        ),
-      ),
+      child:
+          SizedBox(
+                height: 340,
+                child: Column(
+                  children: [
+                    _PickerHeader(
+                      displayedDate: _displayedDate,
+                      currentView: _currentView,
+                      onPrevious: _handlePrevious,
+                      onNext: _handleNext,
+                      onViewSwitch: _handleViewChange,
+                      canGoPrevious: _canGoPrevious,
+                      canGoNext: _canGoNext,
+                    ),
+                    const SizedBox(height: 16),
+                    Expanded(
+                      child: AnimatedSwitcher(
+                        duration: const Duration(milliseconds: 300),
+                        transitionBuilder: (final child, final animation) =>
+                            FadeTransition(opacity: animation, child: child),
+                        child: _currentView == _PickerView.year
+                            ? yearPicker
+                            : decadePicker,
+                      ),
+                    ),
+                  ],
+                ),
+              )
+              .animate()
+              .fadeIn(duration: 300.ms, delay: 150.ms)
+              .slideY(begin: 0.1, curve: Curves.easeOutCubic),
     );
   }
 }
@@ -387,7 +392,7 @@ class _YearView extends StatelessWidget {
   );
 }
 
-class _MonthCell extends StatelessWidget {
+class _MonthCell extends StatefulWidget {
   const _MonthCell({
     required this.month,
     required this.isSelected,
@@ -401,46 +406,59 @@ class _MonthCell extends StatelessWidget {
   final VoidCallback onTap;
 
   @override
+  State<_MonthCell> createState() => _MonthCellState();
+}
+
+class _MonthCellState extends State<_MonthCell> {
+  bool _isPressed = false;
+
+  @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
-    final String monthText = DateFormat.MMM().format(DateTime(0, month));
+    final String monthText = DateFormat.MMM().format(DateTime(0, widget.month));
 
     Color backgroundColor = Colors.transparent;
     Color textColor = colorScheme.onSurface;
 
-    if (isSelected) {
+    if (widget.isSelected) {
       backgroundColor = colorScheme.secondary;
       textColor = colorScheme.onSecondary;
     } else {
       backgroundColor = colorScheme.surfaceContainerHighest;
     }
 
-    if (isDisabled) {
+    if (widget.isDisabled) {
       textColor = colorScheme.onSurface.withValues(alpha: 0.38);
     }
 
     return InkWell(
-      onTap: isDisabled ? null : onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        decoration: BoxDecoration(
-          color: backgroundColor,
+          onTap: widget.isDisabled ? null : widget.onTap,
+          onHighlightChanged: (final value) =>
+              setState(() => _isPressed = value),
           borderRadius: BorderRadius.circular(8),
-        ),
-        child: Center(
-          child: Text(
-            monthText,
-            style: textTheme.bodyLarge?.copyWith(
-              color: textColor,
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Center(
+              child: Text(
+                monthText,
+                style: textTheme.bodyLarge?.copyWith(
+                  color: textColor,
+                  fontWeight: widget.isSelected
+                      ? FontWeight.bold
+                      : FontWeight.normal,
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        )
+        .animate(target: _isPressed ? 1 : 0)
+        .scaleXY(end: 0.9, duration: 100.ms, curve: Curves.easeOut);
   }
 }
 
@@ -492,7 +510,7 @@ class _DecadeView extends StatelessWidget {
   }
 }
 
-class _YearCell extends StatelessWidget {
+class _YearCell extends StatefulWidget {
   const _YearCell({
     required this.year,
     required this.isSelected,
@@ -506,6 +524,13 @@ class _YearCell extends StatelessWidget {
   final VoidCallback onTap;
 
   @override
+  State<_YearCell> createState() => _YearCellState();
+}
+
+class _YearCellState extends State<_YearCell> {
+  bool _isPressed = false;
+
+  @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
@@ -514,36 +539,42 @@ class _YearCell extends StatelessWidget {
     Color backgroundColor = Colors.transparent;
     Color textColor = colorScheme.onSurface;
 
-    if (isSelected) {
+    if (widget.isSelected) {
       backgroundColor = colorScheme.secondary;
       textColor = colorScheme.onSecondary;
     } else {
       backgroundColor = colorScheme.surfaceContainerHighest;
     }
 
-    if (isDisabled) {
+    if (widget.isDisabled) {
       textColor = colorScheme.onSurface.withValues(alpha: 0.38);
     }
 
     return InkWell(
-      onTap: isDisabled ? null : onTap,
-      borderRadius: BorderRadius.circular(8),
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 200),
-        decoration: BoxDecoration(
-          color: backgroundColor,
+          onTap: widget.isDisabled ? null : widget.onTap,
+          onHighlightChanged: (final value) =>
+              setState(() => _isPressed = value),
           borderRadius: BorderRadius.circular(8),
-        ),
-        child: Center(
-          child: Text(
-            year.toString(),
-            style: textTheme.bodyLarge?.copyWith(
-              color: textColor,
-              fontWeight: isSelected ? FontWeight.bold : FontWeight.normal,
+          child: AnimatedContainer(
+            duration: const Duration(milliseconds: 200),
+            decoration: BoxDecoration(
+              color: backgroundColor,
+              borderRadius: BorderRadius.circular(8),
+            ),
+            child: Center(
+              child: Text(
+                widget.year.toString(),
+                style: textTheme.bodyLarge?.copyWith(
+                  color: textColor,
+                  fontWeight: widget.isSelected
+                      ? FontWeight.bold
+                      : FontWeight.normal,
+                ),
+              ),
             ),
           ),
-        ),
-      ),
-    );
+        )
+        .animate(target: _isPressed ? 1 : 0)
+        .scaleXY(end: 0.9, duration: 100.ms, curve: Curves.easeOut);
   }
 }
