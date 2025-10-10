@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
@@ -17,20 +18,24 @@ class AddGaugeSheet extends ConsumerWidget {
 
     return InteractiveSheet(
       title: Text(l10n.addGaugeSheetTitle),
-      child: GaugeForm(
-        onSave: (final name) async {
-          final RainGauge newGauge = await ref
-              .read(gaugesProvider.notifier)
-              .addGauge(name: name);
-          showSnackbar(
-            l10n.gaugeAddedSuccess(newGauge.name),
-            type: MessageType.success,
-          );
-          if (context.mounted) {
-            Navigator.pop(context, newGauge);
-          }
-        },
-      ),
+      child:
+          GaugeForm(
+                onSave: (final name) async {
+                  final RainGauge newGauge = await ref
+                      .read(gaugesProvider.notifier)
+                      .addGauge(name: name);
+                  showSnackbar(
+                    l10n.gaugeAddedSuccess(newGauge.name),
+                    type: MessageType.success,
+                  );
+                  if (context.mounted) {
+                    Navigator.pop(context, newGauge);
+                  }
+                },
+              )
+              .animate()
+              .fadeIn(duration: 400.ms, delay: 100.ms)
+              .slideY(begin: 0.1, curve: Curves.easeOutCubic),
     );
   }
 }
