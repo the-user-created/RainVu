@@ -188,18 +188,11 @@
   "viewDetailedInsightsLink": "View detailed insights",
   "manageGaugesTitle": "Rain Gauges",
   "manageGaugesAddButton": "Add New Rain Gauge",
+  "addGaugeTooltip": "Add New Gauge",
+  "gaugeListEmptyTitle": "No Rain Gauges",
+  "gaugeListEmptyMessage": "Tap the add button in the top right to create your first rain gauge and start logging rainfall.",
   "addGaugeSheetTitle": "Add New Rain Gauge",
   "editGaugeSheetTitle": "Edit Rain Gauge",
-  "gaugeListTitle": "My Rain Gauges",
-  "gaugeListActiveCount": "{count} Active",
-  "@gaugeListActiveCount": {
-    "description": "Number of active rain gauges",
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
   "gaugeListEmpty": "No rain gauges added yet.",
   "gaugeListError": "Error: {error}",
   "@gaugeListError": {

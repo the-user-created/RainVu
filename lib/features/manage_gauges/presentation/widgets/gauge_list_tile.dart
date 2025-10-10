@@ -1,9 +1,11 @@
 import "package:flutter/material.dart";
+import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:intl/intl.dart";
 import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
-import "package:rain_wise/core/utils/extensions.dart";
+import "package:rain_wise/core/navigation/app_router.dart";
 import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/edit_gauge_sheet.dart";
@@ -14,15 +16,27 @@ import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
 
-class GaugeListTile extends ConsumerWidget {
+class GaugeListTile extends ConsumerStatefulWidget {
   const GaugeListTile({required this.gauge, super.key});
 
   final RainGauge gauge;
 
+  @override
+  ConsumerState<GaugeListTile> createState() => _GaugeListTileState();
+}
+
+class _GaugeListTileState extends ConsumerState<GaugeListTile> {
+  bool _isPressed = false;
+
+  void _onTap() {
+    final String month = DateFormat("yyyy-MM").format(DateTime.now());
+    RainfallEntriesRoute(month: month, gaugeId: widget.gauge.id).push(context);
+  }
+
   void _showEditSheet(final BuildContext context) {
     showAdaptiveSheet<void>(
       context: context,
-      builder: (final context) => EditGaugeSheet(gauge: gauge),
+      builder: (final context) => EditGaugeSheet(gauge: widget.gauge),
     );
   }
 
@@ -33,7 +47,7 @@ class GaugeListTile extends ConsumerWidget {
   ) async {
     final int entryCount = await ref
         .read(rainfallRepositoryProvider)
-        .countEntriesForGauge(gauge.id);
+        .countEntriesForGauge(widget.gauge.id);
 
     if (entryCount == 0) {
       final bool? confirmed = await showDialog<bool>(
@@ -57,9 +71,9 @@ class GaugeListTile extends ConsumerWidget {
         ),
       );
       if (confirmed == true && context.mounted) {
-        await ref.read(gaugesProvider.notifier).deleteGauge(gauge.id);
+        await ref.read(gaugesProvider.notifier).deleteGauge(widget.gauge.id);
         showSnackbar(
-          l10n.gaugeDeletedSuccess(gauge.name),
+          l10n.gaugeDeletedSuccess(widget.gauge.name),
           type: MessageType.success,
         );
       }
@@ -116,104 +130,110 @@ class GaugeListTile extends ConsumerWidget {
           : DeleteGaugeAction.reassign;
       await ref
           .read(gaugesProvider.notifier)
-          .deleteGauge(gauge.id, action: action);
+          .deleteGauge(widget.gauge.id, action: action);
       showSnackbar(
-        l10n.gaugeDeletedSuccess(gauge.name),
+        l10n.gaugeDeletedSuccess(widget.gauge.name),
         type: MessageType.success,
       );
     }
   }
 
   @override
-  Widget build(final BuildContext context, final WidgetRef ref) {
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final String? favoriteGaugeId = ref
         .watch(userPreferencesProvider)
         .value
         ?.favoriteGaugeId;
-    final bool isFavorite = gauge.id == favoriteGaugeId;
-    final bool isDefaultGauge = gauge.id == AppConstants.defaultGaugeId;
+    final bool isFavorite = widget.gauge.id == favoriteGaugeId;
+    final bool isDefaultGauge = widget.gauge.id == AppConstants.defaultGaugeId;
     final String displayName = isDefaultGauge
         ? l10n.defaultGaugeName
-        : gauge.name;
+        : widget.gauge.name;
 
-    return Container(
-      padding: const EdgeInsets.all(12),
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest.withValues(alpha: 0.5),
-        borderRadius: BorderRadius.circular(8),
-      ),
-      child: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceBetween,
-        children: [
-          Expanded(
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(displayName, style: theme.textTheme.bodyLarge),
-                const SizedBox(height: 2),
-                Text(
-                  l10n.gaugeEntryCount(gauge.entryCount),
-                  style: theme.textTheme.bodySmall?.copyWith(
-                    color: theme.colorScheme.onSurfaceVariant,
+    return Card(
+          elevation: 2,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: _onTap,
+            onTapDown: (final _) => setState(() => _isPressed = true),
+            onTapUp: (final _) => setState(() => _isPressed = false),
+            onTapCancel: () => setState(() => _isPressed = false),
+            child: Padding(
+              padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
+              child: Row(
+                children: [
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Text(
+                          displayName,
+                          style: theme.textTheme.titleMedium,
+                          overflow: TextOverflow.ellipsis,
+                        ),
+                        const SizedBox(height: 4),
+                        Text(
+                          l10n.gaugeEntryCount(widget.gauge.entryCount),
+                          style: theme.textTheme.bodyMedium?.copyWith(
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ),
+                      ],
+                    ),
                   ),
-                ),
-              ],
+                  const SizedBox(width: 8),
+                  Row(
+                    children: [
+                      AppIconButton(
+                        icon: Icon(
+                          isFavorite ? Icons.star : Icons.star_border_outlined,
+                          size: 22,
+                        ),
+                        color: isFavorite
+                            ? Colors.amber[600]
+                            : theme.colorScheme.onSurfaceVariant,
+                        tooltip: l10n.gaugeTileSetFavoriteTooltip,
+                        onPressed: () async {
+                          final String? newFavoriteId = isFavorite
+                              ? null
+                              : widget.gauge.id;
+                          await ref
+                              .read(userPreferencesProvider.notifier)
+                              .setFavoriteGauge(newFavoriteId);
+                          final String message = isFavorite
+                              ? l10n.gaugeUnsetAsFavorite(displayName)
+                              : l10n.gaugeSetAsFavorite(displayName);
+                          showSnackbar(message, type: MessageType.success);
+                        },
+                      ),
+                      if (!isDefaultGauge)
+                        AppIconButton(
+                          icon: const Icon(Icons.edit_outlined, size: 22),
+                          tooltip: l10n.gaugeTileEditTooltip,
+                          color: theme.colorScheme.onSurfaceVariant,
+                          onPressed: () => _showEditSheet(context),
+                        ),
+                      if (!isDefaultGauge)
+                        AppIconButton(
+                          icon: const Icon(Icons.delete_outline, size: 22),
+                          tooltip: l10n.gaugeTileDeleteTooltip,
+                          color: theme.colorScheme.error,
+                          onPressed: () =>
+                              _showDeleteDialog(context, ref, l10n),
+                        ),
+                    ],
+                  ),
+                ],
+              ),
             ),
           ),
-          Row(
-            children: [
-              AppIconButton(
-                icon: Icon(
-                  isFavorite ? Icons.star : Icons.star_border,
-                  color: isFavorite
-                      ? Colors.amber[600]
-                      : theme.colorScheme.onSurface,
-                  size: 20,
-                ),
-                backgroundColor: theme.colorScheme.surface,
-                borderRadius: BorderRadius.circular(30),
-                onPressed: () async {
-                  final String? newFavoriteId = isFavorite ? null : gauge.id;
-                  await ref
-                      .read(userPreferencesProvider.notifier)
-                      .setFavoriteGauge(newFavoriteId);
-                  final String message = isFavorite
-                      ? l10n.gaugeUnsetAsFavorite(displayName)
-                      : l10n.gaugeSetAsFavorite(displayName);
-                  showSnackbar(message, type: MessageType.success);
-                },
-                tooltip: l10n.gaugeTileSetFavoriteTooltip,
-              ),
-              if (!isDefaultGauge)
-                AppIconButton(
-                  icon: Icon(
-                    Icons.edit,
-                    color: theme.colorScheme.onSurface,
-                    size: 20,
-                  ),
-                  backgroundColor: theme.colorScheme.surface,
-                  borderRadius: BorderRadius.circular(30),
-                  onPressed: () => _showEditSheet(context),
-                  tooltip: l10n.gaugeTileEditTooltip,
-                ),
-              if (!isDefaultGauge)
-                AppIconButton(
-                  icon: Icon(
-                    Icons.delete_outline,
-                    color: theme.colorScheme.error,
-                    size: 20,
-                  ),
-                  backgroundColor: theme.colorScheme.surface,
-                  borderRadius: BorderRadius.circular(30),
-                  onPressed: () => _showDeleteDialog(context, ref, l10n),
-                  tooltip: l10n.gaugeTileDeleteTooltip,
-                ),
-            ].divide(const SizedBox(width: 8)),
-          ),
-        ],
-      ),
-    );
+        )
+        .animate(target: _isPressed ? 1 : 0)
+        .scaleXY(end: 0.98, duration: 150.ms, curve: Curves.easeOut);
   }
 }
