@@ -2,6 +2,7 @@ import "dart:math";
 
 import "package:fl_chart/fl_chart.dart";
 import "package:flutter/material.dart";
+import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
@@ -10,13 +11,39 @@ import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/widgets/charts/chart_card.dart";
 
-class MonthlyTrendChart extends ConsumerWidget {
+class MonthlyTrendChart extends ConsumerStatefulWidget {
   const MonthlyTrendChart({required this.trends, super.key});
 
   final List<MonthlyTrendPoint> trends;
 
   @override
-  Widget build(final BuildContext context, final WidgetRef ref) {
+  ConsumerState<MonthlyTrendChart> createState() => _MonthlyTrendChartState();
+}
+
+class _MonthlyTrendChartState extends ConsumerState<MonthlyTrendChart>
+    with SingleTickerProviderStateMixin {
+  late AnimationController _controller;
+  late Animation<double> _animation;
+
+  @override
+  void initState() {
+    super.initState();
+    _controller = AnimationController(vsync: this, duration: 600.ms);
+    _animation = CurvedAnimation(
+      parent: _controller,
+      curve: Curves.easeOutCubic,
+    );
+    _controller.forward();
+  }
+
+  @override
+  void dispose() {
+    _controller.dispose();
+    super.dispose();
+  }
+
+  @override
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
@@ -26,7 +53,7 @@ class MonthlyTrendChart extends ConsumerWidget {
         MeasurementUnit.mm;
     final bool isInch = unit == MeasurementUnit.inch;
 
-    final bool hasData = trends.any((final e) => e.rainfall > 0);
+    final bool hasData = widget.trends.any((final e) => e.rainfall > 0);
 
     final Widget legendWidget = Text(
       l10n.monthlyTrendChartSubtitle,
@@ -52,31 +79,38 @@ class MonthlyTrendChart extends ConsumerWidget {
       );
     }
 
-    final double maxRainfall = trends.map((final e) => e.rainfall).reduce(max);
-    final double displayMaxRainfall = isInch
-        ? maxRainfall.toInches()
-        : maxRainfall;
+    return AnimatedBuilder(
+      animation: _animation,
+      builder: (final context, final _) {
+        final double maxRainfall = widget.trends
+            .map((final e) => e.rainfall)
+            .reduce(max);
+        final double displayMaxRainfall = isInch
+            ? maxRainfall.toInches()
+            : maxRainfall;
 
-    final BarChart barChart = BarChart(
-      BarChartData(
-        maxY: (displayMaxRainfall * 1.2).clamp(
-          isInch ? 0.5 : 10.0,
-          double.infinity,
-        ),
-        barTouchData: _buildBarTouchData(context, unit),
-        titlesData: _buildTitlesData(textTheme),
-        gridData: _buildGridData(colorScheme),
-        borderData: FlBorderData(show: false),
-        barGroups: _buildBarGroups(colorScheme, isInch),
-        alignment: BarChartAlignment.spaceAround,
-      ),
-    );
+        final BarChart barChart = BarChart(
+          BarChartData(
+            maxY: (displayMaxRainfall * 1.2).clamp(
+              isInch ? 0.5 : 10.0,
+              double.infinity,
+            ),
+            barTouchData: _buildBarTouchData(context, unit),
+            titlesData: _buildTitlesData(textTheme),
+            gridData: _buildGridData(colorScheme),
+            borderData: FlBorderData(show: false),
+            barGroups: _buildBarGroups(colorScheme, isInch, _animation.value),
+            alignment: BarChartAlignment.spaceAround,
+          ),
+        );
 
-    return ChartCard(
-      title: l10n.monthlyTrendChartTitle,
-      legend: legendWidget,
-      margin: EdgeInsets.zero,
-      chart: barChart,
+        return ChartCard(
+          title: l10n.monthlyTrendChartTitle,
+          legend: legendWidget,
+          margin: EdgeInsets.zero,
+          chart: barChart,
+        );
+      },
     );
   }
 
@@ -99,7 +133,7 @@ class MonthlyTrendChart extends ConsumerWidget {
                 context,
                 unit,
               );
-              final String month = trends[groupIndex].month;
+              final String month = widget.trends[groupIndex].month;
 
               return BarTooltipItem(
                 "$month\n",
@@ -130,12 +164,12 @@ class MonthlyTrendChart extends ConsumerWidget {
         reservedSize: 30,
         getTitlesWidget: (final value, final meta) {
           final int index = value.toInt();
-          if (index >= trends.length) {
+          if (index >= widget.trends.length) {
             return const Text("");
           }
           return Padding(
             padding: const EdgeInsets.only(top: 6),
-            child: Text(trends[index].month, style: textTheme.bodySmall),
+            child: Text(widget.trends[index].month, style: textTheme.bodySmall),
           );
         },
       ),
@@ -169,7 +203,8 @@ class MonthlyTrendChart extends ConsumerWidget {
   List<BarChartGroupData> _buildBarGroups(
     final ColorScheme colorScheme,
     final bool isInch,
-  ) => trends
+    final double animationValue,
+  ) => widget.trends
       .asMap()
       .entries
       .map(
@@ -177,9 +212,11 @@ class MonthlyTrendChart extends ConsumerWidget {
           x: entry.key,
           barRods: [
             BarChartRodData(
-              toY: isInch
-                  ? entry.value.rainfall.toInches()
-                  : entry.value.rainfall,
+              toY:
+                  (isInch
+                      ? entry.value.rainfall.toInches()
+                      : entry.value.rainfall) *
+                  animationValue,
               color: colorScheme.tertiary,
               width: 12,
               borderRadius: const BorderRadius.only(
