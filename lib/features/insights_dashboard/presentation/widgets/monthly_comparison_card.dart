@@ -8,14 +8,31 @@ import "package:rain_wise/shared/domain/user_preferences.dart";
 
 /// A card with a fixed height and variable width, designed to show a
 /// month's rainfall total and its comparison to historical averages.
-class MonthlyComparisonCard extends ConsumerWidget {
-  const MonthlyComparisonCard({required this.data, super.key});
+class MonthlyComparisonCard extends ConsumerStatefulWidget {
+  const MonthlyComparisonCard({required this.data, this.onTap, super.key});
 
   final MonthlyComparisonData data;
+  final VoidCallback? onTap;
   static const double _cardHeight = 150;
 
   @override
-  Widget build(final BuildContext context, final WidgetRef ref) {
+  ConsumerState<MonthlyComparisonCard> createState() =>
+      _MonthlyComparisonCardState();
+}
+
+class _MonthlyComparisonCardState extends ConsumerState<MonthlyComparisonCard> {
+  bool _isPressed = false;
+
+  void _onHighlightChanged(final bool value) {
+    if (mounted) {
+      setState(() {
+        _isPressed = value;
+      });
+    }
+  }
+
+  @override
+  Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final TextTheme textTheme = theme.textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
@@ -24,44 +41,59 @@ class MonthlyComparisonCard extends ConsumerWidget {
         MeasurementUnit.mm;
 
     return SizedBox(
-      height: _cardHeight,
-      child: Card(
-        elevation: 2,
-        color: theme.colorScheme.surfaceContainerHighest,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        child: IntrinsicWidth(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Text(data.month, style: textTheme.titleMedium),
-                Column(
-                  mainAxisSize: MainAxisSize.min,
+      height: MonthlyComparisonCard._cardHeight,
+      child: AnimatedScale(
+        scale: _isPressed ? 0.95 : 1.0,
+        duration: const Duration(milliseconds: 150),
+        curve: Curves.easeOut,
+        child: Card(
+          elevation: 2,
+          color: theme.colorScheme.surfaceContainerHighest,
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(16),
+          ),
+          clipBehavior: Clip.antiAlias,
+          child: InkWell(
+            onTap: widget.onTap,
+            onHighlightChanged: _onHighlightChanged,
+            child: IntrinsicWidth(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
+                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
                   children: [
-                    _DataRow(
-                      label: l10n.mtdBreakdownTotal,
-                      value: data.mtdTotal.formatRainfall(context, unit),
-                    ),
-                    const SizedBox(height: 8),
-                    _ComparisonRow(
-                      label: l10n.mtdBreakdown2yrAvg,
-                      currentValue: data.mtdTotal,
-                      comparisonValue: data.twoYrAvg,
-                      unit: unit,
-                    ),
-                    const SizedBox(height: 8),
-                    _ComparisonRow(
-                      label: l10n.mtdBreakdown5yrAvg,
-                      currentValue: data.mtdTotal,
-                      comparisonValue: data.fiveYrAvg,
-                      unit: unit,
+                    Text(widget.data.month, style: textTheme.titleMedium),
+                    Column(
+                      mainAxisSize: MainAxisSize.min,
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        _DataRow(
+                          label: l10n.mtdBreakdownTotal,
+                          value: widget.data.mtdTotal.formatRainfall(
+                            context,
+                            unit,
+                          ),
+                        ),
+                        const SizedBox(height: 8),
+                        _ComparisonRow(
+                          label: l10n.mtdBreakdown2yrAvg,
+                          currentValue: widget.data.mtdTotal,
+                          comparisonValue: widget.data.twoYrAvg,
+                          unit: unit,
+                        ),
+                        const SizedBox(height: 8),
+                        _ComparisonRow(
+                          label: l10n.mtdBreakdown5yrAvg,
+                          currentValue: widget.data.mtdTotal,
+                          comparisonValue: widget.data.fiveYrAvg,
+                          unit: unit,
+                        ),
+                      ],
                     ),
                   ],
                 ),
-              ],
+              ),
             ),
           ),
         ),

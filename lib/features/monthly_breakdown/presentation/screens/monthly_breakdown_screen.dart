@@ -14,7 +14,10 @@ import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/pickers/month_year_picker.dart";
 
 class MonthlyBreakdownScreen extends ConsumerStatefulWidget {
-  const MonthlyBreakdownScreen({super.key});
+  const MonthlyBreakdownScreen({this.initialMonth, super.key});
+
+  /// An optional initial month to display, in 'YYYY-MM' format.
+  final String? initialMonth;
 
   @override
   ConsumerState<MonthlyBreakdownScreen> createState() =>
@@ -28,6 +31,19 @@ class _MonthlyBreakdownScreenState
   @override
   void initState() {
     super.initState();
+    if (widget.initialMonth != null) {
+      // Attempt to parse the provided month string.
+      final List<String> parts = widget.initialMonth!.split("-");
+      if (parts.length == 2) {
+        final int? year = int.tryParse(parts[0]);
+        final int? month = int.tryParse(parts[1]);
+        if (year != null && month != null) {
+          _selectedMonth = DateTime(year, month);
+          return; // Exit if successful
+        }
+      }
+    }
+    // Fallback to the current month if no valid initialMonth is provided.
     _selectedMonth = DateTime(DateTime.now().year, DateTime.now().month);
   }
 

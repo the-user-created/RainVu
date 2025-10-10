@@ -226,14 +226,17 @@ class RainfallEntriesRoute extends GoRouteData with $RainfallEntriesRoute {
 
 // Insights Sub-Routes
 class MonthlyBreakdownRoute extends GoRouteData with $MonthlyBreakdownRoute {
-  const MonthlyBreakdownRoute();
+  const MonthlyBreakdownRoute({this.month});
+
+  /// An optional initial month to display, in 'YYYY-MM' format via query param.
+  final String? month;
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
       _rootNavigatorKey;
 
   @override
   Widget build(final BuildContext context, final GoRouterState state) =>
-      const MonthlyBreakdownScreen();
+      MonthlyBreakdownScreen(initialMonth: month);
 }
 
 class SeasonalPatternsRoute extends GoRouteData with $SeasonalPatternsRoute {
