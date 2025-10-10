@@ -253,11 +253,14 @@
   "deleteEntryTooltip": "Delete Entry",
   "unknownGauge": "Unknown Gauge",
   "settingsTitle": "Settings",
+  "settingsSectionAboutAndSupport": "ABOUT & SUPPORT",
+  "helpGetHelpSection": "GET HELP",
+  "helpReportProblem": "Report a Problem",
+  "helpSendFeedback": "Send Feedback",
   "settingsSectionDataManagement": "DATA MANAGEMENT",
   "settingsDataManagementExportImport": "Data Export/Import",
   "settingsSectionPreferences": "PREFERENCES",
   "settingsPreferencesMeasurementUnit": "Measurement Unit",
-  "settingsSectionSupportLegal": "HELP & FEEDBACK",
   "settingsSupportLegalHelp": "Help & Feedback",
   "helpTitle": "Help & Feedback",
   "settingsSupportLegalPrivacyPolicy": "Privacy Policy",
@@ -270,7 +273,6 @@
   "changelogTitle": "What's New",
   "changelogError": "Could not load changelog.",
   "changelogBreaking": "Breaking:",
-  "changelogSectionLegal": "LEGAL",
   "changelogCategoryChanged": "Changed",
   "changelogCategoryAdded": "Added",
   "changelogCategoryRemoved": "Removed",
@@ -347,11 +349,7 @@
       }
     }
   },
-  "helpSectionContactUs": "CONTACT US",
   "helpContactEmailSupport": "Email Support",
-  "helpSectionImprove": "HELP US IMPROVE",
-  "helpReportProblemButton": "Report a Problem",
-  "helpSendFeedbackButton": "Send Feedback",
   "helpCouldNotOpenUrl": "Could not open {url}",
   "@helpCouldNotOpenUrl": {
     "placeholders": {
