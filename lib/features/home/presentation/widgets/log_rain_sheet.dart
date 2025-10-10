@@ -172,58 +172,14 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
               ),
               const SizedBox(height: 16),
               _buildSectionHeader(l10n.logRainfallAmountHeader),
-              Row(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Expanded(
-                    flex: 3,
-                    child: TextFormField(
-                      controller: _amountController,
-                      decoration: InputDecoration(
-                        hintText: l10n.logRainfallAmountHint,
-                      ),
-                      keyboardType: const TextInputType.numberWithOptions(
-                        decimal: true,
-                      ),
-                      validator: (final val) {
-                        if (val == null || val.isEmpty) {
-                          return l10n.logRainfallAmountValidationEmpty;
-                        }
-                        if (double.tryParse(val) == null) {
-                          return l10n.logRainfallAmountValidationInvalid;
-                        }
-                        return null;
-                      },
-                      inputFormatters: [
-                        FilteringTextInputFormatter.allow(
-                          RegExp(r"^\d+\.?\d*"),
-                        ),
-                      ],
-                    ),
-                  ),
-                  const SizedBox(width: 8),
-                  Expanded(
-                    flex: 2,
-                    child: AppSegmentedControl<MeasurementUnit>(
-                      selectedValue: effectiveUnit,
-                      onSelectionChanged: (final value) {
-                        setState(() {
-                          _localSelectedUnit = value;
-                        });
-                      },
-                      segments: [
-                        SegmentOption(
-                          value: MeasurementUnit.mm,
-                          label: Text(l10n.unitMM),
-                        ),
-                        SegmentOption(
-                          value: MeasurementUnit.inch,
-                          label: Text(l10n.unitIn),
-                        ),
-                      ],
-                    ),
-                  ),
-                ],
+              _AmountInputRow(
+                amountController: _amountController,
+                selectedUnit: effectiveUnit,
+                onUnitChanged: (final value) {
+                  setState(() {
+                    _localSelectedUnit = value;
+                  });
+                },
               ),
               const SizedBox(height: 16),
               _buildSectionHeader(l10n.logRainfallDateTimeHeader),
@@ -277,4 +233,72 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
       child: Text(title, style: Theme.of(context).textTheme.titleLarge),
     ),
   );
+}
+
+/// A responsive widget for the amount input field and unit selector.
+class _AmountInputRow extends StatelessWidget {
+  const _AmountInputRow({
+    required this.amountController,
+    required this.selectedUnit,
+    required this.onUnitChanged,
+  });
+
+  final TextEditingController amountController;
+  final MeasurementUnit selectedUnit;
+  final ValueChanged<MeasurementUnit> onUnitChanged;
+
+  @override
+  Widget build(final BuildContext context) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+
+    final Widget amountField = TextFormField(
+      controller: amountController,
+      decoration: InputDecoration(hintText: l10n.logRainfallAmountHint),
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      validator: (final val) {
+        if (val == null || val.isEmpty) {
+          return l10n.logRainfallAmountValidationEmpty;
+        }
+        if (double.tryParse(val) == null) {
+          return l10n.logRainfallAmountValidationInvalid;
+        }
+        return null;
+      },
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d*")),
+      ],
+    );
+
+    final Widget unitSelector = AppSegmentedControl<MeasurementUnit>(
+      selectedValue: selectedUnit,
+      onSelectionChanged: onUnitChanged,
+      segments: [
+        SegmentOption(value: MeasurementUnit.mm, label: Text(l10n.unitMM)),
+        SegmentOption(value: MeasurementUnit.inch, label: Text(l10n.unitIn)),
+      ],
+    );
+
+    return LayoutBuilder(
+      builder: (final context, final constraints) {
+        const double breakpoint = 350;
+
+        if (constraints.maxWidth < breakpoint) {
+          // Use Column for narrow layouts
+          return Column(
+            children: [amountField, const SizedBox(height: 12), unitSelector],
+          );
+        } else {
+          // Use Row for wider layouts
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(child: amountField),
+              const SizedBox(width: 8),
+              SizedBox(width: 150, child: unitSelector),
+            ],
+          );
+        }
+      },
+    );
+  }
 }
