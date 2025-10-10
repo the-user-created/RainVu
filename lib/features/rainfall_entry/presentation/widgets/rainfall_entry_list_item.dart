@@ -10,6 +10,7 @@ import "package:rain_wise/features/rainfall_entry/presentation/widgets/edit_entr
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rainfall_entry.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
+import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
@@ -20,10 +21,8 @@ class RainfallEntryListItem extends ConsumerWidget {
   final RainfallEntry entry;
 
   void _showEditSheet(final BuildContext context) {
-    showModalBottomSheet<void>(
+    showAdaptiveSheet<void>(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
       builder: (final _) => EditEntrySheet(entry: entry),
     );
   }

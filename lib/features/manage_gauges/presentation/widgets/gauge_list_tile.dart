@@ -9,6 +9,7 @@ import "package:rain_wise/features/manage_gauges/application/gauges_provider.dar
 import "package:rain_wise/features/manage_gauges/presentation/widgets/edit_gauge_sheet.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
+import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
@@ -19,10 +20,8 @@ class GaugeListTile extends ConsumerWidget {
   final RainGauge gauge;
 
   void _showEditSheet(final BuildContext context) {
-    showModalBottomSheet<void>(
+    showAdaptiveSheet<void>(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
       builder: (final context) => EditGaugeSheet(gauge: gauge),
     );
   }

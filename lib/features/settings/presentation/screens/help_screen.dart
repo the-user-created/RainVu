@@ -13,6 +13,7 @@ import "package:rain_wise/features/settings/presentation/widgets/settings_card.d
 import "package:rain_wise/features/settings/presentation/widgets/settings_list_tile.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
@@ -24,10 +25,8 @@ class HelpScreen extends ConsumerWidget {
     final BuildContext context, {
     final TicketCategory? initialCategory,
   }) {
-    showModalBottomSheet<void>(
+    showAdaptiveSheet<void>(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
       builder: (final _) => TicketSheet(initialCategory: initialCategory),
     );
   }

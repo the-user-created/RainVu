@@ -10,15 +10,14 @@ import "package:rain_wise/features/home/presentation/widgets/monthly_summary_car
 import "package:rain_wise/features/home/presentation/widgets/monthly_trend_chart.dart";
 import "package:rain_wise/features/home/presentation/widgets/ytd_summary_card.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
 
   void _showLogRainSheet(final BuildContext context) {
-    showModalBottomSheet<void>(
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
+    showAdaptiveSheet<void>(
       context: context,
       builder: (final context) => const LogRainSheet(),
     );

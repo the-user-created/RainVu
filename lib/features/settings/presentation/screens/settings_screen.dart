@@ -10,6 +10,7 @@ import "package:rain_wise/features/settings/presentation/widgets/settings_list_t
 import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
+import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
 import "package:share_plus/share_plus.dart";
@@ -19,9 +20,8 @@ class SettingsScreen extends ConsumerWidget {
   const SettingsScreen({super.key});
 
   void _showPreferencesSheet(final BuildContext context) {
-    showModalBottomSheet<void>(
+    showAdaptiveSheet<void>(
       context: context,
-      isScrollControlled: true,
       builder: (final _) => const PreferencesSheet(),
     );
   }

@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
@@ -14,9 +15,8 @@ Future<DateTime?> showMonthYearPicker(
   required final DateTime initialDate,
   required final DateTime firstDate,
   required final DateTime lastDate,
-}) async => showModalBottomSheet<DateTime>(
+}) async => showAdaptiveSheet<DateTime>(
   context: context,
-  isScrollControlled: true,
   builder: (final context) => _MonthYearPicker(
     initialDate: initialDate,
     firstDate: firstDate,
@@ -356,10 +356,10 @@ class _YearView extends StatelessWidget {
   @override
   Widget build(final BuildContext context) => GridView.builder(
     physics: const NeverScrollableScrollPhysics(),
-    padding: const EdgeInsets.symmetric(horizontal: 4),
+    padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
     gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
       crossAxisCount: 3,
-      childAspectRatio: 2.2,
+      childAspectRatio: 2.4,
       crossAxisSpacing: 8,
       mainAxisSpacing: 8,
     ),
@@ -468,10 +468,10 @@ class _DecadeView extends StatelessWidget {
 
     return GridView.builder(
       physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.symmetric(horizontal: 4),
+      padding: const EdgeInsets.fromLTRB(4, 0, 4, 8),
       gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
         crossAxisCount: 3,
-        childAspectRatio: 2.2,
+        childAspectRatio: 2.4,
         crossAxisSpacing: 8,
         mainAxisSpacing: 8,
       ),

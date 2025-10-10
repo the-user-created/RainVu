@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
 import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
 
 /// A data model for a single informational item displayed in the [InfoSheet].
@@ -33,9 +34,8 @@ class InfoSheet extends StatelessWidget {
     final BuildContext context, {
     required final String title,
     required final List<InfoSheetItem> items,
-  }) async => showModalBottomSheet<void>(
+  }) async => showAdaptiveSheet<void>(
     context: context,
-    isScrollControlled: true,
     builder: (final context) => InteractiveSheet(
       title: Text(title),
       titleAlign: TextAlign.start,

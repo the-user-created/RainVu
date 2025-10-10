@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:rain_wise/shared/widgets/sheets/sheet_context.dart";
 
 /// A reusable, styled bottom sheet container that provides a consistent
 /// look and feel for modal sheets across the app.
@@ -36,9 +37,10 @@ class InteractiveSheet extends StatelessWidget {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
+    final bool isDialog = SheetContext.of(context)?.isDialog ?? false;
 
     final List<Widget> children = [
-      if (showDragHandle)
+      if (showDragHandle && !isDialog)
         Center(
           child: Padding(
             padding: const EdgeInsets.symmetric(vertical: 12),
@@ -52,6 +54,7 @@ class InteractiveSheet extends StatelessWidget {
             ),
           ),
         ),
+      if (isDialog && showDragHandle) const SizedBox(height: 24),
       if (title != null)
         Padding(
           padding: const EdgeInsets.only(bottom: 16),
@@ -72,7 +75,9 @@ class InteractiveSheet extends StatelessWidget {
       padding: MediaQuery.of(context).viewInsets,
       child: Material(
         color: colorScheme.surface,
-        borderRadius: const BorderRadius.vertical(top: Radius.circular(24)),
+        borderRadius: isDialog
+            ? BorderRadius.circular(24)
+            : const BorderRadius.vertical(top: Radius.circular(24)),
         child: SafeArea(
           top: false,
           child: Padding(

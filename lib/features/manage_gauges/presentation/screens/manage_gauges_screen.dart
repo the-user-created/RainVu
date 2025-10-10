@@ -3,16 +3,15 @@ import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/add_gauge_sheet.dart";
 import "package:rain_wise/features/manage_gauges/presentation/widgets/gauge_list.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class ManageGaugesScreen extends StatelessWidget {
   const ManageGaugesScreen({super.key});
 
   void _showAddSheet(final BuildContext context) {
-    showModalBottomSheet<void>(
+    showAdaptiveSheet<void>(
       context: context,
-      isScrollControlled: true,
-      backgroundColor: Colors.transparent,
       builder: (final context) => const AddGaugeSheet(),
     );
   }
