@@ -24,100 +24,6 @@ class KeyMetricsSection extends ConsumerWidget {
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
         MeasurementUnit.mm;
 
-    // Responsive card sizing
-    const double horizontalPadding = 8 * 2;
-    const double cardSpacing = 4;
-    final double cardWidth =
-        (MediaQuery.sizeOf(context).width - horizontalPadding - cardSpacing) /
-        2;
-
-    final List<Widget> metricCards = [
-      _MetricCard(
-        title: l10n.keyMetricsTotalRainfall,
-        rawValue: metrics.totalRainfall,
-        unit: unit,
-        changeValue: metrics.totalRainfallPrevYearChange,
-        changeLabel: l10n.keyMetricsComparisonVsLastYear,
-        changeColor: metrics.totalRainfallPrevYearChange >= 0
-            ? successColor
-            : errorColor,
-        onInfoPressed: () => InfoSheet.show(
-          context,
-          title: l10n.keyMetricsInfoTotalRainfallTitle,
-          items: [
-            InfoSheetItem(
-              icon: Icons.water_drop_outlined,
-              title: "", // Title is handled by the sheet's title
-              description: l10n.keyMetricsInfoTotalRainfallDescription,
-            ),
-          ],
-        ),
-      ),
-      _MetricCard(
-        title: l10n.keyMetricsMtdTotal,
-        rawValue: metrics.mtdTotal,
-        unit: unit,
-        changeValue: metrics.mtdTotalPrevMonthChange,
-        changeLabel: l10n.keyMetricsComparisonVsLastMonth,
-        changeColor: metrics.mtdTotalPrevMonthChange >= 0
-            ? successColor
-            : errorColor,
-        onInfoPressed: () => InfoSheet.show(
-          context,
-          title: l10n.keyMetricsInfoMtdTotalTitle,
-          items: [
-            InfoSheetItem(
-              icon: Icons.calendar_view_month_outlined,
-              title: "",
-              description: l10n.keyMetricsInfoMtdTotalDescription,
-            ),
-          ],
-        ),
-      ),
-      _MetricCard(
-        title: l10n.keyMetricsYtdTotal,
-        rawValue: metrics.ytdTotal,
-        unit: unit,
-        changeValue: metrics.ytdTotalPrevYearChange,
-        changeLabel: l10n.keyMetricsComparisonVsLastYear,
-        changeColor: metrics.ytdTotalPrevYearChange >= 0
-            ? successColor
-            : errorColor,
-        onInfoPressed: () => InfoSheet.show(
-          context,
-          title: l10n.keyMetricsInfoYtdTotalTitle,
-          items: [
-            InfoSheetItem(
-              icon: Icons.calendar_today_outlined,
-              title: "",
-              description: l10n.keyMetricsInfoYtdTotalDescription,
-            ),
-          ],
-        ),
-      ),
-      _MetricCard(
-        title: l10n.keyMetricsMonthlyAvg,
-        rawValue: metrics.monthlyAvg,
-        unit: unit,
-        changeValue: metrics.monthlyAvgChangeVsCurrentMonth,
-        changeLabel: l10n.keyMetricsComparisonVsAvg,
-        changeColor: metrics.monthlyAvgChangeVsCurrentMonth >= 0
-            ? successColor
-            : errorColor,
-        onInfoPressed: () => InfoSheet.show(
-          context,
-          title: l10n.keyMetricsInfoMonthlyAvgTitle,
-          items: [
-            InfoSheetItem(
-              icon: Icons.multiline_chart_outlined,
-              title: "",
-              description: l10n.keyMetricsInfoMonthlyAvgDescription,
-            ),
-          ],
-        ),
-      ),
-    ];
-
     return Container(
       width: double.infinity,
       decoration: BoxDecoration(
@@ -125,7 +31,7 @@ class KeyMetricsSection extends ConsumerWidget {
         boxShadow: [
           BoxShadow(
             blurRadius: 4,
-            color: theme.shadowColor,
+            color: theme.shadowColor.withValues(alpha: 0.2),
             offset: const Offset(0, 2),
           ),
         ],
@@ -135,22 +41,148 @@ class KeyMetricsSection extends ConsumerWidget {
         ),
       ),
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(0, 12, 0, 12),
-        child: Column(
-          children: [
-            Wrap(
-              spacing: cardSpacing,
-              runSpacing: cardSpacing,
-              alignment: WrapAlignment.center,
-              children: metricCards
-                  .map((final card) => SizedBox(width: cardWidth, child: card))
-                  .toList(),
-            ),
-          ],
+        padding: const EdgeInsets.symmetric(vertical: 12),
+        child: LayoutBuilder(
+          builder: (final context, final constraints) {
+            final bool isWideLayout = constraints.maxWidth > 600;
+
+            final List<Widget> metricCards = [
+              _MetricCard(
+                isCompact: isWideLayout,
+                title: l10n.keyMetricsTotalRainfall,
+                rawValue: metrics.totalRainfall,
+                unit: unit,
+                changeValue: metrics.totalRainfallPrevYearChange,
+                changeLabel: l10n.keyMetricsComparisonVsLastYear,
+                changeColor: metrics.totalRainfallPrevYearChange >= 0
+                    ? successColor
+                    : errorColor,
+                onInfoPressed: () => InfoSheet.show(
+                  context,
+                  title: l10n.keyMetricsInfoTotalRainfallTitle,
+                  items: [
+                    InfoSheetItem(
+                      icon: Icons.water_drop_outlined,
+                      title: "", // Title is handled by the sheet's title
+                      description: l10n.keyMetricsInfoTotalRainfallDescription,
+                    ),
+                  ],
+                ),
+              ),
+              _MetricCard(
+                isCompact: isWideLayout,
+                title: l10n.keyMetricsMtdTotal,
+                rawValue: metrics.mtdTotal,
+                unit: unit,
+                changeValue: metrics.mtdTotalPrevMonthChange,
+                changeLabel: l10n.keyMetricsComparisonVsLastMonth,
+                changeColor: metrics.mtdTotalPrevMonthChange >= 0
+                    ? successColor
+                    : errorColor,
+                onInfoPressed: () => InfoSheet.show(
+                  context,
+                  title: l10n.keyMetricsInfoMtdTotalTitle,
+                  items: [
+                    InfoSheetItem(
+                      icon: Icons.calendar_view_month_outlined,
+                      title: "",
+                      description: l10n.keyMetricsInfoMtdTotalDescription,
+                    ),
+                  ],
+                ),
+              ),
+              _MetricCard(
+                isCompact: isWideLayout,
+                title: l10n.keyMetricsYtdTotal,
+                rawValue: metrics.ytdTotal,
+                unit: unit,
+                changeValue: metrics.ytdTotalPrevYearChange,
+                changeLabel: l10n.keyMetricsComparisonVsLastYear,
+                changeColor: metrics.ytdTotalPrevYearChange >= 0
+                    ? successColor
+                    : errorColor,
+                onInfoPressed: () => InfoSheet.show(
+                  context,
+                  title: l10n.keyMetricsInfoYtdTotalTitle,
+                  items: [
+                    InfoSheetItem(
+                      icon: Icons.calendar_today_outlined,
+                      title: "",
+                      description: l10n.keyMetricsInfoYtdTotalDescription,
+                    ),
+                  ],
+                ),
+              ),
+              _MetricCard(
+                isCompact: isWideLayout,
+                title: l10n.keyMetricsMonthlyAvg,
+                rawValue: metrics.monthlyAvg,
+                unit: unit,
+                changeValue: metrics.monthlyAvgChangeVsCurrentMonth,
+                changeLabel: l10n.keyMetricsComparisonVsAvg,
+                changeColor: metrics.monthlyAvgChangeVsCurrentMonth >= 0
+                    ? successColor
+                    : errorColor,
+                onInfoPressed: () => InfoSheet.show(
+                  context,
+                  title: l10n.keyMetricsInfoMonthlyAvgTitle,
+                  items: [
+                    InfoSheetItem(
+                      icon: Icons.multiline_chart_outlined,
+                      title: "",
+                      description: l10n.keyMetricsInfoMonthlyAvgDescription,
+                    ),
+                  ],
+                ),
+              ),
+            ];
+
+            return isWideLayout
+                ? _buildLandscapeLayout(metricCards)
+                : _buildPortraitLayout(context, metricCards);
+          },
         ),
       ),
     );
   }
+
+  Widget _buildPortraitLayout(
+    final BuildContext context,
+    final List<Widget> cards,
+  ) {
+    const double horizontalPadding = 8 * 2;
+    const double cardSpacing = 4;
+    final double cardWidth =
+        (MediaQuery.sizeOf(context).width - horizontalPadding - cardSpacing) /
+        2;
+
+    return Wrap(
+      spacing: cardSpacing,
+      runSpacing: cardSpacing,
+      alignment: WrapAlignment.center,
+      children: cards
+          .map((final card) => SizedBox(width: cardWidth, child: card))
+          .toList(),
+    );
+  }
+
+  Widget _buildLandscapeLayout(final List<Widget> cards) =>
+      SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        clipBehavior: Clip.none,
+        padding: const EdgeInsets.symmetric(horizontal: 12),
+        child: Row(
+          children: cards
+              .map(
+                (final card) => ConstrainedBox(
+                  constraints: const BoxConstraints(maxWidth: 220),
+                  child: card,
+                ),
+              )
+              .toList()
+              .divide(const SizedBox(width: 8)),
+        ),
+      );
 }
 
 class _MetricCard extends StatelessWidget {
@@ -162,6 +194,7 @@ class _MetricCard extends StatelessWidget {
     required this.changeLabel,
     required this.changeColor,
     required this.onInfoPressed,
+    this.isCompact = false,
   });
 
   final String title;
@@ -171,6 +204,7 @@ class _MetricCard extends StatelessWidget {
   final String changeLabel;
   final Color changeColor;
   final VoidCallback onInfoPressed;
+  final bool isCompact;
 
   @override
   Widget build(final BuildContext context) {
@@ -195,7 +229,6 @@ class _MetricCard extends StatelessWidget {
 
     final String formattedPercentage = changeValue.abs().formatPercentage(
       precision: 0,
-      withSymbol: true,
     );
 
     return Card(
@@ -203,7 +236,7 @@ class _MetricCard extends StatelessWidget {
       color: colorScheme.surfaceContainerHighest,
       shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: Padding(
-        padding: const EdgeInsets.all(16),
+        padding: EdgeInsets.all(isCompact ? 12 : 16),
         child: Column(
           crossAxisAlignment: CrossAxisAlignment.start,
           mainAxisAlignment: MainAxisAlignment.center,
@@ -212,7 +245,14 @@ class _MetricCard extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Flexible(child: Text(title, style: textTheme.titleSmall)),
+                Flexible(
+                  child: Text(
+                    title,
+                    style: textTheme.titleSmall?.copyWith(
+                      fontSize: isCompact ? 14 : null,
+                    ),
+                  ),
+                ),
                 SizedBox(
                   width: 24,
                   height: 24,
@@ -229,22 +269,41 @@ class _MetricCard extends StatelessWidget {
                 ),
               ],
             ),
-            const SizedBox(height: 8),
-            Text(
-              formattedValue,
-              style: textTheme.headlineMedium?.copyWith(fontSize: 26),
-            ),
-            const SizedBox(height: 2),
-            Text(
-              unitLabel,
-              style: textTheme.bodyMedium?.copyWith(
-                color: colorScheme.onSurfaceVariant,
+            SizedBox(height: isCompact ? 8 : 8),
+            if (isCompact)
+              Row(
+                crossAxisAlignment: CrossAxisAlignment.baseline,
+                textBaseline: TextBaseline.alphabetic,
+                children: [
+                  Text(
+                    formattedValue,
+                    style: textTheme.headlineMedium?.copyWith(fontSize: 24),
+                  ),
+                  const SizedBox(width: 4),
+                  Text(
+                    unitLabel,
+                    style: textTheme.bodyMedium?.copyWith(
+                      color: colorScheme.onSurfaceVariant,
+                    ),
+                  ),
+                ],
+              )
+            else ...[
+              Text(
+                formattedValue,
+                style: textTheme.headlineMedium?.copyWith(fontSize: 26),
               ),
-            ),
-            const SizedBox(height: 8),
+              const SizedBox(height: 2),
+              Text(
+                unitLabel,
+                style: textTheme.bodyMedium?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
+              ),
+            ],
+            SizedBox(height: isCompact ? 8 : 8),
             Row(
               mainAxisSize: MainAxisSize.min,
-              crossAxisAlignment: CrossAxisAlignment.center,
               children: [
                 Icon(changeIcon, color: changeColor, size: 16),
                 const SizedBox(width: 4),
@@ -259,7 +318,6 @@ class _MetricCard extends StatelessWidget {
                     style: textTheme.bodySmall?.copyWith(
                       color: colorScheme.onSurfaceVariant,
                     ),
-                    overflow: TextOverflow.ellipsis,
                   ),
                 ),
               ],
