@@ -1,6 +1,7 @@
 import "package:firebase_core/firebase_core.dart";
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
+import "package:flutter/services.dart";
 import "package:flutter_dotenv/flutter_dotenv.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
@@ -16,6 +17,13 @@ import "package:rain_wise/l10n/app_localizations.dart";
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
   await dotenv.load();
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown,
+    DeviceOrientation.landscapeLeft,
+    DeviceOrientation.landscapeRight,
+  ]);
 
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   final container = ProviderContainer();
