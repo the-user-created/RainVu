@@ -57,6 +57,49 @@ class _AnalysisContent extends ConsumerWidget {
     final AsyncValue<ComparativeAnalysisData> dataAsync = ref.watch(
       comparativeAnalysisDataProvider,
     );
+    final Orientation orientation = MediaQuery.of(context).orientation;
+
+    if (orientation == Orientation.landscape) {
+      return SingleChildScrollView(
+        child: Column(
+          children: [
+            const ComparativeAnalysisFilters(),
+            dataAsync.when(
+              loading: () => const Padding(
+                padding: EdgeInsets.symmetric(vertical: 48),
+                child: AppLoader(),
+              ),
+              error: (final err, final stack) => Padding(
+                padding: const EdgeInsets.all(32),
+                child: Center(child: Text(l10n.comparativeAnalysisError(err))),
+              ),
+              data: (final data) {
+                final bool hasNoDataForSelection =
+                    data.summaries.isEmpty ||
+                    (data.summaries.isNotEmpty &&
+                        data.summaries.every(
+                          (final s) => s.totalRainfall == 0,
+                        ));
+
+                if (hasNoDataForSelection) {
+                  return const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 48),
+                    child: _NoDataForSelectionState(),
+                  );
+                }
+
+                return Column(
+                  children: [
+                    ComparativeAnalysisChart(chartData: data.chartData),
+                    YearlySummaryList(summaries: data.summaries),
+                  ],
+                );
+              },
+            ),
+          ],
+        ),
+      );
+    }
 
     return Column(
       children: [
@@ -115,7 +158,7 @@ class _InsufficientDataState extends StatelessWidget {
             Icon(
               Icons.analytics_outlined,
               size: 64,
-              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+              color: colorScheme.onSurfaceVariant.withAlpha(128),
             ),
             const SizedBox(height: 24),
             Text(
@@ -157,7 +200,7 @@ class _NoDataForSelectionState extends StatelessWidget {
             Icon(
               Icons.data_exploration_outlined,
               size: 64,
-              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+              color: colorScheme.onSurfaceVariant.withAlpha(128),
             ),
             const SizedBox(height: 24),
             Text(
