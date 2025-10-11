@@ -49,93 +49,113 @@ class ComparativeAnalysisScreen extends ConsumerWidget {
   }
 }
 
-class _AnalysisContent extends ConsumerWidget {
+class _AnalysisContent extends StatelessWidget {
   const _AnalysisContent();
+
+  @override
+  Widget build(final BuildContext context) {
+    final Orientation orientation = MediaQuery.of(context).orientation;
+
+    if (orientation == Orientation.landscape) {
+      return const SingleChildScrollView(
+        child: Column(children: [ComparativeAnalysisFilters(), _DataContent()]),
+      );
+    }
+
+    return const Column(
+      children: [
+        ComparativeAnalysisFilters(),
+        Expanded(child: SingleChildScrollView(child: _DataContent())),
+      ],
+    );
+  }
+}
+
+class _DataContent extends ConsumerWidget {
+  const _DataContent();
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final AsyncValue<ComparativeAnalysisData> dataAsync = ref.watch(
-      comparativeAnalysisDataProvider,
+    final AsyncValue<List<YearlySummary>> summariesAsync = ref.watch(
+      comparativeAnalysisSummariesProvider,
     );
-    final Orientation orientation = MediaQuery.of(context).orientation;
 
-    if (orientation == Orientation.landscape) {
-      return SingleChildScrollView(
-        child: Column(
-          children: [
-            const ComparativeAnalysisFilters(),
-            dataAsync.when(
-              loading: () => const Padding(
-                padding: EdgeInsets.symmetric(vertical: 48),
-                child: AppLoader(),
-              ),
-              error: (final err, final stack) => Padding(
-                padding: const EdgeInsets.all(32),
-                child: Center(child: Text(l10n.comparativeAnalysisError(err))),
-              ),
-              data: (final data) {
-                final bool hasNoDataForSelection =
-                    data.summaries.isEmpty ||
-                    (data.summaries.isNotEmpty &&
-                        data.summaries.every(
-                          (final s) => s.totalRainfall == 0,
-                        ));
+    final List<YearlySummary>? summaries = summariesAsync.value;
 
-                if (hasNoDataForSelection) {
-                  return const Padding(
-                    padding: EdgeInsets.symmetric(vertical: 48),
-                    child: _NoDataForSelectionState(),
-                  );
-                }
-
-                return Column(
-                  children: [
-                    ComparativeAnalysisChart(chartData: data.chartData),
-                    YearlySummaryList(summaries: data.summaries),
-                  ],
-                );
-              },
-            ),
-          ],
+    // Only show the loader on the initial fetch or handle errors.
+    if (summaries == null) {
+      return summariesAsync.when(
+        // The loader will only be shown on the very first load.
+        loading: () => const Padding(
+          padding: EdgeInsets.symmetric(vertical: 48),
+          child: AppLoader(),
         ),
+        error: (final err, final stack) => Padding(
+          padding: const EdgeInsets.all(32),
+          child: Center(child: Text(l10n.comparativeAnalysisError(err))),
+        ),
+        // This case is needed for the `when` but won't be hit if summaries is null.
+        data: (final data) => const SizedBox.shrink(),
+      );
+    }
+
+    // If we have data (new or old), build the UI.
+    final bool hasNoDataForSelection =
+        summaries.isEmpty ||
+        (summaries.isNotEmpty &&
+            summaries.every((final s) => s.totalRainfall == 0));
+
+    if (hasNoDataForSelection) {
+      return const Padding(
+        padding: EdgeInsets.symmetric(vertical: 48),
+        child: _NoDataForSelectionState(),
       );
     }
 
     return Column(
       children: [
-        const ComparativeAnalysisFilters(),
-        Expanded(
-          child: dataAsync.when(
-            loading: () => const Center(child: AppLoader()),
-            error: (final err, final stack) => Center(
-              child: Padding(
-                padding: const EdgeInsets.all(16),
-                child: Text(l10n.comparativeAnalysisError(err)),
-              ),
-            ),
-            data: (final data) {
-              final bool hasNoDataForSelection =
-                  data.summaries.isEmpty ||
-                  (data.summaries.isNotEmpty &&
-                      data.summaries.every((final s) => s.totalRainfall == 0));
-
-              if (hasNoDataForSelection) {
-                return const _NoDataForSelectionState();
-              }
-
-              return SingleChildScrollView(
-                child: Column(
-                  children: [
-                    ComparativeAnalysisChart(chartData: data.chartData),
-                    YearlySummaryList(summaries: data.summaries),
-                  ],
-                ),
-              );
-            },
-          ),
-        ),
+        const _ComparativeAnalysisChartLoader(),
+        YearlySummaryList(summaries: summaries),
       ],
+    );
+  }
+}
+
+class _ComparativeAnalysisChartLoader extends ConsumerWidget {
+  const _ComparativeAnalysisChartLoader();
+
+  @override
+  Widget build(final BuildContext context, final WidgetRef ref) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final AsyncValue<ComparativeChartData> chartDataAsync = ref.watch(
+      comparativeAnalysisChartDataProvider,
+    );
+
+    final ComparativeChartData? chartData = chartDataAsync.value;
+
+    // If we have data (new or old), show the chart. The chart's internal
+    // animation will handle the transition smoothly.
+    if (chartData != null) {
+      return ComparativeAnalysisChart(chartData: chartData);
+    }
+
+    // Otherwise, it's the initial load or an error. Handle these states.
+    return chartDataAsync.when(
+      loading: () => const SizedBox(
+        height: 300,
+        child: Padding(
+          padding: EdgeInsets.symmetric(vertical: 48),
+          child: AppLoader(),
+        ),
+      ),
+      error: (final err, final stack) => Padding(
+        padding: const EdgeInsets.all(32),
+        child: Center(child: Text(l10n.comparativeAnalysisError(err))),
+      ),
+      // This data case is technically covered by the `if (chartData != null)`
+      // check above, but is required by the `when` method.
+      data: (final data) => ComparativeAnalysisChart(chartData: data),
     );
   }
 }

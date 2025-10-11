@@ -1,4 +1,3 @@
-import "package:collection/collection.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
@@ -11,7 +10,12 @@ part "comparative_analysis_repository.g.dart";
 abstract class ComparativeAnalysisRepository {
   Future<List<int>> getAvailableYears();
 
-  Future<ComparativeAnalysisData> fetchComparativeData(
+  Future<List<YearlySummary>> fetchComparativeSummaries(
+    final int year1,
+    final int year2,
+  );
+
+  Future<ComparativeChartData> fetchComparativeChartData(
     final ComparativeFilter filter,
     final Hemisphere hemisphere,
   );
@@ -38,23 +42,54 @@ class DriftComparativeAnalysisRepository
   }
 
   @override
-  Future<ComparativeAnalysisData> fetchComparativeData(
+  Future<List<YearlySummary>> fetchComparativeSummaries(
+    final int year1,
+    final int year2,
+  ) async {
+    final List<double> totals = await Future.wait([
+      _dao.getYearlyTotal(year1),
+      _dao.getYearlyTotal(year2),
+    ]);
+    final double total1 = totals[0];
+    final double total2 = totals[1];
+
+    final double change1vs2 = _calculatePercentageChange(total1, total2);
+    final double change2vs1 = _calculatePercentageChange(total2, total1);
+
+    final List<YearlySummary> summaries = [
+      YearlySummary(
+        year: year1,
+        totalRainfall: total1,
+        percentageChange: change1vs2,
+      ),
+      YearlySummary(
+        year: year2,
+        totalRainfall: total2,
+        percentageChange: change2vs1,
+      ),
+    ]..sort((final a, final b) => b.year.compareTo(a.year));
+
+    return summaries;
+  }
+
+  @override
+  Future<ComparativeChartData> fetchComparativeChartData(
     final ComparativeFilter filter,
     final Hemisphere hemisphere,
   ) async {
     switch (filter.type) {
       case ComparisonType.annual:
-        return _fetchAnnualData(filter);
+        return _fetchAnnualChartData(filter);
       case ComparisonType.monthly:
-        return _fetchMonthlyData(filter);
+        return _fetchMonthlyChartData(filter);
       case ComparisonType.seasonal:
-        return _fetchSeasonalData(filter, hemisphere);
+        return _fetchSeasonalChartData(filter, hemisphere);
     }
   }
 
-  /// Fetches and processes data for a year-over-year comparison,
+  /// Fetches chart data for a year-over-year comparison,
   /// showing only the annual total.
-  Future<ComparativeAnalysisData> _fetchAnnualData(
+  Future<ComparativeChartData> _fetchAnnualChartData(
     final ComparativeFilter filter,
   ) async {
     final List<double> totals = await Future.wait([
@@ -64,26 +99,18 @@ class DriftComparativeAnalysisRepository
     final double total1 = totals[0];
     final double total2 = totals[1];
 
-    final chartData = ComparativeChartData(
+    return ComparativeChartData(
       labels: const [""],
       series: [
         ComparativeChartSeries(year: filter.year1, data: [total1]),
         ComparativeChartSeries(year: filter.year2, data: [total2]),
       ],
     );
-
-    return _buildSummariesAndFinalData(
-      chartData: chartData,
-      total1: total1,
-      total2: total2,
-      year1: filter.year1,
-      year2: filter.year2,
-    );
   }
 
-  /// Fetches and processes data for a year-over-year comparison,
+  /// Fetches chart data for a year-over-year comparison,
   /// broken down by month.
-  Future<ComparativeAnalysisData> _fetchMonthlyData(
+  Future<ComparativeChartData> _fetchMonthlyChartData(
     final ComparativeFilter filter,
   ) async {
     final List<List<MonthlyTotalForYear>> results = await Future.wait([
@@ -99,26 +126,18 @@ class DriftComparativeAnalysisRepository
         .map((final m) => m.substring(0, 3))
         .toList();
 
-    final chartData = ComparativeChartData(
+    return ComparativeChartData(
       labels: labels,
       series: [
         ComparativeChartSeries(year: filter.year1, data: monthlyTotals1),
         ComparativeChartSeries(year: filter.year2, data: monthlyTotals2),
       ],
     );
-
-    return _buildSummariesAndFinalData(
-      chartData: chartData,
-      total1: monthlyTotals1.sum,
-      total2: monthlyTotals2.sum,
-      year1: filter.year1,
-      year2: filter.year2,
-    );
   }
 
-  /// Fetches and processes data for a year-over-year comparison,
+  /// Fetches chart data for a year-over-year comparison,
   /// broken down by season, respecting the user's hemisphere.
-  Future<ComparativeAnalysisData> _fetchSeasonalData(
+  Future<ComparativeChartData> _fetchSeasonalChartData(
     final ComparativeFilter filter,
     final Hemisphere hemisphere,
   ) async {
@@ -140,48 +159,13 @@ class DriftComparativeAnalysisRepository
     final List<double> seasonalTotals1 = await Future.wait(futures1);
     final List<double> seasonalTotals2 = await Future.wait(futures2);
 
-    final chartData = ComparativeChartData(
+    return ComparativeChartData(
       labels: labels,
       series: [
         ComparativeChartSeries(year: filter.year1, data: seasonalTotals1),
         ComparativeChartSeries(year: filter.year2, data: seasonalTotals2),
       ],
     );
-
-    return _buildSummariesAndFinalData(
-      chartData: chartData,
-      total1: seasonalTotals1.sum,
-      total2: seasonalTotals2.sum,
-      year1: filter.year1,
-      year2: filter.year2,
-    );
-  }
-
-  /// Common logic to build summaries and the final data object.
-  ComparativeAnalysisData _buildSummariesAndFinalData({
-    required final ComparativeChartData chartData,
-    required final double total1,
-    required final double total2,
-    required final int year1,
-    required final int year2,
-  }) {
-    final double change1vs2 = _calculatePercentageChange(total1, total2);
-    final double change2vs1 = _calculatePercentageChange(total2, total1);
-
-    final List<YearlySummary> summaries = [
-      YearlySummary(
-        year: year1,
-        totalRainfall: total1,
-        percentageChange: change1vs2,
-      ),
-      YearlySummary(
-        year: year2,
-        totalRainfall: total2,
-        percentageChange: change2vs1,
-      ),
-    ]..sort((final a, final b) => b.year.compareTo(a.year));
-
-    return ComparativeAnalysisData(summaries: summaries, chartData: chartData);
   }
 
   /// Processes the raw query result from the DAO into a 12-element list
