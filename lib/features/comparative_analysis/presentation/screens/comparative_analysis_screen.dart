@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/comparative_analysis/application/comparative_analysis_provider.dart";
 import "package:rain_wise/features/comparative_analysis/domain/comparative_analysis_data.dart";
@@ -177,7 +178,7 @@ class _InsufficientDataState extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ).animate().fade(duration: 500.ms).scale(begin: const Offset(0.95, 0.95));
   }
 }
 
@@ -211,6 +212,6 @@ class _NoDataForSelectionState extends StatelessWidget {
           ],
         ),
       ),
-    );
+    ).animate().fade(duration: 500.ms).scale(begin: const Offset(0.95, 0.95));
   }
 }
