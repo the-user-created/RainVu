@@ -1,3 +1,4 @@
+// lib/features/seasonal_patterns/presentation/widgets/seasonal_summary_card.dart
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
@@ -62,7 +63,12 @@ class SeasonalSummaryCard extends ConsumerWidget {
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
-                Text(l10n.seasonSummaryTitle, style: textTheme.titleMedium),
+                Flexible(
+                  child: Text(
+                    l10n.seasonSummaryTitle,
+                    style: textTheme.titleMedium,
+                  ),
+                ),
                 AppIconButton(
                   icon: const Icon(Icons.info_outline),
                   onPressed: () => _showInfoSheet(context, l10n),
@@ -73,37 +79,49 @@ class SeasonalSummaryCard extends ConsumerWidget {
               ],
             ),
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _MetricItem(
-                  label: l10n.seasonSummaryAverageRainfallLabel,
-                  value: summary.averageRainfall.formatRainfall(context, unit),
-                  valueStyle: textTheme.headlineSmall,
-                ),
-                _VerticalDivider(),
-                _TrendMetricItem(
-                  label: l10n.seasonSummaryTrendVsHistoryLabel,
-                  percentage: summary.trendVsHistory,
-                ),
-              ],
+            SizedBox(
+              width: double.infinity,
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                runSpacing: 24,
+                children: [
+                  _MetricItem(
+                    label: l10n.seasonSummaryAverageRainfallLabel,
+                    value: summary.averageRainfall.formatRainfall(
+                      context,
+                      unit,
+                    ),
+                    valueStyle: textTheme.headlineSmall,
+                  ),
+                  _TrendMetricItem(
+                    label: l10n.seasonSummaryTrendVsHistoryLabel,
+                    percentage: summary.trendVsHistory,
+                  ),
+                ],
+              ),
             ),
             const SizedBox(height: 16),
             const Divider(),
             const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceAround,
-              children: [
-                _MetricItem(
-                  label: l10n.seasonSummaryHighestRecordedLabel,
-                  value: summary.highestRecorded.formatRainfall(context, unit),
-                ),
-                _VerticalDivider(),
-                _MetricItem(
-                  label: l10n.seasonSummaryLowestRecordedLabel,
-                  value: summary.lowestRecorded.formatRainfall(context, unit),
-                ),
-              ],
+            SizedBox(
+              width: double.infinity,
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                runSpacing: 24,
+                children: [
+                  _MetricItem(
+                    label: l10n.seasonSummaryHighestRecordedLabel,
+                    value: summary.highestRecorded.formatRainfall(
+                      context,
+                      unit,
+                    ),
+                  ),
+                  _MetricItem(
+                    label: l10n.seasonSummaryLowestRecordedLabel,
+                    value: summary.lowestRecorded.formatRainfall(context, unit),
+                  ),
+                ],
+              ),
             ),
           ],
         ),
@@ -128,6 +146,7 @@ class _MetricItem extends StatelessWidget {
     final TextTheme textTheme = Theme.of(context).textTheme;
     final ColorScheme colorScheme = Theme.of(context).colorScheme;
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -136,7 +155,8 @@ class _MetricItem extends StatelessWidget {
             color: colorScheme.onSurfaceVariant,
           ),
         ),
-        Text(value, style: valueStyle ?? textTheme.bodyLarge),
+        const SizedBox(height: 2),
+        Text(value, style: valueStyle ?? textTheme.titleLarge),
       ],
     );
   }
@@ -157,6 +177,7 @@ class _TrendMetricItem extends StatelessWidget {
     final IconData icon = isPositive ? Icons.trending_up : Icons.trending_down;
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(
@@ -165,9 +186,11 @@ class _TrendMetricItem extends StatelessWidget {
             color: colorScheme.onSurfaceVariant,
           ),
         ),
+        const SizedBox(height: 2),
         Row(
+          mainAxisSize: MainAxisSize.min,
           children: [
-            Icon(icon, color: color, size: 24),
+            Icon(icon, color: color, size: 28),
             const SizedBox(width: 8),
             Text(
               percentage.formatPercentage(precision: 0, showPositiveSign: true),
@@ -178,13 +201,4 @@ class _TrendMetricItem extends StatelessWidget {
       ],
     );
   }
-}
-
-class _VerticalDivider extends StatelessWidget {
-  @override
-  Widget build(final BuildContext context) => Container(
-    width: 1,
-    height: 40,
-    color: Theme.of(context).colorScheme.outlineVariant.withValues(alpha: 0.5),
-  );
 }

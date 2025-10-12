@@ -20,57 +20,74 @@ class SeasonSelector extends ConsumerWidget {
       availableYearsProvider,
     );
 
-    return Row(
-      children: [
-        Expanded(
-          flex: 3,
-          child: AppDropdown<Season>(
-            value: filter.season,
-            items: Season.values
-                .map(
-                  (final season) => DropdownMenuItem<Season>(
-                    value: season,
-                    child: Text(season.getName(l10n)),
-                  ),
-                )
-                .toList(),
-            onChanged: (final season) {
-              if (season != null) {
-                notifier.setFilter(season, filter.year);
-              }
-            },
-          ),
-        ),
-        const SizedBox(width: 16),
-        Expanded(
-          flex: 2,
-          child: availableYearsAsync.when(
-            data: (final years) {
-              final List<int> displayYears = years.isNotEmpty
-                  ? years
-                  : [DateTime.now().year]; // Fallback for no data
-              return AppDropdown<int>(
-                value: filter.year,
-                items: displayYears
-                    .map(
-                      (final year) => DropdownMenuItem<int>(
-                        value: year,
-                        child: Text(year.toString()),
-                      ),
-                    )
-                    .toList(),
-                onChanged: (final year) {
-                  if (year != null) {
-                    notifier.setFilter(filter.season, year);
-                  }
-                },
-              );
-            },
-            loading: () => const Center(child: AppLoader()),
-            error: (final e, final s) => const Center(child: Icon(Icons.error)),
-          ),
-        ),
-      ],
+    final Widget seasonDropdown = AppDropdown<Season>(
+      value: filter.season,
+      items: Season.values
+          .map(
+            (final season) => DropdownMenuItem<Season>(
+              value: season,
+              child: Text(season.getName(l10n)),
+            ),
+          )
+          .toList(),
+      onChanged: (final season) {
+        if (season != null) {
+          notifier.setFilter(season, filter.year);
+        }
+      },
+    );
+
+    final Widget yearDropdown = availableYearsAsync.when(
+      data: (final years) {
+        final List<int> displayYears = years.isNotEmpty
+            ? years
+            : [DateTime.now().year];
+        return AppDropdown<int>(
+          value: filter.year,
+          items: displayYears
+              .map(
+                (final year) => DropdownMenuItem<int>(
+                  value: year,
+                  child: Text(year.toString()),
+                ),
+              )
+              .toList(),
+          onChanged: (final year) {
+            if (year != null) {
+              notifier.setFilter(filter.season, year);
+            }
+          },
+        );
+      },
+      loading: () => const Center(child: AppLoader()),
+      error: (final e, final s) => const Center(child: Icon(Icons.error)),
+    );
+
+    return LayoutBuilder(
+      builder: (final context, final constraints) {
+        const double breakpoint = 350;
+        final bool useRow = constraints.maxWidth > breakpoint;
+
+        if (useRow) {
+          return Row(
+            children: [
+              Expanded(flex: 3, child: seasonDropdown),
+              const SizedBox(width: 16),
+              Expanded(flex: 2, child: yearDropdown),
+            ],
+          );
+        } else {
+          return Column(
+            // Ensure dropdowns stretch to fill the width of the column.
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              seasonDropdown,
+              const SizedBox(height: 12),
+              yearDropdown,
+            ],
+          );
+        }
+      },
     );
   }
 }
