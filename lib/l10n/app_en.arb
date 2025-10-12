@@ -700,7 +700,10 @@
   "@monthlyTrendChartNoData": {
     "description": "Message shown on the home screen chart when there is no data for the last 12 months."
   },
+  "monthlyComparisonEmptyTitle": "No Data to Compare",
+  "monthlyComparisonEmptyMessage": "Once you have logged more rainfall data, you'll be able to see monthly comparisons here.",
   "monthlyComparisonTitle": "Monthly Comparison",
+  "detailedAnalysisMonthlyComparisonSubtitle": "Compare monthly totals against historical averages",
   "detailedAnalysisTitle": "Detailed Analysis",
   "detailedAnalysisMonthlyBreakdownSubtitle": "View detailed monthly statistics",
   "detailedAnalysisSeasonalPatternsSubtitle": "Analyze rainfall patterns by season",

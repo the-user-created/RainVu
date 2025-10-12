@@ -10,6 +10,7 @@ import "package:rain_wise/features/comparative_analysis/presentation/screens/com
 import "package:rain_wise/features/data_tools/presentation/screens/data_tools_screen.dart";
 import "package:rain_wise/features/home/presentation/screens/home_screen.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/screens/insights_screen.dart";
+import "package:rain_wise/features/insights_dashboard/presentation/screens/monthly_comparison_screen.dart";
 import "package:rain_wise/features/manage_gauges/presentation/screens/manage_gauges_screen.dart";
 import "package:rain_wise/features/monthly_breakdown/presentation/screens/monthly_breakdown_screen.dart";
 import "package:rain_wise/features/oss_licenses/presentation/screens/license_detail_screen.dart";
@@ -106,6 +107,7 @@ class ComingSoonRoute extends GoRouteData with $ComingSoonRoute {
         TypedGoRoute<InsightsRoute>(
           path: "/insights",
           routes: <TypedGoRoute<GoRouteData>>[
+            TypedGoRoute<MonthlyComparisonRoute>(path: "monthly-comparison"),
             TypedGoRoute<MonthlyBreakdownRoute>(path: "monthly-breakdown"),
             TypedGoRoute<SeasonalPatternsRoute>(path: "season-patterns"),
             TypedGoRoute<AnomalyExplorationRoute>(path: "anomaly-explore"),
@@ -233,6 +235,17 @@ class RainfallEntriesRoute extends GoRouteData with $RainfallEntriesRoute {
 }
 
 // Insights Sub-Routes
+class MonthlyComparisonRoute extends GoRouteData with $MonthlyComparisonRoute {
+  const MonthlyComparisonRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(final BuildContext context, final GoRouterState state) =>
+      const MonthlyComparisonScreen();
+}
+
 class MonthlyBreakdownRoute extends GoRouteData with $MonthlyBreakdownRoute {
   const MonthlyBreakdownRoute({this.month});
 

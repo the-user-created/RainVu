@@ -20,6 +20,12 @@ class DetailedAnalysisList extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _AnalysisListTile(
+            title: l10n.monthlyComparisonTitle,
+            subtitle: l10n.detailedAnalysisMonthlyComparisonSubtitle,
+            onTap: () => const MonthlyComparisonRoute().push(context),
+          ),
+          const SizedBox(height: 16),
+          _AnalysisListTile(
             title: l10n.monthlyBreakdownTitle,
             subtitle: l10n.detailedAnalysisMonthlyBreakdownSubtitle,
             onTap: () => const MonthlyBreakdownRoute().push(context),
@@ -68,9 +74,7 @@ class _AnalysisListTile extends StatelessWidget {
     return Card(
       elevation: 2,
       color: colorScheme.surface,
-      shape: RoundedRectangleBorder(
-        borderRadius: BorderRadius.circular(16),
-      ),
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
@@ -99,11 +103,7 @@ class _AnalysisListTile extends StatelessWidget {
                   ],
                 ),
               ),
-              Icon(
-                Icons.chevron_right,
-                color: colorScheme.secondary,
-                size: 24,
-              ),
+              Icon(Icons.chevron_right, color: colorScheme.secondary, size: 24),
             ],
           ),
         ),

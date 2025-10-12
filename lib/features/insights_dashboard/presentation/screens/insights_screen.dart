@@ -4,7 +4,6 @@ import "package:rain_wise/features/insights_dashboard/application/insights_provi
 import "package:rain_wise/features/insights_dashboard/domain/insights_data.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/widgets/detailed_analysis_list.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/widgets/key_metrics_section.dart";
-import "package:rain_wise/features/insights_dashboard/presentation/widgets/monthly_comparison_grid.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
@@ -35,8 +34,6 @@ class InsightsScreen extends ConsumerWidget {
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 KeyMetricsSection(metrics: data.keyMetrics),
-                const SizedBox(height: 24),
-                MonthlyComparisonGrid(comparisons: data.monthlyComparisons),
                 const SizedBox(height: 24),
                 const DetailedAnalysisList(),
                 const SizedBox(height: 24),
