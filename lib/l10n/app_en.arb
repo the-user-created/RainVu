@@ -340,10 +340,39 @@
     }
   },
   "resetDialogTitle": "Are you absolutely sure?",
-  "resetDialogContent": "This action is irreversible. You will lose all your rainfall data and custom settings. To proceed, please type \"RESET\" in the box below.",
-  "resetDialogTextFieldHint": "Type RESET to confirm",
+  "resetDialogContent": "This action is irreversible. You will lose all your rainfall data and custom settings. To proceed, please type \"{confirmationText}\" in the box below.",
+  "@resetDialogContent": {
+    "description": "The main content of the app reset confirmation dialog, instructing the user what to type.",
+    "placeholders": {
+      "confirmationText": {
+        "type": "String",
+        "description": "The exact word the user must type to confirm the action, e.g., 'RESET'."
+      }
+    }
+  },
+  "resetDialogConfirmationText": "RESET",
+  "@resetDialogConfirmationText": {
+    "description": "The exact, case-sensitive word the user must type to confirm the app reset. This should be localized to a suitable word in the target language."
+  },
+  "resetDialogTextFieldHint": "Type {confirmationText} to confirm",
+  "@resetDialogTextFieldHint": {
+    "description": "Placeholder text for the text field in the reset dialog.",
+    "placeholders": {
+      "confirmationText": {
+        "type": "String"
+      }
+    }
+  },
+  "resetDialogValidationError": "Please type {confirmationText} to confirm.",
+  "@resetDialogValidationError": {
+    "description": "Validation error message shown if the user types the wrong text in the reset confirmation field.",
+    "placeholders": {
+      "confirmationText": {
+        "type": "String"
+      }
+    }
+  },
   "resetDialogConfirmButton": "I understand, reset my data",
-  "resetDialogValidationError": "Please type RESET to confirm.",
   "resetSuccessSnackbar": "App has been reset.",
   "resetErrorSnackbar": "An error occurred while resetting the app: {error}",
   "@resetErrorSnackbar": {

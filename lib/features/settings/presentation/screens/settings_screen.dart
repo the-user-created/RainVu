@@ -307,21 +307,37 @@ class _ResetDialog extends StatefulWidget {
 class _ResetDialogState extends State<_ResetDialog> {
   final _confirmationController = TextEditingController();
   bool _isButtonEnabled = false;
+  late String _confirmationText;
 
   @override
   void initState() {
     super.initState();
-    _confirmationController.addListener(() {
-      final bool isEnabled = _confirmationController.text == "RESET";
-      if (isEnabled != _isButtonEnabled) {
-        setState(() => _isButtonEnabled = isEnabled);
-      }
-    });
+  }
+
+  @override
+  void didChangeDependencies() {
+    super.didChangeDependencies();
+    _confirmationText = AppLocalizations.of(
+      context,
+    ).resetDialogConfirmationText;
+
+    _confirmationController
+      ..removeListener(_validateInput)
+      ..addListener(_validateInput);
+  }
+
+  void _validateInput() {
+    final bool isEnabled = _confirmationController.text == _confirmationText;
+    if (isEnabled != _isButtonEnabled) {
+      setState(() => _isButtonEnabled = isEnabled);
+    }
   }
 
   @override
   void dispose() {
-    _confirmationController.dispose();
+    _confirmationController
+      ..removeListener(_validateInput)
+      ..dispose();
     super.dispose();
   }
 
@@ -333,19 +349,22 @@ class _ResetDialogState extends State<_ResetDialog> {
       title: Text(l10n.resetDialogTitle),
       content: ListBody(
         children: <Widget>[
-          Text(l10n.resetDialogContent),
+          Text(l10n.resetDialogContent(_confirmationText)),
           const SizedBox(height: 16),
           TextFormField(
             controller: _confirmationController,
             decoration: InputDecoration(
-              hintText: l10n.resetDialogTextFieldHint,
+              hintText: l10n.resetDialogTextFieldHint(_confirmationText),
             ),
             autovalidateMode: AutovalidateMode.onUserInteraction,
-            validator: (final value) =>
-                // TODO: needs localization
-                (value != null && value.isNotEmpty && value != "RESET")
-                ? l10n.resetDialogValidationError
-                : null,
+            validator: (final value) {
+              if (value != null &&
+                  value.isNotEmpty &&
+                  value != _confirmationText) {
+                return l10n.resetDialogValidationError(_confirmationText);
+              }
+              return null;
+            },
           ),
         ],
       ),
