@@ -21,7 +21,7 @@ class ChangeItemTile extends StatelessWidget {
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 4, right: 12),
+            padding: const EdgeInsets.only(top: 8, right: 12),
             child: Icon(
               Icons.water_drop_outlined,
               size: 16,
@@ -31,8 +31,8 @@ class ChangeItemTile extends StatelessWidget {
             ),
           ),
           Expanded(
-            child: RichText(
-              text: TextSpan(
+            child: Text.rich(
+              TextSpan(
                 style: textTheme.bodyMedium?.copyWith(
                   color: colorScheme.onSurface,
                   height: 1.5,
