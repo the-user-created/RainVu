@@ -7,6 +7,7 @@ import "package:rain_wise/features/anomaly_exploration/application/anomaly_explo
 import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/pickers/date_range_picker.dart";
 
 class AnomalyFilterOptions extends ConsumerWidget {
@@ -38,10 +39,7 @@ class AnomalyFilterOptions extends ConsumerWidget {
         borderRadius: BorderRadius.circular(16),
       ),
       child: filterAsync.when(
-        loading: () => const SizedBox(
-          height: 124,
-          child: AppLoader(),
-        ),
+        loading: () => const SizedBox(height: 84, child: AppLoader()),
         error: (final err, final stack) => Center(child: Text("Error: $err")),
         data: (final filter) => Column(
           crossAxisAlignment: CrossAxisAlignment.stretch,
@@ -52,9 +50,15 @@ class AnomalyFilterOptions extends ConsumerWidget {
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 16),
-            _DateRangePicker(dateRange: filter.dateRange),
-            const SizedBox(height: 12),
-            _SeveritySelector(severities: filter.severities),
+            Wrap(
+              spacing: 12,
+              runSpacing: 12,
+              alignment: WrapAlignment.center,
+              children: [
+                _DateRangePickerButton(dateRange: filter.dateRange),
+                _SeveritySelectorButton(severities: filter.severities),
+              ],
+            ),
           ],
         ),
       ),
@@ -62,16 +66,13 @@ class AnomalyFilterOptions extends ConsumerWidget {
   }
 }
 
-class _DateRangePicker extends ConsumerWidget {
-  const _DateRangePicker({required this.dateRange});
+class _DateRangePickerButton extends ConsumerWidget {
+  const _DateRangePickerButton({required this.dateRange});
 
   final DateTimeRange dateRange;
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
     final String dateText =
         "${DateFormat.yMd().format(dateRange.start)} - ${DateFormat.yMd().format(dateRange.end)}";
     final AsyncValue<DateRangeResult> dbDateRangeAsync = ref.watch(
@@ -83,96 +84,33 @@ class _DateRangePicker extends ConsumerWidget {
       orElse: () => false,
     );
 
-    return Opacity(
-      opacity: hasData ? 1.0 : 0.5,
-      child: InkWell(
-        onTap: hasData
-            ? () async {
-                final DateRangeResult dbDateRange = dbDateRangeAsync.value!;
-                final DateTimeRange? picked = await showAppDateRangePicker(
-                  context,
-                  firstDate: dbDateRange.min!,
-                  lastDate: dbDateRange.max!,
-                  initialDateRange: dateRange,
-                );
-                if (picked != null) {
-                  ref.read(anomalyFilterProvider.notifier).setDateRange(picked);
-                }
+    return AppButton(
+      onPressed: hasData
+          ? () async {
+              final DateRangeResult dbDateRange = dbDateRangeAsync.value!;
+              final DateTimeRange? picked = await showAppDateRangePicker(
+                context,
+                firstDate: dbDateRange.min!,
+                lastDate: dbDateRange.max!,
+                initialDateRange: dateRange,
+              );
+              if (picked != null) {
+                ref.read(anomalyFilterProvider.notifier).setDateRange(picked);
               }
-            : null,
-        child: DecoratedBox(
-          decoration: BoxDecoration(
-            color: colorScheme.surfaceContainerHighest,
-            borderRadius: BorderRadius.circular(8),
-          ),
-          child: Padding(
-            padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-            child: Row(
-              children: [
-                Icon(
-                  Icons.calendar_today,
-                  color: colorScheme.secondary,
-                  size: 20,
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  child: Text(
-                    dateText,
-                    style: textTheme.bodyMedium,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-      ),
+            }
+          : null,
+      label: dateText,
+      style: AppButtonStyle.secondary,
+      size: AppButtonSize.small,
+      icon: const Icon(Icons.calendar_today, size: 20),
     );
   }
 }
 
-class _SeveritySelector extends ConsumerWidget {
-  const _SeveritySelector({required this.severities});
+class _SeveritySelectorButton extends ConsumerWidget {
+  const _SeveritySelectorButton({required this.severities});
 
   final Set<AnomalySeverity> severities;
-
-  @override
-  Widget build(final BuildContext context, final WidgetRef ref) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
-    final AppLocalizations l10n = AppLocalizations.of(context);
-
-    return InkWell(
-      onTap: () => _showSeverityDialog(context, ref, l10n),
-      child: DecoratedBox(
-        decoration: BoxDecoration(
-          color: colorScheme.surfaceContainerHighest,
-          borderRadius: BorderRadius.circular(8),
-        ),
-        child: Padding(
-          padding: const EdgeInsets.symmetric(horizontal: 12, vertical: 12),
-          child: Row(
-            children: [
-              const Icon(
-                Icons.warning_amber_rounded,
-                color: Colors.amber,
-                size: 20,
-              ),
-              const SizedBox(width: 8),
-              Expanded(
-                child: Text(
-                  _buildSelectionText(severities, l10n),
-                  style: textTheme.bodyMedium,
-                  overflow: TextOverflow.ellipsis,
-                ),
-              ),
-            ],
-          ),
-        ),
-      ),
-    );
-  }
 
   String _buildSelectionText(
     final Set<AnomalySeverity> selected,
@@ -235,6 +173,19 @@ class _SeveritySelector extends ConsumerWidget {
           ),
         ],
       ),
+    );
+  }
+
+  @override
+  Widget build(final BuildContext context, final WidgetRef ref) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+
+    return AppButton(
+      onPressed: () => _showSeverityDialog(context, ref, l10n),
+      label: _buildSelectionText(severities, l10n),
+      style: AppButtonStyle.secondary,
+      size: AppButtonSize.small,
+      icon: const Icon(Icons.warning_amber_rounded, size: 20),
     );
   }
 }

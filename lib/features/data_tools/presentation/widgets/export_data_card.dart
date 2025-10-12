@@ -40,6 +40,20 @@ class ExportDataCard extends ConsumerWidget {
       rainfallDateRangeProvider,
     );
 
+    final String dateRangeLabel;
+    if (state.dateRange == null) {
+      dateRangeLabel = l10n.dateRangeAllTime;
+    } else {
+      final DateFormat formatter = DateFormat.yMd();
+      dateRangeLabel =
+          "${formatter.format(state.dateRange!.start)} - ${formatter.format(state.dateRange!.end)}";
+    }
+
+    final bool hasData = dateRangeAsync.maybeWhen(
+      data: (final data) => data.min != null && data.max != null,
+      orElse: () => false,
+    );
+
     return SettingsCard(
       children: [
         Padding(
@@ -61,37 +75,54 @@ class ExportDataCard extends ConsumerWidget {
                 ),
               ),
               const SizedBox(height: 24),
-              _DateRangePickerTile(
-                dateRange: state.dateRange,
-                onTap: dateRangeAsync.when(
-                  data: (final data) => () async {
-                    if (data.min == null || data.max == null) {
-                      showSnackbar(
-                        l10n.noDataToSetDateRange,
-                        type: MessageType.error,
-                      );
-                      return;
-                    }
-
-                    final DateTimeRange defaultRange = DateTimeRange(
-                      start: data.min!,
-                      end: data.max!,
-                    );
-                    final DateTimeRange? newRange =
-                        await showAppDateRangePicker(
-                          context,
-                          firstDate: data.min!,
-                          lastDate: data.max!,
-                          initialDateRange: state.dateRange ?? defaultRange,
-                        );
-                    if (newRange != null) {
-                      notifier.setDateRange(newRange);
-                    }
-                  },
-                  loading: () => null,
-                  error: (final _, final _) => null,
-                ),
-                onClear: () => notifier.setDateRange(null),
+              Row(
+                children: [
+                  Expanded(
+                    child: AppButton(
+                      style: AppButtonStyle.secondary,
+                      size: AppButtonSize.small,
+                      onPressed: hasData
+                          ? () async {
+                              final DateRangeResult data =
+                                  dateRangeAsync.value!;
+                              final DateTimeRange defaultRange = DateTimeRange(
+                                start: data.min!,
+                                end: data.max!,
+                              );
+                              final DateTimeRange? newRange =
+                                  await showAppDateRangePicker(
+                                    context,
+                                    firstDate: data.min!,
+                                    lastDate: data.max!,
+                                    initialDateRange:
+                                        state.dateRange ?? defaultRange,
+                                  );
+                              if (newRange != null) {
+                                notifier.setDateRange(newRange);
+                              }
+                            }
+                          : () => showSnackbar(
+                              l10n.noDataToSetDateRange,
+                              type: MessageType.error,
+                            ),
+                      label: dateRangeLabel,
+                      icon: const Icon(
+                        Icons.calendar_today,
+                        size: 20,
+                      ),
+                    ),
+                  ),
+                  if (state.dateRange != null) ...[
+                    const SizedBox(width: 8),
+                    AppIconButton(
+                      icon: const Icon(Icons.close),
+                      onPressed: () => notifier.setDateRange(null),
+                      tooltip: l10n.clearSelectionTooltip,
+                      backgroundColor:
+                          theme.colorScheme.surfaceContainerHighest,
+                    ),
+                  ],
+                ],
               ),
               const SizedBox(height: 16),
               Text(l10n.exportFormatTitle, style: theme.textTheme.bodyMedium),
@@ -126,60 +157,6 @@ class ExportDataCard extends ConsumerWidget {
           ),
         ),
       ],
-    );
-  }
-}
-
-class _DateRangePickerTile extends StatelessWidget {
-  const _DateRangePickerTile({
-    required this.onTap,
-    this.dateRange,
-    this.onClear,
-  });
-
-  final DateTimeRange? dateRange;
-  final VoidCallback? onTap;
-  final VoidCallback? onClear;
-
-  @override
-  Widget build(final BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    final AppLocalizations l10n = AppLocalizations.of(context);
-    final String label;
-
-    if (dateRange == null) {
-      label = l10n.dateRangeAllTime;
-    } else {
-      final DateFormat formatter = DateFormat.yMd();
-      label =
-          "${formatter.format(dateRange!.start)} - ${formatter.format(dateRange!.end)}";
-    }
-
-    return InkWell(
-      onTap: onTap,
-      borderRadius: BorderRadius.circular(12),
-      child: Container(
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-        decoration: BoxDecoration(
-          color: theme.colorScheme.surfaceContainerHighest,
-          borderRadius: BorderRadius.circular(12),
-        ),
-        child: Row(
-          children: [
-            Expanded(child: Text(label, style: theme.textTheme.bodyMedium)),
-            if (dateRange != null && onClear != null)
-              AppIconButton(
-                icon: const Icon(Icons.close),
-                onPressed: onClear,
-                tooltip: l10n.clearSelectionTooltip,
-                padding: const EdgeInsets.all(4),
-                iconSize: 20,
-              )
-            else
-              const Icon(Icons.calendar_today, size: 24),
-          ],
-        ),
-      ),
     );
   }
 }
