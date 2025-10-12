@@ -6,16 +6,14 @@ import "package:rain_wise/features/settings/domain/support_ticket.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
-import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
+import "package:rain_wise/shared/widgets/forms/app_choice_chips.dart";
 import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
-
-// TODO: should be updated to use choice chips for category selection and change text based on which button the user used to get here.
 
 /// A bottom sheet for submitting a support ticket or feedback.
 class TicketSheet extends ConsumerStatefulWidget {
-  const TicketSheet({super.key, this.initialCategory});
+  const TicketSheet({required this.initialCategory, super.key});
 
-  final TicketCategory? initialCategory;
+  final TicketCategory initialCategory;
 
   @override
   ConsumerState<TicketSheet> createState() => _TicketSheetState();
@@ -26,8 +24,9 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
   final _descriptionController = TextEditingController();
   final _emailController = TextEditingController();
 
-  TicketCategory? _selectedCategory;
+  late TicketCategory _selectedCategory;
   bool _isLoading = false;
+  bool _categoryHasError = false;
 
   @override
   void initState() {
@@ -54,7 +53,7 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
       await ref
           .read(supportServiceProvider.notifier)
           .submitTicket(
-            category: _selectedCategory!,
+            category: _selectedCategory,
             description: _descriptionController.text.trim(),
             contactEmail: contactEmail.isNotEmpty ? contactEmail : null,
           );
@@ -72,6 +71,29 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
     }
   }
 
+  ({String title, String description}) _getHeaderForCategory(
+    final AppLocalizations l10n,
+  ) {
+    switch (_selectedCategory) {
+      case TicketCategory.bugReport:
+        return (
+          title: l10n.helpReportBugTitle,
+          description: l10n.helpReportBugSubtitle,
+        );
+      case TicketCategory.featureRequest:
+        return (
+          title: l10n.helpSuggestIdeaTitle,
+          description: l10n.helpSuggestIdeaSubtitle,
+        );
+      case TicketCategory.generalFeedback:
+      case TicketCategory.other:
+        return (
+          title: _selectedCategory.displayName(l10n),
+          description: l10n.ticketSheetDescription,
+        );
+    }
+  }
+
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -79,8 +101,12 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
     final ColorScheme colorScheme = theme.colorScheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
 
+    final ({String title, String description}) header = _getHeaderForCategory(
+      l10n,
+    );
+
     return InteractiveSheet(
-      title: Text(l10n.ticketSheetTitle),
+      title: Text(header.title),
       actions: [
         TextButton(
           onPressed: _isLoading ? null : () => Navigator.of(context).pop(),
@@ -101,24 +127,38 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(l10n.ticketSheetDescription, style: textTheme.bodyMedium),
+            Text(header.description, style: textTheme.bodyMedium),
             const SizedBox(height: 24),
-            AppDropdownFormField<TicketCategory>(
-              value: _selectedCategory,
-              hintText: l10n.ticketSheetCategoryHint,
-              items: TicketCategory.values
+            AppChoiceChips<TicketCategory>(
+              selectedValue: _selectedCategory,
+              onSelected: (final value) {
+                setState(() {
+                  _selectedCategory = value;
+                  if (_categoryHasError) {
+                    _categoryHasError = false;
+                  }
+                });
+              },
+              options: TicketCategory.values
                   .map(
-                    (final category) => DropdownMenuItem(
+                    (final category) => ChipOption(
                       value: category,
-                      child: Text(category.displayName(l10n)),
+                      label: category.displayName(l10n),
                     ),
                   )
                   .toList(),
-              onChanged: (final value) =>
-                  setState(() => _selectedCategory = value),
-              validator: (final value) =>
-                  value == null ? l10n.ticketSheetCategoryValidation : null,
             ),
+            if (_categoryHasError) ...[
+              Padding(
+                padding: const EdgeInsets.only(top: 8, left: 12),
+                child: Text(
+                  l10n.ticketSheetCategoryValidation,
+                  style: textTheme.bodySmall?.copyWith(
+                    color: colorScheme.error,
+                  ),
+                ),
+              ),
+            ],
             const SizedBox(height: 16),
             TextFormField(
               controller: _descriptionController,

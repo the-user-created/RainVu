@@ -10,7 +10,6 @@ enum TicketCategory {
   bugReport,
   featureRequest,
   generalFeedback,
-  billingIssue,
   other,
 }
 
@@ -24,8 +23,6 @@ extension TicketCategoryExtension on TicketCategory {
         return l10n.ticketCategoryFeatureRequest;
       case TicketCategory.generalFeedback:
         return l10n.ticketCategoryGeneralFeedback;
-      case TicketCategory.billingIssue:
-        return l10n.ticketCategoryBillingIssue;
       case TicketCategory.other:
         return l10n.ticketCategoryOther;
     }
