@@ -67,11 +67,7 @@ class _RainfallEntriesScreenState extends ConsumerState<RainfallEntriesScreen> {
                 ? "$monthTitle: $gaugeName"
                 : monthTitle;
 
-            return Text(
-              fullTitle,
-              style: theme.textTheme.titleLarge,
-              overflow: TextOverflow.ellipsis,
-            );
+            return Text(fullTitle, style: theme.textTheme.titleLarge);
           },
           loading: () => Text(monthTitle, style: theme.textTheme.titleLarge),
           error: (final _, final _) =>
