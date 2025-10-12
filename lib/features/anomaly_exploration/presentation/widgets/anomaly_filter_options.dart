@@ -8,6 +8,7 @@ import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart"
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
 import "package:rain_wise/shared/widgets/pickers/date_range_picker.dart";
 
 class AnomalyFilterOptions extends ConsumerWidget {
@@ -136,35 +137,32 @@ class _SeveritySelectorButton extends ConsumerWidget {
   ) {
     showDialog<void>(
       context: context,
-      builder: (final context) => AlertDialog(
+      builder: (final context) => AppAlertDialog(
         title: Text(l10n.selectSeverityLevelsDialogTitle),
-        content: SingleChildScrollView(
-          child: Consumer(
-            builder: (final context, final ref, final _) {
-              // We watch the provider again here so the dialog rebuilds on change
-              final Set<AnomalySeverity> selected = ref.watch(
-                anomalyFilterProvider.select(
-                  (final asyncValue) => asyncValue.value?.severities ?? {},
-                ),
-              );
-              return Column(
-                mainAxisSize: MainAxisSize.min,
-                children: AnomalySeverity.values
-                    .map(
-                      (final severity) => CheckboxListTile(
-                        title: Text(severity.getLabel(l10n)),
-                        value: selected.contains(severity),
-                        onChanged: (final _) {
-                          ref
-                              .read(anomalyFilterProvider.notifier)
-                              .toggleSeverity(severity);
-                        },
-                      ),
-                    )
-                    .toList(),
-              );
-            },
-          ),
+        content: Consumer(
+          builder: (final context, final ref, final _) {
+            final Set<AnomalySeverity> selected = ref.watch(
+              anomalyFilterProvider.select(
+                (final asyncValue) => asyncValue.value?.severities ?? {},
+              ),
+            );
+            return Column(
+              mainAxisSize: MainAxisSize.min,
+              children: AnomalySeverity.values
+                  .map(
+                    (final severity) => CheckboxListTile(
+                      title: Text(severity.getLabel(l10n)),
+                      value: selected.contains(severity),
+                      onChanged: (final _) {
+                        ref
+                            .read(anomalyFilterProvider.notifier)
+                            .toggleSeverity(severity);
+                      },
+                    ),
+                  )
+                  .toList(),
+            );
+          },
         ),
         actions: [
           TextButton(

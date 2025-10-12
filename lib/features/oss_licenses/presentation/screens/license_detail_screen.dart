@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
 import "package:rain_wise/oss_licenses.dart" as oss;
 
 class LicenseDetailScreen extends StatelessWidget {
@@ -49,7 +50,7 @@ class LicenseDetailScreen extends StatelessWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     showDialog<void>(
       context: context,
-      builder: (final context) => AlertDialog(
+      builder: (final context) => AppAlertDialog(
         title: Text(l10n.licenseDisclaimerTitle),
         content: Text(l10n.licenseDisclaimerContent),
         actions: [

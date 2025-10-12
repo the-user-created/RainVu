@@ -35,7 +35,7 @@ class RainfallEntryListItem extends ConsumerWidget {
     final bool? confirmed = await showDialog<bool>(
       context: context,
       builder: (final context) => AppAlertDialog(
-        title: l10n.deleteEntryDialogTitle,
+        title: Text(l10n.deleteEntryDialogTitle),
         content: Text(l10n.deleteDialogContent),
         actions: [
           TextButton(

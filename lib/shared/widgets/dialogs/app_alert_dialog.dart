@@ -1,11 +1,12 @@
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 
-/// A styled dialog that provides a consistent look and feel for alerts
+/// A styled, scrollable dialog that provides a consistent look and feel for alerts
 /// across the app, based on [AlertDialog].
 ///
-/// It standardizes the shape, title, and content styling, and adds a subtle
-/// fade-in animation to its content.
+/// It standardizes the shape and styling, adds a subtle fade-in animation,
+/// and automatically makes the content area scrollable to accommodate
+/// accessibility settings like large text sizes.
 class AppAlertDialog extends StatelessWidget {
   const AppAlertDialog({
     required this.title,
@@ -14,8 +15,8 @@ class AppAlertDialog extends StatelessWidget {
     this.actions,
   });
 
-  /// The title of the dialog.
-  final String title;
+  /// The title of the dialog, typically a [Text] widget.
+  final Widget title;
 
   /// The main content of the dialog.
   final Widget content;
@@ -25,10 +26,13 @@ class AppAlertDialog extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => AlertDialog(
+    scrollable: true,
+    titlePadding: const EdgeInsets.fromLTRB(24, 24, 24, 0),
     title: Animate(
       effects: const [FadeEffect(duration: Duration(milliseconds: 300))],
-      child: Text(title),
+      child: title,
     ),
+    contentPadding: const EdgeInsets.fromLTRB(24, 12, 24, 12),
     content: Animate(
       effects: const [
         FadeEffect(

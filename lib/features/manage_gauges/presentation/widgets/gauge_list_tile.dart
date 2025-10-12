@@ -53,7 +53,7 @@ class _GaugeListTileState extends ConsumerState<GaugeListTile> {
       final bool? confirmed = await showDialog<bool>(
         context: context,
         builder: (final alertDialogContext) => AppAlertDialog(
-          title: l10n.deleteGaugeDialogTitle,
+          title: Text(l10n.deleteGaugeDialogTitle),
           content: Text(l10n.deleteGaugeDialogContent),
           actions: [
             TextButton(
@@ -85,7 +85,7 @@ class _GaugeListTileState extends ConsumerState<GaugeListTile> {
       context: context,
       builder: (final context) => StatefulBuilder(
         builder: (final context, final setState) => AppAlertDialog(
-          title: l10n.deleteGaugeDialogTitle,
+          title: Text(l10n.deleteGaugeDialogTitle),
           content: Column(
             mainAxisSize: MainAxisSize.min,
             crossAxisAlignment: CrossAxisAlignment.start,

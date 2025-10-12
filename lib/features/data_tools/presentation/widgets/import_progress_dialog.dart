@@ -1,6 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
 
 class ImportProgressDialog extends ConsumerWidget {
   const ImportProgressDialog({super.key});
@@ -12,7 +13,7 @@ class ImportProgressDialog extends ConsumerWidget {
 
     return PopScope(
       canPop: false, // Prevent dismissing with back button
-      child: AlertDialog(
+      child: AppAlertDialog(
         title: Text(l10n.importProgressTitle),
         content: Column(
           mainAxisSize: MainAxisSize.min,

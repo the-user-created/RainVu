@@ -330,26 +330,24 @@ class _ResetDialogState extends State<_ResetDialog> {
     final AppLocalizations l10n = AppLocalizations.of(context);
 
     return AppAlertDialog(
-      title: l10n.resetDialogTitle,
-      content: SingleChildScrollView(
-        child: ListBody(
-          children: <Widget>[
-            Text(l10n.resetDialogContent),
-            const SizedBox(height: 16),
-            TextFormField(
-              controller: _confirmationController,
-              decoration: InputDecoration(
-                hintText: l10n.resetDialogTextFieldHint,
-              ),
-              autovalidateMode: AutovalidateMode.onUserInteraction,
-              validator: (final value) =>
-                  // TODO: needs localization
-                  (value != null && value.isNotEmpty && value != "RESET")
-                  ? l10n.resetDialogValidationError
-                  : null,
+      title: Text(l10n.resetDialogTitle),
+      content: ListBody(
+        children: <Widget>[
+          Text(l10n.resetDialogContent),
+          const SizedBox(height: 16),
+          TextFormField(
+            controller: _confirmationController,
+            decoration: InputDecoration(
+              hintText: l10n.resetDialogTextFieldHint,
             ),
-          ],
-        ),
+            autovalidateMode: AutovalidateMode.onUserInteraction,
+            validator: (final value) =>
+                // TODO: needs localization
+                (value != null && value.isNotEmpty && value != "RESET")
+                ? l10n.resetDialogValidationError
+                : null,
+          ),
+        ],
       ),
       actions: <Widget>[
         AppButton(
