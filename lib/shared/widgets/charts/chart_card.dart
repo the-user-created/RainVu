@@ -24,21 +24,22 @@ class ChartCard extends StatelessWidget {
       margin: margin,
       clipBehavior: Clip.none,
       child: Padding(
-        padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
+        padding: const EdgeInsets.fromLTRB(16, 20, 16, 16),
         child: Column(
           mainAxisSize: MainAxisSize.min,
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              crossAxisAlignment: CrossAxisAlignment.start,
+            Wrap(
+              spacing: 16,
+              runSpacing: 8,
+              alignment: WrapAlignment.spaceBetween,
+              crossAxisAlignment: WrapCrossAlignment.center,
               children: [
-                Expanded(
-                  child: Text(title, style: theme.textTheme.titleMedium),
-                ),
+                Text(title, style: theme.textTheme.titleMedium),
                 if (legend != null) legend!,
               ],
             ),
-            const SizedBox(height: 24),
+            const SizedBox(height: 16),
             chart,
           ],
         ),

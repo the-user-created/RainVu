@@ -85,6 +85,7 @@ class AnomalyTimelineChart extends ConsumerWidget {
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
         MeasurementUnit.mm;
     final bool isInch = unit == MeasurementUnit.inch;
+    final TextScaler textScaler = MediaQuery.textScalerOf(context);
 
     final bool isMultiYear = dateRange.start.year != dateRange.end.year;
 
@@ -96,6 +97,7 @@ class AnomalyTimelineChart extends ConsumerWidget {
     return ChartCard(
       title: l10n.rainfallTrendsTitle,
       legend: Row(
+        mainAxisSize: MainAxisSize.min,
         children: [
           LegendItem(
             color: colorScheme.secondary,
@@ -110,20 +112,25 @@ class AnomalyTimelineChart extends ConsumerWidget {
         ],
       ),
       chart: processedPoints.isEmpty
-          ? Center(
-              child: Text(
-                l10n.noDataToSetDateRange,
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  color: colorScheme.onSurfaceVariant,
+          ? SizedBox(
+              height: 240,
+              child: Center(
+                child: Text(
+                  l10n.noDataToSetDateRange,
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    color: colorScheme.onSurfaceVariant,
+                  ),
                 ),
               ),
             )
           : LayoutBuilder(
               builder: (final context, final constraints) {
-                const double minPointWidth = 15;
+                const double minPointWidth = 35;
+                final double calculatedWidth =
+                    processedPoints.length * minPointWidth;
                 final double chartWidth = max(
                   constraints.maxWidth,
-                  processedPoints.length * minPointWidth,
+                  calculatedWidth,
                 );
 
                 return SingleChildScrollView(
@@ -131,14 +138,18 @@ class AnomalyTimelineChart extends ConsumerWidget {
                   child: SizedBox(
                     width: chartWidth,
                     height: 240,
-                    child: _buildChart(
-                      context,
-                      l10n: l10n,
-                      unit: unit,
-                      isInch: isInch,
-                      isMultiYear: isMultiYear,
-                      processedPoints: processedPoints,
-                      availableWidth: constraints.maxWidth,
+                    child: Padding(
+                      padding: const EdgeInsets.only(right: 16, top: 16),
+                      child: _buildChart(
+                        context,
+                        l10n: l10n,
+                        unit: unit,
+                        isInch: isInch,
+                        isMultiYear: isMultiYear,
+                        processedPoints: processedPoints,
+                        availableWidth: chartWidth,
+                        textScaler: textScaler,
+                      ),
                     ),
                   ),
                 );
@@ -155,6 +166,7 @@ class AnomalyTimelineChart extends ConsumerWidget {
     required final bool isMultiYear,
     required final List<_ChartDataPoint> processedPoints,
     required final double availableWidth,
+    required final TextScaler textScaler,
   }) {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
@@ -189,7 +201,6 @@ class AnomalyTimelineChart extends ConsumerWidget {
 
     return LineChart(
       LineChartData(
-        clipData: const FlClipData.all(),
         maxY: (displayMaxRainfall * 1.2).clamp(
           isInch ? 0.5 : 10,
           double.infinity,
@@ -210,7 +221,7 @@ class AnomalyTimelineChart extends ConsumerWidget {
           leftTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
-              reservedSize: 40,
+              reservedSize: 40 * textScaler.scale(1),
               getTitlesWidget: (final value, final meta) {
                 if (value == meta.max || value == meta.min) {
                   return const SizedBox();
@@ -218,10 +229,14 @@ class AnomalyTimelineChart extends ConsumerWidget {
                 final String text = isInch
                     ? value.toStringAsFixed(1)
                     : value.round().toString();
-                return Text(
-                  text,
-                  style: textTheme.bodySmall,
-                  textAlign: TextAlign.left,
+                return Padding(
+                  padding: const EdgeInsets.only(right: 4),
+                  child: Text(
+                    text,
+                    style: textTheme.bodySmall,
+                    textAlign: TextAlign.right,
+                    maxLines: 1,
+                  ),
                 );
               },
             ),
@@ -229,9 +244,8 @@ class AnomalyTimelineChart extends ConsumerWidget {
           bottomTitles: AxisTitles(
             sideTitles: SideTitles(
               showTitles: true,
-              reservedSize: 20,
-              maxIncluded: false,
-              interval: (processedPoints.length / (availableWidth / 85))
+              reservedSize: 20 * textScaler.scale(1),
+              interval: (processedPoints.length / (availableWidth / 120))
                   .ceil()
                   .toDouble()
                   .clamp(1.0, double.infinity),
@@ -247,10 +261,9 @@ class AnomalyTimelineChart extends ConsumerWidget {
 
                 return SideTitleWidget(
                   meta: meta,
-                  space: 4,
                   fitInside: SideTitleFitInsideData.fromTitleMeta(
                     meta,
-                    distanceFromEdge: 8,
+                    distanceFromEdge: 0,
                   ),
                   child: Text(label, style: textTheme.bodySmall),
                 );

@@ -168,44 +168,46 @@ class _AnomalyGroupState extends State<_AnomalyGroup> {
                             color: colorScheme.onSurfaceVariant,
                           ),
                         ),
+                        if (percentage.abs() > 0) ...[
+                          const SizedBox(height: 4),
+                          Text(
+                            l10n.anomalyGroupDeviation(
+                              isPositive ? "+" : "",
+                              percentage.abs().toStringAsFixed(0),
+                            ),
+                            style: textTheme.bodyMedium?.copyWith(
+                              color: deviationColor,
+                              fontWeight: FontWeight.w600,
+                            ),
+                          ),
+                        ],
                       ],
                     ),
                   ),
-                  if (percentage != 0)
-                    Text(
-                      l10n.anomalyGroupDeviation(
-                        isPositive ? "+" : "",
-                        percentage.abs().toStringAsFixed(0),
-                      ),
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: deviationColor,
-                      ),
-                    ),
                 ],
               ),
             ),
           ),
-          AnimatedCrossFade(
-            firstChild: const SizedBox.shrink(),
-            secondChild: Column(
-              children: [
-                const Divider(height: 1),
-                ListView.separated(
-                  padding: const EdgeInsets.symmetric(vertical: 8),
-                  shrinkWrap: true,
-                  physics: const NeverScrollableScrollPhysics(),
-                  itemCount: widget.anomalies.length,
-                  itemBuilder: (final context, final index) =>
-                      AnomalyListItem(anomaly: widget.anomalies[index]),
-                  separatorBuilder: (final context, final index) =>
-                      const Divider(indent: 16, endIndent: 16, height: 1),
-                ),
-              ],
-            ),
-            crossFadeState: _isExpanded
-                ? CrossFadeState.showSecond
-                : CrossFadeState.showFirst,
+          AnimatedSize(
             duration: const Duration(milliseconds: 250),
+            curve: Curves.easeInOut,
+            child: _isExpanded
+                ? Column(
+                    children: [
+                      const Divider(height: 1),
+                      ListView.separated(
+                        padding: const EdgeInsets.symmetric(vertical: 8),
+                        shrinkWrap: true,
+                        physics: const NeverScrollableScrollPhysics(),
+                        itemCount: widget.anomalies.length,
+                        itemBuilder: (final context, final index) =>
+                            AnomalyListItem(anomaly: widget.anomalies[index]),
+                        separatorBuilder: (final context, final index) =>
+                            const Divider(indent: 16, endIndent: 16, height: 1),
+                      ),
+                    ],
+                  )
+                : const SizedBox.shrink(),
           ),
         ],
       ),

@@ -18,6 +18,8 @@ class AnomalyExplorationScreen extends ConsumerWidget {
     final AsyncValue<AnomalyExplorationData> anomalyDataAsync = ref.watch(
       anomalyDataProvider,
     );
+    final TextScaler textScaler = MediaQuery.textScalerOf(context);
+    final double verticalPadding = 24 * textScaler.scale(1);
 
     return Scaffold(
       appBar: AppBar(
@@ -29,13 +31,13 @@ class AnomalyExplorationScreen extends ConsumerWidget {
       body: SafeArea(
         child: CustomScrollView(
           slivers: [
-            const SliverToBoxAdapter(
+            SliverToBoxAdapter(
               child: Padding(
-                padding: EdgeInsets.only(top: 24),
-                child: AnomalyFilterOptions(),
+                padding: EdgeInsets.only(top: verticalPadding),
+                child: const AnomalyFilterOptions(),
               ),
             ),
-            const SliverToBoxAdapter(child: SizedBox(height: 24)),
+            SliverToBoxAdapter(child: SizedBox(height: verticalPadding)),
             SliverToBoxAdapter(
               child: anomalyDataAsync.when(
                 loading: () => AnomalyTimelineChart(
@@ -57,7 +59,7 @@ class AnomalyExplorationScreen extends ConsumerWidget {
                 },
               ),
             ),
-            const SliverToBoxAdapter(child: SizedBox(height: 24)),
+            SliverToBoxAdapter(child: SizedBox(height: verticalPadding)),
             anomalyDataAsync.when(
               loading: () => const SliverFillRemaining(
                 hasScrollBody: false,
@@ -68,7 +70,10 @@ class AnomalyExplorationScreen extends ConsumerWidget {
                 child: Center(
                   child: Padding(
                     padding: const EdgeInsets.all(16),
-                    child: Text(l10n.anomalyExplorationError(err)),
+                    child: Text(
+                      l10n.anomalyExplorationError(err),
+                      textAlign: TextAlign.center,
+                    ),
                   ),
                 ),
               ),
@@ -77,7 +82,7 @@ class AnomalyExplorationScreen extends ConsumerWidget {
                 chartPoints: data.chartPoints,
               ),
             ),
-            const SliverToBoxAdapter(child: SizedBox(height: 24)),
+            SliverToBoxAdapter(child: SizedBox(height: verticalPadding)),
           ],
         ),
       ),

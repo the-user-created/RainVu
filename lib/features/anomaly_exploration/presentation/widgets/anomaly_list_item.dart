@@ -28,38 +28,32 @@ class AnomalyListItem extends ConsumerWidget {
 
     return Padding(
       padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
-      child: Row(
+      child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Expanded(
-            flex: 3,
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Text(
-                  DateFormat.yMMMd().format(anomaly.date),
-                  style: textTheme.bodyLarge?.copyWith(
-                    fontWeight: FontWeight.w600,
-                  ),
-                ),
-                const SizedBox(height: 4),
-                _DataRow(
-                  label: l10n.anomalyListItemActual,
-                  value: anomaly.actualRainfall.formatRainfall(context, unit),
-                  valueColor: colorScheme.secondary,
-                ),
-                _DataRow(
-                  label: l10n.anomalyListItemAverage,
-                  value: anomaly.averageRainfall.formatRainfall(context, unit),
-                ),
-              ],
+          Text(
+            DateFormat.yMMMd().format(anomaly.date),
+            style: textTheme.bodyLarge?.copyWith(fontWeight: FontWeight.w600),
+          ),
+          const SizedBox(height: 4),
+          Align(
+            alignment: Alignment.centerLeft,
+            child: _SeverityBadge(
+              text: deviationValue,
+              color: anomaly.severity.color,
+              backgroundColor: anomaly.severity.backgroundColor,
             ),
           ),
-          const SizedBox(width: 16),
-          _SeverityBadge(
-            text: deviationValue,
-            color: anomaly.severity.color,
-            backgroundColor: anomaly.severity.backgroundColor,
+          const SizedBox(height: 8),
+          _DataRow(
+            label: l10n.anomalyListItemActual,
+            value: anomaly.actualRainfall.formatRainfall(context, unit),
+            valueColor: colorScheme.secondary,
+          ),
+          const SizedBox(height: 2),
+          _DataRow(
+            label: l10n.anomalyListItemAverage,
+            value: anomaly.averageRainfall.formatRainfall(context, unit),
           ),
         ],
       ),
@@ -86,11 +80,13 @@ class _DataRow extends StatelessWidget {
             color: colorScheme.onSurfaceVariant,
           ),
         ),
-        Text(
-          value,
-          style: textTheme.bodySmall?.copyWith(
-            fontWeight: FontWeight.bold,
-            color: valueColor ?? colorScheme.onSurface,
+        Flexible(
+          child: Text(
+            value,
+            style: textTheme.bodySmall?.copyWith(
+              fontWeight: FontWeight.bold,
+              color: valueColor ?? colorScheme.onSurface,
+            ),
           ),
         ),
       ],
@@ -119,13 +115,11 @@ class _SeverityBadge extends StatelessWidget {
         color: backgroundColor,
         borderRadius: BorderRadius.circular(20),
       ),
-      child: Center(
-        child: Text(
-          text,
-          style: textTheme.bodyMedium?.copyWith(
-            color: color,
-            fontWeight: FontWeight.w600,
-          ),
+      child: Text(
+        text,
+        style: textTheme.bodyMedium?.copyWith(
+          color: color,
+          fontWeight: FontWeight.w600,
         ),
       ),
     );
