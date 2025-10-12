@@ -187,21 +187,31 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                 onTap: _selectDateTime,
                 child: Container(
                   width: double.infinity,
-                  height: 60,
+                  constraints: const BoxConstraints(minHeight: 60),
                   decoration: BoxDecoration(
                     color: theme.colorScheme.surface,
                     borderRadius: BorderRadius.circular(8),
                     border: Border.all(color: theme.colorScheme.outline),
                   ),
                   child: Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 12),
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 12,
+                    ),
                     child: Row(
                       mainAxisAlignment: MainAxisAlignment.spaceBetween,
                       children: [
-                        Text(
-                          DateFormat.yMMMd().add_jm().format(_selectedDateTime),
-                          style: theme.textTheme.bodyLarge,
+                        Flexible(
+                          child: Text(
+                            DateFormat.yMMMd().add_jm().format(
+                              _selectedDateTime,
+                            ),
+                            style: theme.textTheme.bodyLarge,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
                         ),
+                        const SizedBox(width: 8),
                         Icon(
                           Icons.calendar_today,
                           color: theme.colorScheme.onSurface,
@@ -230,7 +240,12 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
     alignment: Alignment.centerLeft,
     child: Padding(
       padding: const EdgeInsets.only(bottom: 8),
-      child: Text(title, style: Theme.of(context).textTheme.titleLarge),
+      child: Text(
+        title,
+        style: Theme.of(context).textTheme.titleLarge,
+        softWrap: true,
+        overflow: TextOverflow.visible,
+      ),
     ),
   );
 }
@@ -250,6 +265,7 @@ class _AmountInputRow extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final AppLocalizations l10n = AppLocalizations.of(context);
+    final double textScaleFactor = MediaQuery.textScalerOf(context).scale(1);
 
     final Widget amountField = TextFormField(
       controller: amountController,
@@ -280,10 +296,11 @@ class _AmountInputRow extends StatelessWidget {
 
     return LayoutBuilder(
       builder: (final context, final constraints) {
-        const double breakpoint = 350;
+        // Adjust breakpoint based on text scale factor
+        final double adjustedBreakpoint = 350 * textScaleFactor;
 
-        if (constraints.maxWidth < breakpoint) {
-          // Use Column for narrow layouts
+        if (constraints.maxWidth < adjustedBreakpoint) {
+          // Use Column for narrow layouts or large text
           return Column(
             children: [amountField, const SizedBox(height: 12), unitSelector],
           );
@@ -294,7 +311,16 @@ class _AmountInputRow extends StatelessWidget {
             children: [
               Expanded(child: amountField),
               const SizedBox(width: 8),
-              SizedBox(width: 150, child: unitSelector),
+              Flexible(
+                flex: 0,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minWidth: 120,
+                    maxWidth: constraints.maxWidth * 0.4,
+                  ),
+                  child: unitSelector,
+                ),
+              ),
             ],
           );
         }

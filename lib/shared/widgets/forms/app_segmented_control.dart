@@ -114,6 +114,8 @@ class AppSegmentedControl<T> extends StatelessWidget {
                             child: AnimatedDefaultTextStyle(
                               duration: const Duration(milliseconds: 200),
                               textAlign: TextAlign.center,
+                              overflow: TextOverflow.visible,
+                              maxLines: 2,
                               style: theme.textTheme.bodyMedium!.copyWith(
                                 color: isSelected
                                     ? colorScheme.onSecondary
