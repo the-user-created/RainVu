@@ -21,16 +21,10 @@ class ImportDataCard extends ConsumerWidget {
     return SettingsCard(
       children: [
         Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(12),
           child: Column(
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
-              Text(
-                l10n.importDataCardTitle,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.headlineSmall,
-              ),
-              const SizedBox(height: 8),
               Text(
                 l10n.importDataCardDescription,
                 textAlign: TextAlign.center,
@@ -235,7 +229,7 @@ class _ImportPreviewSummary extends StatelessWidget {
                   style: AppButtonStyle.outline,
                 ),
               ),
-              const SizedBox(width: 16),
+              const SizedBox(width: 12),
               Expanded(
                 child: AppButton(
                   onPressed: hasChanges ? onConfirm : null,

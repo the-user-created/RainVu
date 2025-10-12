@@ -101,7 +101,7 @@
       }
     }
   },
-  "importPreviewTitle": "Import Preview",
+  "importPreviewTitle": "Preview",
   "importPreviewSummary": "This file contains {newEntriesCount} new entries and will create {newGaugesCount} new gauges.",
   "@importPreviewSummary": {
     "placeholders": {
@@ -114,11 +114,9 @@
     }
   },
   "importPreviewNewGaugesListTitle": "New gauges to be created:",
-  "importPreviewConfirmButton": "Proceed with Import",
+  "importPreviewConfirmButton": "Confirm",
   "importPreviewCancelButton": "Cancel",
-  "importDataCardTitle": "Import Your Data",
   "importDataCardDescription": "Import your previously exported rainfall data",
-  "importDataButtonLabel": "Import Data",
   "filePickerBoxTitle": "Select File to Import",
   "filePickerBoxSubtitle": "CSV or JSON files only",
   "selectDateRangeTitle": "Select Date Range",
@@ -130,7 +128,6 @@
     "description": "Label for the button that saves the user's selection in a dialog."
   },
   "clearSelectionTooltip": "Clear selection",
-  "exportDataCardTitle": "Export Your Data",
   "exportDataCardDescription": "Select date range and format to export your rainfall data",
   "dateRangeAllTime": "Date Range: All Time",
   "exportFormatTitle": "Export Format",

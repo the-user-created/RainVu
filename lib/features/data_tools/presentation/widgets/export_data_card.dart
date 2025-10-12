@@ -62,12 +62,6 @@ class ExportDataCard extends ConsumerWidget {
             crossAxisAlignment: CrossAxisAlignment.stretch,
             children: [
               Text(
-                l10n.exportDataCardTitle,
-                textAlign: TextAlign.center,
-                style: theme.textTheme.headlineSmall,
-              ),
-              const SizedBox(height: 8),
-              Text(
                 l10n.exportDataCardDescription,
                 textAlign: TextAlign.center,
                 style: theme.textTheme.bodyMedium?.copyWith(
