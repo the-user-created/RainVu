@@ -115,88 +115,6 @@ class SettingsScreen extends ConsumerWidget {
     }
   }
 
-  Widget _buildThemeSetting(
-    final BuildContext context,
-    final WidgetRef ref,
-    final AppLocalizations l10n,
-  ) {
-    final ThemeData theme = Theme.of(context);
-    final AsyncValue<UserPreferences> userPreferences = ref.watch(
-      userPreferencesProvider,
-    );
-
-    return userPreferences.when(
-      loading: () => const ListTile(title: Text("Loading...")),
-      error: (final err, final stack) => ListTile(title: Text("Error: $err")),
-      data: (final preferences) {
-        final Widget label = Text(
-          l10n.settingsAppearanceTheme,
-          style: theme.textTheme.titleMedium,
-        );
-
-        final Widget control = AppSegmentedControl<AppThemeMode>(
-          selectedValue: preferences.themeMode,
-          onSelectionChanged: (final value) {
-            ref.read(userPreferencesProvider.notifier).setThemeMode(value);
-          },
-          segments: [
-            SegmentOption(
-              value: AppThemeMode.light,
-              label: Text(l10n.settingsThemeLight),
-            ),
-            SegmentOption(
-              value: AppThemeMode.dark,
-              label: Text(l10n.settingsThemeDark),
-            ),
-            SegmentOption(
-              value: AppThemeMode.system,
-              label: Text(l10n.settingsThemeSystem),
-            ),
-          ],
-        );
-
-        return LayoutBuilder(
-          builder: (final context, final constraints) {
-            const double breakpoint = 420;
-
-            if (constraints.maxWidth > breakpoint) {
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 8,
-                ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Expanded(child: label),
-                    const SizedBox(width: 16),
-                    SizedBox(width: 220, child: control),
-                  ],
-                ),
-              );
-            } else {
-              // Use Column for narrower screens or large text
-              return Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: 20,
-                  vertical: 12,
-                ),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    label,
-                    const SizedBox(height: 12),
-                    control, // This will take the full width
-                  ],
-                ),
-              );
-            }
-          },
-        );
-      },
-    );
-  }
-
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
@@ -211,7 +129,7 @@ class SettingsScreen extends ConsumerWidget {
         child: ListView(
           children: [
             SettingsSectionHeader(title: l10n.settingsSectionAppearance),
-            SettingsCard(children: [_buildThemeSetting(context, ref, l10n)]),
+            const SettingsCard(children: [_ThemeSetting()]),
             SettingsSectionHeader(title: l10n.settingsSectionPreferences),
             SettingsCard(
               children: [
@@ -293,6 +211,123 @@ class SettingsScreen extends ConsumerWidget {
           ],
         ),
       ),
+    );
+  }
+}
+
+class _ThemeSetting extends ConsumerWidget {
+  const _ThemeSetting();
+
+  List<SegmentOption<AppThemeMode>> _buildTextSegments(
+    final AppLocalizations l10n,
+  ) => [
+    SegmentOption(
+      value: AppThemeMode.light,
+      label: Text(l10n.settingsThemeLight),
+    ),
+    SegmentOption(
+      value: AppThemeMode.dark,
+      label: Text(l10n.settingsThemeDark),
+    ),
+    SegmentOption(
+      value: AppThemeMode.system,
+      label: Text(l10n.settingsThemeSystem),
+    ),
+  ];
+
+  List<SegmentOption<AppThemeMode>> _buildIconSegments(
+    final AppLocalizations l10n,
+  ) => [
+    SegmentOption(
+      value: AppThemeMode.light,
+      label: Tooltip(
+        message: l10n.settingsThemeLight,
+        child: const Icon(Icons.light_mode_outlined, size: 20),
+      ),
+    ),
+    SegmentOption(
+      value: AppThemeMode.dark,
+      label: Tooltip(
+        message: l10n.settingsThemeDark,
+        child: const Icon(Icons.dark_mode_outlined, size: 20),
+      ),
+    ),
+    SegmentOption(
+      value: AppThemeMode.system,
+      label: Tooltip(
+        message: l10n.settingsThemeSystem,
+        child: const Icon(Icons.settings, size: 20),
+      ),
+    ),
+  ];
+
+  @override
+  Widget build(final BuildContext context, final WidgetRef ref) {
+    final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final AsyncValue<UserPreferences> userPreferences = ref.watch(
+      userPreferencesProvider,
+    );
+
+    return userPreferences.when(
+      loading: () => const ListTile(title: Text("Loading...")),
+      error: (final err, final stack) => ListTile(title: Text("Error: $err")),
+      data: (final preferences) {
+        final Widget label = Text(
+          l10n.settingsAppearanceTheme,
+          style: theme.textTheme.titleMedium,
+        );
+
+        final Widget control = LayoutBuilder(
+          builder: (final context, final constraints) {
+            final List<SegmentOption<AppThemeMode>> segments =
+                constraints.maxWidth < 290
+                ? _buildIconSegments(l10n)
+                : _buildTextSegments(l10n);
+
+            return AppSegmentedControl<AppThemeMode>(
+              selectedValue: preferences.themeMode,
+              onSelectionChanged: (final value) {
+                ref.read(userPreferencesProvider.notifier).setThemeMode(value);
+              },
+              segments: segments,
+            );
+          },
+        );
+
+        return LayoutBuilder(
+          builder: (final context, final constraints) {
+            const double breakpoint = 420;
+
+            if (constraints.maxWidth > breakpoint) {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 8,
+                ),
+                child: Row(
+                  children: [
+                    Expanded(flex: 2, child: label),
+                    const SizedBox(width: 16),
+                    Expanded(flex: 3, child: control),
+                  ],
+                ),
+              );
+            } else {
+              return Padding(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 20,
+                  vertical: 12,
+                ),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [label, const SizedBox(height: 12), control],
+                ),
+              );
+            }
+          },
+        );
+      },
     );
   }
 }

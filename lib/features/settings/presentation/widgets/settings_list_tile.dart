@@ -35,6 +35,10 @@ class _SettingsListTileState extends State<SettingsListTile> {
               setState(() => _isPressed = isHighlighted);
             },
             child: ListTile(
+              contentPadding: const EdgeInsets.symmetric(
+                horizontal: 16,
+                vertical: 6,
+              ),
               leading: widget.leading != null
                   ? IconTheme(
                       data: IconThemeData(

@@ -220,24 +220,56 @@ class _ImportPreviewSummary extends StatelessWidget {
             ),
           ],
           const SizedBox(height: 24),
-          Row(
-            children: [
-              Expanded(
-                child: AppButton(
-                  onPressed: onCancel,
-                  label: l10n.importPreviewCancelButton,
-                  style: AppButtonStyle.outline,
-                ),
-              ),
-              const SizedBox(width: 12),
-              Expanded(
-                child: AppButton(
-                  onPressed: hasChanges ? onConfirm : null,
-                  label: l10n.importPreviewConfirmButton,
-                  isLoading: isLoading,
-                ),
-              ),
-            ],
+          LayoutBuilder(
+            builder: (final context, final constraints) {
+              const double breakpoint = 320;
+              final bool isWide = constraints.maxWidth > breakpoint;
+
+              if (isWide) {
+                return Row(
+                  children: [
+                    Expanded(
+                      child: AppButton(
+                        onPressed: onCancel,
+                        label: l10n.importPreviewCancelButton,
+                        style: AppButtonStyle.outline,
+                        size: AppButtonSize.small,
+                      ),
+                    ),
+                    const SizedBox(width: 12),
+                    Expanded(
+                      child: AppButton(
+                        onPressed: hasChanges ? onConfirm : null,
+                        label: l10n.importPreviewConfirmButton,
+                        isLoading: isLoading,
+                        size: AppButtonSize.small,
+                      ),
+                    ),
+                  ],
+                );
+              } else {
+                return Column(
+                  crossAxisAlignment: CrossAxisAlignment.stretch,
+                  children: [
+                    AppButton(
+                      onPressed: hasChanges ? onConfirm : null,
+                      label: l10n.importPreviewConfirmButton,
+                      isLoading: isLoading,
+                      isExpanded: true,
+                      size: AppButtonSize.small,
+                    ),
+                    const SizedBox(height: 12),
+                    AppButton(
+                      onPressed: onCancel,
+                      label: l10n.importPreviewCancelButton,
+                      style: AppButtonStyle.outline,
+                      isExpanded: true,
+                      size: AppButtonSize.small,
+                    ),
+                  ],
+                );
+              }
+            },
           ),
         ],
       ),
