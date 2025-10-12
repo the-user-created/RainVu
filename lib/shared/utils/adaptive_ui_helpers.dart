@@ -39,8 +39,15 @@ Future<T?> showAdaptiveSheet<T>({
       context: context,
       isScrollControlled: isScrollControlled,
       backgroundColor: backgroundColor ?? Colors.transparent,
-      builder: (final sheetContext) =>
-          SheetContext(isDialog: false, child: builder(sheetContext)),
+      builder: (final sheetContext) => SheetContext(
+        isDialog: false,
+        child: ConstrainedBox(
+          constraints: BoxConstraints(
+            maxHeight: MediaQuery.sizeOf(sheetContext).height * 0.8,
+          ),
+          child: builder(sheetContext),
+        ),
+      ),
     );
   }
 }
