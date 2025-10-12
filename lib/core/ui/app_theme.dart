@@ -328,6 +328,20 @@ class AppTheme {
           ),
         ),
       ),
+      sliderTheme: SliderThemeData(
+        trackHeight: 6,
+        thumbShape: const RoundSliderThumbShape(enabledThumbRadius: 10),
+        overlayShape: const RoundSliderOverlayShape(overlayRadius: 20),
+        activeTrackColor: colorScheme.secondary,
+        inactiveTrackColor: colorScheme.secondary.withValues(alpha: 0.3),
+        thumbColor: colorScheme.secondary,
+        overlayColor: colorScheme.secondary.withValues(alpha: 0.2),
+        valueIndicatorShape: const PaddleSliderValueIndicatorShape(),
+        valueIndicatorColor: colorScheme.secondary,
+        valueIndicatorTextStyle: textTheme.bodySmall?.copyWith(
+          color: colorScheme.onSecondary,
+        ),
+      ),
     );
   }
 }

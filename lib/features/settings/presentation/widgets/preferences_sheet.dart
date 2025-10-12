@@ -105,36 +105,64 @@ class _PreferencesSheetState extends ConsumerState<PreferencesSheet> {
                 ),
               ),
               const SizedBox(height: 16),
-              Row(
-                children: [
-                  Expanded(
-                    child: Slider(
-                      value: _currentThreshold!,
-                      min: 10,
-                      max: 200,
-                      divisions: 19,
-                      label: _currentThreshold!.round().toString(),
-                      onChanged: (final value) {
-                        setState(() => _currentThreshold = value);
-                      },
-                      onChangeEnd: (final value) {
-                        ref
-                            .read(userPreferencesProvider.notifier)
-                            .setAnomalyDeviationThreshold(value);
-                      },
+              SliderTheme(
+                data: SliderTheme.of(context).copyWith(
+                  trackHeight: 6,
+                  thumbShape: const RoundSliderThumbShape(
+
+                  ),
+                  overlayShape: const RoundSliderOverlayShape(
+                    overlayRadius: 20,
+                  ),
+                  activeTrackColor: theme.colorScheme.secondary,
+                  inactiveTrackColor: theme.colorScheme.secondary.withValues(
+                    alpha: 0.3,
+                  ),
+                  thumbColor: theme.colorScheme.secondary,
+                  overlayColor: theme.colorScheme.secondary.withValues(
+                    alpha: 0.2,
+                  ),
+                ),
+                child: Slider(
+                  value: _currentThreshold!,
+                  min: 10,
+                  max: 200,
+                  onChanged: (final value) {
+                    setState(() => _currentThreshold = value);
+                  },
+                  onChangeEnd: (final value) {
+                    ref
+                        .read(userPreferencesProvider.notifier)
+                        .setAnomalyDeviationThreshold(value);
+                  },
+                ),
+              ),
+              const SizedBox(height: 8),
+              Align(
+                alignment: Alignment.centerRight,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 6,
+                  ),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.secondary.withValues(alpha: 0.15),
+                    borderRadius: BorderRadius.circular(12),
+                  ),
+                  child: FittedBox(
+                    fit: BoxFit.scaleDown,
+                    child: Text(
+                      l10n.anomalyDeviationThresholdValue(
+                        _currentThreshold!.toStringAsFixed(0),
+                      ),
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        fontWeight: FontWeight.bold,
+                        color: theme.colorScheme.secondary,
+                      ),
+                      maxLines: 1,
                     ),
                   ),
-                  const SizedBox(width: 16),
-                  Text(
-                    l10n.anomalyDeviationThresholdValue(
-                      _currentThreshold!.toStringAsFixed(0),
-                    ),
-                    style: theme.textTheme.bodyLarge?.copyWith(
-                      fontWeight: FontWeight.bold,
-                      color: theme.colorScheme.secondary,
-                    ),
-                  ),
-                ],
+                ),
               ),
             ],
           );
