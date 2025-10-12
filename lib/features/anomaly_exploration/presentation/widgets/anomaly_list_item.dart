@@ -56,13 +56,10 @@ class AnomalyListItem extends ConsumerWidget {
             ),
           ),
           const SizedBox(width: 16),
-          Expanded(
-            flex: 2,
-            child: _SeverityBadge(
-              text: deviationValue,
-              color: anomaly.severity.color,
-              backgroundColor: anomaly.severity.backgroundColor,
-            ),
+          _SeverityBadge(
+            text: deviationValue,
+            color: anomaly.severity.color,
+            backgroundColor: anomaly.severity.backgroundColor,
           ),
         ],
       ),

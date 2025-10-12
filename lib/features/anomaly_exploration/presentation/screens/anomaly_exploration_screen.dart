@@ -40,7 +40,6 @@ class AnomalyExplorationScreen extends ConsumerWidget {
               child: anomalyDataAsync.when(
                 loading: () => AnomalyTimelineChart(
                   chartPoints: const [],
-                  // Provide a dummy range for the loading skeleton
                   dateRange: DateTimeRange(
                     start: DateTime.now(),
                     end: DateTime.now(),
@@ -48,8 +47,6 @@ class AnomalyExplorationScreen extends ConsumerWidget {
                 ),
                 error: (final _, final _) => const SizedBox.shrink(),
                 data: (final data) {
-                  // It's safe to use requireValue here because anomalyDataProvider
-                  // depends on anomalyFilterProvider.
                   final AnomalyFilter filter = ref
                       .watch(anomalyFilterProvider)
                       .requireValue;

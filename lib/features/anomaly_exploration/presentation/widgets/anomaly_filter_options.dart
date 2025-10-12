@@ -39,7 +39,7 @@ class AnomalyFilterOptions extends ConsumerWidget {
       ),
       child: filterAsync.when(
         loading: () => const SizedBox(
-          height: 124, // Approx height of the content to prevent layout jump
+          height: 124,
           child: AppLoader(),
         ),
         error: (final err, final stack) => Center(child: Text("Error: $err")),

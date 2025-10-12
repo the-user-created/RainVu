@@ -145,11 +145,13 @@ class _AnomalyGroupState extends State<_AnomalyGroup> {
               padding: const EdgeInsets.all(16),
               child: Row(
                 children: [
-                  Icon(
-                    _isExpanded
-                        ? Icons.keyboard_arrow_down
-                        : Icons.keyboard_arrow_right,
-                    color: colorScheme.onSurfaceVariant,
+                  AnimatedRotation(
+                    turns: _isExpanded ? 0.25 : 0.0,
+                    duration: const Duration(milliseconds: 150),
+                    child: Icon(
+                      Icons.keyboard_arrow_right,
+                      color: colorScheme.onSurfaceVariant,
+                    ),
                   ),
                   const SizedBox(width: 8),
                   Expanded(
