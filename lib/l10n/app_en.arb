@@ -589,7 +589,8 @@
       }
     }
   },
-  "dailyBreakdownTitle": "Daily Breakdown",
+  "viewEntriesButtonLabel": "View All Entries",
+  "legendDailyRainfall": "Daily Rainfall",
   "totalRainfallValueInMm": "Total Rainfall: {value}mm",
   "@totalRainfallValueInMm": {
     "placeholders": {
@@ -598,7 +599,6 @@
       }
     }
   },
-  "editEntriesTooltip": "Edit Entries",
   "dailyAverage": "Daily Average",
   "highestDay": "Highest Day",
   "lowestDay": "Lowest Day",

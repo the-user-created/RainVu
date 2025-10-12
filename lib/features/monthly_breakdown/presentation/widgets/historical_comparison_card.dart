@@ -87,28 +87,37 @@ class _ComparisonRow extends StatelessWidget {
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
-        Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(label, style: textTheme.bodyMedium),
-            Row(
-              children: [
-                Icon(icon, color: color, size: 20),
-                const SizedBox(width: 4),
-                Text(
-                  percentage.formatPercentage(
-                    precision: 0,
-                    showPositiveSign: true,
+        Expanded(
+          flex: 3,
+          child: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Text(label, style: textTheme.bodyMedium),
+              const SizedBox(height: 4),
+              Row(
+                children: [
+                  Icon(icon, color: color, size: 20),
+                  const SizedBox(width: 4),
+                  Text(
+                    percentage.formatPercentage(
+                      precision: 0,
+                      showPositiveSign: true,
+                    ),
+                    style: textTheme.bodyMedium?.copyWith(color: color),
                   ),
-                  style: textTheme.bodyMedium?.copyWith(color: color),
-                ),
-              ],
-            ),
-          ],
+                ],
+              ),
+            ],
+          ),
         ),
-        Text(
-          avgValue.formatRainfall(context, unit),
-          style: textTheme.bodyMedium,
+        const SizedBox(width: 16),
+        Flexible(
+          flex: 2,
+          child: Text(
+            avgValue.formatRainfall(context, unit),
+            style: textTheme.bodyMedium,
+            textAlign: TextAlign.end,
+          ),
         ),
       ],
     );

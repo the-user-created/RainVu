@@ -8,7 +8,6 @@ abstract class MonthlyBreakdownData with _$MonthlyBreakdownData {
     required final MonthlySummaryStats summaryStats,
     required final HistoricalComparisonStats historicalStats,
     required final List<DailyRainfallPoint> dailyChartData,
-    required final List<DailyBreakdownItem> dailyBreakdownList,
   }) = _MonthlyBreakdownData;
 }
 
@@ -37,13 +36,4 @@ abstract class DailyRainfallPoint with _$DailyRainfallPoint {
     required final int day,
     required final double rainfall,
   }) = _DailyRainfallPoint;
-}
-
-@freezed
-abstract class DailyBreakdownItem with _$DailyBreakdownItem {
-  const factory DailyBreakdownItem({
-    required final DateTime date,
-    required final double rainfall,
-    required final double variance,
-  }) = _DailyBreakdownItem;
 }

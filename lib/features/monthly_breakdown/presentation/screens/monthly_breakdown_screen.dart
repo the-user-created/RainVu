@@ -4,7 +4,6 @@ import "package:rain_wise/core/data/providers/data_providers.dart";
 import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/monthly_breakdown/application/monthly_breakdown_provider.dart";
 import "package:rain_wise/features/monthly_breakdown/domain/monthly_breakdown_data.dart";
-import "package:rain_wise/features/monthly_breakdown/presentation/widgets/daily_breakdown_list.dart";
 import "package:rain_wise/features/monthly_breakdown/presentation/widgets/daily_rainfall_chart.dart";
 import "package:rain_wise/features/monthly_breakdown/presentation/widgets/historical_comparison_card.dart";
 import "package:rain_wise/features/monthly_breakdown/presentation/widgets/monthly_summary_card.dart";
@@ -83,9 +82,12 @@ class _MonthlyBreakdownScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(
-          l10n.monthlyBreakdownTitle,
-          style: theme.textTheme.titleLarge,
+        title: FittedBox(
+          fit: BoxFit.scaleDown,
+          child: Text(
+            l10n.monthlyBreakdownTitle,
+            style: theme.textTheme.titleLarge,
+          ),
         ),
         actions: [
           Padding(
@@ -135,8 +137,6 @@ class _MonthlyBreakdownScreenState
                   ),
                   const SizedBox(height: 24),
                   DailyRainfallChart(chartData: data.dailyChartData),
-                  const SizedBox(height: 24),
-                  DailyBreakdownList(breakdownItems: data.dailyBreakdownList),
                 ],
               ),
             );

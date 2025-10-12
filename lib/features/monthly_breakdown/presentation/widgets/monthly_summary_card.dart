@@ -7,7 +7,7 @@ import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/monthly_breakdown/domain/monthly_breakdown_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
-import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 
 class MonthlySummaryCard extends ConsumerWidget {
   const MonthlySummaryCard({
@@ -36,43 +36,35 @@ class MonthlySummaryCard extends ConsumerWidget {
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      DateFormat.yMMMM().format(selectedMonth),
-                      style: textTheme.headlineSmall,
-                    ),
-                    Text(
-                      stats.totalRainfall.formatRainfall(context, unit),
-                      style: textTheme.titleMedium?.copyWith(
-                        color: colorScheme.secondary,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        DateFormat.yMMMM().format(selectedMonth),
+                        style: textTheme.headlineSmall,
+                        maxLines: 2,
+                        overflow: TextOverflow.ellipsis,
                       ),
-                    ),
-                  ],
-                ),
-                AppIconButton(
-                  backgroundColor: colorScheme.surfaceContainerHighest,
-                  borderRadius: BorderRadius.circular(24),
-                  icon: Icon(
-                    Icons.edit,
-                    color: colorScheme.secondary,
-                    size: 28,
+                      const SizedBox(height: 4),
+                      Text(
+                        stats.totalRainfall.formatRainfall(context, unit),
+                        style: textTheme.titleMedium?.copyWith(
+                          color: colorScheme.secondary,
+                        ),
+                      ),
+                    ],
                   ),
-                  tooltip: l10n.editEntriesTooltip,
-                  onPressed: () {
-                    final String monthParam = DateFormat(
-                      "yyyy-MM",
-                    ).format(selectedMonth);
-                    RainfallEntriesRoute(month: monthParam).push(context);
-                  },
                 ),
               ],
             ),
-            const SizedBox(height: 16),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            const SizedBox(height: 24),
+            Wrap(
+              spacing: 16,
+              runSpacing: 16,
+              alignment: WrapAlignment.spaceAround,
               children: [
                 _StatItem(
                   value: stats.dailyAverage.formatRainfall(context, unit),
@@ -87,6 +79,20 @@ class MonthlySummaryCard extends ConsumerWidget {
                   label: l10n.lowestDay,
                 ),
               ],
+            ),
+            const SizedBox(height: 20),
+            AppButton(
+              label: l10n.viewEntriesButtonLabel,
+              onPressed: () {
+                final String monthParam = DateFormat(
+                  "yyyy-MM",
+                ).format(selectedMonth);
+                RainfallEntriesRoute(month: monthParam).push(context);
+              },
+              style: AppButtonStyle.outline,
+              size: AppButtonSize.small,
+              isExpanded: true,
+              icon: const Icon(Icons.list_alt_rounded, size: 18),
             ),
           ],
         ),
@@ -108,7 +114,8 @@ class _StatItem extends StatelessWidget {
     final TextTheme textTheme = theme.textTheme;
     return Column(
       children: [
-        Text(value, style: textTheme.headlineSmall),
+        Text(value, style: textTheme.titleLarge),
+        const SizedBox(height: 4),
         Text(
           label,
           style: textTheme.bodySmall?.copyWith(

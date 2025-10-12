@@ -9,6 +9,7 @@ import "package:rain_wise/features/monthly_breakdown/domain/monthly_breakdown_da
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/widgets/charts/chart_card.dart";
+import "package:rain_wise/shared/widgets/charts/legend_item.dart";
 
 class DailyRainfallChart extends ConsumerWidget {
   const DailyRainfallChart({required this.chartData, super.key});
@@ -50,6 +51,10 @@ class DailyRainfallChart extends ConsumerWidget {
     return ChartCard(
       title: l10n.dailyRainfallChartTitle,
       margin: EdgeInsets.zero,
+      legend: LegendItem(
+        color: colorScheme.secondary,
+        text: l10n.legendDailyRainfall,
+      ),
       chart: LayoutBuilder(
         builder: (final context, final constraints) {
           const double minPointWidth = 18;
@@ -107,10 +112,12 @@ class DailyRainfallChart extends ConsumerWidget {
         showTitles: true,
         reservedSize: 30,
         getTitlesWidget: (final value, final meta) {
-          if (value.toInt() % 5 == 0 && value.toInt() != 0) {
+          final int day = value.toInt();
+          // Show labels for day 1, and every 5 days after.
+          if (day > 0 && (day == 1 || day % 5 == 0)) {
             return Padding(
               padding: const EdgeInsets.only(top: 6),
-              child: Text(value.toInt().toString(), style: textTheme.bodySmall),
+              child: Text(day.toString(), style: textTheme.bodySmall),
             );
           }
           return const Text("");
