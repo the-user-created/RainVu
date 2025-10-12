@@ -25,6 +25,9 @@ class _MonthlyTrendChartState extends ConsumerState<MonthlyTrendChart>
   late AnimationController _controller;
   late Animation<double> _animation;
 
+  /// Base minimum width for each bar group
+  static const double _baseMinBarGroupWidth = 60;
+
   @override
   void initState() {
     super.initState();
@@ -42,12 +45,40 @@ class _MonthlyTrendChartState extends ConsumerState<MonthlyTrendChart>
     super.dispose();
   }
 
+  /// Calculate the width of the widest label to determine minimum bar group width
+  double _calculateMinBarGroupWidth(
+    final BuildContext context,
+    final TextScaler textScaler,
+  ) {
+    final TextStyle labelStyle =
+        Theme.of(context).textTheme.bodySmall ?? const TextStyle();
+
+    double maxLabelWidth = 0;
+
+    for (final MonthlyTrendPoint trend in widget.trends) {
+      final TextPainter textPainter = TextPainter(
+        text: TextSpan(text: trend.month, style: labelStyle),
+        textDirection: TextDirection.ltr,
+        textScaler: textScaler,
+      )..layout();
+
+      maxLabelWidth = max(maxLabelWidth, textPainter.width);
+    }
+
+    // Add padding between labels (20% of label width, minimum 16px)
+    final double padding = max(maxLabelWidth * 0.2, 16);
+
+    // Ensure minimum width accounts for the label plus padding
+    return max(_baseMinBarGroupWidth, maxLabelWidth + padding);
+  }
+
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
+    final TextScaler textScaler = MediaQuery.textScalerOf(context);
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
         MeasurementUnit.mm;
@@ -107,15 +138,20 @@ class _MonthlyTrendChartState extends ConsumerState<MonthlyTrendChart>
           ),
         );
 
+        // Calculate dynamic minimum bar group width based on label sizes
+        final double minBarGroupWidth = _calculateMinBarGroupWidth(
+          context,
+          textScaler,
+        );
+
         return ChartCard(
           title: l10n.monthlyTrendChartTitle,
           legend: legendWidget,
           margin: EdgeInsets.zero,
           chart: LayoutBuilder(
             builder: (final context, final constraints) {
-              const double minPointWidth = 60;
               final double calculatedWidth =
-                  widget.trends.length * minPointWidth;
+                  widget.trends.length * minBarGroupWidth;
               final double chartWidth = max(
                 constraints.maxWidth,
                 calculatedWidth,
@@ -123,6 +159,7 @@ class _MonthlyTrendChartState extends ConsumerState<MonthlyTrendChart>
 
               return SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
+                clipBehavior: Clip.none,
                 child: SizedBox(
                   width: chartWidth,
                   child: Padding(

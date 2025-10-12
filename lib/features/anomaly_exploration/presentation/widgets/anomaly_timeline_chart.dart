@@ -1,4 +1,5 @@
 import "dart:math";
+import "dart:ui" as ui;
 
 import "package:collection/collection.dart";
 import "package:fl_chart/fl_chart.dart";
@@ -28,6 +29,9 @@ class AnomalyTimelineChart extends ConsumerWidget {
 
   final List<AnomalyChartPoint> chartPoints;
   final DateTimeRange dateRange;
+
+  /// Base minimum width for each data point
+  static const double _baseMinPointWidth = 35;
 
   /// Prepares chart data by either using daily points or aggregating them monthly.
   List<_ChartDataPoint> _prepareData(
@@ -74,6 +78,39 @@ class AnomalyTimelineChart extends ConsumerWidget {
           )
           .toList();
     }
+  }
+
+  /// Calculate the width of the widest label to determine minimum point width
+  double _calculateMinPointWidth(
+    final BuildContext context,
+    final TextScaler textScaler,
+    final List<_ChartDataPoint> processedPoints,
+    final bool isMultiYear,
+  ) {
+    final TextStyle labelStyle =
+        Theme.of(context).textTheme.bodySmall ?? const TextStyle();
+
+    double maxLabelWidth = 0;
+
+    for (final point in processedPoints) {
+      final String label = isMultiYear
+          ? DateFormat("MMM yy").format(point.date)
+          : DateFormat("dd MMM").format(point.date);
+
+      final TextPainter textPainter = TextPainter(
+        text: TextSpan(text: label, style: labelStyle),
+        textDirection: ui.TextDirection.ltr,
+        textScaler: textScaler,
+      )..layout();
+
+      maxLabelWidth = max(maxLabelWidth, textPainter.width);
+    }
+
+    // Add padding between labels (20% of label width, minimum 16px)
+    final double padding = max(maxLabelWidth * 0.2, 16.0);
+
+    // Ensure minimum width accounts for the label plus padding
+    return max(_baseMinPointWidth, maxLabelWidth + padding);
   }
 
   @override
@@ -125,7 +162,14 @@ class AnomalyTimelineChart extends ConsumerWidget {
             )
           : LayoutBuilder(
               builder: (final context, final constraints) {
-                const double minPointWidth = 35;
+                // Calculate dynamic minimum point width based on label sizes
+                final double minPointWidth = _calculateMinPointWidth(
+                  context,
+                  textScaler,
+                  processedPoints,
+                  isMultiYear,
+                );
+
                 final double calculatedWidth =
                     processedPoints.length * minPointWidth;
                 final double chartWidth = max(
@@ -135,6 +179,7 @@ class AnomalyTimelineChart extends ConsumerWidget {
 
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
+                  clipBehavior: Clip.none,
                   child: SizedBox(
                     width: chartWidth,
                     height: 240,

@@ -89,7 +89,7 @@ class MonthlySummaryCard extends ConsumerWidget {
                 ).format(selectedMonth);
                 RainfallEntriesRoute(month: monthParam).push(context);
               },
-              style: AppButtonStyle.outline,
+              style: AppButtonStyle.secondary,
               size: AppButtonSize.small,
               isExpanded: true,
               icon: const Icon(Icons.list_alt_rounded, size: 18),

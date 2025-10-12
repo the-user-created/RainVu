@@ -72,12 +72,13 @@ class SeasonalTrendChart extends ConsumerWidget {
       margin: EdgeInsets.zero,
       chart: LayoutBuilder(
         builder: (final context, final constraints) {
-          const double minPointWidth = 4.0;
+          const double minPointWidth = 4;
           final double calculatedWidth = trendData.length * minPointWidth;
           final double chartWidth = max(constraints.maxWidth, calculatedWidth);
 
           return SingleChildScrollView(
             scrollDirection: Axis.horizontal,
+            clipBehavior: Clip.none,
             child: SizedBox(width: chartWidth, height: 250, child: lineChart),
           );
         },
@@ -148,7 +149,7 @@ class SeasonalTrendChart extends ConsumerWidget {
       bottomTitles: AxisTitles(
         sideTitles: SideTitles(
           showTitles: true,
-          reservedSize: 30,
+          reservedSize: 40,
           interval: 1,
           getTitlesWidget: (final value, final meta) {
             final int index = value.toInt();

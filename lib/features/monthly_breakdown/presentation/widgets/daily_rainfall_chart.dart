@@ -63,6 +63,7 @@ class DailyRainfallChart extends ConsumerWidget {
 
           return SingleChildScrollView(
             scrollDirection: Axis.horizontal,
+            clipBehavior: Clip.none,
             child: SizedBox(width: chartWidth, height: 200, child: barChart),
           );
         },

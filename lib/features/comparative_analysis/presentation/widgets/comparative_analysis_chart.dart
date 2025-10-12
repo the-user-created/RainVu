@@ -29,9 +29,8 @@ class _ComparativeAnalysisChartState
   late AnimationController _controller;
   late Animation<double> _animation;
 
-  /// Minimum width for each bar group in a monthly/seasonal chart to ensure
-  /// readability when scrolling.
-  static const double _minBarGroupWidth = 48;
+  /// Base minimum width for each bar group
+  static const double _baseMinBarGroupWidth = 48;
 
   @override
   void initState() {
@@ -56,6 +55,38 @@ class _ComparativeAnalysisChartState
   void dispose() {
     _controller.dispose();
     super.dispose();
+  }
+
+  /// Calculate the width of the widest label to determine minimum bar group width
+  double _calculateMinBarGroupWidth(
+    final BuildContext context,
+    final AppLocalizations l10n,
+    final TextScaler textScaler,
+    final bool isSingleGroup,
+  ) {
+    final TextStyle labelStyle =
+        Theme.of(context).textTheme.bodySmall ?? const TextStyle();
+
+    double maxLabelWidth = 0;
+    final List<String> labelsToMeasure = isSingleGroup
+        ? [l10n.totalLabel]
+        : widget.chartData.labels;
+
+    for (final String label in labelsToMeasure) {
+      final TextPainter textPainter = TextPainter(
+        text: TextSpan(text: label, style: labelStyle),
+        textDirection: TextDirection.ltr,
+        textScaler: textScaler,
+      )..layout();
+
+      maxLabelWidth = max(maxLabelWidth, textPainter.width);
+    }
+
+    // Add padding between labels (20% of label width, minimum 16px)
+    final double padding = max(maxLabelWidth * 0.2, 16.0);
+
+    // Ensure minimum width accounts for the label plus padding
+    return max(_baseMinBarGroupWidth, maxLabelWidth + padding);
   }
 
   @override
@@ -89,6 +120,14 @@ class _ComparativeAnalysisChartState
     final double finalMaxY = (displayMaxDataValue * 1.2).clamp(
       isInch ? 0.5 : 10.0,
       double.infinity,
+    );
+
+    // Calculate dynamic minimum bar group width based on label sizes
+    final double minBarGroupWidth = _calculateMinBarGroupWidth(
+      context,
+      l10n,
+      textScaler,
+      isSingleGroup,
     );
 
     return AnimatedBuilder(
@@ -172,10 +211,11 @@ class _ComparativeAnalysisChartState
             builder: (final context, final constraints) {
               final double chartWidth = max(
                 constraints.maxWidth,
-                widget.chartData.labels.length * _minBarGroupWidth,
+                widget.chartData.labels.length * minBarGroupWidth,
               );
               return SingleChildScrollView(
                 scrollDirection: Axis.horizontal,
+                clipBehavior: Clip.none,
                 child: SizedBox(
                   width: chartWidth,
                   height: 260,
