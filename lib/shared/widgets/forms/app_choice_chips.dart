@@ -2,11 +2,7 @@ import "package:flutter/material.dart";
 
 /// Represents a single option for the [AppChoiceChips] widget.
 class ChipOption<T> {
-  const ChipOption({
-    required this.value,
-    required this.label,
-    this.icon,
-  });
+  const ChipOption({required this.value, required this.label, this.icon});
 
   /// The unique value associated with this chip.
   final T value;
@@ -30,6 +26,7 @@ class AppChoiceChips<T> extends StatelessWidget {
     super.key,
     this.spacing = 8,
     this.runSpacing = 8,
+    this.alignment = WrapAlignment.start,
   });
 
   /// A list of [ChipOption]s to display.
@@ -47,13 +44,18 @@ class AppChoiceChips<T> extends StatelessWidget {
   /// The vertical spacing between chip rows.
   final double runSpacing;
 
+  /// How the chips are aligned in the main axis.
+  final WrapAlignment alignment;
+
   @override
   Widget build(final BuildContext context) => Wrap(
-        spacing: spacing,
-        runSpacing: runSpacing,
-        children:
-            options.map((final option) => _buildChip(context, option)).toList(),
-      );
+    spacing: spacing,
+    runSpacing: runSpacing,
+    alignment: alignment,
+    children: options
+        .map((final option) => _buildChip(context, option))
+        .toList(),
+  );
 
   Widget _buildChip(final BuildContext context, final ChipOption<T> option) {
     final ThemeData theme = Theme.of(context);

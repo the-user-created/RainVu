@@ -16,7 +16,7 @@ class MonthlyComparisonScreen extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<InsightsData> insightsDataAsync = ref.watch(
-      insightsScreenDataProvider,
+      dashboardDataProvider,
     );
 
     return Scaffold(

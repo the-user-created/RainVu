@@ -2,8 +2,8 @@ import "package:flutter/material.dart";
 import "package:rain_wise/core/navigation/app_router.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
-class DetailedAnalysisList extends StatelessWidget {
-  const DetailedAnalysisList({super.key});
+class AnalysisLinksSection extends StatelessWidget {
+  const AnalysisLinksSection({super.key});
 
   @override
   Widget build(final BuildContext context) {
@@ -14,36 +14,38 @@ class DetailedAnalysisList extends StatelessWidget {
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          Text(
-            l10n.detailedAnalysisTitle,
-            style: theme.textTheme.headlineSmall,
+          Padding(
+            padding: const EdgeInsets.only(left: 4, bottom: 8),
+            child: Text(
+              l10n.moreAnalysisTitle,
+              style: theme.textTheme.titleMedium,
+            ),
           ),
-          const SizedBox(height: 12),
-          _AnalysisListTile(
+          _AnalysisLinkTile(
             title: l10n.monthlyComparisonTitle,
             subtitle: l10n.detailedAnalysisMonthlyComparisonSubtitle,
             onTap: () => const MonthlyComparisonRoute().push(context),
           ),
-          const SizedBox(height: 16),
-          _AnalysisListTile(
+          const SizedBox(height: 12),
+          _AnalysisLinkTile(
             title: l10n.monthlyBreakdownTitle,
             subtitle: l10n.detailedAnalysisMonthlyBreakdownSubtitle,
             onTap: () => const MonthlyBreakdownRoute().push(context),
           ),
-          const SizedBox(height: 16),
-          _AnalysisListTile(
+          const SizedBox(height: 12),
+          _AnalysisLinkTile(
             title: l10n.seasonalPatternsTitle,
             subtitle: l10n.detailedAnalysisSeasonalPatternsSubtitle,
             onTap: () => const SeasonalPatternsRoute().push(context),
           ),
-          const SizedBox(height: 16),
-          _AnalysisListTile(
+          const SizedBox(height: 12),
+          _AnalysisLinkTile(
             title: l10n.anomalyExplorationTitle,
             subtitle: l10n.detailedAnalysisAnomalyExplorationSubtitle,
             onTap: () => const AnomalyExplorationRoute().push(context),
           ),
-          const SizedBox(height: 16),
-          _AnalysisListTile(
+          const SizedBox(height: 12),
+          _AnalysisLinkTile(
             title: l10n.detailedAnalysisComparativeAnalysisTitle,
             subtitle: l10n.detailedAnalysisComparativeAnalysisSubtitle,
             onTap: () => const ComparativeAnalysisRoute().push(context),
@@ -54,8 +56,8 @@ class DetailedAnalysisList extends StatelessWidget {
   }
 }
 
-class _AnalysisListTile extends StatelessWidget {
-  const _AnalysisListTile({
+class _AnalysisLinkTile extends StatelessWidget {
+  const _AnalysisLinkTile({
     required this.title,
     required this.subtitle,
     required this.onTap,
@@ -68,42 +70,37 @@ class _AnalysisListTile extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
-
     return Card(
       elevation: 2,
-      color: colorScheme.surface,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
       child: InkWell(
         onTap: onTap,
         borderRadius: BorderRadius.circular(16),
         child: Padding(
-          padding: const EdgeInsets.all(20),
+          padding: const EdgeInsets.all(16),
           child: Row(
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
             children: [
-              Flexible(
+              Expanded(
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       title,
-                      style: textTheme.bodyLarge?.copyWith(
+                      style: theme.textTheme.bodyLarge?.copyWith(
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    const SizedBox(height: 8),
+                    const SizedBox(height: 4),
                     Text(
                       subtitle,
-                      style: textTheme.bodyMedium?.copyWith(
-                        color: colorScheme.onSurfaceVariant,
+                      style: theme.textTheme.bodyMedium?.copyWith(
+                        color: theme.colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ],
                 ),
               ),
-              Icon(Icons.chevron_right, color: colorScheme.secondary, size: 24),
+              const SizedBox(width: 8),
+              Icon(Icons.chevron_right, color: theme.colorScheme.secondary),
             ],
           ),
         ),
