@@ -174,7 +174,6 @@ class _GaugeListTileState extends ConsumerState<GaugeListTile> {
                         Text(
                           displayName,
                           style: theme.textTheme.titleMedium,
-                          overflow: TextOverflow.ellipsis,
                         ),
                         const SizedBox(height: 4),
                         Text(
