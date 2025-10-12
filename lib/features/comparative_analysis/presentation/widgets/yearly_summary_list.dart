@@ -16,7 +16,7 @@ class YearlySummaryList extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
-    final List<Color> colors = [colorScheme.secondary, colorScheme.tertiary];
+    final List<Color> colors = [colorScheme.tertiary, colorScheme.secondary];
 
     if (summaries.isEmpty) {
       return const SizedBox.shrink();

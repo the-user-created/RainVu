@@ -63,6 +63,7 @@ class _ComparativeAnalysisChartState
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
+    final TextScaler textScaler = MediaQuery.textScalerOf(context);
     final List<Color> colors = [colorScheme.secondary, colorScheme.tertiary];
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
@@ -100,7 +101,7 @@ class _ComparativeAnalysisChartState
                 ? BarChartAlignment.center
                 : BarChartAlignment.spaceBetween,
             barGroups: _generateBarGroups(colors, isInch, _animation.value),
-            titlesData: _buildTitles(theme, l10n, isSingleGroup),
+            titlesData: _buildTitles(theme, l10n, isSingleGroup, textScaler),
             borderData: FlBorderData(show: false),
             gridData: FlGridData(
               drawVerticalLine: false,
@@ -155,15 +156,14 @@ class _ComparativeAnalysisChartState
         return ChartCard(
           title: l10n.comparativeAnalysisChartTitle,
           margin: const EdgeInsets.all(16),
-          legend: Row(
-            mainAxisSize: MainAxisSize.min,
+          legend: Wrap(
+            spacing: 12,
+            runSpacing: 4,
             children: widget.chartData.series
                 .mapIndexed(
-                  (final index, final series) => Flexible(
-                    child: LegendItem(
-                      color: colors[index % colors.length],
-                      text: series.year.toString(),
-                    ),
+                  (final index, final series) => LegendItem(
+                    color: colors[index % colors.length],
+                    text: series.year.toString(),
                   ),
                 )
                 .toList(),
@@ -178,8 +178,11 @@ class _ComparativeAnalysisChartState
                 scrollDirection: Axis.horizontal,
                 child: SizedBox(
                   width: chartWidth,
-                  height: 250,
-                  child: barChart,
+                  height: 260,
+                  child: Padding(
+                    padding: const EdgeInsets.only(top: 16, right: 16),
+                    child: barChart,
+                  ),
                 ),
               );
             },
@@ -193,47 +196,56 @@ class _ComparativeAnalysisChartState
     final ThemeData theme,
     final AppLocalizations l10n,
     final bool isSingleGroup,
-  ) => FlTitlesData(
-    rightTitles: const AxisTitles(),
-    topTitles: const AxisTitles(),
-    bottomTitles: AxisTitles(
-      sideTitles: SideTitles(
-        showTitles: true,
-        reservedSize: 30,
-        getTitlesWidget: (final value, final meta) {
-          final int index = value.toInt();
-          if (index < widget.chartData.labels.length) {
-            final String label = isSingleGroup
-                ? l10n.totalLabel
-                : widget.chartData.labels[index];
-            return Padding(
-              padding: const EdgeInsets.only(top: 6),
-              child: Text(label, style: theme.textTheme.bodySmall),
+    final TextScaler textScaler,
+  ) {
+    // Dynamically scale the reserved size for axis titles based on font size.
+    final double bottomReservedSize = 40 * textScaler.scale(1);
+    final double leftReservedSize = 40 * textScaler.scale(1);
+
+    return FlTitlesData(
+      rightTitles: const AxisTitles(),
+      topTitles: const AxisTitles(),
+      bottomTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize: bottomReservedSize,
+          getTitlesWidget: (final value, final meta) {
+            final int index = value.toInt();
+            if (index < widget.chartData.labels.length) {
+              final String label = isSingleGroup
+                  ? l10n.totalLabel
+                  : widget.chartData.labels[index];
+              return SideTitleWidget(
+                meta: meta,
+                child: Text(label, style: theme.textTheme.bodySmall),
+              );
+            }
+            return const Text("");
+          },
+        ),
+      ),
+      leftTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize: leftReservedSize,
+          getTitlesWidget: (final value, final meta) {
+            if (value == 0 || value == meta.max) {
+              return const Text("");
+            }
+            return SideTitleWidget(
+              meta: meta,
+              space: 8,
+              child: Text(
+                value.toInt().toString(),
+                style: theme.textTheme.bodySmall,
+                textAlign: TextAlign.right,
+              ),
             );
-          }
-          return const Text("");
-        },
+          },
+        ),
       ),
-    ),
-    leftTitles: AxisTitles(
-      sideTitles: SideTitles(
-        showTitles: true,
-        reservedSize: 40,
-        getTitlesWidget: (final value, final meta) {
-          if (value == 0) {
-            return const Text("");
-          }
-          if (value == meta.max) {
-            return const Text("");
-          }
-          return Text(
-            value.toInt().toString(),
-            style: theme.textTheme.bodySmall,
-          );
-        },
-      ),
-    ),
-  );
+    );
+  }
 
   List<BarChartGroupData> _generateBarGroups(
     final List<Color> colors,

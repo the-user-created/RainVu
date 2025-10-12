@@ -8,9 +8,36 @@ import "package:rain_wise/features/comparative_analysis/presentation/widgets/com
 import "package:rain_wise/features/comparative_analysis/presentation/widgets/yearly_summary_list.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
+import "package:rain_wise/shared/widgets/sheets/info_sheet.dart";
 
 class ComparativeAnalysisScreen extends ConsumerWidget {
   const ComparativeAnalysisScreen({super.key});
+
+  void _showInfoSheet(final BuildContext context) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    InfoSheet.show(
+      context,
+      title: l10n.comparisonInfoSheetTitle,
+      items: [
+        InfoSheetItem(
+          icon: Icons.calendar_today,
+          title: l10n.comparisonInfoAnnualTitle,
+          description: l10n.comparisonInfoAnnualDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.bar_chart,
+          title: l10n.comparisonInfoMonthlyTitle,
+          description: l10n.comparisonInfoMonthlyDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.eco,
+          title: l10n.comparisonInfoSeasonalTitle,
+          description: l10n.comparisonInfoSeasonalDescription,
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
@@ -26,6 +53,20 @@ class ComparativeAnalysisScreen extends ConsumerWidget {
           l10n.comparativeAnalysisTitle,
           style: theme.textTheme.titleLarge,
         ),
+        actions: [
+          availableYearsAsync.when(
+            data: (final years) => years.length < 2
+                ? const SizedBox.shrink()
+                : AppIconButton(
+                    icon: const Icon(Icons.info_outline),
+                    tooltip: l10n.infoTooltip,
+                    onPressed: () => _showInfoSheet(context),
+                  ),
+            error: (final _, final __) => const SizedBox.shrink(),
+            loading: () => const SizedBox.shrink(),
+          ),
+          const SizedBox(width: 8),
+        ],
       ),
       body: SafeArea(
         child: availableYearsAsync.when(
@@ -53,22 +94,9 @@ class _AnalysisContent extends StatelessWidget {
   const _AnalysisContent();
 
   @override
-  Widget build(final BuildContext context) {
-    final Orientation orientation = MediaQuery.of(context).orientation;
-
-    if (orientation == Orientation.landscape) {
-      return const SingleChildScrollView(
-        child: Column(children: [ComparativeAnalysisFilters(), _DataContent()]),
-      );
-    }
-
-    return const Column(
-      children: [
-        ComparativeAnalysisFilters(),
-        Expanded(child: SingleChildScrollView(child: _DataContent())),
-      ],
-    );
-  }
+  Widget build(final BuildContext context) => const SingleChildScrollView(
+    child: Column(children: [ComparativeAnalysisFilters(), _DataContent()]),
+  );
 }
 
 class _DataContent extends ConsumerWidget {
