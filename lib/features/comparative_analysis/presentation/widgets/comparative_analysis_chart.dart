@@ -70,9 +70,6 @@ class _ComparativeAnalysisChartState
     final bool isInch = unit == MeasurementUnit.inch;
     final bool isSingleGroup = widget.chartData.labels.length == 1;
 
-    // Enable horizontal scrolling for charts with many labels (e.g., monthly view)
-    final bool isScrollable = widget.chartData.labels.length > 8;
-
     if (widget.chartData.series.isEmpty ||
         widget.chartData.series.first.data.isEmpty) {
       return SizedBox(
@@ -171,21 +168,22 @@ class _ComparativeAnalysisChartState
                 )
                 .toList(),
           ),
-          chart: isScrollable
-              ? LayoutBuilder(
-                  builder: (final context, final constraints) {
-                    final double chartWidth = max(
-                      constraints.maxWidth,
-                      widget.chartData.labels.length * _minBarGroupWidth,
-                    );
-                    return SingleChildScrollView(
-                      scrollDirection: Axis.horizontal,
-                      clipBehavior: Clip.none,
-                      child: SizedBox(width: chartWidth, child: barChart),
-                    );
-                  },
-                )
-              : barChart,
+          chart: LayoutBuilder(
+            builder: (final context, final constraints) {
+              final double chartWidth = max(
+                constraints.maxWidth,
+                widget.chartData.labels.length * _minBarGroupWidth,
+              );
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: SizedBox(
+                  width: chartWidth,
+                  height: 250,
+                  child: barChart,
+                ),
+              );
+            },
+          ),
         );
       },
     );

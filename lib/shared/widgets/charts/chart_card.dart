@@ -5,7 +5,6 @@ class ChartCard extends StatelessWidget {
     required this.title,
     required this.chart,
     this.legend,
-    this.chartHeight = 250,
     this.margin = const EdgeInsets.symmetric(horizontal: 16),
     super.key,
   });
@@ -13,7 +12,6 @@ class ChartCard extends StatelessWidget {
   final String title;
   final Widget? legend;
   final Widget chart;
-  final double chartHeight;
   final EdgeInsetsGeometry margin;
 
   @override
@@ -28,6 +26,7 @@ class ChartCard extends StatelessWidget {
       child: Padding(
         padding: const EdgeInsets.fromLTRB(16, 20, 16, 12),
         child: Column(
+          mainAxisSize: MainAxisSize.min,
           children: [
             Row(
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
@@ -40,7 +39,7 @@ class ChartCard extends StatelessWidget {
               ],
             ),
             const SizedBox(height: 24),
-            SizedBox(height: chartHeight, child: chart),
+            chart,
           ],
         ),
       ),

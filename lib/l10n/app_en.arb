@@ -612,6 +612,14 @@
       }
     }
   },
+  "dayOfMonthAxisLabel": "Day of Month",
+  "@dayOfMonthAxisLabel": {
+    "description": "Axis label for the day of the month on a chart."
+  },
+  "historicalAverageShort": "Hist. Avg.",
+  "@historicalAverageShort": {
+    "description": "A short label for 'Historical Average', used in chart legends."
+  },
   "seasonalPatternsNoDataTitle": "No Seasonal Data Yet",
   "seasonalPatternsNoDataMessage": "Once you start logging rainfall, this screen will show you trends and patterns for the selected season.",
   "seasonSummaryInfoSheetTitle": "About Season Summary",

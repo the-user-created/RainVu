@@ -16,6 +16,28 @@ class SeasonalTrendChart extends ConsumerWidget {
 
   final List<SeasonalTrendPoint> trendData;
 
+  /// Generates a map of titles for the bottom axis.
+  ///
+  /// Keys are the indices in the data where a new month starts,
+  /// and values are the formatted month names (e.g., "Jan").
+  /// This prevents duplicate month labels on the axis.
+  Map<int, String> _getMonthTitles(final List<SeasonalTrendPoint> trendData) {
+    if (trendData.isEmpty) {
+      return {};
+    }
+    final Map<int, String> titles = {};
+    int? lastMonth;
+
+    for (int i = 0; i < trendData.length; i++) {
+      final int currentMonth = trendData[i].date.month;
+      if (lastMonth == null || currentMonth != lastMonth) {
+        titles[i] = DateFormat.MMM().format(trendData[i].date);
+        lastMonth = currentMonth;
+      }
+    }
+    return titles;
+  }
+
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AppLocalizations l10n = AppLocalizations.of(context);
@@ -31,20 +53,34 @@ class SeasonalTrendChart extends ConsumerWidget {
         ? maxRainfall.toInches()
         : maxRainfall;
 
+    final lineChart = LineChart(
+      LineChartData(
+        clipData: const FlClipData.all(),
+        maxY: displayMaxRainfall > 0
+            ? (displayMaxRainfall * 1.2).ceilToDouble()
+            : 5.0,
+        gridData: _buildGridData(Theme.of(context).colorScheme),
+        titlesData: _buildTitlesData(Theme.of(context)),
+        borderData: FlBorderData(show: false),
+        lineTouchData: _buildLineTouchData(context, unit),
+        lineBarsData: [_buildLineBarData(Theme.of(context), isInch)],
+      ),
+    );
+
     return ChartCard(
       title: l10n.rainfallTrendsTitle,
       margin: EdgeInsets.zero,
-      chart: LineChart(
-        LineChartData(
-          maxY: displayMaxRainfall > 0
-              ? (displayMaxRainfall * 1.2).ceilToDouble()
-              : 5.0,
-          gridData: _buildGridData(Theme.of(context).colorScheme),
-          titlesData: _buildTitlesData(Theme.of(context)),
-          borderData: FlBorderData(show: false),
-          lineTouchData: _buildLineTouchData(context, unit),
-          lineBarsData: [_buildLineBarData(Theme.of(context), isInch)],
-        ),
+      chart: LayoutBuilder(
+        builder: (final context, final constraints) {
+          const double minPointWidth = 4.0;
+          final double calculatedWidth = trendData.length * minPointWidth;
+          final double chartWidth = max(constraints.maxWidth, calculatedWidth);
+
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(width: chartWidth, height: 250, child: lineChart),
+          );
+        },
       ),
     );
   }
@@ -104,45 +140,48 @@ class SeasonalTrendChart extends ConsumerWidget {
     );
   }
 
-  FlTitlesData _buildTitlesData(final ThemeData theme) => FlTitlesData(
-    topTitles: const AxisTitles(),
-    rightTitles: const AxisTitles(),
-    bottomTitles: AxisTitles(
-      sideTitles: SideTitles(
-        showTitles: true,
-        reservedSize: 30,
-        interval: (trendData.length / 4).floorToDouble().clamp(1.0, 30.0),
-        getTitlesWidget: (final value, final meta) {
-          if (value.toInt() >= trendData.length) {
+  FlTitlesData _buildTitlesData(final ThemeData theme) {
+    final Map<int, String> monthTitles = _getMonthTitles(trendData);
+    return FlTitlesData(
+      topTitles: const AxisTitles(),
+      rightTitles: const AxisTitles(),
+      bottomTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize: 30,
+          interval: 1,
+          getTitlesWidget: (final value, final meta) {
+            final int index = value.toInt();
+            if (monthTitles.containsKey(index)) {
+              return Padding(
+                padding: const EdgeInsets.only(top: 6),
+                child: Text(
+                  monthTitles[index]!,
+                  style: theme.textTheme.bodySmall,
+                ),
+              );
+            }
             return const Text("");
-          }
-          final DateTime date = trendData[value.toInt()].date;
-          return Padding(
-            padding: const EdgeInsets.only(top: 6),
-            child: Text(
-              DateFormat.MMM().format(date),
+          },
+        ),
+      ),
+      leftTitles: AxisTitles(
+        sideTitles: SideTitles(
+          showTitles: true,
+          reservedSize: 40,
+          getTitlesWidget: (final value, final meta) {
+            if (value == meta.max || value == meta.min) {
+              return const SizedBox();
+            }
+            return Text(
+              value.round().toString(),
               style: theme.textTheme.bodySmall,
-            ),
-          );
-        },
+            );
+          },
+        ),
       ),
-    ),
-    leftTitles: AxisTitles(
-      sideTitles: SideTitles(
-        showTitles: true,
-        reservedSize: 40,
-        getTitlesWidget: (final value, final meta) {
-          if (value == meta.max || value == meta.min) {
-            return const SizedBox();
-          }
-          return Text(
-            value.round().toString(),
-            style: theme.textTheme.bodySmall,
-          );
-        },
-      ),
-    ),
-  );
+    );
+  }
 
   LineChartBarData _buildLineBarData(
     final ThemeData theme,
@@ -159,6 +198,7 @@ class SeasonalTrendChart extends ConsumerWidget {
         )
         .toList(),
     isCurved: true,
+    preventCurveOverShooting: true,
     color: theme.colorScheme.secondary,
     barWidth: 3,
     isStrokeCapRound: true,

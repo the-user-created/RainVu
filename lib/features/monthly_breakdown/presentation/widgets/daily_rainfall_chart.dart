@@ -32,23 +32,35 @@ class DailyRainfallChart extends ConsumerWidget {
         ? maxRainfall.toInches()
         : maxRainfall;
 
+    final barChart = BarChart(
+      BarChartData(
+        maxY: (displayMaxRainfall * 1.2).clamp(
+          isInch ? 0.5 : 10.0,
+          double.infinity,
+        ),
+        barTouchData: _buildBarTouchData(context, unit),
+        titlesData: _buildTitlesData(theme.textTheme),
+        gridData: _buildGridData(colorScheme),
+        borderData: FlBorderData(show: false),
+        barGroups: _buildBarGroups(colorScheme, isInch),
+        alignment: BarChartAlignment.spaceAround,
+      ),
+    );
+
     return ChartCard(
       title: l10n.dailyRainfallChartTitle,
       margin: EdgeInsets.zero,
-      chartHeight: 200,
-      chart: BarChart(
-        BarChartData(
-          maxY: (displayMaxRainfall * 1.2).clamp(
-            isInch ? 0.5 : 10.0,
-            double.infinity,
-          ),
-          barTouchData: _buildBarTouchData(context, unit),
-          titlesData: _buildTitlesData(theme.textTheme),
-          gridData: _buildGridData(colorScheme),
-          borderData: FlBorderData(show: false),
-          barGroups: _buildBarGroups(colorScheme, isInch),
-          alignment: BarChartAlignment.spaceAround,
-        ),
+      chart: LayoutBuilder(
+        builder: (final context, final constraints) {
+          const double minPointWidth = 18;
+          final double calculatedWidth = chartData.length * minPointWidth;
+          final double chartWidth = max(constraints.maxWidth, calculatedWidth);
+
+          return SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: SizedBox(width: chartWidth, height: 200, child: barChart),
+          );
+        },
       ),
     );
   }

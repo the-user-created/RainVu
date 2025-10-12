@@ -67,13 +67,16 @@ class _MonthlyTrendChartState extends ConsumerState<MonthlyTrendChart>
         title: l10n.monthlyTrendChartTitle,
         legend: legendWidget,
         margin: EdgeInsets.zero,
-        chart: Center(
-          child: Text(
-            l10n.monthlyTrendChartNoData,
-            style: textTheme.bodyLarge?.copyWith(
-              color: colorScheme.onSurfaceVariant,
+        chart: SizedBox(
+          height: 250,
+          child: Center(
+            child: Text(
+              l10n.monthlyTrendChartNoData,
+              style: textTheme.bodyLarge?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
+              textAlign: TextAlign.center,
             ),
-            textAlign: TextAlign.center,
           ),
         ),
       );
@@ -108,7 +111,26 @@ class _MonthlyTrendChartState extends ConsumerState<MonthlyTrendChart>
           title: l10n.monthlyTrendChartTitle,
           legend: legendWidget,
           margin: EdgeInsets.zero,
-          chart: barChart,
+          chart: LayoutBuilder(
+            builder: (final context, final constraints) {
+              const double minPointWidth = 40;
+              final double calculatedWidth =
+                  widget.trends.length * minPointWidth;
+              final double chartWidth = max(
+                constraints.maxWidth,
+                calculatedWidth,
+              );
+
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                child: SizedBox(
+                  width: chartWidth,
+                  height: 250,
+                  child: barChart,
+                ),
+              );
+            },
+          ),
         );
       },
     );

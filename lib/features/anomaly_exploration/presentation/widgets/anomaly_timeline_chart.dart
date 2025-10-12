@@ -95,7 +95,6 @@ class AnomalyTimelineChart extends ConsumerWidget {
 
     return ChartCard(
       title: l10n.rainfallTrendsTitle,
-      chartHeight: 240,
       legend: Row(
         children: [
           LegendItem(
@@ -129,7 +128,6 @@ class AnomalyTimelineChart extends ConsumerWidget {
 
                 return SingleChildScrollView(
                   scrollDirection: Axis.horizontal,
-                  clipBehavior: Clip.none,
                   child: SizedBox(
                     width: chartWidth,
                     height: 240,
@@ -191,6 +189,7 @@ class AnomalyTimelineChart extends ConsumerWidget {
 
     return LineChart(
       LineChartData(
+        clipData: const FlClipData.all(),
         maxY: (displayMaxRainfall * 1.2).clamp(
           isInch ? 0.5 : 10,
           double.infinity,
@@ -342,6 +341,7 @@ class AnomalyTimelineChart extends ConsumerWidget {
         lineBarsData: [
           // Average rainfall line
           LineChartBarData(
+            preventCurveOverShooting: true,
             spots: averageSpots,
             isCurved: true,
             color: colorScheme.tertiary,
@@ -351,6 +351,7 @@ class AnomalyTimelineChart extends ConsumerWidget {
           ),
           // Actual rainfall line
           LineChartBarData(
+            preventCurveOverShooting: true,
             spots: actualSpots,
             isCurved: true,
             color: colorScheme.secondary,

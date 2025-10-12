@@ -8,10 +8,7 @@ import "package:rain_wise/l10n/app_localizations.dart";
 /// It displays the `navigationShell` as its body and handles tab switching
 /// via the `goBranch` method.
 class ScaffoldWithNavBar extends StatelessWidget {
-  const ScaffoldWithNavBar({
-    required this.navigationShell,
-    super.key,
-  });
+  const ScaffoldWithNavBar({required this.navigationShell, super.key});
 
   /// The navigation shell and container for the branch Navigators.
   final StatefulNavigationShell navigationShell;
@@ -72,10 +69,7 @@ class ScaffoldWithNavBar extends StatelessWidget {
 }
 
 class _AnimatedNavIcon extends StatefulWidget {
-  const _AnimatedNavIcon({
-    required this.icon,
-    required this.isSelected,
-  });
+  const _AnimatedNavIcon({required this.icon, required this.isSelected});
 
   final IconData icon;
   final bool isSelected;
@@ -96,9 +90,10 @@ class _AnimatedNavIconState extends State<_AnimatedNavIcon>
       duration: const Duration(milliseconds: 200),
       vsync: this,
     );
-    _scaleAnimation = Tween<double>(begin: 1.0, end: 1.2).animate(
-      CurvedAnimation(parent: _controller, curve: Curves.easeInOut),
-    );
+    _scaleAnimation = Tween<double>(
+      begin: 1,
+      end: 1.2,
+    ).animate(CurvedAnimation(parent: _controller, curve: Curves.easeInOut));
 
     // Set initial state based on selection
     if (widget.isSelected) {
@@ -107,7 +102,7 @@ class _AnimatedNavIconState extends State<_AnimatedNavIcon>
   }
 
   @override
-  void didUpdateWidget(_AnimatedNavIcon oldWidget) {
+  void didUpdateWidget(final _AnimatedNavIcon oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.isSelected && !oldWidget.isSelected) {
       _controller.forward();
@@ -123,10 +118,6 @@ class _AnimatedNavIconState extends State<_AnimatedNavIcon>
   }
 
   @override
-  Widget build(BuildContext context) {
-    return ScaleTransition(
-      scale: _scaleAnimation,
-      child: Icon(widget.icon),
-    );
-  }
+  Widget build(final BuildContext context) =>
+      ScaleTransition(scale: _scaleAnimation, child: Icon(widget.icon));
 }

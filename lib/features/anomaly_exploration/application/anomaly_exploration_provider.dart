@@ -13,7 +13,9 @@ part "anomaly_exploration_provider.g.dart";
 class AnomalyFilterNotifier extends _$AnomalyFilterNotifier {
   @override
   Future<AnomalyFilter> build() async {
-    final dateRangeResult = await ref.watch(rainfallDateRangeProvider.future);
+    final DateRangeResult dateRangeResult = await ref.watch(
+      rainfallDateRangeProvider.future,
+    );
     final DateTime now = DateTime.now();
 
     final DateTime endDate = dateRangeResult.max ?? now;
