@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/app_constants.dart";
-import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/home/application/home_providers.dart";
 import "package:rain_wise/features/home/domain/home_data.dart";
 import "package:rain_wise/features/home/presentation/widgets/home_app_bar.dart";
@@ -38,31 +37,26 @@ class HomeScreen extends ConsumerWidget {
             loading: () => const AppLoader(),
             error: (final err, final stack) =>
                 Center(child: Text(l10n.homeScreenError(err))),
-            data: (final homeData) => SingleChildScrollView(
-              physics: const AlwaysScrollableScrollPhysics(),
-              child: Padding(
-                padding: const EdgeInsets.symmetric(
-                  horizontal: AppConstants.horiEdgePadding,
-                ),
-                child: Column(
-                  children:
-                      [
-                            MonthlySummaryCard(
-                              monthlyTotal: homeData.monthlyTotal,
-                              recentEntries: homeData.recentEntries,
-                              currentMonthDate: homeData.currentMonthDate,
-                            ),
-                            YtdSummaryCard(
-                              ytdTotal: homeData.ytdTotal,
-                              annualAverage: homeData.annualAverage,
-                            ),
-                            MonthlyTrendChart(trends: homeData.monthlyTrends),
-                          ]
-                          .divide(const SizedBox(height: 24))
-                          .addToStart(const SizedBox(height: 16))
-                          .addToEnd(const SizedBox(height: 32)),
-                ),
+            data: (final homeData) => ListView(
+              padding: const EdgeInsets.symmetric(
+                horizontal: AppConstants.horiEdgePadding,
               ),
+              children: [
+                const SizedBox(height: 16),
+                MonthlySummaryCard(
+                  monthlyTotal: homeData.monthlyTotal,
+                  recentEntries: homeData.recentEntries,
+                  currentMonthDate: homeData.currentMonthDate,
+                ),
+                const SizedBox(height: 24),
+                YtdSummaryCard(
+                  ytdTotal: homeData.ytdTotal,
+                  annualAverage: homeData.annualAverage,
+                ),
+                const SizedBox(height: 24),
+                MonthlyTrendChart(trends: homeData.monthlyTrends),
+                const SizedBox(height: 32),
+              ],
             ),
           ),
         ),

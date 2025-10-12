@@ -113,7 +113,7 @@ class _MonthlyTrendChartState extends ConsumerState<MonthlyTrendChart>
           margin: EdgeInsets.zero,
           chart: LayoutBuilder(
             builder: (final context, final constraints) {
-              const double minPointWidth = 40;
+              const double minPointWidth = 60;
               final double calculatedWidth =
                   widget.trends.length * minPointWidth;
               final double chartWidth = max(
@@ -125,8 +125,14 @@ class _MonthlyTrendChartState extends ConsumerState<MonthlyTrendChart>
                 scrollDirection: Axis.horizontal,
                 child: SizedBox(
                   width: chartWidth,
-                  height: 250,
-                  child: barChart,
+                  child: Padding(
+                    padding: const EdgeInsets.only(
+                      right: 16,
+                      top: 8,
+                      bottom: 8,
+                    ),
+                    child: SizedBox(height: 250, child: barChart),
+                  ),
                 ),
               );
             },
@@ -183,7 +189,7 @@ class _MonthlyTrendChartState extends ConsumerState<MonthlyTrendChart>
     bottomTitles: AxisTitles(
       sideTitles: SideTitles(
         showTitles: true,
-        reservedSize: 30,
+        reservedSize: 40,
         getTitlesWidget: (final value, final meta) {
           final int index = value.toInt();
           if (index >= widget.trends.length) {
@@ -199,15 +205,17 @@ class _MonthlyTrendChartState extends ConsumerState<MonthlyTrendChart>
     leftTitles: AxisTitles(
       sideTitles: SideTitles(
         showTitles: true,
-        reservedSize: 40,
+        reservedSize: 50,
         getTitlesWidget: (final value, final meta) {
-          if (value == meta.max || value == meta.min) {
-            return const SizedBox();
+          if (value == meta.max || value == 0) {
+            return const Text("");
           }
           return Text(
             value.round().toString(),
             style: textTheme.bodySmall,
             textAlign: TextAlign.left,
+            maxLines: 1,
+            overflow: TextOverflow.visible,
           );
         },
       ),

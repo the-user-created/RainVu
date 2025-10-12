@@ -63,6 +63,7 @@ class _YtdSummaryCardState extends ConsumerState<YtdSummaryCard> {
                       ),
                       const SizedBox(height: 12),
                       Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Icon(
                             Icons.calendar_today,
@@ -70,15 +71,17 @@ class _YtdSummaryCardState extends ConsumerState<YtdSummaryCard> {
                             size: 36,
                           ),
                           const SizedBox(width: 8),
-                          Text(
-                            widget.ytdTotal.formatRainfall(
-                              context,
-                              unit,
-                              precision: 0,
-                            ),
-                            style: theme.textTheme.displaySmall?.copyWith(
-                              color: theme.colorScheme.tertiary,
-                              fontWeight: FontWeight.bold,
+                          Flexible(
+                            child: Text(
+                              widget.ytdTotal.formatRainfall(
+                                context,
+                                unit,
+                                precision: 0,
+                              ),
+                              style: theme.textTheme.displaySmall?.copyWith(
+                                color: theme.colorScheme.tertiary,
+                                fontWeight: FontWeight.bold,
+                              ),
                             ),
                           ),
                         ],
@@ -118,6 +121,7 @@ class _YtdSummaryCardState extends ConsumerState<YtdSummaryCard> {
                           style: theme.textTheme.bodyMedium?.copyWith(
                             color: theme.colorScheme.onSurfaceVariant,
                           ),
+                          textAlign: TextAlign.right,
                         ),
                       ),
                     ],

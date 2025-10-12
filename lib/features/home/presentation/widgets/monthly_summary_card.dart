@@ -51,19 +51,7 @@ class _MonthlySummaryCardState extends ConsumerState<MonthlySummaryCard> {
       },
       onTapCancel: () => setState(() => _isPressed = false),
       child:
-          Container(
-                width: double.infinity,
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.surface,
-                  boxShadow: [
-                    BoxShadow(
-                      blurRadius: 4,
-                      color: theme.shadowColor,
-                      offset: const Offset(0, 2),
-                    ),
-                  ],
-                  borderRadius: BorderRadius.circular(16),
-                ),
+          Card(
                 child: Padding(
                   padding: const EdgeInsets.all(16),
                   child: Column(
@@ -102,23 +90,26 @@ class _MonthlySummaryCardState extends ConsumerState<MonthlySummaryCard> {
   ) => Row(
     mainAxisAlignment: MainAxisAlignment.spaceBetween,
     children: [
-      Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Text(
-            l10n.monthlyRainfallTitle,
-            style: theme.textTheme.titleMedium?.copyWith(
-              fontWeight: FontWeight.w600,
+      Expanded(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            Text(
+              l10n.monthlyRainfallTitle,
+              style: theme.textTheme.titleMedium?.copyWith(
+                fontWeight: FontWeight.w600,
+              ),
             ),
-          ),
-          Text(
-            DateFormat.yMMMM().format(widget.currentMonthDate),
-            style: theme.textTheme.bodyMedium?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
+            Text(
+              DateFormat.yMMMM().format(widget.currentMonthDate),
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
             ),
-          ),
-        ],
+          ],
+        ),
       ),
+      const SizedBox(width: 8),
       Icon(Icons.chevron_right, color: theme.colorScheme.secondary),
     ],
   );
@@ -132,11 +123,13 @@ class _MonthlySummaryCardState extends ConsumerState<MonthlySummaryCard> {
     children: [
       Icon(Icons.water_drop, color: theme.colorScheme.secondary, size: 36),
       const SizedBox(width: 8),
-      Text(
-        widget.monthlyTotal.formatRainfall(context, unit),
-        style: theme.textTheme.displaySmall?.copyWith(
-          color: theme.colorScheme.secondary,
-          fontWeight: FontWeight.bold,
+      Flexible(
+        child: Text(
+          widget.monthlyTotal.formatRainfall(context, unit),
+          style: theme.textTheme.displaySmall?.copyWith(
+            color: theme.colorScheme.secondary,
+            fontWeight: FontWeight.bold,
+          ),
         ),
       ),
     ],
@@ -160,13 +153,17 @@ class _MonthlySummaryCardState extends ConsumerState<MonthlySummaryCard> {
     padding: const EdgeInsets.symmetric(vertical: 4),
     child: Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
-        Text(
-          DateFormat.yMd().add_jm().format(entry.date),
-          style: theme.textTheme.bodyMedium?.copyWith(
-            fontWeight: FontWeight.w500,
+        Flexible(
+          child: Text(
+            DateFormat.yMd().add_jm().format(entry.date),
+            style: theme.textTheme.bodyMedium?.copyWith(
+              fontWeight: FontWeight.w500,
+            ),
           ),
         ),
+        const SizedBox(width: 16),
         Text(
           entry.amount.formatRainfall(context, unit),
           style: theme.textTheme.bodyMedium?.copyWith(
