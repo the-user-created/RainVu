@@ -1,35 +1,324 @@
 {
   "@@locale": "en",
-  "appName": "RainWise",
-  "comingSoon": "Coming Soon",
-  "@comingSoon": {
-    "description": "Default page title for a feature under development"
+  "addGaugeSheetTitle": "Add New Rain Gauge",
+  "@addGaugeSheetTitle": {
+    "description": "The title of the bottom sheet used for adding a new rain gauge."
   },
-  "comingSoonHeadline": "This Feature is on its Way!",
-  "comingSoonMessage": "We're working hard to bring you something amazing. Please check back later!",
-  "navHome": "Home",
-  "navInsights": "Insights",
-  "navGauges": "Gauges",
-  "navSettings": "Settings",
-  "pageNotFound": "Page Not Found",
-  "pageNotFoundMessage": "The page you are looking for does not exist.\n\nError: {error}",
-  "@pageNotFoundMessage": {
-    "description": "Error message for a missing route, with a placeholder for the error details.",
+  "addGaugeTooltip": "Add New Gauge",
+  "@addGaugeTooltip": {
+    "description": "Tooltip for the button that opens the 'Add New Rain Gauge' sheet."
+  },
+  "allSeverities": "All Severities",
+  "@allSeverities": {
+    "description": "Label for a filter option that selects all anomaly severity levels."
+  },
+  "anomalyDeviationThresholdDescription": "The minimum percentage difference from the historical average to be flagged as an anomaly.",
+  "@anomalyDeviationThresholdDescription": {
+    "description": "Explanatory text for the anomaly deviation threshold setting."
+  },
+  "anomalyDeviationThresholdLabel": "Anomaly Deviation Threshold",
+  "@anomalyDeviationThresholdLabel": {
+    "description": "The label for the anomaly deviation threshold slider in the settings."
+  },
+  "anomalyDeviationThresholdValue": "{value}%",
+  "@anomalyDeviationThresholdValue": {
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "anomalyExplorationError": "Error loading anomalies: {error}",
+  "@anomalyExplorationError": {
     "placeholders": {
       "error": {
         "type": "Object"
       }
     }
   },
-  "dataToolsTitle": "Export & Import",
+  "anomalyExplorationTitle": "Anomaly Exploration",
+  "@anomalyExplorationTitle": {
+    "description": "The title of the Anomaly Exploration screen."
+  },
+  "anomalyGroupDeviation": "{sign}{percent}% vs avg",
+  "@anomalyGroupDeviation": {
+    "placeholders": {
+      "sign": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
+  "anomalyGroupSummary": "{count, plural, =1 {1 Anomaly} other {{count} Anomalies}}",
+  "@anomalyGroupSummary": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "anomalyListItemActual": "Actual",
+  "@anomalyListItemActual": {
+    "description": "Label in an anomaly list item indicating the actual measured rainfall."
+  },
+  "anomalyListItemAverage": "Average",
+  "@anomalyListItemAverage": {
+    "description": "Label in an anomaly list item indicating the historical average rainfall."
+  },
+  "anomalySeverityCritical": "Critical",
+  "@anomalySeverityCritical": {
+    "description": "Label for the 'Critical' anomaly severity level."
+  },
+  "anomalySeverityHigh": "High",
+  "@anomalySeverityHigh": {
+    "description": "Label for the 'High' anomaly severity level."
+  },
+  "anomalySeverityLow": "Low",
+  "@anomalySeverityLow": {
+    "description": "Label for the 'Low' anomaly severity level."
+  },
+  "anomalySeverityMedium": "Medium",
+  "@anomalySeverityMedium": {
+    "description": "Label for the 'Medium' anomaly severity level."
+  },
+  "anomalyTimelineLegendActual": "Actual",
+  "@anomalyTimelineLegendActual": {
+    "description": "Legend text for the actual rainfall line in the anomaly timeline chart."
+  },
+  "anomalyTimelineLegendAverage": "Average",
+  "@anomalyTimelineLegendAverage": {
+    "description": "Legend text for the average rainfall line in the anomaly timeline chart."
+  },
+  "appInfoFooterError": "Could not load data",
+  "@appInfoFooterError": {
+    "description": "Error message shown in the app info footer if version info cannot be loaded."
+  },
+  "appName": "RainWise",
+  "@appName": {
+    "description": "The name of the application."
+  },
+  "appVersion": "Version {version} (Build {buildNumber})",
+  "@appVersion": {
+    "description": "Displays the application version and build number",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      },
+      "buildNumber": {
+        "type": "String"
+      }
+    }
+  },
+  "applyButtonLabel": "Apply",
+  "@applyButtonLabel": {
+    "description": "Generic label for a button that applies changes or filters."
+  },
+  "cancelButtonLabel": "Cancel",
+  "@cancelButtonLabel": {
+    "description": "Generic label for a button that cancels an action or closes a dialog."
+  },
+  "changelogBreaking": "Breaking:",
+  "@changelogBreaking": {
+    "description": "Prefix for changelog items that introduce breaking changes."
+  },
+  "changelogCategoryAdded": "Added",
+  "@changelogCategoryAdded": {
+    "description": "Category title for new features in the changelog."
+  },
+  "changelogCategoryChanged": "Changed",
+  "@changelogCategoryChanged": {
+    "description": "Category title for changes to existing features in the changelog."
+  },
+  "changelogCategoryFixed": "Fixed",
+  "@changelogCategoryFixed": {
+    "description": "Category title for bug fixes in the changelog."
+  },
+  "changelogCategoryRemoved": "Removed",
+  "@changelogCategoryRemoved": {
+    "description": "Category title for removed features in the changelog."
+  },
+  "changelogError": "Could not load changelog.",
+  "@changelogError": {
+    "description": "Error message shown when the changelog fails to load."
+  },
+  "changelogTitle": "What's New",
+  "@changelogTitle": {
+    "description": "The title of the screen that displays the application changelog."
+  },
+  "changelogVersion": "Version {version}",
+  "@changelogVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "clearSelectionTooltip": "Clear selection",
+  "@clearSelectionTooltip": {
+    "description": "Tooltip for a button that clears a user's current selection (e.g., a date range)."
+  },
+  "comingSoon": "Coming Soon",
+  "@comingSoon": {
+    "description": "Default page title for a feature under development"
+  },
+  "comingSoonHeadline": "This Feature is on its Way!",
+  "@comingSoonHeadline": {
+    "description": "The main headline on the 'Coming Soon' placeholder screen."
+  },
+  "comingSoonMessage": "We're working hard to bring you something amazing. Please check back later!",
+  "@comingSoonMessage": {
+    "description": "The descriptive message on the 'Coming Soon' placeholder screen."
+  },
+  "comparativeAnalysisAvailableYearsError": "Error loading years: {error}",
+  "@comparativeAnalysisAvailableYearsError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "comparativeAnalysisChartNoData": "Not enough data to display chart.",
+  "@comparativeAnalysisChartNoData": {
+    "description": "Message shown in the comparative analysis chart when there is insufficient data."
+  },
+  "comparativeAnalysisChartTitle": "Rainfall Comparison",
+  "@comparativeAnalysisChartTitle": {
+    "description": "The title of the chart on the Comparative Analysis screen."
+  },
+  "comparativeAnalysisEmptyMessage": "This feature requires rainfall data from at least two different years. Once you have more data, you'll be able to compare it here.",
+  "@comparativeAnalysisEmptyMessage": {
+    "description": "Message shown on the comparative analysis screen when there isn't data from at least two different years."
+  },
+  "comparativeAnalysisEmptyTitle": "Not Enough Data to Compare",
+  "@comparativeAnalysisEmptyTitle": {
+    "description": "Title for the empty state on the comparative analysis screen when there is insufficient data."
+  },
+  "comparativeAnalysisError": "An error occurred: {error}",
+  "@comparativeAnalysisError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "comparativeAnalysisFilterError": "Error: {error}",
+  "@comparativeAnalysisFilterError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "comparativeAnalysisNoDataForSelection": "No rainfall data was found for the selected years and comparison type. Please try a different selection.",
+  "@comparativeAnalysisNoDataForSelection": {
+    "description": "Message shown when a user's filter selection on the comparative analysis screen yields no data."
+  },
+  "comparativeAnalysisSelectYearsTitle": "Select Years to Compare",
+  "@comparativeAnalysisSelectYearsTitle": {
+    "description": "Title above the year selection dropdowns on the comparative analysis screen."
+  },
+  "comparativeAnalysisTitle": "Comparative Analysis",
+  "@comparativeAnalysisTitle": {
+    "description": "The title of the Comparative Analysis screen."
+  },
+  "comparisonInfoAnnualDescription": "Compares the total rainfall for each selected year. This view shows one bar representing the grand total for each year, ideal for a high-level overview.",
+  "@comparisonInfoAnnualDescription": {
+    "description": "Description of the 'Annual' comparison type in the info sheet."
+  },
+  "comparisonInfoAnnualTitle": "Annual",
+  "@comparisonInfoAnnualTitle": {
+    "description": "Title for the 'Annual' comparison type in the info sheet."
+  },
+  "comparisonInfoMonthlyDescription": "Provides a month-by-month breakdown, comparing the rainfall of each month across the selected years. This helps identify variations in monthly patterns.",
+  "@comparisonInfoMonthlyDescription": {
+    "description": "Description of the 'Monthly' comparison type in the info sheet."
+  },
+  "comparisonInfoMonthlyTitle": "Monthly",
+  "@comparisonInfoMonthlyTitle": {
+    "description": "Title for the 'Monthly' comparison type in the info sheet."
+  },
+  "comparisonInfoSeasonalDescription": "Groups rainfall data into four meteorological seasons (Spring, Summer, Autumn, Winter) based on your hemisphere setting. This view is useful for comparing seasonal performance year-over-year.",
+  "@comparisonInfoSeasonalDescription": {
+    "description": "Description of the 'Seasonal' comparison type in the info sheet."
+  },
+  "comparisonInfoSeasonalTitle": "Seasonal",
+  "@comparisonInfoSeasonalTitle": {
+    "description": "Title for the 'Seasonal' comparison type in the info sheet."
+  },
+  "comparisonInfoSheetTitle": "About Comparison Types",
+  "@comparisonInfoSheetTitle": {
+    "description": "The title of the info sheet that explains different comparison types."
+  },
+  "comparisonTypeAnnual": "Annual",
+  "@comparisonTypeAnnual": {
+    "description": "Label for the 'Annual' comparison type chip/button."
+  },
+  "comparisonTypeMonthly": "Monthly",
+  "@comparisonTypeMonthly": {
+    "description": "Label for the 'Monthly' comparison type chip/button."
+  },
+  "comparisonTypeSeasonal": "Seasonal",
+  "@comparisonTypeSeasonal": {
+    "description": "Label for the 'Seasonal' comparison type chip/button."
+  },
+  "dailyAverage": "Daily Average",
+  "@dailyAverage": {
+    "description": "Label for the daily average rainfall statistic."
+  },
+  "dailyRainfallChartTitle": "Daily Rainfall",
+  "@dailyRainfallChartTitle": {
+    "description": "Title for the chart showing daily rainfall totals for a selected month."
+  },
+  "dashboardChartTitle": "Historical Trend",
+  "@dashboardChartTitle": {
+    "description": "Title for the main chart on the insights dashboard."
+  },
+  "dashboardComparisonVsAverage": "vs average",
+  "@dashboardComparisonVsAverage": {
+    "description": "A suffix for a metric comparison indicating it's against a historical average."
+  },
+  "dashboardComparisonVsPrevious": "vs previous period",
+  "@dashboardComparisonVsPrevious": {
+    "description": "A suffix for a metric comparison indicating it's against the prior period (e.g., last month)."
+  },
+  "dashboardMetric12Mo": "12-Month",
+  "@dashboardMetric12Mo": {
+    "description": "Label for the 'Last 12 Months' metric selector on the insights dashboard."
+  },
+  "dashboardMetricAllTime": "All Time",
+  "@dashboardMetricAllTime": {
+    "description": "Label for the 'All Time' metric selector on the insights dashboard."
+  },
+  "dashboardMetricMTD": "MTD",
+  "@dashboardMetricMTD": {
+    "description": "Label for the 'Month-to-Date' metric selector on the insights dashboard."
+  },
+  "dashboardMetricYTD": "YTD",
+  "@dashboardMetricYTD": {
+    "description": "Label for the 'Year-to-Date' metric selector on the insights dashboard."
+  },
+  "dashboardNoDataMessage": "Log more rainfall to see your historical trends and insights here.",
+  "@dashboardNoDataMessage": {
+    "description": "Message on the insights dashboard when there is not enough data to display."
+  },
+  "dashboardNoDataTitle": "Not Enough Data",
+  "@dashboardNoDataTitle": {
+    "description": "Title for the empty state on the insights dashboard."
+  },
   "dataToolsExportDataSectionTitle": "EXPORT DATA",
-  "dataToolsImportDataSectionTitle": "IMPORT DATA",
-  "importProgressTitle": "Importing Data",
-  "importProgressMessage": "Please wait while your data is being imported. This may take a moment...",
-  "exportProgressTitle": "Exporting Data",
-  "exportProgressFetching": "Step 1 of 2: Fetching records...",
-  "exportProgressFormatting": "Step 2 of 2: Formatting file...",
-  "exportProgressSaving": "Please choose where to save your file...",
+  "@dataToolsExportDataSectionTitle": {
+    "description": "Section header for data export options."
+  },
+  "dataToolsExportFailed": "Export failed: {error}",
+  "@dataToolsExportFailed": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
   "dataToolsExportSuccess": "Data exported successfully to {path}",
   "@dataToolsExportSuccess": {
     "description": "Success message shown after data is exported, with a placeholder for the file path.",
@@ -39,17 +328,399 @@
       }
     }
   },
-  "importPreviewSummaryNoChanges": "No new data to import. All entries in the file already exist in the app.",
-  "importPreviewSummaryEntries": "{count, plural, =1 {1 new entry will be added} other {{count} new entries will be added}}",
-  "@importPreviewSummaryEntries": {
+  "dataToolsImportDataSectionTitle": "IMPORT DATA",
+  "@dataToolsImportDataSectionTitle": {
+    "description": "Section header for data import options."
+  },
+  "dataToolsImportFailed": "Import failed: {error}",
+  "@dataToolsImportFailed": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "dataToolsImportSuccess": "Data imported successfully.",
+  "@dataToolsImportSuccess": {
+    "description": "Success message shown after data is imported successfully."
+  },
+  "dataToolsParseFailed": "Failed to read file: {error}",
+  "@dataToolsParseFailed": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "dataToolsTitle": "Export & Import",
+  "@dataToolsTitle": {
+    "description": "The title of the Data Export/Import screen."
+  },
+  "dateRangeAllTime": "Date Range: All Time",
+  "@dateRangeAllTime": {
+    "description": "Label indicating that the 'All Time' date range is selected for export."
+  },
+  "defaultGaugeName": "Default Gauge",
+  "@defaultGaugeName": {
+    "description": "The name of the default, non-deletable rain gauge."
+  },
+  "deleteButtonLabel": "Delete",
+  "@deleteButtonLabel": {
+    "description": "Generic label for a button that deletes an item."
+  },
+  "deleteDialogContent": "This action cannot be undone.",
+  "@deleteDialogContent": {
+    "description": "Generic confirmation message in a delete dialog."
+  },
+  "deleteEntryDialogTitle": "Delete Entry?",
+  "@deleteEntryDialogTitle": {
+    "description": "The title of the dialog to confirm deleting a single rainfall entry."
+  },
+  "deleteEntryTooltip": "Delete Entry",
+  "@deleteEntryTooltip": {
+    "description": "Tooltip for the button to delete a single rainfall entry."
+  },
+  "deleteGaugeAndEntriesOption": "Also delete all {count, plural, =1 {1 associated entry} other {{count} associated entries}}.",
+  "@deleteGaugeAndEntriesOption": {
     "placeholders": {
       "count": {
         "type": "int"
       }
     }
   },
-  "importPreviewSummaryUpdated": "{count, plural, =1 {1 existing entry will be updated} other {{count} existing entries will be updated}}",
-  "@importPreviewSummaryUpdated": {
+  "deleteGaugeDialogActionDelete": "Delete",
+  "@deleteGaugeDialogActionDelete": {
+    "description": "The label for the final confirmation button in the delete gauge dialog."
+  },
+  "deleteGaugeDialogContent": "Are you sure you want to delete this rain gauge?",
+  "@deleteGaugeDialogContent": {
+    "description": "The primary confirmation message when deleting a gauge with no associated entries."
+  },
+  "deleteGaugeDialogTitle": "Confirm Deletion",
+  "@deleteGaugeDialogTitle": {
+    "description": "The title of the dialog to confirm deleting a rain gauge."
+  },
+  "deleteGaugeWithEntriesWarning": "This gauge has {count, plural, =1 {1 associated entry} other {{count} associated entries}}. Deleting it will reassign them to '{defaultGaugeName}'.",
+  "@deleteGaugeWithEntriesWarning": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      },
+      "defaultGaugeName": {
+        "type": "String"
+      }
+    }
+  },
+  "detailedAnalysisAnomalyExplorationSubtitle": "Analyze unusual patterns in rainfall data",
+  "@detailedAnalysisAnomalyExplorationSubtitle": {
+    "description": "Subtitle for the 'Anomaly Exploration' link on the insights screen."
+  },
+  "detailedAnalysisComparativeAnalysisSubtitle": "See side-by-side comparisons of multiple years",
+  "@detailedAnalysisComparativeAnalysisSubtitle": {
+    "description": "Subtitle for the 'Comparative Yearly Analysis' link on the insights screen."
+  },
+  "detailedAnalysisComparativeAnalysisTitle": "Comparative Yearly Analysis",
+  "@detailedAnalysisComparativeAnalysisTitle": {
+    "description": "Title for the 'Comparative Yearly Analysis' link on the insights screen."
+  },
+  "detailedAnalysisMonthlyBreakdownSubtitle": "View detailed monthly statistics",
+  "@detailedAnalysisMonthlyBreakdownSubtitle": {
+    "description": "Subtitle for the 'Monthly Breakdown' link on the insights screen."
+  },
+  "detailedAnalysisMonthlyComparisonSubtitle": "Compare monthly totals against historical averages",
+  "@detailedAnalysisMonthlyComparisonSubtitle": {
+    "description": "Subtitle for the 'Monthly Comparison' link on the insights screen."
+  },
+  "detailedAnalysisSeasonalPatternsSubtitle": "Analyze rainfall patterns by season",
+  "@detailedAnalysisSeasonalPatternsSubtitle": {
+    "description": "Subtitle for the 'Seasonal Patterns' link on the insights screen."
+  },
+  "detectedAnomaliesTitle": "Detected Anomalies",
+  "@detectedAnomaliesTitle": {
+    "description": "Section header for the list of detected anomalies."
+  },
+  "doneButtonLabel": "Done",
+  "@doneButtonLabel": {
+    "description": "Generic label for a button that dismisses a view or completes a task."
+  },
+  "downloadFileButtonLabel": "Download File",
+  "@downloadFileButtonLabel": {
+    "description": "Label for the button that initiates a data export and download."
+  },
+  "editEntryAmountHeader": "Rainfall Amount",
+  "@editEntryAmountHeader": {
+    "description": "Header for the amount input section in the edit entry sheet."
+  },
+  "editEntryAmountHint": "Enter amount",
+  "@editEntryAmountHint": {
+    "description": "Placeholder text for the rainfall amount input field when editing an entry."
+  },
+  "editEntryAmountValidationEmpty": "Please enter an amount",
+  "@editEntryAmountValidationEmpty": {
+    "description": "Validation error message when the amount field is empty."
+  },
+  "editEntryAmountValidationInvalid": "Please enter a valid number",
+  "@editEntryAmountValidationInvalid": {
+    "description": "Validation error message when the amount field contains an invalid number."
+  },
+  "editEntryDateTimeHeader": "Date & Time",
+  "@editEntryDateTimeHeader": {
+    "description": "Header for the date and time selection section in the edit entry sheet."
+  },
+  "editEntryGaugeHeader": "Rain Gauge",
+  "@editEntryGaugeHeader": {
+    "description": "Header for the rain gauge selection section in the edit entry sheet."
+  },
+  "editEntryGaugeValidation": "Please select a gauge",
+  "@editEntryGaugeValidation": {
+    "description": "Validation error message when no gauge is selected."
+  },
+  "editEntrySheetTitle": "Edit Rainfall Entry",
+  "@editEntrySheetTitle": {
+    "description": "The title of the bottom sheet used for editing an existing rainfall entry."
+  },
+  "editGaugeSheetTitle": "Edit Rain Gauge",
+  "@editGaugeSheetTitle": {
+    "description": "The title of the bottom sheet used for editing a rain gauge's properties."
+  },
+  "exportDataCardDescription": "Select date range and format to export your rainfall data",
+  "@exportDataCardDescription": {
+    "description": "Descriptive text on the data export card."
+  },
+  "exportFormatCsv": "CSV",
+  "@exportFormatCsv": {
+    "description": "Label for the CSV export format option."
+  },
+  "exportFormatJson": "JSON",
+  "@exportFormatJson": {
+    "description": "Label for the JSON export format option."
+  },
+  "exportFormatTitle": "Export Format",
+  "@exportFormatTitle": {
+    "description": "Title for the section where the user chooses the export file format."
+  },
+  "exportProgressFetching": "Step 1 of 2: Fetching records...",
+  "@exportProgressFetching": {
+    "description": "Progress message shown during the data fetching stage of an export."
+  },
+  "exportProgressFormatting": "Step 2 of 2: Formatting file...",
+  "@exportProgressFormatting": {
+    "description": "Progress message shown during the file formatting stage of an export."
+  },
+  "exportProgressSaving": "Please choose where to save your file...",
+  "@exportProgressSaving": {
+    "description": "Progress message shown while waiting for the user to select a save location."
+  },
+  "exportProgressTitle": "Exporting Data",
+  "@exportProgressTitle": {
+    "description": "The title of the dialog shown during data export."
+  },
+  "filePickerBoxSubtitle": "CSV or JSON files only",
+  "@filePickerBoxSubtitle": {
+    "description": "Subtitle in the file import box indicating allowed file types."
+  },
+  "filePickerBoxTitle": "Select File to Import",
+  "@filePickerBoxTitle": {
+    "description": "Title in the file import box."
+  },
+  "filterOptionsTitle": "Filter Options",
+  "@filterOptionsTitle": {
+    "description": "Title for a card or section containing filter controls."
+  },
+  "fiveYearAverage": "5 Year Average",
+  "@fiveYearAverage": {
+    "description": "Label for the 5-year historical average statistic."
+  },
+  "gaugeAddedSuccess": "Gauge '{name}' was added successfully.",
+  "@gaugeAddedSuccess": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "gaugeDeletedSuccess": "Gauge '{name}' was deleted.",
+  "@gaugeDeletedSuccess": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "gaugeEntryCount": "{count, plural, =1 {1 entry} other {{count} entries}}",
+  "@gaugeEntryCount": {
+    "placeholders": {
+      "count": {
+        "type": "int"
+      }
+    }
+  },
+  "gaugeFormButtonCancel": "Cancel",
+  "@gaugeFormButtonCancel": {
+    "description": "Label for the cancel button on the add/edit gauge form."
+  },
+  "gaugeFormButtonSave": "Save",
+  "@gaugeFormButtonSave": {
+    "description": "Label for the save button on the add/edit gauge form."
+  },
+  "gaugeFormNameHint": "E.g., Garden Gauge #1",
+  "@gaugeFormNameHint": {
+    "description": "Placeholder text for the rain gauge name input field."
+  },
+  "gaugeFormNameLabel": "Rain Gauge Name",
+  "@gaugeFormNameLabel": {
+    "description": "Label for the rain gauge name input field."
+  },
+  "gaugeFormNameValidation": "Name cannot be empty",
+  "@gaugeFormNameValidation": {
+    "description": "Validation error when the gauge name is left empty."
+  },
+  "gaugeFormNameValidationDuplicate": "A gauge with this name already exists.",
+  "@gaugeFormNameValidationDuplicate": {
+    "description": "Validation error when a gauge with the same name already exists."
+  },
+  "gaugeListEmptyMessage": "Tap the add button in the top right to create your first rain gauge and start logging rainfall.",
+  "@gaugeListEmptyMessage": {
+    "description": "Message shown on the manage gauges screen when no gauges have been created yet."
+  },
+  "gaugeListEmptyTitle": "No Rain Gauges",
+  "@gaugeListEmptyTitle": {
+    "description": "Title for the empty state on the manage gauges screen."
+  },
+  "gaugeListError": "Error: {error}",
+  "@gaugeListError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "gaugeSetAsFavorite": "'{name}' is now your favorite gauge.",
+  "@gaugeSetAsFavorite": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "gaugeTileDeleteTooltip": "Delete Gauge",
+  "@gaugeTileDeleteTooltip": {
+    "description": "Tooltip for the delete button on a gauge list item."
+  },
+  "gaugeTileEditTooltip": "Edit Gauge",
+  "@gaugeTileEditTooltip": {
+    "description": "Tooltip for the edit button on a gauge list item."
+  },
+  "gaugeTileSetFavoriteTooltip": "Set as favorite gauge",
+  "@gaugeTileSetFavoriteTooltip": {
+    "description": "Tooltip for the star icon to set a gauge as the favorite."
+  },
+  "gaugeUnsetAsFavorite": "'{name}' is no longer your favorite gauge.",
+  "@gaugeUnsetAsFavorite": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "gaugeUpdatedSuccess": "Gauge '{name}' was updated successfully.",
+  "@gaugeUpdatedSuccess": {
+    "placeholders": {
+      "name": {
+        "type": "String"
+      }
+    }
+  },
+  "helpCouldNotOpenUrl": "Could not open {url}",
+  "@helpCouldNotOpenUrl": {
+    "placeholders": {
+      "url": {
+        "type": "String"
+      }
+    }
+  },
+  "helpEmailSupportSubtitle": "For direct assistance, account questions, or other inquiries.",
+  "@helpEmailSupportSubtitle": {
+    "description": "Subtitle for the 'Email Support' option in the help screen."
+  },
+  "helpEmailSupportTitle": "Email Support",
+  "@helpEmailSupportTitle": {
+    "description": "Title for the 'Email Support' option in the help screen."
+  },
+  "helpIntro": "Have a question or feedback? We're here to help you get the most out of RainWise.",
+  "@helpIntro": {
+    "description": "Introductory text on the Help & Support screen."
+  },
+  "helpReportBugSubtitle": "Let us know about a technical issue or something that isn't working as expected.",
+  "@helpReportBugSubtitle": {
+    "description": "Subtitle for the 'Report a Bug' option in the help screen."
+  },
+  "helpReportBugTitle": "Report a Bug",
+  "@helpReportBugTitle": {
+    "description": "Title for the 'Report a Bug' option in the help screen."
+  },
+  "helpSuggestIdeaSubtitle": "Share your ideas for new features or other improvements.",
+  "@helpSuggestIdeaSubtitle": {
+    "description": "Subtitle for the 'Suggest an Idea' option in the help screen."
+  },
+  "helpSuggestIdeaTitle": "Suggest an Idea",
+  "@helpSuggestIdeaTitle": {
+    "description": "Title for the 'Suggest an Idea' option in the help screen."
+  },
+  "helpTitle": "Help & Support",
+  "@helpTitle": {
+    "description": "The title of the Help & Support screen."
+  },
+  "hemisphereNorthern": "Northern",
+  "@hemisphereNorthern": {
+    "description": "Label for the Northern Hemisphere option."
+  },
+  "hemisphereSouthern": "Southern",
+  "@hemisphereSouthern": {
+    "description": "Label for the Southern Hemisphere option."
+  },
+  "highestDay": "Highest Day",
+  "@highestDay": {
+    "description": "Label for the highest single-day rainfall statistic."
+  },
+  "historicalComparisonTitle": "Historical Comparison",
+  "@historicalComparisonTitle": {
+    "description": "Title for the historical comparison card in the monthly breakdown."
+  },
+  "homeScreenError": "Error: {error}",
+  "@homeScreenError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "importDataCardDescription": "Import your previously exported rainfall data",
+  "@importDataCardDescription": {
+    "description": "Descriptive text on the data import card."
+  },
+  "importPreviewCancelButton": "Cancel",
+  "@importPreviewCancelButton": {
+    "description": "Label for the cancel button on the import preview summary."
+  },
+  "importPreviewConfirmButton": "Confirm",
+  "@importPreviewConfirmButton": {
+    "description": "Label for the confirm button on the import preview summary."
+  },
+  "importPreviewDuplicatesSummary": "{duplicateEntriesCount, plural, =1 {1 unchanged entry will be skipped.} other {{duplicateEntriesCount} unchanged entries will be skipped.}}",
+  "@importPreviewDuplicatesSummary": {
+    "placeholders": {
+      "duplicateEntriesCount": {
+        "type": "int"
+      }
+    }
+  },
+  "importPreviewNewGaugesListTitle": "New gauges to be created:",
+  "@importPreviewNewGaugesListTitle": {
+    "description": "Header for the list of new gauges that will be created during an import."
+  },
+  "importPreviewSummaryEntries": "{count, plural, =1 {1 new entry will be added} other {{count} new entries will be added}}",
+  "@importPreviewSummaryEntries": {
     "placeholders": {
       "count": {
         "type": "int"
@@ -64,74 +735,82 @@
       }
     }
   },
-  "importPreviewDuplicatesSummary": "{duplicateEntriesCount, plural, =1 {1 unchanged entry will be skipped.} other {{duplicateEntriesCount} unchanged entries will be skipped.}}",
-  "@importPreviewDuplicatesSummary": {
+  "importPreviewSummaryNoChanges": "No new data to import. All entries in the file already exist in the app.",
+  "@importPreviewSummaryNoChanges": {
+    "description": "Message shown in the import preview when the file contains no new or updated data."
+  },
+  "importPreviewSummaryUpdated": "{count, plural, =1 {1 existing entry will be updated} other {{count} existing entries will be updated}}",
+  "@importPreviewSummaryUpdated": {
     "placeholders": {
-      "duplicateEntriesCount": {
+      "count": {
         "type": "int"
       }
     }
   },
-  "dataToolsImportSuccess": "Data imported successfully.",
-  "@dataToolsImportSuccess": {
-    "description": "Success message shown after data is imported successfully."
-  },
-  "dataToolsExportFailed": "Export failed: {error}",
-  "@dataToolsExportFailed": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
-  "dataToolsImportFailed": "Import failed: {error}",
-  "@dataToolsImportFailed": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
-  "dataToolsParseFailed": "Failed to read file: {error}",
-  "@dataToolsParseFailed": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
   "importPreviewTitle": "Preview",
-  "importPreviewNewGaugesListTitle": "New gauges to be created:",
-  "importPreviewConfirmButton": "Confirm",
-  "importPreviewCancelButton": "Cancel",
-  "importDataCardDescription": "Import your previously exported rainfall data",
-  "filePickerBoxTitle": "Select File to Import",
-  "filePickerBoxSubtitle": "CSV or JSON files only",
-  "selectDateRangeTitle": "Select Date Range",
-  "applyButtonLabel": "Apply",
-  "saveButtonLabel": "Save",
-  "@saveButtonLabel": {
-    "description": "Label for the button that saves the user's selection in a dialog."
+  "@importPreviewTitle": {
+    "description": "Title for the import preview summary."
   },
-  "clearSelectionTooltip": "Clear selection",
-  "exportDataCardDescription": "Select date range and format to export your rainfall data",
-  "dateRangeAllTime": "Date Range: All Time",
-  "exportFormatTitle": "Export Format",
-  "downloadFileButtonLabel": "Download File",
-  "exportFormatCsv": "CSV",
-  "exportFormatJson": "JSON",
-  "homeScreenError": "Error: {error}",
-  "@homeScreenError": {
+  "importProgressMessage": "Please wait while your data is being imported. This may take a moment...",
+  "@importProgressMessage": {
+    "description": "Message shown in the import progress dialog."
+  },
+  "importProgressTitle": "Importing Data",
+  "@importProgressTitle": {
+    "description": "Title of the dialog shown during data import."
+  },
+  "infoTooltip": "Info",
+  "@infoTooltip": {
+    "description": "Generic tooltip for an info icon button."
+  },
+  "insightsError": "Error: {error}",
+  "@insightsError": {
     "placeholders": {
       "error": {
         "type": "Object"
       }
     }
   },
-  "noDataToSetDateRange": "No data available to set a date range.",
-  "logRainfallTooltip": "Log Rainfall",
-  "logRainfallSheetTitle": "Log Rainfall",
-  "logRainfallSelectGaugeHeader": "Select Rain Gauge",
+  "legendDailyRainfall": "Daily Rainfall",
+  "@legendDailyRainfall": {
+    "description": "Legend text for the daily rainfall bars in the monthly breakdown chart."
+  },
+  "licenseDisclaimerContent": "License text formatting has been adjusted for readability, but the content is unmodified.",
+  "@licenseDisclaimerContent": {
+    "description": "The content of the disclaimer dialog on the license detail screen."
+  },
+  "licenseDisclaimerTitle": "Disclaimer",
+  "@licenseDisclaimerTitle": {
+    "description": "The title of the disclaimer dialog on the license detail screen."
+  },
+  "loading": "Loading...",
+  "@loading": {
+    "description": "A generic loading text."
+  },
+  "logRainfallAmountHeader": "Rainfall Amount",
+  "@logRainfallAmountHeader": {
+    "description": "Header for the amount input section in the log rainfall sheet."
+  },
+  "logRainfallAmountHint": "Enter amount",
+  "@logRainfallAmountHint": {
+    "description": "Placeholder text for the rainfall amount input field."
+  },
+  "logRainfallAmountValidationEmpty": "Amount cannot be empty",
+  "@logRainfallAmountValidationEmpty": {
+    "description": "Validation error when the amount is empty."
+  },
+  "logRainfallAmountValidationInvalid": "Please enter a valid number",
+  "@logRainfallAmountValidationInvalid": {
+    "description": "Validation error when the amount is not a valid number."
+  },
+  "logRainfallDateTimeHeader": "Date & Time",
+  "@logRainfallDateTimeHeader": {
+    "description": "Header for the date and time selection section in the log rainfall sheet."
+  },
+  "logRainfallGaugeValidation": "Please select a gauge",
+  "@logRainfallGaugeValidation": {
+    "description": "Validation error when no gauge is selected."
+  },
   "logRainfallGaugesError": "Error loading gauges: {error}",
   "@logRainfallGaugesError": {
     "placeholders": {
@@ -140,341 +819,42 @@
       }
     }
   },
-  "logRainfallSelectGaugeHint": "Select...",
-  "logRainfallGaugeValidation": "Please select a gauge",
-  "logRainfallAmountHeader": "Rainfall Amount",
-  "logRainfallAmountHint": "Enter amount",
-  "logRainfallAmountValidationEmpty": "Amount cannot be empty",
-  "logRainfallAmountValidationInvalid": "Please enter a valid number",
-  "unitMM": "mm",
-  "unitIn": "in",
-  "logRainfallDateTimeHeader": "Date & Time",
   "logRainfallSaveButton": "Save Rainfall Data",
-  "monthlyRainfallTitle": "Monthly Rainfall",
-  "recentEntriesTitle": "Recent Entries",
-  "rainfallTrendsTitle": "Rainfall Trends",
+  "@logRainfallSaveButton": {
+    "description": "Label for the save button on the log rainfall sheet."
+  },
+  "logRainfallSelectGaugeHeader": "Select Rain Gauge",
+  "@logRainfallSelectGaugeHeader": {
+    "description": "Header for the gauge selection section in the log rainfall sheet."
+  },
+  "logRainfallSelectGaugeHint": "Select...",
+  "@logRainfallSelectGaugeHint": {
+    "description": "Placeholder hint text for the gauge selection dropdown."
+  },
+  "logRainfallSheetTitle": "Log Rainfall",
+  "@logRainfallSheetTitle": {
+    "description": "The title of the bottom sheet used for logging a new rainfall entry."
+  },
+  "logRainfallTooltip": "Log Rainfall",
+  "@logRainfallTooltip": {
+    "description": "Tooltip for the button that opens the 'Log Rainfall' sheet."
+  },
+  "lowestDay": "Lowest Day",
+  "@lowestDay": {
+    "description": "Label for the lowest single-day rainfall statistic (on a day with rain)."
+  },
   "manageGaugesTitle": "Rain Gauges",
-  "addGaugeTooltip": "Add New Gauge",
-  "gaugeListEmptyTitle": "No Rain Gauges",
-  "gaugeListEmptyMessage": "Tap the add button in the top right to create your first rain gauge and start logging rainfall.",
-  "addGaugeSheetTitle": "Add New Rain Gauge",
-  "editGaugeSheetTitle": "Edit Rain Gauge",
-  "gaugeListError": "Error: {error}",
-  "@gaugeListError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
+  "@manageGaugesTitle": {
+    "description": "The title of the screen for managing rain gauges."
   },
-  "gaugeTileEditTooltip": "Edit Gauge",
-  "gaugeTileDeleteTooltip": "Delete Gauge",
-  "gaugeEntryCount": "{count, plural, =1 {1 entry} other {{count} entries}}",
-  "@gaugeEntryCount": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
+  "monthlyBreakdownEmptyMessage": "There are no rainfall entries recorded for the selected month. Try selecting another month or logging a new entry.",
+  "@monthlyBreakdownEmptyMessage": {
+    "description": "Message shown on the monthly breakdown screen when there is no data for the selected month."
   },
-  "deleteGaugeDialogTitle": "Confirm Deletion",
-  "deleteGaugeDialogContent": "Are you sure you want to delete this rain gauge?",
-  "deleteGaugeDialogActionDelete": "Delete",
-  "gaugeFormNameLabel": "Rain Gauge Name",
-  "gaugeFormNameHint": "E.g., Garden Gauge #1",
-  "gaugeFormNameValidation": "Name cannot be empty",
-  "gaugeFormNameValidationDuplicate": "A gauge with this name already exists.",
-  "gaugeFormButtonCancel": "Cancel",
-  "gaugeFormButtonSave": "Save",
-  "rainfallEntriesError": "Error: {error}",
-  "@rainfallEntriesError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
+  "monthlyBreakdownEmptyTitle": "No Data for This Month",
+  "@monthlyBreakdownEmptyTitle": {
+    "description": "Title for the empty state on the monthly breakdown screen."
   },
-  "rainfallEntriesEmptyTitle": "No Entries Found",
-  "rainfallEntriesEmptyMessage": "There are no rainfall entries recorded for the selected month. Log a new entry or select a different month to view its history.",
-  "rainfallEntriesTotalRainfall": "Total Rainfall",
-  "rainfallEntriesTotalEntries": "Total Entries",
-  "editEntrySheetTitle": "Edit Rainfall Entry",
-  "editEntryGaugeHeader": "Rain Gauge",
-  "editEntryAmountHeader": "Rainfall Amount",
-  "editEntryAmountHint": "Enter amount",
-  "editEntryGaugeValidation": "Please select a gauge",
-  "editEntryAmountValidationEmpty": "Please enter an amount",
-  "editEntryAmountValidationInvalid": "Please enter a valid number",
-  "editEntryDateTimeHeader": "Date & Time",
-  "saveChangesButton": "Save Changes",
-  "deleteEntryDialogTitle": "Delete Entry?",
-  "deleteDialogContent": "This action cannot be undone.",
-  "cancelButtonLabel": "Cancel",
-  "deleteButtonLabel": "Delete",
-  "loading": "Loading...",
-  "deleteEntryTooltip": "Delete Entry",
-  "unknownGauge": "Unknown Gauge",
-  "settingsTitle": "Settings",
-  "settingsSectionAboutAndSupport": "ABOUT & SUPPORT",
-  "helpTitle": "Help & Support",
-  "helpIntro": "Have a question or feedback? We're here to help you get the most out of RainWise.",
-  "helpReportBugTitle": "Report a Bug",
-  "helpReportBugSubtitle": "Let us know about a technical issue or something that isn't working as expected.",
-  "helpSuggestIdeaTitle": "Suggest an Idea",
-  "helpSuggestIdeaSubtitle": "Share your ideas for new features or other improvements.",
-  "helpEmailSupportTitle": "Email Support",
-  "helpEmailSupportSubtitle": "For direct assistance, account questions, or other inquiries.",
-  "settingsSectionDataManagement": "DATA MANAGEMENT",
-  "settingsDataManagementExportImport": "Data Export/Import",
-  "settingsSectionPreferences": "PREFERENCES",
-  "settingsPreferencesMeasurementUnit": "Measurement Unit",
-  "settingsSupportLegalHelp": "Help & Feedback",
-  "settingsSupportLegalPrivacyPolicy": "Privacy Policy",
-  "settingsSupportLegalTermsOfService": "Terms of Service",
-  "settingsSupportLegalOssLicenses": "Open Source Licenses",
-  "settingsSectionSupportDevelopment": "SUPPORT DEVELOPMENT",
-  "settingsSupportDevelopmentLeaveReview": "Leave a review",
-  "settingsSupportDevelopmentShareApp": "Share RainWise",
-  "settingsSupportLegalWhatsNew": "What's New",
-  "changelogTitle": "What's New",
-  "changelogError": "Could not load changelog.",
-  "changelogBreaking": "Breaking:",
-  "changelogCategoryChanged": "Changed",
-  "changelogCategoryAdded": "Added",
-  "changelogCategoryRemoved": "Removed",
-  "changelogCategoryFixed": "Fixed",
-  "changelogVersion": "Version {version}",
-  "@changelogVersion": {
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
-  "reviewNotAvailable": "The review feature is not available on this device.",
-  "@reviewNotAvailable": {
-    "description": "Snackbar message shown when the in-app review feature cannot be triggered."
-  },
-  "shareAppSubject": "Check out RainWise!",
-  "@shareAppSubject": {
-    "description": "The default subject line for an email when sharing the app."
-  },
-  "shareAppText": "RainWise is a great app for logging rainfall and gaining valuable weather insights. Find it on the app stores!",
-  "@shareAppText": {
-    "description": "The body text used when sharing the app."
-  },
-  "ossLicensesTitle": "Open Source Licenses",
-  "ossLicensesVersion": "Version {version}",
-  "@ossLicensesVersion": {
-    "placeholders": {
-      "version": {
-        "type": "String"
-      }
-    }
-  },
-  "licenseDisclaimerTitle": "Disclaimer",
-  "licenseDisclaimerContent": "License text formatting has been adjusted for readability, but the content is unmodified.",
-  "settingsSectionAppearance": "APPEARANCE",
-  "settingsAppearanceTheme": "Theme",
-  "settingsThemeLight": "Light",
-  "settingsThemeDark": "Dark",
-  "settingsThemeSystem": "System",
-  "settingsSectionDangerZone": "DANGER ZONE",
-  "settingsDangerZoneResetApp": "Reset App",
-  "settingsDangerZoneDescription": "This will permanently delete all your data, including rainfall entries and rain gauges, and reset all settings to their defaults. This action cannot be undone.",
-  "settingsResetButton": "Reset App Data",
-  "hemisphereNorthern": "Northern",
-  "hemisphereSouthern": "Southern",
-  "settingsPreferencesHemisphere": "Hemisphere",
-  "settingsUnitsAndAnalysis": "Units & Analysis",
-  "preferencesSheetTitle": "Units & Analysis Settings",
-  "anomalyDeviationThresholdLabel": "Anomaly Deviation Threshold",
-  "anomalyDeviationThresholdDescription": "The minimum percentage difference from the historical average to be flagged as an anomaly.",
-  "anomalyDeviationThresholdValue": "{value}%",
-  "@anomalyDeviationThresholdValue": {
-    "placeholders": {
-      "value": {
-        "type": "String"
-      }
-    }
-  },
-  "resetDialogTitle": "Are you absolutely sure?",
-  "resetDialogContent": "This action is irreversible. You will lose all your rainfall data and custom settings. To proceed, please type \"{confirmationText}\" in the box below.",
-  "@resetDialogContent": {
-    "description": "The main content of the app reset confirmation dialog, instructing the user what to type.",
-    "placeholders": {
-      "confirmationText": {
-        "type": "String",
-        "description": "The exact word the user must type to confirm the action, e.g., 'RESET'."
-      }
-    }
-  },
-  "resetDialogConfirmationText": "RESET",
-  "@resetDialogConfirmationText": {
-    "description": "The exact, case-sensitive word the user must type to confirm the app reset. This should be localized to a suitable word in the target language."
-  },
-  "resetDialogTextFieldHint": "Type '{confirmationText}'",
-  "@resetDialogTextFieldHint": {
-    "description": "Placeholder text for the text field in the reset dialog.",
-    "placeholders": {
-      "confirmationText": {
-        "type": "String"
-      }
-    }
-  },
-  "resetDialogValidationError": "Please type {confirmationText} to confirm.",
-  "@resetDialogValidationError": {
-    "description": "Validation error message shown if the user types the wrong text in the reset confirmation field.",
-    "placeholders": {
-      "confirmationText": {
-        "type": "String"
-      }
-    }
-  },
-  "resetDialogConfirmButton": "Reset All Data",
-  "resetSuccessSnackbar": "App has been reset.",
-  "resetErrorSnackbar": "An error occurred while resetting the app: {error}",
-  "@resetErrorSnackbar": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
-  "helpCouldNotOpenUrl": "Could not open {url}",
-  "@helpCouldNotOpenUrl": {
-    "placeholders": {
-      "url": {
-        "type": "String"
-      }
-    }
-  },
-  "ticketSheetDescription": "Your feedback helps us improve RainWise. Please describe the issue or share your thoughts.",
-  "ticketSheetCategoryValidation": "Please select a category",
-  "ticketSheetDescriptionLabel": "Description",
-  "ticketSheetDescriptionHint": "Describe the issue or your feedback here...",
-  "ticketSheetDescriptionValidation": "Please enter a description",
-  "ticketSheetEmailLabel": "Your Email (Optional)",
-  "ticketSheetEmailValidation": "Please enter a valid email address",
-  "ticketSheetSubmitButton": "Submit",
-  "ticketSheetSuccessMessage": "Thank you! Your feedback has been submitted.",
-  "ticketSheetErrorMessage": "Error: {error}",
-  "@ticketSheetErrorMessage": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
-  "ticketCategoryBugReport": "Bug Report",
-  "ticketCategoryFeatureRequest": "Feature Request",
-  "ticketCategoryGeneralFeedback": "General Feedback",
-  "ticketCategoryOther": "Other",
-  "appInfoFooterError": "Could not load data",
-  "appVersion": "Version {version} (Build {buildNumber})",
-  "@appVersion": {
-    "description": "Displays the application version and build number",
-    "placeholders": {
-      "version": {
-        "type": "String"
-      },
-      "buildNumber": {
-        "type": "String"
-      }
-    }
-  },
-  "seasonSpring": "Spring",
-  "seasonSummer": "Summer",
-  "seasonAutumn": "Autumn",
-  "seasonWinter": "Winter",
-  "anomalySeverityLow": "Low",
-  "anomalySeverityMedium": "Medium",
-  "anomalySeverityHigh": "High",
-  "anomalySeverityCritical": "Critical",
-  "anomalyExplorationTitle": "Anomaly Exploration",
-  "anomalyExplorationError": "Error loading anomalies: {error}",
-  "@anomalyExplorationError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
-  "anomalyTimelineLegendActual": "Actual",
-  "@anomalyTimelineLegendActual": {
-    "description": "Legend text for the actual rainfall line in the anomaly timeline chart."
-  },
-  "anomalyTimelineLegendAverage": "Average",
-  "@anomalyTimelineLegendAverage": {
-    "description": "Legend text for the average rainfall line in the anomaly timeline chart."
-  },
-  "selectSeverityHint": "Select Severity",
-  "allSeverities": "All Severities",
-  "severitiesSelected": "{count} severities selected",
-  "detectedAnomaliesTitle": "Detected Anomalies",
-  "noAnomaliesFound": "No anomalies found for the selected filters.",
-  "anomalyGroupSummary": "{count, plural, =1 {1 Anomaly} other {{count} Anomalies}}",
-  "@anomalyGroupSummary": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "anomalyGroupDeviation": "{sign}{percent}% vs avg",
-  "@anomalyGroupDeviation": {
-    "placeholders": {
-      "sign": {
-        "type": "String"
-      },
-      "percent": {
-        "type": "String"
-      }
-    }
-  },
-  "anomalyListItemActual": "Actual",
-  "anomalyListItemAverage": "Average",
-  "filterOptionsTitle": "Filter Options",
-  "selectSeverityLevelsDialogTitle": "Select Severity Levels",
-  "doneButtonLabel": "Done",
-  "comparativeAnalysisTitle": "Comparative Analysis",
-  "comparativeAnalysisError": "An error occurred: {error}",
-  "@comparativeAnalysisError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
-  "comparativeAnalysisChartNoData": "Not enough data to display chart.",
-  "comparativeAnalysisChartTitle": "Rainfall Comparison",
-  "comparativeAnalysisSelectYearsTitle": "Select Years to Compare",
-  "comparativeAnalysisFilterError": "Error: {error}",
-  "@comparativeAnalysisFilterError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
-  "comparativeAnalysisAvailableYearsError": "Error loading years: {error}",
-  "@comparativeAnalysisAvailableYearsError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
-  "comparativeAnalysisNoDataForSelection": "No rainfall data was found for the selected years and comparison type. Please try a different selection.",
-  "comparativeAnalysisEmptyTitle": "Not Enough Data to Compare",
-  "comparativeAnalysisEmptyMessage": "This feature requires rainfall data from at least two different years. Once you have more data, you'll be able to compare it here.",
-  "comparisonTypeAnnual": "Annual",
-  "comparisonTypeMonthly": "Monthly",
-  "comparisonTypeSeasonal": "Seasonal",
-  "yearlySummaryTitle": "Yearly Summary",
-  "yearlySummaryTotalAnnualRainfall": "Total Annual Rainfall",
-  "monthlyBreakdownTitle": "Monthly Breakdown",
-  "selectMonthTooltip": "Select Month",
   "monthlyBreakdownError": "Error: {error}",
   "@monthlyBreakdownError": {
     "placeholders": {
@@ -483,18 +863,106 @@
       }
     }
   },
-  "monthlyBreakdownEmptyTitle": "No Data for This Month",
-  "monthlyBreakdownEmptyMessage": "There are no rainfall entries recorded for the selected month. Try selecting another month or logging a new entry.",
+  "monthlyBreakdownTitle": "Monthly Breakdown",
+  "@monthlyBreakdownTitle": {
+    "description": "The title of the Monthly Breakdown screen."
+  },
+  "monthlyComparisonEmptyMessage": "Once you have logged more rainfall data, you'll be able to see monthly comparisons here.",
+  "@monthlyComparisonEmptyMessage": {
+    "description": "Message shown on the monthly comparison screen when there is not enough data."
+  },
+  "monthlyComparisonEmptyTitle": "No Data to Compare",
+  "@monthlyComparisonEmptyTitle": {
+    "description": "Title for the empty state on the monthly comparison screen."
+  },
+  "monthlyComparisonTitle": "Monthly Comparison",
+  "@monthlyComparisonTitle": {
+    "description": "The title of the Monthly Comparison screen."
+  },
+  "monthlyRainfallTitle": "Monthly Rainfall",
+  "@monthlyRainfallTitle": {
+    "description": "Title for the monthly summary card on the home screen."
+  },
+  "monthlyTrendChartNoData": "Not enough data to display the monthly trend.",
+  "@monthlyTrendChartNoData": {
+    "description": "Message shown on the home screen chart when there is no data for the last 12 months."
+  },
+  "monthlyTrendChartSubtitle": "Last 12 Months",
+  "@monthlyTrendChartSubtitle": {
+    "description": "Subtitle for the monthly trend chart on the home screen."
+  },
+  "monthlyTrendChartTitle": "Monthly Trend",
+  "@monthlyTrendChartTitle": {
+    "description": "Title for the monthly trend chart on the home screen."
+  },
+  "moreAnalysisTitle": "More Analysis",
+  "@moreAnalysisTitle": {
+    "description": "Section header for links to more detailed analysis screens."
+  },
+  "mtdBreakdown2yrAvg": "2yr avg",
+  "@mtdBreakdown2yrAvg": {
+    "description": "Label for the 2-year average in the monthly comparison breakdown."
+  },
+  "mtdBreakdown5yrAvg": "5yr avg",
+  "@mtdBreakdown5yrAvg": {
+    "description": "Label for the 5-year average in the monthly comparison breakdown."
+  },
+  "navGauges": "Gauges",
+  "@navGauges": {
+    "description": "Navigation bar label for the Gauges screen."
+  },
+  "navHome": "Home",
+  "@navHome": {
+    "description": "Navigation bar label for the Home screen."
+  },
+  "navInsights": "Insights",
+  "@navInsights": {
+    "description": "Navigation bar label for the Insights screen."
+  },
+  "navSettings": "Settings",
+  "@navSettings": {
+    "description": "Navigation bar label for the Settings screen."
+  },
+  "noAnomaliesFound": "No anomalies found for the selected filters.",
+  "@noAnomaliesFound": {
+    "description": "Message shown when no anomalies match the selected filters."
+  },
+  "noDataToSetDateRange": "No data available to set a date range.",
+  "@noDataToSetDateRange": {
+    "description": "Message shown when trying to open a date picker but no data exists in the app."
+  },
   "okButtonLabel": "OK",
-  "selectMonthTitle": "Select Month",
-  "historicalComparisonTitle": "Historical Comparison",
-  "twoYearAverage": "2 Year Average",
-  "fiveYearAverage": "5 Year Average",
-  "tenYearAverage": "10 Year Average",
-  "dailyRainfallChartTitle": "Daily Rainfall",
-  "totalLabel": "Total",
-  "@totalLabel": {
-    "description": "A label for a chart axis or group representing a total value."
+  "@okButtonLabel": {
+    "description": "Generic label for an 'OK' button in a dialog."
+  },
+  "ossLicensesTitle": "Open Source Licenses",
+  "@ossLicensesTitle": {
+    "description": "The title of the Open Source Licenses screen."
+  },
+  "ossLicensesVersion": "Version {version}",
+  "@ossLicensesVersion": {
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
+  "pageNotFound": "Page Not Found",
+  "@pageNotFound": {
+    "description": "The title for the error screen shown for an unknown route."
+  },
+  "pageNotFoundMessage": "The page you are looking for does not exist.\n\nError: {error}",
+  "@pageNotFoundMessage": {
+    "description": "Error message for a missing route, with a placeholder for the error details.",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "preferencesSheetTitle": "Units & Analysis Settings",
+  "@preferencesSheetTitle": {
+    "description": "Title for the sheet where users can change units and analysis preferences."
   },
   "rainfallAmountTooltip": "{value}",
   "@rainfallAmountTooltip": {
@@ -505,33 +973,6 @@
       }
     }
   },
-  "viewEntriesButtonLabel": "View All Entries",
-  "legendDailyRainfall": "Daily Rainfall",
-  "dailyAverage": "Daily Average",
-  "highestDay": "Highest Day",
-  "lowestDay": "Lowest Day",
-  "seasonalPatternsTitle": "Seasonal Patterns",
-  "seasonalPatternsDescription": "Explore historical seasonal rainfall data and compare current trends with past patterns.",
-  "seasonalPatternsError": "Error: {error}",
-  "@seasonalPatternsError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
-  "seasonalPatternsNoDataTitle": "No Seasonal Data Yet",
-  "seasonalPatternsNoDataMessage": "Once you start logging rainfall, this screen will show you trends and patterns for the selected season.",
-  "seasonSummaryInfoSheetTitle": "About Season Summary",
-  "seasonSummaryInfoAverageRainfallDescription": "The average daily rainfall for the selected season and year.",
-  "seasonSummaryInfoTrendVsHistoryDescription": "The percentage difference between this season's total rainfall and the historical average total for the same season across all other years.",
-  "seasonSummaryInfoHighestRecordedDescription": "The highest single-day rainfall amount recorded during this season and year.",
-  "seasonSummaryInfoLowestRecordedDescription": "The lowest single-day rainfall amount (on a rainy day) recorded during this season and year.",
-  "seasonSummaryTitle": "Season Summary",
-  "seasonSummaryAverageRainfallLabel": "Average Rainfall",
-  "seasonSummaryTrendVsHistoryLabel": "Trend vs History",
-  "seasonSummaryHighestRecordedLabel": "Highest Recorded",
-  "seasonSummaryLowestRecordedLabel": "Lowest Recorded",
   "rainfallAmountWithUnit": "{value} mm",
   "@rainfallAmountWithUnit": {
     "placeholders": {
@@ -548,113 +989,428 @@
       }
     }
   },
-  "insightsError": "Error: {error}",
-  "@insightsError": {
+  "rainfallEntriesEmptyMessage": "There are no rainfall entries recorded for the selected month. Log a new entry or select a different month to view its history.",
+  "@rainfallEntriesEmptyMessage": {
+    "description": "Message for the empty state on the rainfall entries screen."
+  },
+  "rainfallEntriesEmptyTitle": "No Entries Found",
+  "@rainfallEntriesEmptyTitle": {
+    "description": "Title for the empty state on the rainfall entries screen."
+  },
+  "rainfallEntriesError": "Error: {error}",
+  "@rainfallEntriesError": {
     "placeholders": {
       "error": {
         "type": "Object"
       }
     }
   },
-  "infoTooltip": "Info",
-  "mtdBreakdown2yrAvg": "2yr avg",
-  "mtdBreakdown5yrAvg": "5yr avg",
-  "monthlyTrendChartTitle": "Monthly Trend",
-  "monthlyTrendChartSubtitle": "Last 12 Months",
-  "monthlyTrendChartNoData": "Not enough data to display the monthly trend.",
-  "@monthlyTrendChartNoData": {
-    "description": "Message shown on the home screen chart when there is no data for the last 12 months."
+  "rainfallEntriesTotalEntries": "Total Entries",
+  "@rainfallEntriesTotalEntries": {
+    "description": "Label for the total number of entries in a given period."
   },
-  "monthlyComparisonEmptyTitle": "No Data to Compare",
-  "monthlyComparisonEmptyMessage": "Once you have logged more rainfall data, you'll be able to see monthly comparisons here.",
-  "monthlyComparisonTitle": "Monthly Comparison",
-  "dashboardMetricMTD": "MTD",
-  "dashboardMetricYTD": "YTD",
-  "dashboardMetric12Mo": "12-Month",
-  "dashboardMetricAllTime": "All Time",
-  "dashboardComparisonVsPrevious": "vs previous period",
-  "dashboardComparisonVsAverage": "vs average",
-  "dashboardChartTitle": "Historical Trend",
-  "dashboardNoDataTitle": "Not Enough Data",
-  "dashboardNoDataMessage": "Log more rainfall to see your historical trends and insights here.",
-  "moreAnalysisTitle": "More Analysis",
-  "detailedAnalysisMonthlyComparisonSubtitle": "Compare monthly totals against historical averages",
-  "detailedAnalysisMonthlyBreakdownSubtitle": "View detailed monthly statistics",
-  "detailedAnalysisSeasonalPatternsSubtitle": "Analyze rainfall patterns by season",
-  "detailedAnalysisAnomalyExplorationSubtitle": "Analyze unusual patterns in rainfall data",
-  "detailedAnalysisComparativeAnalysisTitle": "Comparative Yearly Analysis",
-  "detailedAnalysisComparativeAnalysisSubtitle": "See side-by-side comparisons of multiple years",
-  "comparisonInfoSheetTitle": "About Comparison Types",
-  "comparisonInfoAnnualTitle": "Annual",
-  "comparisonInfoAnnualDescription": "Compares the total rainfall for each selected year. This view shows one bar representing the grand total for each year, ideal for a high-level overview.",
-  "comparisonInfoMonthlyTitle": "Monthly",
-  "comparisonInfoMonthlyDescription": "Provides a month-by-month breakdown, comparing the rainfall of each month across the selected years. This helps identify variations in monthly patterns.",
-  "comparisonInfoSeasonalTitle": "Seasonal",
-  "comparisonInfoSeasonalDescription": "Groups rainfall data into four meteorological seasons (Spring, Summer, Autumn, Winter) based on your hemisphere setting. This view is useful for comparing seasonal performance year-over-year.",
-  "ytdProgressTitle": "Year-to-Date Progress",
-  "ytdAnnualAverage": "vs Annual Avg: {value}",
-  "gaugeTileSetFavoriteTooltip": "Set as favorite gauge",
-  "defaultGaugeName": "Default Gauge",
-  "deleteGaugeWithEntriesWarning": "This gauge has {count, plural, =1 {1 associated entry} other {{count} associated entries}}. Deleting it will reassign them to '{defaultGaugeName}'.",
-  "@deleteGaugeWithEntriesWarning": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      },
-      "defaultGaugeName": {
-        "type": "String"
-      }
-    }
+  "rainfallEntriesTotalRainfall": "Total Rainfall",
+  "@rainfallEntriesTotalRainfall": {
+    "description": "Label for the total amount of rainfall in a given period."
   },
-  "deleteGaugeAndEntriesOption": "Also delete all {count, plural, =1 {1 associated entry} other {{count} associated entries}}.",
-  "@deleteGaugeAndEntriesOption": {
-    "placeholders": {
-      "count": {
-        "type": "int"
-      }
-    }
-  },
-  "gaugeAddedSuccess": "Gauge '{name}' was added successfully.",
-  "@gaugeAddedSuccess": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "gaugeUpdatedSuccess": "Gauge '{name}' was updated successfully.",
-  "@gaugeUpdatedSuccess": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "gaugeDeletedSuccess": "Gauge '{name}' was deleted.",
-  "@gaugeDeletedSuccess": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "gaugeSetAsFavorite": "'{name}' is now your favorite gauge.",
-  "@gaugeSetAsFavorite": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
-  },
-  "gaugeUnsetAsFavorite": "'{name}' is no longer your favorite gauge.",
-  "@gaugeUnsetAsFavorite": {
-    "placeholders": {
-      "name": {
-        "type": "String"
-      }
-    }
+  "rainfallEntryDeletedSuccess": "Rainfall entry deleted.",
+  "@rainfallEntryDeletedSuccess": {
+    "description": "Snackbar message shown after successfully deleting a rainfall entry."
   },
   "rainfallEntryLoggedSuccess": "Rainfall entry logged successfully.",
+  "@rainfallEntryLoggedSuccess": {
+    "description": "Snackbar message shown after successfully logging a new rainfall entry."
+  },
   "rainfallEntryUpdatedSuccess": "Rainfall entry updated successfully.",
-  "rainfallEntryDeletedSuccess": "Rainfall entry deleted."
+  "@rainfallEntryUpdatedSuccess": {
+    "description": "Snackbar message shown after successfully updating a rainfall entry."
+  },
+  "rainfallTrendsTitle": "Rainfall Trends",
+  "@rainfallTrendsTitle": {
+    "description": "Title for a chart that shows rainfall trends over a period of time."
+  },
+  "recentEntriesTitle": "Recent Entries",
+  "@recentEntriesTitle": {
+    "description": "Section header for a list of recent rainfall entries."
+  },
+  "resetDialogConfirmButton": "Reset All Data",
+  "@resetDialogConfirmButton": {
+    "description": "Label for the final confirmation button in the app reset dialog."
+  },
+  "resetDialogConfirmationText": "RESET",
+  "@resetDialogConfirmationText": {
+    "description": "The exact, case-sensitive word the user must type to confirm the app reset. This should be localized to a suitable word in the target language."
+  },
+  "resetDialogContent": "This action is irreversible. You will lose all your rainfall data and custom settings. To proceed, please type \"{confirmationText}\" in the box below.",
+  "@resetDialogContent": {
+    "description": "The main content of the app reset confirmation dialog, instructing the user what to type.",
+    "placeholders": {
+      "confirmationText": {
+        "type": "String",
+        "description": "The exact word the user must type to confirm the action, e.g., 'RESET'."
+      }
+    }
+  },
+  "resetDialogTextFieldHint": "Type '{confirmationText}'",
+  "@resetDialogTextFieldHint": {
+    "description": "Placeholder text for the text field in the reset dialog.",
+    "placeholders": {
+      "confirmationText": {
+        "type": "String"
+      }
+    }
+  },
+  "resetDialogTitle": "Are you absolutely sure?",
+  "@resetDialogTitle": {
+    "description": "Title for the app data reset confirmation dialog."
+  },
+  "resetDialogValidationError": "Please type {confirmationText} to confirm.",
+  "@resetDialogValidationError": {
+    "description": "Validation error message shown if the user types the wrong text in the reset confirmation field.",
+    "placeholders": {
+      "confirmationText": {
+        "type": "String"
+      }
+    }
+  },
+  "resetErrorSnackbar": "An error occurred while resetting the app: {error}",
+  "@resetErrorSnackbar": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "resetSuccessSnackbar": "App has been reset.",
+  "@resetSuccessSnackbar": {
+    "description": "Snackbar message shown after the app data has been successfully reset."
+  },
+  "reviewNotAvailable": "The review feature is not available on this device.",
+  "@reviewNotAvailable": {
+    "description": "Snackbar message shown when the in-app review feature cannot be triggered."
+  },
+  "saveButtonLabel": "Save",
+  "@saveButtonLabel": {
+    "description": "Label for the button that saves the user's selection in a dialog."
+  },
+  "saveChangesButton": "Save Changes",
+  "@saveChangesButton": {
+    "description": "Label for a button that saves changes made in a form or dialog."
+  },
+  "seasonAutumn": "Autumn",
+  "@seasonAutumn": {
+    "description": "The name of the season Autumn."
+  },
+  "seasonSpring": "Spring",
+  "@seasonSpring": {
+    "description": "The name of the season Spring."
+  },
+  "seasonSummaryAverageRainfallLabel": "Average Rainfall",
+  "@seasonSummaryAverageRainfallLabel": {
+    "description": "Label for the 'Average Rainfall' stat in the season summary."
+  },
+  "seasonSummaryHighestRecordedLabel": "Highest Recorded",
+  "@seasonSummaryHighestRecordedLabel": {
+    "description": "Label for the 'Highest Recorded' stat in the season summary."
+  },
+  "seasonSummaryInfoAverageRainfallDescription": "The average daily rainfall for the selected season and year.",
+  "@seasonSummaryInfoAverageRainfallDescription": {
+    "description": "Description for the 'Average Rainfall' stat in the season summary info sheet."
+  },
+  "seasonSummaryInfoHighestRecordedDescription": "The highest single-day rainfall amount recorded during this season and year.",
+  "@seasonSummaryInfoHighestRecordedDescription": {
+    "description": "Description for the 'Highest Recorded' stat in the season summary info sheet."
+  },
+  "seasonSummaryInfoLowestRecordedDescription": "The lowest single-day rainfall amount (on a rainy day) recorded during this season and year.",
+  "@seasonSummaryInfoLowestRecordedDescription": {
+    "description": "Description for the 'Lowest Recorded' stat in the season summary info sheet."
+  },
+  "seasonSummaryInfoSheetTitle": "About Season Summary",
+  "@seasonSummaryInfoSheetTitle": {
+    "description": "Title of the info sheet that explains the season summary stats."
+  },
+  "seasonSummaryInfoTrendVsHistoryDescription": "The percentage difference between this season's total rainfall and the historical average total for the same season across all other years.",
+  "@seasonSummaryInfoTrendVsHistoryDescription": {
+    "description": "Description for the 'Trend vs History' stat in the season summary info sheet."
+  },
+  "seasonSummaryLowestRecordedLabel": "Lowest Recorded",
+  "@seasonSummaryLowestRecordedLabel": {
+    "description": "Label for the 'Lowest Recorded' stat in the season summary."
+  },
+  "seasonSummaryTitle": "Season Summary",
+  "@seasonSummaryTitle": {
+    "description": "Title for the seasonal summary card."
+  },
+  "seasonSummaryTrendVsHistoryLabel": "Trend vs History",
+  "@seasonSummaryTrendVsHistoryLabel": {
+    "description": "Label for the 'Trend vs History' stat in the season summary."
+  },
+  "seasonSummer": "Summer",
+  "@seasonSummer": {
+    "description": "The name of the season Summer."
+  },
+  "seasonWinter": "Winter",
+  "@seasonWinter": {
+    "description": "The name of the season Winter."
+  },
+  "seasonalPatternsDescription": "Explore historical seasonal rainfall data and compare current trends with past patterns.",
+  "@seasonalPatternsDescription": {
+    "description": "Descriptive text on the Seasonal Patterns screen."
+  },
+  "seasonalPatternsError": "Error: {error}",
+  "@seasonalPatternsError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "seasonalPatternsNoDataMessage": "Once you start logging rainfall, this screen will show you trends and patterns for the selected season.",
+  "@seasonalPatternsNoDataMessage": {
+    "description": "Message for the empty state on the seasonal patterns screen."
+  },
+  "seasonalPatternsNoDataTitle": "No Seasonal Data Yet",
+  "@seasonalPatternsNoDataTitle": {
+    "description": "Title for the empty state on the seasonal patterns screen."
+  },
+  "seasonalPatternsTitle": "Seasonal Patterns",
+  "@seasonalPatternsTitle": {
+    "description": "The title of the Seasonal Patterns screen."
+  },
+  "selectDateRangeTitle": "Select Date Range",
+  "@selectDateRangeTitle": {
+    "description": "Title of the date range picker dialog."
+  },
+  "selectMonthTitle": "Select Month",
+  "@selectMonthTitle": {
+    "description": "Title of the month selection dialog/sheet."
+  },
+  "selectMonthTooltip": "Select Month",
+  "@selectMonthTooltip": {
+    "description": "Tooltip for the button that opens the month selector."
+  },
+  "selectSeverityHint": "Select Severity",
+  "@selectSeverityHint": {
+    "description": "Hint text for the severity filter button when no severities are selected."
+  },
+  "selectSeverityLevelsDialogTitle": "Select Severity Levels",
+  "@selectSeverityLevelsDialogTitle": {
+    "description": "Title of the dialog for selecting anomaly severity levels."
+  },
+  "settingsAppearanceTheme": "Theme",
+  "@settingsAppearanceTheme": {
+    "description": "Label for the app theme setting (Light, Dark, System)."
+  },
+  "settingsDangerZoneDescription": "This will permanently delete all your data, including rainfall entries and rain gauges, and reset all settings to their defaults. This action cannot be undone.",
+  "@settingsDangerZoneDescription": {
+    "description": "Warning text in the 'Danger Zone' section of the settings."
+  },
+  "settingsDangerZoneResetApp": "Reset App",
+  "@settingsDangerZoneResetApp": {
+    "description": "Title for the 'Reset App' card in the danger zone."
+  },
+  "settingsDataManagementExportImport": "Data Export/Import",
+  "@settingsDataManagementExportImport": {
+    "description": "Label for the data export/import navigation tile in settings."
+  },
+  "settingsPreferencesHemisphere": "Hemisphere",
+  "@settingsPreferencesHemisphere": {
+    "description": "Label for the hemisphere setting (Northern, Southern)."
+  },
+  "settingsPreferencesMeasurementUnit": "Measurement Unit",
+  "@settingsPreferencesMeasurementUnit": {
+    "description": "Label for the measurement unit setting (mm, in)."
+  },
+  "settingsResetButton": "Reset App Data",
+  "@settingsResetButton": {
+    "description": "Label for the button that initiates the app reset process."
+  },
+  "settingsSectionAboutAndSupport": "ABOUT & SUPPORT",
+  "@settingsSectionAboutAndSupport": {
+    "description": "Section header for 'About & Support' in settings."
+  },
+  "settingsSectionAppearance": "APPEARANCE",
+  "@settingsSectionAppearance": {
+    "description": "Section header for 'Appearance' in settings."
+  },
+  "settingsSectionDangerZone": "DANGER ZONE",
+  "@settingsSectionDangerZone": {
+    "description": "Section header for 'Danger Zone' in settings."
+  },
+  "settingsSectionDataManagement": "DATA MANAGEMENT",
+  "@settingsSectionDataManagement": {
+    "description": "Section header for 'Data Management' in settings."
+  },
+  "settingsSectionPreferences": "PREFERENCES",
+  "@settingsSectionPreferences": {
+    "description": "Section header for 'Preferences' in settings."
+  },
+  "settingsSectionSupportDevelopment": "SUPPORT DEVELOPMENT",
+  "@settingsSectionSupportDevelopment": {
+    "description": "Section header for 'Support Development' in settings."
+  },
+  "settingsSupportDevelopmentLeaveReview": "Leave a review",
+  "@settingsSupportDevelopmentLeaveReview": {
+    "description": "Label for the 'Leave a review' option in settings."
+  },
+  "settingsSupportDevelopmentShareApp": "Share RainWise",
+  "@settingsSupportDevelopmentShareApp": {
+    "description": "Label for the 'Share RainWise' option in settings."
+  },
+  "settingsSupportLegalHelp": "Help & Feedback",
+  "@settingsSupportLegalHelp": {
+    "description": "Label for the 'Help & Feedback' option in settings."
+  },
+  "settingsSupportLegalOssLicenses": "Open Source Licenses",
+  "@settingsSupportLegalOssLicenses": {
+    "description": "Label for the 'Open Source Licenses' option in settings."
+  },
+  "settingsSupportLegalPrivacyPolicy": "Privacy Policy",
+  "@settingsSupportLegalPrivacyPolicy": {
+    "description": "Label for the 'Privacy Policy' option in settings."
+  },
+  "settingsSupportLegalTermsOfService": "Terms of Service",
+  "@settingsSupportLegalTermsOfService": {
+    "description": "Label for the 'Terms of Service' option in settings."
+  },
+  "settingsSupportLegalWhatsNew": "What's New",
+  "@settingsSupportLegalWhatsNew": {
+    "description": "Label for the 'What's New' (changelog) option in settings."
+  },
+  "settingsThemeDark": "Dark",
+  "@settingsThemeDark": {
+    "description": "Label for the 'Dark' theme option."
+  },
+  "settingsThemeLight": "Light",
+  "@settingsThemeLight": {
+    "description": "Label for the 'Light' theme option."
+  },
+  "settingsThemeSystem": "System",
+  "@settingsThemeSystem": {
+    "description": "Label for the 'System' theme option."
+  },
+  "settingsTitle": "Settings",
+  "@settingsTitle": {
+    "description": "The title of the Settings screen."
+  },
+  "settingsUnitsAndAnalysis": "Units & Analysis",
+  "@settingsUnitsAndAnalysis": {
+    "description": "Label for the 'Units & Analysis' preferences tile in settings."
+  },
+  "severitiesSelected": "{count} severities selected",
+  "@severitiesSelected": {
+    "description": "Label for the severity filter button showing the number of selected severities."
+  },
+  "shareAppSubject": "Check out RainWise!",
+  "@shareAppSubject": {
+    "description": "The default subject line for an email when sharing the app."
+  },
+  "shareAppText": "RainWise is a great app for logging rainfall and gaining valuable weather insights. Find it on the app stores!",
+  "@shareAppText": {
+    "description": "The body text used when sharing the app."
+  },
+  "tenYearAverage": "10 Year Average",
+  "@tenYearAverage": {
+    "description": "Label for the 10-year historical average statistic."
+  },
+  "ticketCategoryBugReport": "Bug Report",
+  "@ticketCategoryBugReport": {
+    "description": "Label for the 'Bug Report' feedback category."
+  },
+  "ticketCategoryFeatureRequest": "Feature Request",
+  "@ticketCategoryFeatureRequest": {
+    "description": "Label for the 'Feature Request' feedback category."
+  },
+  "ticketCategoryGeneralFeedback": "General Feedback",
+  "@ticketCategoryGeneralFeedback": {
+    "description": "Label for the 'General Feedback' feedback category."
+  },
+  "ticketCategoryOther": "Other",
+  "@ticketCategoryOther": {
+    "description": "Label for the 'Other' feedback category."
+  },
+  "ticketSheetCategoryValidation": "Please select a category",
+  "@ticketSheetCategoryValidation": {
+    "description": "Validation error if no feedback category is selected."
+  },
+  "ticketSheetDescription": "Your feedback helps us improve RainWise. Please describe the issue or share your thoughts.",
+  "@ticketSheetDescription": {
+    "description": "Introductory text on the feedback submission sheet."
+  },
+  "ticketSheetDescriptionHint": "Describe the issue or your feedback here...",
+  "@ticketSheetDescriptionHint": {
+    "description": "Placeholder text for the feedback description text field."
+  },
+  "ticketSheetDescriptionLabel": "Description",
+  "@ticketSheetDescriptionLabel": {
+    "description": "Label for the feedback description text field."
+  },
+  "ticketSheetDescriptionValidation": "Please enter a description",
+  "@ticketSheetDescriptionValidation": {
+    "description": "Validation error if the feedback description is empty."
+  },
+  "ticketSheetEmailLabel": "Your Email (Optional)",
+  "@ticketSheetEmailLabel": {
+    "description": "Label for the optional email field on the feedback form."
+  },
+  "ticketSheetEmailValidation": "Please enter a valid email address",
+  "@ticketSheetEmailValidation": {
+    "description": "Validation error for an invalid email address."
+  },
+  "ticketSheetErrorMessage": "Error: {error}",
+  "@ticketSheetErrorMessage": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "ticketSheetSubmitButton": "Submit",
+  "@ticketSheetSubmitButton": {
+    "description": "Label for the submit button on the feedback form."
+  },
+  "ticketSheetSuccessMessage": "Thank you! Your feedback has been submitted.",
+  "@ticketSheetSuccessMessage": {
+    "description": "Success message shown after submitting feedback."
+  },
+  "totalLabel": "Total",
+  "@totalLabel": {
+    "description": "A label for a chart axis or group representing a total value."
+  },
+  "twoYearAverage": "2 Year Average",
+  "@twoYearAverage": {
+    "description": "Label for the 2-year historical average statistic."
+  },
+  "unitIn": "in",
+  "@unitIn": {
+    "description": "Abbreviation for the 'inch' unit of measurement."
+  },
+  "unitMM": "mm",
+  "@unitMM": {
+    "description": "Abbreviation for the 'millimeter' unit of measurement."
+  },
+  "unknownGauge": "Unknown Gauge",
+  "@unknownGauge": {
+    "description": "Name displayed for a rainfall entry whose associated gauge has been deleted."
+  },
+  "viewEntriesButtonLabel": "View All Entries",
+  "@viewEntriesButtonLabel": {
+    "description": "Label for a button that navigates to a detailed list of entries for a given period."
+  },
+  "yearlySummaryTitle": "Yearly Summary",
+  "@yearlySummaryTitle": {
+    "description": "Title for the yearly summary cards on the comparative analysis screen."
+  },
+  "yearlySummaryTotalAnnualRainfall": "Total Annual Rainfall",
+  "@yearlySummaryTotalAnnualRainfall": {
+    "description": "Label for the total annual rainfall statistic."
+  },
+  "ytdAnnualAverage": "vs Annual Avg: {value}",
+  "@ytdAnnualAverage": {
+    "description": "Label on the YTD card showing the historical annual average for comparison."
+  },
+  "ytdProgressTitle": "Year-to-Date Progress",
+  "@ytdProgressTitle": {
+    "description": "Title for the Year-to-Date summary card on the home screen."
+  }
 }
