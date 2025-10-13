@@ -6,7 +6,8 @@ import "package:rain_wise/features/seasonal_trends/presentation/widgets/season_s
 import "package:rain_wise/features/seasonal_trends/presentation/widgets/seasonal_summary_card.dart";
 import "package:rain_wise/features/seasonal_trends/presentation/widgets/seasonal_trend_chart.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:shimmer/shimmer.dart";
 
 class SeasonalTrendsScreen extends ConsumerWidget {
   const SeasonalTrendsScreen({super.key});
@@ -28,7 +29,7 @@ class SeasonalTrendsScreen extends ConsumerWidget {
       ),
       body: SafeArea(
         child: dataAsync.when(
-          loading: () => const Center(child: AppLoader()),
+          loading: () => const _LoadingState(),
           error: (final err, final stack) =>
               Center(child: Text(l10n.seasonalTrendsError(err))),
           data: (final data) {
@@ -58,6 +59,35 @@ class SeasonalTrendsScreen extends ConsumerWidget {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class _LoadingState extends StatelessWidget {
+  const _LoadingState();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Shimmer.fromColors(
+      baseColor: theme.colorScheme.surfaceContainerHighest,
+      highlightColor: theme.colorScheme.surface,
+      child: const Column(
+        children: [
+          _Header(),
+          SizedBox(height: 24),
+          Padding(
+            padding: EdgeInsets.symmetric(horizontal: 16),
+            child: Column(
+              children: [
+                CardPlaceholder(height: 300),
+                SizedBox(height: 24),
+                CardPlaceholder(height: 220),
+              ],
+            ),
+          ),
+        ],
       ),
     );
   }

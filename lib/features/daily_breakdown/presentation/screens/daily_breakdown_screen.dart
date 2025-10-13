@@ -1,5 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/data/providers/data_providers.dart";
 import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/daily_breakdown/application/daily_breakdown_provider.dart";
@@ -8,9 +9,10 @@ import "package:rain_wise/features/daily_breakdown/presentation/widgets/daily_ra
 import "package:rain_wise/features/daily_breakdown/presentation/widgets/monthly_summary_card.dart";
 import "package:rain_wise/features/daily_breakdown/presentation/widgets/past_averages_card.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/pickers/month_year_picker.dart";
+import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:shimmer/shimmer.dart";
 
 class DailyBreakdownScreen extends ConsumerStatefulWidget {
   const DailyBreakdownScreen({this.initialMonth, super.key});
@@ -106,7 +108,7 @@ class _DailyBreakdownScreenState extends ConsumerState<DailyBreakdownScreen> {
       ),
       body: SafeArea(
         child: breakdownDataAsync.when(
-          loading: () => const AppLoader(),
+          loading: () => const _LoadingState(),
           error: (final err, final stack) => Center(
             child: Text(
               l10n.dailyBreakdownError(err),
@@ -137,6 +139,35 @@ class _DailyBreakdownScreenState extends ConsumerState<DailyBreakdownScreen> {
               ),
             );
           },
+        ),
+      ),
+    );
+  }
+}
+
+class _LoadingState extends StatelessWidget {
+  const _LoadingState();
+
+  @override
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return Shimmer.fromColors(
+      baseColor: theme.colorScheme.surfaceContainerHighest,
+      highlightColor: theme.colorScheme.surface,
+      child: const SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        padding: EdgeInsets.symmetric(
+          horizontal: AppConstants.horiEdgePadding,
+          vertical: 24,
+        ),
+        child: Column(
+          children: [
+            CardPlaceholder(height: 240),
+            SizedBox(height: 24),
+            CardPlaceholder(height: 200),
+            SizedBox(height: 24),
+            CardPlaceholder(height: 280),
+          ],
         ),
       ),
     );

@@ -149,6 +149,7 @@ const allDependencies = <Package>[
   _shelf_packages_handler,
   _shelf_static,
   _shelf_web_socket,
+  _shimmer,
   _source_gen,
   _source_helper,
   _source_map_stack_trace,
@@ -224,6 +225,7 @@ const dependencies = <Package>[
   _riverpod_annotation,
   _share_plus,
   _shared_preferences,
+  _shimmer,
   _sqlite3,
   _sqlite3_flutter_libs,
   _stream_transform,
@@ -7852,6 +7854,46 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('http'), PackageRef('test')],
   );
 
+/// shimmer 3.0.0
+const _shimmer = Package(
+    name: 'shimmer',
+    description: 'A package provides an easy way to add shimmer effect in Flutter project',
+    homepage: 'https://github.com/hnvn/flutter_shimmer',
+    repository: 'https://github.com/hnvn/flutter_shimmer',
+    authors: [],
+    version: '3.0.0',
+    license: '''Copyright 2013, the Dart project authors. All rights reserved.
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above
+      copyright notice, this list of conditions and the following
+      disclaimer in the documentation and/or other materials provided
+      with the distribution.
+    * Neither the name of Google Inc. nor the names of its
+      contributors may be used to endorse or promote products derived
+      from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
+    isMarkdown: false,
+    isSdk: false,
+    dependencies: [PackageRef('flutter')],
+    devDependencies: [],
+  );
+
 /// source_gen 3.1.0
 const _source_gen = Package(
     name: 'source_gen',
@@ -9822,7 +9864,7 @@ const _rain_wise = Package(
     version: '1.0.0+1',
     isMarkdown: false,
     isSdk: false,
-    dependencies: [PackageRef('collection'), PackageRef('csv'), PackageRef('cupertino_icons'), PackageRef('dotted_border'), PackageRef('drift'), PackageRef('drift_flutter'), PackageRef('file_picker'), PackageRef('firebase_analytics'), PackageRef('firebase_core'), PackageRef('firebase_crashlytics'), PackageRef('fl_chart'), PackageRef('flutter'), PackageRef('flutter_animate'), PackageRef('flutter_dotenv'), PackageRef('flutter_riverpod'), PackageRef('freezed_annotation'), PackageRef('go_router'), PackageRef('google_fonts'), PackageRef('hooks_riverpod'), PackageRef('in_app_review'), PackageRef('intl'), PackageRef('json_annotation'), PackageRef('json_path'), PackageRef('json_serializable'), PackageRef('package_info_plus'), PackageRef('path'), PackageRef('path_provider'), PackageRef('riverpod_annotation'), PackageRef('share_plus'), PackageRef('shared_preferences'), PackageRef('sqlite3'), PackageRef('sqlite3_flutter_libs'), PackageRef('stream_transform'), PackageRef('timeago'), PackageRef('url_launcher'), PackageRef('uuid')],
+    dependencies: [PackageRef('collection'), PackageRef('csv'), PackageRef('cupertino_icons'), PackageRef('dotted_border'), PackageRef('drift'), PackageRef('drift_flutter'), PackageRef('file_picker'), PackageRef('firebase_analytics'), PackageRef('firebase_core'), PackageRef('firebase_crashlytics'), PackageRef('fl_chart'), PackageRef('flutter'), PackageRef('flutter_animate'), PackageRef('flutter_dotenv'), PackageRef('flutter_riverpod'), PackageRef('freezed_annotation'), PackageRef('go_router'), PackageRef('google_fonts'), PackageRef('hooks_riverpod'), PackageRef('in_app_review'), PackageRef('intl'), PackageRef('json_annotation'), PackageRef('json_path'), PackageRef('json_serializable'), PackageRef('package_info_plus'), PackageRef('path'), PackageRef('path_provider'), PackageRef('riverpod_annotation'), PackageRef('share_plus'), PackageRef('shared_preferences'), PackageRef('shimmer'), PackageRef('sqlite3'), PackageRef('sqlite3_flutter_libs'), PackageRef('stream_transform'), PackageRef('timeago'), PackageRef('url_launcher'), PackageRef('uuid')],
     devDependencies: [PackageRef('build_runner'), PackageRef('custom_lint'), PackageRef('dart_pubspec_licenses'), PackageRef('drift_dev'), PackageRef('flutter_lints'), PackageRef('freezed'), PackageRef('freezed_lint'), PackageRef('go_router_builder'), PackageRef('lints'), PackageRef('riverpod_generator')],
   );
 

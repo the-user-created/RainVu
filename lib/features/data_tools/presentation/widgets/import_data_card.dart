@@ -5,8 +5,9 @@ import "package:rain_wise/features/data_tools/application/data_tools_provider.da
 import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:shimmer/shimmer.dart";
 
 class ImportDataCard extends ConsumerWidget {
   const ImportDataCard({super.key});
@@ -116,12 +117,26 @@ class _ParsingPreview extends StatelessWidget {
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
     return Container(
-      height: 120,
+      padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainerHighest,
         borderRadius: BorderRadius.circular(12),
       ),
-      child: const Center(child: AppLoader()),
+      child: Shimmer.fromColors(
+        baseColor: theme.colorScheme.surface,
+        highlightColor: theme.colorScheme.surfaceContainerHighest,
+        child: const Column(
+          children: [
+            LinePlaceholder(height: 16, width: 120),
+            SizedBox(height: 16),
+            LinePlaceholder(height: 12),
+            SizedBox(height: 8),
+            LinePlaceholder(height: 12),
+            SizedBox(height: 8),
+            LinePlaceholder(height: 12, width: 200),
+          ],
+        ),
+      ),
     );
   }
 }

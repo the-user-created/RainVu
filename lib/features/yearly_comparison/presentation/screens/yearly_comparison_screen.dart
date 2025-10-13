@@ -7,9 +7,10 @@ import "package:rain_wise/features/yearly_comparison/presentation/widgets/yearly
 import "package:rain_wise/features/yearly_comparison/presentation/widgets/yearly_comparison_filters.dart";
 import "package:rain_wise/features/yearly_comparison/presentation/widgets/yearly_summary_list.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
+import "package:rain_wise/shared/widgets/placeholders.dart";
 import "package:rain_wise/shared/widgets/sheets/info_sheet.dart";
+import "package:shimmer/shimmer.dart";
 
 class YearlyComparisonScreen extends ConsumerWidget {
   const YearlyComparisonScreen({super.key});
@@ -70,7 +71,7 @@ class YearlyComparisonScreen extends ConsumerWidget {
       ),
       body: SafeArea(
         child: availableYearsAsync.when(
-          loading: () => const Center(child: AppLoader()),
+          loading: () => const _LoadingState(),
           error: (final err, final stack) => Center(
             child: Padding(
               padding: const EdgeInsets.all(16),
@@ -84,6 +85,43 @@ class YearlyComparisonScreen extends ConsumerWidget {
 
             return const _AnalysisContent();
           },
+        ),
+      ),
+    );
+  }
+}
+
+class _LoadingState extends StatelessWidget {
+  const _LoadingState();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Shimmer.fromColors(
+      baseColor: theme.colorScheme.surfaceContainerHighest,
+      highlightColor: theme.colorScheme.surface,
+      child: const SingleChildScrollView(
+        physics: NeverScrollableScrollPhysics(),
+        child: Column(
+          children: [
+            YearlyComparisonFilters(),
+            SizedBox(height: 16),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: CardPlaceholder(height: 300),
+            ),
+            SizedBox(height: 16),
+            Padding(
+              padding: EdgeInsets.symmetric(horizontal: 16),
+              child: Column(
+                children: [
+                  CardPlaceholder(height: 100),
+                  SizedBox(height: 12),
+                  CardPlaceholder(height: 100),
+                ],
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -108,16 +146,28 @@ class _DataContent extends ConsumerWidget {
     final AsyncValue<List<YearlySummary>> summariesAsync = ref.watch(
       yearlyComparisonSummariesProvider,
     );
-
+    final theme = Theme.of(context);
     final List<YearlySummary>? summaries = summariesAsync.value;
 
     // Only show the loader on the initial fetch or handle errors.
     if (summaries == null) {
       return summariesAsync.when(
         // The loader will only be shown on the very first load.
-        loading: () => const Padding(
-          padding: EdgeInsets.symmetric(vertical: 48),
-          child: AppLoader(),
+        loading: () => Shimmer.fromColors(
+          baseColor: theme.colorScheme.surfaceContainerHighest,
+          highlightColor: theme.colorScheme.surface,
+          child: const Padding(
+            padding: EdgeInsets.all(16),
+            child: Column(
+              children: [
+                CardPlaceholder(height: 300),
+                SizedBox(height: 16),
+                CardPlaceholder(height: 100),
+                SizedBox(height: 12),
+                CardPlaceholder(height: 100),
+              ],
+            ),
+          ),
         ),
         error: (final err, final stack) => Padding(
           padding: const EdgeInsets.all(32),
@@ -159,7 +209,7 @@ class _YearlyComparisonChartLoader extends ConsumerWidget {
     final AsyncValue<ComparativeChartData> chartDataAsync = ref.watch(
       yearlyComparisonChartDataProvider,
     );
-
+    final theme = Theme.of(context);
     final ComparativeChartData? chartData = chartDataAsync.value;
 
     // If we have data (new or old), show the chart. The chart's internal
@@ -170,11 +220,15 @@ class _YearlyComparisonChartLoader extends ConsumerWidget {
 
     // Otherwise, it's the initial load or an error. Handle these states.
     return chartDataAsync.when(
-      loading: () => const SizedBox(
-        height: 300,
-        child: Padding(
-          padding: EdgeInsets.symmetric(vertical: 48),
-          child: AppLoader(),
+      loading: () => SizedBox(
+        height: 332,
+        child: Shimmer.fromColors(
+          baseColor: theme.colorScheme.surfaceContainerHighest,
+          highlightColor: theme.colorScheme.surface,
+          child: const Padding(
+            padding: EdgeInsets.all(16),
+            child: CardPlaceholder(height: 300),
+          ),
         ),
       ),
       error: (final err, final stack) => Padding(

@@ -6,7 +6,8 @@ import "package:rain_wise/features/unusual_patterns/presentation/widgets/unusual
 import "package:rain_wise/features/unusual_patterns/presentation/widgets/unusual_patterns_list.dart";
 import "package:rain_wise/features/unusual_patterns/presentation/widgets/unusual_patterns_timeline_chart.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:shimmer/shimmer.dart";
 
 class UnusualPatternsScreen extends ConsumerWidget {
   const UnusualPatternsScreen({super.key});
@@ -40,11 +41,12 @@ class UnusualPatternsScreen extends ConsumerWidget {
             SliverToBoxAdapter(child: SizedBox(height: verticalPadding)),
             SliverToBoxAdapter(
               child: anomalyDataAsync.when(
-                loading: () => AnomalyTimelineChart(
-                  chartPoints: const [],
-                  dateRange: DateTimeRange(
-                    start: DateTime.now(),
-                    end: DateTime.now(),
+                loading: () => Shimmer.fromColors(
+                  baseColor: theme.colorScheme.surfaceContainerHighest,
+                  highlightColor: theme.colorScheme.surface,
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: CardPlaceholder(height: 280),
                   ),
                 ),
                 error: (final _, final _) => const SizedBox.shrink(),
@@ -61,9 +63,23 @@ class UnusualPatternsScreen extends ConsumerWidget {
             ),
             SliverToBoxAdapter(child: SizedBox(height: verticalPadding)),
             anomalyDataAsync.when(
-              loading: () => const SliverFillRemaining(
-                hasScrollBody: false,
-                child: Center(child: AppLoader()),
+              loading: () => SliverToBoxAdapter(
+                child: Shimmer.fromColors(
+                  baseColor: theme.colorScheme.surfaceContainerHighest,
+                  highlightColor: theme.colorScheme.surface,
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(horizontal: 16),
+                    child: Column(
+                      children: [
+                        CardPlaceholder(height: 120),
+                        SizedBox(height: 12),
+                        CardPlaceholder(height: 120),
+                        SizedBox(height: 12),
+                        CardPlaceholder(height: 120),
+                      ],
+                    ),
+                  ),
+                ),
               ),
               error: (final err, final stack) => SliverFillRemaining(
                 hasScrollBody: false,

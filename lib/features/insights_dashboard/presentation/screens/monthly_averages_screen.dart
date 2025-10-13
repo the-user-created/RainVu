@@ -7,7 +7,8 @@ import "package:rain_wise/features/insights_dashboard/application/insights_provi
 import "package:rain_wise/features/insights_dashboard/domain/insights_data.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/widgets/monthly_averages_card.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:shimmer/shimmer.dart";
 
 class MonthlyAveragesScreen extends ConsumerWidget {
   const MonthlyAveragesScreen({super.key});
@@ -23,7 +24,7 @@ class MonthlyAveragesScreen extends ConsumerWidget {
       appBar: AppBar(title: Text(l10n.monthlyComparisonTitle)),
       body: SafeArea(
         child: insightsDataAsync.when(
-          loading: () => const AppLoader(),
+          loading: () => const _LoadingState(),
           error: (final err, final stack) =>
               Center(child: Text(l10n.insightsError(err))),
           data: (final data) {
@@ -72,6 +73,26 @@ class MonthlyAveragesScreen extends ConsumerWidget {
         })
         .toList()
         .divide(const SizedBox(height: 12));
+  }
+}
+
+class _LoadingState extends StatelessWidget {
+  const _LoadingState();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Shimmer.fromColors(
+      baseColor: theme.colorScheme.surfaceContainerHighest,
+      highlightColor: theme.colorScheme.surface,
+      child: ListView.separated(
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(16),
+        itemCount: 4,
+        separatorBuilder: (context, index) => const SizedBox(height: 12),
+        itemBuilder: (context, index) => const CardPlaceholder(height: 200),
+      ),
+    );
   }
 }
 

@@ -13,7 +13,8 @@ import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/domain/rainfall_entry.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
-import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:shimmer/shimmer.dart";
 
 class RainfallEntriesScreen extends ConsumerStatefulWidget {
   const RainfallEntriesScreen({
@@ -76,7 +77,7 @@ class _RainfallEntriesScreenState extends ConsumerState<RainfallEntriesScreen> {
       ),
       body: SafeArea(
         child: entriesAsync.when(
-          loading: () => const AppLoader(),
+          loading: () => const _LoadingState(),
           error: (final err, final stack) =>
               Center(child: Text(l10n.rainfallEntriesError(err))),
           data: (final entries) {
@@ -150,6 +151,49 @@ class _RainfallEntriesScreenState extends ConsumerState<RainfallEntriesScreen> {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class _LoadingState extends StatelessWidget {
+  const _LoadingState();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Shimmer.fromColors(
+      baseColor: theme.colorScheme.surfaceContainerHighest,
+      highlightColor: theme.colorScheme.surface,
+      child: CustomScrollView(
+        physics: const NeverScrollableScrollPhysics(),
+        slivers: [
+          const SliverToBoxAdapter(
+            child: Padding(
+              padding: EdgeInsets.fromLTRB(16, 16, 16, 4),
+              child: CardPlaceholder(height: 90),
+            ),
+          ),
+          SliverPadding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+            sliver: SliverList(
+              delegate: SliverChildBuilderDelegate(
+                (context, index) => const Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    SizedBox(height: 16),
+                    LinePlaceholder(height: 16, width: 120),
+                    SizedBox(height: 8),
+                    CardPlaceholder(height: 80),
+                    SizedBox(height: 6),
+                    CardPlaceholder(height: 80),
+                  ],
+                ),
+                childCount: 3,
+              ),
+            ),
+          ),
+        ],
       ),
     );
   }

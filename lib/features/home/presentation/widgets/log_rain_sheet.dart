@@ -12,7 +12,6 @@ import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
-import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
@@ -121,32 +120,39 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
             children: [
               _buildSectionHeader(l10n.logRainfallSelectGaugeHeader),
               gaugesAsync.when(
-                loading: () => const AppLoader(),
+                loading: () => TextFormField(
+                  enabled: false,
+                  decoration: InputDecoration(hintText: l10n.loading),
+                ),
                 error: (final err, final st) =>
                     Text(l10n.logRainfallGaugesError(err)),
                 data: (final gauges) {
-                  String? effectiveGaugeId = _selectedGaugeId;
-                  if (effectiveGaugeId == null) {
+                  // Determine the value to display in the dropdown for this build.
+                  // Priority: 1. User's explicit selection, 2. Favorite gauge, 3. null
+                  String? valueToDisplay = _selectedGaugeId;
+                  if (valueToDisplay == null) {
                     final String? favoriteGaugeId =
                         userPreferences.value?.favoriteGaugeId;
-                    if (favoriteGaugeId != null) {
-                      effectiveGaugeId = favoriteGaugeId;
+                    if (favoriteGaugeId != null &&
+                        gauges.any((final g) => g.id == favoriteGaugeId)) {
+                      valueToDisplay = favoriteGaugeId;
                     }
                   }
 
-                  if (effectiveGaugeId != null &&
-                      !gauges.any((final g) => g.id == effectiveGaugeId)) {
-                    effectiveGaugeId = null;
+                  // If the current selection is invalid (e.g., gauge was deleted), clear it.
+                  if (valueToDisplay != null &&
+                      !gauges.any((final g) => g.id == valueToDisplay)) {
+                    valueToDisplay = null;
                   }
 
-                  // Update local state if the effective ID has changed.
-                  // This handles auto-selecting favorite and clearing invalid IDs.
-                  if (_selectedGaugeId != effectiveGaugeId) {
-                    _selectedGaugeId = effectiveGaugeId;
+                  // Sync the internal state if it doesn't match the determined value.
+                  // This is crucial for the initial selection of the favorite gauge.
+                  if (_selectedGaugeId != valueToDisplay) {
+                    _selectedGaugeId = valueToDisplay;
                   }
 
                   return AppDropdownFormField<String>(
-                    value: _selectedGaugeId,
+                    value: valueToDisplay,
                     hintText: l10n.logRainfallSelectGaugeHint,
                     onChanged: (final newValue) {
                       setState(() {

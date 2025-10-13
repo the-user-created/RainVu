@@ -3,8 +3,9 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/seasonal_trends/application/seasonal_trends_provider.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/seasons.dart";
-import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
+import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:shimmer/shimmer.dart";
 
 class SeasonSelector extends ConsumerWidget {
   const SeasonSelector({super.key});
@@ -19,6 +20,7 @@ class SeasonSelector extends ConsumerWidget {
     final AsyncValue<List<int>> availableYearsAsync = ref.watch(
       availableYearsProvider,
     );
+    final theme = Theme.of(context);
 
     final Widget seasonDropdown = AppDropdown<Season>(
       value: filter.season,
@@ -59,7 +61,11 @@ class SeasonSelector extends ConsumerWidget {
           },
         );
       },
-      loading: () => const Center(child: AppLoader()),
+      loading: () => Shimmer.fromColors(
+        baseColor: theme.colorScheme.surfaceContainerHighest,
+        highlightColor: theme.colorScheme.surface,
+        child: const DropdownPlaceholder(),
+      ),
       error: (final e, final s) => const Center(child: Icon(Icons.error)),
     );
 

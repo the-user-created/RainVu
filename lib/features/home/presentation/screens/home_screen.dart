@@ -10,7 +10,8 @@ import "package:rain_wise/features/home/presentation/widgets/monthly_trend_chart
 import "package:rain_wise/features/home/presentation/widgets/ytd_summary_card.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
-import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:shimmer/shimmer.dart";
 
 class HomeScreen extends ConsumerWidget {
   const HomeScreen({super.key});
@@ -34,7 +35,7 @@ class HomeScreen extends ConsumerWidget {
         appBar: HomeAppBar(onAddPressed: () => _showLogRainSheet(context)),
         body: SafeArea(
           child: homeDataAsync.when(
-            loading: () => const AppLoader(),
+            loading: () => const _LoadingState(),
             error: (final err, final stack) =>
                 Center(child: Text(l10n.homeScreenError(err))),
             data: (final homeData) => ListView(
@@ -60,6 +61,34 @@ class HomeScreen extends ConsumerWidget {
             ),
           ),
         ),
+      ),
+    );
+  }
+}
+
+class _LoadingState extends StatelessWidget {
+  const _LoadingState();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Shimmer.fromColors(
+      baseColor: theme.colorScheme.surfaceContainerHighest,
+      highlightColor: theme.colorScheme.surface,
+      child: ListView(
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.symmetric(
+          horizontal: AppConstants.horiEdgePadding,
+        ),
+        children: const [
+          SizedBox(height: 16),
+          CardPlaceholder(height: 200),
+          SizedBox(height: 24),
+          CardPlaceholder(height: 180),
+          SizedBox(height: 24),
+          CardPlaceholder(height: 300),
+          SizedBox(height: 32),
+        ],
       ),
     );
   }

@@ -6,7 +6,8 @@ import "package:rain_wise/features/insights_dashboard/presentation/widgets/analy
 import "package:rain_wise/features/insights_dashboard/presentation/widgets/insights_history_chart.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/widgets/metric_header.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:shimmer/shimmer.dart";
 
 class InsightsScreen extends ConsumerWidget {
   const InsightsScreen({super.key});
@@ -25,7 +26,7 @@ class InsightsScreen extends ConsumerWidget {
       ),
       body: SafeArea(
         child: asyncData.when(
-          loading: () => const AppLoader(),
+          loading: () => const _LoadingState(),
           error: (final err, final stack) =>
               Center(child: Text(l10n.insightsError(err))),
           data: (final data) {
@@ -47,6 +48,74 @@ class InsightsScreen extends ConsumerWidget {
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class _LoadingState extends StatelessWidget {
+  const _LoadingState();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Shimmer.fromColors(
+      baseColor: theme.colorScheme.surfaceContainerHighest,
+      highlightColor: theme.colorScheme.surface,
+      child: ListView(
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.only(top: 8, bottom: 24, left: 16, right: 16),
+        children: [
+          // Metric Header Placeholder
+          const Column(
+            children: [
+              LinePlaceholder(height: 44, width: 200),
+              SizedBox(height: 8),
+              LinePlaceholder(height: 14, width: 150),
+              SizedBox(height: 24),
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  LinePlaceholder(
+                    height: 36,
+                    width: 80,
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  SizedBox(width: 8),
+                  LinePlaceholder(
+                    height: 36,
+                    width: 80,
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  SizedBox(width: 8),
+                  LinePlaceholder(
+                    height: 36,
+                    width: 80,
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                  SizedBox(width: 8),
+                  LinePlaceholder(
+                    height: 36,
+                    width: 80,
+                    borderRadius: BorderRadius.all(Radius.circular(20)),
+                  ),
+                ],
+              ),
+            ],
+          ),
+          const SizedBox(height: 24),
+          // Chart Placeholder
+          const CardPlaceholder(height: 300),
+          const SizedBox(height: 32),
+          // Analysis Links Placeholder
+          const LinePlaceholder(height: 20, width: 150),
+          const SizedBox(height: 12),
+          const CardPlaceholder(height: 80),
+          const SizedBox(height: 12),
+          const CardPlaceholder(height: 80),
+          const SizedBox(height: 12),
+          const CardPlaceholder(height: 80),
+        ],
       ),
     );
   }

@@ -6,7 +6,8 @@ import "package:rain_wise/features/manage_gauges/application/gauges_provider.dar
 import "package:rain_wise/features/manage_gauges/presentation/widgets/gauge_list_tile.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
-import "package:rain_wise/shared/widgets/app_loader.dart";
+import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:shimmer/shimmer.dart";
 
 class GaugeList extends ConsumerWidget {
   const GaugeList({super.key});
@@ -17,7 +18,7 @@ class GaugeList extends ConsumerWidget {
     final AsyncValue<List<RainGauge>> gaugesAsync = ref.watch(gaugesProvider);
 
     return gaugesAsync.when(
-      loading: () => const Center(heightFactor: 5, child: AppLoader()),
+      loading: () => const _LoadingState(),
       error: (final err, final stack) =>
           Center(child: Text(l10n.gaugeListError(err))),
       data: (final gauges) {
@@ -45,6 +46,28 @@ class GaugeList extends ConsumerWidget {
               .divide(const SizedBox(height: 12)),
         );
       },
+    );
+  }
+}
+
+class _LoadingState extends StatelessWidget {
+  const _LoadingState();
+
+  @override
+  Widget build(BuildContext context) {
+    final theme = Theme.of(context);
+    return Shimmer.fromColors(
+      baseColor: theme.colorScheme.surfaceContainerHighest,
+      highlightColor: theme.colorScheme.surface,
+      child: Column(
+        children: [
+          const CardPlaceholder(height: 80),
+          const SizedBox(height: 12),
+          const CardPlaceholder(height: 80),
+          const SizedBox(height: 12),
+          const CardPlaceholder(height: 80),
+        ].divide(const SizedBox(height: 12)),
+      ),
     );
   }
 }

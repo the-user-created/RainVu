@@ -13,7 +13,6 @@ import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/domain/rainfall_entry.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
-import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
@@ -142,7 +141,10 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
           children: [
             _buildSectionHeader(l10n.editEntryGaugeHeader),
             gaugesAsync.when(
-              loading: () => const AppLoader(),
+              loading: () => TextFormField(
+                enabled: false,
+                decoration: InputDecoration(hintText: l10n.loading),
+              ),
               error: (final err, final stack) =>
                   Text(l10n.rainfallEntriesError(err)),
               data: (final gauges) => AppDropdownFormField<String>(

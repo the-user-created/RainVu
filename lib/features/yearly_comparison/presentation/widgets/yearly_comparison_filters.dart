@@ -3,7 +3,6 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/yearly_comparison/application/yearly_comparison_provider.dart";
 import "package:rain_wise/features/yearly_comparison/domain/yearly_comparison_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/forms/app_choice_chips.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 
@@ -37,11 +36,11 @@ class YearlyComparisonFilters extends ConsumerWidget {
         color: colorScheme.surface,
         padding: const EdgeInsets.all(16),
         child: filterAsync.when(
-          loading: () => const SizedBox(height: 150, child: AppLoader()),
+          loading: () => const SizedBox(height: 150),
           error: (final e, final s) =>
               Center(child: Text(l10n.yearlyComparisonFilterError(e))),
           data: (final filter) => availableYearsAsync.when(
-            loading: () => const SizedBox(height: 150, child: AppLoader()),
+            loading: () => const SizedBox(height: 150),
             error: (final e, final s) => Center(
               child: Text(l10n.yearlyComparisonAvailableYearsError(e)),
             ),
