@@ -165,28 +165,27 @@ class _GaugeListTileState extends ConsumerState<GaugeListTile> {
             onTapCancel: () => setState(() => _isPressed = false),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
-              child: Row(
+              child: Wrap(
+                alignment: WrapAlignment.spaceBetween,
+                crossAxisAlignment: WrapCrossAlignment.center,
+                runSpacing: 8,
+                spacing: 16,
                 children: [
-                  Expanded(
-                    child: Column(
-                      crossAxisAlignment: CrossAxisAlignment.start,
-                      children: [
-                        Text(
-                          displayName,
-                          style: theme.textTheme.titleMedium,
+                  Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(displayName, style: theme.textTheme.titleMedium),
+                      const SizedBox(height: 4),
+                      Text(
+                        l10n.gaugeEntryCount(widget.gauge.entryCount),
+                        style: theme.textTheme.bodyMedium?.copyWith(
+                          color: theme.colorScheme.onSurfaceVariant,
                         ),
-                        const SizedBox(height: 4),
-                        Text(
-                          l10n.gaugeEntryCount(widget.gauge.entryCount),
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.onSurfaceVariant,
-                          ),
-                        ),
-                      ],
-                    ),
+                      ),
+                    ],
                   ),
-                  const SizedBox(width: 8),
                   Row(
+                    mainAxisSize: MainAxisSize.min,
                     children: [
                       AppIconButton(
                         icon: Icon(

@@ -26,6 +26,7 @@ class GaugeList extends ConsumerWidget {
         }
 
         return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: gauges
               .asMap()
               .entries
