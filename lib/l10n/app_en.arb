@@ -12,6 +12,10 @@
   "@allSeverities": {
     "description": "Label for a filter option that selects all severity levels for unusual events."
   },
+  "and": "and",
+  "@and": {
+    "description": "A conjunction used to link the Privacy Policy and Terms of Service."
+  },
   "anomalyDeviationThresholdDescription": "Adjust how much rainfall must differ from the average to be considered unusual.",
   "@anomalyDeviationThresholdDescription": {
     "description": "Explanatory text for the 'Unusual Rainfall Sensitivity' setting."
@@ -888,6 +892,68 @@
   "@okButtonLabel": {
     "description": "Generic label for an 'OK' button in a dialog."
   },
+  "onboardingButtonFinish": "Finish Setup",
+  "@onboardingButtonFinish": {
+    "description": "Label for the button to complete the onboarding process."
+  },
+  "onboardingButtonNext": "Get Started",
+  "@onboardingButtonNext": {
+    "description": "Label for the button to proceed from the welcome step of onboarding."
+  },
+  "onboardingButtonSaveAndContinue": "Save & Continue",
+  "@onboardingButtonSaveAndContinue": {
+    "description": "Label for the button to save the new gauge and continue to the next onboarding step."
+  },
+  "onboardingGaugeHint": "e.g., Backyard Gauge",
+  "@onboardingGaugeHint": {
+    "description": "Placeholder hint text for the gauge name input field during onboarding."
+  },
+  "onboardingGaugeSubtitle": "Give your rain gauge a name, like 'Backyard' or 'Farm Entrance'. You can always add more later.",
+  "@onboardingGaugeSubtitle": {
+    "description": "The descriptive subtitle for the 'Add Gauge' step in the onboarding flow."
+  },
+  "onboardingGaugeTitle": "Add your first gauge",
+  "@onboardingGaugeTitle": {
+    "description": "The title for the onboarding step where the user adds their first rain gauge."
+  },
+  "onboardingPermissionsAgreement": "By continuing, you agree to our",
+  "@onboardingPermissionsAgreement": {
+    "description": "The introductory text for the privacy policy and terms of service agreement."
+  },
+  "onboardingPermissionsPrivacyPolicy": "Privacy Policy",
+  "@onboardingPermissionsPrivacyPolicy": {
+    "description": "The clickable text for the Privacy Policy link."
+  },
+  "onboardingPermissionsShareSubtitle": "Help improve the app by sharing anonymous usage data and crash reports. This can be changed at any time in settings.",
+  "@onboardingPermissionsShareSubtitle": {
+    "description": "The descriptive subtitle for the data sharing option during onboarding."
+  },
+  "onboardingPermissionsShareTitle": "Share Usage Data",
+  "@onboardingPermissionsShareTitle": {
+    "description": "The title for the switch that controls sharing of anonymous usage data during onboarding."
+  },
+  "onboardingPermissionsTitle": "Privacy & Setup",
+  "@onboardingPermissionsTitle": {
+    "description": "The title for the final step of the onboarding flow concerning privacy and data sharing."
+  },
+  "onboardingPermissionsTos": "Terms of Service",
+  "@onboardingPermissionsTos": {
+    "description": "The clickable text for the Terms of Service link."
+  },
+  "onboardingWelcomeSubtitle": "Your personal rain gauge log. Let's get you set up in just a few steps.",
+  "@onboardingWelcomeSubtitle": {
+    "description": "The descriptive subtitle on the first screen of the onboarding flow."
+  },
+  "onboardingWelcomeTitle": "Welcome to {appName}",
+  "@onboardingWelcomeTitle": {
+    "description": "The main title on the first screen of the onboarding flow.",
+    "placeholders": {
+      "appName": {
+        "type": "String",
+        "description": "The name of the application."
+      }
+    }
+  },
   "ossLicensesTitle": "Open Source Licenses",
   "@ossLicensesTitle": {
     "description": "The title of the Open Source Licenses screen."
@@ -1269,6 +1335,10 @@
   "shareError": "Could not share the app. Please try again.",
   "@shareError": {
     "description": "Snackbar message shown if the native share action fails."
+  },
+  "skipButtonLabel": "Skip for now",
+  "@skipButtonLabel": {
+    "description": "A generic label for a button that allows the user to skip an optional step."
   },
   "tenYearAverage": "10 Year Average",
   "@tenYearAverage": {

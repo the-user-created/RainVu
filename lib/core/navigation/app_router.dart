@@ -1,3 +1,4 @@
+// lib/core/navigation/app_router.dart
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
@@ -12,6 +13,8 @@ import "package:rain_wise/features/home/presentation/screens/home_screen.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/screens/insights_screen.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/screens/monthly_averages_screen.dart";
 import "package:rain_wise/features/manage_gauges/presentation/screens/manage_gauges_screen.dart";
+import "package:rain_wise/features/onboarding/application/onboarding_provider.dart";
+import "package:rain_wise/features/onboarding/presentation/screens/onboarding_screen.dart";
 import "package:rain_wise/features/oss_licenses/presentation/screens/license_detail_screen.dart";
 import "package:rain_wise/features/oss_licenses/presentation/screens/oss_licenses_screen.dart";
 import "package:rain_wise/features/rainfall_entry/presentation/screens/rainfall_entries_screen.dart";
@@ -41,13 +44,34 @@ final GlobalKey<NavigatorState> _settingsNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: "settings");
 
 // 2. Define the GoRouter provider
-final goRouterProvider = Provider<GoRouter>(
-  (final ref) => GoRouter(
+final goRouterProvider = Provider<GoRouter>((final ref) {
+  final AsyncValue<bool> onboardingComplete = ref.watch(onboardingProvider);
+
+  return GoRouter(
     navigatorKey: _rootNavigatorKey,
     initialLocation: "/home",
     debugLogDiagnostics: true,
     routes: $appRoutes,
     observers: [AnalyticsObserver(ref: ref)],
+    redirect: (final context, final state) {
+      final bool isComplete = onboardingComplete.maybeWhen(
+        data: (final completed) => completed,
+        orElse: () => false,
+      );
+
+      final bool isGoingToOnboarding =
+          state.matchedLocation == const OnboardingRoute().location;
+
+      if (!isComplete && !isGoingToOnboarding) {
+        return const OnboardingRoute().location;
+      }
+
+      if (isComplete && isGoingToOnboarding) {
+        return const HomeRoute().location;
+      }
+
+      return null;
+    },
     errorBuilder: (final context, final state) => Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context).pageNotFound)),
       body: Center(
@@ -59,8 +83,8 @@ final goRouterProvider = Provider<GoRouter>(
         ),
       ),
     ),
-  ),
-);
+  );
+});
 
 // --- Root and Non-Shell Routes ---
 @TypedGoRoute<InitialRoute>(path: "/")
@@ -70,6 +94,15 @@ class InitialRoute extends GoRouteData with $InitialRoute {
   @override
   String? redirect(final BuildContext context, final GoRouterState state) =>
       const HomeRoute().location;
+}
+
+@TypedGoRoute<OnboardingRoute>(path: "/onboarding")
+class OnboardingRoute extends GoRouteData with $OnboardingRoute {
+  const OnboardingRoute();
+
+  @override
+  Widget build(final BuildContext context, final GoRouterState state) =>
+      const OnboardingScreen();
 }
 
 @TypedGoRoute<ComingSoonRoute>(path: "/coming-soon")
