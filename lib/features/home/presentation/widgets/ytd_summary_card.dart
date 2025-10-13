@@ -27,7 +27,7 @@ class _YtdSummaryCardState extends ConsumerState<YtdSummaryCard> {
   bool _isPressed = false;
 
   void _handleTap() {
-    const ComparativeAnalysisRoute().push(context);
+    const YearlyComparisonRoute().push(context);
   }
 
   @override

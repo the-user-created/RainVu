@@ -1,14 +1,14 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/features/comparative_analysis/application/comparative_analysis_provider.dart";
-import "package:rain_wise/features/comparative_analysis/domain/comparative_analysis_data.dart";
+import "package:rain_wise/features/yearly_comparison/application/yearly_comparison_provider.dart";
+import "package:rain_wise/features/yearly_comparison/domain/yearly_comparison_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/forms/app_choice_chips.dart";
 import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
 
-class ComparativeAnalysisFilters extends ConsumerWidget {
-  const ComparativeAnalysisFilters({super.key});
+class YearlyComparisonFilters extends ConsumerWidget {
+  const YearlyComparisonFilters({super.key});
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
@@ -17,7 +17,7 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
     final TextTheme textTheme = theme.textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<ComparativeFilter> filterAsync = ref.watch(
-      comparativeAnalysisFilterProvider,
+      yearlyComparisonFilterProvider,
     );
     final AsyncValue<List<int>> availableYearsAsync = ref.watch(
       availableYearsProvider,
@@ -39,18 +39,18 @@ class ComparativeAnalysisFilters extends ConsumerWidget {
         child: filterAsync.when(
           loading: () => const SizedBox(height: 150, child: AppLoader()),
           error: (final e, final s) =>
-              Center(child: Text(l10n.comparativeAnalysisFilterError(e))),
+              Center(child: Text(l10n.yearlyComparisonFilterError(e))),
           data: (final filter) => availableYearsAsync.when(
             loading: () => const SizedBox(height: 150, child: AppLoader()),
             error: (final e, final s) => Center(
-              child: Text(l10n.comparativeAnalysisAvailableYearsError(e)),
+              child: Text(l10n.yearlyComparisonAvailableYearsError(e)),
             ),
             data: (final availableYears) => Column(
               children: [
                 Padding(
                   padding: const EdgeInsets.symmetric(horizontal: 4),
                   child: Text(
-                    l10n.comparativeAnalysisSelectYearsTitle,
+                    l10n.yearlyComparisonSelectYearsTitle,
                     style: textTheme.titleMedium,
                   ),
                 ),
@@ -82,7 +82,7 @@ class _YearSelectors extends ConsumerWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
-    final notifier = ref.read(comparativeAnalysisFilterProvider.notifier);
+    final notifier = ref.read(yearlyComparisonFilterProvider.notifier);
 
     Widget buildDropdown({
       required final int value,
@@ -163,7 +163,7 @@ class _ComparisonTypeSelector extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final notifier = ref.read(comparativeAnalysisFilterProvider.notifier);
+    final notifier = ref.read(yearlyComparisonFilterProvider.notifier);
 
     return AppChoiceChips<ComparisonType>(
       selectedValue: filter.type,

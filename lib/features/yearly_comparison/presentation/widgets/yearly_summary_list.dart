@@ -1,13 +1,10 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/features/comparative_analysis/domain/comparative_analysis_data.dart";
-import "package:rain_wise/features/comparative_analysis/presentation/widgets/yearly_summary_card.dart";
+import "package:rain_wise/features/yearly_comparison/domain/yearly_comparison_data.dart";
+import "package:rain_wise/features/yearly_comparison/presentation/widgets/yearly_summary_card.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
 class YearlySummaryList extends StatelessWidget {
-  const YearlySummaryList({
-    required this.summaries,
-    super.key,
-  });
+  const YearlySummaryList({required this.summaries, super.key});
 
   final List<YearlySummary> summaries;
 

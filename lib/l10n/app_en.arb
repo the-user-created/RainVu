@@ -173,56 +173,56 @@
   "@comingSoonMessage": {
     "description": "The descriptive message on the 'Coming Soon' placeholder screen."
   },
-  "comparativeAnalysisAvailableYearsError": "Error loading years: {error}",
-  "@comparativeAnalysisAvailableYearsError": {
+  "yearlyComparisonAvailableYearsError": "Error loading years: {error}",
+  "@yearlyComparisonAvailableYearsError": {
     "placeholders": {
       "error": {
         "type": "Object"
       }
     }
   },
-  "comparativeAnalysisChartNoData": "Not enough data to display chart.",
-  "@comparativeAnalysisChartNoData": {
+  "yearlyComparisonChartNoData": "Not enough data to display chart.",
+  "@yearlyComparisonChartNoData": {
     "description": "Message shown in the yearly comparison chart when there is insufficient data."
   },
-  "comparativeAnalysisChartTitle": "Rainfall Comparison",
-  "@comparativeAnalysisChartTitle": {
+  "yearlyComparisonChartTitle": "Rainfall Comparison",
+  "@yearlyComparisonChartTitle": {
     "description": "The title of the chart on the Yearly Comparison screen."
   },
-  "comparativeAnalysisEmptyMessage": "This feature requires rainfall data from at least two different years. Once you have more data, you'll be able to compare it here.",
-  "@comparativeAnalysisEmptyMessage": {
+  "yearlyComparisonEmptyMessage": "This feature requires rainfall data from at least two different years. Once you have more data, you'll be able to compare it here.",
+  "@yearlyComparisonEmptyMessage": {
     "description": "Message shown on the yearly comparison screen when there isn't data from at least two different years."
   },
-  "comparativeAnalysisEmptyTitle": "Not Enough Data to Compare",
-  "@comparativeAnalysisEmptyTitle": {
+  "yearlyComparisonEmptyTitle": "Not Enough Data to Compare",
+  "@yearlyComparisonEmptyTitle": {
     "description": "Title for the empty state on the yearly comparison screen when there is insufficient data."
   },
-  "comparativeAnalysisError": "An error occurred: {error}",
-  "@comparativeAnalysisError": {
+  "yearlyComparisonError": "An error occurred: {error}",
+  "@yearlyComparisonError": {
     "placeholders": {
       "error": {
         "type": "Object"
       }
     }
   },
-  "comparativeAnalysisFilterError": "Error: {error}",
-  "@comparativeAnalysisFilterError": {
+  "yearlyComparisonFilterError": "Error: {error}",
+  "@yearlyComparisonFilterError": {
     "placeholders": {
       "error": {
         "type": "Object"
       }
     }
   },
-  "comparativeAnalysisNoDataForSelection": "No rainfall data was found for the selected years and comparison type. Please try a different selection.",
-  "@comparativeAnalysisNoDataForSelection": {
+  "yearlyComparisonNoDataForSelection": "No rainfall data was found for the selected years and comparison type. Please try a different selection.",
+  "@yearlyComparisonNoDataForSelection": {
     "description": "Message shown when a user's filter selection on the yearly comparison screen yields no data."
   },
-  "comparativeAnalysisSelectYearsTitle": "Select Years to Compare",
-  "@comparativeAnalysisSelectYearsTitle": {
+  "yearlyComparisonSelectYearsTitle": "Select Years to Compare",
+  "@yearlyComparisonSelectYearsTitle": {
     "description": "Title above the year selection dropdowns on the yearly comparison screen."
   },
-  "comparativeAnalysisTitle": "Yearly Comparison",
-  "@comparativeAnalysisTitle": {
+  "yearlyComparisonTitle": "Yearly Comparison",
+  "@yearlyComparisonTitle": {
     "description": "The title of the Yearly Comparison screen."
   },
   "comparisonInfoAnnualDescription": "Compares the total rainfall for each selected year. This view shows one bar representing the grand total for each year, ideal for a high-level overview.",
@@ -417,12 +417,12 @@
   "@detailedAnalysisAnomalyExplorationSubtitle": {
     "description": "Subtitle for the 'Unusual Patterns' link on the insights screen."
   },
-  "detailedAnalysisComparativeAnalysisSubtitle": "Compare rainfall totals year-over-year",
-  "@detailedAnalysisComparativeAnalysisSubtitle": {
+  "detailedAnalysisYearlyComparisonSubtitle": "Compare rainfall totals year-over-year",
+  "@detailedAnalysisYearlyComparisonSubtitle": {
     "description": "Subtitle for the 'Year-Over-Year Comparison' link on the insights screen."
   },
-  "detailedAnalysisComparativeAnalysisTitle": "Year-Over-Year Comparison",
-  "@detailedAnalysisComparativeAnalysisTitle": {
+  "detailedAnalysisYearlyComparisonTitle": "Year-Over-Year Comparison",
+  "@detailedAnalysisYearlyComparisonTitle": {
     "description": "Title for the 'Year-Over-Year Comparison' link on the insights screen."
   },
   "detailedAnalysisMonthlyBreakdownSubtitle": "See a day-by-day summary for any month",

@@ -1,20 +1,19 @@
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/data/providers/data_providers.dart";
-import "package:rain_wise/features/comparative_analysis/data/comparative_analysis_repository.dart";
-import "package:rain_wise/features/comparative_analysis/domain/comparative_analysis_data.dart";
+import "package:rain_wise/features/yearly_comparison/data/yearly_comparison_repository.dart";
+import "package:rain_wise/features/yearly_comparison/domain/yearly_comparison_data.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
-part "comparative_analysis_provider.g.dart";
+part "yearly_comparison_provider.g.dart";
 
 @riverpod
 Future<List<int>> availableYears(final Ref ref) async =>
-    ref.watch(comparativeAnalysisRepositoryProvider).getAvailableYears();
+    ref.watch(yearlyComparisonRepositoryProvider).getAvailableYears();
 
 @riverpod
-class ComparativeAnalysisFilterNotifier
-    extends _$ComparativeAnalysisFilterNotifier {
+class YearlyComparisonFilterNotifier extends _$YearlyComparisonFilterNotifier {
   @override
   Future<ComparativeFilter> build() async {
     // Initialize with the two most recent years.
@@ -58,7 +57,7 @@ class ComparativeAnalysisFilterNotifier
 /// changes to the comparison type.
 @riverpod
 (int, int) _selectedYears(final Ref ref) => ref.watch(
-  comparativeAnalysisFilterProvider.select(
+  yearlyComparisonFilterProvider.select(
     (final f) => f.hasValue ? (f.value!.year1, f.value!.year2) : (0, 0),
   ),
 );
@@ -66,32 +65,32 @@ class ComparativeAnalysisFilterNotifier
 /// Fetches only the yearly summary data.
 /// This provider will only refetch when the selected years change.
 @riverpod
-Future<List<YearlySummary>> comparativeAnalysisSummaries(final Ref ref) async {
+Future<List<YearlySummary>> yearlyComparisonSummaries(final Ref ref) async {
   ref.watch(rainfallTableUpdatesProvider);
 
   final (int year1, int year2) = ref.watch(_selectedYearsProvider);
 
   // Await the filter to ensure we have valid years before proceeding.
-  await ref.watch(comparativeAnalysisFilterProvider.future);
+  await ref.watch(yearlyComparisonFilterProvider.future);
 
   if (year1 == 0 || year2 == 0 || year1 == year2) {
     return [];
   }
 
   return ref
-      .watch(comparativeAnalysisRepositoryProvider)
+      .watch(yearlyComparisonRepositoryProvider)
       .fetchComparativeSummaries(year1, year2);
 }
 
 /// Fetches only the chart data.
 /// This provider will refetch when any part of the filter changes (years or type).
 @riverpod
-Future<ComparativeChartData> comparativeAnalysisChartData(final Ref ref) async {
+Future<ComparativeChartData> yearlyComparisonChartData(final Ref ref) async {
   ref.watch(rainfallTableUpdatesProvider);
 
   // Await the filter provider. This will correctly propagate loading/error states.
   final ComparativeFilter filter = await ref.watch(
-    comparativeAnalysisFilterProvider.future,
+    yearlyComparisonFilterProvider.future,
   );
   final UserPreferences prefs = await ref.watch(userPreferencesProvider.future);
 
@@ -100,6 +99,6 @@ Future<ComparativeChartData> comparativeAnalysisChartData(final Ref ref) async {
     return const ComparativeChartData(labels: [], series: []);
   }
   return ref
-      .watch(comparativeAnalysisRepositoryProvider)
+      .watch(yearlyComparisonRepositoryProvider)
       .fetchComparativeChartData(filter, prefs.hemisphere);
 }

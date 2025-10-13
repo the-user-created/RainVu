@@ -1,13 +1,13 @@
 import "package:intl/intl.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
-import "package:rain_wise/features/comparative_analysis/domain/comparative_analysis_data.dart";
+import "package:rain_wise/features/yearly_comparison/domain/yearly_comparison_data.dart";
 import "package:rain_wise/shared/domain/seasons.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
-part "comparative_analysis_repository.g.dart";
+part "yearly_comparison_repository.g.dart";
 
-abstract class ComparativeAnalysisRepository {
+abstract class YearlyComparisonRepository {
   Future<List<int>> getAvailableYears();
 
   Future<List<YearlySummary>> fetchComparativeSummaries(
@@ -22,14 +22,13 @@ abstract class ComparativeAnalysisRepository {
 }
 
 @riverpod
-ComparativeAnalysisRepository comparativeAnalysisRepository(final Ref ref) {
+YearlyComparisonRepository yearlyComparisonRepository(final Ref ref) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
-  return DriftComparativeAnalysisRepository(db.rainfallEntriesDao);
+  return DriftYearlyComparisonRepository(db.rainfallEntriesDao);
 }
 
-class DriftComparativeAnalysisRepository
-    implements ComparativeAnalysisRepository {
-  DriftComparativeAnalysisRepository(this._dao);
+class DriftYearlyComparisonRepository implements YearlyComparisonRepository {
+  DriftYearlyComparisonRepository(this._dao);
 
   final RainfallEntriesDao _dao;
 

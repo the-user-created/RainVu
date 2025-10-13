@@ -6,7 +6,6 @@ import "package:rain_wise/common/presentation/screens/coming_soon_screen.dart";
 import "package:rain_wise/core/ui/scaffold_with_nav_bar.dart";
 import "package:rain_wise/features/anomaly_exploration/presentation/screens/anomaly_exploration_screen.dart";
 import "package:rain_wise/features/changelog/presentation/screens/changelog_screen.dart";
-import "package:rain_wise/features/comparative_analysis/presentation/screens/comparative_analysis_screen.dart";
 import "package:rain_wise/features/data_tools/presentation/screens/data_tools_screen.dart";
 import "package:rain_wise/features/home/presentation/screens/home_screen.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/screens/insights_screen.dart";
@@ -19,6 +18,7 @@ import "package:rain_wise/features/rainfall_entry/presentation/screens/rainfall_
 import "package:rain_wise/features/seasonal_patterns/presentation/screens/seasonal_patterns_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/help_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/settings_screen.dart";
+import "package:rain_wise/features/yearly_comparison/presentation/screens/yearly_comparison_screen.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/oss_licenses.dart" as oss;
 
@@ -111,9 +111,7 @@ class ComingSoonRoute extends GoRouteData with $ComingSoonRoute {
             TypedGoRoute<MonthlyBreakdownRoute>(path: "monthly-breakdown"),
             TypedGoRoute<SeasonalPatternsRoute>(path: "season-patterns"),
             TypedGoRoute<AnomalyExplorationRoute>(path: "anomaly-explore"),
-            TypedGoRoute<ComparativeAnalysisRoute>(
-              path: "comparative-analysis",
-            ),
+            TypedGoRoute<YearlyComparisonRoute>(path: "comparative-analysis"),
           ],
         ),
       ],
@@ -283,16 +281,15 @@ class AnomalyExplorationRoute extends GoRouteData
       const AnomalyExplorationScreen();
 }
 
-class ComparativeAnalysisRoute extends GoRouteData
-    with $ComparativeAnalysisRoute {
-  const ComparativeAnalysisRoute();
+class YearlyComparisonRoute extends GoRouteData with $YearlyComparisonRoute {
+  const YearlyComparisonRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
       _rootNavigatorKey;
 
   @override
   Widget build(final BuildContext context, final GoRouterState state) =>
-      const ComparativeAnalysisScreen();
+      const YearlyComparisonScreen();
 }
 
 // Settings Sub-Routes

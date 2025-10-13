@@ -7,24 +7,23 @@ import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
-import "package:rain_wise/features/comparative_analysis/domain/comparative_analysis_data.dart";
+import "package:rain_wise/features/yearly_comparison/domain/yearly_comparison_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/widgets/charts/chart_card.dart";
 import "package:rain_wise/shared/widgets/charts/legend_item.dart";
 
-class ComparativeAnalysisChart extends ConsumerStatefulWidget {
-  const ComparativeAnalysisChart({required this.chartData, super.key});
+class YearlyComparisonChart extends ConsumerStatefulWidget {
+  const YearlyComparisonChart({required this.chartData, super.key});
 
   final ComparativeChartData chartData;
 
   @override
-  ConsumerState<ComparativeAnalysisChart> createState() =>
-      _ComparativeAnalysisChartState();
+  ConsumerState<YearlyComparisonChart> createState() =>
+      _YearlyComparisonChartState();
 }
 
-class _ComparativeAnalysisChartState
-    extends ConsumerState<ComparativeAnalysisChart>
+class _YearlyComparisonChartState extends ConsumerState<YearlyComparisonChart>
     with SingleTickerProviderStateMixin {
   late AnimationController _controller;
   late Animation<double> _animation;
@@ -44,7 +43,7 @@ class _ComparativeAnalysisChartState
   }
 
   @override
-  void didUpdateWidget(covariant final ComparativeAnalysisChart oldWidget) {
+  void didUpdateWidget(covariant final YearlyComparisonChart oldWidget) {
     super.didUpdateWidget(oldWidget);
     if (widget.chartData != oldWidget.chartData) {
       _controller.forward(from: 0);
@@ -106,7 +105,7 @@ class _ComparativeAnalysisChartState
         widget.chartData.series.first.data.isEmpty) {
       return SizedBox(
         height: 300,
-        child: Center(child: Text(l10n.comparativeAnalysisChartNoData)),
+        child: Center(child: Text(l10n.yearlyComparisonChartNoData)),
       );
     }
 
@@ -193,7 +192,7 @@ class _ComparativeAnalysisChartState
         );
 
         return ChartCard(
-          title: l10n.comparativeAnalysisChartTitle,
+          title: l10n.yearlyComparisonChartTitle,
           margin: const EdgeInsets.all(16),
           legend: Wrap(
             spacing: 12,

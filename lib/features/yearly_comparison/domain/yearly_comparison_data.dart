@@ -1,15 +1,11 @@
 import "package:freezed_annotation/freezed_annotation.dart";
 
-part "comparative_analysis_data.freezed.dart";
+part "yearly_comparison_data.freezed.dart";
 
 /// Defines the type of comparison to perform.
-enum ComparisonType {
-  annual,
-  monthly,
-  seasonal,
-}
+enum ComparisonType { annual, monthly, seasonal }
 
-/// Holds the filter state for the comparative analysis screen.
+/// Holds the filter state for the yearly comparison screen.
 @freezed
 abstract class ComparativeFilter with _$ComparativeFilter {
   const factory ComparativeFilter({
@@ -24,13 +20,13 @@ abstract class ComparativeFilter with _$ComparativeFilter {
   }) = _ComparativeFilter;
 }
 
-/// Contains all the data needed to display the comparative analysis screen.
+/// Contains all the data needed to display the yearly comparison screen.
 @freezed
-abstract class ComparativeAnalysisData with _$ComparativeAnalysisData {
-  const factory ComparativeAnalysisData({
+abstract class YearlyComparisonData with _$YearlyComparisonData {
+  const factory YearlyComparisonData({
     required final List<YearlySummary> summaries,
     required final ComparativeChartData chartData,
-  }) = _ComparativeAnalysisData;
+  }) = _YearlyComparisonData;
 }
 
 /// Represents the summary data for a single year in the comparison.

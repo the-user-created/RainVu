@@ -46,9 +46,9 @@ class AnalysisLinksSection extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _AnalysisLinkTile(
-            title: l10n.detailedAnalysisComparativeAnalysisTitle,
-            subtitle: l10n.detailedAnalysisComparativeAnalysisSubtitle,
-            onTap: () => const ComparativeAnalysisRoute().push(context),
+            title: l10n.detailedAnalysisYearlyComparisonTitle,
+            subtitle: l10n.detailedAnalysisYearlyComparisonSubtitle,
+            onTap: () => const YearlyComparisonRoute().push(context),
           ),
         ],
       ),

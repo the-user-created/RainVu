@@ -1,18 +1,18 @@
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/features/comparative_analysis/application/comparative_analysis_provider.dart";
-import "package:rain_wise/features/comparative_analysis/domain/comparative_analysis_data.dart";
-import "package:rain_wise/features/comparative_analysis/presentation/widgets/comparative_analysis_chart.dart";
-import "package:rain_wise/features/comparative_analysis/presentation/widgets/comparative_analysis_filters.dart";
-import "package:rain_wise/features/comparative_analysis/presentation/widgets/yearly_summary_list.dart";
+import "package:rain_wise/features/yearly_comparison/application/yearly_comparison_provider.dart";
+import "package:rain_wise/features/yearly_comparison/domain/yearly_comparison_data.dart";
+import "package:rain_wise/features/yearly_comparison/presentation/widgets/yearly_comparison_chart.dart";
+import "package:rain_wise/features/yearly_comparison/presentation/widgets/yearly_comparison_filters.dart";
+import "package:rain_wise/features/yearly_comparison/presentation/widgets/yearly_summary_list.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/sheets/info_sheet.dart";
 
-class ComparativeAnalysisScreen extends ConsumerWidget {
-  const ComparativeAnalysisScreen({super.key});
+class YearlyComparisonScreen extends ConsumerWidget {
+  const YearlyComparisonScreen({super.key});
 
   void _showInfoSheet(final BuildContext context) {
     final AppLocalizations l10n = AppLocalizations.of(context);
@@ -50,7 +50,7 @@ class ComparativeAnalysisScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          l10n.comparativeAnalysisTitle,
+          l10n.yearlyComparisonTitle,
           style: theme.textTheme.titleLarge,
         ),
         actions: [
@@ -74,7 +74,7 @@ class ComparativeAnalysisScreen extends ConsumerWidget {
           error: (final err, final stack) => Center(
             child: Padding(
               padding: const EdgeInsets.all(16),
-              child: Text(l10n.comparativeAnalysisAvailableYearsError(err)),
+              child: Text(l10n.yearlyComparisonAvailableYearsError(err)),
             ),
           ),
           data: (final availableYears) {
@@ -95,7 +95,7 @@ class _AnalysisContent extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) => const SingleChildScrollView(
-    child: Column(children: [ComparativeAnalysisFilters(), _DataContent()]),
+    child: Column(children: [YearlyComparisonFilters(), _DataContent()]),
   );
 }
 
@@ -106,7 +106,7 @@ class _DataContent extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<List<YearlySummary>> summariesAsync = ref.watch(
-      comparativeAnalysisSummariesProvider,
+      yearlyComparisonSummariesProvider,
     );
 
     final List<YearlySummary>? summaries = summariesAsync.value;
@@ -121,7 +121,7 @@ class _DataContent extends ConsumerWidget {
         ),
         error: (final err, final stack) => Padding(
           padding: const EdgeInsets.all(32),
-          child: Center(child: Text(l10n.comparativeAnalysisError(err))),
+          child: Center(child: Text(l10n.yearlyComparisonError(err))),
         ),
         // This case is needed for the `when` but won't be hit if summaries is null.
         data: (final data) => const SizedBox.shrink(),
@@ -143,21 +143,21 @@ class _DataContent extends ConsumerWidget {
 
     return Column(
       children: [
-        const _ComparativeAnalysisChartLoader(),
+        const _YearlyComparisonChartLoader(),
         YearlySummaryList(summaries: summaries),
       ],
     );
   }
 }
 
-class _ComparativeAnalysisChartLoader extends ConsumerWidget {
-  const _ComparativeAnalysisChartLoader();
+class _YearlyComparisonChartLoader extends ConsumerWidget {
+  const _YearlyComparisonChartLoader();
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<ComparativeChartData> chartDataAsync = ref.watch(
-      comparativeAnalysisChartDataProvider,
+      yearlyComparisonChartDataProvider,
     );
 
     final ComparativeChartData? chartData = chartDataAsync.value;
@@ -165,7 +165,7 @@ class _ComparativeAnalysisChartLoader extends ConsumerWidget {
     // If we have data (new or old), show the chart. The chart's internal
     // animation will handle the transition smoothly.
     if (chartData != null) {
-      return ComparativeAnalysisChart(chartData: chartData);
+      return YearlyComparisonChart(chartData: chartData);
     }
 
     // Otherwise, it's the initial load or an error. Handle these states.
@@ -179,11 +179,11 @@ class _ComparativeAnalysisChartLoader extends ConsumerWidget {
       ),
       error: (final err, final stack) => Padding(
         padding: const EdgeInsets.all(32),
-        child: Center(child: Text(l10n.comparativeAnalysisError(err))),
+        child: Center(child: Text(l10n.yearlyComparisonError(err))),
       ),
       // This data case is technically covered by the `if (chartData != null)`
       // check above, but is required by the `when` method.
-      data: (final data) => ComparativeAnalysisChart(chartData: data),
+      data: (final data) => YearlyComparisonChart(chartData: data),
     );
   }
 }
@@ -211,13 +211,13 @@ class _InsufficientDataState extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              l10n.comparativeAnalysisEmptyTitle,
+              l10n.yearlyComparisonEmptyTitle,
               style: textTheme.headlineSmall,
               textAlign: TextAlign.center,
             ),
             const SizedBox(height: 12),
             Text(
-              l10n.comparativeAnalysisEmptyMessage,
+              l10n.yearlyComparisonEmptyMessage,
               style: textTheme.bodyMedium?.copyWith(
                 color: colorScheme.onSurfaceVariant,
               ),
@@ -253,7 +253,7 @@ class _NoDataForSelectionState extends StatelessWidget {
             ),
             const SizedBox(height: 24),
             Text(
-              l10n.comparativeAnalysisNoDataForSelection,
+              l10n.yearlyComparisonNoDataForSelection,
               style: textTheme.titleLarge,
               textAlign: TextAlign.center,
             ),

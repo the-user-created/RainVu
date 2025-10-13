@@ -72,7 +72,7 @@ class HistoricalDayInfo {
   final int yearCount;
 }
 
-// Helper class for comparative analysis
+// Helper class for yearly comparison
 class MonthlyTotalForYear {
   MonthlyTotalForYear(this.month, this.total);
 
