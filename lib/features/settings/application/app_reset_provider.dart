@@ -17,11 +17,14 @@ class AppResetService extends _$AppResetService {
   }
 
   Future<void> resetApp() async {
+    final AppDatabase db = ref.read(appDatabaseProvider);
+    final AnalyticsService analytics = ref.read(analyticsServiceProvider);
+    final Future<SharedPreferences> prefsFuture = ref.read(
+      sharedPreferencesProvider.future,
+    );
+
     try {
-      final AppDatabase db = ref.read(appDatabaseProvider);
-      final SharedPreferences prefs = await ref.read(
-        sharedPreferencesProvider.future,
-      );
+      final SharedPreferences prefs = await prefsFuture;
 
       await db.deleteAllData();
       await prefs.clear();
@@ -35,7 +38,7 @@ class AppResetService extends _$AppResetService {
       );
 
       // Log analytics event
-      await ref.read(analyticsServiceProvider).resetAppData();
+      await analytics.resetAppData();
     } catch (e, s) {
       FirebaseCrashlytics.instance.recordError(
         e,

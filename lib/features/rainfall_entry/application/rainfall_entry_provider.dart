@@ -23,13 +23,17 @@ class RainfallEntryNotifier extends _$RainfallEntryNotifier {
 
   Future<void> updateEntry(final RainfallEntry entry) async {
     final RainfallRepository repo = ref.read(rainfallRepositoryProvider);
+    final AnalyticsService analytics = ref.read(analyticsServiceProvider);
+
     await repo.updateEntry(entry);
-    await ref.read(analyticsServiceProvider).editRainEntry();
+    await analytics.editRainEntry();
   }
 
   Future<void> deleteEntry(final String entryId) async {
     final RainfallRepository repo = ref.read(rainfallRepositoryProvider);
+    final AnalyticsService analytics = ref.read(analyticsServiceProvider);
+
     await repo.deleteEntry(entryId);
-    await ref.read(analyticsServiceProvider).deleteRainEntry();
+    await analytics.deleteRainEntry();
   }
 }
