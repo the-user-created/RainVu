@@ -63,68 +63,90 @@ class _AddGaugeStepState extends ConsumerState<AddGaugeStep> {
     final ThemeData theme = Theme.of(context);
     final AsyncValue<List<RainGauge>> gaugesAsync = ref.watch(gaugesProvider);
 
-    return Padding(
-      padding: const EdgeInsets.all(24),
-      child: Column(
-        mainAxisAlignment: MainAxisAlignment.center,
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          const Spacer(),
-          Text(
-            l10n.onboardingGaugeTitle,
-            style: theme.textTheme.headlineLarge,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16),
-          Text(
-            l10n.onboardingGaugeSubtitle,
-            style: theme.textTheme.bodyLarge?.copyWith(
-              color: theme.colorScheme.onSurfaceVariant,
-            ),
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 32),
-          Form(
-            key: _formKey,
-            child: TextFormField(
-              controller: _nameController,
-              decoration: InputDecoration(
-                labelText: l10n.gaugeFormNameLabel,
-                hintText: l10n.onboardingGaugeHint,
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: CustomScrollView(
+        slivers: [
+          SliverPadding(
+            padding: const EdgeInsets.symmetric(horizontal: 24),
+            sliver: SliverToBoxAdapter(
+              child: Column(
+                children: [
+                  const SizedBox(height: 48),
+                  Text(
+                    l10n.onboardingGaugeTitle,
+                    style: theme.textTheme.headlineLarge,
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 16),
+                  Text(
+                    l10n.onboardingGaugeSubtitle,
+                    style: theme.textTheme.bodyLarge?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
+                    textAlign: TextAlign.center,
+                  ),
+                  const SizedBox(height: 32),
+                  Form(
+                    key: _formKey,
+                    child: TextFormField(
+                      controller: _nameController,
+                      decoration: InputDecoration(
+                        labelText: l10n.gaugeFormNameLabel,
+                        hintText: l10n.onboardingGaugeHint,
+                        contentPadding: const EdgeInsets.symmetric(
+                          vertical: 16,
+                          horizontal: 12,
+                        ),
+                      ),
+                      validator: (final val) {
+                        final String trimmedVal = val?.trim() ?? "";
+                        if (trimmedVal.isEmpty) {
+                          return l10n.gaugeFormNameValidation;
+                        }
+                        if (gaugesAsync is AsyncData<List<RainGauge>>) {
+                          final List<RainGauge> gauges = gaugesAsync.value;
+                          final bool isDuplicate = gauges.any(
+                            (final g) =>
+                                g.name.toLowerCase() ==
+                                trimmedVal.toLowerCase(),
+                          );
+                          if (isDuplicate) {
+                            return l10n.gaugeFormNameValidationDuplicate;
+                          }
+                        }
+                        return null;
+                      },
+                    ),
+                  ),
+                ],
               ),
-              validator: (final val) {
-                final String trimmedVal = val?.trim() ?? "";
-                if (trimmedVal.isEmpty) {
-                  return l10n.gaugeFormNameValidation;
-                }
-                if (gaugesAsync is AsyncData<List<RainGauge>>) {
-                  final List<RainGauge> gauges = gaugesAsync.value;
-                  final bool isDuplicate = gauges.any(
-                    (final g) =>
-                        g.name.toLowerCase() == trimmedVal.toLowerCase(),
-                  );
-                  if (isDuplicate) {
-                    return l10n.gaugeFormNameValidationDuplicate;
-                  }
-                }
-                return null;
-              },
-              textCapitalization: TextCapitalization.words,
             ),
           ),
-          const Spacer(),
-          AppButton(
-            onPressed: _saveGauge,
-            label: l10n.onboardingButtonSaveAndContinue,
-            isLoading: _isLoading,
-            isExpanded: true,
-          ),
-          const SizedBox(height: 12),
-          AppButton(
-            onPressed: widget.onSkip,
-            label: l10n.skipButtonLabel,
-            style: AppButtonStyle.outline,
-            isExpanded: true,
+          SliverFillRemaining(
+            hasScrollBody: false,
+            child: Padding(
+              padding: const EdgeInsets.all(24),
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.end,
+                crossAxisAlignment: CrossAxisAlignment.stretch,
+                children: [
+                  AppButton(
+                    onPressed: _saveGauge,
+                    label: l10n.onboardingButtonSaveAndContinue,
+                    isLoading: _isLoading,
+                    isExpanded: true,
+                  ),
+                  const SizedBox(height: 12),
+                  AppButton(
+                    onPressed: widget.onSkip,
+                    label: l10n.skipButtonLabel,
+                    style: AppButtonStyle.outline,
+                    isExpanded: true,
+                  ),
+                ],
+              ),
+            ),
           ),
         ],
       ),
