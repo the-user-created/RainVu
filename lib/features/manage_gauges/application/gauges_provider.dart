@@ -1,5 +1,6 @@
 import "dart:async";
 
+import "package:rain_wise/core/analytics/analytics_service.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/data/repositories/rain_gauge_repository.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
@@ -16,11 +17,17 @@ class Gauges extends _$Gauges {
   Stream<List<RainGauge>> build() =>
       ref.watch(rainGaugeRepositoryProvider).watchGauges();
 
-  Future<RainGauge> addGauge({required final String name}) =>
-      ref.read(rainGaugeRepositoryProvider).addGauge(name: name);
+  Future<RainGauge> addGauge({required final String name}) async {
+    final RainGauge newGauge = await ref
+        .read(rainGaugeRepositoryProvider)
+        .addGauge(name: name);
+    await ref.read(analyticsServiceProvider).createGauge();
+    return newGauge;
+  }
 
   Future<void> updateGauge(final RainGauge updatedGauge) async {
     await ref.read(rainGaugeRepositoryProvider).updateGauge(updatedGauge);
+    await ref.read(analyticsServiceProvider).editGauge();
   }
 
   Future<void> deleteGauge(
@@ -41,8 +48,14 @@ class Gauges extends _$Gauges {
       await ref
           .read(rainGaugeRepositoryProvider)
           .deleteGaugeAndEntries(gaugeId);
+      await ref
+          .read(analyticsServiceProvider)
+          .deleteGauge(deletionType: "delete_entries");
     } else {
       await ref.read(rainGaugeRepositoryProvider).deleteGauge(gaugeId);
+      await ref
+          .read(analyticsServiceProvider)
+          .deleteGauge(deletionType: "reassign");
     }
   }
 }

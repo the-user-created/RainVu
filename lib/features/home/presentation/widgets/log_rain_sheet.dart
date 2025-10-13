@@ -85,6 +85,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
           gaugeId: _selectedGaugeId!,
           amount: amount,
           date: _selectedDateTime,
+          unit: effectiveUnit.name,
         );
 
     if (mounted) {

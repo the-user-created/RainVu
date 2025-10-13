@@ -1,6 +1,7 @@
 import "dart:async";
 
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
+import "package:rain_wise/core/analytics/analytics_service.dart";
 import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/home/data/home_repository.dart";
 import "package:rain_wise/features/home/domain/home_data.dart";
@@ -28,6 +29,7 @@ class LogRainController extends _$LogRainController {
     required final String gaugeId,
     required final double amount,
     required final DateTime date,
+    required final String unit,
   }) async {
     state = const AsyncValue.loading();
     try {
@@ -38,6 +40,9 @@ class LogRainController extends _$LogRainController {
         unit: "mm",
       );
       await ref.read(rainfallRepositoryProvider).addEntry(newEntry);
+
+      // Log analytics event
+      await ref.read(analyticsServiceProvider).logRainEntry(unit: unit);
 
       state = const AsyncValue.data(null);
       return true; // Success
