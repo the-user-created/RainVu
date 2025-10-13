@@ -431,7 +431,7 @@
   },
   "detailedAnalysisMonthlyComparisonSubtitle": "See how each month's total compares to past averages",
   "@detailedAnalysisMonthlyComparisonSubtitle": {
-    "description": "Subtitle for the 'Monthly Totals vs. History' link on the insights screen."
+    "description": "Subtitle for the 'Monthly Averages' link on the insights screen."
   },
   "detailedAnalysisSeasonalTrendsSubtitle": "Discover trends in Spring, Summer, Autumn, and Winter",
   "@detailedAnalysisSeasonalTrendsSubtitle": {
@@ -869,17 +869,17 @@
   "@dailyBreakdownTitle": {
     "description": "The title of the Daily Breakdown screen."
   },
-  "monthlyComparisonEmptyMessage": "Once you have logged more rainfall data, you'll be able to see monthly comparisons here.",
+  "monthlyComparisonEmptyMessage": "Once you have logged more rainfall data, you'll be able to see monthly averages here.",
   "@monthlyComparisonEmptyMessage": {
-    "description": "Message shown on the 'Monthly Totals vs. History' screen when there is not enough data."
+    "description": "Message shown on the 'Monthly Averages' screen when there is not enough data."
   },
   "monthlyComparisonEmptyTitle": "No Data to Compare",
   "@monthlyComparisonEmptyTitle": {
-    "description": "Title for the empty state on the 'Monthly Totals vs. History' screen."
+    "description": "Title for the empty state on the 'Monthly Averages' screen."
   },
-  "monthlyComparisonTitle": "Monthly Totals vs. History",
+  "monthlyComparisonTitle": "Monthly Averages",
   "@monthlyComparisonTitle": {
-    "description": "The title of the 'Monthly Totals vs. History' screen."
+    "description": "The title of the 'Monthly Averages' screen."
   },
   "monthlyRainfallTitle": "Monthly Rainfall",
   "@monthlyRainfallTitle": {
@@ -903,11 +903,11 @@
   },
   "mtdBreakdown2yrAvg": "2yr avg",
   "@mtdBreakdown2yrAvg": {
-    "description": "Label for the 2-year average in the monthly comparison breakdown."
+    "description": "Label for the 2-year average in the monthly averages breakdown."
   },
   "mtdBreakdown5yrAvg": "5yr avg",
   "@mtdBreakdown5yrAvg": {
-    "description": "Label for the 5-year average in the monthly comparison breakdown."
+    "description": "Label for the 5-year average in the monthly averages breakdown."
   },
   "navGauges": "Gauges",
   "@navGauges": {

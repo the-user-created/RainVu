@@ -11,18 +11,18 @@ import "package:rain_wise/shared/domain/user_preferences.dart";
 /// A card with a flexible height, designed to show a month's rainfall
 /// total and its comparison to historical averages. It adapts to content
 /// size, making it suitable for all accessibility settings.
-class MonthlyComparisonCard extends ConsumerStatefulWidget {
-  const MonthlyComparisonCard({required this.data, this.onTap, super.key});
+class MonthlyAveragesCard extends ConsumerStatefulWidget {
+  const MonthlyAveragesCard({required this.data, this.onTap, super.key});
 
-  final MonthlyComparisonData data;
+  final MonthlyAveragesData data;
   final VoidCallback? onTap;
 
   @override
-  ConsumerState<MonthlyComparisonCard> createState() =>
-      _MonthlyComparisonCardState();
+  ConsumerState<MonthlyAveragesCard> createState() =>
+      _MonthlyAveragesCardState();
 }
 
-class _MonthlyComparisonCardState extends ConsumerState<MonthlyComparisonCard> {
+class _MonthlyAveragesCardState extends ConsumerState<MonthlyAveragesCard> {
   bool _isPressed = false;
 
   void _onHighlightChanged(final bool value) {

@@ -3,7 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/insights_dashboard/application/insights_providers.dart";
 import "package:rain_wise/features/insights_dashboard/domain/insights_data.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/widgets/analysis_links_section.dart";
-import "package:rain_wise/features/insights_dashboard/presentation/widgets/historical_chart.dart";
+import "package:rain_wise/features/insights_dashboard/presentation/widgets/insights_history_chart.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/widgets/metric_header.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";

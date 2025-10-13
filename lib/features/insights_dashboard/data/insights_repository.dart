@@ -30,7 +30,7 @@ class DriftInsightsRepository implements InsightsRepository {
       _getYtdData(),
       _getLast12MonthsData(),
       _getAllTimeData(),
-      _getMonthlyComparisons(),
+      _getMonthlyAverages(),
     ]);
 
     return InsightsData(
@@ -38,7 +38,7 @@ class DriftInsightsRepository implements InsightsRepository {
       ytdData: results[1] as MetricData,
       last12MonthsData: results[2] as MetricData,
       allTimeData: results[3] as MetricData,
-      monthlyComparisons: results[4] as List<MonthlyComparisonData>,
+      monthlyAverages: results[4] as List<MonthlyAveragesData>,
     );
   }
 
@@ -205,13 +205,13 @@ class DriftInsightsRepository implements InsightsRepository {
 
   // --- Other Data Fetchers ---
 
-  Future<List<MonthlyComparisonData>> _getMonthlyComparisons() async {
+  Future<List<MonthlyAveragesData>> _getMonthlyAverages() async {
     final int currentYear = _now.year;
     final List<int> previous5Years = List.generate(
       5,
       (final index) => currentYear - 1 - index,
     );
-    final futures = <Future<MonthlyComparisonData>>[];
+    final futures = <Future<MonthlyAveragesData>>[];
 
     for (int month = 1; month <= 12; month++) {
       futures.add(_getComparisonForMonth(month, currentYear, previous5Years));
@@ -219,7 +219,7 @@ class DriftInsightsRepository implements InsightsRepository {
     return Future.wait(futures);
   }
 
-  Future<MonthlyComparisonData> _getComparisonForMonth(
+  Future<MonthlyAveragesData> _getComparisonForMonth(
     final int month,
     final int currentYear,
     final List<int> previousYears,
@@ -256,7 +256,7 @@ class DriftInsightsRepository implements InsightsRepository {
         ? fiveYrSum / previousYearsTotals.length
         : 0.0;
 
-    return MonthlyComparisonData(
+    return MonthlyAveragesData(
       month: DateFormat.MMMM().format(DateTime(0, month)),
       mtdTotal: currentMonthTotal,
       twoYrAvg: twoYrAvg,

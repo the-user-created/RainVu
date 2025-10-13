@@ -21,8 +21,8 @@ abstract class InsightsData with _$InsightsData {
     /// Data for the All Time metric view.
     required final MetricData allTimeData,
 
-    /// Data for the monthly comparison screen.
-    required final List<MonthlyComparisonData> monthlyComparisons,
+    /// Data for the monthly averages screen.
+    required final List<MonthlyAveragesData> monthlyAverages,
   }) = _InsightsData;
 }
 
@@ -56,13 +56,13 @@ abstract class ChartPoint with _$ChartPoint {
   }) = _ChartPoint;
 }
 
-/// Represents the data for a single monthly comparison card.
+/// Represents the data for a single monthly averages card.
 @freezed
-abstract class MonthlyComparisonData with _$MonthlyComparisonData {
-  const factory MonthlyComparisonData({
+abstract class MonthlyAveragesData with _$MonthlyAveragesData {
+  const factory MonthlyAveragesData({
     required final String month,
     required final double mtdTotal,
     required final double twoYrAvg,
     required final double fiveYrAvg,
-  }) = _MonthlyComparisonData;
+  }) = _MonthlyAveragesData;
 }

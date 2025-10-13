@@ -9,7 +9,7 @@ import "package:rain_wise/features/daily_breakdown/presentation/screens/daily_br
 import "package:rain_wise/features/data_tools/presentation/screens/data_tools_screen.dart";
 import "package:rain_wise/features/home/presentation/screens/home_screen.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/screens/insights_screen.dart";
-import "package:rain_wise/features/insights_dashboard/presentation/screens/monthly_comparison_screen.dart";
+import "package:rain_wise/features/insights_dashboard/presentation/screens/monthly_averages_screen.dart";
 import "package:rain_wise/features/manage_gauges/presentation/screens/manage_gauges_screen.dart";
 import "package:rain_wise/features/oss_licenses/presentation/screens/license_detail_screen.dart";
 import "package:rain_wise/features/oss_licenses/presentation/screens/oss_licenses_screen.dart";
@@ -241,7 +241,7 @@ class MonthlyComparisonRoute extends GoRouteData with $MonthlyComparisonRoute {
 
   @override
   Widget build(final BuildContext context, final GoRouterState state) =>
-      const MonthlyComparisonScreen();
+      const MonthlyAveragesScreen();
 }
 
 class DailyBreakdownRoute extends GoRouteData with $DailyBreakdownRoute {

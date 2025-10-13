@@ -5,12 +5,12 @@ import "package:rain_wise/core/navigation/app_router.dart";
 import "package:rain_wise/core/utils/extensions.dart";
 import "package:rain_wise/features/insights_dashboard/application/insights_providers.dart";
 import "package:rain_wise/features/insights_dashboard/domain/insights_data.dart";
-import "package:rain_wise/features/insights_dashboard/presentation/widgets/monthly_comparison_card.dart";
+import "package:rain_wise/features/insights_dashboard/presentation/widgets/monthly_averages_card.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
-class MonthlyComparisonScreen extends ConsumerWidget {
-  const MonthlyComparisonScreen({super.key});
+class MonthlyAveragesScreen extends ConsumerWidget {
+  const MonthlyAveragesScreen({super.key});
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
@@ -27,7 +27,7 @@ class MonthlyComparisonScreen extends ConsumerWidget {
           error: (final err, final stack) =>
               Center(child: Text(l10n.insightsError(err))),
           data: (final data) {
-            if (data.monthlyComparisons.isEmpty) {
+            if (data.monthlyAverages.isEmpty) {
               return _EmptyState(
                 icon: Icons.bar_chart_outlined,
                 title: l10n.monthlyComparisonEmptyTitle,
@@ -36,7 +36,7 @@ class MonthlyComparisonScreen extends ConsumerWidget {
             }
             return ListView(
               padding: const EdgeInsets.all(16),
-              children: _buildComparisonCards(context, data.monthlyComparisons),
+              children: _buildComparisonCards(context, data.monthlyAverages),
             );
           },
         ),
@@ -46,7 +46,7 @@ class MonthlyComparisonScreen extends ConsumerWidget {
 
   List<Widget> _buildComparisonCards(
     final BuildContext context,
-    final List<MonthlyComparisonData> comparisons,
+    final List<MonthlyAveragesData> comparisons,
   ) {
     final int currentYear = DateTime.now().year;
 
@@ -58,7 +58,7 @@ class MonthlyComparisonScreen extends ConsumerWidget {
     return comparisons
         .map((final data) {
           final int? monthNumber = monthNameToNumber[data.month];
-          return MonthlyComparisonCard(
+          return MonthlyAveragesCard(
             data: data,
             onTap: monthNumber == null
                 ? null
