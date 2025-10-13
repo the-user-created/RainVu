@@ -17,19 +17,33 @@ void showSnackbar(
 ///
 /// It first presents a [showDatePicker], and if a date is selected, it follows
 /// up with a [showTimePicker]. The results are combined into a single [DateTime]
-/// object. This centralizes the logic and ensures a consistent user flow for
-/// picking a full date and time.
+/// object.
+///
+/// For accessibility, this function checks the device's text scale factor. If it
+/// exceeds a certain threshold, the pickers default to keyboard input mode to
+/// prevent UI overflow issues with large fonts.
 Future<DateTime?> showAppDateTimePicker(
   final BuildContext context, {
   required final DateTime initialDate,
   required final DateTime firstDate,
   required final DateTime lastDate,
 }) async {
+  // Determine if large text scaling is active to switch to input mode.
+  final bool useInputMode = MediaQuery.textScalerOf(context).scale(1) > 1.4;
+
+  final DatePickerEntryMode datePickerEntryMode = useInputMode
+      ? DatePickerEntryMode.input
+      : DatePickerEntryMode.calendar;
+  final TimePickerEntryMode timePickerEntryMode = useInputMode
+      ? TimePickerEntryMode.input
+      : TimePickerEntryMode.dial;
+
   final DateTime? pickedDate = await showDatePicker(
     context: context,
     initialDate: initialDate,
     firstDate: firstDate,
     lastDate: lastDate,
+    initialEntryMode: datePickerEntryMode,
   );
 
   if (pickedDate == null) {
@@ -45,6 +59,7 @@ Future<DateTime?> showAppDateTimePicker(
   final TimeOfDay? pickedTime = await showTimePicker(
     context: context,
     initialTime: TimeOfDay.fromDateTime(initialDate),
+    initialEntryMode: timePickerEntryMode,
   );
 
   if (pickedTime == null) {

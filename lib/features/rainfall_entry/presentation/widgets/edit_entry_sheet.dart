@@ -111,6 +111,19 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
     }
   }
 
+  Widget _buildSectionHeader(final String title) => Align(
+    alignment: Alignment.centerLeft,
+    child: Padding(
+      padding: const EdgeInsets.only(bottom: 8),
+      child: Text(
+        title,
+        style: Theme.of(context).textTheme.titleLarge,
+        softWrap: true,
+        overflow: TextOverflow.visible,
+      ),
+    ),
+  );
+
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -127,8 +140,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
           mainAxisSize: MainAxisSize.min,
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Text(l10n.editEntryGaugeHeader, style: theme.textTheme.titleMedium),
-            const SizedBox(height: 8),
+            _buildSectionHeader(l10n.editEntryGaugeHeader),
             gaugesAsync.when(
               loading: () => const AppLoader(),
               error: (final err, final stack) =>
@@ -152,108 +164,141 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
               ),
             ),
             const SizedBox(height: 16),
-            Text(
-              l10n.editEntryAmountHeader,
-              style: theme.textTheme.titleMedium,
-            ),
-            const SizedBox(height: 8),
-            Row(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                Expanded(
-                  flex: 3,
-                  child: TextFormField(
-                    controller: _amountController,
-                    keyboardType: const TextInputType.numberWithOptions(
-                      decimal: true,
-                    ),
-                    inputFormatters: [
-                      FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d*")),
-                    ],
-                    decoration: InputDecoration(
-                      hintText: l10n.editEntryAmountHint,
-                      fillColor: theme.colorScheme.surface,
-                      filled: true,
-                    ),
-                    validator: (final value) {
-                      if (value == null || value.isEmpty) {
-                        return l10n.editEntryAmountValidationEmpty;
-                      }
-                      if (double.tryParse(value) == null) {
-                        return l10n.editEntryAmountValidationInvalid;
-                      }
-                      return null;
-                    },
-                  ),
-                ),
-                const SizedBox(width: 8),
-                Expanded(
-                  flex: 2,
-                  child: AppSegmentedControl<MeasurementUnit>(
-                    selectedValue: _displayUnit,
-                    onSelectionChanged: (final value) {
-                      setState(() {
-                        _displayUnit = value;
-                      });
-                    },
-                    segments: [
-                      SegmentOption(
-                        value: MeasurementUnit.mm,
-                        label: Text(l10n.unitMM),
-                      ),
-                      SegmentOption(
-                        value: MeasurementUnit.inch,
-                        label: Text(l10n.unitIn),
-                      ),
-                    ],
-                  ),
-                ),
-              ],
+            _buildSectionHeader(l10n.editEntryAmountHeader),
+            _AmountInputRow(
+              amountController: _amountController,
+              selectedUnit: _displayUnit,
+              onUnitChanged: (final value) {
+                setState(() {
+                  _displayUnit = value;
+                });
+              },
             ),
             const SizedBox(height: 16),
-            Text(
-              l10n.editEntryDateTimeHeader,
-              style: theme.textTheme.titleMedium,
-            ),
-            const SizedBox(height: 8),
+            _buildSectionHeader(l10n.editEntryDateTimeHeader),
             InkWell(
               onTap: _pickDateTime,
-              child: InputDecorator(
-                decoration: const InputDecoration(
-                  contentPadding: EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 16,
-                  ),
+              child: Container(
+                width: double.infinity,
+                constraints: const BoxConstraints(minHeight: 60),
+                decoration: BoxDecoration(
+                  color: theme.colorScheme.surface,
+                  borderRadius: BorderRadius.circular(8),
+                  border: Border.all(color: theme.colorScheme.outline),
                 ),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Text(
-                      DateFormat.yMMMd().add_jm().format(_selectedDate),
-                      style: theme.textTheme.bodyLarge,
-                    ),
-                    const Icon(Icons.calendar_today),
-                  ],
+                child: Padding(
+                  padding: const EdgeInsets.symmetric(
+                    horizontal: 12,
+                    vertical: 12,
+                  ),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          DateFormat.yMMMd().add_jm().format(_selectedDate),
+                          style: theme.textTheme.bodyLarge,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
+                        ),
+                      ),
+                      const SizedBox(width: 8),
+                      Icon(
+                        Icons.calendar_today,
+                        color: theme.colorScheme.onSurface,
+                        size: 24,
+                      ),
+                    ],
+                  ),
                 ),
               ),
             ),
             const SizedBox(height: 32),
-            if (_isLoading)
-              const Center(child: AppLoader())
-            else
-              Row(
-                children: [
-                  Expanded(
-                    child: AppButton(
-                      onPressed: _onSaveChanges,
-                      label: l10n.saveChangesButton,
-                    ),
-                  ),
-                ],
-              ),
+            AppButton(
+              onPressed: _onSaveChanges,
+              label: l10n.saveChangesButton,
+              isLoading: _isLoading,
+              isExpanded: true,
+            ),
           ],
         ),
       ),
+    );
+  }
+}
+
+/// A responsive widget for the amount input field and unit selector.
+class _AmountInputRow extends StatelessWidget {
+  const _AmountInputRow({
+    required this.amountController,
+    required this.selectedUnit,
+    required this.onUnitChanged,
+  });
+
+  final TextEditingController amountController;
+  final MeasurementUnit selectedUnit;
+  final ValueChanged<MeasurementUnit> onUnitChanged;
+
+  @override
+  Widget build(final BuildContext context) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final double textScaleFactor = MediaQuery.textScalerOf(context).scale(1);
+
+    final Widget amountField = TextFormField(
+      controller: amountController,
+      decoration: InputDecoration(hintText: l10n.editEntryAmountHint),
+      keyboardType: const TextInputType.numberWithOptions(decimal: true),
+      validator: (final val) {
+        if (val == null || val.isEmpty) {
+          return l10n.editEntryAmountValidationEmpty;
+        }
+        if (double.tryParse(val) == null) {
+          return l10n.editEntryAmountValidationInvalid;
+        }
+        return null;
+      },
+      inputFormatters: [
+        FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d*")),
+      ],
+    );
+
+    final Widget unitSelector = AppSegmentedControl<MeasurementUnit>(
+      selectedValue: selectedUnit,
+      onSelectionChanged: onUnitChanged,
+      segments: [
+        SegmentOption(value: MeasurementUnit.mm, label: Text(l10n.unitMM)),
+        SegmentOption(value: MeasurementUnit.inch, label: Text(l10n.unitIn)),
+      ],
+    );
+
+    return LayoutBuilder(
+      builder: (final context, final constraints) {
+        final double adjustedBreakpoint = 350 * textScaleFactor;
+
+        if (constraints.maxWidth < adjustedBreakpoint) {
+          return Column(
+            children: [amountField, const SizedBox(height: 12), unitSelector],
+          );
+        } else {
+          return Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Expanded(child: amountField),
+              const SizedBox(width: 8),
+              Flexible(
+                flex: 0,
+                child: ConstrainedBox(
+                  constraints: BoxConstraints(
+                    minWidth: 120,
+                    maxWidth: constraints.maxWidth * 0.4,
+                  ),
+                  child: unitSelector,
+                ),
+              ),
+            ],
+          );
+        }
+      },
     );
   }
 }
