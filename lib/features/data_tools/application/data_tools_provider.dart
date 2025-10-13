@@ -2,6 +2,7 @@ import "dart:io";
 
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
+import "package:rain_wise/core/analytics/analytics_service.dart";
 import "package:rain_wise/features/data_tools/data/data_tools_repository.dart";
 import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
@@ -83,6 +84,13 @@ class DataToolsNotifier extends _$DataToolsNotifier {
         state = state.copyWith(
           successMessage: l10n.dataToolsExportSuccess(path),
         );
+        // Log analytics event on success
+        await ref
+            .read(analyticsServiceProvider)
+            .exportData(
+              format: state.exportFormat.name,
+              range: state.dateRange == null ? "all_time" : "custom",
+            );
       }
     } catch (e, s) {
       FirebaseCrashlytics.instance.recordError(
@@ -114,6 +122,22 @@ class DataToolsNotifier extends _$DataToolsNotifier {
       await ref
           .read(dataToolsRepositoryProvider)
           .importData(state.fileToImport!);
+
+      // Log analytics event on success
+      final String fileExtension = state.fileToImport!.path
+          .split(".")
+          .last
+          .toLowerCase();
+      final ImportPreview preview = state.importPreview!;
+      await ref
+          .read(analyticsServiceProvider)
+          .importData(
+            format: fileExtension,
+            newEntries: preview.newEntriesCount,
+            updatedEntries: preview.updatedEntriesCount,
+            newGauges: preview.newGaugesCount,
+          );
+
       state = state.copyWith(
         fileToImport: null,
         importPreview: null, // Also clear preview on success

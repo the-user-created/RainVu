@@ -56,4 +56,82 @@ class AnalyticsService {
       }, // i.e., 'reassign' or 'delete_entries'
     );
   }
+
+  // --- Settings & Preferences Events ---
+
+  /// Logs when a user changes their preferred measurement unit.
+  Future<void> changeMeasurementUnit({required final String unit}) async {
+    await _analytics.logEvent(
+      name: "change_setting",
+      parameters: {"setting": "measurement_unit", "value": unit},
+    );
+  }
+
+  /// Logs when a user changes their hemisphere preference.
+  Future<void> changeHemisphere({required final String hemisphere}) async {
+    await _analytics.logEvent(
+      name: "change_setting",
+      parameters: {"setting": "hemisphere", "value": hemisphere},
+    );
+  }
+
+  /// Logs when a user changes the anomaly detection threshold.
+  Future<void> changeAnomalyThreshold({required final double threshold}) async {
+    await _analytics.logEvent(
+      name: "change_setting",
+      parameters: {"setting": "anomaly_threshold", "value": threshold.round()},
+    );
+  }
+
+  /// Logs when a user changes the app theme.
+  Future<void> changeTheme({required final String theme}) async {
+    await _analytics.logEvent(
+      name: "change_setting",
+      parameters: {"setting": "theme", "value": theme},
+    );
+  }
+
+  /// Logs when a user sets or clears their favorite gauge.
+  Future<void> setFavoriteGauge({required final String status}) async {
+    await _analytics.logEvent(
+      name: "change_setting",
+      parameters: {"setting": "favorite_gauge", "value": status},
+    );
+  }
+
+  // --- Data Tools Events ---
+
+  /// Logs when a user successfully exports their data.
+  Future<void> exportData({
+    required final String format,
+    required final String range,
+  }) async {
+    await _analytics.logEvent(
+      name: "export_data",
+      parameters: {"format": format, "range": range},
+    );
+  }
+
+  /// Logs when a user successfully imports data.
+  Future<void> importData({
+    required final String format,
+    required final int newEntries,
+    required final int updatedEntries,
+    required final int newGauges,
+  }) async {
+    await _analytics.logEvent(
+      name: "import_data",
+      parameters: {
+        "format": format,
+        "new_entries": newEntries,
+        "updated_entries": updatedEntries,
+        "new_gauges": newGauges,
+      },
+    );
+  }
+
+  /// Logs when a user resets all app data.
+  Future<void> resetAppData() async {
+    await _analytics.logEvent(name: "reset_app_data");
+  }
 }
