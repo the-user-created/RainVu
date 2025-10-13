@@ -1,12 +1,15 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/common/domain/coming_soon_args.dart";
 import "package:rain_wise/core/firebase/telemetry_manager.dart";
 import "package:rain_wise/core/navigation/app_router.dart";
+import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/onboarding/application/onboarding_provider.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:url_launcher/url_launcher.dart";
 
 class PermissionsStep extends ConsumerStatefulWidget {
   const PermissionsStep({super.key});
@@ -29,8 +32,30 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
     }
   }
 
+  Future<void> _launchUrl(final String url) async {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final Uri uri = Uri.parse(url);
+
+    try {
+      if (!await launchUrl(uri)) {
+        if (mounted) {
+          showSnackbar(l10n.urlLaunchError, type: MessageType.error);
+        }
+      }
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to launch URL: $url",
+      );
+      if (mounted) {
+        showSnackbar(l10n.urlLaunchError, type: MessageType.error);
+      }
+    }
+  }
+
   @override
-  Widget build(final BuildContext context) {
+  Widget build(BuildContext context) {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ThemeData theme = Theme.of(context);
 
@@ -72,13 +97,8 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
                     color: theme.colorScheme.primary,
                   ),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      const ComingSoonRoute(
-                        $extra: ComingSoonScreenArgs(
-                          pageTitle: "Privacy Policy",
-                        ),
-                      ).push(context);
-                    },
+                    ..onTap = () =>
+                        _launchUrl("https://emberworks.dev/rainwise/privacy"),
                 ),
                 TextSpan(text: " ${l10n.and} "),
                 TextSpan(
@@ -88,13 +108,8 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
                     color: theme.colorScheme.primary,
                   ),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () {
-                      const ComingSoonRoute(
-                        $extra: ComingSoonScreenArgs(
-                          pageTitle: "Terms of Service",
-                        ),
-                      ).push(context);
-                    },
+                    ..onTap = () =>
+                        _launchUrl("https://emberworks.dev/rainwise/terms"),
                 ),
                 const TextSpan(text: "."),
               ],

@@ -1,9 +1,10 @@
 import "package:drift/drift.dart";
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:rain_wise/app_constants.dart";
-import "package:rain_wise/core/firebase/analytics_service.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/shared_prefs.dart";
+import "package:rain_wise/core/firebase/analytics_service.dart";
+import "package:rain_wise/features/onboarding/application/onboarding_provider.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
@@ -26,8 +27,15 @@ class AppResetService extends _$AppResetService {
     try {
       final SharedPreferences prefs = await prefsFuture;
 
+      // Preserve the onboarding complete flag
+      final bool onboardingComplete =
+          prefs.getBool(Onboarding.onboardingCompleteKey) ?? false;
+
       await db.deleteAllData();
       await prefs.clear();
+
+      // Restore the onboarding flag after clearing
+      await prefs.setBool(Onboarding.onboardingCompleteKey, onboardingComplete);
 
       // Re-insert the default gauge
       await db.rainGaugesDao.insertGauge(

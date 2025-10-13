@@ -6,21 +6,21 @@ part "onboarding_provider.g.dart";
 
 @Riverpod(keepAlive: true)
 class Onboarding extends _$Onboarding {
-  static const _onboardingCompleteKey = "onboarding_complete";
+  static const onboardingCompleteKey = "onboarding_complete";
 
   @override
   Future<bool> build() async {
     final SharedPreferences prefs = await ref.watch(
       sharedPreferencesProvider.future,
     );
-    return prefs.getBool(_onboardingCompleteKey) ?? false;
+    return prefs.getBool(onboardingCompleteKey) ?? false;
   }
 
   Future<void> completeOnboarding() async {
     final SharedPreferences prefs = await ref.watch(
       sharedPreferencesProvider.future,
     );
-    await prefs.setBool(_onboardingCompleteKey, true);
+    await prefs.setBool(onboardingCompleteKey, true);
     state = const AsyncData(true);
   }
 }

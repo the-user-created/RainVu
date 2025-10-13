@@ -13,7 +13,6 @@ import "package:rain_wise/features/home/presentation/screens/home_screen.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/screens/insights_screen.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/screens/monthly_averages_screen.dart";
 import "package:rain_wise/features/manage_gauges/presentation/screens/manage_gauges_screen.dart";
-import "package:rain_wise/features/onboarding/application/onboarding_provider.dart";
 import "package:rain_wise/features/onboarding/presentation/screens/onboarding_screen.dart";
 import "package:rain_wise/features/oss_licenses/presentation/screens/license_detail_screen.dart";
 import "package:rain_wise/features/oss_licenses/presentation/screens/oss_licenses_screen.dart";
@@ -21,6 +20,7 @@ import "package:rain_wise/features/rainfall_entry/presentation/screens/rainfall_
 import "package:rain_wise/features/seasonal_trends/presentation/screens/seasonal_trends_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/help_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/settings_screen.dart";
+import "package:rain_wise/features/splash/presentation/screens/splash_screen.dart";
 import "package:rain_wise/features/unusual_patterns/presentation/screens/unusual_patterns_screen.dart";
 import "package:rain_wise/features/yearly_comparison/presentation/screens/yearly_comparison_screen.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
@@ -44,34 +44,13 @@ final GlobalKey<NavigatorState> _settingsNavigatorKey =
     GlobalKey<NavigatorState>(debugLabel: "settings");
 
 // 2. Define the GoRouter provider
-final goRouterProvider = Provider<GoRouter>((final ref) {
-  final AsyncValue<bool> onboardingComplete = ref.watch(onboardingProvider);
-
-  return GoRouter(
+final goRouterProvider = Provider<GoRouter>(
+  (final ref) => GoRouter(
     navigatorKey: _rootNavigatorKey,
-    initialLocation: "/home",
+    initialLocation: "/",
     debugLogDiagnostics: true,
     routes: $appRoutes,
     observers: [AnalyticsObserver(ref: ref)],
-    redirect: (final context, final state) {
-      final bool isComplete = onboardingComplete.maybeWhen(
-        data: (final completed) => completed,
-        orElse: () => false,
-      );
-
-      final bool isGoingToOnboarding =
-          state.matchedLocation == const OnboardingRoute().location;
-
-      if (!isComplete && !isGoingToOnboarding) {
-        return const OnboardingRoute().location;
-      }
-
-      if (isComplete && isGoingToOnboarding) {
-        return const HomeRoute().location;
-      }
-
-      return null;
-    },
     errorBuilder: (final context, final state) => Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context).pageNotFound)),
       body: Center(
@@ -83,17 +62,17 @@ final goRouterProvider = Provider<GoRouter>((final ref) {
         ),
       ),
     ),
-  );
-});
+  ),
+);
 
 // --- Root and Non-Shell Routes ---
-@TypedGoRoute<InitialRoute>(path: "/")
-class InitialRoute extends GoRouteData with $InitialRoute {
-  const InitialRoute();
+@TypedGoRoute<SplashRoute>(path: "/")
+class SplashRoute extends GoRouteData with $SplashRoute {
+  const SplashRoute();
 
   @override
-  String? redirect(final BuildContext context, final GoRouterState state) =>
-      const HomeRoute().location;
+  Widget build(final BuildContext context, final GoRouterState state) =>
+      const SplashScreen();
 }
 
 @TypedGoRoute<OnboardingRoute>(path: "/onboarding")
