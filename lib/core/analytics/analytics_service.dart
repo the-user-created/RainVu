@@ -13,6 +13,36 @@ class AnalyticsService {
 
   final FirebaseAnalytics _analytics;
 
+  // --- Screen View Event ---
+
+  /// Logs a screen view event.
+  /// Firebase automatically tracks screen views on native platforms, but this
+  /// method is used with our custom GoRouter observer for more control.
+  Future<void> logScreenView({required final String screenName}) async {
+    // Sanitize the screen name for Firebase Analytics requirements.
+    // (e.g., '/home/rainfall-entries/:month' -> 'home_rainfall_entries_month')
+    String sanitizedName = screenName
+        .replaceAll("/", "_")
+        .replaceAll("-", "_")
+        .replaceAll(":", "");
+
+    // Remove leading underscores that result from root paths like '/'
+    if (sanitizedName.startsWith("_")) {
+      sanitizedName = sanitizedName.substring(1);
+    }
+    if (sanitizedName.isEmpty) {
+      return; // Don't log empty names
+    }
+    if (sanitizedName.length > 100) {
+      sanitizedName = sanitizedName.substring(0, 100);
+    }
+
+    await _analytics.logScreenView(
+      screenName: sanitizedName,
+      screenClass: "Flutter", // Best practice for Flutter apps
+    );
+  }
+
   // --- Rain Entry Events ---
 
   /// Logs when a user successfully saves a new rain entry.

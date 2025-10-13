@@ -1,5 +1,7 @@
 import "package:flutter/material.dart";
+import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
+import "package:rain_wise/core/analytics/analytics_service.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
 /// A Scaffold with a persistent BottomNavigationBar for nested navigation.
@@ -7,14 +9,29 @@ import "package:rain_wise/l10n/app_localizations.dart";
 /// This widget is used as the `builder` for the `StatefulShellRoute`.
 /// It displays the `navigationShell` as its body and handles tab switching
 /// via the `goBranch` method.
-class ScaffoldWithNavBar extends StatelessWidget {
+class ScaffoldWithNavBar extends ConsumerWidget {
   const ScaffoldWithNavBar({required this.navigationShell, super.key});
 
   /// The navigation shell and container for the branch Navigators.
   final StatefulNavigationShell navigationShell;
 
+  String _getScreenNameForIndex(final int index) {
+    switch (index) {
+      case 0:
+        return "home";
+      case 1:
+        return "insights";
+      case 2:
+        return "gauges";
+      case 3:
+        return "settings";
+      default:
+        return "unknown_shell_route";
+    }
+  }
+
   @override
-  Widget build(final BuildContext context) {
+  Widget build(final BuildContext context, final WidgetRef ref) {
     final AppLocalizations l10n = AppLocalizations.of(context);
     return Scaffold(
       body: navigationShell,
@@ -23,6 +40,15 @@ class ScaffoldWithNavBar extends StatelessWidget {
         currentIndex: navigationShell.currentIndex,
         // Navigate to the selected branch when a tab is tapped
         onTap: (final index) {
+          // Only log a screen view if the user is switching to a different tab.
+          if (index != navigationShell.currentIndex) {
+            final String screenName = _getScreenNameForIndex(index);
+            // Use ref.read for one-off actions inside callbacks.
+            ref
+                .read(analyticsServiceProvider)
+                .logScreenView(screenName: screenName);
+          }
+
           // Use goBranch to switch tabs while preserving stack state
           navigationShell.goBranch(
             index,

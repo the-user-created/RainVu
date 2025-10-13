@@ -3,6 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:rain_wise/common/domain/coming_soon_args.dart";
 import "package:rain_wise/common/presentation/screens/coming_soon_screen.dart";
+import "package:rain_wise/core/analytics/analytics_observer.dart";
 import "package:rain_wise/core/ui/scaffold_with_nav_bar.dart";
 import "package:rain_wise/features/changelog/presentation/screens/changelog_screen.dart";
 import "package:rain_wise/features/daily_breakdown/presentation/screens/daily_breakdown_screen.dart";
@@ -46,6 +47,7 @@ final goRouterProvider = Provider<GoRouter>(
     initialLocation: "/home",
     debugLogDiagnostics: true,
     routes: $appRoutes,
+    observers: [AnalyticsObserver(ref: ref)],
     errorBuilder: (final context, final state) => Scaffold(
       appBar: AppBar(title: Text(AppLocalizations.of(context).pageNotFound)),
       body: Center(
