@@ -24,9 +24,7 @@ class ChangeGroupWidget extends StatelessWidget {
         border: Border(left: BorderSide(color: categoryColor, width: 6)),
         boxShadow: [
           BoxShadow(
-            color: isDark
-                ? Colors.black.withValues(alpha: 0.3)
-                : Colors.black.withValues(alpha: 0.05),
+            color: theme.shadowColor,
             blurRadius: 10,
             offset: const Offset(0, 4),
           ),

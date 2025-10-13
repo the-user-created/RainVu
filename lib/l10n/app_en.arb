@@ -108,10 +108,6 @@
   "@cancelButtonLabel": {
     "description": "Generic label for a button that cancels an action or closes a dialog."
   },
-  "changelogBreaking": "Breaking:",
-  "@changelogBreaking": {
-    "description": "Prefix for changelog items that introduce breaking changes."
-  },
   "changelogCategoryAdded": "Added",
   "@changelogCategoryAdded": {
     "description": "Category title for new features in the changelog."

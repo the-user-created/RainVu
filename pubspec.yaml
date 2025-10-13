@@ -72,3 +72,5 @@ flutter:
   uses-material-design: true
   assets:
     - .env
+    - CHANGELOG.md
+    - assets/

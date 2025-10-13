@@ -20,7 +20,7 @@ class LinePlaceholder extends StatelessWidget {
     height: height,
     width: width,
     decoration: BoxDecoration(
-      color: color ?? Colors.white,
+      color: color ?? Theme.of(context).colorScheme.surfaceContainerHighest,
       borderRadius: borderRadius ?? BorderRadius.circular(4),
     ),
   );
@@ -33,18 +33,20 @@ class CardPlaceholder extends StatelessWidget {
     super.key,
     this.width = double.infinity,
     this.child,
+    this.color,
   });
 
   final double height;
   final double width;
   final Widget? child;
+  final Color? color;
 
   @override
   Widget build(final BuildContext context) => Container(
     height: height,
     width: width,
     decoration: BoxDecoration(
-      color: Colors.white,
+      color: color ?? Theme.of(context).colorScheme.surfaceContainerHighest,
       borderRadius: BorderRadius.circular(16),
     ),
     padding: const EdgeInsets.all(16),
@@ -59,10 +61,11 @@ class DropdownPlaceholder extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final Color placeholderColor = theme.colorScheme.surfaceContainerHighest;
     return Container(
       height: 60,
       decoration: BoxDecoration(
-        color: Colors.white,
+        color: placeholderColor,
         borderRadius: BorderRadius.circular(8),
         border: Border.all(color: theme.colorScheme.outline),
       ),
@@ -70,7 +73,7 @@ class DropdownPlaceholder extends StatelessWidget {
       child: Row(
         mainAxisAlignment: MainAxisAlignment.spaceBetween,
         children: [
-          const LinePlaceholder(height: 14, width: 100, color: Colors.white),
+          LinePlaceholder(height: 14, width: 100, color: placeholderColor),
           Icon(Icons.expand_more, color: theme.colorScheme.secondary),
         ],
       ),

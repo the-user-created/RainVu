@@ -54,8 +54,5 @@ abstract class ChangeGroup with _$ChangeGroup {
 
 @freezed
 abstract class ChangeItem with _$ChangeItem {
-  const factory ChangeItem({
-    required final String description,
-    @Default(false) final bool isBreaking,
-  }) = _ChangeItem;
+  const factory ChangeItem({required final String description}) = _ChangeItem;
 }
