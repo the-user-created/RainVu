@@ -6,10 +6,11 @@ import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/anomaly_exploration/application/anomaly_exploration_provider.dart";
 import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
-import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
 import "package:rain_wise/shared/widgets/pickers/date_range_picker.dart";
+import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
 
 class AnomalyFilterOptions extends ConsumerWidget {
   const AnomalyFilterOptions({super.key});
@@ -130,47 +131,14 @@ class _SeveritySelectorButton extends ConsumerWidget {
     return l10n.severitiesSelected(count);
   }
 
-  void _showSeverityDialog(
+  void _showSeveritySheet(
     final BuildContext context,
     final WidgetRef ref,
     final AppLocalizations l10n,
   ) {
-    showDialog<void>(
+    showAdaptiveSheet<void>(
       context: context,
-      builder: (final context) => AppAlertDialog(
-        title: Text(l10n.selectSeverityLevelsDialogTitle),
-        content: Consumer(
-          builder: (final context, final ref, final _) {
-            final Set<AnomalySeverity> selected = ref.watch(
-              anomalyFilterProvider.select(
-                (final asyncValue) => asyncValue.value?.severities ?? {},
-              ),
-            );
-            return Column(
-              mainAxisSize: MainAxisSize.min,
-              children: AnomalySeverity.values
-                  .map(
-                    (final severity) => CheckboxListTile(
-                      title: Text(severity.getLabel(l10n)),
-                      value: selected.contains(severity),
-                      onChanged: (final _) {
-                        ref
-                            .read(anomalyFilterProvider.notifier)
-                            .toggleSeverity(severity);
-                      },
-                    ),
-                  )
-                  .toList(),
-            );
-          },
-        ),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(),
-            child: Text(l10n.doneButtonLabel),
-          ),
-        ],
-      ),
+      builder: (final _) => const _SeveritySelectionSheet(),
     );
   }
 
@@ -179,11 +147,56 @@ class _SeveritySelectorButton extends ConsumerWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
 
     return AppButton(
-      onPressed: () => _showSeverityDialog(context, ref, l10n),
+      onPressed: () => _showSeveritySheet(context, ref, l10n),
       label: _buildSelectionText(severities, l10n),
       style: AppButtonStyle.secondary,
       size: AppButtonSize.small,
       icon: const Icon(Icons.warning_amber_rounded, size: 20),
+    );
+  }
+}
+
+class _SeveritySelectionSheet extends ConsumerWidget {
+  const _SeveritySelectionSheet();
+
+  @override
+  Widget build(final BuildContext context, final WidgetRef ref) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+
+    return InteractiveSheet(
+      title: Text(l10n.selectSeverityLevelsDialogTitle),
+      actions: [
+        AppButton(
+          label: l10n.doneButtonLabel,
+          onPressed: () => Navigator.of(context).pop(),
+          style: AppButtonStyle.secondary,
+        ),
+      ],
+      child: Consumer(
+        builder: (final context, final ref, final _) {
+          final Set<AnomalySeverity> selected = ref.watch(
+            anomalyFilterProvider.select(
+              (final asyncValue) => asyncValue.value?.severities ?? {},
+            ),
+          );
+          return Column(
+            mainAxisSize: MainAxisSize.min,
+            children: AnomalySeverity.values
+                .map(
+                  (final severity) => CheckboxListTile(
+                    title: Text(severity.getLabel(l10n)),
+                    value: selected.contains(severity),
+                    onChanged: (final _) {
+                      ref
+                          .read(anomalyFilterProvider.notifier)
+                          .toggleSeverity(severity);
+                    },
+                  ),
+                )
+                .toList(),
+          );
+        },
+      ),
     );
   }
 }

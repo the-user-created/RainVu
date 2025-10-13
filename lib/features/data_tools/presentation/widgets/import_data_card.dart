@@ -232,7 +232,7 @@ class _ImportPreviewSummary extends StatelessWidget {
               AppButton(
                 onPressed: onCancel,
                 label: l10n.importPreviewCancelButton,
-                style: AppButtonStyle.outline,
+                style: AppButtonStyle.destructive,
                 size: AppButtonSize.small,
               ),
               AppButton(
@@ -240,6 +240,7 @@ class _ImportPreviewSummary extends StatelessWidget {
                 label: l10n.importPreviewConfirmButton,
                 isLoading: isLoading,
                 size: AppButtonSize.small,
+                style: AppButtonStyle.secondary,
               ),
             ],
           ),

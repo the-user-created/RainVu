@@ -228,6 +228,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
                 label: l10n.logRainfallSaveButton,
                 isLoading: logRainState.isLoading,
                 isExpanded: true,
+                style: AppButtonStyle.secondary,
               ),
             ],
           ),

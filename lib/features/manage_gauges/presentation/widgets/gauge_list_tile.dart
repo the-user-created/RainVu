@@ -13,8 +13,9 @@ import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";
 import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
-import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
+import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
 
 class GaugeListTile extends ConsumerStatefulWidget {
   const GaugeListTile({required this.gauge, super.key});
@@ -24,6 +25,8 @@ class GaugeListTile extends ConsumerStatefulWidget {
   @override
   ConsumerState<GaugeListTile> createState() => _GaugeListTileState();
 }
+
+enum _DeleteConfirmationResult { cancel, deleteReassign, deleteWithEntries }
 
 class _GaugeListTileState extends ConsumerState<GaugeListTile> {
   bool _isPressed = false;
@@ -40,94 +43,33 @@ class _GaugeListTileState extends ConsumerState<GaugeListTile> {
     );
   }
 
-  Future<void> _showDeleteDialog(
+  Future<void> _showDeleteSheet(
     final BuildContext context,
     final WidgetRef ref,
     final AppLocalizations l10n,
+    final String displayName,
   ) async {
     final int entryCount = await ref
         .read(rainfallRepositoryProvider)
         .countEntriesForGauge(widget.gauge.id);
 
-    if (entryCount == 0) {
-      final bool? confirmed = await showDialog<bool>(
-        context: context,
-        builder: (final alertDialogContext) => AppAlertDialog(
-          title: Text(l10n.deleteGaugeDialogTitle),
-          content: Text(l10n.deleteGaugeDialogContent),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(alertDialogContext, false),
-              child: Text(l10n.deleteGaugeDialogActionCancel),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(alertDialogContext, true),
-              child: Text(
-                l10n.deleteGaugeDialogActionDelete,
-                style: TextStyle(color: Theme.of(context).colorScheme.error),
-              ),
-            ),
-          ],
-        ),
-      );
-      if (confirmed == true && context.mounted) {
-        await ref.read(gaugesProvider.notifier).deleteGauge(widget.gauge.id);
-        showSnackbar(
-          l10n.gaugeDeletedSuccess(widget.gauge.name),
-          type: MessageType.success,
+    final _DeleteConfirmationResult? result =
+        await showAdaptiveSheet<_DeleteConfirmationResult>(
+          context: context,
+          builder: (final _) =>
+              _DeleteGaugeSheet(entryCount: entryCount, gaugeName: displayName),
         );
-      }
+
+    if (result == null || result == _DeleteConfirmationResult.cancel) {
       return;
     }
 
-    bool deleteEntries = false;
-    final bool? confirmed = await showDialog<bool>(
-      context: context,
-      builder: (final context) => StatefulBuilder(
-        builder: (final context, final setState) => AppAlertDialog(
-          title: Text(l10n.deleteGaugeDialogTitle),
-          content: Column(
-            mainAxisSize: MainAxisSize.min,
-            crossAxisAlignment: CrossAxisAlignment.start,
-            children: [
-              Text(
-                l10n.deleteGaugeWithEntriesWarning(
-                  entryCount,
-                  l10n.defaultGaugeName,
-                ),
-              ),
-              const SizedBox(height: 16),
-              CheckboxListTile(
-                title: Text(l10n.deleteGaugeAndEntriesOption(entryCount)),
-                value: deleteEntries,
-                onChanged: (final val) =>
-                    setState(() => deleteEntries = val ?? false),
-                controlAffinity: ListTileControlAffinity.leading,
-                contentPadding: EdgeInsets.zero,
-              ),
-            ],
-          ),
-          actions: [
-            TextButton(
-              onPressed: () => Navigator.pop(context, false),
-              child: Text(l10n.deleteGaugeDialogActionCancel),
-            ),
-            TextButton(
-              onPressed: () => Navigator.pop(context, true),
-              child: Text(
-                l10n.deleteGaugeDialogActionDelete,
-                style: TextStyle(color: Theme.of(context).colorScheme.error),
-              ),
-            ),
-          ],
-        ),
-      ),
-    );
+    final DeleteGaugeAction action =
+        result == _DeleteConfirmationResult.deleteWithEntries
+        ? DeleteGaugeAction.deleteEntries
+        : DeleteGaugeAction.reassign;
 
-    if (confirmed == true && context.mounted) {
-      final DeleteGaugeAction action = deleteEntries
-          ? DeleteGaugeAction.deleteEntries
-          : DeleteGaugeAction.reassign;
+    if (context.mounted) {
       await ref
           .read(gaugesProvider.notifier)
           .deleteGauge(widget.gauge.id, action: action);
@@ -222,7 +164,7 @@ class _GaugeListTileState extends ConsumerState<GaugeListTile> {
                           tooltip: l10n.gaugeTileDeleteTooltip,
                           color: theme.colorScheme.error,
                           onPressed: () =>
-                              _showDeleteDialog(context, ref, l10n),
+                              _showDeleteSheet(context, ref, l10n, displayName),
                         ),
                     ],
                   ),
@@ -233,5 +175,72 @@ class _GaugeListTileState extends ConsumerState<GaugeListTile> {
         )
         .animate(target: _isPressed ? 1 : 0)
         .scaleXY(end: 0.98, duration: 150.ms, curve: Curves.easeOut);
+  }
+}
+
+class _DeleteGaugeSheet extends StatefulWidget {
+  const _DeleteGaugeSheet({required this.entryCount, required this.gaugeName});
+
+  final int entryCount;
+  final String gaugeName;
+
+  @override
+  State<_DeleteGaugeSheet> createState() => _DeleteGaugeSheetState();
+}
+
+class _DeleteGaugeSheetState extends State<_DeleteGaugeSheet> {
+  bool _deleteEntries = false;
+
+  @override
+  Widget build(final BuildContext context) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+
+    final Widget content;
+    if (widget.entryCount == 0) {
+      content = Text(l10n.deleteGaugeDialogContent);
+    } else {
+      content = Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Text(
+            l10n.deleteGaugeWithEntriesWarning(
+              widget.entryCount,
+              l10n.defaultGaugeName,
+            ),
+          ),
+          const SizedBox(height: 16),
+          CheckboxListTile(
+            title: Text(l10n.deleteGaugeAndEntriesOption(widget.entryCount)),
+            value: _deleteEntries,
+            onChanged: (final val) =>
+                setState(() => _deleteEntries = val ?? false),
+            controlAffinity: ListTileControlAffinity.leading,
+            contentPadding: EdgeInsets.zero,
+          ),
+        ],
+      );
+    }
+
+    return InteractiveSheet(
+      title: Text(l10n.deleteGaugeDialogTitle),
+      actions: [
+        AppButton(
+          label: l10n.deleteGaugeDialogActionDelete,
+          onPressed: () {
+            if (widget.entryCount > 0 && _deleteEntries) {
+              Navigator.pop(
+                context,
+                _DeleteConfirmationResult.deleteWithEntries,
+              );
+            } else {
+              Navigator.pop(context, _DeleteConfirmationResult.deleteReassign);
+            }
+          },
+          style: AppButtonStyle.destructive,
+        ),
+      ],
+      child: content,
+    );
   }
 }

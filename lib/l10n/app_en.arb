@@ -351,7 +351,7 @@
   "@resetDialogConfirmationText": {
     "description": "The exact, case-sensitive word the user must type to confirm the app reset. This should be localized to a suitable word in the target language."
   },
-  "resetDialogTextFieldHint": "Type {confirmationText} to confirm",
+  "resetDialogTextFieldHint": "Type '{confirmationText}'",
   "@resetDialogTextFieldHint": {
     "description": "Placeholder text for the text field in the reset dialog.",
     "placeholders": {
@@ -369,7 +369,7 @@
       }
     }
   },
-  "resetDialogConfirmButton": "I understand, reset my data",
+  "resetDialogConfirmButton": "Reset All Data",
   "resetSuccessSnackbar": "App has been reset.",
   "resetErrorSnackbar": "An error occurred while resetting the app: {error}",
   "@resetErrorSnackbar": {

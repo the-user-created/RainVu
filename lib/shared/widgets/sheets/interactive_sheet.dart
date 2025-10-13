@@ -28,6 +28,8 @@ class InteractiveSheet extends StatelessWidget {
   final TextAlign? titleAlign;
 
   /// Optional action widgets (e.g., buttons) displayed at the bottom of the sheet.
+  /// If one action is provided, it will be full-width.
+  /// If multiple actions are provided, they will be right-aligned and wrap if necessary.
   final List<Widget>? actions;
 
   /// Whether to show the top drag handle. Defaults to true.
@@ -67,7 +69,15 @@ class InteractiveSheet extends StatelessWidget {
       Flexible(child: SingleChildScrollView(child: child)),
       if (actions != null && actions!.isNotEmpty) ...[
         const SizedBox(height: 24),
-        Row(mainAxisAlignment: MainAxisAlignment.end, children: actions!),
+        if (actions!.length == 1)
+          SizedBox(width: double.infinity, child: actions!.first)
+        else
+          Wrap(
+            alignment: WrapAlignment.end,
+            spacing: 8,
+            runSpacing: 8,
+            children: actions!,
+          ),
       ],
     ];
 

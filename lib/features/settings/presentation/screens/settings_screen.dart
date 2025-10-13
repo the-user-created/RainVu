@@ -17,8 +17,8 @@ import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";
-import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
 import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
+import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
 import "package:share_plus/share_plus.dart";
 
 /// The main settings screen, composed of smaller, reusable widgets.
@@ -87,15 +87,15 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  Future<void> _showResetConfirmationDialog(
+  Future<void> _showResetConfirmationSheet(
     final BuildContext context,
     final WidgetRef ref,
   ) async {
     final AppLocalizations l10n = AppLocalizations.of(context);
 
-    final bool? confirmed = await showDialog<bool>(
+    final bool? confirmed = await showAdaptiveSheet<bool>(
       context: context,
-      builder: (final context) => const _ResetDialog(),
+      builder: (final _) => const _ResetSheet(),
     );
 
     if (confirmed == true && context.mounted) {
@@ -205,7 +205,7 @@ class SettingsScreen extends ConsumerWidget {
             ),
             SettingsSectionHeader(title: l10n.settingsSectionDangerZone),
             DangerZoneCard(
-              onReset: () => _showResetConfirmationDialog(context, ref),
+              onReset: () => _showResetConfirmationSheet(context, ref),
             ),
             const AppInfoFooter(),
           ],
@@ -332,22 +332,17 @@ class _ThemeSetting extends ConsumerWidget {
   }
 }
 
-class _ResetDialog extends StatefulWidget {
-  const _ResetDialog();
+class _ResetSheet extends StatefulWidget {
+  const _ResetSheet();
 
   @override
-  State<_ResetDialog> createState() => _ResetDialogState();
+  State<_ResetSheet> createState() => _ResetSheetState();
 }
 
-class _ResetDialogState extends State<_ResetDialog> {
+class _ResetSheetState extends State<_ResetSheet> {
   final _confirmationController = TextEditingController();
   bool _isButtonEnabled = false;
   late String _confirmationText;
-
-  @override
-  void initState() {
-    super.initState();
-  }
 
   @override
   void didChangeDependencies() {
@@ -380,9 +375,20 @@ class _ResetDialogState extends State<_ResetDialog> {
   Widget build(final BuildContext context) {
     final AppLocalizations l10n = AppLocalizations.of(context);
 
-    return AppAlertDialog(
+    return InteractiveSheet(
       title: Text(l10n.resetDialogTitle),
-      content: ListBody(
+      actions: <Widget>[
+        AppButton(
+          style: AppButtonStyle.destructive,
+          onPressed: _isButtonEnabled
+              ? () => Navigator.of(context).pop(true)
+              : null,
+          label: l10n.resetDialogConfirmButton,
+        ),
+      ],
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        crossAxisAlignment: CrossAxisAlignment.stretch,
         children: <Widget>[
           Text(l10n.resetDialogContent(_confirmationText)),
           const SizedBox(height: 16),
@@ -403,16 +409,6 @@ class _ResetDialogState extends State<_ResetDialog> {
           ),
         ],
       ),
-      actions: <Widget>[
-        AppButton(
-          style: AppButtonStyle.destructive,
-          onPressed: _isButtonEnabled
-              ? () => Navigator.of(context).pop(true)
-              : null,
-          label: l10n.resetDialogConfirmButton,
-          size: AppButtonSize.small,
-        ),
-      ],
     );
   }
 }

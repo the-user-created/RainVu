@@ -12,8 +12,9 @@ import "package:rain_wise/shared/domain/rainfall_entry.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
 import "package:rain_wise/shared/utils/ui_helpers.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
-import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
+import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
 
 class RainfallEntryListItem extends ConsumerWidget {
   const RainfallEntryListItem({required this.entry, super.key});
@@ -27,30 +28,14 @@ class RainfallEntryListItem extends ConsumerWidget {
     );
   }
 
-  Future<void> _deleteEntry(
+  Future<void> _showDeleteSheet(
     final BuildContext context,
     final WidgetRef ref,
     final AppLocalizations l10n,
   ) async {
-    final bool? confirmed = await showDialog<bool>(
+    final bool? confirmed = await showAdaptiveSheet<bool>(
       context: context,
-      builder: (final context) => AppAlertDialog(
-        title: Text(l10n.deleteEntryDialogTitle),
-        content: Text(l10n.deleteDialogContent),
-        actions: [
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(false),
-            child: Text(l10n.cancelButtonLabel),
-          ),
-          TextButton(
-            onPressed: () => Navigator.of(context).pop(true),
-            style: TextButton.styleFrom(
-              foregroundColor: Theme.of(context).colorScheme.error,
-            ),
-            child: Text(l10n.deleteButtonLabel),
-          ),
-        ],
-      ),
+      builder: (final _) => const _DeleteEntrySheet(),
     );
 
     if (confirmed == true && entry.id != null) {
@@ -153,13 +138,34 @@ class RainfallEntryListItem extends ConsumerWidget {
               AppIconButton(
                 icon: const Icon(Icons.delete_outline, size: 22),
                 tooltip: l10n.deleteEntryTooltip,
-                onPressed: () => _deleteEntry(context, ref, l10n),
+                onPressed: () => _showDeleteSheet(context, ref, l10n),
                 color: colorScheme.error,
               ),
             ],
           ),
         ),
       ),
+    );
+  }
+}
+
+class _DeleteEntrySheet extends StatelessWidget {
+  const _DeleteEntrySheet();
+
+  @override
+  Widget build(final BuildContext context) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+
+    return InteractiveSheet(
+      title: Text(l10n.deleteEntryDialogTitle),
+      actions: [
+        AppButton(
+          label: l10n.deleteButtonLabel,
+          onPressed: () => Navigator.of(context).pop(true),
+          style: AppButtonStyle.destructive,
+        ),
+      ],
+      child: Text(l10n.deleteDialogContent),
     );
   }
 }

@@ -100,7 +100,7 @@ class _GaugeFormState extends ConsumerState<GaugeForm> {
               AppButton(
                 label: l10n.gaugeFormButtonCancel,
                 onPressed: () => Navigator.pop(context),
-                style: AppButtonStyle.outline,
+                style: AppButtonStyle.outlineDestructive,
                 size: AppButtonSize.small,
               ),
               const SizedBox(width: 12),
@@ -109,6 +109,7 @@ class _GaugeFormState extends ConsumerState<GaugeForm> {
                 onPressed: _submit,
                 size: AppButtonSize.small,
                 borderRadius: BorderRadius.circular(8),
+                style: AppButtonStyle.secondary,
               ),
             ],
           ),

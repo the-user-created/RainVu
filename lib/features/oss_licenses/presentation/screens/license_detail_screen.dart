@@ -1,7 +1,9 @@
 import "package:flutter/material.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
 import "package:rain_wise/oss_licenses.dart" as oss;
+import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
+import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
 
 class LicenseDetailScreen extends StatelessWidget {
   const LicenseDetailScreen({required this.package, super.key});
@@ -48,17 +50,18 @@ class LicenseDetailScreen extends StatelessWidget {
 
   void _showDisclaimer(final BuildContext context) {
     final AppLocalizations l10n = AppLocalizations.of(context);
-    showDialog<void>(
+    showAdaptiveSheet<void>(
       context: context,
-      builder: (final context) => AppAlertDialog(
+      builder: (final _) => InteractiveSheet(
         title: Text(l10n.licenseDisclaimerTitle),
-        content: Text(l10n.licenseDisclaimerContent),
         actions: [
-          TextButton(
+          AppButton(
+            label: l10n.okButtonLabel,
             onPressed: () => Navigator.of(context).pop(),
-            child: Text(MaterialLocalizations.of(context).okButtonLabel),
+            style: AppButtonStyle.secondary,
           ),
         ],
+        child: Text(l10n.licenseDisclaimerContent),
       ),
     );
   }
