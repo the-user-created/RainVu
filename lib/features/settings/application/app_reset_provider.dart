@@ -4,7 +4,6 @@ import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/shared_prefs.dart";
 import "package:rain_wise/core/firebase/analytics_service.dart";
-import "package:rain_wise/features/onboarding/application/onboarding_provider.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:shared_preferences/shared_preferences.dart";
 
@@ -27,15 +26,21 @@ class AppResetService extends _$AppResetService {
     try {
       final SharedPreferences prefs = await prefsFuture;
 
-      // Preserve the onboarding complete flag
+      // Preserve the onboarding complete flag and telemetry preference
       final bool onboardingComplete =
-          prefs.getBool(Onboarding.onboardingCompleteKey) ?? false;
+          prefs.getBool(AppConstants.onboardingCompleteKey) ?? false;
+      final bool telemetryEnabled =
+          prefs.getBool(AppConstants.telemetryEnabledKey) ?? false;
 
       await db.deleteAllData();
       await prefs.clear();
 
-      // Restore the onboarding flag after clearing
-      await prefs.setBool(Onboarding.onboardingCompleteKey, onboardingComplete);
+      // Restore the onboarding flag and telemetry preference after clearing
+      await prefs.setBool(
+        AppConstants.onboardingCompleteKey,
+        onboardingComplete,
+      );
+      await prefs.setBool(AppConstants.telemetryEnabledKey, telemetryEnabled);
 
       // Re-insert the default gauge
       await db.rainGaugesDao.insertGauge(

@@ -1,6 +1,7 @@
 import "package:firebase_analytics/firebase_analytics.dart";
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/foundation.dart";
+import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/data/local/shared_prefs.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:shared_preferences/shared_preferences.dart";
@@ -9,13 +10,12 @@ part "telemetry_manager.g.dart";
 
 @Riverpod(keepAlive: true)
 class TelemetryManager extends _$TelemetryManager {
-  static const _telemetryEnabledKey = "telemetry_enabled";
   late SharedPreferences _prefs;
 
   @override
   Future<bool> build() async {
     _prefs = await ref.watch(sharedPreferencesProvider.future);
-    return _prefs.getBool(_telemetryEnabledKey) ?? false;
+    return _prefs.getBool(AppConstants.telemetryEnabledKey) ?? false;
   }
 
   /// Applies the persisted telemetry setting to Firebase services.
@@ -40,7 +40,7 @@ class TelemetryManager extends _$TelemetryManager {
   Future<void> setTelemetryEnabled(final bool isEnabled) async {
     state = const AsyncValue.loading();
     state = await AsyncValue.guard(() async {
-      await _prefs.setBool(_telemetryEnabledKey, isEnabled);
+      await _prefs.setBool(AppConstants.telemetryEnabledKey, isEnabled);
       await _setFirebaseCollectionStatus(isEnabled);
 
       if (isEnabled) {
