@@ -6,11 +6,6 @@ import "package:rain_wise/features/insights_dashboard/domain/insights_data.dart"
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 
-// TODO: add 10yr+20yr avg comparisons if data is available
-
-/// A card with a flexible height, designed to show a month's rainfall
-/// total and its comparison to historical averages. It adapts to content
-/// size, making it suitable for all accessibility settings.
 class MonthlyAveragesCard extends ConsumerStatefulWidget {
   const MonthlyAveragesCard({required this.data, this.onTap, super.key});
 
@@ -104,6 +99,27 @@ class _MonthlyAveragesCardState extends ConsumerState<MonthlyAveragesCard> {
                       comparisonValue: widget.data.fiveYrAvg,
                       unit: unit,
                     ),
+                    const SizedBox(height: 8),
+                    _ComparisonRow(
+                      label: l10n.mtdBreakdown10yrAvg,
+                      currentValue: widget.data.mtdTotal,
+                      comparisonValue: widget.data.tenYrAvg,
+                      unit: unit,
+                    ),
+                    const SizedBox(height: 8),
+                    _ComparisonRow(
+                      label: l10n.mtdBreakdown15yrAvg,
+                      currentValue: widget.data.mtdTotal,
+                      comparisonValue: widget.data.fifteenYrAvg,
+                      unit: unit,
+                    ),
+                    const SizedBox(height: 8),
+                    _ComparisonRow(
+                      label: l10n.mtdBreakdown20yrAvg,
+                      currentValue: widget.data.mtdTotal,
+                      comparisonValue: widget.data.twentyYrAvg,
+                      unit: unit,
+                    ),
                   ],
                 ),
               ],
@@ -125,7 +141,7 @@ class _ComparisonRow extends StatelessWidget {
 
   final String label;
   final double currentValue;
-  final double comparisonValue;
+  final double? comparisonValue;
   final MeasurementUnit unit;
 
   @override
@@ -133,11 +149,37 @@ class _ComparisonRow extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
+    final AppLocalizations l10n = AppLocalizations.of(context);
+
+    final Widget valueWidget;
+    if (comparisonValue == null) {
+      valueWidget = Text(
+        l10n.monthlyComparisonNotEnoughData,
+        style: textTheme.bodyMedium?.copyWith(
+          color: colorScheme.onSurfaceVariant,
+          fontStyle: FontStyle.italic,
+        ),
+        textAlign: TextAlign.end,
+      );
+    } else {
+      valueWidget = Row(
+        mainAxisSize: MainAxisSize.min,
+        children: [
+          _ComparisonIcon(current: currentValue, comparison: comparisonValue!),
+          const SizedBox(width: 4),
+          Text(
+            comparisonValue!.formatRainfall(context, unit),
+            style: textTheme.bodyMedium,
+          ),
+        ],
+      );
+    }
 
     return Row(
       mainAxisAlignment: MainAxisAlignment.spaceBetween,
       children: [
         Flexible(
+          flex: 2,
           child: Text(
             label,
             style: textTheme.bodySmall?.copyWith(
@@ -146,17 +188,7 @@ class _ComparisonRow extends StatelessWidget {
           ),
         ),
         const SizedBox(width: 24),
-        Row(
-          mainAxisSize: MainAxisSize.min,
-          children: [
-            _ComparisonIcon(current: currentValue, comparison: comparisonValue),
-            const SizedBox(width: 4),
-            Text(
-              comparisonValue.formatRainfall(context, unit),
-              style: textTheme.bodyMedium,
-            ),
-          ],
-        ),
+        Flexible(flex: 3, child: valueWidget),
       ],
     );
   }

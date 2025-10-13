@@ -207,14 +207,14 @@ class DriftInsightsRepository implements InsightsRepository {
 
   Future<List<MonthlyAveragesData>> _getMonthlyAverages() async {
     final int currentYear = _now.year;
-    final List<int> previous5Years = List.generate(
-      5,
+    final List<int> previous20Years = List.generate(
+      20,
       (final index) => currentYear - 1 - index,
     );
     final futures = <Future<MonthlyAveragesData>>[];
 
     for (int month = 1; month <= 12; month++) {
-      futures.add(_getComparisonForMonth(month, currentYear, previous5Years));
+      futures.add(_getComparisonForMonth(month, currentYear, previous20Years));
     }
     return Future.wait(futures);
   }
@@ -246,21 +246,47 @@ class DriftInsightsRepository implements InsightsRepository {
     final List<YearlyTotal> twoYrTotals = previousYearsTotals
         .where((final t) => t.year >= currentYear - 2)
         .toList();
-    final double twoYrSum = twoYrTotals.map((final t) => t.total).sum;
-    final double twoYrAvg = twoYrTotals.isNotEmpty
-        ? twoYrSum / twoYrTotals.length
-        : 0.0;
+    final double? twoYrAvg = twoYrTotals.length < 2
+        ? null
+        : twoYrTotals.map((final t) => t.total).sum / twoYrTotals.length;
 
-    final double fiveYrSum = previousYearsTotals.map((final t) => t.total).sum;
-    final double fiveYrAvg = previousYearsTotals.isNotEmpty
-        ? fiveYrSum / previousYearsTotals.length
-        : 0.0;
+    final List<YearlyTotal> fiveYrTotals = previousYearsTotals
+        .where((final t) => t.year >= currentYear - 5)
+        .toList();
+    final double? fiveYrAvg = fiveYrTotals.length < 2
+        ? null
+        : fiveYrTotals.map((final t) => t.total).sum / fiveYrTotals.length;
+
+    final List<YearlyTotal> tenYrTotals = previousYearsTotals
+        .where((final t) => t.year >= currentYear - 10)
+        .toList();
+    final double? tenYrAvg = tenYrTotals.length < 2
+        ? null
+        : tenYrTotals.map((final t) => t.total).sum / tenYrTotals.length;
+
+    final List<YearlyTotal> fifteenYrTotals = previousYearsTotals
+        .where((final t) => t.year >= currentYear - 15)
+        .toList();
+    final double? fifteenYrAvg = fifteenYrTotals.length < 2
+        ? null
+        : fifteenYrTotals.map((final t) => t.total).sum /
+              fifteenYrTotals.length;
+
+    final List<YearlyTotal> twentyYrTotals = previousYearsTotals
+        .where((final t) => t.year >= currentYear - 20)
+        .toList();
+    final double? twentyYrAvg = twentyYrTotals.length < 2
+        ? null
+        : twentyYrTotals.map((final t) => t.total).sum / twentyYrTotals.length;
 
     return MonthlyAveragesData(
       month: DateFormat.MMMM().format(DateTime(0, month)),
       mtdTotal: currentMonthTotal,
       twoYrAvg: twoYrAvg,
       fiveYrAvg: fiveYrAvg,
+      tenYrAvg: tenYrAvg,
+      fifteenYrAvg: fifteenYrAvg,
+      twentyYrAvg: twentyYrAvg,
     );
   }
 

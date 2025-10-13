@@ -28,19 +28,6 @@
       }
     }
   },
-  "unusualPatternsError": "Error loading unusual patterns: {error}",
-  "@unusualPatternsError": {
-    "description": "Error message shown when unusual rainfall patterns fail to load.",
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
-  "unusualPatternsTitle": "Unusual Patterns",
-  "@unusualPatternsTitle": {
-    "description": "The title of the 'Unusual Patterns' screen."
-  },
   "anomalyGroupDeviation": "{sign}{percent}% vs avg",
   "@anomalyGroupDeviation": {
     "placeholders": {
@@ -173,58 +160,6 @@
   "@comingSoonMessage": {
     "description": "The descriptive message on the 'Coming Soon' placeholder screen."
   },
-  "yearlyComparisonAvailableYearsError": "Error loading years: {error}",
-  "@yearlyComparisonAvailableYearsError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
-  "yearlyComparisonChartNoData": "Not enough data to display chart.",
-  "@yearlyComparisonChartNoData": {
-    "description": "Message shown in the yearly comparison chart when there is insufficient data."
-  },
-  "yearlyComparisonChartTitle": "Rainfall Comparison",
-  "@yearlyComparisonChartTitle": {
-    "description": "The title of the chart on the Yearly Comparison screen."
-  },
-  "yearlyComparisonEmptyMessage": "This feature requires rainfall data from at least two different years. Once you have more data, you'll be able to compare it here.",
-  "@yearlyComparisonEmptyMessage": {
-    "description": "Message shown on the yearly comparison screen when there isn't data from at least two different years."
-  },
-  "yearlyComparisonEmptyTitle": "Not Enough Data to Compare",
-  "@yearlyComparisonEmptyTitle": {
-    "description": "Title for the empty state on the yearly comparison screen when there is insufficient data."
-  },
-  "yearlyComparisonError": "An error occurred: {error}",
-  "@yearlyComparisonError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
-  "yearlyComparisonFilterError": "Error: {error}",
-  "@yearlyComparisonFilterError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
-  "yearlyComparisonNoDataForSelection": "No rainfall data was found for the selected years and comparison type. Please try a different selection.",
-  "@yearlyComparisonNoDataForSelection": {
-    "description": "Message shown when a user's filter selection on the yearly comparison screen yields no data."
-  },
-  "yearlyComparisonSelectYearsTitle": "Select Years to Compare",
-  "@yearlyComparisonSelectYearsTitle": {
-    "description": "Title above the year selection dropdowns on the yearly comparison screen."
-  },
-  "yearlyComparisonTitle": "Yearly Comparison",
-  "@yearlyComparisonTitle": {
-    "description": "The title of the Yearly Comparison screen."
-  },
   "comparisonInfoAnnualDescription": "Compares the total rainfall for each selected year. This view shows one bar representing the grand total for each year, ideal for a high-level overview.",
   "@comparisonInfoAnnualDescription": {
     "description": "Description of the 'Annual' comparison type in the info sheet."
@@ -268,6 +203,26 @@
   "dailyAverage": "Daily Average",
   "@dailyAverage": {
     "description": "Label for the daily average rainfall statistic."
+  },
+  "dailyBreakdownEmptyMessage": "There are no rainfall entries recorded for the selected month. Try selecting another month or logging a new entry.",
+  "@dailyBreakdownEmptyMessage": {
+    "description": "Message shown on the daily breakdown screen when there is no data for the selected month."
+  },
+  "dailyBreakdownEmptyTitle": "No Data for This Month",
+  "@dailyBreakdownEmptyTitle": {
+    "description": "Title for the empty state on the daily breakdown screen."
+  },
+  "dailyBreakdownError": "Error: {error}",
+  "@dailyBreakdownError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "dailyBreakdownTitle": "Daily Breakdown",
+  "@dailyBreakdownTitle": {
+    "description": "The title of the Daily Breakdown screen."
   },
   "dailyRainfallChartTitle": "Daily Rainfall",
   "@dailyRainfallChartTitle": {
@@ -413,18 +368,6 @@
       }
     }
   },
-  "detailedAnalysisUnusualPatternsSubtitle": "Explore significant rainfall variations",
-  "@detailedAnalysisUnusualPatternsSubtitle": {
-    "description": "Subtitle for the 'Unusual Patterns' link on the insights screen."
-  },
-  "detailedAnalysisYearlyComparisonSubtitle": "Compare rainfall totals year-over-year",
-  "@detailedAnalysisYearlyComparisonSubtitle": {
-    "description": "Subtitle for the 'Year-Over-Year Comparison' link on the insights screen."
-  },
-  "detailedAnalysisYearlyComparisonTitle": "Year-Over-Year Comparison",
-  "@detailedAnalysisYearlyComparisonTitle": {
-    "description": "Title for the 'Year-Over-Year Comparison' link on the insights screen."
-  },
   "detailedAnalysisDailyBreakdownSubtitle": "See a day-by-day summary for any month",
   "@detailedAnalysisDailyBreakdownSubtitle": {
     "description": "Subtitle for the 'Daily Breakdown' link on the insights screen."
@@ -436,6 +379,18 @@
   "detailedAnalysisSeasonalTrendsSubtitle": "Discover trends in Spring, Summer, Autumn, and Winter",
   "@detailedAnalysisSeasonalTrendsSubtitle": {
     "description": "Subtitle for the 'Seasonal Trends' link on the insights screen."
+  },
+  "detailedAnalysisUnusualPatternsSubtitle": "Explore significant rainfall variations",
+  "@detailedAnalysisUnusualPatternsSubtitle": {
+    "description": "Subtitle for the 'Unusual Patterns' link on the insights screen."
+  },
+  "detailedAnalysisYearlyComparisonSubtitle": "Compare rainfall totals year-over-year",
+  "@detailedAnalysisYearlyComparisonSubtitle": {
+    "description": "Subtitle for the 'Year-Over-Year Comparison' link on the insights screen."
+  },
+  "detailedAnalysisYearlyComparisonTitle": "Year-Over-Year Comparison",
+  "@detailedAnalysisYearlyComparisonTitle": {
+    "description": "Title for the 'Year-Over-Year Comparison' link on the insights screen."
   },
   "detectedAnomaliesTitle": "Unusual Events",
   "@detectedAnomaliesTitle": {
@@ -849,26 +804,6 @@
   "@manageGaugesTitle": {
     "description": "The title of the screen for managing rain gauges."
   },
-  "dailyBreakdownEmptyMessage": "There are no rainfall entries recorded for the selected month. Try selecting another month or logging a new entry.",
-  "@dailyBreakdownEmptyMessage": {
-    "description": "Message shown on the daily breakdown screen when there is no data for the selected month."
-  },
-  "dailyBreakdownEmptyTitle": "No Data for This Month",
-  "@dailyBreakdownEmptyTitle": {
-    "description": "Title for the empty state on the daily breakdown screen."
-  },
-  "dailyBreakdownError": "Error: {error}",
-  "@dailyBreakdownError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
-  },
-  "dailyBreakdownTitle": "Daily Breakdown",
-  "@dailyBreakdownTitle": {
-    "description": "The title of the Daily Breakdown screen."
-  },
   "monthlyComparisonEmptyMessage": "Once you have logged more rainfall data, you'll be able to see monthly averages here.",
   "@monthlyComparisonEmptyMessage": {
     "description": "Message shown on the 'Monthly Averages' screen when there is not enough data."
@@ -876,6 +811,10 @@
   "monthlyComparisonEmptyTitle": "No Data to Compare",
   "@monthlyComparisonEmptyTitle": {
     "description": "Title for the empty state on the 'Monthly Averages' screen."
+  },
+  "monthlyComparisonNotEnoughData": "Not enough data",
+  "@monthlyComparisonNotEnoughData": {
+    "description": "Placeholder text shown when there is not enough historical data to calculate an average."
   },
   "monthlyComparisonTitle": "Monthly Averages",
   "@monthlyComparisonTitle": {
@@ -900,6 +839,18 @@
   "moreAnalysisTitle": "More Analysis",
   "@moreAnalysisTitle": {
     "description": "Section header for links to more detailed analysis screens."
+  },
+  "mtdBreakdown10yrAvg": "10yr avg",
+  "@mtdBreakdown10yrAvg": {
+    "description": "Label for the 10-year average in the monthly averages breakdown."
+  },
+  "mtdBreakdown15yrAvg": "15yr avg",
+  "@mtdBreakdown15yrAvg": {
+    "description": "Label for the 15-year average in the monthly averages breakdown."
+  },
+  "mtdBreakdown20yrAvg": "20yr avg",
+  "@mtdBreakdown20yrAvg": {
+    "description": "Label for the 20-year average in the monthly averages breakdown."
   },
   "mtdBreakdown2yrAvg": "2yr avg",
   "@mtdBreakdown2yrAvg": {
@@ -1395,9 +1346,74 @@
   "@unknownGauge": {
     "description": "Name displayed for a rainfall entry whose associated gauge has been deleted."
   },
+  "unusualPatternsError": "Error loading unusual patterns: {error}",
+  "@unusualPatternsError": {
+    "description": "Error message shown when unusual rainfall patterns fail to load.",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "unusualPatternsTitle": "Unusual Patterns",
+  "@unusualPatternsTitle": {
+    "description": "The title of the 'Unusual Patterns' screen."
+  },
   "viewEntriesButtonLabel": "View All Entries",
   "@viewEntriesButtonLabel": {
     "description": "Label for a button that navigates to a detailed list of entries for a given period."
+  },
+  "yearlyComparisonAvailableYearsError": "Error loading years: {error}",
+  "@yearlyComparisonAvailableYearsError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "yearlyComparisonChartNoData": "Not enough data to display chart.",
+  "@yearlyComparisonChartNoData": {
+    "description": "Message shown in the yearly comparison chart when there is insufficient data."
+  },
+  "yearlyComparisonChartTitle": "Rainfall Comparison",
+  "@yearlyComparisonChartTitle": {
+    "description": "The title of the chart on the Yearly Comparison screen."
+  },
+  "yearlyComparisonEmptyMessage": "This feature requires rainfall data from at least two different years. Once you have more data, you'll be able to compare it here.",
+  "@yearlyComparisonEmptyMessage": {
+    "description": "Message shown on the yearly comparison screen when there isn't data from at least two different years."
+  },
+  "yearlyComparisonEmptyTitle": "Not Enough Data to Compare",
+  "@yearlyComparisonEmptyTitle": {
+    "description": "Title for the empty state on the yearly comparison screen when there is insufficient data."
+  },
+  "yearlyComparisonError": "An error occurred: {error}",
+  "@yearlyComparisonError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "yearlyComparisonFilterError": "Error: {error}",
+  "@yearlyComparisonFilterError": {
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
+  "yearlyComparisonNoDataForSelection": "No rainfall data was found for the selected years and comparison type. Please try a different selection.",
+  "@yearlyComparisonNoDataForSelection": {
+    "description": "Message shown when a user's filter selection on the yearly comparison screen yields no data."
+  },
+  "yearlyComparisonSelectYearsTitle": "Select Years to Compare",
+  "@yearlyComparisonSelectYearsTitle": {
+    "description": "Title above the year selection dropdowns on the yearly comparison screen."
+  },
+  "yearlyComparisonTitle": "Yearly Comparison",
+  "@yearlyComparisonTitle": {
+    "description": "The title of the Yearly Comparison screen."
   },
   "yearlySummaryTitle": "Yearly Summary",
   "@yearlySummaryTitle": {

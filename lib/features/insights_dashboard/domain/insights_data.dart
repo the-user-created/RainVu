@@ -62,7 +62,10 @@ abstract class MonthlyAveragesData with _$MonthlyAveragesData {
   const factory MonthlyAveragesData({
     required final String month,
     required final double mtdTotal,
-    required final double twoYrAvg,
-    required final double fiveYrAvg,
+    final double? twoYrAvg,
+    final double? fiveYrAvg,
+    final double? tenYrAvg,
+    final double? fifteenYrAvg,
+    final double? twentyYrAvg,
   }) = _MonthlyAveragesData;
 }
