@@ -17,6 +17,7 @@ const allDependencies = <Package>[
   _analyzer,
   _analyzer_buffer,
   _analyzer_plugin,
+  _archive,
   _args,
   _async,
   _boolean_selector,
@@ -73,6 +74,7 @@ const allDependencies = <Package>[
   _flutter_animate,
   _flutter_dotenv,
   _flutter_hooks,
+  _flutter_launcher_icons,
   _flutter_lints,
   _flutter_plugin_android_lifecycle,
   _flutter_riverpod,
@@ -92,6 +94,7 @@ const allDependencies = <Package>[
   _http,
   _http_multi_server,
   _http_parser,
+  _image,
   _in_app_review,
   _in_app_review_platform_interface,
   _intl,
@@ -127,6 +130,7 @@ const allDependencies = <Package>[
   _platform,
   _plugin_platform_interface,
   _pool,
+  _posix,
   _pub_semver,
   _pubspec_parse,
   _recase,
@@ -209,6 +213,7 @@ const dependencies = <Package>[
   _flutter,
   _flutter_animate,
   _flutter_dotenv,
+  _flutter_launcher_icons,
   _flutter_riverpod,
   _freezed_annotation,
   _go_router,
@@ -488,6 +493,41 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     isSdk: false,
     dependencies: [PackageRef('analyzer'), PackageRef('collection'), PackageRef('dart_style'), PackageRef('pub_semver'), PackageRef('yaml'), PackageRef('path')],
     devDependencies: [PackageRef('lints'), PackageRef('meta'), PackageRef('test')],
+  );
+
+/// archive 4.0.7
+const _archive = Package(
+    name: 'archive',
+    description: 'Provides encoders and decoders for various archive and compression formats such as zip, tar, bzip2, gzip, and zlib.',
+    repository: 'https://github.com/brendan-duncan/archive',
+    authors: [],
+    version: '4.0.7',
+    license: '''The MIT License
+
+Copyright (c) 2013-2021 Brendan Duncan.
+All rights reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.''',
+    isMarkdown: false,
+    isSdk: false,
+    dependencies: [PackageRef('crypto'), PackageRef('path'), PackageRef('posix')],
+    devDependencies: [PackageRef('build_runner'), PackageRef('http'), PackageRef('lints'), PackageRef('test'), PackageRef('web')],
   );
 
 /// args 2.7.0
@@ -3277,7 +3317,7 @@ SOFTWARE.''',
     isMarkdown: false,
     isSdk: false,
     dependencies: [PackageRef('async'), PackageRef('convert'), PackageRef('collection'), PackageRef('meta'), PackageRef('stream_channel'), PackageRef('sqlite3'), PackageRef('path'), PackageRef('stack_trace'), PackageRef('web')],
-    devDependencies: [PackageRef('analyzer'), PackageRef('drift_dev'), PackageRef('http'), PackageRef('lints'), PackageRef('uuid'), PackageRef('build_runner'), PackageRef('test'), PackageRef('mockito'), PackageRef('shelf'), PackageRef('vm_service'), PackageRef('rxdart'), PackageRef('build_daemon'), PackageRef('fake_async')],
+    devDependencies: [PackageRef('archive'), PackageRef('analyzer'), PackageRef('drift_dev'), PackageRef('http'), PackageRef('lints'), PackageRef('uuid'), PackageRef('build_runner'), PackageRef('test'), PackageRef('mockito'), PackageRef('shelf'), PackageRef('vm_service'), PackageRef('rxdart'), PackageRef('build_daemon'), PackageRef('fake_async')],
   );
 
 /// drift_dev 2.28.3
@@ -4261,6 +4301,41 @@ SOFTWARE.''',
     devDependencies: [PackageRef('mockito')],
   );
 
+/// flutter_launcher_icons 0.14.4
+const _flutter_launcher_icons = Package(
+    name: 'flutter_launcher_icons',
+    description: "A package which simplifies the task of updating your Flutter app's launcher icon.",
+    homepage: 'https://github.com/fluttercommunity/flutter_launcher_icons',
+    repository: 'https://github.com/fluttercommunity/flutter_launcher_icons/',
+    authors: [],
+    version: '0.14.4',
+    license: '''MIT License
+
+Copyright (c) 2019 Mark O'Sullivan
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.''',
+    isMarkdown: false,
+    isSdk: false,
+    dependencies: [PackageRef('args'), PackageRef('checked_yaml'), PackageRef('cli_util'), PackageRef('image'), PackageRef('json_annotation'), PackageRef('path'), PackageRef('yaml')],
+    devDependencies: [PackageRef('build_runner'), PackageRef('json_serializable'), PackageRef('mockito'), PackageRef('test')],
+  );
+
 /// flutter_lints 6.0.0
 const _flutter_lints = Package(
     name: 'flutter_lints',
@@ -5132,6 +5207,41 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     isSdk: false,
     dependencies: [PackageRef('collection'), PackageRef('source_span'), PackageRef('string_scanner'), PackageRef('typed_data')],
     devDependencies: [PackageRef('test')],
+  );
+
+/// image 4.5.4
+const _image = Package(
+    name: 'image',
+    description: 'Dart Image Library provides server and web apps the ability to load, manipulate, and save images with various image file formats.',
+    homepage: 'https://github.com/brendan-duncan/image',
+    authors: [],
+    version: '4.5.4',
+    license: '''The MIT License
+
+Copyright (c) 2013-2022 Brendan Duncan.
+All rights reserved.
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in
+all copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+THE SOFTWARE.''',
+    isMarkdown: false,
+    isSdk: false,
+    dependencies: [PackageRef('archive'), PackageRef('meta'), PackageRef('xml')],
+    devDependencies: [PackageRef('build_runner'), PackageRef('http'), PackageRef('lints'), PackageRef('test'), PackageRef('web')],
   );
 
 /// in_app_review 2.0.11
@@ -6854,6 +6964,40 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     isSdk: false,
     dependencies: [PackageRef('async'), PackageRef('stack_trace')],
     devDependencies: [PackageRef('fake_async'), PackageRef('test')],
+  );
+
+/// posix 6.0.3
+const _posix = Package(
+    name: 'posix',
+    description: 'Exposes the POSIX api on OSx and Linux',
+    homepage: 'https://github.com/onepub-dev/dart_posix',
+    authors: [],
+    version: '6.0.3',
+    license: '''MIT License
+
+Copyright (c) 2020 Brett Sutton
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.''',
+    isMarkdown: false,
+    isSdk: false,
+    dependencies: [PackageRef('ffi'), PackageRef('meta'), PackageRef('path')],
+    devDependencies: [PackageRef('logging'), PackageRef('stack_trace'), PackageRef('test'), PackageRef('uuid')],
   );
 
 /// pub_semver 2.2.0
@@ -9864,7 +10008,7 @@ const _rain_wise = Package(
     version: '1.0.0+1',
     isMarkdown: false,
     isSdk: false,
-    dependencies: [PackageRef('collection'), PackageRef('csv'), PackageRef('cupertino_icons'), PackageRef('dotted_border'), PackageRef('drift'), PackageRef('drift_flutter'), PackageRef('file_picker'), PackageRef('firebase_analytics'), PackageRef('firebase_core'), PackageRef('firebase_crashlytics'), PackageRef('fl_chart'), PackageRef('flutter'), PackageRef('flutter_animate'), PackageRef('flutter_dotenv'), PackageRef('flutter_riverpod'), PackageRef('freezed_annotation'), PackageRef('go_router'), PackageRef('google_fonts'), PackageRef('hooks_riverpod'), PackageRef('in_app_review'), PackageRef('intl'), PackageRef('json_annotation'), PackageRef('json_path'), PackageRef('json_serializable'), PackageRef('package_info_plus'), PackageRef('path'), PackageRef('path_provider'), PackageRef('riverpod_annotation'), PackageRef('share_plus'), PackageRef('shared_preferences'), PackageRef('shimmer'), PackageRef('sqlite3'), PackageRef('sqlite3_flutter_libs'), PackageRef('stream_transform'), PackageRef('timeago'), PackageRef('url_launcher'), PackageRef('uuid')],
+    dependencies: [PackageRef('collection'), PackageRef('csv'), PackageRef('cupertino_icons'), PackageRef('dotted_border'), PackageRef('drift'), PackageRef('drift_flutter'), PackageRef('file_picker'), PackageRef('firebase_analytics'), PackageRef('firebase_core'), PackageRef('firebase_crashlytics'), PackageRef('fl_chart'), PackageRef('flutter'), PackageRef('flutter_animate'), PackageRef('flutter_dotenv'), PackageRef('flutter_launcher_icons'), PackageRef('flutter_riverpod'), PackageRef('freezed_annotation'), PackageRef('go_router'), PackageRef('google_fonts'), PackageRef('hooks_riverpod'), PackageRef('in_app_review'), PackageRef('intl'), PackageRef('json_annotation'), PackageRef('json_path'), PackageRef('json_serializable'), PackageRef('package_info_plus'), PackageRef('path'), PackageRef('path_provider'), PackageRef('riverpod_annotation'), PackageRef('share_plus'), PackageRef('shared_preferences'), PackageRef('shimmer'), PackageRef('sqlite3'), PackageRef('sqlite3_flutter_libs'), PackageRef('stream_transform'), PackageRef('timeago'), PackageRef('url_launcher'), PackageRef('uuid')],
     devDependencies: [PackageRef('build_runner'), PackageRef('custom_lint'), PackageRef('dart_pubspec_licenses'), PackageRef('drift_dev'), PackageRef('flutter_lints'), PackageRef('freezed'), PackageRef('freezed_lint'), PackageRef('go_router_builder'), PackageRef('lints'), PackageRef('riverpod_generator')],
   );
 
