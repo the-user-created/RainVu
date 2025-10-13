@@ -6,7 +6,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
-import "package:rain_wise/features/seasonal_patterns/domain/seasonal_patterns_data.dart";
+import "package:rain_wise/features/seasonal_trends/domain/seasonal_trends_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/widgets/charts/chart_card.dart";

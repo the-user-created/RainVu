@@ -34,9 +34,9 @@ class AnalysisLinksSection extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _AnalysisLinkTile(
-            title: l10n.seasonalPatternsTitle,
-            subtitle: l10n.detailedAnalysisSeasonalPatternsSubtitle,
-            onTap: () => const SeasonalPatternsRoute().push(context),
+            title: l10n.seasonalTrendsTitle,
+            subtitle: l10n.detailedAnalysisSeasonalTrendsSubtitle,
+            onTap: () => const SeasonalTrendsRoute().push(context),
           ),
           const SizedBox(height: 12),
           _AnalysisLinkTile(

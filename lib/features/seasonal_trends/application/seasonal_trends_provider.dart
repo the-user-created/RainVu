@@ -2,15 +2,15 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:freezed_annotation/freezed_annotation.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
-import "package:rain_wise/features/seasonal_patterns/data/seasonal_patterns_repository.dart";
-import "package:rain_wise/features/seasonal_patterns/domain/seasonal_patterns_data.dart";
+import "package:rain_wise/features/seasonal_trends/data/seasonal_trends_repository.dart";
+import "package:rain_wise/features/seasonal_trends/domain/seasonal_trends_data.dart";
 import "package:rain_wise/shared/domain/seasons.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
-part "seasonal_patterns_provider.g.dart";
+part "seasonal_trends_provider.g.dart";
 
-part "seasonal_patterns_provider.freezed.dart";
+part "seasonal_trends_provider.freezed.dart";
 
 @freezed
 abstract class SeasonalFilter with _$SeasonalFilter {
@@ -21,7 +21,7 @@ abstract class SeasonalFilter with _$SeasonalFilter {
 }
 
 @riverpod
-class SeasonalPatternsFilterNotifier extends _$SeasonalPatternsFilterNotifier {
+class SeasonalTrendsFilterNotifier extends _$SeasonalTrendsFilterNotifier {
   @override
   SeasonalFilter build() {
     // Set the initial season based on the user's hemisphere preference.
@@ -46,17 +46,17 @@ class SeasonalPatternsFilterNotifier extends _$SeasonalPatternsFilterNotifier {
 
 /// Fetches seasonal patterns data based on the current filter and hemisphere.
 @riverpod
-Future<SeasonalPatternsData> seasonalPatternsData(final Ref ref) async {
+Future<SeasonalTrendsData> seasonalTrendsData(final Ref ref) async {
   ref.watch(rainfallRepositoryProvider).watchTableUpdates();
 
-  final SeasonalFilter filter = ref.watch(seasonalPatternsFilterProvider);
+  final SeasonalFilter filter = ref.watch(seasonalTrendsFilterProvider);
   // Await preferences to ensure they are loaded before fetching data.
   final UserPreferences prefs = await ref.watch(userPreferencesProvider.future);
 
-  final SeasonalPatternsRepository repository = ref.watch(
-    seasonalPatternsRepositoryProvider,
+  final SeasonalTrendsRepository repository = ref.watch(
+    seasonalTrendsRepositoryProvider,
   );
-  return repository.fetchSeasonalPatterns(filter, prefs.hemisphere);
+  return repository.fetchSeasonalTrends(filter, prefs.hemisphere);
 }
 
 /// Provides a list of years for which rainfall data is available.

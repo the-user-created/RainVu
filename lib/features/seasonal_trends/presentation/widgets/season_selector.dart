@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/features/seasonal_patterns/application/seasonal_patterns_provider.dart";
+import "package:rain_wise/features/seasonal_trends/application/seasonal_trends_provider.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/seasons.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
@@ -12,9 +12,9 @@ class SeasonSelector extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final SeasonalFilter filter = ref.watch(seasonalPatternsFilterProvider);
-    final SeasonalPatternsFilterNotifier notifier = ref.read(
-      seasonalPatternsFilterProvider.notifier,
+    final SeasonalFilter filter = ref.watch(seasonalTrendsFilterProvider);
+    final SeasonalTrendsFilterNotifier notifier = ref.read(
+      seasonalTrendsFilterProvider.notifier,
     );
     final AsyncValue<List<int>> availableYearsAsync = ref.watch(
       availableYearsProvider,

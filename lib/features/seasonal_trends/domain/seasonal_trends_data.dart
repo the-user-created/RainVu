@@ -1,14 +1,14 @@
 import "package:freezed_annotation/freezed_annotation.dart";
 
-part "seasonal_patterns_data.freezed.dart";
+part "seasonal_trends_data.freezed.dart";
 
-/// A wrapper class for all data needed on the Seasonal Patterns screen.
+/// A wrapper class for all data needed on the Seasonal Trends screen.
 @freezed
-abstract class SeasonalPatternsData with _$SeasonalPatternsData {
-  const factory SeasonalPatternsData({
+abstract class SeasonalTrendsData with _$SeasonalTrendsData {
+  const factory SeasonalTrendsData({
     required final SeasonalSummary summary,
     required final List<SeasonalTrendPoint> trendData,
-  }) = _SeasonalPatternsData;
+  }) = _SeasonalTrendsData;
 }
 
 /// Represents the data for the seasonal summary card.

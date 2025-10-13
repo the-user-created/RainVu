@@ -1,28 +1,28 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/features/seasonal_patterns/application/seasonal_patterns_provider.dart";
-import "package:rain_wise/features/seasonal_patterns/domain/seasonal_patterns_data.dart";
-import "package:rain_wise/features/seasonal_patterns/presentation/widgets/season_selector.dart";
-import "package:rain_wise/features/seasonal_patterns/presentation/widgets/seasonal_summary_card.dart";
-import "package:rain_wise/features/seasonal_patterns/presentation/widgets/seasonal_trend_chart.dart";
+import "package:rain_wise/features/seasonal_trends/application/seasonal_trends_provider.dart";
+import "package:rain_wise/features/seasonal_trends/domain/seasonal_trends_data.dart";
+import "package:rain_wise/features/seasonal_trends/presentation/widgets/season_selector.dart";
+import "package:rain_wise/features/seasonal_trends/presentation/widgets/seasonal_summary_card.dart";
+import "package:rain_wise/features/seasonal_trends/presentation/widgets/seasonal_trend_chart.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
-class SeasonalPatternsScreen extends ConsumerWidget {
-  const SeasonalPatternsScreen({super.key});
+class SeasonalTrendsScreen extends ConsumerWidget {
+  const SeasonalTrendsScreen({super.key});
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final AsyncValue<SeasonalPatternsData> dataAsync = ref.watch(
-      seasonalPatternsDataProvider,
+    final AsyncValue<SeasonalTrendsData> dataAsync = ref.watch(
+      seasonalTrendsDataProvider,
     );
 
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          l10n.seasonalPatternsTitle,
+          l10n.seasonalTrendsTitle,
           style: theme.textTheme.titleLarge,
         ),
       ),
@@ -30,7 +30,7 @@ class SeasonalPatternsScreen extends ConsumerWidget {
         child: dataAsync.when(
           loading: () => const Center(child: AppLoader()),
           error: (final err, final stack) =>
-              Center(child: Text(l10n.seasonalPatternsError(err))),
+              Center(child: Text(l10n.seasonalTrendsError(err))),
           data: (final data) {
             final bool hasData =
                 data.summary.highestRecorded > 0 ||
@@ -94,7 +94,7 @@ class _Header extends ConsumerWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             Text(
-              l10n.seasonalPatternsDescription,
+              l10n.seasonalTrendsDescription,
               style: theme.textTheme.bodyMedium?.copyWith(
                 color: theme.colorScheme.onSurfaceVariant,
               ),
@@ -128,13 +128,13 @@ class _NoDataState extends StatelessWidget {
           ),
           const SizedBox(height: 16),
           Text(
-            l10n.seasonalPatternsNoDataTitle,
+            l10n.seasonalTrendsNoDataTitle,
             style: theme.textTheme.titleLarge,
             textAlign: TextAlign.center,
           ),
           const SizedBox(height: 8),
           Text(
-            l10n.seasonalPatternsNoDataMessage,
+            l10n.seasonalTrendsNoDataMessage,
             style: theme.textTheme.bodyMedium?.copyWith(
               color: theme.colorScheme.onSurfaceVariant,
             ),

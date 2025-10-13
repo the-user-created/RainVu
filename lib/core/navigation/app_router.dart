@@ -14,7 +14,7 @@ import "package:rain_wise/features/manage_gauges/presentation/screens/manage_gau
 import "package:rain_wise/features/oss_licenses/presentation/screens/license_detail_screen.dart";
 import "package:rain_wise/features/oss_licenses/presentation/screens/oss_licenses_screen.dart";
 import "package:rain_wise/features/rainfall_entry/presentation/screens/rainfall_entries_screen.dart";
-import "package:rain_wise/features/seasonal_patterns/presentation/screens/seasonal_patterns_screen.dart";
+import "package:rain_wise/features/seasonal_trends/presentation/screens/seasonal_trends_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/help_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/settings_screen.dart";
 import "package:rain_wise/features/unusual_patterns/presentation/screens/unusual_patterns_screen.dart";
@@ -109,7 +109,7 @@ class ComingSoonRoute extends GoRouteData with $ComingSoonRoute {
           routes: <TypedGoRoute<GoRouteData>>[
             TypedGoRoute<MonthlyComparisonRoute>(path: "monthly-comparison"),
             TypedGoRoute<DailyBreakdownRoute>(path: "monthly-breakdown"),
-            TypedGoRoute<SeasonalPatternsRoute>(path: "season-patterns"),
+            TypedGoRoute<SeasonalTrendsRoute>(path: "season-patterns"),
             TypedGoRoute<UnusualPatternsRoute>(path: "anomaly-explore"),
             TypedGoRoute<YearlyComparisonRoute>(path: "comparative-analysis"),
           ],
@@ -258,15 +258,15 @@ class DailyBreakdownRoute extends GoRouteData with $DailyBreakdownRoute {
       DailyBreakdownScreen(initialMonth: month);
 }
 
-class SeasonalPatternsRoute extends GoRouteData with $SeasonalPatternsRoute {
-  const SeasonalPatternsRoute();
+class SeasonalTrendsRoute extends GoRouteData with $SeasonalTrendsRoute {
+  const SeasonalTrendsRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
       _rootNavigatorKey;
 
   @override
   Widget build(final BuildContext context, final GoRouterState state) =>
-      const SeasonalPatternsScreen();
+      const SeasonalTrendsScreen();
 }
 
 class UnusualPatternsRoute extends GoRouteData with $UnusualPatternsRoute {

@@ -433,8 +433,8 @@
   "@detailedAnalysisMonthlyComparisonSubtitle": {
     "description": "Subtitle for the 'Monthly Totals vs. History' link on the insights screen."
   },
-  "detailedAnalysisSeasonalPatternsSubtitle": "Discover trends in Spring, Summer, Autumn, and Winter",
-  "@detailedAnalysisSeasonalPatternsSubtitle": {
+  "detailedAnalysisSeasonalTrendsSubtitle": "Discover trends in Spring, Summer, Autumn, and Winter",
+  "@detailedAnalysisSeasonalTrendsSubtitle": {
     "description": "Subtitle for the 'Seasonal Trends' link on the insights screen."
   },
   "detectedAnomaliesTitle": "Unusual Events",
@@ -1155,28 +1155,28 @@
   "@seasonWinter": {
     "description": "The name of the season Winter."
   },
-  "seasonalPatternsDescription": "Explore historical seasonal rainfall data and compare current trends with past patterns.",
-  "@seasonalPatternsDescription": {
+  "seasonalTrendsDescription": "Explore historical seasonal rainfall data and compare current trends with past patterns.",
+  "@seasonalTrendsDescription": {
     "description": "Descriptive text on the Seasonal Trends screen."
   },
-  "seasonalPatternsError": "Error: {error}",
-  "@seasonalPatternsError": {
+  "seasonalTrendsError": "Error: {error}",
+  "@seasonalTrendsError": {
     "placeholders": {
       "error": {
         "type": "Object"
       }
     }
   },
-  "seasonalPatternsNoDataMessage": "Once you start logging rainfall, this screen will show you trends and patterns for the selected season.",
-  "@seasonalPatternsNoDataMessage": {
+  "seasonalTrendsNoDataMessage": "Once you start logging rainfall, this screen will show you trends and patterns for the selected season.",
+  "@seasonalTrendsNoDataMessage": {
     "description": "Message for the empty state on the seasonal trends screen."
   },
-  "seasonalPatternsNoDataTitle": "No Seasonal Data Yet",
-  "@seasonalPatternsNoDataTitle": {
+  "seasonalTrendsNoDataTitle": "No Seasonal Data Yet",
+  "@seasonalTrendsNoDataTitle": {
     "description": "Title for the empty state on the seasonal trends screen."
   },
-  "seasonalPatternsTitle": "Seasonal Trends",
-  "@seasonalPatternsTitle": {
+  "seasonalTrendsTitle": "Seasonal Trends",
+  "@seasonalTrendsTitle": {
     "description": "The title of the Seasonal Trends screen."
   },
   "selectDateRangeTitle": "Select Date Range",

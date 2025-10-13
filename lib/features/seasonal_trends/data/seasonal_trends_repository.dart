@@ -3,33 +3,33 @@ import "dart:math";
 import "package:collection/collection.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
-import "package:rain_wise/features/seasonal_patterns/application/seasonal_patterns_provider.dart";
-import "package:rain_wise/features/seasonal_patterns/domain/seasonal_patterns_data.dart";
+import "package:rain_wise/features/seasonal_trends/application/seasonal_trends_provider.dart";
+import "package:rain_wise/features/seasonal_trends/domain/seasonal_trends_data.dart";
 import "package:rain_wise/shared/domain/seasons.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
-part "seasonal_patterns_repository.g.dart";
+part "seasonal_trends_repository.g.dart";
 
-abstract class SeasonalPatternsRepository {
-  Future<SeasonalPatternsData> fetchSeasonalPatterns(
+abstract class SeasonalTrendsRepository {
+  Future<SeasonalTrendsData> fetchSeasonalTrends(
     final SeasonalFilter filter,
     final Hemisphere hemisphere,
   );
 }
 
 @riverpod
-SeasonalPatternsRepository seasonalPatternsRepository(final Ref ref) {
+SeasonalTrendsRepository seasonalTrendsRepository(final Ref ref) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
-  return DriftSeasonalPatternsRepository(db.rainfallEntriesDao);
+  return DriftSeasonalTrendsRepository(db.rainfallEntriesDao);
 }
 
-class DriftSeasonalPatternsRepository implements SeasonalPatternsRepository {
-  DriftSeasonalPatternsRepository(this._dao);
+class DriftSeasonalTrendsRepository implements SeasonalTrendsRepository {
+  DriftSeasonalTrendsRepository(this._dao);
 
   final RainfallEntriesDao _dao;
 
   @override
-  Future<SeasonalPatternsData> fetchSeasonalPatterns(
+  Future<SeasonalTrendsData> fetchSeasonalTrends(
     final SeasonalFilter filter,
     final Hemisphere hemisphere,
   ) async {
@@ -69,7 +69,7 @@ class DriftSeasonalPatternsRepository implements SeasonalPatternsRepository {
 
     // If there's no data at all, return a zeroed-out state with complete trend data.
     if (dailyTotalsForSeason.isEmpty && historicalTotals.isEmpty) {
-      return SeasonalPatternsData(
+      return SeasonalTrendsData(
         summary: const SeasonalSummary(
           averageRainfall: 0,
           trendVsHistory: 0,
@@ -123,6 +123,6 @@ class DriftSeasonalPatternsRepository implements SeasonalPatternsRepository {
       lowestRecorded: lowestRecorded,
     );
 
-    return SeasonalPatternsData(summary: summary, trendData: trendData);
+    return SeasonalTrendsData(summary: summary, trendData: trendData);
   }
 }
