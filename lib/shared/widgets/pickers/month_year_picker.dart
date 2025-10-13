@@ -121,14 +121,13 @@ class _MonthYearPickerState extends State<_MonthYearPicker> {
       title: Text(l10n.selectMonthTitle),
       titleAlign: TextAlign.start,
       actions: [
-        Expanded(
-          child: AppButton(
-            label: l10n.applyButtonLabel,
-            isExpanded: true,
-            onPressed: () => Navigator.of(
-              context,
-            ).pop(DateTime(_selectedYear, _selectedMonth)),
-          ),
+        AppButton(
+          label: l10n.applyButtonLabel,
+          isExpanded: true,
+          style: AppButtonStyle.secondary,
+          onPressed: () => Navigator.of(
+            context,
+          ).pop(DateTime(_selectedYear, _selectedMonth)),
         ),
       ],
       child:
