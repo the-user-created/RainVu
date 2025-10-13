@@ -4,6 +4,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:in_app_review/in_app_review.dart";
 import "package:rain_wise/common/domain/coming_soon_args.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
+import "package:rain_wise/core/firebase/telemetry_manager.dart";
 import "package:rain_wise/core/navigation/app_router.dart";
 import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/settings/application/app_reset_provider.dart";
@@ -224,6 +225,8 @@ class SettingsScreen extends ConsumerWidget {
                 ),
               ],
             ),
+            SettingsSectionHeader(title: l10n.settingsSectionPrivacy),
+            const SettingsCard(children: [_TelemetrySetting()]),
             SettingsSectionHeader(title: l10n.settingsSectionDangerZone),
             DangerZoneCard(
               onReset: () => _showResetConfirmationSheet(context, ref),
@@ -349,6 +352,73 @@ class _ThemeSetting extends ConsumerWidget {
           },
         );
       },
+    );
+  }
+}
+
+class _TelemetrySetting extends ConsumerWidget {
+  const _TelemetrySetting();
+
+  @override
+  Widget build(final BuildContext context, final WidgetRef ref) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final ThemeData theme = Theme.of(context);
+    final AsyncValue<bool> telemetryEnabledAsync = ref.watch(
+      telemetryManagerProvider,
+    );
+
+    return telemetryEnabledAsync.when(
+      loading: () => SwitchListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        secondary: IconTheme(
+          data: IconThemeData(
+            color: theme.colorScheme.onSurfaceVariant,
+            size: 24,
+          ),
+          child: const Icon(Icons.analytics_outlined),
+        ),
+        title: Text(l10n.settingsTelemetryTitle),
+        subtitle: Text(l10n.settingsTelemetryDescription),
+        value: true,
+        onChanged: null,
+      ),
+      error: (final e, final s) {
+        FirebaseCrashlytics.instance.recordError(
+          e,
+          s,
+          reason: "Failed to load telemetry setting UI",
+        );
+        return ListTile(
+          contentPadding: const EdgeInsets.symmetric(
+            horizontal: 16,
+            vertical: 8,
+          ),
+          leading: IconTheme(
+            data: IconThemeData(color: theme.colorScheme.error, size: 24),
+            child: const Icon(Icons.error_outline),
+          ),
+          title: Text(l10n.genericError),
+          subtitle: Text(l10n.settingsTelemetryDescription),
+        );
+      },
+      data: (final isEnabled) => SwitchListTile(
+        contentPadding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        secondary: IconTheme(
+          data: IconThemeData(
+            color: theme.colorScheme.onSurfaceVariant,
+            size: 24,
+          ),
+          child: const Icon(Icons.analytics_outlined),
+        ),
+        title: Text(l10n.settingsTelemetryTitle),
+        subtitle: Text(l10n.settingsTelemetryDescription),
+        value: isEnabled,
+        onChanged: (final value) {
+          ref
+              .read(telemetryManagerProvider.notifier)
+              .setTelemetryEnabled(value);
+        },
+      ),
     );
   }
 }

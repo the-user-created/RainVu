@@ -9,6 +9,7 @@ import "package:flutter_dotenv/flutter_dotenv.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:rain_wise/core/data/local/shared_prefs.dart";
+import "package:rain_wise/core/firebase/telemetry_manager.dart";
 import "package:rain_wise/core/navigation/app_router.dart";
 import "package:rain_wise/core/ui/app_theme.dart";
 import "package:rain_wise/core/ui/theme_provider.dart";
@@ -18,7 +19,6 @@ import "package:rain_wise/firebase_options.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
 void main() async {
-  // Use runZonedGuarded to catch all errors that are not caught by Flutter.
   runZonedGuarded<Future<void>>(
     () async {
       WidgetsFlutterBinding.ensureInitialized();
@@ -31,21 +31,25 @@ void main() async {
         DeviceOrientation.landscapeRight,
       ]);
 
+      final container = ProviderContainer();
+      await container.read(sharedPreferencesProvider.future);
+
       try {
         await Firebase.initializeApp(
           options: DefaultFirebaseOptions.currentPlatform,
         );
 
-        // Pass all uncaught "fatal" errors from the framework to Crashlytics.
+        await container
+            .read(telemetryManagerProvider.notifier)
+            .applyPersistedSetting();
+
         FlutterError.onError = (final errorDetails) {
           FirebaseCrashlytics.instance.recordFlutterFatalError(errorDetails);
         };
 
-        // Pass all uncaught asynchronous errors that aren't handled by the
-        // Flutter framework to Crashlytics.
         PlatformDispatcher.instance.onError = (final error, final stack) {
           FirebaseCrashlytics.instance.recordError(error, stack, fatal: true);
-          return true; // Indicate that we've handled this error.
+          return true;
         };
       } catch (e, s) {
         // Firebase initialization failed. Log to the console for debugging
@@ -53,9 +57,6 @@ void main() async {
         debugPrint("Firebase initialization error: $e");
         debugPrintStack(stackTrace: s);
       }
-
-      final container = ProviderContainer();
-      await container.read(sharedPreferencesProvider.future);
 
       setTimeagoLocales();
 

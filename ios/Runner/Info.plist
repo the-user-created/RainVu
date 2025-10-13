@@ -85,5 +85,9 @@
             </array>
         </dict>
     </dict>
+    <key>FirebaseAnalyticsCollectionEnabled</key>
+    <false/>
+    <key>FirebaseCrashlyticsCollectionEnabled</key>
+    <false/>
 </dict>
 </plist>

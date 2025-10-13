@@ -1190,6 +1190,10 @@
   "@settingsSectionPreferences": {
     "description": "Section header for 'Preferences' in settings."
   },
+  "settingsSectionPrivacy": "Privacy & Data",
+  "@settingsSectionPrivacy": {
+    "description": "Section header for privacy settings"
+  },
   "settingsSectionSupportDevelopment": "SUPPORT DEVELOPMENT",
   "@settingsSectionSupportDevelopment": {
     "description": "Section header for 'Support Development' in settings."
@@ -1221,6 +1225,14 @@
   "settingsSupportLegalWhatsNew": "What's New",
   "@settingsSupportLegalWhatsNew": {
     "description": "Label for the 'What's New' (changelog) option in settings."
+  },
+  "settingsTelemetryDescription": "Help improve the app by sharing anonymous usage statistics and crash reports.",
+  "@settingsTelemetryDescription": {
+    "description": "Description for what the telemetry/analytics switch does"
+  },
+  "settingsTelemetryTitle": "Share Usage Data",
+  "@settingsTelemetryTitle": {
+    "description": "Title for the telemetry/analytics switch"
   },
   "settingsThemeDark": "Dark",
   "@settingsThemeDark": {
