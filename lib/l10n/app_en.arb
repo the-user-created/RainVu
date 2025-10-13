@@ -10,15 +10,15 @@
   },
   "allSeverities": "All Severities",
   "@allSeverities": {
-    "description": "Label for a filter option that selects all anomaly severity levels."
+    "description": "Label for a filter option that selects all severity levels for unusual events."
   },
-  "anomalyDeviationThresholdDescription": "The minimum percentage difference from the historical average to be flagged as an anomaly.",
+  "anomalyDeviationThresholdDescription": "Adjust how much rainfall must differ from the average to be considered unusual.",
   "@anomalyDeviationThresholdDescription": {
-    "description": "Explanatory text for the anomaly deviation threshold setting."
+    "description": "Explanatory text for the 'Unusual Rainfall Sensitivity' setting."
   },
-  "anomalyDeviationThresholdLabel": "Anomaly Deviation Threshold",
+  "anomalyDeviationThresholdLabel": "Unusual Rainfall Sensitivity",
   "@anomalyDeviationThresholdLabel": {
-    "description": "The label for the anomaly deviation threshold slider in the settings."
+    "description": "The label for the slider that adjusts sensitivity for detecting unusual rainfall."
   },
   "anomalyDeviationThresholdValue": "{value}%",
   "@anomalyDeviationThresholdValue": {
@@ -28,17 +28,18 @@
       }
     }
   },
-  "anomalyExplorationError": "Error loading anomalies: {error}",
+  "anomalyExplorationError": "Error loading unusual patterns: {error}",
   "@anomalyExplorationError": {
+    "description": "Error message shown when unusual rainfall patterns fail to load.",
     "placeholders": {
       "error": {
         "type": "Object"
       }
     }
   },
-  "anomalyExplorationTitle": "Anomaly Exploration",
+  "anomalyExplorationTitle": "Unusual Patterns",
   "@anomalyExplorationTitle": {
-    "description": "The title of the Anomaly Exploration screen."
+    "description": "The title of the 'Unusual Patterns' screen."
   },
   "anomalyGroupDeviation": "{sign}{percent}% vs avg",
   "@anomalyGroupDeviation": {
@@ -51,8 +52,9 @@
       }
     }
   },
-  "anomalyGroupSummary": "{count, plural, =1 {1 Anomaly} other {{count} Anomalies}}",
+  "anomalyGroupSummary": "{count, plural, =1 {1 Unusual Event} other {{count} Unusual Events}}",
   "@anomalyGroupSummary": {
+    "description": "Summary line for a group of unusual rainfall events, handling pluralization.",
     "placeholders": {
       "count": {
         "type": "int"
@@ -61,35 +63,35 @@
   },
   "anomalyListItemActual": "Actual",
   "@anomalyListItemActual": {
-    "description": "Label in an anomaly list item indicating the actual measured rainfall."
+    "description": "Label in an unusual event list item indicating the actual measured rainfall."
   },
   "anomalyListItemAverage": "Average",
   "@anomalyListItemAverage": {
-    "description": "Label in an anomaly list item indicating the historical average rainfall."
+    "description": "Label in an unusual event list item indicating the historical average rainfall."
   },
   "anomalySeverityCritical": "Critical",
   "@anomalySeverityCritical": {
-    "description": "Label for the 'Critical' anomaly severity level."
+    "description": "Label for the 'Critical' severity level of an unusual event."
   },
   "anomalySeverityHigh": "High",
   "@anomalySeverityHigh": {
-    "description": "Label for the 'High' anomaly severity level."
+    "description": "Label for the 'High' severity level of an unusual event."
   },
   "anomalySeverityLow": "Low",
   "@anomalySeverityLow": {
-    "description": "Label for the 'Low' anomaly severity level."
+    "description": "Label for the 'Low' severity level of an unusual event."
   },
   "anomalySeverityMedium": "Medium",
   "@anomalySeverityMedium": {
-    "description": "Label for the 'Medium' anomaly severity level."
+    "description": "Label for the 'Medium' severity level of an unusual event."
   },
   "anomalyTimelineLegendActual": "Actual",
   "@anomalyTimelineLegendActual": {
-    "description": "Legend text for the actual rainfall line in the anomaly timeline chart."
+    "description": "Legend text for the actual rainfall line in the unusual patterns chart."
   },
   "anomalyTimelineLegendAverage": "Average",
   "@anomalyTimelineLegendAverage": {
-    "description": "Legend text for the average rainfall line in the anomaly timeline chart."
+    "description": "Legend text for the average rainfall line in the unusual patterns chart."
   },
   "appInfoFooterError": "Could not load data",
   "@appInfoFooterError": {
@@ -181,19 +183,19 @@
   },
   "comparativeAnalysisChartNoData": "Not enough data to display chart.",
   "@comparativeAnalysisChartNoData": {
-    "description": "Message shown in the comparative analysis chart when there is insufficient data."
+    "description": "Message shown in the yearly comparison chart when there is insufficient data."
   },
   "comparativeAnalysisChartTitle": "Rainfall Comparison",
   "@comparativeAnalysisChartTitle": {
-    "description": "The title of the chart on the Comparative Analysis screen."
+    "description": "The title of the chart on the Yearly Comparison screen."
   },
   "comparativeAnalysisEmptyMessage": "This feature requires rainfall data from at least two different years. Once you have more data, you'll be able to compare it here.",
   "@comparativeAnalysisEmptyMessage": {
-    "description": "Message shown on the comparative analysis screen when there isn't data from at least two different years."
+    "description": "Message shown on the yearly comparison screen when there isn't data from at least two different years."
   },
   "comparativeAnalysisEmptyTitle": "Not Enough Data to Compare",
   "@comparativeAnalysisEmptyTitle": {
-    "description": "Title for the empty state on the comparative analysis screen when there is insufficient data."
+    "description": "Title for the empty state on the yearly comparison screen when there is insufficient data."
   },
   "comparativeAnalysisError": "An error occurred: {error}",
   "@comparativeAnalysisError": {
@@ -213,15 +215,15 @@
   },
   "comparativeAnalysisNoDataForSelection": "No rainfall data was found for the selected years and comparison type. Please try a different selection.",
   "@comparativeAnalysisNoDataForSelection": {
-    "description": "Message shown when a user's filter selection on the comparative analysis screen yields no data."
+    "description": "Message shown when a user's filter selection on the yearly comparison screen yields no data."
   },
   "comparativeAnalysisSelectYearsTitle": "Select Years to Compare",
   "@comparativeAnalysisSelectYearsTitle": {
-    "description": "Title above the year selection dropdowns on the comparative analysis screen."
+    "description": "Title above the year selection dropdowns on the yearly comparison screen."
   },
-  "comparativeAnalysisTitle": "Comparative Analysis",
+  "comparativeAnalysisTitle": "Yearly Comparison",
   "@comparativeAnalysisTitle": {
-    "description": "The title of the Comparative Analysis screen."
+    "description": "The title of the Yearly Comparison screen."
   },
   "comparisonInfoAnnualDescription": "Compares the total rainfall for each selected year. This view shows one bar representing the grand total for each year, ideal for a high-level overview.",
   "@comparisonInfoAnnualDescription": {
@@ -247,9 +249,9 @@
   "@comparisonInfoSeasonalTitle": {
     "description": "Title for the 'Seasonal' comparison type in the info sheet."
   },
-  "comparisonInfoSheetTitle": "About Comparison Types",
+  "comparisonInfoSheetTitle": "About Comparison Views",
   "@comparisonInfoSheetTitle": {
-    "description": "The title of the info sheet that explains different comparison types."
+    "description": "The title of the info sheet that explains different comparison views."
   },
   "comparisonTypeAnnual": "Annual",
   "@comparisonTypeAnnual": {
@@ -271,7 +273,7 @@
   "@dailyRainfallChartTitle": {
     "description": "Title for the chart showing daily rainfall totals for a selected month."
   },
-  "dashboardChartTitle": "Historical Trend",
+  "dashboardChartTitle": "Rainfall History",
   "@dashboardChartTitle": {
     "description": "Title for the main chart on the insights dashboard."
   },
@@ -411,33 +413,33 @@
       }
     }
   },
-  "detailedAnalysisAnomalyExplorationSubtitle": "Analyze unusual patterns in rainfall data",
+  "detailedAnalysisAnomalyExplorationSubtitle": "Explore significant rainfall variations",
   "@detailedAnalysisAnomalyExplorationSubtitle": {
-    "description": "Subtitle for the 'Anomaly Exploration' link on the insights screen."
+    "description": "Subtitle for the 'Unusual Patterns' link on the insights screen."
   },
-  "detailedAnalysisComparativeAnalysisSubtitle": "See side-by-side comparisons of multiple years",
+  "detailedAnalysisComparativeAnalysisSubtitle": "Compare rainfall totals year-over-year",
   "@detailedAnalysisComparativeAnalysisSubtitle": {
-    "description": "Subtitle for the 'Comparative Yearly Analysis' link on the insights screen."
+    "description": "Subtitle for the 'Year-Over-Year Comparison' link on the insights screen."
   },
-  "detailedAnalysisComparativeAnalysisTitle": "Comparative Yearly Analysis",
+  "detailedAnalysisComparativeAnalysisTitle": "Year-Over-Year Comparison",
   "@detailedAnalysisComparativeAnalysisTitle": {
-    "description": "Title for the 'Comparative Yearly Analysis' link on the insights screen."
+    "description": "Title for the 'Year-Over-Year Comparison' link on the insights screen."
   },
-  "detailedAnalysisMonthlyBreakdownSubtitle": "View detailed monthly statistics",
+  "detailedAnalysisMonthlyBreakdownSubtitle": "See a day-by-day summary for any month",
   "@detailedAnalysisMonthlyBreakdownSubtitle": {
-    "description": "Subtitle for the 'Monthly Breakdown' link on the insights screen."
+    "description": "Subtitle for the 'Daily Breakdown' link on the insights screen."
   },
-  "detailedAnalysisMonthlyComparisonSubtitle": "Compare monthly totals against historical averages",
+  "detailedAnalysisMonthlyComparisonSubtitle": "See how each month's total compares to past averages",
   "@detailedAnalysisMonthlyComparisonSubtitle": {
-    "description": "Subtitle for the 'Monthly Comparison' link on the insights screen."
+    "description": "Subtitle for the 'Monthly Totals vs. History' link on the insights screen."
   },
-  "detailedAnalysisSeasonalPatternsSubtitle": "Analyze rainfall patterns by season",
+  "detailedAnalysisSeasonalPatternsSubtitle": "Discover trends in Spring, Summer, Autumn, and Winter",
   "@detailedAnalysisSeasonalPatternsSubtitle": {
-    "description": "Subtitle for the 'Seasonal Patterns' link on the insights screen."
+    "description": "Subtitle for the 'Seasonal Trends' link on the insights screen."
   },
-  "detectedAnomaliesTitle": "Detected Anomalies",
+  "detectedAnomaliesTitle": "Unusual Events",
   "@detectedAnomaliesTitle": {
-    "description": "Section header for the list of detected anomalies."
+    "description": "Section header for the list of detected unusual rainfall events."
   },
   "doneButtonLabel": "Done",
   "@doneButtonLabel": {
@@ -683,9 +685,9 @@
   "@highestDay": {
     "description": "Label for the highest single-day rainfall statistic."
   },
-  "historicalComparisonTitle": "Historical Comparison",
+  "historicalComparisonTitle": "Comparison to Past Averages",
   "@historicalComparisonTitle": {
-    "description": "Title for the historical comparison card in the monthly breakdown."
+    "description": "Title for the historical comparison card in the daily breakdown screen."
   },
   "homeScreenError": "Error: {error}",
   "@homeScreenError": {
@@ -773,7 +775,7 @@
   },
   "legendDailyRainfall": "Daily Rainfall",
   "@legendDailyRainfall": {
-    "description": "Legend text for the daily rainfall bars in the monthly breakdown chart."
+    "description": "Legend text for the daily rainfall bars in the daily breakdown chart."
   },
   "licenseDisclaimerContent": "License text formatting has been adjusted for readability, but the content is unmodified.",
   "@licenseDisclaimerContent": {
@@ -849,11 +851,11 @@
   },
   "monthlyBreakdownEmptyMessage": "There are no rainfall entries recorded for the selected month. Try selecting another month or logging a new entry.",
   "@monthlyBreakdownEmptyMessage": {
-    "description": "Message shown on the monthly breakdown screen when there is no data for the selected month."
+    "description": "Message shown on the daily breakdown screen when there is no data for the selected month."
   },
   "monthlyBreakdownEmptyTitle": "No Data for This Month",
   "@monthlyBreakdownEmptyTitle": {
-    "description": "Title for the empty state on the monthly breakdown screen."
+    "description": "Title for the empty state on the daily breakdown screen."
   },
   "monthlyBreakdownError": "Error: {error}",
   "@monthlyBreakdownError": {
@@ -863,21 +865,21 @@
       }
     }
   },
-  "monthlyBreakdownTitle": "Monthly Breakdown",
+  "monthlyBreakdownTitle": "Daily Breakdown",
   "@monthlyBreakdownTitle": {
-    "description": "The title of the Monthly Breakdown screen."
+    "description": "The title of the Daily Breakdown screen."
   },
   "monthlyComparisonEmptyMessage": "Once you have logged more rainfall data, you'll be able to see monthly comparisons here.",
   "@monthlyComparisonEmptyMessage": {
-    "description": "Message shown on the monthly comparison screen when there is not enough data."
+    "description": "Message shown on the 'Monthly Totals vs. History' screen when there is not enough data."
   },
   "monthlyComparisonEmptyTitle": "No Data to Compare",
   "@monthlyComparisonEmptyTitle": {
-    "description": "Title for the empty state on the monthly comparison screen."
+    "description": "Title for the empty state on the 'Monthly Totals vs. History' screen."
   },
-  "monthlyComparisonTitle": "Monthly Comparison",
+  "monthlyComparisonTitle": "Monthly Totals vs. History",
   "@monthlyComparisonTitle": {
-    "description": "The title of the Monthly Comparison screen."
+    "description": "The title of the 'Monthly Totals vs. History' screen."
   },
   "monthlyRainfallTitle": "Monthly Rainfall",
   "@monthlyRainfallTitle": {
@@ -923,9 +925,9 @@
   "@navSettings": {
     "description": "Navigation bar label for the Settings screen."
   },
-  "noAnomaliesFound": "No anomalies found for the selected filters.",
+  "noAnomaliesFound": "No unusual rainfall found for the selected filters.",
   "@noAnomaliesFound": {
-    "description": "Message shown when no anomalies match the selected filters."
+    "description": "Message shown when no unusual rainfall events match the selected filters."
   },
   "noDataToSetDateRange": "No data available to set a date range.",
   "@noDataToSetDateRange": {
@@ -960,9 +962,9 @@
       }
     }
   },
-  "preferencesSheetTitle": "Units & Analysis Settings",
+  "preferencesSheetTitle": "Units & Preferences",
   "@preferencesSheetTitle": {
-    "description": "Title for the sheet where users can change units and analysis preferences."
+    "description": "Title for the sheet where users can change units and other preferences."
   },
   "rainfallAmountTooltip": "{value}",
   "@rainfallAmountTooltip": {
@@ -1025,7 +1027,7 @@
   "@rainfallEntryUpdatedSuccess": {
     "description": "Snackbar message shown after successfully updating a rainfall entry."
   },
-  "rainfallTrendsTitle": "Rainfall Trends",
+  "rainfallTrendsTitle": "Rainfall Over Time",
   "@rainfallTrendsTitle": {
     "description": "Title for a chart that shows rainfall trends over a period of time."
   },
@@ -1155,7 +1157,7 @@
   },
   "seasonalPatternsDescription": "Explore historical seasonal rainfall data and compare current trends with past patterns.",
   "@seasonalPatternsDescription": {
-    "description": "Descriptive text on the Seasonal Patterns screen."
+    "description": "Descriptive text on the Seasonal Trends screen."
   },
   "seasonalPatternsError": "Error: {error}",
   "@seasonalPatternsError": {
@@ -1167,15 +1169,15 @@
   },
   "seasonalPatternsNoDataMessage": "Once you start logging rainfall, this screen will show you trends and patterns for the selected season.",
   "@seasonalPatternsNoDataMessage": {
-    "description": "Message for the empty state on the seasonal patterns screen."
+    "description": "Message for the empty state on the seasonal trends screen."
   },
   "seasonalPatternsNoDataTitle": "No Seasonal Data Yet",
   "@seasonalPatternsNoDataTitle": {
-    "description": "Title for the empty state on the seasonal patterns screen."
+    "description": "Title for the empty state on the seasonal trends screen."
   },
-  "seasonalPatternsTitle": "Seasonal Patterns",
+  "seasonalPatternsTitle": "Seasonal Trends",
   "@seasonalPatternsTitle": {
-    "description": "The title of the Seasonal Patterns screen."
+    "description": "The title of the Seasonal Trends screen."
   },
   "selectDateRangeTitle": "Select Date Range",
   "@selectDateRangeTitle": {
@@ -1195,7 +1197,7 @@
   },
   "selectSeverityLevelsDialogTitle": "Select Severity Levels",
   "@selectSeverityLevelsDialogTitle": {
-    "description": "Title of the dialog for selecting anomaly severity levels."
+    "description": "Title of the dialog for selecting unusual event severity levels."
   },
   "settingsAppearanceTheme": "Theme",
   "@settingsAppearanceTheme": {
@@ -1293,9 +1295,9 @@
   "@settingsTitle": {
     "description": "The title of the Settings screen."
   },
-  "settingsUnitsAndAnalysis": "Units & Analysis",
+  "settingsUnitsAndAnalysis": "Units & Preferences",
   "@settingsUnitsAndAnalysis": {
-    "description": "Label for the 'Units & Analysis' preferences tile in settings."
+    "description": "Label for the 'Units & Preferences' tile in settings."
   },
   "severitiesSelected": "{count} severities selected",
   "@severitiesSelected": {
@@ -1399,18 +1401,18 @@
   },
   "yearlySummaryTitle": "Yearly Summary",
   "@yearlySummaryTitle": {
-    "description": "Title for the yearly summary cards on the comparative analysis screen."
+    "description": "Title for the yearly summary cards on the yearly comparison screen."
   },
   "yearlySummaryTotalAnnualRainfall": "Total Annual Rainfall",
   "@yearlySummaryTotalAnnualRainfall": {
     "description": "Label for the total annual rainfall statistic."
   },
-  "ytdAnnualAverage": "vs Annual Avg: {value}",
+  "ytdAnnualAverage": "vs Yearly Avg: {value}",
   "@ytdAnnualAverage": {
-    "description": "Label on the YTD card showing the historical annual average for comparison."
+    "description": "Label on the YTD card showing the historical yearly average for comparison."
   },
-  "ytdProgressTitle": "Year-to-Date Progress",
+  "ytdProgressTitle": "Year-to-Date Total",
   "@ytdProgressTitle": {
-    "description": "Title for the Year-to-Date summary card on the home screen."
+    "description": "Title for the 'Year-to-Date Total' summary card on the home screen."
   }
 }

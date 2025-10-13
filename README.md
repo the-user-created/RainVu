@@ -194,6 +194,14 @@ This project uses `flutter_dotenv` to manage environment variables for Firebase 
   This creates `lib/oss_licenses.dart`, which is then displayed on the "Open Source Licenses"
   screen.
 
+* **Localization:**
+  ```bash
+  remove_unused_localizations_keys
+  arb_utils generate-meta lib/l10n/app_en.arb
+  arb_utils sort lib/l10n/app_en.arb
+  flutter gen-l10n
+  ```
+
 ## Development Workflow
 
 We use a simple branching model:
