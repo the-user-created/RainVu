@@ -1,14 +1,14 @@
 import "package:freezed_annotation/freezed_annotation.dart";
 
-part "monthly_breakdown_data.freezed.dart";
+part "daily_breakdown_data.freezed.dart";
 
 @freezed
-abstract class MonthlyBreakdownData with _$MonthlyBreakdownData {
-  const factory MonthlyBreakdownData({
+abstract class DailyBreakdownData with _$DailyBreakdownData {
+  const factory DailyBreakdownData({
     required final MonthlySummaryStats summaryStats,
-    required final HistoricalComparisonStats historicalStats,
+    required final PastAveragesStats historicalStats,
     required final List<DailyRainfallPoint> dailyChartData,
-  }) = _MonthlyBreakdownData;
+  }) = _DailyBreakdownData;
 }
 
 @freezed
@@ -22,12 +22,12 @@ abstract class MonthlySummaryStats with _$MonthlySummaryStats {
 }
 
 @freezed
-abstract class HistoricalComparisonStats with _$HistoricalComparisonStats {
-  const factory HistoricalComparisonStats({
+abstract class PastAveragesStats with _$PastAveragesStats {
+  const factory PastAveragesStats({
     required final double twoYearAvg,
     required final double fiveYearAvg,
     required final double tenYearAvg,
-  }) = _HistoricalComparisonStats;
+  }) = _PastAveragesStats;
 }
 
 @freezed

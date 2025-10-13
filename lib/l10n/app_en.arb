@@ -425,8 +425,8 @@
   "@detailedAnalysisYearlyComparisonTitle": {
     "description": "Title for the 'Year-Over-Year Comparison' link on the insights screen."
   },
-  "detailedAnalysisMonthlyBreakdownSubtitle": "See a day-by-day summary for any month",
-  "@detailedAnalysisMonthlyBreakdownSubtitle": {
+  "detailedAnalysisDailyBreakdownSubtitle": "See a day-by-day summary for any month",
+  "@detailedAnalysisDailyBreakdownSubtitle": {
     "description": "Subtitle for the 'Daily Breakdown' link on the insights screen."
   },
   "detailedAnalysisMonthlyComparisonSubtitle": "See how each month's total compares to past averages",
@@ -849,24 +849,24 @@
   "@manageGaugesTitle": {
     "description": "The title of the screen for managing rain gauges."
   },
-  "monthlyBreakdownEmptyMessage": "There are no rainfall entries recorded for the selected month. Try selecting another month or logging a new entry.",
-  "@monthlyBreakdownEmptyMessage": {
+  "dailyBreakdownEmptyMessage": "There are no rainfall entries recorded for the selected month. Try selecting another month or logging a new entry.",
+  "@dailyBreakdownEmptyMessage": {
     "description": "Message shown on the daily breakdown screen when there is no data for the selected month."
   },
-  "monthlyBreakdownEmptyTitle": "No Data for This Month",
-  "@monthlyBreakdownEmptyTitle": {
+  "dailyBreakdownEmptyTitle": "No Data for This Month",
+  "@dailyBreakdownEmptyTitle": {
     "description": "Title for the empty state on the daily breakdown screen."
   },
-  "monthlyBreakdownError": "Error: {error}",
-  "@monthlyBreakdownError": {
+  "dailyBreakdownError": "Error: {error}",
+  "@dailyBreakdownError": {
     "placeholders": {
       "error": {
         "type": "Object"
       }
     }
   },
-  "monthlyBreakdownTitle": "Daily Breakdown",
-  "@monthlyBreakdownTitle": {
+  "dailyBreakdownTitle": "Daily Breakdown",
+  "@dailyBreakdownTitle": {
     "description": "The title of the Daily Breakdown screen."
   },
   "monthlyComparisonEmptyMessage": "Once you have logged more rainfall data, you'll be able to see monthly comparisons here.",

@@ -4,20 +4,20 @@ import "package:go_router/go_router.dart";
 import "package:rain_wise/common/domain/coming_soon_args.dart";
 import "package:rain_wise/common/presentation/screens/coming_soon_screen.dart";
 import "package:rain_wise/core/ui/scaffold_with_nav_bar.dart";
-import "package:rain_wise/features/unusual_patterns/presentation/screens/unusual_patterns_screen.dart";
 import "package:rain_wise/features/changelog/presentation/screens/changelog_screen.dart";
+import "package:rain_wise/features/daily_breakdown/presentation/screens/daily_breakdown_screen.dart";
 import "package:rain_wise/features/data_tools/presentation/screens/data_tools_screen.dart";
 import "package:rain_wise/features/home/presentation/screens/home_screen.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/screens/insights_screen.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/screens/monthly_comparison_screen.dart";
 import "package:rain_wise/features/manage_gauges/presentation/screens/manage_gauges_screen.dart";
-import "package:rain_wise/features/monthly_breakdown/presentation/screens/monthly_breakdown_screen.dart";
 import "package:rain_wise/features/oss_licenses/presentation/screens/license_detail_screen.dart";
 import "package:rain_wise/features/oss_licenses/presentation/screens/oss_licenses_screen.dart";
 import "package:rain_wise/features/rainfall_entry/presentation/screens/rainfall_entries_screen.dart";
 import "package:rain_wise/features/seasonal_patterns/presentation/screens/seasonal_patterns_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/help_screen.dart";
 import "package:rain_wise/features/settings/presentation/screens/settings_screen.dart";
+import "package:rain_wise/features/unusual_patterns/presentation/screens/unusual_patterns_screen.dart";
 import "package:rain_wise/features/yearly_comparison/presentation/screens/yearly_comparison_screen.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/oss_licenses.dart" as oss;
@@ -108,7 +108,7 @@ class ComingSoonRoute extends GoRouteData with $ComingSoonRoute {
           path: "/insights",
           routes: <TypedGoRoute<GoRouteData>>[
             TypedGoRoute<MonthlyComparisonRoute>(path: "monthly-comparison"),
-            TypedGoRoute<MonthlyBreakdownRoute>(path: "monthly-breakdown"),
+            TypedGoRoute<DailyBreakdownRoute>(path: "monthly-breakdown"),
             TypedGoRoute<SeasonalPatternsRoute>(path: "season-patterns"),
             TypedGoRoute<UnusualPatternsRoute>(path: "anomaly-explore"),
             TypedGoRoute<YearlyComparisonRoute>(path: "comparative-analysis"),
@@ -244,8 +244,8 @@ class MonthlyComparisonRoute extends GoRouteData with $MonthlyComparisonRoute {
       const MonthlyComparisonScreen();
 }
 
-class MonthlyBreakdownRoute extends GoRouteData with $MonthlyBreakdownRoute {
-  const MonthlyBreakdownRoute({this.month});
+class DailyBreakdownRoute extends GoRouteData with $DailyBreakdownRoute {
+  const DailyBreakdownRoute({this.month});
 
   /// An optional initial month to display, in 'YYYY-MM' format via query param.
   final String? month;
@@ -255,7 +255,7 @@ class MonthlyBreakdownRoute extends GoRouteData with $MonthlyBreakdownRoute {
 
   @override
   Widget build(final BuildContext context, final GoRouterState state) =>
-      MonthlyBreakdownScreen(initialMonth: month);
+      DailyBreakdownScreen(initialMonth: month);
 }
 
 class SeasonalPatternsRoute extends GoRouteData with $SeasonalPatternsRoute {
@@ -269,8 +269,7 @@ class SeasonalPatternsRoute extends GoRouteData with $SeasonalPatternsRoute {
       const SeasonalPatternsScreen();
 }
 
-class UnusualPatternsRoute extends GoRouteData
-    with $UnusualPatternsRoute {
+class UnusualPatternsRoute extends GoRouteData with $UnusualPatternsRoute {
   const UnusualPatternsRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =

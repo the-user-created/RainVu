@@ -28,9 +28,9 @@ class AnalysisLinksSection extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _AnalysisLinkTile(
-            title: l10n.monthlyBreakdownTitle,
-            subtitle: l10n.detailedAnalysisMonthlyBreakdownSubtitle,
-            onTap: () => const MonthlyBreakdownRoute().push(context),
+            title: l10n.dailyBreakdownTitle,
+            subtitle: l10n.detailedAnalysisDailyBreakdownSubtitle,
+            onTap: () => const DailyBreakdownRoute().push(context),
           ),
           const SizedBox(height: 12),
           _AnalysisLinkTile(

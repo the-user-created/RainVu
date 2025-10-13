@@ -82,7 +82,9 @@ class _YearSelectors extends ConsumerWidget {
     final ThemeData theme = Theme.of(context);
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
-    final notifier = ref.read(yearlyComparisonFilterProvider.notifier);
+    final YearlyComparisonFilterNotifier notifier = ref.read(
+      yearlyComparisonFilterProvider.notifier,
+    );
 
     Widget buildDropdown({
       required final int value,
@@ -109,25 +111,29 @@ class _YearSelectors extends ConsumerWidget {
       onChanged: onChanged,
     );
 
-    final year1Dropdown = buildDropdown(
+    final Widget year1Dropdown = buildDropdown(
       value: filter.year1,
       otherValue: filter.year2,
       onChanged: (final year) {
-        if (year != null) notifier.setYear1(year);
+        if (year != null) {
+          notifier.setYear1(year);
+        }
       },
     );
 
-    final year2Dropdown = buildDropdown(
+    final Widget year2Dropdown = buildDropdown(
       value: filter.year2,
       otherValue: filter.year1,
       onChanged: (final year) {
-        if (year != null) notifier.setYear2(year);
+        if (year != null) {
+          notifier.setYear2(year);
+        }
       },
     );
 
     return LayoutBuilder(
       builder: (final context, final constraints) {
-        const double wrapThreshold = 340.0;
+        const double wrapThreshold = 340;
 
         if (constraints.maxWidth < wrapThreshold) {
           // Use a Column for small widths / large text
@@ -163,7 +169,9 @@ class _ComparisonTypeSelector extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final notifier = ref.read(yearlyComparisonFilterProvider.notifier);
+    final YearlyComparisonFilterNotifier notifier = ref.read(
+      yearlyComparisonFilterProvider.notifier,
+    );
 
     return AppChoiceChips<ComparisonType>(
       selectedValue: filter.type,

@@ -62,7 +62,7 @@ class YearlyComparisonScreen extends ConsumerWidget {
                     tooltip: l10n.infoTooltip,
                     onPressed: () => _showInfoSheet(context),
                   ),
-            error: (final _, final __) => const SizedBox.shrink(),
+            error: (final _, final _) => const SizedBox.shrink(),
             loading: () => const SizedBox.shrink(),
           ),
           const SizedBox(width: 8),

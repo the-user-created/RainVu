@@ -26,9 +26,9 @@ class _YearlySummaryCardState extends ConsumerState<YearlySummaryCard> {
   bool _isPressed = false;
 
   void _onTap() {
-    // Navigate to MonthlyBreakdownScreen for January of the selected year
+    // Navigate to DailyBreakdownScreen for January of the selected year
     final String monthParam = "${widget.summary.year}-01";
-    MonthlyBreakdownRoute(month: monthParam).push(context);
+    DailyBreakdownRoute(month: monthParam).push(context);
   }
 
   @override

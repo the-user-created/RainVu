@@ -66,7 +66,7 @@ class MonthlyComparisonScreen extends ConsumerWidget {
                     // Format as YYYY-MM for the route parameter.
                     final String monthParam =
                         "$currentYear-${monthNumber.toString().padLeft(2, '0')}";
-                    MonthlyBreakdownRoute(month: monthParam).push(context);
+                    DailyBreakdownRoute(month: monthParam).push(context);
                   },
           );
         })

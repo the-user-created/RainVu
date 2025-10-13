@@ -107,7 +107,7 @@ class AnomalyTimelineChart extends ConsumerWidget {
     }
 
     // Add padding between labels (20% of label width, minimum 16px)
-    final double padding = max(maxLabelWidth * 0.2, 16.0);
+    final double padding = max(maxLabelWidth * 0.2, 16);
 
     // Ensure minimum width accounts for the label plus padding
     return max(_baseMinPointWidth, maxLabelWidth + padding);

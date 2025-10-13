@@ -82,7 +82,7 @@ class _YearlyComparisonChartState extends ConsumerState<YearlyComparisonChart>
     }
 
     // Add padding between labels (20% of label width, minimum 16px)
-    final double padding = max(maxLabelWidth * 0.2, 16.0);
+    final double padding = max(maxLabelWidth * 0.2, 16);
 
     // Ensure minimum width accounts for the label plus padding
     return max(_baseMinBarGroupWidth, maxLabelWidth + padding);
@@ -273,7 +273,6 @@ class _YearlyComparisonChartState extends ConsumerState<YearlyComparisonChart>
             }
             return SideTitleWidget(
               meta: meta,
-              space: 8,
               child: Text(
                 value.toInt().toString(),
                 style: theme.textTheme.bodySmall,

@@ -3,28 +3,28 @@ import "dart:math";
 import "package:collection/collection.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
-import "package:rain_wise/features/monthly_breakdown/domain/monthly_breakdown_data.dart";
+import "package:rain_wise/features/daily_breakdown/domain/daily_breakdown_data.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
-part "monthly_breakdown_repository.g.dart";
+part "daily_breakdown_repository.g.dart";
 
-abstract class MonthlyBreakdownRepository {
-  Future<MonthlyBreakdownData> fetchMonthlyBreakdown(final DateTime month);
+abstract class DailyBreakdownRepository {
+  Future<DailyBreakdownData> fetchDailyBreakdown(final DateTime month);
 }
 
 @riverpod
-MonthlyBreakdownRepository monthlyBreakdownRepository(final Ref ref) {
+DailyBreakdownRepository dailyBreakdownRepository(final Ref ref) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
-  return DriftMonthlyBreakdownRepository(db.rainfallEntriesDao);
+  return DriftDailyBreakdownRepository(db.rainfallEntriesDao);
 }
 
-class DriftMonthlyBreakdownRepository implements MonthlyBreakdownRepository {
-  DriftMonthlyBreakdownRepository(this._dao);
+class DriftDailyBreakdownRepository implements DailyBreakdownRepository {
+  DriftDailyBreakdownRepository(this._dao);
 
   final RainfallEntriesDao _dao;
 
   @override
-  Future<MonthlyBreakdownData> fetchMonthlyBreakdown(
+  Future<DailyBreakdownData> fetchDailyBreakdown(
     final DateTime month,
   ) async {
     final int year = month.year;
@@ -52,7 +52,7 @@ class DriftMonthlyBreakdownRepository implements MonthlyBreakdownRepository {
       dailyTotals,
       daysInMonth,
     );
-    final HistoricalComparisonStats historicalStats = _calculateHistoricalStats(
+    final PastAveragesStats historicalStats = _calculateHistoricalStats(
       historicalTotals,
       year,
     );
@@ -64,7 +64,7 @@ class DriftMonthlyBreakdownRepository implements MonthlyBreakdownRepository {
       chartData.add(DailyRainfallPoint(day: day, rainfall: rainfall));
     }
 
-    return MonthlyBreakdownData(
+    return DailyBreakdownData(
       summaryStats: summaryStats,
       historicalStats: historicalStats,
       dailyChartData: chartData,
@@ -104,7 +104,7 @@ class DriftMonthlyBreakdownRepository implements MonthlyBreakdownRepository {
     );
   }
 
-  HistoricalComparisonStats _calculateHistoricalStats(
+  PastAveragesStats _calculateHistoricalStats(
     final List<YearlyTotal> historicalTotals,
     final int currentYear,
   ) {
@@ -125,7 +125,7 @@ class DriftMonthlyBreakdownRepository implements MonthlyBreakdownRepository {
       (final i) => currentYear - 1 - i,
     ).map((final year) => historicalMap[year] ?? 0.0).sum;
 
-    return HistoricalComparisonStats(
+    return PastAveragesStats(
       twoYearAvg: twoYearSum / 2,
       fiveYearAvg: fiveYearSum / 5,
       tenYearAvg: tenYearSum / 10,

@@ -1,3 +1,4 @@
+import "package:flutter/foundation.dart";
 import "package:flutter_test/flutter_test.dart";
 import "package:rain_wise/oss_licenses.dart" as oss;
 
@@ -52,7 +53,9 @@ void main() {
       final String? licenseText = pkg.license;
 
       if (licenseText == null) {
-        print("Skipping package with no license: ${pkg.name}");
+        if (kDebugMode) {
+          print("Skipping package with no license: ${pkg.name}");
+        }
         continue; // Some dependencies may not include a license.
       }
 

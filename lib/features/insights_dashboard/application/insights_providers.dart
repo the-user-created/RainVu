@@ -11,6 +11,7 @@ class DashboardMetricState extends _$DashboardMetricState {
   @override
   DashboardMetric build() => DashboardMetric.mtd;
 
+  // ignore: use_setters_to_change_properties
   void setMetric(final DashboardMetric metric) {
     state = metric;
   }

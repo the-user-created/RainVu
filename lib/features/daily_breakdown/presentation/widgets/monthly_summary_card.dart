@@ -4,7 +4,7 @@ import "package:intl/intl.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/navigation/app_router.dart";
 import "package:rain_wise/core/utils/extensions.dart";
-import "package:rain_wise/features/monthly_breakdown/domain/monthly_breakdown_data.dart";
+import "package:rain_wise/features/daily_breakdown/domain/daily_breakdown_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";

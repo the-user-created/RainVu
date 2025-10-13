@@ -21,8 +21,8 @@ part "data_tools_repository.g.dart";
 abstract class DataToolsRepository {
   Future<String?> exportData({
     required final ExportFormat format,
-    final DateTimeRange? dateRange,
     required final void Function(ExportStage) onProgress,
+    final DateTimeRange? dateRange,
   });
 
   Future<void> importData(final File file);
@@ -56,8 +56,8 @@ class DriftDataToolsRepository implements DataToolsRepository {
   @override
   Future<String?> exportData({
     required final ExportFormat format,
-    final DateTimeRange? dateRange,
     required final void Function(ExportStage) onProgress,
+    final DateTimeRange? dateRange,
   }) async {
     onProgress(ExportStage.fetching);
     final List<RainfallEntryWithGauge> entriesWithGauges = dateRange != null
