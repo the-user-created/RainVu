@@ -111,7 +111,7 @@ class DailyRainfallChart extends ConsumerWidget {
     bottomTitles: AxisTitles(
       sideTitles: SideTitles(
         showTitles: true,
-        reservedSize: 30,
+        reservedSize: 40,
         getTitlesWidget: (final value, final meta) {
           final int day = value.toInt();
           // Show labels for day 1, and every 5 days after.

@@ -82,12 +82,9 @@ class _MonthlyBreakdownScreenState
 
     return Scaffold(
       appBar: AppBar(
-        title: FittedBox(
-          fit: BoxFit.scaleDown,
-          child: Text(
+        title: Text(
             l10n.monthlyBreakdownTitle,
             style: theme.textTheme.titleLarge,
-          ),
         ),
         actions: [
           Padding(
