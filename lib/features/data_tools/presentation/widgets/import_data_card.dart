@@ -63,38 +63,42 @@ class _FilePickerBox extends StatelessWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     return InkWell(
       onTap: onTap,
+      borderRadius: BorderRadius.circular(12),
       child: DottedBorder(
         options: RoundedRectDottedBorderOptions(
           color: theme.colorScheme.onSurface,
           dashPattern: const [6, 4],
           radius: const Radius.circular(12),
         ),
-        child: Container(
-          height: 120,
+        child: DecoratedBox(
           decoration: BoxDecoration(
             color: theme.colorScheme.surfaceContainerHighest,
             borderRadius: BorderRadius.circular(12),
           ),
-          child: Center(
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 32, horizontal: 16),
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
                 Icon(
                   Icons.upload_file,
                   color: theme.colorScheme.onSurface,
                   size: 32,
                 ),
-                const SizedBox(height: 8),
+                const SizedBox(height: 16),
                 Text(
                   l10n.filePickerBoxTitle,
                   style: theme.textTheme.bodyMedium,
+                  textAlign: TextAlign.center,
                 ),
-                const SizedBox(height: 4),
+                const SizedBox(height: 8),
                 Text(
                   l10n.filePickerBoxSubtitle,
                   style: theme.textTheme.bodySmall?.copyWith(
                     color: theme.colorScheme.onSurfaceVariant,
                   ),
+                  textAlign: TextAlign.center,
                 ),
               ],
             ),
@@ -209,7 +213,7 @@ class _ImportPreviewSummary extends StatelessWidget {
               children: preview.newGaugeNames
                   .map(
                     (final name) => Chip(
-                      label: Text(name),
+                      label: Text(name, overflow: TextOverflow.ellipsis),
                       backgroundColor: theme.colorScheme.secondaryContainer,
                       labelStyle: theme.textTheme.bodySmall?.copyWith(
                         color: theme.colorScheme.onSecondaryContainer,
@@ -220,56 +224,24 @@ class _ImportPreviewSummary extends StatelessWidget {
             ),
           ],
           const SizedBox(height: 24),
-          LayoutBuilder(
-            builder: (final context, final constraints) {
-              const double breakpoint = 320;
-              final bool isWide = constraints.maxWidth > breakpoint;
-
-              if (isWide) {
-                return Row(
-                  children: [
-                    Expanded(
-                      child: AppButton(
-                        onPressed: onCancel,
-                        label: l10n.importPreviewCancelButton,
-                        style: AppButtonStyle.outline,
-                        size: AppButtonSize.small,
-                      ),
-                    ),
-                    const SizedBox(width: 12),
-                    Expanded(
-                      child: AppButton(
-                        onPressed: hasChanges ? onConfirm : null,
-                        label: l10n.importPreviewConfirmButton,
-                        isLoading: isLoading,
-                        size: AppButtonSize.small,
-                      ),
-                    ),
-                  ],
-                );
-              } else {
-                return Column(
-                  crossAxisAlignment: CrossAxisAlignment.stretch,
-                  children: [
-                    AppButton(
-                      onPressed: hasChanges ? onConfirm : null,
-                      label: l10n.importPreviewConfirmButton,
-                      isLoading: isLoading,
-                      isExpanded: true,
-                      size: AppButtonSize.small,
-                    ),
-                    const SizedBox(height: 12),
-                    AppButton(
-                      onPressed: onCancel,
-                      label: l10n.importPreviewCancelButton,
-                      style: AppButtonStyle.outline,
-                      isExpanded: true,
-                      size: AppButtonSize.small,
-                    ),
-                  ],
-                );
-              }
-            },
+          Wrap(
+            alignment: WrapAlignment.end,
+            spacing: 12,
+            runSpacing: 12,
+            children: [
+              AppButton(
+                onPressed: onCancel,
+                label: l10n.importPreviewCancelButton,
+                style: AppButtonStyle.outline,
+                size: AppButtonSize.small,
+              ),
+              AppButton(
+                onPressed: hasChanges ? onConfirm : null,
+                label: l10n.importPreviewConfirmButton,
+                isLoading: isLoading,
+                size: AppButtonSize.small,
+              ),
+            ],
           ),
         ],
       ),
