@@ -4,7 +4,7 @@ import "package:go_router/go_router.dart";
 import "package:rain_wise/common/domain/coming_soon_args.dart";
 import "package:rain_wise/common/presentation/screens/coming_soon_screen.dart";
 import "package:rain_wise/core/ui/scaffold_with_nav_bar.dart";
-import "package:rain_wise/features/anomaly_exploration/presentation/screens/anomaly_exploration_screen.dart";
+import "package:rain_wise/features/unusual_patterns/presentation/screens/unusual_patterns_screen.dart";
 import "package:rain_wise/features/changelog/presentation/screens/changelog_screen.dart";
 import "package:rain_wise/features/data_tools/presentation/screens/data_tools_screen.dart";
 import "package:rain_wise/features/home/presentation/screens/home_screen.dart";
@@ -110,7 +110,7 @@ class ComingSoonRoute extends GoRouteData with $ComingSoonRoute {
             TypedGoRoute<MonthlyComparisonRoute>(path: "monthly-comparison"),
             TypedGoRoute<MonthlyBreakdownRoute>(path: "monthly-breakdown"),
             TypedGoRoute<SeasonalPatternsRoute>(path: "season-patterns"),
-            TypedGoRoute<AnomalyExplorationRoute>(path: "anomaly-explore"),
+            TypedGoRoute<UnusualPatternsRoute>(path: "anomaly-explore"),
             TypedGoRoute<YearlyComparisonRoute>(path: "comparative-analysis"),
           ],
         ),
@@ -269,16 +269,16 @@ class SeasonalPatternsRoute extends GoRouteData with $SeasonalPatternsRoute {
       const SeasonalPatternsScreen();
 }
 
-class AnomalyExplorationRoute extends GoRouteData
-    with $AnomalyExplorationRoute {
-  const AnomalyExplorationRoute();
+class UnusualPatternsRoute extends GoRouteData
+    with $UnusualPatternsRoute {
+  const UnusualPatternsRoute();
 
   static final GlobalKey<NavigatorState> $parentNavigatorKey =
       _rootNavigatorKey;
 
   @override
   Widget build(final BuildContext context, final GoRouterState state) =>
-      const AnomalyExplorationScreen();
+      const UnusualPatternsScreen();
 }
 
 class YearlyComparisonRoute extends GoRouteData with $YearlyComparisonRoute {

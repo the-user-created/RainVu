@@ -40,9 +40,9 @@ class AnalysisLinksSection extends StatelessWidget {
           ),
           const SizedBox(height: 12),
           _AnalysisLinkTile(
-            title: l10n.anomalyExplorationTitle,
-            subtitle: l10n.detailedAnalysisAnomalyExplorationSubtitle,
-            onTap: () => const AnomalyExplorationRoute().push(context),
+            title: l10n.unusualPatternsTitle,
+            subtitle: l10n.detailedAnalysisUnusualPatternsSubtitle,
+            onTap: () => const UnusualPatternsRoute().push(context),
           ),
           const SizedBox(height: 12),
           _AnalysisLinkTile(

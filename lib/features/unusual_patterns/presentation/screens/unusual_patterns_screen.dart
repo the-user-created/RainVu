@@ -1,21 +1,21 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/features/anomaly_exploration/application/anomaly_exploration_provider.dart";
-import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
-import "package:rain_wise/features/anomaly_exploration/presentation/widgets/anomaly_filter_options.dart";
-import "package:rain_wise/features/anomaly_exploration/presentation/widgets/anomaly_list.dart";
-import "package:rain_wise/features/anomaly_exploration/presentation/widgets/anomaly_timeline_chart.dart";
+import "package:rain_wise/features/unusual_patterns/application/unusual_patterns_provider.dart";
+import "package:rain_wise/features/unusual_patterns/domain/unusual_patterns_data.dart";
+import "package:rain_wise/features/unusual_patterns/presentation/widgets/unusual_patterns_filter_options.dart";
+import "package:rain_wise/features/unusual_patterns/presentation/widgets/unusual_patterns_list.dart";
+import "package:rain_wise/features/unusual_patterns/presentation/widgets/unusual_patterns_timeline_chart.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/app_loader.dart";
 
-class AnomalyExplorationScreen extends ConsumerWidget {
-  const AnomalyExplorationScreen({super.key});
+class UnusualPatternsScreen extends ConsumerWidget {
+  const UnusualPatternsScreen({super.key});
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final AsyncValue<AnomalyExplorationData> anomalyDataAsync = ref.watch(
+    final AsyncValue<UnusualPatternsData> anomalyDataAsync = ref.watch(
       anomalyDataProvider,
     );
     final TextScaler textScaler = MediaQuery.textScalerOf(context);
@@ -24,7 +24,7 @@ class AnomalyExplorationScreen extends ConsumerWidget {
     return Scaffold(
       appBar: AppBar(
         title: Text(
-          l10n.anomalyExplorationTitle,
+          l10n.unusualPatternsTitle,
           style: theme.textTheme.titleLarge,
         ),
       ),
@@ -71,7 +71,7 @@ class AnomalyExplorationScreen extends ConsumerWidget {
                   child: Padding(
                     padding: const EdgeInsets.all(16),
                     child: Text(
-                      l10n.anomalyExplorationError(err),
+                      l10n.unusualPatternsError(err),
                       textAlign: TextAlign.center,
                     ),
                   ),

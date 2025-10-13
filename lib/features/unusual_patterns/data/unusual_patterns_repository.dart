@@ -1,35 +1,35 @@
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
-import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
+import "package:rain_wise/features/unusual_patterns/domain/unusual_patterns_data.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:uuid/uuid.dart";
 
-part "anomaly_exploration_repository.g.dart";
+part "unusual_patterns_repository.g.dart";
 
-abstract class AnomalyExplorationRepository {
-  Future<AnomalyExplorationData> fetchAnomalyData(
+abstract class UnusualPatternsRepository {
+  Future<UnusualPatternsData> fetchAnomalyData(
     final AnomalyFilter filter,
     final double minAnomalyThreshold,
   );
 }
 
 @riverpod
-AnomalyExplorationRepository anomalyExplorationRepository(
+UnusualPatternsRepository unusualPatternsRepository(
   final Ref ref,
 ) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
-  return DriftAnomalyExplorationRepository(db.rainfallEntriesDao);
+  return DriftUnusualPatternsRepository(db.rainfallEntriesDao);
 }
 
-class DriftAnomalyExplorationRepository
-    implements AnomalyExplorationRepository {
-  DriftAnomalyExplorationRepository(this._dao);
+class DriftUnusualPatternsRepository
+    implements UnusualPatternsRepository {
+  DriftUnusualPatternsRepository(this._dao);
 
   final RainfallEntriesDao _dao;
   static const _uuid = Uuid();
 
   @override
-  Future<AnomalyExplorationData> fetchAnomalyData(
+  Future<UnusualPatternsData> fetchAnomalyData(
     final AnomalyFilter filter,
     final double minAnomalyThreshold,
   ) async {
@@ -100,7 +100,7 @@ class DriftAnomalyExplorationRepository
           // Sort by date descending
           ..sort((final a, final b) => b.date.compareTo(a.date));
 
-    return AnomalyExplorationData(
+    return UnusualPatternsData(
       anomalies: filteredAnomalies,
       chartPoints: chartPoints,
     );

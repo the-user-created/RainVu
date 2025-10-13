@@ -2,12 +2,12 @@ import "package:flutter/material.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/data/providers/data_providers.dart";
 import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
-import "package:rain_wise/features/anomaly_exploration/data/anomaly_exploration_repository.dart";
-import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
+import "package:rain_wise/features/unusual_patterns/data/unusual_patterns_repository.dart";
+import "package:rain_wise/features/unusual_patterns/domain/unusual_patterns_data.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
-part "anomaly_exploration_provider.g.dart";
+part "unusual_patterns_provider.g.dart";
 
 @riverpod
 class AnomalyFilterNotifier extends _$AnomalyFilterNotifier {
@@ -63,15 +63,15 @@ class AnomalyFilterNotifier extends _$AnomalyFilterNotifier {
 }
 
 @riverpod
-Future<AnomalyExplorationData> anomalyData(final Ref ref) async {
+Future<UnusualPatternsData> anomalyData(final Ref ref) async {
   ref.watch(rainfallRepositoryProvider).watchTableUpdates();
 
   // Await the filter and preferences providers. This will propagate loading
   // and error states automatically.
   final UserPreferences prefs = await ref.watch(userPreferencesProvider.future);
   final AnomalyFilter filter = await ref.watch(anomalyFilterProvider.future);
-  final AnomalyExplorationRepository repo = ref.watch(
-    anomalyExplorationRepositoryProvider,
+  final UnusualPatternsRepository repo = ref.watch(
+    unusualPatternsRepositoryProvider,
   );
   return repo.fetchAnomalyData(filter, prefs.anomalyDeviationThreshold);
 }

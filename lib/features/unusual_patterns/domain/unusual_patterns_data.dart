@@ -2,15 +2,15 @@ import "package:flutter/material.dart";
 import "package:freezed_annotation/freezed_annotation.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 
-part "anomaly_data.freezed.dart";
+part "unusual_patterns_data.freezed.dart";
 
-/// A wrapper class for all data needed on the Anomaly Exploration screen.
+/// A wrapper class for all data needed on the Unusual Patterns screen.
 @freezed
-abstract class AnomalyExplorationData with _$AnomalyExplorationData {
-  const factory AnomalyExplorationData({
+abstract class UnusualPatternsData with _$UnusualPatternsData {
+  const factory UnusualPatternsData({
     required final List<RainfallAnomaly> anomalies,
     required final List<AnomalyChartPoint> chartPoints,
-  }) = _AnomalyExplorationData;
+  }) = _UnusualPatternsData;
 }
 
 /// Represents a single data point for the anomaly timeline chart.

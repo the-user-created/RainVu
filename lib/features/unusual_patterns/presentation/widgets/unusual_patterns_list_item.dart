@@ -3,7 +3,7 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/utils/extensions.dart";
-import "package:rain_wise/features/anomaly_exploration/domain/anomaly_data.dart";
+import "package:rain_wise/features/unusual_patterns/domain/unusual_patterns_data.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
 

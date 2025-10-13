@@ -16,7 +16,7 @@
   "@anomalyDeviationThresholdDescription": {
     "description": "Explanatory text for the 'Unusual Rainfall Sensitivity' setting."
   },
-  "anomalyDeviationThresholdLabel": "Unusual Rainfall Sensitivity",
+  "anomalyDeviationThresholdLabel": "Rainfall Analysis Sensitivity",
   "@anomalyDeviationThresholdLabel": {
     "description": "The label for the slider that adjusts sensitivity for detecting unusual rainfall."
   },
@@ -28,8 +28,8 @@
       }
     }
   },
-  "anomalyExplorationError": "Error loading unusual patterns: {error}",
-  "@anomalyExplorationError": {
+  "unusualPatternsError": "Error loading unusual patterns: {error}",
+  "@unusualPatternsError": {
     "description": "Error message shown when unusual rainfall patterns fail to load.",
     "placeholders": {
       "error": {
@@ -37,8 +37,8 @@
       }
     }
   },
-  "anomalyExplorationTitle": "Unusual Patterns",
-  "@anomalyExplorationTitle": {
+  "unusualPatternsTitle": "Unusual Patterns",
+  "@unusualPatternsTitle": {
     "description": "The title of the 'Unusual Patterns' screen."
   },
   "anomalyGroupDeviation": "{sign}{percent}% vs avg",
@@ -413,8 +413,8 @@
       }
     }
   },
-  "detailedAnalysisAnomalyExplorationSubtitle": "Explore significant rainfall variations",
-  "@detailedAnalysisAnomalyExplorationSubtitle": {
+  "detailedAnalysisUnusualPatternsSubtitle": "Explore significant rainfall variations",
+  "@detailedAnalysisUnusualPatternsSubtitle": {
     "description": "Subtitle for the 'Unusual Patterns' link on the insights screen."
   },
   "detailedAnalysisYearlyComparisonSubtitle": "Compare rainfall totals year-over-year",
