@@ -1,5 +1,5 @@
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
-import "package:rain_wise/core/analytics/analytics_service.dart";
+import "package:rain_wise/core/firebase/analytics_service.dart";
 import "package:rain_wise/core/data/repositories/preferences_repository.dart";
 import "package:rain_wise/shared/domain/seasons.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";

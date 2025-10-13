@@ -2,7 +2,7 @@ import "dart:io";
 
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
-import "package:rain_wise/core/analytics/analytics_service.dart";
+import "package:rain_wise/core/firebase/analytics_service.dart";
 import "package:rain_wise/features/data_tools/data/data_tools_repository.dart";
 import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
 import "package:rain_wise/l10n/app_localizations.dart";

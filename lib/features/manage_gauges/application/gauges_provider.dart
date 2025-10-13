@@ -1,6 +1,6 @@
 import "dart:async";
 
-import "package:rain_wise/core/analytics/analytics_service.dart";
+import "package:rain_wise/core/firebase/analytics_service.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/data/repositories/rain_gauge_repository.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart";

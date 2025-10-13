@@ -1,7 +1,7 @@
 import "package:drift/drift.dart";
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:rain_wise/app_constants.dart";
-import "package:rain_wise/core/analytics/analytics_service.dart";
+import "package:rain_wise/core/firebase/analytics_service.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/shared_prefs.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
