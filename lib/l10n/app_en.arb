@@ -596,7 +596,7 @@
   "monthlyBreakdownEmptyTitle": "No Data for This Month",
   "monthlyBreakdownEmptyMessage": "There are no rainfall entries recorded for the selected month. Try selecting another month or logging a new entry.",
   "okButtonLabel": "OK",
-  "selectMonthTitle": "Select Month & Year",
+  "selectMonthTitle": "Select Month",
   "historicalComparisonTitle": "Historical Comparison",
   "twoYearAverage": "2 Year Average",
   "fiveYearAverage": "5 Year Average",
@@ -825,5 +825,13 @@
   "nextButtonTooltip": "Next",
   "@nextButtonTooltip": {
     "description": "Tooltip for the 'next' button in pickers"
+  },
+  "selectMonth": "Month",
+  "@selectMonth": {
+    "description": "Label for the 'Month' segment in a picker."
+  },
+  "selectYear": "Year",
+  "@selectYear": {
+    "description": "Label for the 'Year' segment in a picker."
   }
 }
