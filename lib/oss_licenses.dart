@@ -71,6 +71,7 @@ const allDependencies = <Package>[
   _fl_chart,
   _flutter,
   _flutter_animate,
+  _flutter_dotenv,
   _flutter_hooks,
   _flutter_lints,
   _flutter_plugin_android_lifecycle,
@@ -91,6 +92,8 @@ const allDependencies = <Package>[
   _http,
   _http_multi_server,
   _http_parser,
+  _in_app_review,
+  _in_app_review_platform_interface,
   _intl,
   _io,
   _iregexp,
@@ -108,13 +111,11 @@ const allDependencies = <Package>[
   _maybe_just_nothing,
   _meta,
   _mime,
-  _mime_type,
   _mockito,
   _node_preamble,
   _package_config,
   _package_info_plus,
   _package_info_plus_platform_interface,
-  _page_transition,
   _path,
   _path_provider,
   _path_provider_android,
@@ -135,6 +136,8 @@ const allDependencies = <Package>[
   _riverpod_annotation,
   _riverpod_generator,
   _rxdart,
+  _share_plus,
+  _share_plus_platform_interface,
   _shared_preferences,
   _shared_preferences_android,
   _shared_preferences_foundation,
@@ -192,7 +195,6 @@ const allDependencies = <Package>[
 /// Direct `dependencies`.
 const dependencies = <Package>[
   _collection,
-  _crypto,
   _csv,
   _cupertino_icons,
   _dotted_border,
@@ -205,22 +207,25 @@ const dependencies = <Package>[
   _fl_chart,
   _flutter,
   _flutter_animate,
+  _flutter_dotenv,
   _flutter_riverpod,
   _freezed_annotation,
   _go_router,
   _google_fonts,
   _hooks_riverpod,
+  _in_app_review,
   _intl,
   _json_annotation,
   _json_path,
   _json_serializable,
-  _mime_type,
   _package_info_plus,
-  _page_transition,
   _path,
   _path_provider,
   _riverpod_annotation,
+  _share_plus,
   _shared_preferences,
+  _sqlite3,
+  _sqlite3_flutter_libs,
   _stream_transform,
   _timeago,
   _url_launcher,
@@ -4185,6 +4190,40 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('flutter_lints')],
   );
 
+/// flutter_dotenv 6.0.0
+const _flutter_dotenv = Package(
+    name: 'flutter_dotenv',
+    description: 'Easily configure any flutter application with global variables using a `.env` file.',
+    homepage: 'https://github.com/java-james/flutter_dotenv',
+    authors: [],
+    version: '6.0.0',
+    license: '''The MIT License (MIT)
+
+Copyright (c) 2018 java-james
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.''',
+    isMarkdown: false,
+    isSdk: false,
+    dependencies: [PackageRef('flutter')],
+    devDependencies: [PackageRef('flutter_lints')],
+  );
+
 /// flutter_hooks 0.21.3+1
 const _flutter_hooks = Package(
     name: 'flutter_hooks',
@@ -4258,14 +4297,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [],
   );
 
-/// flutter_plugin_android_lifecycle 2.0.30
+/// flutter_plugin_android_lifecycle 2.0.31
 const _flutter_plugin_android_lifecycle = Package(
     name: 'flutter_plugin_android_lifecycle',
     description: 'Flutter plugin for accessing an Android Lifecycle within other plugins.',
     repository: 'https://github.com/flutter/packages/tree/main/packages/flutter_plugin_android_lifecycle',
     authors: [],
-    version: '2.0.30',
-    license: '''Copyright 2013 The Flutter Authors. All rights reserved.
+    version: '2.0.31',
+    license: '''Copyright 2013 The Flutter Authors
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -4296,7 +4335,7 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [],
   );
 
-/// flutter_riverpod 3.0.2
+/// flutter_riverpod 3.0.3
 const _flutter_riverpod = Package(
     name: 'flutter_riverpod',
     description: '''A reactive caching and data-binding framework. Riverpod makes working with asynchronous code a breeze.
@@ -4304,7 +4343,7 @@ const _flutter_riverpod = Package(
     homepage: 'https://riverpod.dev',
     repository: 'https://github.com/rrousselGit/riverpod',
     authors: [],
-    version: '3.0.2',
+    version: '3.0.3',
     license: '''MIT License
 
 Copyright (c) 2020 Remi Rousselet
@@ -4721,7 +4760,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('test'), PackageRef('analyzer'), PackageRef('path'), PackageRef('pool')],
   );
 
-/// hooks_riverpod 3.0.2
+/// hooks_riverpod 3.0.3
 const _hooks_riverpod = Package(
     name: 'hooks_riverpod',
     description: '''A reactive caching and data-binding framework. Riverpod makes working with asynchronous code a breeze.
@@ -4729,7 +4768,7 @@ const _hooks_riverpod = Package(
     homepage: 'https://riverpod.dev',
     repository: 'https://github.com/rrousselGit/riverpod',
     authors: [],
-    version: '3.0.2',
+    version: '3.0.3',
     license: '''MIT License
 
 Copyright (c) 2020 Remi Rousselet
@@ -5091,6 +5130,75 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     isSdk: false,
     dependencies: [PackageRef('collection'), PackageRef('source_span'), PackageRef('string_scanner'), PackageRef('typed_data')],
     devDependencies: [PackageRef('test')],
+  );
+
+/// in_app_review 2.0.11
+const _in_app_review = Package(
+    name: 'in_app_review',
+    description: 'Flutter plugin for showing the In-App Review/System Rating pop up on Android, iOS and MacOS. It makes it easy for users to rate your app.',
+    homepage: 'https://github.com/britannio/in_app_review/tree/master/in_app_review',
+    repository: 'https://github.com/britannio/in_app_review',
+    authors: [],
+    version: '2.0.11',
+    license: '''MIT License
+
+Copyright (c) 2020 Britannio Jarrett
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.''',
+    isMarkdown: false,
+    isSdk: false,
+    dependencies: [PackageRef('flutter'), PackageRef('in_app_review_platform_interface')],
+    devDependencies: [PackageRef('flutter_lints'), PackageRef('mockito'), PackageRef('plugin_platform_interface')],
+  );
+
+/// in_app_review_platform_interface 2.0.5
+const _in_app_review_platform_interface = Package(
+    name: 'in_app_review_platform_interface',
+    description: 'A common platform interface for the in_app_review plugin.',
+    homepage: 'https://github.com/britannio/in_app_review/tree/master/in_app_review_platform_interface',
+    authors: [],
+    version: '2.0.5',
+    license: '''MIT License
+
+Copyright (c) 2020 Britannio Jarrett
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.''',
+    isMarkdown: false,
+    isSdk: false,
+    dependencies: [PackageRef('flutter'), PackageRef('url_launcher'), PackageRef('plugin_platform_interface'), PackageRef('platform')],
+    devDependencies: [],
   );
 
 /// intl 0.20.2
@@ -5928,35 +6036,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('test')],
   );
 
-/// mime_type 1.0.1
-const _mime_type = Package(
-    name: 'mime_type',
-    description: 'MIME type library for Dart HTTP server applications.',
-    homepage: 'https://github.com/mitsuoka/mime_type',
-    authors: [],
-    version: '1.0.1',
-    license: '''Permission is hereby granted, free of charge, to any person obtaining a copy of
-this software and associated documentation files (the "Software"), to deal in the
-Software without restriction, including without limitation the rights to use, copy,
-modify, merge, publish, distribute, sublicense, and/or sell copies of the Software,
-and to permit persons to whom the Software is furnished to do so, subject to the
-following conditions:
-
-The above copyright notice and this permission notice shall be included in all copies
-or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED,
-INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR
-PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE
-LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT,
-TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE
-USE OR OTHER DEALINGS IN THE SOFTWARE.''',
-    isMarkdown: false,
-    isSdk: false,
-    dependencies: [],
-    devDependencies: [],
-  );
-
 /// mockito 5.5.0
 const _mockito = Package(
     name: 'mockito',
@@ -6354,44 +6433,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('mockito'), PackageRef('flutter_lints')],
   );
 
-/// page_transition 2.2.1
-const _page_transition = Package(
-    name: 'page_transition',
-    description: 'Flutter Page Transition Package which is the transition second page',
-    homepage: 'https://github.com/kalismeras61/flutter_page_transition',
-    authors: [],
-    version: '2.2.1',
-    license: '''BSD 2-Clause License
-
-Copyright (c) 2018, Yasin ilhan
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without
-modification, are permitted provided that the following conditions are met:
-
-* Redistributions of source code must retain the above copyright notice, this
-  list of conditions and the following disclaimer.
-
-* Redistributions in binary form must reproduce the above copyright notice,
-  this list of conditions and the following disclaimer in the documentation
-  and/or other materials provided with the distribution.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS"
-AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE
-IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE
-FOR ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL
-DAMAGES (INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR
-SERVICES; LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER
-CAUSED AND ON ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY,
-OR TORT (INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
-OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
-    isMarkdown: false,
-    isSdk: false,
-    dependencies: [PackageRef('flutter')],
-    devDependencies: [PackageRef('flutter_lints')],
-  );
-
 /// path 1.9.1
 const _path = Package(
     name: 'path',
@@ -6470,14 +6511,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('plugin_platform_interface'), PackageRef('test')],
   );
 
-/// path_provider_android 2.2.18
+/// path_provider_android 2.2.19
 const _path_provider_android = Package(
     name: 'path_provider_android',
     description: 'Android implementation of the path_provider plugin.',
     repository: 'https://github.com/flutter/packages/tree/main/packages/path_provider/path_provider_android',
     authors: [],
-    version: '2.2.18',
-    license: '''Copyright 2013 The Flutter Authors. All rights reserved.
+    version: '2.2.19',
+    license: '''Copyright 2013 The Flutter Authors
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -6949,7 +6990,7 @@ SOFTWARE.''',
     devDependencies: [PackageRef('lints'), PackageRef('test')],
   );
 
-/// riverpod 3.0.2
+/// riverpod 3.0.3
 const _riverpod = Package(
     name: 'riverpod',
     description: '''A reactive caching and data-binding framework. Riverpod makes working with asynchronous code a breeze.
@@ -6957,7 +6998,7 @@ const _riverpod = Package(
     homepage: 'https://riverpod.dev',
     repository: 'https://github.com/rrousselGit/riverpod',
     authors: [],
-    version: '3.0.2',
+    version: '3.0.3',
     license: '''MIT License
 
 Copyright (c) 2020 Remi Rousselet
@@ -7019,13 +7060,13 @@ SOFTWARE.''',
     devDependencies: [PackageRef('build'), PackageRef('build_runner'), PackageRef('freezed'), PackageRef('lints'), PackageRef('test')],
   );
 
-/// riverpod_annotation 3.0.2
+/// riverpod_annotation 3.0.3
 const _riverpod_annotation = Package(
     name: 'riverpod_annotation',
     description: 'A package exposing annotations for riverpod_generator',
     repository: 'https://github.com/rrousselGit/riverpod',
     authors: [],
-    version: '3.0.2',
+    version: '3.0.3',
     license: '''MIT License
 
 Copyright (c) 2020 Remi Rousselet
@@ -7053,13 +7094,13 @@ SOFTWARE.''',
     devDependencies: [PackageRef('test')],
   );
 
-/// riverpod_generator 3.0.2
+/// riverpod_generator 3.0.3
 const _riverpod_generator = Package(
     name: 'riverpod_generator',
     description: 'A code generator for Riverpod. This both simplifies the syntax empowers it, such as allowing stateful hot-reload.',
     repository: 'https://github.com/rrousselGit/riverpod',
     authors: [],
-    version: '3.0.2',
+    version: '3.0.3',
     license: '''MIT License
 
 Copyright (c) 2020 Remi Rousselet
@@ -7302,6 +7343,88 @@ const _rxdart = Package(
     devDependencies: [PackageRef('lints'), PackageRef('stack_trace'), PackageRef('test')],
   );
 
+/// share_plus 12.0.0
+const _share_plus = Package(
+    name: 'share_plus',
+    description: 'Flutter plugin for sharing content via the platform share UI, using the ACTION_SEND intent on Android and UIActivityViewController on iOS.',
+    homepage: 'https://github.com/fluttercommunity/plus_plugins',
+    repository: 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/share_plus/share_plus',
+    authors: [],
+    version: '12.0.0',
+    license: '''Copyright 2017, the Flutter project authors. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+   * Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+   * Redistributions in binary form must reproduce the above
+copyright notice, this list of conditions and the following disclaimer
+in the documentation and/or other materials provided with the
+distribution.
+   * Neither the name of Google Inc. nor the names of its
+contributors may be used to endorse or promote products derived from
+this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
+    isMarkdown: false,
+    isSdk: false,
+    dependencies: [PackageRef('cross_file'), PackageRef('meta'), PackageRef('mime'), PackageRef('flutter'), PackageRef('flutter_web_plugins'), PackageRef('share_plus_platform_interface'), PackageRef('file'), PackageRef('url_launcher_web'), PackageRef('url_launcher_windows'), PackageRef('url_launcher_linux'), PackageRef('url_launcher_platform_interface'), PackageRef('ffi'), PackageRef('web'), PackageRef('win32')],
+    devDependencies: [PackageRef('flutter_lints')],
+  );
+
+/// share_plus_platform_interface 6.1.0
+const _share_plus_platform_interface = Package(
+    name: 'share_plus_platform_interface',
+    description: 'A common platform interface for the share_plus plugin.',
+    homepage: 'https://github.com/fluttercommunity/plus_plugins',
+    repository: 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/',
+    authors: [],
+    version: '6.1.0',
+    license: '''Copyright 2017 The Chromium Authors. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+   * Redistributions of source code must retain the above copyright
+notice, this list of conditions and the following disclaimer.
+   * Redistributions in binary form must reproduce the above
+copyright notice, this list of conditions and the following disclaimer
+in the documentation and/or other materials provided with the
+distribution.
+   * Neither the name of Google Inc. nor the names of its
+contributors may be used to endorse or promote products derived from
+this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
+    isMarkdown: false,
+    isSdk: false,
+    dependencies: [PackageRef('cross_file'), PackageRef('flutter'), PackageRef('meta'), PackageRef('mime'), PackageRef('plugin_platform_interface'), PackageRef('path_provider'), PackageRef('uuid')],
+    devDependencies: [PackageRef('mockito'), PackageRef('flutter_lints'), PackageRef('test')],
+  );
+
 /// shared_preferences 2.5.3
 const _shared_preferences = Package(
     name: 'shared_preferences',
@@ -7340,13 +7463,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('path')],
   );
 
-/// shared_preferences_android 2.4.14
+/// shared_preferences_android 2.4.15
 const _shared_preferences_android = Package(
     name: 'shared_preferences_android',
     description: 'Android implementation of the shared_preferences plugin',
     repository: 'https://github.com/flutter/packages/tree/main/packages/shared_preferences/shared_preferences_android',
     authors: [],
-    version: '2.4.14',
+    version: '2.4.15',
     license: '''Copyright 2013 The Flutter Authors
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -8138,13 +8261,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('test'), PackageRef('lints')],
   );
 
-/// sqlite3 2.9.1
+/// sqlite3 2.9.3
 const _sqlite3 = Package(
     name: 'sqlite3',
     description: 'Provides lightweight yet convenient bindings to SQLite by using dart:ffi',
     homepage: 'https://github.com/simolus3/sqlite3.dart/tree/main/sqlite3',
     authors: [],
-    version: '2.9.1',
+    version: '2.9.3',
     license: '''MIT License
 
 Copyright (c) 2020 Simon Binder
@@ -8748,13 +8871,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('mockito'), PackageRef('plugin_platform_interface'), PackageRef('test')],
   );
 
-/// url_launcher_android 6.3.23
+/// url_launcher_android 6.3.24
 const _url_launcher_android = Package(
     name: 'url_launcher_android',
     description: 'Android implementation of the url_launcher plugin.',
     repository: 'https://github.com/flutter/packages/tree/main/packages/url_launcher/url_launcher_android',
     authors: [],
-    version: '6.3.23',
+    version: '6.3.24',
     license: '''Copyright 2013 The Flutter Authors
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -9699,7 +9822,7 @@ const _rain_wise = Package(
     version: '1.0.0+1',
     isMarkdown: false,
     isSdk: false,
-    dependencies: [PackageRef('collection'), PackageRef('crypto'), PackageRef('csv'), PackageRef('cupertino_icons'), PackageRef('dotted_border'), PackageRef('drift'), PackageRef('drift_flutter'), PackageRef('file_picker'), PackageRef('firebase_analytics'), PackageRef('firebase_core'), PackageRef('firebase_crashlytics'), PackageRef('fl_chart'), PackageRef('flutter'), PackageRef('flutter_animate'), PackageRef('flutter_riverpod'), PackageRef('freezed_annotation'), PackageRef('go_router'), PackageRef('google_fonts'), PackageRef('hooks_riverpod'), PackageRef('intl'), PackageRef('json_annotation'), PackageRef('json_path'), PackageRef('json_serializable'), PackageRef('mime_type'), PackageRef('package_info_plus'), PackageRef('page_transition'), PackageRef('path'), PackageRef('path_provider'), PackageRef('riverpod_annotation'), PackageRef('shared_preferences'), PackageRef('stream_transform'), PackageRef('timeago'), PackageRef('url_launcher'), PackageRef('uuid')],
+    dependencies: [PackageRef('collection'), PackageRef('csv'), PackageRef('cupertino_icons'), PackageRef('dotted_border'), PackageRef('drift'), PackageRef('drift_flutter'), PackageRef('file_picker'), PackageRef('firebase_analytics'), PackageRef('firebase_core'), PackageRef('firebase_crashlytics'), PackageRef('fl_chart'), PackageRef('flutter'), PackageRef('flutter_animate'), PackageRef('flutter_dotenv'), PackageRef('flutter_riverpod'), PackageRef('freezed_annotation'), PackageRef('go_router'), PackageRef('google_fonts'), PackageRef('hooks_riverpod'), PackageRef('in_app_review'), PackageRef('intl'), PackageRef('json_annotation'), PackageRef('json_path'), PackageRef('json_serializable'), PackageRef('package_info_plus'), PackageRef('path'), PackageRef('path_provider'), PackageRef('riverpod_annotation'), PackageRef('share_plus'), PackageRef('shared_preferences'), PackageRef('sqlite3'), PackageRef('sqlite3_flutter_libs'), PackageRef('stream_transform'), PackageRef('timeago'), PackageRef('url_launcher'), PackageRef('uuid')],
     devDependencies: [PackageRef('build_runner'), PackageRef('custom_lint'), PackageRef('dart_pubspec_licenses'), PackageRef('drift_dev'), PackageRef('flutter_lints'), PackageRef('freezed'), PackageRef('freezed_lint'), PackageRef('go_router_builder'), PackageRef('lints'), PackageRef('riverpod_generator')],
   );
 

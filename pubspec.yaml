@@ -37,9 +37,7 @@ dependencies:
   json_annotation: ^4.9.0
   json_path: ^0.8.0
   json_serializable: ^6.9.5
-  mime_type: ^1.0.1
   package_info_plus: ^9.0.0
-  page_transition: ^2.2.1
   path: ^1.9.1
   path_provider: ^2.1.5
   riverpod_annotation: ^3.0.0
