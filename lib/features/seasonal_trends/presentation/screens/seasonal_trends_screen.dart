@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/seasonal_trends/application/seasonal_trends_provider.dart";
@@ -30,8 +31,14 @@ class SeasonalTrendsScreen extends ConsumerWidget {
       body: SafeArea(
         child: dataAsync.when(
           loading: () => const _LoadingState(),
-          error: (final err, final stack) =>
-              Center(child: Text(l10n.seasonalTrendsError(err))),
+          error: (final err, final stack) {
+            FirebaseCrashlytics.instance.recordError(
+              err,
+              stack,
+              reason: "Failed to load seasonal trends data",
+            );
+            return Center(child: Text(l10n.seasonalTrendsError));
+          },
           data: (final data) {
             final bool hasData =
                 data.summary.highestRecorded > 0 ||
@@ -68,8 +75,8 @@ class _LoadingState extends StatelessWidget {
   const _LoadingState();
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Shimmer.fromColors(
       baseColor: theme.colorScheme.surfaceContainerHighest,
       highlightColor: theme.colorScheme.surface,

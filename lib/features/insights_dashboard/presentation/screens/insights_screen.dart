@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/insights_dashboard/application/insights_providers.dart";
@@ -27,8 +28,14 @@ class InsightsScreen extends ConsumerWidget {
       body: SafeArea(
         child: asyncData.when(
           loading: () => const _LoadingState(),
-          error: (final err, final stack) =>
-              Center(child: Text(l10n.insightsError(err))),
+          error: (final err, final stack) {
+            FirebaseCrashlytics.instance.recordError(
+              err,
+              stack,
+              reason: "Failed to load insights dashboard data",
+            );
+            return Center(child: Text(l10n.insightsError));
+          },
           data: (final data) {
             // Check if there is any meaningful data to display
             if (data.allTimeData.primaryValue == 0) {
@@ -57,17 +64,17 @@ class _LoadingState extends StatelessWidget {
   const _LoadingState();
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Shimmer.fromColors(
       baseColor: theme.colorScheme.surfaceContainerHighest,
       highlightColor: theme.colorScheme.surface,
       child: ListView(
         physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.only(top: 8, bottom: 24, left: 16, right: 16),
-        children: [
+        children: const [
           // Metric Header Placeholder
-          const Column(
+          Column(
             children: [
               LinePlaceholder(height: 44, width: 200),
               SizedBox(height: 8),
@@ -103,18 +110,18 @@ class _LoadingState extends StatelessWidget {
               ),
             ],
           ),
-          const SizedBox(height: 24),
+          SizedBox(height: 24),
           // Chart Placeholder
-          const CardPlaceholder(height: 300),
-          const SizedBox(height: 32),
+          CardPlaceholder(height: 300),
+          SizedBox(height: 32),
           // Analysis Links Placeholder
-          const LinePlaceholder(height: 20, width: 150),
-          const SizedBox(height: 12),
-          const CardPlaceholder(height: 80),
-          const SizedBox(height: 12),
-          const CardPlaceholder(height: 80),
-          const SizedBox(height: 12),
-          const CardPlaceholder(height: 80),
+          LinePlaceholder(height: 20, width: 150),
+          SizedBox(height: 12),
+          CardPlaceholder(height: 80),
+          SizedBox(height: 12),
+          CardPlaceholder(height: 80),
+          SizedBox(height: 12),
+          CardPlaceholder(height: 80),
         ],
       ),
     );

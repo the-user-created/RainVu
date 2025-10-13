@@ -38,12 +38,11 @@ class YearlyComparisonFilters extends ConsumerWidget {
         child: filterAsync.when(
           loading: () => const SizedBox(height: 150),
           error: (final e, final s) =>
-              Center(child: Text(l10n.yearlyComparisonFilterError(e))),
+              Center(child: Text(l10n.yearlyComparisonFilterError)),
           data: (final filter) => availableYearsAsync.when(
             loading: () => const SizedBox(height: 150),
-            error: (final e, final s) => Center(
-              child: Text(l10n.yearlyComparisonAvailableYearsError(e)),
-            ),
+            error: (final e, final s) =>
+                Center(child: Text(l10n.yearlyComparisonAvailableYearsError)),
             data: (final availableYears) => Column(
               children: [
                 Padding(

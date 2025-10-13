@@ -87,9 +87,17 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
           date: _selectedDateTime,
         );
 
-    if (mounted && success) {
-      showSnackbar(l10n.rainfallEntryLoggedSuccess, type: MessageType.success);
-      Navigator.pop(context);
+    if (mounted) {
+      if (success) {
+        showSnackbar(
+          l10n.rainfallEntryLoggedSuccess,
+          type: MessageType.success,
+        );
+        Navigator.pop(context);
+      } else {
+        // Error is already logged by the controller, just show UI feedback
+        showSnackbar(l10n.logRainfallSaveError, type: MessageType.error);
+      }
     }
   }
 

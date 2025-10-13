@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -19,8 +20,14 @@ class GaugeList extends ConsumerWidget {
 
     return gaugesAsync.when(
       loading: () => const _LoadingState(),
-      error: (final err, final stack) =>
-          Center(child: Text(l10n.gaugeListError(err))),
+      error: (final err, final stack) {
+        FirebaseCrashlytics.instance.recordError(
+          err,
+          stack,
+          reason: "Failed to load gauge list",
+        );
+        return Center(child: Text(l10n.gaugeListError));
+      },
       data: (final gauges) {
         if (gauges.isEmpty) {
           return const _EmptyState();
@@ -54,8 +61,8 @@ class _LoadingState extends StatelessWidget {
   const _LoadingState();
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Shimmer.fromColors(
       baseColor: theme.colorScheme.surfaceContainerHighest,
       highlightColor: theme.colorScheme.surface,

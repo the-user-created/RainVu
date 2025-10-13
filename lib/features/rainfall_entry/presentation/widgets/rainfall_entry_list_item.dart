@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
@@ -39,8 +40,20 @@ class RainfallEntryListItem extends ConsumerWidget {
     );
 
     if (confirmed == true && entry.id != null) {
-      await ref.read(rainfallEntryProvider.notifier).deleteEntry(entry.id!);
-      showSnackbar(l10n.rainfallEntryDeletedSuccess, type: MessageType.success);
+      try {
+        await ref.read(rainfallEntryProvider.notifier).deleteEntry(entry.id!);
+        showSnackbar(
+          l10n.rainfallEntryDeletedSuccess,
+          type: MessageType.success,
+        );
+      } catch (e, s) {
+        FirebaseCrashlytics.instance.recordError(
+          e,
+          s,
+          reason: "Failed to delete rainfall entry",
+        );
+        showSnackbar(l10n.genericError, type: MessageType.error);
+      }
     }
   }
 

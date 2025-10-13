@@ -1,5 +1,6 @@
 import "dart:async";
 
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
 import "package:rain_wise/features/home/data/home_repository.dart";
 import "package:rain_wise/features/home/domain/home_data.dart";
@@ -41,6 +42,11 @@ class LogRainController extends _$LogRainController {
       state = const AsyncValue.data(null);
       return true; // Success
     } catch (e, st) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        st,
+        reason: "Failed to save rainfall entry",
+      );
       state = AsyncValue.error(e, st);
       return false; // Failure
     }

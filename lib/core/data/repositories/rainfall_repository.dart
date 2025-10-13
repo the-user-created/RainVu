@@ -1,4 +1,5 @@
 import "package:drift/drift.dart";
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
 import "package:rain_wise/shared/domain/rain_gauge.dart" as domain_gauge;
@@ -64,65 +65,189 @@ class DriftRainfallRepository implements RainfallRepository {
     final String? gaugeId,
   }) => _dao
       .watchEntriesForMonth(month, gaugeId: gaugeId)
-      .map((final e) => e.map(_mapDriftToDomain).toList());
+      .map((final e) => e.map(_mapDriftToDomain).toList())
+      .handleError((final e, final s) {
+        FirebaseCrashlytics.instance.recordError(
+          e,
+          s,
+          reason: "Failed to watch rainfall entries for month",
+        );
+      });
 
   @override
   Stream<List<domain.RainfallEntry>> watchRecentEntries({
     final int limit = 5,
   }) => _dao
       .watchRecentEntries(limit: limit)
-      .map((final e) => e.map(_mapDriftToDomain).toList());
+      .map((final e) => e.map(_mapDriftToDomain).toList())
+      .handleError((final e, final s) {
+        FirebaseCrashlytics.instance.recordError(
+          e,
+          s,
+          reason: "Failed to watch recent rainfall entries",
+        );
+      });
 
   @override
   Future<List<domain.RainfallEntry>> fetchRecentEntries({
     final int limit = 3,
   }) async {
-    final List<RainfallEntryWithGauge> entries = await _dao.getRecentEntries(
-      limit: limit,
-    );
-    return entries.map(_mapDriftToDomain).toList();
+    try {
+      final List<RainfallEntryWithGauge> entries = await _dao.getRecentEntries(
+        limit: limit,
+      );
+      return entries.map(_mapDriftToDomain).toList();
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to fetch recent rainfall entries",
+      );
+      rethrow;
+    }
   }
 
   @override
-  Future<void> addEntry(final domain.RainfallEntry entry) =>
-      _dao.insertEntry(_mapDomainToCompanion(entry));
+  Future<void> addEntry(final domain.RainfallEntry entry) async {
+    try {
+      await _dao.insertEntry(_mapDomainToCompanion(entry));
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to add rainfall entry",
+      );
+      rethrow;
+    }
+  }
 
   @override
-  Future<void> updateEntry(final domain.RainfallEntry entry) =>
-      _dao.updateEntry(_mapDomainToCompanion(entry));
+  Future<void> updateEntry(final domain.RainfallEntry entry) async {
+    try {
+      await _dao.updateEntry(_mapDomainToCompanion(entry));
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to update rainfall entry",
+      );
+      rethrow;
+    }
+  }
 
   @override
-  Future<void> deleteEntry(final String entryId) =>
-      _dao.deleteEntry(RainfallEntriesCompanion(id: Value(entryId)));
+  Future<void> deleteEntry(final String entryId) async {
+    try {
+      await _dao.deleteEntry(RainfallEntriesCompanion(id: Value(entryId)));
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to delete rainfall entry",
+      );
+      rethrow;
+    }
+  }
 
   @override
   Future<double> getTotalAmountBetween(
     final DateTime start,
     final DateTime end,
-  ) => _dao.getTotalAmountBetween(start, end);
+  ) async {
+    try {
+      return await _dao.getTotalAmountBetween(start, end);
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to get total rainfall amount between dates",
+      );
+      rethrow;
+    }
+  }
 
   @override
-  Stream<void> watchTableUpdates() => _dao.watchTableUpdates();
+  Stream<void> watchTableUpdates() =>
+      _dao.watchTableUpdates().handleError((final e, final s) {
+        FirebaseCrashlytics.instance.recordError(
+          e,
+          s,
+          reason: "Failed to watch rainfall table updates",
+        );
+      });
 
   @override
   Future<List<MonthlyTotal>> getMonthlyTotals({
     required final DateTime start,
     required final DateTime end,
-  }) => _dao.getMonthlyTotals(start: start, end: end);
+  }) async {
+    try {
+      return await _dao.getMonthlyTotals(start: start, end: end);
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to get monthly totals",
+      );
+      rethrow;
+    }
+  }
 
   @override
-  Future<double> getTotalRainfall() => _dao.getTotalRainfall();
+  Future<double> getTotalRainfall() async {
+    try {
+      return await _dao.getTotalRainfall();
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to get total rainfall",
+      );
+      rethrow;
+    }
+  }
 
   @override
-  Future<List<int>> getAvailableYears() => _dao.getAvailableYears();
+  Future<List<int>> getAvailableYears() async {
+    try {
+      return await _dao.getAvailableYears();
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to get available years",
+      );
+      rethrow;
+    }
+  }
 
   @override
-  Future<int> countEntriesForGauge(final String gaugeId) =>
-      _dao.countEntriesForGauge(gaugeId);
+  Future<int> countEntriesForGauge(final String gaugeId) async {
+    try {
+      return await _dao.countEntriesForGauge(gaugeId);
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to count entries for gauge",
+      );
+      rethrow;
+    }
+  }
 
   @override
-  Future<DateRangeResult> getDateRangeOfEntries() =>
-      _dao.getDateRangeOfEntries();
+  Future<DateRangeResult> getDateRangeOfEntries() async {
+    try {
+      return await _dao.getDateRangeOfEntries();
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to get date range of entries",
+      );
+      rethrow;
+    }
+  }
 
   domain.RainfallEntry _mapDriftToDomain(
     final RainfallEntryWithGauge driftEntry,

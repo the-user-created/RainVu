@@ -1,6 +1,8 @@
 import "package:flutter/material.dart";
 import "package:google_fonts/google_fonts.dart";
 
+// ignore_for_file: avoid_redundant_argument_values
+
 /// Defines the color palettes, text styles, and component themes for the app.
 class AppTheme {
   AppTheme._();

@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
@@ -25,7 +26,11 @@ ThemeMode themeMode(final Ref ref) {
     // Provide a default theme mode during loading or on error
     loading: () => ThemeMode.system,
     error: (final err, final stack) {
-      debugPrint("Error loading theme preference: $err");
+      FirebaseCrashlytics.instance.recordError(
+        err,
+        stack,
+        reason: "Failed to load theme preference",
+      );
       return ThemeMode.system;
     },
   );

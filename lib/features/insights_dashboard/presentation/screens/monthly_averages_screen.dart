@@ -26,7 +26,7 @@ class MonthlyAveragesScreen extends ConsumerWidget {
         child: insightsDataAsync.when(
           loading: () => const _LoadingState(),
           error: (final err, final stack) =>
-              Center(child: Text(l10n.insightsError(err))),
+              Center(child: Text(l10n.insightsError)),
           data: (final data) {
             if (data.monthlyAverages.isEmpty) {
               return _EmptyState(
@@ -80,8 +80,8 @@ class _LoadingState extends StatelessWidget {
   const _LoadingState();
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Shimmer.fromColors(
       baseColor: theme.colorScheme.surfaceContainerHighest,
       highlightColor: theme.colorScheme.surface,
@@ -89,8 +89,10 @@ class _LoadingState extends StatelessWidget {
         physics: const NeverScrollableScrollPhysics(),
         padding: const EdgeInsets.all(16),
         itemCount: 4,
-        separatorBuilder: (context, index) => const SizedBox(height: 12),
-        itemBuilder: (context, index) => const CardPlaceholder(height: 200),
+        separatorBuilder: (final context, final index) =>
+            const SizedBox(height: 12),
+        itemBuilder: (final context, final index) =>
+            const CardPlaceholder(height: 200),
       ),
     );
   }

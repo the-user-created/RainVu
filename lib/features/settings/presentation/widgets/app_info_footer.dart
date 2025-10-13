@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:package_info_plus/package_info_plus.dart";
@@ -29,11 +30,19 @@ class AppInfoFooter extends ConsumerWidget {
             height: 16,
             child: CircularProgressIndicator(strokeWidth: 2),
           ),
-          error: (final err, final stack) => Text(
-            l10n.appInfoFooterError,
-            style: theme.textTheme.labelMedium
-                ?.copyWith(color: theme.colorScheme.error),
-          ),
+          error: (final err, final stack) {
+            FirebaseCrashlytics.instance.recordError(
+              err,
+              stack,
+              reason: "Failed to load package info for app footer",
+            );
+            return Text(
+              l10n.appInfoFooterError,
+              style: theme.textTheme.labelMedium?.copyWith(
+                color: theme.colorScheme.error,
+              ),
+            );
+          },
         ),
       ),
     );

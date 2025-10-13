@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/utils/snackbar_service.dart";
@@ -22,14 +23,23 @@ class EditGaugeSheet extends ConsumerWidget {
       child: GaugeForm(
         gauge: gauge,
         onSave: (final name) async {
-          final RainGauge updatedGauge = gauge.copyWith(name: name);
-          await ref.read(gaugesProvider.notifier).updateGauge(updatedGauge);
-          showSnackbar(
-            l10n.gaugeUpdatedSuccess(updatedGauge.name),
-            type: MessageType.success,
-          );
-          if (context.mounted) {
-            Navigator.pop(context);
+          try {
+            final RainGauge updatedGauge = gauge.copyWith(name: name);
+            await ref.read(gaugesProvider.notifier).updateGauge(updatedGauge);
+            showSnackbar(
+              l10n.gaugeUpdatedSuccess(updatedGauge.name),
+              type: MessageType.success,
+            );
+            if (context.mounted) {
+              Navigator.pop(context);
+            }
+          } catch (e, s) {
+            FirebaseCrashlytics.instance.recordError(
+              e,
+              s,
+              reason: "Failed to update gauge from sheet",
+            );
+            showSnackbar(l10n.gaugeUpdatedError, type: MessageType.error);
           }
         },
       ),

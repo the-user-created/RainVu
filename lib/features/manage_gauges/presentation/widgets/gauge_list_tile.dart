@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -69,14 +70,23 @@ class _GaugeListTileState extends ConsumerState<GaugeListTile> {
         ? DeleteGaugeAction.deleteEntries
         : DeleteGaugeAction.reassign;
 
-    if (context.mounted) {
-      await ref
-          .read(gaugesProvider.notifier)
-          .deleteGauge(widget.gauge.id, action: action);
-      showSnackbar(
-        l10n.gaugeDeletedSuccess(widget.gauge.name),
-        type: MessageType.success,
+    try {
+      if (context.mounted) {
+        await ref
+            .read(gaugesProvider.notifier)
+            .deleteGauge(widget.gauge.id, action: action);
+        showSnackbar(
+          l10n.gaugeDeletedSuccess(widget.gauge.name),
+          type: MessageType.success,
+        );
+      }
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to delete gauge",
       );
+      showSnackbar(l10n.gaugeDeletedError, type: MessageType.error);
     }
   }
 
@@ -142,13 +152,25 @@ class _GaugeListTileState extends ConsumerState<GaugeListTile> {
                           final String? newFavoriteId = isFavorite
                               ? null
                               : widget.gauge.id;
-                          await ref
-                              .read(userPreferencesProvider.notifier)
-                              .setFavoriteGauge(newFavoriteId);
-                          final String message = isFavorite
-                              ? l10n.gaugeUnsetAsFavorite(displayName)
-                              : l10n.gaugeSetAsFavorite(displayName);
-                          showSnackbar(message, type: MessageType.success);
+                          try {
+                            await ref
+                                .read(userPreferencesProvider.notifier)
+                                .setFavoriteGauge(newFavoriteId);
+                            final String message = isFavorite
+                                ? l10n.gaugeUnsetAsFavorite(displayName)
+                                : l10n.gaugeSetAsFavorite(displayName);
+                            showSnackbar(message, type: MessageType.success);
+                          } catch (e, s) {
+                            FirebaseCrashlytics.instance.recordError(
+                              e,
+                              s,
+                              reason: "Failed to set favorite gauge",
+                            );
+                            showSnackbar(
+                              l10n.genericError,
+                              type: MessageType.error,
+                            );
+                          }
                         },
                       ),
                       if (!isDefaultGauge)

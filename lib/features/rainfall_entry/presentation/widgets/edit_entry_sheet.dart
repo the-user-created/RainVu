@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -75,23 +76,40 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
     }
     setState(() => _isLoading = true);
 
-    double amount = double.tryParse(_amountController.text) ?? 0.0;
-    if (_displayUnit == MeasurementUnit.inch) {
-      amount = amount.toMillimeters();
-    }
+    try {
+      double amount = double.tryParse(_amountController.text) ?? 0.0;
+      if (_displayUnit == MeasurementUnit.inch) {
+        amount = amount.toMillimeters();
+      }
 
-    final RainfallEntry updatedEntry = widget.entry.copyWith(
-      amount: amount,
-      date: _selectedDate,
-      unit: "mm", // Always save as mm
-      gaugeId: _selectedGaugeId!,
-    );
-    await ref.read(rainfallEntryProvider.notifier).updateEntry(updatedEntry);
+      final RainfallEntry updatedEntry = widget.entry.copyWith(
+        amount: amount,
+        date: _selectedDate,
+        unit: "mm", // Always save as mm
+        gaugeId: _selectedGaugeId!,
+      );
+      await ref.read(rainfallEntryProvider.notifier).updateEntry(updatedEntry);
 
-    if (mounted) {
-      showSnackbar(l10n.rainfallEntryUpdatedSuccess, type: MessageType.success);
-      setState(() => _isLoading = false);
-      Navigator.of(context).pop();
+      if (mounted) {
+        showSnackbar(
+          l10n.rainfallEntryUpdatedSuccess,
+          type: MessageType.success,
+        );
+        Navigator.of(context).pop();
+      }
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to update rainfall entry",
+      );
+      if (mounted) {
+        showSnackbar(l10n.rainfallEntryUpdatedError, type: MessageType.error);
+      }
+    } finally {
+      if (mounted) {
+        setState(() => _isLoading = false);
+      }
     }
   }
 
@@ -146,7 +164,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
                 decoration: InputDecoration(hintText: l10n.loading),
               ),
               error: (final err, final stack) =>
-                  Text(l10n.rainfallEntriesError(err)),
+                  Text(l10n.rainfallEntriesError),
               data: (final gauges) => AppDropdownFormField<String>(
                 value: _selectedGaugeId,
                 items: gauges.map((final gauge) {

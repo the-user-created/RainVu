@@ -1,5 +1,6 @@
 import "dart:io";
 
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:rain_wise/features/data_tools/data/data_tools_repository.dart";
 import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
@@ -37,9 +38,14 @@ class DataToolsNotifier extends _$DataToolsNotifier {
             .read(dataToolsRepositoryProvider)
             .analyzeImportFile(file);
         state = state.copyWith(importPreview: preview, isParsing: false);
-      } catch (e) {
+      } catch (e, s) {
+        FirebaseCrashlytics.instance.recordError(
+          e,
+          s,
+          reason: "File parsing for import preview failed",
+        );
         state = state.copyWith(
-          errorMessage: l10n.dataToolsParseFailed(e),
+          errorMessage: l10n.dataToolsParseFailed(e.toString()),
           isParsing: false,
           fileToImport: null,
           importPreview: null,
@@ -78,8 +84,15 @@ class DataToolsNotifier extends _$DataToolsNotifier {
           successMessage: l10n.dataToolsExportSuccess(path),
         );
       }
-    } catch (e) {
-      state = state.copyWith(errorMessage: l10n.dataToolsExportFailed(e));
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Export data action failed",
+      );
+      state = state.copyWith(
+        errorMessage: l10n.dataToolsExportFailed(e.toString()),
+      );
     } finally {
       state = state.copyWith(isExporting: false, exportStage: ExportStage.none);
     }
@@ -106,8 +119,15 @@ class DataToolsNotifier extends _$DataToolsNotifier {
         importPreview: null, // Also clear preview on success
         successMessage: l10n.dataToolsImportSuccess,
       );
-    } catch (e) {
-      state = state.copyWith(errorMessage: l10n.dataToolsImportFailed(e));
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Import data action failed",
+      );
+      state = state.copyWith(
+        errorMessage: l10n.dataToolsImportFailed(e.toString()),
+      );
     } finally {
       state = state.copyWith(isImporting: false);
     }

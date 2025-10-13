@@ -1,4 +1,5 @@
 import "package:drift/drift.dart";
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/daos/rain_gauges_dao.dart";
@@ -41,48 +42,113 @@ class DriftRainGaugeRepository implements RainGaugeRepository {
   @override
   Stream<List<domain.RainGauge>> watchGauges() => _dao
       .watchAllGaugesWithEntryCount()
-      .map((final gauges) => gauges.map(_mapDriftWithCountToDomain).toList());
+      .map((final gauges) => gauges.map(_mapDriftWithCountToDomain).toList())
+      .handleError((final e, final s) {
+        FirebaseCrashlytics.instance.recordError(
+          e,
+          s,
+          reason: "Failed to watch rain gauges",
+        );
+      });
 
   @override
   Future<List<domain.RainGauge>> fetchGauges() async {
-    final List<RainGaugeWithEntryCount> gauges = await _dao
-        .getAllGaugesWithEntryCount();
-    return gauges.map(_mapDriftWithCountToDomain).toList();
+    try {
+      final List<RainGaugeWithEntryCount> gauges = await _dao
+          .getAllGaugesWithEntryCount();
+      return gauges.map(_mapDriftWithCountToDomain).toList();
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to fetch rain gauges",
+      );
+      rethrow;
+    }
   }
 
   @override
   Future<domain.RainGauge?> getGaugeById(final String gaugeId) async {
-    final RainGauge? gauge = await _dao.getGaugeById(gaugeId);
-    return gauge == null ? null : _mapDriftToDomain(gauge);
+    try {
+      final RainGauge? gauge = await _dao.getGaugeById(gaugeId);
+      return gauge == null ? null : _mapDriftToDomain(gauge);
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to get gauge by ID",
+      );
+      rethrow;
+    }
   }
 
   @override
   Future<domain.RainGauge> addGauge({required final String name}) async {
-    final newGauge = domain.RainGauge(id: const Uuid().v4(), name: name);
-    final RainGaugesCompanion companion = _mapDomainToCompanion(newGauge);
-    await _dao.insertGauge(companion);
-    return newGauge;
+    try {
+      final newGauge = domain.RainGauge(id: const Uuid().v4(), name: name);
+      final RainGaugesCompanion companion = _mapDomainToCompanion(newGauge);
+      await _dao.insertGauge(companion);
+      return newGauge;
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to add rain gauge",
+      );
+      rethrow;
+    }
   }
 
   @override
-  Future<void> updateGauge(final domain.RainGauge updatedGauge) =>
-      _dao.updateGauge(_mapDomainToCompanion(updatedGauge));
+  Future<void> updateGauge(final domain.RainGauge updatedGauge) async {
+    try {
+      await _dao.updateGauge(_mapDomainToCompanion(updatedGauge));
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to update rain gauge",
+      );
+      rethrow;
+    }
+  }
 
   @override
-  Future<void> deleteGauge(final String gaugeId) => _db.transaction(() async {
-    await _rainfallEntriesDao.reassignEntries(
-      gaugeId,
-      AppConstants.defaultGaugeId,
-    );
-    await _dao.deleteGauge(RainGaugesCompanion(id: Value(gaugeId)));
-  });
+  Future<void> deleteGauge(final String gaugeId) async {
+    try {
+      await _db.transaction(() async {
+        await _rainfallEntriesDao.reassignEntries(
+          gaugeId,
+          AppConstants.defaultGaugeId,
+        );
+        await _dao.deleteGauge(RainGaugesCompanion(id: Value(gaugeId)));
+      });
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to delete gauge and reassign entries",
+      );
+      rethrow;
+    }
+  }
 
   @override
-  Future<void> deleteGaugeAndEntries(final String gaugeId) =>
-      _db.transaction(() async {
+  Future<void> deleteGaugeAndEntries(final String gaugeId) async {
+    try {
+      await _db.transaction(() async {
         await _rainfallEntriesDao.deleteEntriesForGauge(gaugeId);
         await _dao.deleteGauge(RainGaugesCompanion(id: Value(gaugeId)));
       });
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to delete gauge and its entries",
+      );
+      rethrow;
+    }
+  }
 
   domain.RainGauge _mapDriftToDomain(final RainGauge driftGauge) =>
       domain.RainGauge(id: driftGauge.id, name: driftGauge.name);

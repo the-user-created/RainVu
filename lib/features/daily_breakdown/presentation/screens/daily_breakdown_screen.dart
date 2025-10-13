@@ -1,14 +1,17 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/data/providers/data_providers.dart";
 import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
+import "package:rain_wise/core/utils/snackbar_service.dart";
 import "package:rain_wise/features/daily_breakdown/application/daily_breakdown_provider.dart";
 import "package:rain_wise/features/daily_breakdown/domain/daily_breakdown_data.dart";
 import "package:rain_wise/features/daily_breakdown/presentation/widgets/daily_rainfall_chart.dart";
 import "package:rain_wise/features/daily_breakdown/presentation/widgets/monthly_summary_card.dart";
 import "package:rain_wise/features/daily_breakdown/presentation/widgets/past_averages_card.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rain_wise/shared/utils/ui_helpers.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 import "package:rain_wise/shared/widgets/pickers/month_year_picker.dart";
 import "package:rain_wise/shared/widgets/placeholders.dart";
@@ -51,7 +54,12 @@ class _DailyBreakdownScreenState extends ConsumerState<DailyBreakdownScreen> {
     final DateRangeResult? dateRange = ref
         .read(rainfallDateRangeProvider)
         .value;
+    // Defensive check: ensure date range data is loaded before proceeding.
     if (dateRange?.min == null || dateRange?.max == null) {
+      showSnackbar(
+        AppLocalizations.of(context).genericError,
+        type: MessageType.error,
+      );
       return;
     }
 
@@ -109,12 +117,19 @@ class _DailyBreakdownScreenState extends ConsumerState<DailyBreakdownScreen> {
       body: SafeArea(
         child: breakdownDataAsync.when(
           loading: () => const _LoadingState(),
-          error: (final err, final stack) => Center(
-            child: Text(
-              l10n.dailyBreakdownError(err),
-              style: theme.textTheme.bodyLarge,
-            ),
-          ),
+          error: (final err, final stack) {
+            FirebaseCrashlytics.instance.recordError(
+              err,
+              stack,
+              reason: "Failed to load daily breakdown data",
+            );
+            return Center(
+              child: Text(
+                l10n.dailyBreakdownError,
+                style: theme.textTheme.bodyLarge,
+              ),
+            );
+          },
           data: (final data) {
             if (data.summaryStats.totalRainfall == 0) {
               return const _EmptyState();

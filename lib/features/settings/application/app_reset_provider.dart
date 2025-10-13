@@ -1,4 +1,5 @@
 import "package:drift/drift.dart";
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:rain_wise/app_constants.dart";
 import "package:rain_wise/core/data/local/app_database.dart";
 import "package:rain_wise/core/data/local/shared_prefs.dart";
@@ -15,20 +16,29 @@ class AppResetService extends _$AppResetService {
   }
 
   Future<void> resetApp() async {
-    final AppDatabase db = ref.read(appDatabaseProvider);
-    final SharedPreferences prefs = await ref.read(
-      sharedPreferencesProvider.future,
-    );
+    try {
+      final AppDatabase db = ref.read(appDatabaseProvider);
+      final SharedPreferences prefs = await ref.read(
+        sharedPreferencesProvider.future,
+      );
 
-    await db.deleteAllData();
-    await prefs.clear();
+      await db.deleteAllData();
+      await prefs.clear();
 
-    // Re-insert the default gauge
-    await db.rainGaugesDao.insertGauge(
-      const RainGaugesCompanion(
-        id: Value(AppConstants.defaultGaugeId),
-        name: Value(AppConstants.defaultGaugeName),
-      ),
-    );
+      // Re-insert the default gauge
+      await db.rainGaugesDao.insertGauge(
+        const RainGaugesCompanion(
+          id: Value(AppConstants.defaultGaugeId),
+          name: Value(AppConstants.defaultGaugeName),
+        ),
+      );
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Application reset failed",
+      );
+      rethrow;
+    }
   }
 }

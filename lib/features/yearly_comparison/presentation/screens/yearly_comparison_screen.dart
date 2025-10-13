@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -72,12 +73,19 @@ class YearlyComparisonScreen extends ConsumerWidget {
       body: SafeArea(
         child: availableYearsAsync.when(
           loading: () => const _LoadingState(),
-          error: (final err, final stack) => Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text(l10n.yearlyComparisonAvailableYearsError(err)),
-            ),
-          ),
+          error: (final err, final stack) {
+            FirebaseCrashlytics.instance.recordError(
+              err,
+              stack,
+              reason: "Failed to load available years for comparison",
+            );
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(l10n.yearlyComparisonAvailableYearsError),
+              ),
+            );
+          },
           data: (final availableYears) {
             if (availableYears.length < 2) {
               return const _InsufficientDataState();
@@ -95,8 +103,8 @@ class _LoadingState extends StatelessWidget {
   const _LoadingState();
 
   @override
-  Widget build(BuildContext context) {
-    final theme = Theme.of(context);
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
     return Shimmer.fromColors(
       baseColor: theme.colorScheme.surfaceContainerHighest,
       highlightColor: theme.colorScheme.surface,
@@ -146,7 +154,7 @@ class _DataContent extends ConsumerWidget {
     final AsyncValue<List<YearlySummary>> summariesAsync = ref.watch(
       yearlyComparisonSummariesProvider,
     );
-    final theme = Theme.of(context);
+    final ThemeData theme = Theme.of(context);
     final List<YearlySummary>? summaries = summariesAsync.value;
 
     // Only show the loader on the initial fetch or handle errors.
@@ -169,10 +177,17 @@ class _DataContent extends ConsumerWidget {
             ),
           ),
         ),
-        error: (final err, final stack) => Padding(
-          padding: const EdgeInsets.all(32),
-          child: Center(child: Text(l10n.yearlyComparisonError(err))),
-        ),
+        error: (final err, final stack) {
+          FirebaseCrashlytics.instance.recordError(
+            err,
+            stack,
+            reason: "Failed to load yearly comparison summaries",
+          );
+          return Padding(
+            padding: const EdgeInsets.all(32),
+            child: Center(child: Text(l10n.yearlyComparisonError)),
+          );
+        },
         // This case is needed for the `when` but won't be hit if summaries is null.
         data: (final data) => const SizedBox.shrink(),
       );
@@ -209,7 +224,7 @@ class _YearlyComparisonChartLoader extends ConsumerWidget {
     final AsyncValue<ComparativeChartData> chartDataAsync = ref.watch(
       yearlyComparisonChartDataProvider,
     );
-    final theme = Theme.of(context);
+    final ThemeData theme = Theme.of(context);
     final ComparativeChartData? chartData = chartDataAsync.value;
 
     // If we have data (new or old), show the chart. The chart's internal
@@ -231,10 +246,17 @@ class _YearlyComparisonChartLoader extends ConsumerWidget {
           ),
         ),
       ),
-      error: (final err, final stack) => Padding(
-        padding: const EdgeInsets.all(32),
-        child: Center(child: Text(l10n.yearlyComparisonError(err))),
-      ),
+      error: (final err, final stack) {
+        FirebaseCrashlytics.instance.recordError(
+          err,
+          stack,
+          reason: "Failed to load yearly comparison chart data",
+        );
+        return Padding(
+          padding: const EdgeInsets.all(32),
+          child: Center(child: Text(l10n.yearlyComparisonError)),
+        );
+      },
       // This data case is technically covered by the `if (chartData != null)`
       // check above, but is required by the `when` method.
       data: (final data) => YearlyComparisonChart(chartData: data),

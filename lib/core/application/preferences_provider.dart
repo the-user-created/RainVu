@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:rain_wise/core/data/repositories/preferences_repository.dart";
 import "package:rain_wise/shared/domain/seasons.dart";
 import "package:rain_wise/shared/domain/user_preferences.dart";
@@ -19,8 +20,17 @@ class UserPreferencesNotifier extends _$UserPreferencesNotifier {
     // By not setting the state to loading, the UI will preserve the old state
     // until the future completes, preventing a loading indicator flicker.
     state = await AsyncValue.guard(() async {
-      await _repository.saveUserPreferences(newPreferences);
-      return newPreferences;
+      try {
+        await _repository.saveUserPreferences(newPreferences);
+        return newPreferences;
+      } catch (e, s) {
+        FirebaseCrashlytics.instance.recordError(
+          e,
+          s,
+          reason: "Failed to save user preferences",
+        );
+        rethrow;
+      }
     });
   }
 

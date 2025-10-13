@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/ui/custom_colors.dart";
@@ -31,18 +32,25 @@ class ChangelogScreen extends ConsumerWidget {
       body: SafeArea(
         child: releasesAsync.when(
           loading: () => const _ChangelogLoadingPlaceholder(),
-          error: (final error, final stackTrace) => Center(
-            child: Padding(
-              padding: const EdgeInsets.all(16),
-              child: Text(
-                l10n.changelogError,
-                style: theme.textTheme.bodyLarge?.copyWith(
-                  color: colorScheme.error,
+          error: (final error, final stackTrace) {
+            FirebaseCrashlytics.instance.recordError(
+              error,
+              stackTrace,
+              reason: "Failed to parse CHANGELOG.md",
+            );
+            return Center(
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: Text(
+                  l10n.changelogError,
+                  style: theme.textTheme.bodyLarge?.copyWith(
+                    color: colorScheme.error,
+                  ),
+                  textAlign: TextAlign.center,
                 ),
-                textAlign: TextAlign.center,
               ),
-            ),
-          ),
+            );
+          },
           data: (final releases) {
             if (releases.isEmpty) {
               return Center(child: Text(l10n.changelogError));

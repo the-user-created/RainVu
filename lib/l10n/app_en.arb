@@ -80,7 +80,7 @@
   "@anomalyTimelineLegendAverage": {
     "description": "Legend text for the average rainfall line in the unusual patterns chart."
   },
-  "appInfoFooterError": "Could not load data",
+  "appInfoFooterError": "Could not load version info",
   "@appInfoFooterError": {
     "description": "Error message shown in the app info footer if version info cannot be loaded."
   },
@@ -208,13 +208,9 @@
   "@dailyBreakdownEmptyTitle": {
     "description": "Title for the empty state on the daily breakdown screen."
   },
-  "dailyBreakdownError": "Error: {error}",
+  "dailyBreakdownError": "Could not load daily breakdown.",
   "@dailyBreakdownError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
+    "description": "Generic error message for the daily breakdown screen."
   },
   "dailyBreakdownTitle": "Daily Breakdown",
   "@dailyBreakdownTitle": {
@@ -484,6 +480,10 @@
   "@fiveYearAverage": {
     "description": "Label for the 5-year historical average statistic."
   },
+  "gaugeAddedError": "Failed to add gauge. Please try again.",
+  "@gaugeAddedError": {
+    "description": "Snackbar message shown when adding a new gauge fails."
+  },
   "gaugeAddedSuccess": "Gauge '{name}' was added successfully.",
   "@gaugeAddedSuccess": {
     "placeholders": {
@@ -491,6 +491,10 @@
         "type": "String"
       }
     }
+  },
+  "gaugeDeletedError": "Failed to delete gauge. Please try again.",
+  "@gaugeDeletedError": {
+    "description": "Snackbar message shown when deleting a gauge fails."
   },
   "gaugeDeletedSuccess": "Gauge '{name}' was deleted.",
   "@gaugeDeletedSuccess": {
@@ -540,13 +544,9 @@
   "@gaugeListEmptyTitle": {
     "description": "Title for the empty state on the manage gauges screen."
   },
-  "gaugeListError": "Error: {error}",
+  "gaugeListError": "Could not load gauges.",
   "@gaugeListError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
+    "description": "Generic error message for the gauge list screen."
   },
   "gaugeSetAsFavorite": "'{name}' is now your favorite gauge.",
   "@gaugeSetAsFavorite": {
@@ -576,6 +576,10 @@
       }
     }
   },
+  "gaugeUpdatedError": "Failed to update gauge. Please try again.",
+  "@gaugeUpdatedError": {
+    "description": "Snackbar message shown when updating a gauge fails."
+  },
   "gaugeUpdatedSuccess": "Gauge '{name}' was updated successfully.",
   "@gaugeUpdatedSuccess": {
     "placeholders": {
@@ -583,6 +587,10 @@
         "type": "String"
       }
     }
+  },
+  "genericError": "Something went wrong. Please try again.",
+  "@genericError": {
+    "description": "A generic error message for unexpected failures."
   },
   "helpCouldNotOpenUrl": "Could not open {url}",
   "@helpCouldNotOpenUrl": {
@@ -640,13 +648,9 @@
   "@historicalComparisonTitle": {
     "description": "Title for the historical comparison card in the daily breakdown screen."
   },
-  "homeScreenError": "Error: {error}",
+  "homeScreenError": "Could not load home screen data.",
   "@homeScreenError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
+    "description": "Generic error message for the home screen."
   },
   "importDataCardDescription": "Import your previously exported rainfall data",
   "@importDataCardDescription": {
@@ -716,13 +720,9 @@
   "@infoTooltip": {
     "description": "Generic tooltip for an info icon button."
   },
-  "insightsError": "Error: {error}",
+  "insightsError": "Could not load insights.",
   "@insightsError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
+    "description": "Generic error message for the insights screen."
   },
   "legendDailyRainfall": "Daily Rainfall",
   "@legendDailyRainfall": {
@@ -775,6 +775,10 @@
   "logRainfallSaveButton": "Save Rainfall Data",
   "@logRainfallSaveButton": {
     "description": "Label for the save button on the log rainfall sheet."
+  },
+  "logRainfallSaveError": "Failed to save entry. Please try again.",
+  "@logRainfallSaveError": {
+    "description": "Snackbar message shown if saving a new rainfall entry fails."
   },
   "logRainfallSelectGaugeHeader": "Select Rain Gauge",
   "@logRainfallSelectGaugeHeader": {
@@ -946,13 +950,9 @@
   "@rainfallEntriesEmptyTitle": {
     "description": "Title for the empty state on the rainfall entries screen."
   },
-  "rainfallEntriesError": "Error: {error}",
+  "rainfallEntriesError": "Could not load rainfall entries.",
   "@rainfallEntriesError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
+    "description": "Generic error message for the rainfall entries screen."
   },
   "rainfallEntriesTotalEntries": "Total Entries",
   "@rainfallEntriesTotalEntries": {
@@ -969,6 +969,10 @@
   "rainfallEntryLoggedSuccess": "Rainfall entry logged successfully.",
   "@rainfallEntryLoggedSuccess": {
     "description": "Snackbar message shown after successfully logging a new rainfall entry."
+  },
+  "rainfallEntryUpdatedError": "Failed to update entry. Please try again.",
+  "@rainfallEntryUpdatedError": {
+    "description": "Snackbar message shown when updating a rainfall entry fails."
   },
   "rainfallEntryUpdatedSuccess": "Rainfall entry updated successfully.",
   "@rainfallEntryUpdatedSuccess": {
@@ -1022,13 +1026,9 @@
       }
     }
   },
-  "resetErrorSnackbar": "An error occurred while resetting the app: {error}",
+  "resetErrorSnackbar": "Failed to reset app. Please try again.",
   "@resetErrorSnackbar": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
+    "description": "Snackbar message shown if there was an error during the app reset process."
   },
   "resetSuccessSnackbar": "App has been reset.",
   "@resetSuccessSnackbar": {
@@ -1106,13 +1106,9 @@
   "@seasonalTrendsDescription": {
     "description": "Descriptive text on the Seasonal Trends screen."
   },
-  "seasonalTrendsError": "Error: {error}",
+  "seasonalTrendsError": "Could not load seasonal trends.",
   "@seasonalTrendsError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
+    "description": "Generic error message for the seasonal trends screen."
   },
   "seasonalTrendsNoDataMessage": "Once you start logging rainfall, this screen will show you trends and patterns for the selected season.",
   "@seasonalTrendsNoDataMessage": {
@@ -1258,6 +1254,10 @@
   "@shareAppText": {
     "description": "The body text used when sharing the app."
   },
+  "shareError": "Could not share the app. Please try again.",
+  "@shareError": {
+    "description": "Snackbar message shown if the native share action fails."
+  },
   "tenYearAverage": "10 Year Average",
   "@tenYearAverage": {
     "description": "Label for the 10-year historical average statistic."
@@ -1314,6 +1314,10 @@
       }
     }
   },
+  "ticketSheetErrorSnackbar": "Could not send feedback. Please try again later.",
+  "@ticketSheetErrorSnackbar": {
+    "description": "Snackbar message shown when there is an error submitting feedback."
+  },
   "ticketSheetSubmitButton": "Submit",
   "@ticketSheetSubmitButton": {
     "description": "Label for the submit button on the feedback form."
@@ -1342,30 +1346,25 @@
   "@unknownGauge": {
     "description": "Name displayed for a rainfall entry whose associated gauge has been deleted."
   },
-  "unusualPatternsError": "Error loading unusual patterns: {error}",
+  "unusualPatternsError": "Could not load unusual patterns.",
   "@unusualPatternsError": {
-    "description": "Error message shown when unusual rainfall patterns fail to load.",
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
+    "description": "Generic error message for the unusual patterns screen."
   },
   "unusualPatternsTitle": "Unusual Patterns",
   "@unusualPatternsTitle": {
     "description": "The title of the 'Unusual Patterns' screen."
   },
+  "urlLaunchError": "Could not open the link.",
+  "@urlLaunchError": {
+    "description": "Snackbar message shown when launching a URL fails."
+  },
   "viewEntriesButtonLabel": "View All Entries",
   "@viewEntriesButtonLabel": {
     "description": "Label for a button that navigates to a detailed list of entries for a given period."
   },
-  "yearlyComparisonAvailableYearsError": "Error loading years: {error}",
+  "yearlyComparisonAvailableYearsError": "Could not determine available years for comparison.",
   "@yearlyComparisonAvailableYearsError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
+    "description": "Generic error message on the yearly comparison screen when years can't be loaded."
   },
   "yearlyComparisonChartNoData": "Not enough data to display chart.",
   "@yearlyComparisonChartNoData": {
@@ -1383,21 +1382,13 @@
   "@yearlyComparisonEmptyTitle": {
     "description": "Title for the empty state on the yearly comparison screen when there is insufficient data."
   },
-  "yearlyComparisonError": "An error occurred: {error}",
+  "yearlyComparisonError": "Could not load comparison data.",
   "@yearlyComparisonError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
+    "description": "Generic error message on the yearly comparison screen."
   },
-  "yearlyComparisonFilterError": "Error: {error}",
+  "yearlyComparisonFilterError": "Could not load filters.",
   "@yearlyComparisonFilterError": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
+    "description": "Error message when the filter options on the yearly comparison screen fail to load."
   },
   "yearlyComparisonNoDataForSelection": "No rainfall data was found for the selected years and comparison type. Please try a different selection.",
   "@yearlyComparisonNoDataForSelection": {

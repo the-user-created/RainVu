@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/utils/snackbar_service.dart";
@@ -62,8 +63,14 @@ class _TicketSheetState extends ConsumerState<TicketSheet> {
       if (mounted) {
         Navigator.of(context).pop();
       }
-    } catch (e) {
-      showSnackbar(l10n.ticketSheetErrorMessage(e), type: MessageType.error);
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Support ticket submission failed from UI",
+      );
+      // TODO: snackbars not showing above bottom sheets
+      showSnackbar(l10n.ticketSheetErrorSnackbar, type: MessageType.error);
     } finally {
       if (mounted) {
         setState(() => _isLoading = false);

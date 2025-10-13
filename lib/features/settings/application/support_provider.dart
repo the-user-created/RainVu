@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:rain_wise/features/settings/data/support_repository.dart";
 import "package:rain_wise/features/settings/domain/support_ticket.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
@@ -20,8 +21,9 @@ class SupportService extends _$SupportService {
     required final String description,
     final String? contactEmail,
   }) async {
-    final SupportRepository supportRepository =
-        ref.read(supportRepositoryProvider);
+    final SupportRepository supportRepository = ref.read(
+      supportRepositoryProvider,
+    );
 
     final ticket = SupportTicket(
       id: const Uuid().v4(),
@@ -31,6 +33,15 @@ class SupportService extends _$SupportService {
       createdAt: DateTime.now(),
     );
 
-    await supportRepository.submitTicket(ticket);
+    try {
+      await supportRepository.submitTicket(ticket);
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Support ticket submission failed in SupportService",
+      );
+      rethrow;
+    }
   }
 }

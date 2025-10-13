@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
@@ -32,12 +33,19 @@ class _PreferencesSheetState extends ConsumerState<PreferencesSheet> {
           height: 300,
           child: Center(child: CircularProgressIndicator()),
         ),
-        error: (final err, final stack) => Center(
-          child: Padding(
-            padding: const EdgeInsets.all(16),
-            child: Text("Error: $err"),
-          ),
-        ),
+        error: (final err, final stack) {
+          FirebaseCrashlytics.instance.recordError(
+            err,
+            stack,
+            reason: "Failed to load preferences in sheet",
+          );
+          return Center(
+            child: Padding(
+              padding: const EdgeInsets.all(16),
+              child: Text(l10n.genericError),
+            ),
+          );
+        },
         data: (final userPreferences) {
           // Initialize the local state for the slider only when the widget
           // first builds with data. This prevents the slider from resetting
@@ -108,9 +116,7 @@ class _PreferencesSheetState extends ConsumerState<PreferencesSheet> {
               SliderTheme(
                 data: SliderTheme.of(context).copyWith(
                   trackHeight: 6,
-                  thumbShape: const RoundSliderThumbShape(
-
-                  ),
+                  thumbShape: const RoundSliderThumbShape(),
                   overlayShape: const RoundSliderOverlayShape(
                     overlayRadius: 20,
                   ),

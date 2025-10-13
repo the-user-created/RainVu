@@ -20,7 +20,7 @@ class SeasonSelector extends ConsumerWidget {
     final AsyncValue<List<int>> availableYearsAsync = ref.watch(
       availableYearsProvider,
     );
-    final theme = Theme.of(context);
+    final ThemeData theme = Theme.of(context);
 
     final Widget seasonDropdown = AppDropdown<Season>(
       value: filter.season,

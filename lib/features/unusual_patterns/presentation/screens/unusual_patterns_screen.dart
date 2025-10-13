@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rain_wise/features/unusual_patterns/application/unusual_patterns_provider.dart";
@@ -81,18 +82,25 @@ class UnusualPatternsScreen extends ConsumerWidget {
                   ),
                 ),
               ),
-              error: (final err, final stack) => SliverFillRemaining(
-                hasScrollBody: false,
-                child: Center(
-                  child: Padding(
-                    padding: const EdgeInsets.all(16),
-                    child: Text(
-                      l10n.unusualPatternsError(err),
-                      textAlign: TextAlign.center,
+              error: (final err, final stack) {
+                FirebaseCrashlytics.instance.recordError(
+                  err,
+                  stack,
+                  reason: "Failed to load anomaly data",
+                );
+                return SliverFillRemaining(
+                  hasScrollBody: false,
+                  child: Center(
+                    child: Padding(
+                      padding: const EdgeInsets.all(16),
+                      child: Text(
+                        l10n.unusualPatternsError,
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                ),
-              ),
+                );
+              },
               data: (final data) => AnomalyList(
                 anomalies: data.anomalies,
                 chartPoints: data.chartPoints,

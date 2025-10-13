@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:in_app_review/in_app_review.dart";
@@ -45,21 +46,26 @@ class SettingsScreen extends ConsumerWidget {
     final InAppReview inAppReview = InAppReview.instance;
     final AppLocalizations l10n = AppLocalizations.of(context);
 
-    if (await inAppReview.isAvailable()) {
-      // This will open the in-app review dialog. The OS handles quotas,
-      // so it's safe to call; it might not appear if the user has reviewed
-      // recently or opted out.
-      await inAppReview.requestReview();
-    } else {
-      // Fallback for when the in-app review is not available,
-      // e.g., during development on Android or on unsupported devices.
-      try {
+    try {
+      if (await inAppReview.isAvailable()) {
+        // This will open the in-app review dialog. The OS handles quotas,
+        // so it's safe to call; it might not appear if the user has reviewed
+        // recently or opted out.
+        await inAppReview.requestReview();
+      } else {
+        // Fallback for when the in-app review is not available,
+        // e.g., during development on Android or on unsupported devices.
         // For a published app, you would add your appStoreId here.
         await inAppReview.openStoreListing();
-      } catch (_) {
-        if (context.mounted) {
-          showSnackbar(l10n.reviewNotAvailable);
-        }
+      }
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "In-app review or store listing failed",
+      );
+      if (context.mounted) {
+        showSnackbar(l10n.reviewNotAvailable, type: MessageType.error);
       }
     }
   }
@@ -77,14 +83,24 @@ class SettingsScreen extends ConsumerWidget {
     final Rect? sharePositionOrigin = box != null
         ? box.localToGlobal(Offset.zero) & box.size
         : null;
-
-    await SharePlus.instance.share(
-      ShareParams(
-        text: l10n.shareAppText,
-        subject: l10n.shareAppSubject,
-        sharePositionOrigin: sharePositionOrigin,
-      ),
-    );
+    try {
+      await SharePlus.instance.share(
+        ShareParams(
+          text: l10n.shareAppText,
+          subject: l10n.shareAppSubject,
+          sharePositionOrigin: sharePositionOrigin,
+        ),
+      );
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Share app action failed",
+      );
+      if (context.mounted) {
+        showSnackbar(l10n.shareError, type: MessageType.error);
+      }
+    }
   }
 
   Future<void> _showResetConfirmationSheet(
@@ -107,9 +123,14 @@ class SettingsScreen extends ConsumerWidget {
         if (context.mounted) {
           showSnackbar(l10n.resetSuccessSnackbar, type: MessageType.success);
         }
-      } catch (e) {
+      } catch (e, s) {
+        FirebaseCrashlytics.instance.recordError(
+          e,
+          s,
+          reason: "App reset failed from settings screen",
+        );
         if (context.mounted) {
-          showSnackbar(l10n.resetErrorSnackbar(e), type: MessageType.error);
+          showSnackbar(l10n.resetErrorSnackbar, type: MessageType.error);
         }
       }
     }

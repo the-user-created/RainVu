@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -27,11 +28,22 @@ class HelpScreen extends ConsumerWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final Uri uri = Uri.parse(url);
 
-    if (!await launchUrl(uri)) {
-      if (!context.mounted) {
-        return;
+    try {
+      if (!await launchUrl(uri)) {
+        if (!context.mounted) {
+          return;
+        }
+        showSnackbar(l10n.urlLaunchError, type: MessageType.error);
       }
-      showSnackbar(l10n.helpCouldNotOpenUrl(url), type: MessageType.error);
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to launch URL: $url",
+      );
+      if (context.mounted) {
+        showSnackbar(l10n.urlLaunchError, type: MessageType.error);
+      }
     }
   }
 

@@ -1,3 +1,4 @@
+import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -21,15 +22,24 @@ class AddGaugeSheet extends ConsumerWidget {
       child:
           GaugeForm(
                 onSave: (final name) async {
-                  final RainGauge newGauge = await ref
-                      .read(gaugesProvider.notifier)
-                      .addGauge(name: name);
-                  showSnackbar(
-                    l10n.gaugeAddedSuccess(newGauge.name),
-                    type: MessageType.success,
-                  );
-                  if (context.mounted) {
-                    Navigator.pop(context, newGauge);
+                  try {
+                    final RainGauge newGauge = await ref
+                        .read(gaugesProvider.notifier)
+                        .addGauge(name: name);
+                    showSnackbar(
+                      l10n.gaugeAddedSuccess(newGauge.name),
+                      type: MessageType.success,
+                    );
+                    if (context.mounted) {
+                      Navigator.pop(context, newGauge);
+                    }
+                  } catch (e, s) {
+                    FirebaseCrashlytics.instance.recordError(
+                      e,
+                      s,
+                      reason: "Failed to add gauge from sheet",
+                    );
+                    showSnackbar(l10n.gaugeAddedError, type: MessageType.error);
                   }
                 },
               )
