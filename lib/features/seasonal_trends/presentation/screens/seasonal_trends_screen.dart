@@ -80,8 +80,9 @@ class _LoadingState extends StatelessWidget {
     return Shimmer.fromColors(
       baseColor: theme.colorScheme.surfaceContainerHighest,
       highlightColor: theme.colorScheme.surface,
-      child: const Column(
-        children: [
+      child: ListView(
+        padding: const EdgeInsets.only(bottom: 24),
+        children: const [
           _Header(),
           SizedBox(height: 24),
           Padding(
