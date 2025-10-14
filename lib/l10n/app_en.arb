@@ -624,6 +624,10 @@
   "@helpSuggestIdeaTitle": {
     "description": "Title for the 'Suggest an Idea' option in the help screen."
   },
+  "helpSupportLanguageNotice": "Please use English for all support requests.",
+  "@helpSupportLanguageNotice": {
+    "description": "A notice on the help screen asking users to communicate in English for support."
+  },
   "helpTitle": "Help & Support",
   "@helpTitle": {
     "description": "The title of the Help & Support screen."
@@ -1335,62 +1339,6 @@
   "tenYearAverage": "10 Year Average",
   "@tenYearAverage": {
     "description": "Label for the 10-year historical average statistic."
-  },
-  "ticketCategoryBugReport": "Bug Report",
-  "@ticketCategoryBugReport": {
-    "description": "Label for the 'Bug Report' feedback category."
-  },
-  "ticketCategoryFeatureRequest": "Feature Request",
-  "@ticketCategoryFeatureRequest": {
-    "description": "Label for the 'Feature Request' feedback category."
-  },
-  "ticketCategoryGeneralFeedback": "General Feedback",
-  "@ticketCategoryGeneralFeedback": {
-    "description": "Label for the 'General Feedback' feedback category."
-  },
-  "ticketCategoryOther": "Other",
-  "@ticketCategoryOther": {
-    "description": "Label for the 'Other' feedback category."
-  },
-  "ticketSheetCategoryValidation": "Please select a category",
-  "@ticketSheetCategoryValidation": {
-    "description": "Validation error if no feedback category is selected."
-  },
-  "ticketSheetDescription": "Your feedback helps us improve RainWise. Please describe the issue or share your thoughts.",
-  "@ticketSheetDescription": {
-    "description": "Introductory text on the feedback submission sheet."
-  },
-  "ticketSheetDescriptionHint": "Describe the issue or your feedback here...",
-  "@ticketSheetDescriptionHint": {
-    "description": "Placeholder text for the feedback description text field."
-  },
-  "ticketSheetDescriptionLabel": "Description",
-  "@ticketSheetDescriptionLabel": {
-    "description": "Label for the feedback description text field."
-  },
-  "ticketSheetDescriptionValidation": "Please enter a description",
-  "@ticketSheetDescriptionValidation": {
-    "description": "Validation error if the feedback description is empty."
-  },
-  "ticketSheetEmailLabel": "Your Email (Optional)",
-  "@ticketSheetEmailLabel": {
-    "description": "Label for the optional email field on the feedback form."
-  },
-  "ticketSheetEmailValidation": "Please enter a valid email address",
-  "@ticketSheetEmailValidation": {
-    "description": "Validation error for an invalid email address."
-  },
-  "ticketSheetErrorSnackbar": "Could not send feedback. Please try again later.",
-  "@ticketSheetErrorSnackbar": {
-    "description": "Snackbar message shown when there is an error submitting feedback."
-  },
-  "ticketSheetSubmitButton": "Submit",
-  "@ticketSheetSubmitButton": {
-    "description": "Label for the submit button on the feedback form."
-  },
-  "ticketSheetSuccessMessage": "Thank you! Your feedback has been submitted.",
-  "@ticketSheetSuccessMessage": {
-    "description": "Success message shown after submitting feedback."
   },
   "totalLabel": "Total",
   "@totalLabel": {
