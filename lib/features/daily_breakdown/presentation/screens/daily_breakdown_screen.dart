@@ -1,20 +1,20 @@
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/app_constants.dart";
-import "package:rain_wise/core/data/providers/data_providers.dart";
-import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
-import "package:rain_wise/core/utils/snackbar_service.dart";
-import "package:rain_wise/features/daily_breakdown/application/daily_breakdown_provider.dart";
-import "package:rain_wise/features/daily_breakdown/domain/daily_breakdown_data.dart";
-import "package:rain_wise/features/daily_breakdown/presentation/widgets/daily_rainfall_chart.dart";
-import "package:rain_wise/features/daily_breakdown/presentation/widgets/monthly_summary_card.dart";
-import "package:rain_wise/features/daily_breakdown/presentation/widgets/past_averages_card.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/utils/ui_helpers.dart";
-import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
-import "package:rain_wise/shared/widgets/pickers/month_year_picker.dart";
-import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:rainly/app_constants.dart";
+import "package:rainly/core/data/providers/data_providers.dart";
+import "package:rainly/core/data/repositories/rainfall_repository.dart";
+import "package:rainly/core/utils/snackbar_service.dart";
+import "package:rainly/features/daily_breakdown/application/daily_breakdown_provider.dart";
+import "package:rainly/features/daily_breakdown/domain/daily_breakdown_data.dart";
+import "package:rainly/features/daily_breakdown/presentation/widgets/daily_rainfall_chart.dart";
+import "package:rainly/features/daily_breakdown/presentation/widgets/monthly_summary_card.dart";
+import "package:rainly/features/daily_breakdown/presentation/widgets/past_averages_card.dart";
+import "package:rainly/l10n/app_localizations.dart";
+import "package:rainly/shared/utils/ui_helpers.dart";
+import "package:rainly/shared/widgets/buttons/app_icon_button.dart";
+import "package:rainly/shared/widgets/pickers/month_year_picker.dart";
+import "package:rainly/shared/widgets/placeholders.dart";
 import "package:shimmer/shimmer.dart";
 
 class DailyBreakdownScreen extends ConsumerStatefulWidget {

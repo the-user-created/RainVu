@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/core/application/preferences_provider.dart";
-import "package:rain_wise/core/data/providers/data_providers.dart";
-import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
-import "package:rain_wise/features/unusual_patterns/data/unusual_patterns_repository.dart";
-import "package:rain_wise/features/unusual_patterns/domain/unusual_patterns_data.dart";
-import "package:rain_wise/shared/domain/user_preferences.dart";
+import "package:rainly/core/application/preferences_provider.dart";
+import "package:rainly/core/data/providers/data_providers.dart";
+import "package:rainly/core/data/repositories/rainfall_repository.dart";
+import "package:rainly/features/unusual_patterns/data/unusual_patterns_repository.dart";
+import "package:rainly/features/unusual_patterns/domain/unusual_patterns_data.dart";
+import "package:rainly/shared/domain/user_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "unusual_patterns_provider.g.dart";

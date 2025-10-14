@@ -6,13 +6,13 @@ import "package:csv/csv.dart";
 import "package:drift/drift.dart";
 import "package:file_picker/file_picker.dart";
 import "package:flutter/material.dart";
-import "package:rain_wise/core/data/local/app_database.dart";
-import "package:rain_wise/core/data/local/daos/rain_gauges_dao.dart";
-import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
-import "package:rain_wise/core/utils/extensions.dart";
-import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
-import "package:rain_wise/shared/domain/rain_gauge.dart" as domain_gauge;
-import "package:rain_wise/shared/domain/rainfall_entry.dart" as domain_entry;
+import "package:rainly/core/data/local/app_database.dart";
+import "package:rainly/core/data/local/daos/rain_gauges_dao.dart";
+import "package:rainly/core/data/local/daos/rainfall_entries_dao.dart";
+import "package:rainly/core/utils/extensions.dart";
+import "package:rainly/features/data_tools/domain/data_tools_state.dart";
+import "package:rainly/shared/domain/rain_gauge.dart" as domain_gauge;
+import "package:rainly/shared/domain/rainfall_entry.dart" as domain_entry;
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:uuid/uuid.dart";
 
@@ -88,7 +88,7 @@ class DriftDataToolsRepository implements DataToolsRepository {
     }
 
     final String fileName =
-        "rainwise_export_${DateTime.now().millisecondsSinceEpoch}.$extension";
+        "rainly_export_${DateTime.now().millisecondsSinceEpoch}.$extension";
 
     // Encode the file content to bytes
     final Uint8List fileBytes = utf8.encode(fileContent);

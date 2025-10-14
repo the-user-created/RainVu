@@ -1,9 +1,9 @@
 import "package:collection/collection.dart";
 import "package:flutter/material.dart";
 import "package:intl/intl.dart";
-import "package:rain_wise/features/unusual_patterns/domain/unusual_patterns_data.dart";
-import "package:rain_wise/features/unusual_patterns/presentation/widgets/unusual_patterns_list_item.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rainly/features/unusual_patterns/domain/unusual_patterns_data.dart";
+import "package:rainly/features/unusual_patterns/presentation/widgets/unusual_patterns_list_item.dart";
+import "package:rainly/l10n/app_localizations.dart";
 
 class AnomalyList extends StatelessWidget {
   const AnomalyList({

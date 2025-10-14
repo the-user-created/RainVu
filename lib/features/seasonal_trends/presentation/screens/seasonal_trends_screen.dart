@@ -1,13 +1,13 @@
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/features/seasonal_trends/application/seasonal_trends_provider.dart";
-import "package:rain_wise/features/seasonal_trends/domain/seasonal_trends_data.dart";
-import "package:rain_wise/features/seasonal_trends/presentation/widgets/season_selector.dart";
-import "package:rain_wise/features/seasonal_trends/presentation/widgets/seasonal_summary_card.dart";
-import "package:rain_wise/features/seasonal_trends/presentation/widgets/seasonal_trend_chart.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:rainly/features/seasonal_trends/application/seasonal_trends_provider.dart";
+import "package:rainly/features/seasonal_trends/domain/seasonal_trends_data.dart";
+import "package:rainly/features/seasonal_trends/presentation/widgets/season_selector.dart";
+import "package:rainly/features/seasonal_trends/presentation/widgets/seasonal_summary_card.dart";
+import "package:rainly/features/seasonal_trends/presentation/widgets/seasonal_trend_chart.dart";
+import "package:rainly/l10n/app_localizations.dart";
+import "package:rainly/shared/widgets/placeholders.dart";
 import "package:shimmer/shimmer.dart";
 
 class SeasonalTrendsScreen extends ConsumerWidget {

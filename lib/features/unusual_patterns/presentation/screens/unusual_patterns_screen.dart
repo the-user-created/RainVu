@@ -1,13 +1,13 @@
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/features/unusual_patterns/application/unusual_patterns_provider.dart";
-import "package:rain_wise/features/unusual_patterns/domain/unusual_patterns_data.dart";
-import "package:rain_wise/features/unusual_patterns/presentation/widgets/unusual_patterns_filter_options.dart";
-import "package:rain_wise/features/unusual_patterns/presentation/widgets/unusual_patterns_list.dart";
-import "package:rain_wise/features/unusual_patterns/presentation/widgets/unusual_patterns_timeline_chart.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:rainly/features/unusual_patterns/application/unusual_patterns_provider.dart";
+import "package:rainly/features/unusual_patterns/domain/unusual_patterns_data.dart";
+import "package:rainly/features/unusual_patterns/presentation/widgets/unusual_patterns_filter_options.dart";
+import "package:rainly/features/unusual_patterns/presentation/widgets/unusual_patterns_list.dart";
+import "package:rainly/features/unusual_patterns/presentation/widgets/unusual_patterns_timeline_chart.dart";
+import "package:rainly/l10n/app_localizations.dart";
+import "package:rainly/shared/widgets/placeholders.dart";
 import "package:shimmer/shimmer.dart";
 
 class UnusualPatternsScreen extends ConsumerWidget {

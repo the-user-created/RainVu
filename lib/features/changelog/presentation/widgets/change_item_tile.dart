@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/features/changelog/domain/changelog_entry.dart";
+import "package:rainly/features/changelog/domain/changelog_entry.dart";
 
 class ChangeItemTile extends StatelessWidget {
   const ChangeItemTile({required this.item, super.key});

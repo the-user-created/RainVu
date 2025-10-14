@@ -1,12 +1,12 @@
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/core/application/preferences_provider.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/domain/seasons.dart";
-import "package:rain_wise/shared/domain/user_preferences.dart";
-import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
-import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
+import "package:rainly/core/application/preferences_provider.dart";
+import "package:rainly/l10n/app_localizations.dart";
+import "package:rainly/shared/domain/seasons.dart";
+import "package:rainly/shared/domain/user_preferences.dart";
+import "package:rainly/shared/widgets/forms/app_segmented_control.dart";
+import "package:rainly/shared/widgets/sheets/interactive_sheet.dart";
 
 class PreferencesSheet extends ConsumerStatefulWidget {
   const PreferencesSheet({super.key});

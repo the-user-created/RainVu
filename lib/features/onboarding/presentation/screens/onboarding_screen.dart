@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/features/onboarding/presentation/widgets/add_gauge_step.dart";
-import "package:rain_wise/features/onboarding/presentation/widgets/permissions_step.dart";
-import "package:rain_wise/features/onboarding/presentation/widgets/step_indicator.dart";
-import "package:rain_wise/features/onboarding/presentation/widgets/welcome_step.dart";
+import "package:rainly/features/onboarding/presentation/widgets/add_gauge_step.dart";
+import "package:rainly/features/onboarding/presentation/widgets/permissions_step.dart";
+import "package:rainly/features/onboarding/presentation/widgets/step_indicator.dart";
+import "package:rainly/features/onboarding/presentation/widgets/welcome_step.dart";
 
 class OnboardingScreen extends StatefulWidget {
   const OnboardingScreen({super.key});

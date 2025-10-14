@@ -1,6 +1,6 @@
-import "package:rain_wise/core/data/repositories/rain_gauge_repository.dart";
-import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
-import "package:rain_wise/shared/domain/rain_gauge.dart";
+import "package:rainly/core/data/repositories/rain_gauge_repository.dart";
+import "package:rainly/core/data/repositories/rainfall_repository.dart";
+import "package:rainly/shared/domain/rain_gauge.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "data_providers.g.dart";

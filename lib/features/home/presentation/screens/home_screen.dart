@@ -1,17 +1,17 @@
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/app_constants.dart";
-import "package:rain_wise/features/home/application/home_providers.dart";
-import "package:rain_wise/features/home/domain/home_data.dart";
-import "package:rain_wise/features/home/presentation/widgets/home_app_bar.dart";
-import "package:rain_wise/features/home/presentation/widgets/log_rain_sheet.dart";
-import "package:rain_wise/features/home/presentation/widgets/monthly_summary_card.dart";
-import "package:rain_wise/features/home/presentation/widgets/monthly_trend_chart.dart";
-import "package:rain_wise/features/home/presentation/widgets/ytd_summary_card.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
-import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:rainly/app_constants.dart";
+import "package:rainly/features/home/application/home_providers.dart";
+import "package:rainly/features/home/domain/home_data.dart";
+import "package:rainly/features/home/presentation/widgets/home_app_bar.dart";
+import "package:rainly/features/home/presentation/widgets/log_rain_sheet.dart";
+import "package:rainly/features/home/presentation/widgets/monthly_summary_card.dart";
+import "package:rainly/features/home/presentation/widgets/monthly_trend_chart.dart";
+import "package:rainly/features/home/presentation/widgets/ytd_summary_card.dart";
+import "package:rainly/l10n/app_localizations.dart";
+import "package:rainly/shared/utils/adaptive_ui_helpers.dart";
+import "package:rainly/shared/widgets/placeholders.dart";
 import "package:shimmer/shimmer.dart";
 
 class HomeScreen extends ConsumerWidget {

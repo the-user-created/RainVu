@@ -1,5 +1,5 @@
-import "package:rain_wise/app_constants.dart";
-import "package:rain_wise/core/data/local/shared_prefs.dart";
+import "package:rainly/app_constants.dart";
+import "package:rainly/core/data/local/shared_prefs.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:shared_preferences/shared_preferences.dart";
 

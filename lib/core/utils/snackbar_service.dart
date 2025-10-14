@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/core/ui/custom_colors.dart";
+import "package:rainly/core/ui/custom_colors.dart";
 
 /// Global key to access the top-level ScaffoldMessengerState.
 /// This is crucial for showing SnackBars on top of dialogs/modals.

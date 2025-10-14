@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
-import "package:rain_wise/core/navigation/app_router.dart";
-import "package:rain_wise/core/utils/extensions.dart";
-import "package:rain_wise/features/insights_dashboard/application/insights_providers.dart";
-import "package:rain_wise/features/insights_dashboard/domain/insights_data.dart";
-import "package:rain_wise/features/insights_dashboard/presentation/widgets/monthly_averages_card.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:rainly/core/navigation/app_router.dart";
+import "package:rainly/core/utils/extensions.dart";
+import "package:rainly/features/insights_dashboard/application/insights_providers.dart";
+import "package:rainly/features/insights_dashboard/domain/insights_data.dart";
+import "package:rainly/features/insights_dashboard/presentation/widgets/monthly_averages_card.dart";
+import "package:rainly/l10n/app_localizations.dart";
+import "package:rainly/shared/widgets/placeholders.dart";
 import "package:shimmer/shimmer.dart";
 
 class MonthlyAveragesScreen extends ConsumerWidget {

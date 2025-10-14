@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/core/utils/extensions.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rainly/core/utils/extensions.dart";
+import "package:rainly/l10n/app_localizations.dart";
 
 /// Shows a Material Design date range picker.
 ///

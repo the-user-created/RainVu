@@ -3,14 +3,14 @@
     "platforms": {
       "android": {
         "default": {
-          "projectId": "rainwise-3518f",
+          "projectId": "rainly-3518f",
           "appId": "1:140442360297:android:01013180e2b8da547bd378",
           "fileOutput": "android/app/google-services.json"
         }
       },
       "dart": {
         "lib/firebase_options.dart": {
-          "projectId": "rainwise-3518f",
+          "projectId": "rainly-3518f",
           "configurations": {
             "android": "1:140442360297:android:01013180e2b8da547bd378",
             "ios": "1:140442360297:ios:ff77cecc30ee570c7bd378"

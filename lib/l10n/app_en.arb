@@ -88,7 +88,7 @@
   "@appInfoFooterError": {
     "description": "Error message shown in the app info footer if version info cannot be loaded."
   },
-  "appName": "RainWise",
+  "appName": "Rainly",
   "@appName": {
     "description": "The name of the application."
   },
@@ -604,7 +604,7 @@
   "@helpEmailSupportTitle": {
     "description": "Title for the 'Email Support' option in the help screen."
   },
-  "helpIntro": "Have a question or feedback? We're here to help you get the most out of RainWise.",
+  "helpIntro": "Have a question or feedback? We're here to help you get the most out of Rainly.",
   "@helpIntro": {
     "description": "Introductory text on the Help & Support screen."
   },
@@ -1273,9 +1273,9 @@
   "@settingsSupportDevelopmentLeaveReview": {
     "description": "Label for the 'Leave a review' option in settings."
   },
-  "settingsSupportDevelopmentShareApp": "Share RainWise",
+  "settingsSupportDevelopmentShareApp": "Share Rainly",
   "@settingsSupportDevelopmentShareApp": {
-    "description": "Label for the 'Share RainWise' option in settings."
+    "description": "Label for the 'Share Rainly' option in settings."
   },
   "settingsSupportLegalHelp": "Help & Feedback",
   "@settingsSupportLegalHelp": {
@@ -1329,11 +1329,11 @@
   "@severitiesSelected": {
     "description": "Label for the severity filter button showing the number of selected severities."
   },
-  "shareAppSubject": "Check out RainWise!",
+  "shareAppSubject": "Check out Rainly!",
   "@shareAppSubject": {
     "description": "The default subject line for an email when sharing the app."
   },
-  "shareAppText": "RainWise is a great app for logging rainfall and gaining valuable weather insights. Find it on the app stores!",
+  "shareAppText": "Rainly is a great app for logging rainfall and gaining valuable weather insights. Find it on the app stores!",
   "@shareAppText": {
     "description": "The body text used when sharing the app."
   },

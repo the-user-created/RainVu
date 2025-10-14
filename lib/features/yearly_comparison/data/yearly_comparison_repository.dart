@@ -1,8 +1,8 @@
 import "package:intl/intl.dart";
-import "package:rain_wise/core/data/local/app_database.dart";
-import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
-import "package:rain_wise/features/yearly_comparison/domain/yearly_comparison_data.dart";
-import "package:rain_wise/shared/domain/seasons.dart";
+import "package:rainly/core/data/local/app_database.dart";
+import "package:rainly/core/data/local/daos/rainfall_entries_dao.dart";
+import "package:rainly/features/yearly_comparison/domain/yearly_comparison_data.dart";
+import "package:rainly/shared/domain/seasons.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "yearly_comparison_repository.g.dart";

@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/dialogs/app_alert_dialog.dart";
+import "package:rainly/l10n/app_localizations.dart";
+import "package:rainly/shared/widgets/dialogs/app_alert_dialog.dart";
 
 class ImportProgressDialog extends ConsumerWidget {
   const ImportProgressDialog({super.key});

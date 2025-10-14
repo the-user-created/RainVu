@@ -1,9 +1,9 @@
 import "package:collection/collection.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
-import "package:rain_wise/core/navigation/app_router.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/oss_licenses.dart" as oss;
+import "package:rainly/core/navigation/app_router.dart";
+import "package:rainly/l10n/app_localizations.dart";
+import "package:rainly/oss_licenses.dart" as oss;
 
 class OssLicensesScreen extends StatefulWidget {
   const OssLicensesScreen({super.key});

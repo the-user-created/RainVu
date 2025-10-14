@@ -7,7 +7,7 @@
 		<key>CFBundleDevelopmentRegion</key>
 		<string>$(DEVELOPMENT_LANGUAGE)</string>
 		<key>CFBundleDisplayName</key>
-		<string>RainWise</string>
+		<string>Rainly</string>
 		<key>CFBundleExecutable</key>
 		<string>$(EXECUTABLE_NAME)</string>
 		<key>CFBundleIdentifier</key>
@@ -19,7 +19,7 @@
 			<string>en</string>
 		</array>
 		<key>CFBundleName</key>
-		<string>RainWise</string>
+		<string>Rainly</string>
 		<key>CFBundlePackageType</key>
 		<string>APPL</string>
 		<key>CFBundleShortVersionString</key>
@@ -44,7 +44,7 @@
 		<key>LSRequiresIPhoneOS</key>
 		<true/>
 		<key>NSDocumentsFolderUsageDescription</key>
-		<string>RainWise needs access to your files to import and export rainfall data from CSV or JSON files.</string>
+		<string>Rainly needs access to your files to import and export rainfall data from CSV or JSON files.</string>
 		<key>UIApplicationSupportsIndirectInputEvents</key>
 		<true/>
 		<key>UILaunchStoryboardName</key>

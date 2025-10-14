@@ -4,17 +4,17 @@ import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
-import "package:rain_wise/app_constants.dart";
-import "package:rain_wise/core/application/preferences_provider.dart";
-import "package:rain_wise/core/data/providers/data_providers.dart";
-import "package:rain_wise/core/utils/extensions.dart";
-import "package:rain_wise/features/rainfall_entry/application/rainfall_entry_provider.dart";
-import "package:rain_wise/features/rainfall_entry/presentation/widgets/rainfall_entry_list_item.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/domain/rain_gauge.dart";
-import "package:rain_wise/shared/domain/rainfall_entry.dart";
-import "package:rain_wise/shared/domain/user_preferences.dart";
-import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:rainly/app_constants.dart";
+import "package:rainly/core/application/preferences_provider.dart";
+import "package:rainly/core/data/providers/data_providers.dart";
+import "package:rainly/core/utils/extensions.dart";
+import "package:rainly/features/rainfall_entry/application/rainfall_entry_provider.dart";
+import "package:rainly/features/rainfall_entry/presentation/widgets/rainfall_entry_list_item.dart";
+import "package:rainly/l10n/app_localizations.dart";
+import "package:rainly/shared/domain/rain_gauge.dart";
+import "package:rainly/shared/domain/rainfall_entry.dart";
+import "package:rainly/shared/domain/user_preferences.dart";
+import "package:rainly/shared/widgets/placeholders.dart";
 import "package:shimmer/shimmer.dart";
 
 class RainfallEntriesScreen extends ConsumerStatefulWidget {

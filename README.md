@@ -1,6 +1,6 @@
-# RainWise 💧
+# Rainly 💧
 
-RainWise is a modern Flutter app for farmers, gardeners, and weather enthusiasts to meticulously log
+Rainly is a modern Flutter app for farmers, gardeners, and weather enthusiasts to meticulously log
 rainfall from multiple custom gauges. It transforms raw data into actionable insights through
 powerful charts and historical analysis, all while keeping user data private and on-device.
 
@@ -102,8 +102,8 @@ Follow these instructions to set up the project for local development.
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/the-user-created/RainWise.git
-   cd RainWise
+   git clone https://github.com/the-user-created/Rainly.git
+   cd Rainly
    ```
 
 2. **Install dependencies:**

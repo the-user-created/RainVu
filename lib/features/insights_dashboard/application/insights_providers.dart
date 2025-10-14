@@ -1,6 +1,6 @@
-import "package:rain_wise/core/data/providers/data_providers.dart";
-import "package:rain_wise/features/insights_dashboard/data/insights_repository.dart";
-import "package:rain_wise/features/insights_dashboard/domain/insights_data.dart";
+import "package:rainly/core/data/providers/data_providers.dart";
+import "package:rainly/features/insights_dashboard/data/insights_repository.dart";
+import "package:rainly/features/insights_dashboard/domain/insights_data.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "insights_providers.g.dart";

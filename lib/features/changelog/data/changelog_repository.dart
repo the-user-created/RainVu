@@ -1,6 +1,6 @@
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/services.dart" show rootBundle;
-import "package:rain_wise/features/changelog/domain/changelog_entry.dart";
+import "package:rainly/features/changelog/domain/changelog_entry.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "changelog_repository.g.dart";

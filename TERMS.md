@@ -1,13 +1,13 @@
-# Terms of Service for RainWise
+# Terms of Service for Rainly
 
 **Last Updated:** October 14, 2025
 
-By downloading, installing, or using the RainWise application ("the App"), you agree to be bound by
+By downloading, installing, or using the Rainly application ("the App"), you agree to be bound by
 these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the App.
 
 ## 1. The App and Its Source Code
 
-RainWise is an open-source project. The source code for the App is made available under the MIT
+Rainly is an open-source project. The source code for the App is made available under the MIT
 License, which grants you broad permissions to use, copy, modify, and distribute the source code.
 
 These Terms, however, govern your use of the official, compiled version of the App as distributed
@@ -39,7 +39,7 @@ uninterrupted or error-free.
 
 ## 4. Limitation of Liability
 
-To the fullest extent permitted by applicable law, in no event shall the developer of RainWise be
+To the fullest extent permitted by applicable law, in no event shall the developer of Rainly be
 liable for any claim, damages, or other liability, whether in an action of contract, tort, or
 otherwise, arising from, out of, or in connection with the App or the use or other dealings in the
 App. This includes, but is not limited to, damages for loss of profits, loss of data, or any other

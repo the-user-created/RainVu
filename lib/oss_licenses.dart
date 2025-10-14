@@ -8,7 +8,7 @@
 // https://pub.dev/packages/dart_pubspec_licenses
 
 /// This package.
-const thisPackage = _rain_wise;
+const thisPackage = _rainly;
 
 /// All dependencies including transitive dependencies.
 const allDependencies = <Package>[
@@ -10599,11 +10599,11 @@ SOFTWARE.''',
     devDependencies: [PackageRef('path'), PackageRef('test')],
   );
 
-/// rain_wise 1.0.0+1
-const _rain_wise = Package(
-    name: 'rain_wise',
-    description: 'A comprehensive Flutter mobile app for farmers, gardeners, and weather enthusiasts to meticulously log rainfall from multiple custom gauges and transform that data into actionable insights through powerful charting and historical analysis.',
-    repository: 'https://github.com/the-user-created/RainWise',
+/// rainly 1.0.0+1
+const _rainly = Package(
+    name: 'rainly',
+    description: 'A comprehensive mobile app for farmers, gardeners, and weather enthusiasts to meticulously log rainfall from multiple custom gauges and transform that data into actionable insights through powerful charting and historical analysis.',
+    repository: 'https://github.com/the-user-created/Rainly',
     authors: [],
     version: '1.0.0+1',
     license: '''MIT License

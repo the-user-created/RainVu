@@ -2,24 +2,24 @@ import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:in_app_review/in_app_review.dart";
-import "package:rain_wise/core/application/preferences_provider.dart";
-import "package:rain_wise/core/firebase/telemetry_manager.dart";
-import "package:rain_wise/core/navigation/app_router.dart";
-import "package:rain_wise/core/utils/snackbar_service.dart";
-import "package:rain_wise/features/settings/application/app_reset_provider.dart";
-import "package:rain_wise/features/settings/presentation/widgets/app_info_footer.dart";
-import "package:rain_wise/features/settings/presentation/widgets/danger_zone_card.dart";
-import "package:rain_wise/features/settings/presentation/widgets/preferences_sheet.dart";
-import "package:rain_wise/features/settings/presentation/widgets/settings_card.dart";
-import "package:rain_wise/features/settings/presentation/widgets/settings_list_tile.dart";
-import "package:rain_wise/features/settings/presentation/widgets/settings_section_header.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/domain/user_preferences.dart";
-import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
-import "package:rain_wise/shared/utils/ui_helpers.dart";
-import "package:rain_wise/shared/widgets/buttons/app_button.dart";
-import "package:rain_wise/shared/widgets/forms/app_segmented_control.dart";
-import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
+import "package:rainly/core/application/preferences_provider.dart";
+import "package:rainly/core/firebase/telemetry_manager.dart";
+import "package:rainly/core/navigation/app_router.dart";
+import "package:rainly/core/utils/snackbar_service.dart";
+import "package:rainly/features/settings/application/app_reset_provider.dart";
+import "package:rainly/features/settings/presentation/widgets/app_info_footer.dart";
+import "package:rainly/features/settings/presentation/widgets/danger_zone_card.dart";
+import "package:rainly/features/settings/presentation/widgets/preferences_sheet.dart";
+import "package:rainly/features/settings/presentation/widgets/settings_card.dart";
+import "package:rainly/features/settings/presentation/widgets/settings_list_tile.dart";
+import "package:rainly/features/settings/presentation/widgets/settings_section_header.dart";
+import "package:rainly/l10n/app_localizations.dart";
+import "package:rainly/shared/domain/user_preferences.dart";
+import "package:rainly/shared/utils/adaptive_ui_helpers.dart";
+import "package:rainly/shared/utils/ui_helpers.dart";
+import "package:rainly/shared/widgets/buttons/app_button.dart";
+import "package:rainly/shared/widgets/forms/app_segmented_control.dart";
+import "package:rainly/shared/widgets/sheets/interactive_sheet.dart";
 import "package:share_plus/share_plus.dart";
 
 /// The main settings screen, composed of smaller, reusable widgets.
@@ -70,7 +70,7 @@ class SettingsScreen extends ConsumerWidget {
     }
   }
 
-  /// Handles the "Share RainWise" action.
+  /// Handles the "Share Rainly" action.
   ///
   /// Summons the platform's native share sheet. It calculates the
   /// [sharePositionOrigin] for iPad compatibility.

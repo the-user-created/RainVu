@@ -4,4 +4,4 @@
 
 ### Added
 
-- Initial release of RainWise!
+- Initial release of Rainly!

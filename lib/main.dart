@@ -9,15 +9,15 @@ import "package:flutter_dotenv/flutter_dotenv.dart";
 import "package:flutter_native_splash/flutter_native_splash.dart"; // Import package
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
-import "package:rain_wise/core/data/local/shared_prefs.dart";
-import "package:rain_wise/core/firebase/telemetry_manager.dart";
-import "package:rain_wise/core/navigation/app_router.dart";
-import "package:rain_wise/core/ui/app_theme.dart";
-import "package:rain_wise/core/ui/theme_provider.dart";
-import "package:rain_wise/core/utils/formatters.dart";
-import "package:rain_wise/core/utils/snackbar_service.dart";
-import "package:rain_wise/firebase_options.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rainly/core/data/local/shared_prefs.dart";
+import "package:rainly/core/firebase/telemetry_manager.dart";
+import "package:rainly/core/navigation/app_router.dart";
+import "package:rainly/core/ui/app_theme.dart";
+import "package:rainly/core/ui/theme_provider.dart";
+import "package:rainly/core/utils/formatters.dart";
+import "package:rainly/core/utils/snackbar_service.dart";
+import "package:rainly/firebase_options.dart";
+import "package:rainly/l10n/app_localizations.dart";
 
 void main() async {
   runZonedGuarded<Future<void>>(

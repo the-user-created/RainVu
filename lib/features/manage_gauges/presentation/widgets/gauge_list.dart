@@ -2,12 +2,12 @@ import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/core/utils/extensions.dart";
-import "package:rain_wise/features/manage_gauges/application/gauges_provider.dart";
-import "package:rain_wise/features/manage_gauges/presentation/widgets/gauge_list_tile.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/domain/rain_gauge.dart";
-import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:rainly/core/utils/extensions.dart";
+import "package:rainly/features/manage_gauges/application/gauges_provider.dart";
+import "package:rainly/features/manage_gauges/presentation/widgets/gauge_list_tile.dart";
+import "package:rainly/l10n/app_localizations.dart";
+import "package:rainly/shared/domain/rain_gauge.dart";
+import "package:rainly/shared/widgets/placeholders.dart";
 import "package:shimmer/shimmer.dart";
 
 class GaugeList extends ConsumerWidget {

@@ -6,7 +6,7 @@ import Flutter
 @objc class AppDelegate: FlutterAppDelegate {
 
     // Create a lazy property to hold the Flutter engine.
-    lazy var flutterEngine = FlutterEngine(name: "rainwise.flutter.engine")
+    lazy var flutterEngine = FlutterEngine(name: "rainly.flutter.engine")
 
     override func application(
         _ application: UIApplication,

@@ -1,6 +1,6 @@
 import "package:flutter/foundation.dart";
 import "package:flutter_test/flutter_test.dart";
-import "package:rain_wise/oss_licenses.dart" as oss;
+import "package:rainly/oss_licenses.dart" as oss;
 
 /// This is the same reflow method from your LicenseDetailScreen.
 /// You could alternatively import it directly if you refactor it into a utility file.

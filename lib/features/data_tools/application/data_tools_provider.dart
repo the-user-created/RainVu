@@ -2,10 +2,10 @@ import "dart:io";
 
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
-import "package:rain_wise/core/firebase/analytics_service.dart";
-import "package:rain_wise/features/data_tools/data/data_tools_repository.dart";
-import "package:rain_wise/features/data_tools/domain/data_tools_state.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rainly/core/firebase/analytics_service.dart";
+import "package:rainly/features/data_tools/data/data_tools_repository.dart";
+import "package:rainly/features/data_tools/domain/data_tools_state.dart";
+import "package:rainly/l10n/app_localizations.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "data_tools_provider.g.dart";

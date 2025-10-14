@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:intl/intl.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
-import "package:rain_wise/shared/widgets/buttons/app_button.dart";
-import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
+import "package:rainly/l10n/app_localizations.dart";
+import "package:rainly/shared/utils/adaptive_ui_helpers.dart";
+import "package:rainly/shared/widgets/buttons/app_button.dart";
+import "package:rainly/shared/widgets/sheets/interactive_sheet.dart";
 
 /// Shows a modal bottom sheet for selecting a month and year.
 ///

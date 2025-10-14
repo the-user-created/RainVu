@@ -1,6 +1,6 @@
-import "package:rain_wise/core/data/local/app_database.dart";
-import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
-import "package:rain_wise/features/unusual_patterns/domain/unusual_patterns_data.dart";
+import "package:rainly/core/data/local/app_database.dart";
+import "package:rainly/core/data/local/daos/rainfall_entries_dao.dart";
+import "package:rainly/features/unusual_patterns/domain/unusual_patterns_data.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:uuid/uuid.dart";
 

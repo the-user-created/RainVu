@@ -1,4 +1,4 @@
-import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rainly/l10n/app_localizations.dart";
 
 enum Season { spring, summer, autumn, winter }
 

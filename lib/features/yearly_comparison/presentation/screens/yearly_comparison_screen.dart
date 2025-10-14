@@ -2,15 +2,15 @@ import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/features/yearly_comparison/application/yearly_comparison_provider.dart";
-import "package:rain_wise/features/yearly_comparison/domain/yearly_comparison_data.dart";
-import "package:rain_wise/features/yearly_comparison/presentation/widgets/yearly_comparison_chart.dart";
-import "package:rain_wise/features/yearly_comparison/presentation/widgets/yearly_comparison_filters.dart";
-import "package:rain_wise/features/yearly_comparison/presentation/widgets/yearly_summary_list.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
-import "package:rain_wise/shared/widgets/placeholders.dart";
-import "package:rain_wise/shared/widgets/sheets/info_sheet.dart";
+import "package:rainly/features/yearly_comparison/application/yearly_comparison_provider.dart";
+import "package:rainly/features/yearly_comparison/domain/yearly_comparison_data.dart";
+import "package:rainly/features/yearly_comparison/presentation/widgets/yearly_comparison_chart.dart";
+import "package:rainly/features/yearly_comparison/presentation/widgets/yearly_comparison_filters.dart";
+import "package:rainly/features/yearly_comparison/presentation/widgets/yearly_summary_list.dart";
+import "package:rainly/l10n/app_localizations.dart";
+import "package:rainly/shared/widgets/buttons/app_icon_button.dart";
+import "package:rainly/shared/widgets/placeholders.dart";
+import "package:rainly/shared/widgets/sheets/info_sheet.dart";
 import "package:shimmer/shimmer.dart";
 
 class YearlyComparisonScreen extends ConsumerWidget {
