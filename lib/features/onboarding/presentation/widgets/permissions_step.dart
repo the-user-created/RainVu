@@ -74,6 +74,10 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
           SwitchListTile(
             title: Text(l10n.onboardingPermissionsShareTitle),
             subtitle: Text(l10n.onboardingPermissionsShareSubtitle),
+            activeThumbColor: theme.colorScheme.onSecondary,
+            activeTrackColor: theme.colorScheme.secondaryContainer,
+            inactiveThumbColor: theme.colorScheme.onSurfaceVariant,
+            inactiveTrackColor: theme.colorScheme.surfaceContainerHighest,
             value: _telemetryEnabled,
             onChanged: (final value) {
               setState(() {
@@ -121,6 +125,7 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
             onPressed: _onFinish,
             label: l10n.onboardingButtonFinish,
             isExpanded: true,
+            style: AppButtonStyle.secondary,
           ),
         ],
       ),

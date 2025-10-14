@@ -22,7 +22,7 @@ class WelcomeStep extends StatelessWidget {
           Icon(
             Icons.water_drop_outlined,
             size: 100,
-            color: theme.colorScheme.primary,
+            color: theme.colorScheme.secondary,
           ),
           const SizedBox(height: 24),
           Text(
@@ -43,6 +43,7 @@ class WelcomeStep extends StatelessWidget {
             onPressed: onNext,
             label: l10n.onboardingButtonNext,
             isExpanded: true,
+            style: AppButtonStyle.secondary,
           ),
         ],
       ),
