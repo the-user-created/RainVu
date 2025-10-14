@@ -13,6 +13,8 @@
             <string>NSPrivacyCollectedDataTypeDeviceID</string>
             <key>NSPrivacyCollectedDataTypeLinked</key>
             <true/>
+            <key>NSPrivacyCollectedDataTypeTracking</key>
+            <false/>
             <key>NSPrivacyCollectedDataTypePurposes</key>
             <array>
                 <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
@@ -23,6 +25,8 @@
             <string>NSPrivacyCollectedDataTypeUsageData</string>
             <key>NSPrivacyCollectedDataTypeLinked</key>
             <true/>
+            <key>NSPrivacyCollectedDataTypeTracking</key>
+            <false/>
             <key>NSPrivacyCollectedDataTypePurposes</key>
             <array>
                 <string>NSPrivacyCollectedDataTypePurposeAnalytics</string>
@@ -33,6 +37,8 @@
             <string>NSPrivacyCollectedDataTypeCrashData</string>
             <key>NSPrivacyCollectedDataTypeLinked</key>
             <true/>
+            <key>NSPrivacyCollectedDataTypeTracking</key>
+            <false/>
             <key>NSPrivacyCollectedDataTypePurposes</key>
             <array>
                 <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>
@@ -43,6 +49,8 @@
             <string>NSPrivacyCollectedDataTypePerformance</string>
             <key>NSPrivacyCollectedDataTypeLinked</key>
             <true/>
+            <key>NSPrivacyCollectedDataTypeTracking</key>
+            <false/>
             <key>NSPrivacyCollectedDataTypePurposes</key>
             <array>
                 <string>NSPrivacyCollectedDataTypePurposeAppFunctionality</string>

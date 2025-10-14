@@ -177,3 +177,7 @@ within the app. After adding or updating packages, run the following command:
 ```bash
 dart run dart_pubspec_licenses:generate
 ```
+
+## 📄 License
+
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details.
