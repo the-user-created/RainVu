@@ -1,23 +1,19 @@
 <?xml version="1.0" encoding="utf-8"?>
 <data-extraction-rules>
     <cloud-backup>
-        <!-- Include the entire shared preferences directory for cloud backup -->
         <include
             domain="sharedpref"
             path="." />
 
-        <!-- Include the Drift database file for cloud backup -->
         <include
             domain="database"
             path="db.sqlite" />
     </cloud-backup>
     <device-transfer>
-        <!-- Include the entire shared preferences directory for D2D transfer -->
         <include
             domain="sharedpref"
             path="." />
 
-        <!-- Include the Drift database file for D2D transfer -->
         <include
             domain="database"
             path="db.sqlite" />
