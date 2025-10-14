@@ -596,14 +596,6 @@
   "@genericError": {
     "description": "A generic error message for unexpected failures."
   },
-  "helpCouldNotOpenUrl": "Could not open {url}",
-  "@helpCouldNotOpenUrl": {
-    "placeholders": {
-      "url": {
-        "type": "String"
-      }
-    }
-  },
   "helpEmailSupportSubtitle": "For direct assistance, account questions, or other inquiries.",
   "@helpEmailSupportSubtitle": {
     "description": "Subtitle for the 'Email Support' option in the help screen."
@@ -1387,14 +1379,6 @@
   "ticketSheetEmailValidation": "Please enter a valid email address",
   "@ticketSheetEmailValidation": {
     "description": "Validation error for an invalid email address."
-  },
-  "ticketSheetErrorMessage": "Error: {error}",
-  "@ticketSheetErrorMessage": {
-    "placeholders": {
-      "error": {
-        "type": "Object"
-      }
-    }
   },
   "ticketSheetErrorSnackbar": "Could not send feedback. Please try again later.",
   "@ticketSheetErrorSnackbar": {

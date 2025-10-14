@@ -1,124 +1,102 @@
-# RainWise - Advanced Rainfall Tracking & Analytics
+# RainWise 💧
 
-**RainWise** is a comprehensive mobile application built with Flutter, designed for farmers,
-gardeners, and weather enthusiasts to meticulously log, track, and analyze rainfall data from
-multiple custom rain gauges.
+RainWise is a modern Flutter app for farmers, gardeners, and weather enthusiasts to meticulously log
+rainfall from multiple custom gauges. It transforms raw data into actionable insights through
+powerful charts and historical analysis, all while keeping user data private and on-device.
 
-## Table of Contents
+## ✨ Key Features
 
-- [About The Project](#about-the-project)
-- [Key Features](#key-features)
-- [Tech Stack](#tech-stack)
-- [Project Structure Overview](#project-structure-overview)
-- [Getting Started](#getting-started)
-    - [Prerequisites](#prerequisites)
-    - [Setup](#setup)
-    - [Environment Variables](#environment-variables)
-- [Running the App](#running-the-app)
-- [Build Process](#build-process)
-- [Development Workflow](#development-workflow)
-- [Code Style & Linting](#code-style--linting)
+* **📊 Data Logging & Management**:
+    * Quickly log rainfall entries with amount, date, and associated gauge.
+    * Add, edit, and manage multiple custom rain gauges.
+    * View all historical entries in a clean, organized list.
 
-## About The Project
+* **📈 Powerful Analytics & Insights**:
+    * Visualize data with charts for Month-to-Date (MTD) and Year-to-Date (YTD) totals.
+    * Analyze monthly trends, seasonal patterns, and year-over-year comparisons.
+    * Dive deep into daily breakdowns for any given month.
 
-In agriculture, gardening, and environmental monitoring, accurate rainfall data is crucial for
-making informed decisions. RainWise provides a powerful, user-friendly platform to replace manual
-notebooks and spreadsheets, offering instant insights and historical analysis at your fingertips.
+* **🔄 Data Portability**:
+    * Export all your data to CSV or JSON formats for backup or external analysis.
+    * Import data from a previously exported file to restore or merge records.
 
-**What does RainWise do?**
+* **🔒 Secure & Private**:
+    * All rainfall data is stored securely and locally on the user's device using a relational
+      database.
+    * No cloud account or internet connection is required for core functionality.
 
-* **Lets you log every drop:** Easily record rainfall measurements from any number of rain gauges
-  you own.
-* **Shows you the big picture:** Visualize your data through intuitive charts to understand trends
-  and patterns.
-* **Helps you analyze the past:** Dive deep into historical data with monthly breakdowns, seasonal
-  pattern analysis, and year-over-year comparisons.
-* **Puts you in control:** Manage your rain gauges, export your data for external use, and import
-  previous records.
+## 🛠️ Tech Stack & Architecture
 
-Our mission is to empower you with the tools to transform raw rainfall data into actionable
-intelligence, turning guesswork into data-driven strategy.
+This project is built with a modern, scalable Flutter stack emphasizing type-safety, code
+generation, and a feature-first architecture.
 
-## Key Features
+### Core Technologies
 
-* 📊 **Log & Manage Data Effortlessly**: Quickly log rainfall entries with amount, date, and time.
-  Add, edit, and manage multiple rain gauges.
-
-* 📈 **Powerful Insights & Analytics**: A dedicated dashboard to uncover trends. Analyze key metrics
-  like MTD and YTD totals, explore monthly trends, compare yearly data side-by-side, and identify
-  seasonal patterns and anomalies.
-
-* 📤 **Data Export & Import**: Take control of your data by exporting it to CSV or JSON formats
-  for use in other applications. Easily import data from previous records.
-
-* 🔒 **Secure & Private**: Your data is your own, stored locally on your device.
-
-## Tech Stack
-
-* **Framework**: Flutter
-* **Language**: Dart
-* **State Management**: Riverpod (with `riverpod_generator`)
-* **Routing**: GoRouter
-* **Backend & Cloud Services**: Firebase
-    * **Analytics**: Firebase Analytics[
-    * **Crash Reporting**: Firebase Crashlytics]()
+* **Framework**: Flutter & Dart
+* **State Management**: Riverpod with `riverpod_generator` for compile-safe providers.
+* **Routing**: GoRouter with `go_router_builder` for type-safe, declarative navigation.
 * **Local Storage**:
-    * `shared_preferences` for app settings and user preferences.
-    * `Drift` for structured, relational data storage of rain gauges and entries.
-* **UI & Charting**:
-    * `fl_chart` / `syncfusion_flutter_charts`: For detailed and interactive data visualizations.
-    * `flutter_animate`: For declarative, easy-to-use animations.
-* **Utilities & Tooling**:
-    * `freezed`, `json_serializable`: For robust, immutable data models.
-    * `intl`: For date and number formatting.
-    * `flutter_dotenv`: For managing environment variables.
-    * `url_launcher`: For opening external links.
-    * `file_picker`: For data import functionality.
-* **Linting**: `flutter_lints` and `riverpod_lint` with a comprehensive ruleset.
+    * **Drift (Moor)**: For reactive, persistent storage of relational data (gauges, entries).
+    * **shared_preferences**: For simple key-value storage of user settings.
+* **Telemetry**:
+    * **Firebase Analytics**: For anonymized usage metrics.
+    * **Firebase Crashlytics**: For crash reporting.
+* **Data Models**: `freezed` for immutable data classes and unions.
+* **UI & Visualization**:
+    * `fl_chart` for creating beautiful and interactive charts.
+    * `flutter_animate` for declarative and easy-to-use animations.
 
-For a full list of dependencies, see the [`pubspec.yaml`](pubspec.yaml) file.
+### Utility Packages
 
-## Project Structure Overview
+* `json_serializable`: For robust JSON serialization/deserialization.
+* `intl`: For internationalization and date/number formatting.
+* `flutter_dotenv`: For managing environment variables (e.g., Firebase keys).
+* `file_picker` & `url_launcher`: For file system and external link interactions.
+* `build_runner`: To run all code generation tasks.
 
-The project follows a **feature-first** architecture, promoting modularity and separation of
-concerns. This structure is a work-in-progress.
+### Code Style & Linting
 
-```markdown
-.
-├── android/ # Android native project
-├── ios/ # iOS native project
-├── assets/ # Static assets (images, fonts, jsons, etc.)
-├── lib/ # Main Flutter application code
-│ ├── core/ # Shared app-wide logic and services
-│ │ ├── config/ # AppSettings model and notifier
-│ │ ├── data/ # Shared data sources (Firebase, Local DB)
-│ │ ├── navigation/ # GoRouter setup, routes, and navigation shell
-│ │ ├── services/ # Cross-cutting services (e.g., connectivity)
-│ │ ├── ui/ # App shell with bottom navigation
-│ │ └── utils/ # Shared utilities and extensions
-│ ├── features/ # Feature-specific modules
-│ │ ├── [feature_name]/ # Each feature is a self-contained unit
-│ │ │ ├── application/ # Business logic, services, Riverpod providers
-│ │ │ ├── data/ # Repositories and data sources for the feature
-│ │ │ ├── domain/ # Models, entities, and contracts (e.g., using Freezed)
-│ │ │ └── presentation/ # UI (screens, widgets, animations)
-│ ├── main.dart # App entry point
-│ └── shared/ # Widgets and models shared by multiple features
-├── .env.example # Template for environment variables
-├── pubspec.yaml # Flutter dependencies and project metadata
-└── README.md # This file
+* `flutter_lints` and `riverpod_lint` are used with a strict ruleset in `analysis_options.yaml` to
+  maintain code quality and consistency.
+
+### Project Structure
+
+The codebase follows a **feature-first** architecture to promote modularity and separation of
+concerns.
+
+```
+lib/
+├── core/
+│   ├── data/         # Shared data sources (Drift DB, SharedPreferences)
+│   ├── navigation/   # GoRouter configuration and routes
+│   ├── ui/           # App-wide UI (themes, navigation shell)
+│   └── utils/        # Shared utilities and extensions
+│
+├── features/
+│   ├── [feature_name]/
+│   │   ├── application/  # Business logic & Riverpod providers
+│   │   ├── data/         # Feature-specific repositories
+│   │   ├── domain/       # Models and entities (often with Freezed)
+│   │   └── presentation/ # UI (screens, widgets)
+│   └── ...
+│
+├── shared/
+│   ├── domain/       # Domain models shared across multiple features
+│   └── widgets/      # Reusable widgets (buttons, dialogs, etc.)
+│
+└── main.dart         # App entry point
 ```
 
-## Getting Started
+## 🚀 Getting Started
 
-Follow these instructions to set up the project locally for development.
+Follow these instructions to set up the project for local development.
 
 ### Prerequisites
 
-* Flutter SDK (Channel stable, version compatible with `sdk` in `pubspec.yaml`)
-* An IDE like VS Code (with Flutter extension) or Android Studio.
-* An Android Emulator or physical device.
-* An iOS Simulator or physical device (requires macOS with Xcode).
+* Flutter SDK (version specified in `pubspec.yaml`)
+* An IDE like VS Code or Android Studio
+* An Android Emulator or physical device
+* An iOS Simulator or physical device (requires macOS with Xcode)
 
 ### Setup
 
@@ -128,166 +106,74 @@ Follow these instructions to set up the project locally for development.
    cd RainWise
    ```
 
-2. **Install Flutter dependencies:**
+2. **Install dependencies:**
    ```bash
    flutter pub get
    ```
 
-### Environment Variables
+3. **Set up environment variables:**
+   This project uses Firebase for Analytics and Crashlytics, which requires API keys.
 
-This project uses `flutter_dotenv` to manage environment variables for Firebase and other services.
+* Copy the example environment file:
+  ```bash
+  cp .env.example .env
+  ```
+* Open the newly created `.env` file and fill in your Firebase project configuration values. You can
+  get these from your Firebase console.
 
-1. Copy the example environment file:
+4. **Run code generation:**
+   This project heavily relies on code generation. Run the `build_runner` to generate the necessary
+   files:
    ```bash
-   cp .env.example .env
-   ```
-2. Open the `.env` file and fill in the required Firebase API keys and configuration values. You can
-   get these from your Firebase project console.
-   ```env
-   # .env
-   # Android
-   androidApiKey="AIza..."
-   androidAppId="1:..."
-   # iOS
-   iosApiKey="AIza..."
-   iosAppId="1:..."
-   # Common
-   messagingSenderId="..."
-   projectId="..."
-   storageBucket="..."
-   measurementId="G-..."
+   dart run build_runner build --delete-conflicting-outputs
    ```
 
-**Do NOT commit the `.env` file to the repository.**
+### Running the App
 
-## Running the App
-
-1. Ensure an emulator/simulator is running or a physical device is connected.
-2. Run the app from your IDE or using the command line:
+1. Ensure an emulator/simulator is running or a device is connected.
+2. Run the app from your IDE or via the command line:
    ```bash
    flutter run
    ```
 
-## Build Process
+## 💻 Development Workflow
 
-* **Code Generation (Riverpod, Freezed, etc.):**
-  If you make changes to files that use code generation (e.g., Riverpod providers with `@riverpod`,
-  models with `@freezed`), run the build runner:
-  ```bash
-  dart run build_runner build --delete-conflicting-outputs
-  ```
-  For continuous generation during development:
-  ```bash
-  dart run build_runner watch --delete-conflicting-outputs
-  ```
+To keep development smooth and efficient, please follow these guidelines.
 
-* **Building APKs/App Bundles:**
-    * For a debug APK: `flutter build apk --debug`
-    * For a release App Bundle: `flutter build appbundle --release` (ensure you have set up signing
-      configurations in `android/app/build.gradle`).
+### Code Generation
 
-* **Generating OSS Licenses:**
-  This project uses `dart_pubspec_licenses` to generate a list of open-source licenses.
-  ```bash
-  dart run dart_pubspec_licenses:generate
-  ```
-  This creates `lib/oss_licenses.dart`, which is then displayed on the "Open Source Licenses"
-  screen.
+If you modify any file that uses code generation (e.g., Riverpod providers, Freezed models, Drift
+tables), you must re-run the `build_runner`. For continuous development, use the `watch` command:
 
-* **Localization:**
-  ```bash
-  remove_unused_localizations_keys
-  arb_utils generate-meta lib/l10n/app_en.arb
-  arb_utils sort lib/l10n/app_en.arb
-  flutter gen-l10n
-  ```
+```bash
+dart run build_runner watch --delete-conflicting-outputs
+```
 
-## Development Workflow
+This will automatically regenerate files whenever you save a change.
 
-We use a simple branching model:
+### Localization
 
-* `main`: Represents the latest stable, production-ready version.
-* `develop`: The primary branch for ongoing development and integration of new features. All feature
-  branches are merged into `develop`.
-* **Feature Branches**: For new features or bug fixes, create a branch from `develop`.
-    * Naming: `feat/descriptive-name` or `fix/issue-description`.
+The localization workflow involves several steps to keep the `app_en.arb` file clean and up-to-date.
 
-All tasks, bugs, and feature requests are tracked as **Issues** on GitHub. Create **Pull Requests (
-PRs)** from feature branches to merge into `develop`.
+1. **Remove unused keys (Optional)**:
+   ```bash
+   dart pub global run remove_unused_localizations_keys
+   ```
+2. **Sort keys and generate metadata (Optional)**:
+   ```bash
+   arb_utils generate-meta lib/l10n/app_en.arb
+   arb_utils sort lib/l10n/app_en.arb
+   ```
+3. **Generate Dart localization files:**
+   ```bash
+   flutter gen-l10n
+   ```
 
-## Code Style & Linting
+### Generating OSS Licenses
 
-* This project uses a strict set of linting rules defined in `analysis_options.yaml`, leveraging
-  `flutter_lints` and `riverpod_lint`.
-* Format your code using `dart format .` before committing.
-* Run `flutter analyze` to check for any linting issues.
-* Adhere to the principles of Effective Dart.
+This project uses `dart_pubspec_licenses` to generate a list of open-source licenses for display
+within the app. After adding or updating packages, run the following command:
 
-## Performance & Optimizations
-
-This project is built with a strong focus on performance to ensure a smooth, responsive user
-experience. We adhere to Flutter's best practices for building efficient applications.
-
-### Core Principles
-
-* **Targeting 60-120fps**: The application is architected to achieve a smooth 60fps on standard
-  devices and 120fps on capable hardware.
-* **Profile Mode Profiling**: All performance testing and analysis are conducted on a **physical
-  device** in **profile mode**. Debug mode builds are not representative of final release
-  performance due to added overhead for hot reload and debugging checks.
-
-### Efficient Widget Building
-
-We follow key principles to ensure widget build times are minimal:
-
-* **Minimizing `build()` Cost**: Expensive or repetitive work is kept out of `build()` methods.
-  Large widgets are decomposed into smaller, specialized widgets to localize rebuilds via
-  `setState()`.
-* **`const` Widgets**: `const` constructors are used extensively. This allows Flutter to cache
-  widget instances and short-circuit the rebuild process, significantly boosting performance.
-* **Lazy Loading Lists & Grids**: For long or infinite lists, we use builder constructors (e.g.,
-  `ListView.builder`) to ensure only visible items are built and rendered, conserving CPU and memory
-  resources.
-
-### Rendering Optimizations
-
-To maintain a smooth raster thread and avoid GPU-related jank, we focus on:
-
-* **Impeller by Default**: We leverage Impeller, Flutter's modern rendering engine. It pre-compiles
-  a simpler, smaller set of shaders during the engine build, eliminating runtime shader compilation
-  jank, which is often a source of stutter on the first run of an animation.
-* **Avoiding Costly Operations**: We use expensive operations like `Opacity`, clipping, and methods
-  that trigger `saveLayer()` sparingly. These can create offscreen buffers and disrupt the GPU's
-  rendering pipeline. When possible, effects like opacity are applied directly to individual
-  elements (e.g., using a semi-transparent color) rather than wrapping a large widget subtree.
-
-### Concurrency with Isolates
-
-For heavy computations that could block the main UI thread and cause jank—such as parsing large data
-files or intensive data processing—we offload the work to background **isolates**.
-
-* Isolates run in their own memory space, allowing them to perform complex tasks concurrently
-  without freezing the UI. We use the simple `Isolate.run()` or `compute()` functions for one-off
-  background tasks.
-
-### App Size Management
-
-A small app size is crucial for faster downloads and a better user onboarding experience.
-
-* **Size Analysis**: We regularly analyze our app's composition using the
-  `flutter build --analyze-size` command and the **App Size tool** in DevTools.
-* **Asset Optimization**: All assets, especially images, are compressed to reduce their size without
-  significant quality loss. Unused resources are diligently removed.
-* **Deferred Components**: For features or large assets not required at startup, we plan to use
-  deferred components. This allows parts of the app to be downloaded on-demand, reducing the initial
-  install size.
-
-### Profiling Tools
-
-We use **Flutter DevTools** as our primary tool for performance analysis.
-
-* The **Performance View** helps diagnose jank by providing a frame-by-frame analysis of the UI and
-  raster threads.
-* The **Performance Overlay** gives a quick, in-app glance at thread performance.
-* The **Widget Rebuild Profiler** in the IDE helps us identify and eliminate unnecessary widget
-  rebuilds.
+```bash
+dart run dart_pubspec_licenses:generate
+```
