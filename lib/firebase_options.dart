@@ -27,9 +27,9 @@ class DefaultFirebaseOptions {
         return prod.DefaultFirebaseOptions.currentPlatform;
       default:
         print(
-          "⚠️ No flavor or unknown flavor specified, defaulting to DEV Firebase options",
+          "⚠️ No flavor or unknown flavor specified, defaulting to PROD Firebase options",
         );
-        return dev.DefaultFirebaseOptions.currentPlatform;
+        return prod.DefaultFirebaseOptions.currentPlatform;
     }
   }
 }
