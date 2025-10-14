@@ -5,8 +5,7 @@ import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
-import "package:flutter_dotenv/flutter_dotenv.dart";
-import "package:flutter_native_splash/flutter_native_splash.dart"; // Import package
+import "package:flutter_native_splash/flutter_native_splash.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:rainly/core/data/local/shared_prefs.dart";
@@ -16,18 +15,14 @@ import "package:rainly/core/ui/app_theme.dart";
 import "package:rainly/core/ui/theme_provider.dart";
 import "package:rainly/core/utils/formatters.dart";
 import "package:rainly/core/utils/snackbar_service.dart";
-import "package:rainly/firebase_options.dart";
 import "package:rainly/l10n/app_localizations.dart";
 
-void main() async {
+Future<void> mainCommon(final FirebaseOptions firebaseOptions) async {
   runZonedGuarded<Future<void>>(
     () async {
       final WidgetsBinding widgetsBinding =
           WidgetsFlutterBinding.ensureInitialized();
-      FlutterNativeSplash.preserve(
-        widgetsBinding: widgetsBinding,
-      ); // Preserve splash
-      await dotenv.load();
+      FlutterNativeSplash.preserve(widgetsBinding: widgetsBinding);
 
       await SystemChrome.setPreferredOrientations([
         DeviceOrientation.portraitUp,
@@ -40,9 +35,8 @@ void main() async {
       await container.read(sharedPreferencesProvider.future);
 
       try {
-        await Firebase.initializeApp(
-          options: DefaultFirebaseOptions.currentPlatform,
-        );
+        // Use the provided firebaseOptions
+        await Firebase.initializeApp(options: firebaseOptions);
 
         await container
             .read(telemetryManagerProvider.notifier)
@@ -87,7 +81,8 @@ class MyApp extends ConsumerWidget {
 
     return MaterialApp.router(
       scaffoldMessengerKey: snackbarKey,
-      debugShowCheckedModeBanner: false,
+      // ignore: do_not_use_environment
+      debugShowCheckedModeBanner: const String.fromEnvironment("app.flavor") == "dev",
       onGenerateTitle: (final context) => AppLocalizations.of(context).appName,
       localizationsDelegates: AppLocalizations.localizationsDelegates,
       supportedLocales: AppLocalizations.supportedLocales,

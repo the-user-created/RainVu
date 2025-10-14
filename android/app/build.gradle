@@ -31,7 +31,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "com.davidyoung.rainly"
+    namespace "com.emberworks.rainly"
     compileSdk 36
 
     sourceSets {
@@ -39,12 +39,24 @@ android {
     }
 
     defaultConfig {
-        // TODO: Specify your own unique Application ID (https://developer.android.com/studio/build/application-id.html).
-        applicationId "com.davidyoung.rainly"
+        applicationId "com.emberworks.rainly"
         minSdkVersion 26
         targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()
         versionName flutterVersionName
+    }
+
+    flavorDimensions "default"
+    productFlavors {
+        dev {
+            dimension "default"
+            applicationIdSuffix ".dev"
+            versionNameSuffix "-dev"
+        }
+        prod {
+            dimension "default"
+            // For prod, we use the defaultConfig applicationId, so no suffix is needed.
+        }
     }
 
     compileOptions {

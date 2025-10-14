@@ -74,7 +74,6 @@ const allDependencies = <Package>[
   _fl_chart,
   _flutter,
   _flutter_animate,
-  _flutter_dotenv,
   _flutter_hooks,
   _flutter_launcher_icons,
   _flutter_lints,
@@ -219,7 +218,6 @@ const dependencies = <Package>[
   _fl_chart,
   _flutter,
   _flutter_animate,
-  _flutter_dotenv,
   _flutter_launcher_icons,
   _flutter_markdown_plus,
   _flutter_native_splash,
@@ -350,14 +348,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('collection'), PackageRef('test')],
   );
 
-/// _flutterfire_internals 1.3.62
+/// _flutterfire_internals 1.3.63
 const __flutterfire_internals = Package(
     name: '_flutterfire_internals',
     description: 'A package hosting Dart code shared between FlutterFire plugins.',
     homepage: 'https://firebase.google.com/docs/firestore',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/_flutterfire_internals',
     authors: [],
-    version: '1.3.62',
+    version: '1.3.63',
     license: '''Copyright 2017, the Chromium project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -4016,14 +4014,14 @@ SOFTWARE.''',
     devDependencies: [PackageRef('flutter_lints')],
   );
 
-/// firebase_analytics 12.0.2
+/// firebase_analytics 12.0.3
 const _firebase_analytics = Package(
     name: 'firebase_analytics',
     description: 'Flutter plugin for Google Analytics for Firebase, an app measurement solution that provides insight on app usage and user engagement on Android and iOS.',
     homepage: 'https://firebase.google.com/docs/analytics',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_analytics/firebase_analytics',
     authors: [],
-    version: '12.0.2',
+    version: '12.0.3',
     license: '''Copyright 2017, the Chromium project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -4056,14 +4054,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [],
   );
 
-/// firebase_analytics_platform_interface 5.0.2
+/// firebase_analytics_platform_interface 5.0.3
 const _firebase_analytics_platform_interface = Package(
     name: 'firebase_analytics_platform_interface',
     description: 'A common platform interface for the firebase_analytics plugin.',
     homepage: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_analytics/firebase_analytics_platform_interface',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_analytics/firebase_analytics_platform_interface',
     authors: [],
-    version: '5.0.2',
+    version: '5.0.3',
     license: '''Copyright 2017, the Chromium project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -4096,14 +4094,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('firebase_core_platform_interface')],
   );
 
-/// firebase_analytics_web 0.6.0+2
+/// firebase_analytics_web 0.6.0+3
 const _firebase_analytics_web = Package(
     name: 'firebase_analytics_web',
     description: 'The web implementation of firebase_analytics',
     homepage: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_analytics/firebase_analytics_web',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_analytics/firebase_analytics_web',
     authors: [],
-    version: '0.6.0+2',
+    version: '0.6.0+3',
     license: '''Copyright 2017, the Chromium project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -4136,14 +4134,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('build_runner'), PackageRef('mockito')],
   );
 
-/// firebase_core 4.1.1
+/// firebase_core 4.2.0
 const _firebase_core = Package(
     name: 'firebase_core',
     description: 'Flutter plugin for Firebase Core, enabling connecting to multiple Firebase apps.',
     homepage: 'https://firebase.google.com/docs/flutter/setup',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_core/firebase_core',
     authors: [],
-    version: '4.1.1',
+    version: '4.2.0',
     license: '''// Copyright 2017 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -4177,14 +4175,14 @@ const _firebase_core = Package(
     devDependencies: [PackageRef('mockito'), PackageRef('plugin_platform_interface')],
   );
 
-/// firebase_core_platform_interface 6.0.1
+/// firebase_core_platform_interface 6.0.2
 const _firebase_core_platform_interface = Package(
     name: 'firebase_core_platform_interface',
     description: 'A common platform interface for the firebase_core plugin.',
     homepage: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_core/firebase_core_platform_interface',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_core/firebase_core_platform_interface',
     authors: [],
-    version: '6.0.1',
+    version: '6.0.2',
     license: '''// Copyright 2017 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -4218,14 +4216,14 @@ const _firebase_core_platform_interface = Package(
     devDependencies: [PackageRef('mockito')],
   );
 
-/// firebase_core_web 3.1.1
+/// firebase_core_web 3.2.0
 const _firebase_core_web = Package(
     name: 'firebase_core_web',
     description: 'The web implementation of firebase_core',
     homepage: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_core/firebase_core_web',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_core/firebase_core_web',
     authors: [],
-    version: '3.1.1',
+    version: '3.2.0',
     license: '''// Copyright 2020 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -4259,14 +4257,14 @@ const _firebase_core_web = Package(
     devDependencies: [],
   );
 
-/// firebase_crashlytics 5.0.2
+/// firebase_crashlytics 5.0.3
 const _firebase_crashlytics = Package(
     name: 'firebase_crashlytics',
     description: 'Flutter plugin for Firebase Crashlytics. It reports uncaught errors to the Firebase console.',
     homepage: 'https://firebase.google.com/docs/crashlytics',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_crashlytics/firebase_crashlytics',
     authors: [],
-    version: '5.0.2',
+    version: '5.0.3',
     license: '''// Copyright 2019 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -4300,14 +4298,14 @@ const _firebase_crashlytics = Package(
     devDependencies: [],
   );
 
-/// firebase_crashlytics_platform_interface 3.8.13
+/// firebase_crashlytics_platform_interface 3.8.14
 const _firebase_crashlytics_platform_interface = Package(
     name: 'firebase_crashlytics_platform_interface',
     description: 'A common platform interface for the firebase_crashlytics plugin.',
     homepage: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_crashlytics/firebase_crashlytics_platform_interface',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_crashlytics/firebase_crashlytics_platform_interface',
     authors: [],
-    version: '3.8.13',
+    version: '3.8.14',
     license: '''Copyright 2020, the Chromium project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -4492,40 +4490,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     isMarkdown: false,
     isSdk: false,
     dependencies: [PackageRef('flutter'), PackageRef('flutter_shaders')],
-    devDependencies: [PackageRef('flutter_lints')],
-  );
-
-/// flutter_dotenv 6.0.0
-const _flutter_dotenv = Package(
-    name: 'flutter_dotenv',
-    description: 'Easily configure any flutter application with global variables using a `.env` file.',
-    homepage: 'https://github.com/java-james/flutter_dotenv',
-    authors: [],
-    version: '6.0.0',
-    license: '''The MIT License (MIT)
-
-Copyright (c) 2018 java-james
-
-Permission is hereby granted, free of charge, to any person obtaining a copy
-of this software and associated documentation files (the "Software"), to deal
-in the Software without restriction, including without limitation the rights
-to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
-copies of the Software, and to permit persons to whom the Software is
-furnished to do so, subject to the following conditions:
-
-The above copyright notice and this permission notice shall be included in all
-copies or substantial portions of the Software.
-
-THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
-IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
-FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
-AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
-LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
-OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
-SOFTWARE.''',
-    isMarkdown: false,
-    isSdk: false,
-    dependencies: [PackageRef('flutter')],
     devDependencies: [PackageRef('flutter_lints')],
   );
 
@@ -10629,7 +10593,7 @@ OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
 SOFTWARE.''',
     isMarkdown: false,
     isSdk: false,
-    dependencies: [PackageRef('collection'), PackageRef('csv'), PackageRef('cupertino_icons'), PackageRef('dotted_border'), PackageRef('drift'), PackageRef('drift_flutter'), PackageRef('file_picker'), PackageRef('firebase_analytics'), PackageRef('firebase_core'), PackageRef('firebase_crashlytics'), PackageRef('fl_chart'), PackageRef('flutter'), PackageRef('flutter_animate'), PackageRef('flutter_dotenv'), PackageRef('flutter_launcher_icons'), PackageRef('flutter_markdown_plus'), PackageRef('flutter_native_splash'), PackageRef('flutter_riverpod'), PackageRef('freezed_annotation'), PackageRef('go_router'), PackageRef('google_fonts'), PackageRef('hooks_riverpod'), PackageRef('in_app_review'), PackageRef('intl'), PackageRef('json_annotation'), PackageRef('json_path'), PackageRef('json_serializable'), PackageRef('package_info_plus'), PackageRef('path'), PackageRef('path_provider'), PackageRef('riverpod_annotation'), PackageRef('share_plus'), PackageRef('shared_preferences'), PackageRef('shimmer'), PackageRef('sqlite3'), PackageRef('sqlite3_flutter_libs'), PackageRef('stream_transform'), PackageRef('timeago'), PackageRef('url_launcher'), PackageRef('uuid')],
+    dependencies: [PackageRef('collection'), PackageRef('csv'), PackageRef('cupertino_icons'), PackageRef('dotted_border'), PackageRef('drift'), PackageRef('drift_flutter'), PackageRef('file_picker'), PackageRef('firebase_analytics'), PackageRef('firebase_core'), PackageRef('firebase_crashlytics'), PackageRef('fl_chart'), PackageRef('flutter'), PackageRef('flutter_animate'), PackageRef('flutter_launcher_icons'), PackageRef('flutter_markdown_plus'), PackageRef('flutter_native_splash'), PackageRef('flutter_riverpod'), PackageRef('freezed_annotation'), PackageRef('go_router'), PackageRef('google_fonts'), PackageRef('hooks_riverpod'), PackageRef('in_app_review'), PackageRef('intl'), PackageRef('json_annotation'), PackageRef('json_path'), PackageRef('json_serializable'), PackageRef('package_info_plus'), PackageRef('path'), PackageRef('path_provider'), PackageRef('riverpod_annotation'), PackageRef('share_plus'), PackageRef('shared_preferences'), PackageRef('shimmer'), PackageRef('sqlite3'), PackageRef('sqlite3_flutter_libs'), PackageRef('stream_transform'), PackageRef('timeago'), PackageRef('url_launcher'), PackageRef('uuid')],
     devDependencies: [PackageRef('build_runner'), PackageRef('custom_lint'), PackageRef('dart_pubspec_licenses'), PackageRef('drift_dev'), PackageRef('flutter_lints'), PackageRef('freezed'), PackageRef('freezed_lint'), PackageRef('go_router_builder'), PackageRef('lints'), PackageRef('riverpod_generator')],
   );
 

@@ -24,7 +24,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_animate: ^4.5.2
-  flutter_dotenv: ^6.0.0
   flutter_launcher_icons: ^0.14.4
   flutter_localizations:
     sdk: flutter
@@ -74,7 +73,6 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
-    - .env
     - CHANGELOG.md
     - TERMS.md
     - PRIVACY.md
