@@ -6,6 +6,7 @@ import "package:flutter/foundation.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_dotenv/flutter_dotenv.dart";
+import "package:flutter_native_splash/flutter_native_splash.dart"; // Import package
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
 import "package:rain_wise/core/data/local/shared_prefs.dart";
@@ -21,7 +22,11 @@ import "package:rain_wise/l10n/app_localizations.dart";
 void main() async {
   runZonedGuarded<Future<void>>(
     () async {
-      WidgetsFlutterBinding.ensureInitialized();
+      final WidgetsBinding widgetsBinding =
+          WidgetsFlutterBinding.ensureInitialized();
+      FlutterNativeSplash.preserve(
+        widgetsBinding: widgetsBinding,
+      ); // Preserve splash
       await dotenv.load();
 
       await SystemChrome.setPreferredOrientations([
