@@ -1,8 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
-import "package:rain_wise/common/domain/coming_soon_args.dart";
-import "package:rain_wise/common/presentation/screens/coming_soon_screen.dart";
 import "package:rain_wise/core/firebase/analytics_observer.dart";
 import "package:rain_wise/core/ui/scaffold_with_nav_bar.dart";
 import "package:rain_wise/features/changelog/presentation/screens/changelog_screen.dart";
@@ -11,6 +9,7 @@ import "package:rain_wise/features/data_tools/presentation/screens/data_tools_sc
 import "package:rain_wise/features/home/presentation/screens/home_screen.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/screens/insights_screen.dart";
 import "package:rain_wise/features/insights_dashboard/presentation/screens/monthly_averages_screen.dart";
+import "package:rain_wise/features/legal/presentation/screens/markdown_viewer_screen.dart";
 import "package:rain_wise/features/manage_gauges/presentation/screens/manage_gauges_screen.dart";
 import "package:rain_wise/features/onboarding/presentation/screens/onboarding_screen.dart";
 import "package:rain_wise/features/oss_licenses/presentation/screens/license_detail_screen.dart";
@@ -83,23 +82,6 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
       const OnboardingScreen();
 }
 
-@TypedGoRoute<ComingSoonRoute>(path: "/coming-soon")
-class ComingSoonRoute extends GoRouteData with $ComingSoonRoute {
-  const ComingSoonRoute({this.$extra});
-
-  final ComingSoonScreenArgs? $extra;
-
-  @override
-  Widget build(final BuildContext context, final GoRouterState state) {
-    final ComingSoonScreenArgs args = $extra ?? const ComingSoonScreenArgs();
-    return ComingSoonScreen(
-      pageTitle: args.pageTitle,
-      headline: args.headline,
-      message: args.message,
-    );
-  }
-}
-
 // --- Stateful Shell Route Definition ---
 @TypedStatefulShellRoute<AppShellRoute>(
   branches: <TypedStatefulShellBranch<StatefulShellBranchData>>[
@@ -150,6 +132,8 @@ class ComingSoonRoute extends GoRouteData with $ComingSoonRoute {
               ],
             ),
             TypedGoRoute<ChangelogRoute>(path: "changelog"),
+            TypedGoRoute<PrivacyPolicyRoute>(path: "privacy-policy"),
+            TypedGoRoute<TermsOfServiceRoute>(path: "terms-of-service"),
           ],
         ),
       ],
@@ -372,5 +356,37 @@ class LicenseDetailRoute extends GoRouteData with $LicenseDetailRoute {
       ),
     );
     return LicenseDetailScreen(package: package);
+  }
+}
+
+class PrivacyPolicyRoute extends GoRouteData with $PrivacyPolicyRoute {
+  const PrivacyPolicyRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(final BuildContext context, final GoRouterState state) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    return MarkdownViewerScreen(
+      title: l10n.settingsSupportLegalPrivacyPolicy,
+      filePath: "PRIVACY.md",
+    );
+  }
+}
+
+class TermsOfServiceRoute extends GoRouteData with $TermsOfServiceRoute {
+  const TermsOfServiceRoute();
+
+  static final GlobalKey<NavigatorState> $parentNavigatorKey =
+      _rootNavigatorKey;
+
+  @override
+  Widget build(final BuildContext context, final GoRouterState state) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    return MarkdownViewerScreen(
+      title: l10n.settingsSupportLegalTermsOfService,
+      filePath: "TERMS.md",
+    );
   }
 }

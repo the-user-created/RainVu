@@ -78,6 +78,7 @@ const allDependencies = <Package>[
   _flutter_hooks,
   _flutter_launcher_icons,
   _flutter_lints,
+  _flutter_markdown_plus,
   _flutter_native_splash,
   _flutter_plugin_android_lifecycle,
   _flutter_riverpod,
@@ -113,6 +114,7 @@ const allDependencies = <Package>[
   _leak_tracker_testing,
   _lints,
   _logging,
+  _markdown,
   _matcher,
   _material_color_utilities,
   _maybe_just_nothing,
@@ -219,6 +221,7 @@ const dependencies = <Package>[
   _flutter_animate,
   _flutter_dotenv,
   _flutter_launcher_icons,
+  _flutter_markdown_plus,
   _flutter_native_splash,
   _flutter_riverpod,
   _freezed_annotation,
@@ -4634,6 +4637,44 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [],
   );
 
+/// flutter_markdown_plus 1.0.5
+const _flutter_markdown_plus = Package(
+    name: 'flutter_markdown_plus',
+    description: 'A Markdown renderer for Flutter. Create rich text output, including text styles, tables, links, and more, from plain text data formatted with simple Markdown tags.',
+    repository: 'https://github.com/foresightmobile/flutter_markdown_plus',
+    authors: [],
+    version: '1.0.5',
+    license: '''Copyright 2013 The Flutter Authors. All rights reserved.
+
+Redistribution and use in source and binary forms, with or without modification,
+are permitted provided that the following conditions are met:
+
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above
+      copyright notice, this list of conditions and the following
+      disclaimer in the documentation and/or other materials provided
+      with the distribution.
+    * Neither the name of Google Inc. nor the names of its
+      contributors may be used to endorse or promote products derived
+      from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND
+ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED
+WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE
+DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT OWNER OR CONTRIBUTORS BE LIABLE FOR
+ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES
+(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES;
+LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON
+ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS
+SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
+    isMarkdown: false,
+    isSdk: false,
+    dependencies: [PackageRef('flutter'), PackageRef('markdown'), PackageRef('meta'), PackageRef('path')],
+    devDependencies: [PackageRef('leak_tracker_flutter_testing'), PackageRef('mockito')],
+  );
+
 /// flutter_native_splash 2.4.6
 const _flutter_native_splash = Package(
     name: 'flutter_native_splash',
@@ -6108,6 +6149,46 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     isSdk: false,
     dependencies: [],
     devDependencies: [PackageRef('test')],
+  );
+
+/// markdown 7.3.0
+const _markdown = Package(
+    name: 'markdown',
+    description: 'A portable Markdown library written in Dart that can parse Markdown into HTML.',
+    repository: 'https://github.com/dart-lang/tools/tree/main/pkgs/markdown',
+    authors: [],
+    version: '7.3.0',
+    license: '''Copyright 2012, the Dart project authors. 
+
+Redistribution and use in source and binary forms, with or without
+modification, are permitted provided that the following conditions are
+met:
+
+    * Redistributions of source code must retain the above copyright
+      notice, this list of conditions and the following disclaimer.
+    * Redistributions in binary form must reproduce the above
+      copyright notice, this list of conditions and the following
+      disclaimer in the documentation and/or other materials provided
+      with the distribution.
+    * Neither the name of Google LLC nor the names of its
+      contributors may be used to endorse or promote products derived
+      from this software without specific prior written permission.
+
+THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS
+"AS IS" AND ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT
+LIMITED TO, THE IMPLIED WARRANTIES OF MERCHANTABILITY AND FITNESS FOR
+A PARTICULAR PURPOSE ARE DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT
+OWNER OR CONTRIBUTORS BE LIABLE FOR ANY DIRECT, INDIRECT, INCIDENTAL,
+SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES (INCLUDING, BUT NOT
+LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; LOSS OF USE,
+DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON ANY
+THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT
+(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE
+OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
+    isMarkdown: false,
+    isSdk: false,
+    dependencies: [PackageRef('args'), PackageRef('meta')],
+    devDependencies: [PackageRef('build_runner'), PackageRef('collection'), PackageRef('html'), PackageRef('http'), PackageRef('io'), PackageRef('path'), PackageRef('pool'), PackageRef('test'), PackageRef('web'), PackageRef('yaml')],
   );
 
 /// matcher 0.12.17
@@ -10165,7 +10246,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     isMarkdown: false,
     isSdk: false,
     dependencies: [],
-    devDependencies: [PackageRef('async'), PackageRef('collection'), PackageRef('lints'), PackageRef('logging'), PackageRef('path'), PackageRef('pub_semver'), PackageRef('stack_trace'), PackageRef('test')],
+    devDependencies: [PackageRef('async'), PackageRef('collection'), PackageRef('lints'), PackageRef('logging'), PackageRef('markdown'), PackageRef('path'), PackageRef('pub_semver'), PackageRef('stack_trace'), PackageRef('test')],
   );
 
 /// watcher 1.1.4
@@ -10525,9 +10606,30 @@ const _rain_wise = Package(
     repository: 'https://github.com/the-user-created/RainWise',
     authors: [],
     version: '1.0.0+1',
+    license: '''MIT License
+
+Copyright (c) 2025 David Young
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.''',
     isMarkdown: false,
     isSdk: false,
-    dependencies: [PackageRef('collection'), PackageRef('csv'), PackageRef('cupertino_icons'), PackageRef('dotted_border'), PackageRef('drift'), PackageRef('drift_flutter'), PackageRef('file_picker'), PackageRef('firebase_analytics'), PackageRef('firebase_core'), PackageRef('firebase_crashlytics'), PackageRef('fl_chart'), PackageRef('flutter'), PackageRef('flutter_animate'), PackageRef('flutter_dotenv'), PackageRef('flutter_launcher_icons'), PackageRef('flutter_native_splash'), PackageRef('flutter_riverpod'), PackageRef('freezed_annotation'), PackageRef('go_router'), PackageRef('google_fonts'), PackageRef('hooks_riverpod'), PackageRef('in_app_review'), PackageRef('intl'), PackageRef('json_annotation'), PackageRef('json_path'), PackageRef('json_serializable'), PackageRef('package_info_plus'), PackageRef('path'), PackageRef('path_provider'), PackageRef('riverpod_annotation'), PackageRef('share_plus'), PackageRef('shared_preferences'), PackageRef('shimmer'), PackageRef('sqlite3'), PackageRef('sqlite3_flutter_libs'), PackageRef('stream_transform'), PackageRef('timeago'), PackageRef('url_launcher'), PackageRef('uuid')],
+    dependencies: [PackageRef('collection'), PackageRef('csv'), PackageRef('cupertino_icons'), PackageRef('dotted_border'), PackageRef('drift'), PackageRef('drift_flutter'), PackageRef('file_picker'), PackageRef('firebase_analytics'), PackageRef('firebase_core'), PackageRef('firebase_crashlytics'), PackageRef('fl_chart'), PackageRef('flutter'), PackageRef('flutter_animate'), PackageRef('flutter_dotenv'), PackageRef('flutter_launcher_icons'), PackageRef('flutter_markdown_plus'), PackageRef('flutter_native_splash'), PackageRef('flutter_riverpod'), PackageRef('freezed_annotation'), PackageRef('go_router'), PackageRef('google_fonts'), PackageRef('hooks_riverpod'), PackageRef('in_app_review'), PackageRef('intl'), PackageRef('json_annotation'), PackageRef('json_path'), PackageRef('json_serializable'), PackageRef('package_info_plus'), PackageRef('path'), PackageRef('path_provider'), PackageRef('riverpod_annotation'), PackageRef('share_plus'), PackageRef('shared_preferences'), PackageRef('shimmer'), PackageRef('sqlite3'), PackageRef('sqlite3_flutter_libs'), PackageRef('stream_transform'), PackageRef('timeago'), PackageRef('url_launcher'), PackageRef('uuid')],
     devDependencies: [PackageRef('build_runner'), PackageRef('custom_lint'), PackageRef('dart_pubspec_licenses'), PackageRef('drift_dev'), PackageRef('flutter_lints'), PackageRef('freezed'), PackageRef('freezed_lint'), PackageRef('go_router_builder'), PackageRef('lints'), PackageRef('riverpod_generator')],
   );
 

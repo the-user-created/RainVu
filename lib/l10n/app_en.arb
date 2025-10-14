@@ -804,6 +804,15 @@
   "@manageGaugesTitle": {
     "description": "The title of the screen for managing rain gauges."
   },
+  "markdownLoadingError": "Could not load document. Please check your internet connection and try again.\n\nDetails: {error}",
+  "@markdownLoadingError": {
+    "description": "Error message shown when a markdown document fails to load from both local assets and the remote URL.",
+    "placeholders": {
+      "error": {
+        "type": "Object"
+      }
+    }
+  },
   "monthlyComparisonEmptyMessage": "Once you have logged more rainfall data, you'll be able to see monthly averages here.",
   "@monthlyComparisonEmptyMessage": {
     "description": "Message shown on the 'Monthly Averages' screen when there is not enough data."

@@ -2,7 +2,6 @@ import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:in_app_review/in_app_review.dart";
-import "package:rain_wise/common/domain/coming_soon_args.dart";
 import "package:rain_wise/core/application/preferences_provider.dart";
 import "package:rain_wise/core/firebase/telemetry_manager.dart";
 import "package:rain_wise/core/navigation/app_router.dart";
@@ -207,16 +206,12 @@ class SettingsScreen extends ConsumerWidget {
                 SettingsListTile(
                   leading: const Icon(Icons.policy_outlined),
                   title: l10n.settingsSupportLegalPrivacyPolicy,
-                  onTap: () => const ComingSoonRoute(
-                    $extra: ComingSoonScreenArgs(pageTitle: "Privacy Policy"),
-                  ).push(context),
+                  onTap: () => const PrivacyPolicyRoute().push(context),
                 ),
                 SettingsListTile(
                   leading: const Icon(Icons.gavel_rounded),
                   title: l10n.settingsSupportLegalTermsOfService,
-                  onTap: () => const ComingSoonRoute(
-                    $extra: ComingSoonScreenArgs(pageTitle: "Terms of Service"),
-                  ).push(context),
+                  onTap: () => const TermsOfServiceRoute().push(context),
                 ),
                 SettingsListTile(
                   leading: const Icon(Icons.article_outlined),

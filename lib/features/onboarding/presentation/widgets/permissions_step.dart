@@ -101,8 +101,9 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
                     color: theme.colorScheme.primary,
                   ),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () =>
-                        _launchUrl("https://emberworks.dev/rainwise/privacy"),
+                    ..onTap = () => _launchUrl(
+                      "https://github.com/the-user-created/RainWise/blob/main/PRIVACY.md",
+                    ),
                 ),
                 TextSpan(text: " ${l10n.and} "),
                 TextSpan(
@@ -112,8 +113,9 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
                     color: theme.colorScheme.primary,
                   ),
                   recognizer: TapGestureRecognizer()
-                    ..onTap = () =>
-                        _launchUrl("https://emberworks.dev/rainwise/terms"),
+                    ..onTap = () => _launchUrl(
+                      "https://github.com/the-user-created/RainWise/blob/main/TERMS.md",
+                    ),
                 ),
                 const TextSpan(text: "."),
               ],
