@@ -78,32 +78,18 @@ flutter:
     - assets/icon/
 
 flutter_launcher_icons:
-  # === Android settings ===
   android: true
   min_sdk_android: 21
-  # The adaptive icon settings below will override this for Android 8.0+.
   image_path_android: "assets/icon/icon-foreground.png"
-  # The background color for the adaptive icon. Using the app's secondary color.
-  adaptive_icon_background: "#6995A7"
-  # The foreground layer of the adaptive icon (logo with transparency).
+  adaptive_icon_background: "#ffffff" #"assets/icon/icon-background.png"
   adaptive_icon_foreground: "assets/icon/icon-foreground.png"
-  # A monochrome version of the foreground for Android 13+ themed icons.
   adaptive_icon_monochrome: "assets/icon/icon-monochrome.png"
-  # Adds a 16% padding around the foreground image. This is the default but is
-  # included here for clarity and to prevent the logo from touching the edges.
   adaptive_icon_foreground_inset: 16
 
-  # === iOS settings ===
   ios: true
-  # Explicit path for the standard iOS icon (1024x1024, no transparency).
   image_path_ios: "assets/icon/icon-ios.png"
-  # Required by Apple. Removes the alpha channel from the final standard icon.
   remove_alpha_ios: true
-  # Defines the background color to use when remove_alpha_ios is true.
-  # This acts as a safeguard if the source image has stray transparent pixels.
   background_color_ios: "#ffffff"
-  # Path to the transparent icon for iOS 18+ Dark Mode.
   image_path_ios_dark_transparent: "assets/icon/icon-ios-dark.png"
-  # Path to the grayscale, transparent icon for iOS 18+ Tinted Mode.
   image_path_ios_tinted_grayscale: "assets/icon/icon-ios-tinted.png"
-  desaturate_tinted_to_grayscale_ios: true
+  #desaturate_tinted_to_grayscale_ios: true
