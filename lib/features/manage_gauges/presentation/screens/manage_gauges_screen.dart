@@ -31,7 +31,7 @@ class ManageGaugesScreen extends StatelessWidget {
             padding: const EdgeInsets.only(right: 8),
             child: AppIconButton(
               icon: const Icon(Icons.add_circle_outline),
-              iconSize: 36,
+              iconSize: 30,
               onPressed: () => _showAddSheet(context),
               tooltip: l10n.addGaugeTooltip,
             ),

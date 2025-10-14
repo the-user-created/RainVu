@@ -9,41 +9,57 @@ class AppTheme {
 
   // --- Color Definitions ---
   static const _primary = Color(0xFF36474F);
+  static const _primaryDark = Color(0xFF9FB2BB);
+  static const _onPrimaryDark = Color(0xFF051F29);
   static const _secondary = Color(0xFF6995A7);
+  static const _secondaryDark = Color(0xFF4A7C8F);
   static const _tertiary = Color(0xFF14A698);
+  static const _error = Color(0xFFBA1A1A);
+  static const _errorDark = Color(0xFFFF897D);
+  static const _onErrorDark = Color(0xFF410002);
 
   // --- Light Mode ColorScheme ---
-  static const _lightColorScheme = ColorScheme.light(
+  static final _lightColorScheme = ColorScheme.fromSeed(
+    seedColor: _primary,
     primary: _primary,
     onPrimary: Colors.white,
     secondary: _secondary,
     onSecondary: Colors.white,
     tertiary: _tertiary,
     onTertiary: Colors.white,
-    error: Color(0xFFD93C4D),
+    error: _error,
     onError: Colors.white,
-    surface: Color(0xFFFBF9F5),
-    onSurface: Color(0xFF171B1E),
-    surfaceContainerHighest: Color(0xFFECE7E0),
-    onSurfaceVariant: Color(0xFF58636A),
-    outline: Color(0xFFBABCBD),
+    brightness: Brightness.light,
+    surface: const Color(0xFFF8FAFC),
+    onSurface: const Color(0xFF171B1E),
+    surfaceContainer: const Color(0xFFFFFFFF),
+    surfaceContainerHighest: const Color(0xFFE0E3E7),
+    onSurfaceVariant: const Color(0xFF536168),
+    outline: const Color(0xFFC4C7C5),
+    outlineVariant: const Color(0xFFEEF0F2),
+    shadow: const Color(0xFF000000),
   );
 
   // --- Dark Mode ColorScheme ---
-  static const _darkColorScheme = ColorScheme.dark(
-    primary: _primary,
-    onPrimary: Colors.white,
-    secondary: _secondary,
+  static final _darkColorScheme = ColorScheme.fromSeed(
+    seedColor: _primary,
+    primary: _primaryDark,
+    onPrimary: _onPrimaryDark,
+    secondary: _secondaryDark,
     onSecondary: Colors.white,
     tertiary: _tertiary,
     onTertiary: Colors.white,
-    error: Color(0xFFD93C4D),
-    onError: Colors.white,
-    surface: Color(0xFF171B1E),
-    onSurface: Color(0xFFE8E8E8),
-    surfaceContainerHighest: Color(0xFF222A30),
-    onSurfaceVariant: Color(0xFF949FA9),
-    outline: Color(0xFF182126),
+    error: _errorDark,
+    onError: _onErrorDark,
+    brightness: Brightness.dark,
+    surface: const Color(0xFF101416),
+    onSurface: const Color(0xFFE8E8E8),
+    surfaceContainer: const Color(0xFF1C2226),
+    surfaceContainerHighest: const Color(0xFF2C3238),
+    onSurfaceVariant: const Color(0xFFA8B4BC),
+    outline: const Color(0xFF40484D),
+    outlineVariant: const Color(0xFF282E32),
+    shadow: const Color(0xFF000000),
   );
 
   // --- Base TextTheme with Font sizes and weights ---
@@ -99,15 +115,16 @@ class AppTheme {
     return ThemeData(
       useMaterial3: true,
       colorScheme: colorScheme,
-      shadowColor: Colors.black.withValues(alpha: 0.2),
+      shadowColor: colorScheme.shadow.withValues(alpha: 0.1),
       textTheme: textTheme,
       scaffoldBackgroundColor: colorScheme.surface,
       appBarTheme: AppBarTheme(
         backgroundColor: colorScheme.surface,
-        shadowColor: Colors.black.withValues(alpha: 0.2),
-        elevation: 2,
+        shadowColor: colorScheme.shadow.withValues(alpha: 0.1),
+        elevation: 0,
+        scrolledUnderElevation: 2,
+        surfaceTintColor: Colors.transparent,
         centerTitle: false,
-        scrolledUnderElevation: 1,
         titleTextStyle: textTheme.headlineMedium,
         iconTheme: IconThemeData(color: colorScheme.onSurface),
         actionsIconTheme: IconThemeData(color: colorScheme.tertiary),
@@ -150,39 +167,44 @@ class AppTheme {
         style: IconButton.styleFrom(foregroundColor: colorScheme.onSurface),
       ),
       inputDecorationTheme: InputDecorationTheme(
+        filled: true,
+        fillColor: colorScheme.surfaceContainerLowest,
         border: OutlineInputBorder(
           borderSide: BorderSide(color: colorScheme.outline),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         enabledBorder: OutlineInputBorder(
           borderSide: BorderSide(color: colorScheme.outline),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         focusedBorder: OutlineInputBorder(
           borderSide: BorderSide(color: colorScheme.primary, width: 2),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         errorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: colorScheme.error),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         focusedErrorBorder: OutlineInputBorder(
           borderSide: BorderSide(color: colorScheme.error, width: 2),
-          borderRadius: BorderRadius.circular(8),
+          borderRadius: BorderRadius.circular(12),
         ),
         hintStyle: textTheme.bodyLarge?.copyWith(
           color: colorScheme.onSurfaceVariant,
         ),
       ),
       cardTheme: CardThemeData(
-        elevation: 2,
-        shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-        color: colorScheme.surface,
+        elevation: 1,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(16),
+          side: BorderSide(color: colorScheme.outlineVariant, width: 0.5),
+        ),
+        color: colorScheme.surfaceContainer,
         surfaceTintColor: Colors.transparent,
-        shadowColor: Colors.black.withValues(alpha: 0.2),
+        shadowColor: colorScheme.shadow.withValues(alpha: 0.1),
       ),
       datePickerTheme: DatePickerThemeData(
-        backgroundColor: colorScheme.surface,
+        backgroundColor: colorScheme.surfaceContainer,
         headerBackgroundColor: colorScheme.secondary,
         headerForegroundColor: colorScheme.onSecondary,
         headerHelpStyle: textTheme.headlineSmall?.copyWith(
@@ -218,7 +240,7 @@ class AppTheme {
         }),
       ),
       timePickerTheme: TimePickerThemeData(
-        backgroundColor: colorScheme.surface,
+        backgroundColor: colorScheme.surfaceContainer,
         hourMinuteTextColor: colorScheme.onSurface,
         dialHandColor: colorScheme.primary,
         dayPeriodTextColor: WidgetStateColor.resolveWith(
@@ -233,7 +255,7 @@ class AppTheme {
         ),
       ),
       bottomNavigationBarTheme: BottomNavigationBarThemeData(
-        backgroundColor: colorScheme.surface,
+        backgroundColor: colorScheme.surfaceContainer,
         selectedItemColor: colorScheme.tertiary,
         unselectedItemColor: colorScheme.onSurfaceVariant,
         showSelectedLabels: false,
@@ -241,7 +263,7 @@ class AppTheme {
         type: BottomNavigationBarType.fixed,
       ),
       bottomSheetTheme: BottomSheetThemeData(
-        backgroundColor: colorScheme.surface,
+        backgroundColor: colorScheme.surfaceContainer,
         surfaceTintColor: Colors.transparent,
         shape: const RoundedRectangleBorder(
           borderRadius: BorderRadius.vertical(top: Radius.circular(24)),
@@ -266,7 +288,7 @@ class AppTheme {
         elevation: 4,
       ),
       dialogTheme: DialogThemeData(
-        backgroundColor: colorScheme.surface,
+        backgroundColor: colorScheme.surfaceContainer,
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(24)),
         titleTextStyle: textTheme.headlineSmall?.copyWith(
           color: colorScheme.onSurface,
@@ -278,27 +300,27 @@ class AppTheme {
         elevation: 4,
       ),
       chipTheme: ChipThemeData(
-        backgroundColor: colorScheme.surfaceContainerHighest,
+        backgroundColor: colorScheme.surfaceContainer,
         deleteIconColor: colorScheme.onSurface,
-        disabledColor: colorScheme.surfaceContainerHighest.withValues(
-          alpha: 0.5,
-        ),
+        disabledColor: colorScheme.surfaceContainer.withValues(alpha: 0.5),
         selectedColor: colorScheme.secondary,
         secondarySelectedColor: colorScheme.secondary,
         padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
         labelStyle: textTheme.bodyMedium?.copyWith(
-          color: colorScheme.onSurface,
+          color: colorScheme.onSurfaceVariant,
         ),
         secondaryLabelStyle: textTheme.bodyMedium?.copyWith(
           color: colorScheme.onSecondary,
         ),
         shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-        side: BorderSide.none,
+        side: BorderSide(color: colorScheme.outline, width: 0.5),
         elevation: 0,
       ),
       dropdownMenuTheme: DropdownMenuThemeData(
         menuStyle: MenuStyle(
-          backgroundColor: WidgetStateProperty.all(colorScheme.surface),
+          backgroundColor: WidgetStateProperty.all(
+            colorScheme.surfaceContainer,
+          ),
           surfaceTintColor: WidgetStateProperty.all(Colors.transparent),
           elevation: WidgetStateProperty.all(4),
           shape: WidgetStateProperty.all(
@@ -312,18 +334,18 @@ class AppTheme {
         inputDecorationTheme: InputDecorationTheme(
           border: OutlineInputBorder(
             borderSide: BorderSide(color: colorScheme.outline),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(12),
           ),
           enabledBorder: OutlineInputBorder(
             borderSide: BorderSide(color: colorScheme.outline),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(12),
           ),
           focusedBorder: OutlineInputBorder(
             borderSide: BorderSide(color: colorScheme.primary, width: 2),
-            borderRadius: BorderRadius.circular(8),
+            borderRadius: BorderRadius.circular(12),
           ),
           filled: true,
-          fillColor: colorScheme.surface,
+          fillColor: colorScheme.surfaceContainerLowest,
           contentPadding: const EdgeInsets.symmetric(
             horizontal: 16,
             vertical: 12,
@@ -342,6 +364,31 @@ class AppTheme {
         valueIndicatorColor: colorScheme.secondary,
         valueIndicatorTextStyle: textTheme.bodySmall?.copyWith(
           color: colorScheme.onSecondary,
+        ),
+      ),
+      switchTheme: SwitchThemeData(
+        thumbColor: WidgetStateProperty.resolveWith((final states) {
+          if (states.contains(WidgetState.selected)) {
+            return colorScheme.onSecondary;
+          }
+          return colorScheme.brightness == Brightness.dark
+              ? colorScheme.onSurfaceVariant
+              : colorScheme.outline;
+        }),
+        trackColor: WidgetStateProperty.resolveWith((final states) {
+          if (states.contains(WidgetState.selected)) {
+            return colorScheme.secondary;
+          }
+          return colorScheme.surfaceContainerHighest;
+        }),
+        trackOutlineColor: WidgetStateProperty.resolveWith((final states) {
+          if (states.contains(WidgetState.selected)) {
+            return Colors.transparent;
+          }
+          return colorScheme.outline;
+        }),
+        overlayColor: WidgetStateProperty.all(
+          colorScheme.secondary.withValues(alpha: 0.1),
         ),
       ),
     );

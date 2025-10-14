@@ -55,7 +55,7 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
   }
 
   @override
-  Widget build(BuildContext context) {
+  Widget build(final BuildContext context) {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ThemeData theme = Theme.of(context);
 
@@ -74,10 +74,6 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
           SwitchListTile(
             title: Text(l10n.onboardingPermissionsShareTitle),
             subtitle: Text(l10n.onboardingPermissionsShareSubtitle),
-            activeThumbColor: theme.colorScheme.onSecondary,
-            activeTrackColor: theme.colorScheme.secondaryContainer,
-            inactiveThumbColor: theme.colorScheme.onSurfaceVariant,
-            inactiveTrackColor: theme.colorScheme.surfaceContainerHighest,
             value: _telemetryEnabled,
             onChanged: (final value) {
               setState(() {

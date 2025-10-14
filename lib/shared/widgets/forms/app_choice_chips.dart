@@ -59,15 +59,19 @@ class AppChoiceChips<T> extends StatelessWidget {
 
   Widget _buildChip(final BuildContext context, final ChipOption<T> option) {
     final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
     final bool isSelected = selectedValue == option.value;
-    final BorderRadius borderRadius = BorderRadius.circular(20);
+    final BorderRadius borderRadius =
+        theme.chipTheme.shape is RoundedRectangleBorder
+        ? ((theme.chipTheme.shape! as RoundedRectangleBorder).borderRadius
+              as BorderRadius)
+        : BorderRadius.circular(20);
 
-    final Color selectedColor = colorScheme.secondary;
-    final Color unselectedColor = colorScheme.surfaceContainerHighest;
-    final Color selectedForegroundColor = colorScheme.onSecondary;
-    final Color unselectedForegroundColor = colorScheme.onSurface;
+    final Color selectedColor = theme.chipTheme.selectedColor!;
+    final Color unselectedColor = theme.chipTheme.backgroundColor!;
+    final Color selectedForegroundColor =
+        theme.chipTheme.secondaryLabelStyle!.color!;
+    final Color unselectedForegroundColor = theme.chipTheme.labelStyle!.color!;
 
     return InkWell(
       onTap: () => onSelected(option.value),
@@ -76,10 +80,13 @@ class AppChoiceChips<T> extends StatelessWidget {
       highlightColor: selectedColor.withValues(alpha: 0.1),
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 200),
-        padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+        padding: theme.chipTheme.padding,
         decoration: BoxDecoration(
           color: isSelected ? selectedColor : unselectedColor,
           borderRadius: borderRadius,
+          border: Border.fromBorderSide(
+            theme.chipTheme.side ?? BorderSide.none,
+          ),
         ),
         child: Row(
           mainAxisSize: MainAxisSize.min,

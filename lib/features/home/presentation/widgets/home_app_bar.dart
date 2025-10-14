@@ -3,10 +3,7 @@ import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
-  const HomeAppBar({
-    required this.onAddPressed,
-    super.key,
-  });
+  const HomeAppBar({required this.onAddPressed, super.key});
 
   final VoidCallback onAddPressed;
 
@@ -17,14 +14,13 @@ class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
     return AppBar(
       automaticallyImplyLeading: false,
       title: Text(l10n.appName, style: theme.textTheme.headlineLarge),
+      elevation: 0,
       actions: [
         Padding(
           padding: const EdgeInsets.only(right: 8),
           child: AppIconButton(
-            icon: const Icon(
-              Icons.add_circle_outline,
-            ),
-            iconSize: 36,
+            icon: const Icon(Icons.add_circle_outline),
+            iconSize: 30,
             onPressed: onAddPressed,
             tooltip: l10n.logRainfallTooltip,
           ),

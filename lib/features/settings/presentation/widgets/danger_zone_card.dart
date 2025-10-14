@@ -18,9 +18,9 @@ class DangerZoneCard extends StatelessWidget {
         horizontal: AppConstants.horiEdgePadding,
       ),
       child: Card(
-        color: theme.colorScheme.surface,
+        color: theme.colorScheme.surfaceContainer,
         shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(12),
+          borderRadius: BorderRadius.circular(16),
           side: BorderSide(color: theme.colorScheme.error, width: 1.5),
         ),
         clipBehavior: Clip.antiAlias,

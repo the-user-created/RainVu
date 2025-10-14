@@ -37,23 +37,23 @@ class AppDropdown<T> extends StatelessWidget {
     final ColorScheme colorScheme = theme.colorScheme;
     final TextTheme textTheme = theme.textTheme;
 
-    final TextStyle effectiveStyle = style ?? textTheme.bodyMedium!;
-    final BorderRadius effectiveBorderRadius =
-        borderRadius ?? BorderRadius.circular(8);
-    final Color effectiveFillColor = fillColor ?? colorScheme.surface;
-    final EdgeInsetsGeometry effectivePadding =
-        padding ?? const EdgeInsets.symmetric(horizontal: 12, vertical: 4);
+    final InputDecoration effectiveDecoration = const InputDecoration()
+        .applyDefaults(theme.inputDecorationTheme)
+        .copyWith(
+          contentPadding: padding,
+          fillColor: fillColor,
+          enabledBorder: theme.inputDecorationTheme.enabledBorder?.copyWith(
+            borderSide: borderColor != null
+                ? BorderSide(color: borderColor!)
+                : null,
+          ),
+        );
 
-    return Container(
-      padding: effectivePadding,
-      decoration: BoxDecoration(
-        color: effectiveFillColor,
-        borderRadius: effectiveBorderRadius,
-        border: Border.all(
-          color: borderColor ?? colorScheme.outline,
-          width: 1.5,
-        ),
-      ),
+    final TextStyle effectiveStyle = style ?? textTheme.bodyLarge!;
+
+    return InputDecorator(
+      decoration: effectiveDecoration,
+      isEmpty: value == null,
       child: DropdownButtonHideUnderline(
         child: DropdownButton<T>(
           value: value,
@@ -70,7 +70,8 @@ class AppDropdown<T> extends StatelessWidget {
               : null,
           icon: icon ?? Icon(Icons.expand_more, color: colorScheme.secondary),
           style: effectiveStyle,
-          dropdownColor: dropdownColor ?? colorScheme.surface,
+          dropdownColor: dropdownColor ?? colorScheme.surfaceContainer,
+          isDense: true,
         ),
       ),
     );
@@ -120,7 +121,7 @@ class AppDropdownFormField<T> extends FormField<T> {
                  isExpanded: isExpanded,
                  icon: Icon(Icons.expand_more, color: colorScheme.secondary),
                  style: textTheme.bodyLarge,
-                 dropdownColor: colorScheme.surface,
+                 dropdownColor: colorScheme.surfaceContainer,
                  isDense: true,
                ),
              ),

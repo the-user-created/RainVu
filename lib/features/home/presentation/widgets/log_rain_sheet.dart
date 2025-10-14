@@ -200,40 +200,27 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
               _buildSectionHeader(l10n.logRainfallDateTimeHeader),
               InkWell(
                 onTap: _selectDateTime,
-                child: Container(
-                  width: double.infinity,
-                  constraints: const BoxConstraints(minHeight: 60),
-                  decoration: BoxDecoration(
-                    color: theme.colorScheme.surface,
-                    borderRadius: BorderRadius.circular(8),
-                    border: Border.all(color: theme.colorScheme.outline),
-                  ),
-                  child: Padding(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 12,
-                      vertical: 12,
-                    ),
-                    child: Row(
-                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                      children: [
-                        Flexible(
-                          child: Text(
-                            DateFormat.yMMMd().add_jm().format(
-                              _selectedDateTime,
-                            ),
-                            style: theme.textTheme.bodyLarge,
-                            overflow: TextOverflow.ellipsis,
-                            maxLines: 2,
-                          ),
+                borderRadius: BorderRadius.circular(12),
+                child: InputDecorator(
+                  decoration: const InputDecoration(),
+                  child: Row(
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                    children: [
+                      Flexible(
+                        child: Text(
+                          DateFormat.yMMMd().add_jm().format(_selectedDateTime),
+                          style: theme.textTheme.bodyLarge,
+                          overflow: TextOverflow.ellipsis,
+                          maxLines: 2,
                         ),
-                        const SizedBox(width: 8),
-                        Icon(
-                          Icons.calendar_today,
-                          color: theme.colorScheme.onSurface,
-                          size: 24,
-                        ),
-                      ],
-                    ),
+                      ),
+                      const SizedBox(width: 8),
+                      Icon(
+                        Icons.calendar_today,
+                        color: theme.colorScheme.onSurface,
+                        size: 24,
+                      ),
+                    ],
                   ),
                 ),
               ),

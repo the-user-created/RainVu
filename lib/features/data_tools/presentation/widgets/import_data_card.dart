@@ -67,13 +67,14 @@ class _FilePickerBox extends StatelessWidget {
       borderRadius: BorderRadius.circular(12),
       child: DottedBorder(
         options: RoundedRectDottedBorderOptions(
-          color: theme.colorScheme.onSurface,
+          color: theme.colorScheme.outline,
           dashPattern: const [6, 4],
           radius: const Radius.circular(12),
+          strokeWidth: 1.5,
         ),
         child: DecoratedBox(
           decoration: BoxDecoration(
-            color: theme.colorScheme.surfaceContainerHighest,
+            color: theme.colorScheme.primary.withValues(alpha: 0.05),
             borderRadius: BorderRadius.circular(12),
           ),
           child: Padding(
@@ -84,13 +85,16 @@ class _FilePickerBox extends StatelessWidget {
               children: [
                 Icon(
                   Icons.upload_file,
-                  color: theme.colorScheme.onSurface,
+                  color: theme.colorScheme.primary,
                   size: 32,
                 ),
                 const SizedBox(height: 16),
                 Text(
                   l10n.filePickerBoxTitle,
-                  style: theme.textTheme.bodyMedium,
+                  style: theme.textTheme.bodyMedium?.copyWith(
+                    color: theme.colorScheme.primary,
+                    fontWeight: FontWeight.bold,
+                  ),
                   textAlign: TextAlign.center,
                 ),
                 const SizedBox(height: 8),
@@ -119,12 +123,12 @@ class _ParsingPreview extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest,
+        color: theme.colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Shimmer.fromColors(
         baseColor: theme.colorScheme.surface,
-        highlightColor: theme.colorScheme.surfaceContainerHighest,
+        highlightColor: theme.colorScheme.surfaceContainer,
         child: const Column(
           children: [
             LinePlaceholder(height: 16, width: 120),
@@ -184,7 +188,7 @@ class _ImportPreviewSummary extends StatelessWidget {
     return Container(
       padding: const EdgeInsets.all(16),
       decoration: BoxDecoration(
-        color: theme.colorScheme.surfaceContainerHighest,
+        color: theme.colorScheme.surfaceContainer,
         borderRadius: BorderRadius.circular(12),
       ),
       child: Column(

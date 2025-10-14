@@ -76,7 +76,7 @@ class _AppIconButtonState extends State<AppIconButton> {
             color: widget.color,
             iconSize: widget.iconSize,
             padding: widget.padding,
-            splashRadius: (widget.iconSize ?? 24) + 16,
+            splashRadius: 24,
             style: buttonStyle,
           ),
         )

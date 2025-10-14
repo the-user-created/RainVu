@@ -1,4 +1,3 @@
-// lib/features/onboarding/presentation/widgets/welcome_step.dart
 import "package:flutter/material.dart";
 import "package:rain_wise/l10n/app_localizations.dart";
 import "package:rain_wise/shared/widgets/buttons/app_button.dart";

@@ -84,7 +84,7 @@ class InteractiveSheet extends StatelessWidget {
     return Padding(
       padding: MediaQuery.of(context).viewInsets,
       child: Material(
-        color: colorScheme.surface,
+        color: colorScheme.surfaceContainer,
         borderRadius: isDialog
             ? BorderRadius.circular(24)
             : const BorderRadius.vertical(top: Radius.circular(24)),
