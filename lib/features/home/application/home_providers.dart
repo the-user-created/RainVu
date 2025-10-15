@@ -1,11 +1,11 @@
 import "dart:async";
 
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
-import "package:rain_wise/core/firebase/analytics_service.dart";
-import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
-import "package:rain_wise/features/home/data/home_repository.dart";
-import "package:rain_wise/features/home/domain/home_data.dart";
-import "package:rain_wise/shared/domain/rainfall_entry.dart";
+import "package:rainvu/core/data/repositories/rainfall_repository.dart";
+import "package:rainvu/core/firebase/analytics_service.dart";
+import "package:rainvu/features/home/data/home_repository.dart";
+import "package:rainvu/features/home/domain/home_data.dart";
+import "package:rainvu/shared/domain/rainfall_entry.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "home_providers.g.dart";

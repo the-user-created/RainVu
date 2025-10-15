@@ -1,10 +1,10 @@
-name: rain_wise
-description: A comprehensive Flutter mobile app for farmers, gardeners, and weather enthusiasts to meticulously log rainfall from multiple custom gauges and transform that data into actionable insights through powerful charting and historical analysis.
+name: rainvu
+description: A comprehensive mobile app for farmers, gardeners, and weather enthusiasts to meticulously log rainfall from multiple custom gauges and transform that data into actionable insights through powerful charting and historical analysis.
 
 publish_to: 'none'
 
-version: 1.0.0+1
-repository: https://github.com/the-user-created/RainWise
+version: 1.0.0+2
+repository: https://github.com/the-user-created/RainVu
 
 environment:
   sdk: ">=3.8.0 <4.0.0"
@@ -24,7 +24,6 @@ dependencies:
   flutter:
     sdk: flutter
   flutter_animate: ^4.5.2
-  flutter_dotenv: ^6.0.0
   flutter_launcher_icons: ^0.14.4
   flutter_localizations:
     sdk: flutter
@@ -74,7 +73,6 @@ flutter:
   generate: true
   uses-material-design: true
   assets:
-    - .env
     - CHANGELOG.md
     - TERMS.md
     - PRIVACY.md

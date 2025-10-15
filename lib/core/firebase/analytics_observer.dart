@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/core/firebase/analytics_service.dart";
+import "package:rainvu/core/firebase/analytics_service.dart";
 
 class AnalyticsObserver extends NavigatorObserver {
   AnalyticsObserver({required this.ref});

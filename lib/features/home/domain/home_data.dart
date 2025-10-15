@@ -1,5 +1,5 @@
 import "package:freezed_annotation/freezed_annotation.dart";
-import "package:rain_wise/shared/domain/rainfall_entry.dart";
+import "package:rainvu/shared/domain/rainfall_entry.dart";
 
 part "home_data.freezed.dart";
 

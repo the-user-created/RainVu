@@ -20,7 +20,7 @@ Future<String> documentContent(final Ref ref, final String path) async {
     try {
       final client = HttpClient();
       final Uri uri = Uri.parse(
-        "https://raw.githubusercontent.com/the-user-created/RainWise/main/$path",
+        "https://raw.githubusercontent.com/the-user-created/RainVu/main/$path",
       );
       final HttpClientRequest request = await client.getUrl(uri);
       final HttpClientResponse response = await request.close();

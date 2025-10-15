@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/buttons/app_icon_button.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/widgets/buttons/app_icon_button.dart";
 
 class HomeAppBar extends StatelessWidget implements PreferredSizeWidget {
   const HomeAppBar({required this.onAddPressed, super.key});

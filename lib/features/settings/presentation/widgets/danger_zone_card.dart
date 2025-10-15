@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/app_constants.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rainvu/app_constants.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/widgets/buttons/app_button.dart";
 
 class DangerZoneCard extends StatelessWidget {
   const DangerZoneCard({required this.onReset, super.key});

@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/shared/widgets/sheets/sheet_context.dart";
+import "package:rainvu/shared/widgets/sheets/sheet_context.dart";
 
 /// A reusable, styled bottom sheet container that provides a consistent
 /// look and feel for modal sheets across the app.

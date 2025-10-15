@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/domain/user_preferences.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/domain/user_preferences.dart";
 
 extension ListDivideExt<T extends Widget> on Iterable<T> {
   Iterable<MapEntry<int, Widget>> get enumerate => toList().asMap().entries;

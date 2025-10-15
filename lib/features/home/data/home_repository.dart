@@ -1,8 +1,8 @@
 import "package:intl/intl.dart";
-import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
-import "package:rain_wise/core/data/repositories/rainfall_repository.dart";
-import "package:rain_wise/features/home/domain/home_data.dart";
-import "package:rain_wise/shared/domain/rainfall_entry.dart";
+import "package:rainvu/core/data/local/daos/rainfall_entries_dao.dart";
+import "package:rainvu/core/data/repositories/rainfall_repository.dart";
+import "package:rainvu/features/home/domain/home_data.dart";
+import "package:rainvu/shared/domain/rainfall_entry.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "home_repository.g.dart";

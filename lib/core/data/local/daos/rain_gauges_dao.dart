@@ -1,8 +1,8 @@
 import "package:drift/drift.dart";
-import "package:rain_wise/app_constants.dart";
-import "package:rain_wise/core/data/local/app_database.dart";
-import "package:rain_wise/core/data/local/tables/rain_gauges.dart";
-import "package:rain_wise/core/data/local/tables/rainfall_entries.dart";
+import "package:rainvu/app_constants.dart";
+import "package:rainvu/core/data/local/app_database.dart";
+import "package:rainvu/core/data/local/tables/rain_gauges.dart";
+import "package:rainvu/core/data/local/tables/rainfall_entries.dart";
 
 part "rain_gauges_dao.g.dart";
 

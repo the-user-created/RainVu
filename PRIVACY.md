@@ -1,8 +1,8 @@
-# Privacy Policy for RainWise
+# Privacy Policy for RainVu
 
-**Last Updated:** October 14, 2025
+**Last Updated:** October 15, 2025
 
-Thank you for using RainWise. As an open-source project, we believe in full transparency regarding
+Thank you for using RainVu. As an open-source project, we believe in full transparency regarding
 your privacy. This policy explains how information is collected, used, and handled within our
 application. You are encouraged to inspect our source code to verify these practices for yourself.
 
@@ -25,7 +25,7 @@ do not have access to it. This can be verified by reviewing the public source co
 
 ### B. Information Collected Automatically (With Your Consent)
 
-To help us improve RainWise, we use industry-standard services to collect anonymous data about app
+To help us improve RainVu, we use industry-standard services to collect anonymous data about app
 usage and performance. **This data collection is disabled by default and is only enabled if you
 explicitly opt-in** during onboarding or in the app's settings.
 
@@ -76,13 +76,13 @@ following third-party services only under specific circumstances:
 
 ### D. Scope of This Policy
 
-This Privacy Policy applies only to the official version of RainWise distributed through the Apple
+This Privacy Policy applies only to the official version of RainVu distributed through the Apple
 App Store and Google Play Store. It does not apply to any forks, modified versions, or third-party
 builds of the application derived from our public source code.
 
 ## 4. Your Rights and Choices
 
-You have full control over your data within RainWise.
+You have full control over your data within RainVu.
 
 * **Opt-In/Opt-Out of Data Sharing:** You can enable or disable the collection of anonymous
   analytics and crash data at any time from the app's Settings screen.
@@ -94,7 +94,7 @@ You have full control over your data within RainWise.
 
 ## 5. Children's Privacy
 
-RainWise is not intended for use by individuals under the age of 13 (or the equivalent minimum age
+RainVu is not intended for use by individuals under the age of 13 (or the equivalent minimum age
 in your jurisdiction). We do not knowingly collect any personal information from children.
 
 ## 6. Changes to This Privacy Policy
@@ -108,4 +108,4 @@ periodically for any changes.
 If you have any questions about this Privacy Policy, you can contact us at developer@emberworks.dev.
 
 You can also view the source code or raise an issue on our public
-repository: https://github.com/the-user-created/RainWise
+repository: https://github.com/the-user-created/RainVu

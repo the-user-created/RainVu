@@ -2,13 +2,13 @@ import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/core/firebase/telemetry_manager.dart";
-import "package:rain_wise/core/navigation/app_router.dart";
-import "package:rain_wise/core/utils/snackbar_service.dart";
-import "package:rain_wise/features/onboarding/application/onboarding_provider.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/utils/ui_helpers.dart";
-import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rainvu/core/firebase/telemetry_manager.dart";
+import "package:rainvu/core/navigation/app_router.dart";
+import "package:rainvu/core/utils/snackbar_service.dart";
+import "package:rainvu/features/onboarding/application/onboarding_provider.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/utils/ui_helpers.dart";
+import "package:rainvu/shared/widgets/buttons/app_button.dart";
 import "package:url_launcher/url_launcher.dart";
 
 class PermissionsStep extends ConsumerStatefulWidget {
@@ -98,7 +98,7 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () => _launchUrl(
-                      "https://github.com/the-user-created/RainWise/blob/main/PRIVACY.md",
+                      "https://github.com/the-user-created/RainVu/blob/main/PRIVACY.md",
                     ),
                 ),
                 TextSpan(text: " ${l10n.and} "),
@@ -110,7 +110,7 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
                   ),
                   recognizer: TapGestureRecognizer()
                     ..onTap = () => _launchUrl(
-                      "https://github.com/the-user-created/RainWise/blob/main/TERMS.md",
+                      "https://github.com/the-user-created/RainVu/blob/main/TERMS.md",
                     ),
                 ),
                 const TextSpan(text: "."),

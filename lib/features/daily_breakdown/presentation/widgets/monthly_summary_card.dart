@@ -1,13 +1,13 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
-import "package:rain_wise/core/application/preferences_provider.dart";
-import "package:rain_wise/core/navigation/app_router.dart";
-import "package:rain_wise/core/utils/extensions.dart";
-import "package:rain_wise/features/daily_breakdown/domain/daily_breakdown_data.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/domain/user_preferences.dart";
-import "package:rain_wise/shared/widgets/buttons/app_button.dart";
+import "package:rainvu/core/application/preferences_provider.dart";
+import "package:rainvu/core/navigation/app_router.dart";
+import "package:rainvu/core/utils/extensions.dart";
+import "package:rainvu/features/daily_breakdown/domain/daily_breakdown_data.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/domain/user_preferences.dart";
+import "package:rainvu/shared/widgets/buttons/app_button.dart";
 
 class MonthlySummaryCard extends ConsumerWidget {
   const MonthlySummaryCard({

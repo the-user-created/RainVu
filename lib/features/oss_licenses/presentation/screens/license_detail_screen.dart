@@ -1,9 +1,9 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/oss_licenses.dart" as oss;
-import "package:rain_wise/shared/utils/adaptive_ui_helpers.dart";
-import "package:rain_wise/shared/widgets/buttons/app_button.dart";
-import "package:rain_wise/shared/widgets/sheets/interactive_sheet.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/oss_licenses.dart" as oss;
+import "package:rainvu/shared/utils/adaptive_ui_helpers.dart";
+import "package:rainvu/shared/widgets/buttons/app_button.dart";
+import "package:rainvu/shared/widgets/sheets/interactive_sheet.dart";
 
 class LicenseDetailScreen extends StatelessWidget {
   const LicenseDetailScreen({required this.package, super.key});

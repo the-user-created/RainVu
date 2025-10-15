@@ -1,66 +1,35 @@
-// ignore_for_file: type=lint
-import 'package:firebase_core/firebase_core.dart' show FirebaseOptions;
-import 'package:flutter/foundation.dart'
-    show defaultTargetPlatform, kIsWeb, TargetPlatform;
-import 'package:flutter_dotenv/flutter_dotenv.dart';
+import "package:firebase_core/firebase_core.dart" show FirebaseOptions;
+import "package:flutter/foundation.dart" show kIsWeb;
 
-/// Default [FirebaseOptions] for use with your Firebase apps.
+import "package:rainvu/firebase_options_dev.dart" as dev;
+import "package:rainvu/firebase_options_prod.dart" as prod;
+
+const String _flavor = String.fromEnvironment("flavor");
+
+/// A class that holds the default `FirebaseOptions` for the current platform.
 ///
-/// Example:
-/// ```dart
-/// import 'firebase_options.dart';
-/// // ...
-/// await Firebase.initializeApp(
-///   options: DefaultFirebaseOptions.currentPlatform,
-/// );
-/// ```
+/// The static `currentPlatform` getter will return the correct
+/// options based on the compile-time `--dart-define=flavor=<flavor>` variable.
 class DefaultFirebaseOptions {
   static FirebaseOptions get currentPlatform {
     if (kIsWeb) {
       throw UnsupportedError(
-        'DefaultFirebaseOptions have not been configured for web - '
-        'you can reconfigure this by running the FlutterFire CLI again.',
+        "DefaultFirebaseOptions have not been configured for web.",
       );
     }
-    switch (defaultTargetPlatform) {
-      case TargetPlatform.android:
-        return android;
-      case TargetPlatform.iOS:
-        return ios;
-      case TargetPlatform.macOS:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for macos - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
-      case TargetPlatform.windows:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for windows - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
-      case TargetPlatform.linux:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions have not been configured for linux - '
-          'you can reconfigure this by running the FlutterFire CLI again.',
-        );
+
+    switch (_flavor) {
+      case "dev":
+        print("🔥 Using DEV Firebase options");
+        return dev.DefaultFirebaseOptions.currentPlatform;
+      case "prod":
+        print("🚀 Using PROD Firebase options");
+        return prod.DefaultFirebaseOptions.currentPlatform;
       default:
-        throw UnsupportedError(
-          'DefaultFirebaseOptions are not supported for this platform.',
+        print(
+          "⚠️ No flavor or unknown flavor specified, defaulting to PROD Firebase options",
         );
+        return prod.DefaultFirebaseOptions.currentPlatform;
     }
   }
-
-  static FirebaseOptions android = FirebaseOptions(
-    apiKey: dotenv.env['androidApiKey'] ?? "",
-    appId: dotenv.env['androidAppId'] ?? "",
-    messagingSenderId: dotenv.env['messagingSenderId'] ?? "",
-    projectId: dotenv.env['firebaseProjectId'] ?? "",
-  );
-
-  static FirebaseOptions ios = FirebaseOptions(
-    apiKey: dotenv.env['iosApiKey'] ?? "",
-    appId: dotenv.env['iosAppId'] ?? "",
-    messagingSenderId: dotenv.env['messagingSenderId'] ?? "",
-    projectId: dotenv.env['firebaseProjectId'] ?? "",
-    iosBundleId: dotenv.env['iosBundleId'] ?? "",
-  );
 }

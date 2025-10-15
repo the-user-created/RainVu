@@ -2,18 +2,32 @@
   "flutter": {
     "platforms": {
       "android": {
-        "default": {
-          "projectId": "rainwise-3518f",
-          "appId": "1:140442360297:android:01013180e2b8da547bd378",
-          "fileOutput": "android/app/google-services.json"
+        "buildConfigurations": {
+          "src/dev": {
+            "projectId": "rainvu-dev",
+            "appId": "1:181297700803:android:d6ed1a2e48ab9bb12ea776",
+            "fileOutput": "android/app/src/dev/google-services.json"
+          },
+          "src/prod": {
+            "projectId": "rainvu-prod",
+            "appId": "1:49922939683:android:ca37e0c825188e062c8a96",
+            "fileOutput": "android/app/src/prod/google-services.json"
+          }
         }
       },
       "dart": {
-        "lib/firebase_options.dart": {
-          "projectId": "rainwise-3518f",
+        "lib/firebase_options_dev.dart": {
+          "projectId": "rainvu-dev",
           "configurations": {
-            "android": "1:140442360297:android:01013180e2b8da547bd378",
-            "ios": "1:140442360297:ios:ff77cecc30ee570c7bd378"
+            "android": "1:181297700803:android:d6ed1a2e48ab9bb12ea776",
+            "ios": "1:181297700803:ios:7a84f8fb301b792e2ea776"
+          }
+        },
+        "lib/firebase_options_prod.dart": {
+          "projectId": "rainvu-prod",
+          "configurations": {
+            "android": "1:49922939683:android:ca37e0c825188e062c8a96",
+            "ios": "1:49922939683:ios:496100e31e00b3f92c8a96"
           }
         }
       }

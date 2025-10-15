@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rain_wise/features/seasonal_trends/application/seasonal_trends_provider.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
-import "package:rain_wise/shared/domain/seasons.dart";
-import "package:rain_wise/shared/widgets/forms/app_dropdown.dart";
-import "package:rain_wise/shared/widgets/placeholders.dart";
+import "package:rainvu/features/seasonal_trends/application/seasonal_trends_provider.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/domain/seasons.dart";
+import "package:rainvu/shared/widgets/forms/app_dropdown.dart";
+import "package:rainvu/shared/widgets/placeholders.dart";
 import "package:shimmer/shimmer.dart";
 
 class SeasonSelector extends ConsumerWidget {

@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/core/ui/custom_colors.dart";
-import "package:rain_wise/features/changelog/domain/changelog_entry.dart";
-import "package:rain_wise/features/changelog/presentation/widgets/change_item_tile.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rainvu/core/ui/custom_colors.dart";
+import "package:rainvu/features/changelog/domain/changelog_entry.dart";
+import "package:rainvu/features/changelog/presentation/widgets/change_item_tile.dart";
+import "package:rainvu/l10n/app_localizations.dart";
 
 class ChangeGroupWidget extends StatelessWidget {
   const ChangeGroupWidget({required this.group, super.key});

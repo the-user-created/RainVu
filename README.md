@@ -1,6 +1,6 @@
-# RainWise 💧
+# RainVu 💧
 
-RainWise is a modern Flutter app for farmers, gardeners, and weather enthusiasts to meticulously log
+RainVu is a modern Flutter app for farmers, gardeners, and weather enthusiasts to meticulously log
 rainfall from multiple custom gauges. It transforms raw data into actionable insights through
 powerful charts and historical analysis, all while keeping user data private and on-device.
 
@@ -28,7 +28,8 @@ powerful charts and historical analysis, all while keeping user data private and
 ## 🛠️ Tech Stack & Architecture
 
 This project is built with a modern, scalable Flutter stack emphasizing type-safety, code
-generation, and a feature-first architecture.
+generation, and a feature-first architecture with distinct environments for development and
+production.
 
 ### Core Technologies
 
@@ -50,7 +51,6 @@ generation, and a feature-first architecture.
 
 * `json_serializable`: For robust JSON serialization/deserialization.
 * `intl`: For internationalization and date/number formatting.
-* `flutter_dotenv`: For managing environment variables (e.g., Firebase keys).
 * `file_picker` & `url_launcher`: For file system and external link interactions.
 * `build_runner`: To run all code generation tasks.
 
@@ -61,8 +61,8 @@ generation, and a feature-first architecture.
 
 ### Project Structure
 
-The codebase follows a **feature-first** architecture to promote modularity and separation of
-concerns.
+The codebase follows a **feature-first** architecture and uses separate entry points for different
+build environments (flavors).
 
 ```
 lib/
@@ -84,7 +84,9 @@ lib/
 │   ├── domain/       # Domain models shared across multiple features
 │   └── widgets/      # Reusable widgets (buttons, dialogs, etc.)
 │
-└── main.dart         # App entry point
+├── main_common.dart  # Shared app initialization logic
+├── main_dev.dart     # Entry point for the 'dev' flavor
+└── main_prod.dart    # Entry point for the 'prod' flavor
 ```
 
 ## 🚀 Getting Started
@@ -94,16 +96,18 @@ Follow these instructions to set up the project for local development.
 ### Prerequisites
 
 * Flutter SDK (version specified in `pubspec.yaml`)
-* An IDE like VS Code or Android Studio
+* An IDE like Android Studio or VS Code
 * An Android Emulator or physical device
 * An iOS Simulator or physical device (requires macOS with Xcode)
+* [Firebase CLI](https://firebase.google.com/docs/cli#install_the_firebase_cli) installed and
+  authenticated (`firebase login`).
 
 ### Setup
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/the-user-created/RainWise.git
-   cd RainWise
+   git clone https://github.com/the-user-created/RainVu.git
+   cd RainVu
    ```
 
 2. **Install dependencies:**
@@ -111,39 +115,88 @@ Follow these instructions to set up the project for local development.
    flutter pub get
    ```
 
-3. **Set up environment variables:**
-   This project uses Firebase for Analytics and Crashlytics, which requires API keys.
+3. **Set up Firebase:**
+   This project uses Firebase for Analytics and Crashlytics, configured separately for `dev` and
+   `prod` environments (flavors). To run the app, you must set up your own Firebase projects.
 
-* Copy the example environment file:
-  ```bash
-  cp .env.example .env
-  ```
-* Open the newly created `.env` file and fill in your Firebase project configuration values. You can
-  get these from your Firebase console.
+    * Create two Firebase projects in the [Firebase Console](https://console.firebase.google.com/):
+      one for development (e.g., `my-rainvu-dev`) and one for production (e.g., `my-rainvu-prod`).
+    * Enable Analytics and Crashlytics in both projects.
+    * For each project, register an Android and an iOS app, making sure to use the correct
+      package/bundle IDs:
+        * **Development:** `com.emberworks.rainvu.dev` (for both iOS and Android)
+        * **Production:** `com.emberworks.rainvu` (for both iOS and Android)
+    * Run the `flutterfire configure` commands below, replacing the `--project` value with your own
+      Firebase project IDs. This will generate the necessary `firebase_options_*.dart` files and
+      native configuration files.
+
+   **Configure Development Firebase:**
+   ```bash
+   flutterfire configure \
+     --project=<YOUR_DEV_PROJECT_ID> \
+     --out=lib/firebase_options_dev.dart \
+     --ios-bundle-id=com.emberworks.rainvu.dev \
+     --android-package-name=com.emberworks.rainvu.dev \
+     --ios-out=ios/Runner/Firebase/dev/GoogleService-Info.plist \
+     --android-out=android/app/src/dev/google-services.json
+   ```
+
+   **Configure Production Firebase:**
+   ```bash
+   flutterfire configure \
+     --project=<YOUR_PROD_PROJECT_ID> \
+     --out=lib/firebase_options_prod.dart \
+     --ios-bundle-id=com.emberworks.rainvu \
+     --android-package-name=com.emberworks.rainvu \
+     --ios-out=ios/Runner/Firebase/prod/GoogleService-Info.plist \
+     --android-out=android/app/src/prod/google-services.json
+   ```
 
 4. **Run code generation:**
-   This project heavily relies on code generation. Run the `build_runner` to generate the necessary
+   This project heavily relies on code generation. Run `build_runner` to generate the necessary
    files:
    ```bash
    dart run build_runner build --delete-conflicting-outputs
    ```
 
-### Running the App
-
-1. Ensure an emulator/simulator is running or a device is connected.
-2. Run the app from your IDE or via the command line:
-   ```bash
-   flutter run
-   ```
-
 ## 💻 Development Workflow
 
-To keep development smooth and efficient, please follow these guidelines.
+The app is configured with two environments, called "flavors": `dev` and `prod`. You must specify
+which flavor you want to run or build.
+
+### Running the App (Flavors)
+
+Ensure an emulator/simulator is running or a device is connected.
+
+* **To run the `dev` flavor:**
+  This version connects to your development Firebase project, has a `.dev` suffix in its application
+  ID, and displays a "DEBUG" banner.
+  ```bash
+  flutter run --flavor dev -t lib/main_dev.dart
+  ```
+
+* **To run the `prod` flavor:**
+  This version connects to your production Firebase project and behaves as the release version
+  would.
+  ```bash
+  flutter run --flavor prod -t lib/main_prod.dart
+  ```
+
+### Building for Release
+
+* **To build an Android App Bundle for production:**
+  ```bash
+  flutter build appbundle --flavor prod -t lib/main_prod.dart
+  ```
+* **To build an iOS App for production:**
+  ```bash
+  flutter build ipa --flavor prod -t lib/main_prod.dart
+  ```
 
 ### Code Generation
 
 If you modify any file that uses code generation (e.g., Riverpod providers, Freezed models, Drift
-tables), you must re-run the `build_runner`. For continuous development, use the `watch` command:
+tables), you must re-run `build_runner`. For continuous development, use the `watch` command:
 
 ```bash
 dart run build_runner watch --delete-conflicting-outputs

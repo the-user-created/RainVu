@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:rain_wise/app_constants.dart";
+import "package:rainvu/app_constants.dart";
 
 /// A styled card that wraps a list of setting tiles.
 /// It provides a consistent background, shadow, and dividers.

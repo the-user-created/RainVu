@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
-import "package:rain_wise/core/firebase/analytics_service.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rainvu/core/firebase/analytics_service.dart";
+import "package:rainvu/l10n/app_localizations.dart";
 
 /// A Scaffold with a persistent BottomNavigationBar for nested navigation.
 ///

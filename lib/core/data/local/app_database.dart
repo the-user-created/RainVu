@@ -1,10 +1,10 @@
 import "package:drift/drift.dart";
-import "package:rain_wise/app_constants.dart";
-import "package:rain_wise/core/data/local/connection/mobile.dart";
-import "package:rain_wise/core/data/local/daos/rain_gauges_dao.dart";
-import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
-import "package:rain_wise/core/data/local/tables/rain_gauges.dart";
-import "package:rain_wise/core/data/local/tables/rainfall_entries.dart";
+import "package:rainvu/app_constants.dart";
+import "package:rainvu/core/data/local/connection/mobile.dart";
+import "package:rainvu/core/data/local/daos/rain_gauges_dao.dart";
+import "package:rainvu/core/data/local/daos/rainfall_entries_dao.dart";
+import "package:rainvu/core/data/local/tables/rain_gauges.dart";
+import "package:rainvu/core/data/local/tables/rainfall_entries.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:uuid/uuid.dart";
 

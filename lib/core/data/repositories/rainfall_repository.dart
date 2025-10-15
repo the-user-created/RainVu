@@ -1,12 +1,12 @@
 import "package:drift/drift.dart";
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
-import "package:rain_wise/core/data/local/app_database.dart";
-import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
-import "package:rain_wise/shared/domain/rain_gauge.dart" as domain_gauge;
-import "package:rain_wise/shared/domain/rainfall_entry.dart" as domain;
+import "package:rainvu/core/data/local/app_database.dart";
+import "package:rainvu/core/data/local/daos/rainfall_entries_dao.dart";
+import "package:rainvu/shared/domain/rain_gauge.dart" as domain_gauge;
+import "package:rainvu/shared/domain/rainfall_entry.dart" as domain;
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
-export "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart"
+export "package:rainvu/core/data/local/daos/rainfall_entries_dao.dart"
     show DateRangeResult;
 
 part "rainfall_repository.g.dart";

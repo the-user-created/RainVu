@@ -1,9 +1,9 @@
 import "dart:math";
 
 import "package:collection/collection.dart";
-import "package:rain_wise/core/data/local/app_database.dart";
-import "package:rain_wise/core/data/local/daos/rainfall_entries_dao.dart";
-import "package:rain_wise/features/daily_breakdown/domain/daily_breakdown_data.dart";
+import "package:rainvu/core/data/local/app_database.dart";
+import "package:rainvu/core/data/local/daos/rainfall_entries_dao.dart";
+import "package:rainvu/features/daily_breakdown/domain/daily_breakdown_data.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "daily_breakdown_repository.g.dart";

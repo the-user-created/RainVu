@@ -2,8 +2,8 @@ import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:package_info_plus/package_info_plus.dart";
-import "package:rain_wise/features/settings/application/settings_providers.dart";
-import "package:rain_wise/l10n/app_localizations.dart";
+import "package:rainvu/features/settings/application/settings_providers.dart";
+import "package:rainvu/l10n/app_localizations.dart";
 
 /// A footer widget that displays the app version and build number.
 class AppInfoFooter extends ConsumerWidget {

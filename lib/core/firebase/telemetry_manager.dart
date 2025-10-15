@@ -1,8 +1,8 @@
 import "package:firebase_analytics/firebase_analytics.dart";
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/foundation.dart";
-import "package:rain_wise/app_constants.dart";
-import "package:rain_wise/core/data/local/shared_prefs.dart";
+import "package:rainvu/app_constants.dart";
+import "package:rainvu/core/data/local/shared_prefs.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:shared_preferences/shared_preferences.dart";
 

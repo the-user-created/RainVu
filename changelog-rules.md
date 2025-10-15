@@ -1,4 +1,4 @@
-## **RainWise `CHANGELOG.md` Format Specification**
+## **RainVu `CHANGELOG.md` Format Specification**
 
 [Common Changelog](https://common-changelog.org/)
 
@@ -121,7 +121,7 @@ This example demonstrates all the rules working together in a valid `CHANGELOG.m
 ### Added
 
 - New **'What's New'** screen to view app updates directly within the settings.
-- Added 'Share RainWise' and 'Leave a Review' options to **support development**.
+- Added 'Share RainVu' and 'Leave a Review' options to **support development**.
 
 ### Changed
 
@@ -148,5 +148,5 @@ This example demonstrates all the rules working together in a valid `CHANGELOG.m
 
 ### Added
 
-- **Initial release** of RainWise!
+- **Initial release** of RainVu!
 ```
