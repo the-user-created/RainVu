@@ -2,9 +2,9 @@ import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_markdown_plus/flutter_markdown_plus.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rainly/features/legal/application/legal_providers.dart";
-import "package:rainly/l10n/app_localizations.dart";
-import "package:rainly/shared/widgets/placeholders.dart";
+import "package:rainvu/features/legal/application/legal_providers.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/widgets/placeholders.dart";
 import "package:shimmer/shimmer.dart";
 
 class MarkdownViewerScreen extends ConsumerWidget {

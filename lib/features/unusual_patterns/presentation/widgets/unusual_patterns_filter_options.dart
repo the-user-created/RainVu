@@ -1,15 +1,15 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
-import "package:rainly/core/data/providers/data_providers.dart";
-import "package:rainly/core/data/repositories/rainfall_repository.dart";
-import "package:rainly/features/unusual_patterns/application/unusual_patterns_provider.dart";
-import "package:rainly/features/unusual_patterns/domain/unusual_patterns_data.dart";
-import "package:rainly/l10n/app_localizations.dart";
-import "package:rainly/shared/utils/adaptive_ui_helpers.dart";
-import "package:rainly/shared/widgets/buttons/app_button.dart";
-import "package:rainly/shared/widgets/pickers/date_range_picker.dart";
-import "package:rainly/shared/widgets/sheets/interactive_sheet.dart";
+import "package:rainvu/core/data/providers/data_providers.dart";
+import "package:rainvu/core/data/repositories/rainfall_repository.dart";
+import "package:rainvu/features/unusual_patterns/application/unusual_patterns_provider.dart";
+import "package:rainvu/features/unusual_patterns/domain/unusual_patterns_data.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/utils/adaptive_ui_helpers.dart";
+import "package:rainvu/shared/widgets/buttons/app_button.dart";
+import "package:rainvu/shared/widgets/pickers/date_range_picker.dart";
+import "package:rainvu/shared/widgets/sheets/interactive_sheet.dart";
 
 class AnomalyFilterOptions extends ConsumerWidget {
   const AnomalyFilterOptions({super.key});

@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:rainly/l10n/app_localizations.dart";
-import "package:rainly/shared/widgets/buttons/app_button.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/widgets/buttons/app_button.dart";
 
 class WelcomeStep extends StatelessWidget {
   const WelcomeStep({required this.onNext, super.key});

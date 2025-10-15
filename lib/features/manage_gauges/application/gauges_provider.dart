@@ -1,10 +1,10 @@
 import "dart:async";
 
-import "package:rainly/core/application/preferences_provider.dart";
-import "package:rainly/core/data/repositories/rain_gauge_repository.dart";
-import "package:rainly/core/firebase/analytics_service.dart";
-import "package:rainly/shared/domain/rain_gauge.dart";
-import "package:rainly/shared/domain/user_preferences.dart";
+import "package:rainvu/core/application/preferences_provider.dart";
+import "package:rainvu/core/data/repositories/rain_gauge_repository.dart";
+import "package:rainvu/core/firebase/analytics_service.dart";
+import "package:rainvu/shared/domain/rain_gauge.dart";
+import "package:rainvu/shared/domain/user_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "gauges_provider.g.dart";

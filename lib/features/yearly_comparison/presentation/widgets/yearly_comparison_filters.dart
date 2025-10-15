@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rainly/features/yearly_comparison/application/yearly_comparison_provider.dart";
-import "package:rainly/features/yearly_comparison/domain/yearly_comparison_data.dart";
-import "package:rainly/l10n/app_localizations.dart";
-import "package:rainly/shared/widgets/forms/app_choice_chips.dart";
-import "package:rainly/shared/widgets/forms/app_dropdown.dart";
+import "package:rainvu/features/yearly_comparison/application/yearly_comparison_provider.dart";
+import "package:rainvu/features/yearly_comparison/domain/yearly_comparison_data.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/widgets/forms/app_choice_chips.dart";
+import "package:rainvu/shared/widgets/forms/app_dropdown.dart";
 
 class YearlyComparisonFilters extends ConsumerWidget {
   const YearlyComparisonFilters({super.key});

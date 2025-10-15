@@ -8,14 +8,14 @@ import "package:flutter/services.dart";
 import "package:flutter_native_splash/flutter_native_splash.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
-import "package:rainly/core/data/local/shared_prefs.dart";
-import "package:rainly/core/firebase/telemetry_manager.dart";
-import "package:rainly/core/navigation/app_router.dart";
-import "package:rainly/core/ui/app_theme.dart";
-import "package:rainly/core/ui/theme_provider.dart";
-import "package:rainly/core/utils/formatters.dart";
-import "package:rainly/core/utils/snackbar_service.dart";
-import "package:rainly/l10n/app_localizations.dart";
+import "package:rainvu/core/data/local/shared_prefs.dart";
+import "package:rainvu/core/firebase/telemetry_manager.dart";
+import "package:rainvu/core/navigation/app_router.dart";
+import "package:rainvu/core/ui/app_theme.dart";
+import "package:rainvu/core/ui/theme_provider.dart";
+import "package:rainvu/core/utils/formatters.dart";
+import "package:rainvu/core/utils/snackbar_service.dart";
+import "package:rainvu/l10n/app_localizations.dart";
 
 Future<void> mainCommon(final FirebaseOptions firebaseOptions) async {
   runZonedGuarded<Future<void>>(

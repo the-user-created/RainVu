@@ -1,10 +1,10 @@
 import "package:drift/drift.dart";
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
-import "package:rainly/app_constants.dart";
-import "package:rainly/core/data/local/app_database.dart";
-import "package:rainly/core/data/local/daos/rain_gauges_dao.dart";
-import "package:rainly/core/data/local/daos/rainfall_entries_dao.dart";
-import "package:rainly/shared/domain/rain_gauge.dart" as domain;
+import "package:rainvu/app_constants.dart";
+import "package:rainvu/core/data/local/app_database.dart";
+import "package:rainvu/core/data/local/daos/rain_gauges_dao.dart";
+import "package:rainvu/core/data/local/daos/rainfall_entries_dao.dart";
+import "package:rainvu/shared/domain/rain_gauge.dart" as domain;
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:uuid/uuid.dart";
 

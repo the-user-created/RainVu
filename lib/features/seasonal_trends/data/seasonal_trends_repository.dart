@@ -1,11 +1,11 @@
 import "dart:math";
 
 import "package:collection/collection.dart";
-import "package:rainly/core/data/local/app_database.dart";
-import "package:rainly/core/data/local/daos/rainfall_entries_dao.dart";
-import "package:rainly/features/seasonal_trends/application/seasonal_trends_provider.dart";
-import "package:rainly/features/seasonal_trends/domain/seasonal_trends_data.dart";
-import "package:rainly/shared/domain/seasons.dart";
+import "package:rainvu/core/data/local/app_database.dart";
+import "package:rainvu/core/data/local/daos/rainfall_entries_dao.dart";
+import "package:rainvu/features/seasonal_trends/application/seasonal_trends_provider.dart";
+import "package:rainvu/features/seasonal_trends/domain/seasonal_trends_data.dart";
+import "package:rainvu/shared/domain/seasons.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "seasonal_trends_repository.g.dart";

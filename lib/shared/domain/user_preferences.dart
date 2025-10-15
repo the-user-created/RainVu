@@ -1,6 +1,6 @@
 import "package:freezed_annotation/freezed_annotation.dart";
-import "package:rainly/app_constants.dart";
-import "package:rainly/shared/domain/seasons.dart";
+import "package:rainvu/app_constants.dart";
+import "package:rainvu/shared/domain/seasons.dart";
 
 part "user_preferences.freezed.dart";
 

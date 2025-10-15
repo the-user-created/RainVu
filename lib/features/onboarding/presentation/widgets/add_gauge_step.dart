@@ -1,12 +1,12 @@
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rainly/core/utils/snackbar_service.dart";
-import "package:rainly/features/manage_gauges/application/gauges_provider.dart";
-import "package:rainly/l10n/app_localizations.dart";
-import "package:rainly/shared/domain/rain_gauge.dart";
-import "package:rainly/shared/utils/ui_helpers.dart";
-import "package:rainly/shared/widgets/buttons/app_button.dart";
+import "package:rainvu/core/utils/snackbar_service.dart";
+import "package:rainvu/features/manage_gauges/application/gauges_provider.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/domain/rain_gauge.dart";
+import "package:rainvu/shared/utils/ui_helpers.dart";
+import "package:rainvu/shared/widgets/buttons/app_button.dart";
 
 class AddGaugeStep extends ConsumerStatefulWidget {
   const AddGaugeStep({required this.onNext, required this.onSkip, super.key});

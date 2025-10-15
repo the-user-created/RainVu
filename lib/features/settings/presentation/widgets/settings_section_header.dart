@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:rainly/app_constants.dart";
+import "package:rainvu/app_constants.dart";
 
 /// A simple header widget for a section of settings.
 class SettingsSectionHeader extends StatelessWidget {

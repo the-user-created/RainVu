@@ -1,12 +1,12 @@
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rainly/core/ui/custom_colors.dart";
-import "package:rainly/features/changelog/application/changelog_provider.dart";
-import "package:rainly/features/changelog/domain/changelog_entry.dart";
-import "package:rainly/features/changelog/presentation/widgets/change_group_widget.dart";
-import "package:rainly/l10n/app_localizations.dart";
-import "package:rainly/shared/widgets/placeholders.dart";
+import "package:rainvu/core/ui/custom_colors.dart";
+import "package:rainvu/features/changelog/application/changelog_provider.dart";
+import "package:rainvu/features/changelog/domain/changelog_entry.dart";
+import "package:rainvu/features/changelog/presentation/widgets/change_group_widget.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/widgets/placeholders.dart";
 
 class ChangelogScreen extends ConsumerWidget {
   const ChangelogScreen({super.key});

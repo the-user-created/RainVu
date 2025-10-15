@@ -1,5 +1,5 @@
-import "package:rainly/app_constants.dart";
-import "package:rainly/core/data/local/shared_prefs.dart";
+import "package:rainvu/app_constants.dart";
+import "package:rainvu/core/data/local/shared_prefs.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:shared_preferences/shared_preferences.dart";
 

@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:rainly/shared/widgets/sheets/sheet_context.dart";
+import "package:rainvu/shared/widgets/sheets/sheet_context.dart";
 
 /// Shows a modal UI that is a bottom sheet in portrait mode and a
 /// dialog in landscape mode. This provides a better user experience on

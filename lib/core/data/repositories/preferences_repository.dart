@@ -1,8 +1,8 @@
 import "dart:convert";
 
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
-import "package:rainly/core/data/local/shared_prefs.dart";
-import "package:rainly/shared/domain/user_preferences.dart";
+import "package:rainvu/core/data/local/shared_prefs.dart";
+import "package:rainvu/shared/domain/user_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 import "package:shared_preferences/shared_preferences.dart";
 

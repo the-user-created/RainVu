@@ -4,30 +4,30 @@
       "android": {
         "buildConfigurations": {
           "src/dev": {
-            "projectId": "rainly-dev",
-            "appId": "1:542888922129:android:5293531228698ad98e35b0",
+            "projectId": "rainvu-dev",
+            "appId": "1:181297700803:android:d6ed1a2e48ab9bb12ea776",
             "fileOutput": "android/app/src/dev/google-services.json"
           },
           "src/prod": {
-            "projectId": "rainly-prod",
-            "appId": "1:613631322615:android:d91930457723a8478226f2",
+            "projectId": "rainvu-prod",
+            "appId": "1:49922939683:android:ca37e0c825188e062c8a96",
             "fileOutput": "android/app/src/prod/google-services.json"
           }
         }
       },
       "dart": {
         "lib/firebase_options_dev.dart": {
-          "projectId": "rainly-dev",
+          "projectId": "rainvu-dev",
           "configurations": {
-            "android": "1:542888922129:android:5293531228698ad98e35b0",
-            "ios": "1:542888922129:ios:8958ba8b15c8fcfc8e35b0"
+            "android": "1:181297700803:android:d6ed1a2e48ab9bb12ea776",
+            "ios": "1:181297700803:ios:7a84f8fb301b792e2ea776"
           }
         },
         "lib/firebase_options_prod.dart": {
-          "projectId": "rainly-prod",
+          "projectId": "rainvu-prod",
           "configurations": {
-            "android": "1:613631322615:android:d91930457723a8478226f2",
-            "ios": "1:613631322615:ios:21a37804736bcaa08226f2"
+            "android": "1:49922939683:android:ca37e0c825188e062c8a96",
+            "ios": "1:49922939683:ios:496100e31e00b3f92c8a96"
           }
         }
       }

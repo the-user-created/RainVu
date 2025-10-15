@@ -1,4 +1,4 @@
-package com.emberworks.rainly
+package com.emberworks.rainvu
 
 import io.flutter.embedding.android.FlutterActivity
 

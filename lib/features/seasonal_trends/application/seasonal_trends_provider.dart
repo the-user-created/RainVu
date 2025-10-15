@@ -1,11 +1,11 @@
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:freezed_annotation/freezed_annotation.dart";
-import "package:rainly/core/application/preferences_provider.dart";
-import "package:rainly/core/data/repositories/rainfall_repository.dart";
-import "package:rainly/features/seasonal_trends/data/seasonal_trends_repository.dart";
-import "package:rainly/features/seasonal_trends/domain/seasonal_trends_data.dart";
-import "package:rainly/shared/domain/seasons.dart";
-import "package:rainly/shared/domain/user_preferences.dart";
+import "package:rainvu/core/application/preferences_provider.dart";
+import "package:rainvu/core/data/repositories/rainfall_repository.dart";
+import "package:rainvu/features/seasonal_trends/data/seasonal_trends_repository.dart";
+import "package:rainvu/features/seasonal_trends/domain/seasonal_trends_data.dart";
+import "package:rainvu/shared/domain/seasons.dart";
+import "package:rainvu/shared/domain/user_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "seasonal_trends_provider.g.dart";

@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:rainly/shared/utils/adaptive_ui_helpers.dart";
-import "package:rainly/shared/widgets/sheets/interactive_sheet.dart";
+import "package:rainvu/shared/utils/adaptive_ui_helpers.dart";
+import "package:rainvu/shared/widgets/sheets/interactive_sheet.dart";
 
 /// A data model for a single informational item displayed in the [InfoSheet].
 class InfoSheetItem {

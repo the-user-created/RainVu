@@ -1,7 +1,7 @@
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
-import "package:rainly/core/application/preferences_provider.dart";
-import "package:rainly/shared/domain/user_preferences.dart";
+import "package:rainvu/core/application/preferences_provider.dart";
+import "package:rainvu/shared/domain/user_preferences.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "theme_provider.g.dart";

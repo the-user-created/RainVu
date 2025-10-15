@@ -1,6 +1,6 @@
-import "package:rainly/core/data/repositories/rainfall_repository.dart";
-import "package:rainly/core/firebase/analytics_service.dart";
-import "package:rainly/shared/domain/rainfall_entry.dart";
+import "package:rainvu/core/data/repositories/rainfall_repository.dart";
+import "package:rainvu/core/firebase/analytics_service.dart";
+import "package:rainvu/shared/domain/rainfall_entry.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "rainfall_entry_provider.g.dart";

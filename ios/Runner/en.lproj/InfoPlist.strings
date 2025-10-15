@@ -7,7 +7,7 @@
 */
 
 /* The name of the app displayed on the home screen */
-"CFBundleDisplayName" = "Rainly";
+"CFBundleDisplayName" = "RainVu";
 
 /* The short name of the app used in various places */
-"CFBundleName" = "Rainly";
+"CFBundleName" = "RainVu";

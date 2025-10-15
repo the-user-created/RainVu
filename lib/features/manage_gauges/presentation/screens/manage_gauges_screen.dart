@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
-import "package:rainly/app_constants.dart";
-import "package:rainly/features/manage_gauges/presentation/widgets/add_gauge_sheet.dart";
-import "package:rainly/features/manage_gauges/presentation/widgets/gauge_list.dart";
-import "package:rainly/l10n/app_localizations.dart";
-import "package:rainly/shared/utils/adaptive_ui_helpers.dart";
-import "package:rainly/shared/widgets/buttons/app_icon_button.dart";
+import "package:rainvu/app_constants.dart";
+import "package:rainvu/features/manage_gauges/presentation/widgets/add_gauge_sheet.dart";
+import "package:rainvu/features/manage_gauges/presentation/widgets/gauge_list.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/utils/adaptive_ui_helpers.dart";
+import "package:rainvu/shared/widgets/buttons/app_icon_button.dart";
 
 class ManageGaugesScreen extends StatelessWidget {
   const ManageGaugesScreen({super.key});

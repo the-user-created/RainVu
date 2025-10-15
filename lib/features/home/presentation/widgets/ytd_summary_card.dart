@@ -3,11 +3,11 @@ import "dart:math";
 import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rainly/core/application/preferences_provider.dart";
-import "package:rainly/core/navigation/app_router.dart";
-import "package:rainly/core/utils/extensions.dart";
-import "package:rainly/l10n/app_localizations.dart";
-import "package:rainly/shared/domain/user_preferences.dart";
+import "package:rainvu/core/application/preferences_provider.dart";
+import "package:rainvu/core/navigation/app_router.dart";
+import "package:rainvu/core/utils/extensions.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/domain/user_preferences.dart";
 
 class YtdSummaryCard extends ConsumerStatefulWidget {
   const YtdSummaryCard({

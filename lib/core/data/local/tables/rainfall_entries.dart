@@ -1,7 +1,7 @@
 // ignore_for_file: prefer_const_constructors
 
 import "package:drift/drift.dart";
-import "package:rainly/core/data/local/tables/rain_gauges.dart";
+import "package:rainvu/core/data/local/tables/rain_gauges.dart";
 import "package:uuid/uuid.dart";
 
 class RainfallEntries extends Table {

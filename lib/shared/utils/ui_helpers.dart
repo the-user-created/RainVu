@@ -1,5 +1,5 @@
 import "package:flutter/material.dart";
-import "package:rainly/core/utils/snackbar_service.dart";
+import "package:rainvu/core/utils/snackbar_service.dart";
 
 void showSnackbar(
   final String message, {

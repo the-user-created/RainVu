@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
 import "package:freezed_annotation/freezed_annotation.dart";
-import "package:rainly/core/ui/custom_colors.dart";
-import "package:rainly/l10n/app_localizations.dart";
+import "package:rainvu/core/ui/custom_colors.dart";
+import "package:rainvu/l10n/app_localizations.dart";
 
 part "changelog_entry.freezed.dart";
 

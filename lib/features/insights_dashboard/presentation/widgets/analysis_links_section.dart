@@ -1,6 +1,6 @@
 import "package:flutter/material.dart";
-import "package:rainly/core/navigation/app_router.dart";
-import "package:rainly/l10n/app_localizations.dart";
+import "package:rainvu/core/navigation/app_router.dart";
+import "package:rainvu/l10n/app_localizations.dart";
 
 class AnalysisLinksSection extends StatelessWidget {
   const AnalysisLinksSection({super.key});

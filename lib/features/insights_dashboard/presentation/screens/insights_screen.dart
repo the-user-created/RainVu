@@ -1,13 +1,13 @@
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rainly/features/insights_dashboard/application/insights_providers.dart";
-import "package:rainly/features/insights_dashboard/domain/insights_data.dart";
-import "package:rainly/features/insights_dashboard/presentation/widgets/analysis_links_section.dart";
-import "package:rainly/features/insights_dashboard/presentation/widgets/insights_history_chart.dart";
-import "package:rainly/features/insights_dashboard/presentation/widgets/metric_header.dart";
-import "package:rainly/l10n/app_localizations.dart";
-import "package:rainly/shared/widgets/placeholders.dart";
+import "package:rainvu/features/insights_dashboard/application/insights_providers.dart";
+import "package:rainvu/features/insights_dashboard/domain/insights_data.dart";
+import "package:rainvu/features/insights_dashboard/presentation/widgets/analysis_links_section.dart";
+import "package:rainvu/features/insights_dashboard/presentation/widgets/insights_history_chart.dart";
+import "package:rainvu/features/insights_dashboard/presentation/widgets/metric_header.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/widgets/placeholders.dart";
 import "package:shimmer/shimmer.dart";
 
 class InsightsScreen extends ConsumerWidget {

@@ -1,8 +1,8 @@
 import "package:firebase_core/firebase_core.dart" show FirebaseOptions;
 import "package:flutter/foundation.dart" show kIsWeb;
 
-import "package:rainly/firebase_options_dev.dart" as dev;
-import "package:rainly/firebase_options_prod.dart" as prod;
+import "package:rainvu/firebase_options_dev.dart" as dev;
+import "package:rainvu/firebase_options_prod.dart" as prod;
 
 const String _flavor = String.fromEnvironment("flavor");
 

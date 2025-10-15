@@ -1,12 +1,12 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rainly/core/application/preferences_provider.dart";
-import "package:rainly/core/utils/extensions.dart";
-import "package:rainly/features/insights_dashboard/application/insights_providers.dart";
-import "package:rainly/features/insights_dashboard/domain/insights_data.dart";
-import "package:rainly/l10n/app_localizations.dart";
-import "package:rainly/shared/domain/user_preferences.dart";
-import "package:rainly/shared/widgets/forms/app_choice_chips.dart";
+import "package:rainvu/core/application/preferences_provider.dart";
+import "package:rainvu/core/utils/extensions.dart";
+import "package:rainvu/features/insights_dashboard/application/insights_providers.dart";
+import "package:rainvu/features/insights_dashboard/domain/insights_data.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/domain/user_preferences.dart";
+import "package:rainvu/shared/widgets/forms/app_choice_chips.dart";
 
 class MetricHeader extends ConsumerWidget {
   const MetricHeader({super.key});

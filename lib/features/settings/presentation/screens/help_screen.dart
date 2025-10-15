@@ -3,11 +3,11 @@ import "package:flutter/material.dart";
 import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:package_info_plus/package_info_plus.dart";
-import "package:rainly/core/utils/snackbar_service.dart";
-import "package:rainly/features/settings/application/settings_providers.dart";
-import "package:rainly/features/settings/presentation/widgets/help/help_action_card.dart";
-import "package:rainly/l10n/app_localizations.dart";
-import "package:rainly/shared/utils/ui_helpers.dart";
+import "package:rainvu/core/utils/snackbar_service.dart";
+import "package:rainvu/features/settings/application/settings_providers.dart";
+import "package:rainvu/features/settings/presentation/widgets/help/help_action_card.dart";
+import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/utils/ui_helpers.dart";
 import "package:url_launcher/url_launcher.dart";
 
 class HelpScreen extends ConsumerWidget {

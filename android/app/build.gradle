@@ -31,7 +31,7 @@ if (keystorePropertiesFile.exists()) {
 }
 
 android {
-    namespace "com.emberworks.rainly"
+    namespace "com.emberworks.rainvu"
     compileSdk 36
 
     sourceSets {
@@ -39,7 +39,7 @@ android {
     }
 
     defaultConfig {
-        applicationId "com.emberworks.rainly"
+        applicationId "com.emberworks.rainvu"
         minSdkVersion 26
         targetSdkVersion 36
         versionCode flutterVersionCode.toInteger()

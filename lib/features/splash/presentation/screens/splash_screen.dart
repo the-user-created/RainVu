@@ -1,8 +1,8 @@
 import "package:flutter/material.dart";
 import "package:flutter_native_splash/flutter_native_splash.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rainly/core/navigation/app_router.dart";
-import "package:rainly/features/onboarding/application/onboarding_provider.dart";
+import "package:rainvu/core/navigation/app_router.dart";
+import "package:rainvu/features/onboarding/application/onboarding_provider.dart";
 
 class SplashScreen extends ConsumerWidget {
   const SplashScreen({super.key});

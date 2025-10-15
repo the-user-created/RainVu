@@ -8,7 +8,7 @@
 // https://pub.dev/packages/dart_pubspec_licenses
 
 /// This package.
-const thisPackage = _rainly;
+const thisPackage = _rainvu;
 
 /// All dependencies including transitive dependencies.
 const allDependencies = <Package>[
@@ -4413,13 +4413,13 @@ SOFTWARE.''',
     devDependencies: [PackageRef('build_runner'), PackageRef('mockito')],
   );
 
-/// flutter 3.35.5
+/// flutter 3.35.6
 const _flutter = Package(
     name: 'flutter',
     description: 'A framework for writing Flutter applications',
     homepage: 'https://flutter.dev',
     authors: [],
-    version: '3.35.5',
+    version: '3.35.6',
     license: '''Copyright 2014 The Flutter Authors. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -10563,11 +10563,11 @@ SOFTWARE.''',
     devDependencies: [PackageRef('path'), PackageRef('test')],
   );
 
-/// rainly 1.0.0+1
-const _rainly = Package(
-    name: 'rainly',
+/// rainvu 1.0.0+1
+const _rainvu = Package(
+    name: 'rainvu',
     description: 'A comprehensive mobile app for farmers, gardeners, and weather enthusiasts to meticulously log rainfall from multiple custom gauges and transform that data into actionable insights through powerful charting and historical analysis.',
-    repository: 'https://github.com/the-user-created/Rainly',
+    repository: 'https://github.com/the-user-created/RainVu',
     authors: [],
     version: '1.0.0+1',
     license: '''MIT License

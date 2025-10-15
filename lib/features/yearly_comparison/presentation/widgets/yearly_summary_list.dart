@@ -1,7 +1,7 @@
 import "package:flutter/material.dart";
-import "package:rainly/features/yearly_comparison/domain/yearly_comparison_data.dart";
-import "package:rainly/features/yearly_comparison/presentation/widgets/yearly_summary_card.dart";
-import "package:rainly/l10n/app_localizations.dart";
+import "package:rainvu/features/yearly_comparison/domain/yearly_comparison_data.dart";
+import "package:rainvu/features/yearly_comparison/presentation/widgets/yearly_summary_card.dart";
+import "package:rainvu/l10n/app_localizations.dart";
 
 class YearlySummaryList extends StatelessWidget {
   const YearlySummaryList({required this.summaries, super.key});

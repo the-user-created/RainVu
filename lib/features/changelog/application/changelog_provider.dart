@@ -1,5 +1,5 @@
-import "package:rainly/features/changelog/data/changelog_repository.dart";
-import "package:rainly/features/changelog/domain/changelog_entry.dart";
+import "package:rainvu/features/changelog/data/changelog_repository.dart";
+import "package:rainvu/features/changelog/domain/changelog_entry.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
 
 part "changelog_provider.g.dart";
