@@ -3,7 +3,7 @@ description: A comprehensive mobile app for farmers, gardeners, and weather enth
 
 publish_to: 'none'
 
-version: 1.0.0+1
+version: 1.0.0+2
 repository: https://github.com/the-user-created/RainVu
 
 environment:
