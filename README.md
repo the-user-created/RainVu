@@ -101,6 +101,7 @@ Follow these instructions to set up the project for local development.
 * An iOS Simulator or physical device (requires macOS with Xcode)
 * [Firebase CLI](https://firebase.google.com/docs/cli#install_the_firebase_cli) installed and
   authenticated (`firebase login`).
+* Java Development Kit (JDK) to use `keytool`.
 
 ### Setup
 
@@ -152,7 +153,30 @@ Follow these instructions to set up the project for local development.
      --android-out=android/app/src/prod/google-services.json
    ```
 
-4. **Run code generation:**
+4. **Set up Android App Signing:**
+   To build a release version of the Android app, you need to configure an upload keystore.
+
+    1. **Generate an Upload Keystore:**
+       If you don't have one, create a keystore using the following `keytool` command. It will
+       prompt you for passwords and other information. Remember the passwords you choose.
+       ```bash
+       keytool -genkey -v -keystore upload-keystore.jks -keyalg RSA -keysize 2048 -validity 10000 -alias upload
+       ```
+
+    2. **Move the Keystore:**
+       Place the generated `upload-keystore.jks` file inside the `android/` directory of the
+       project.
+
+    3. **Configure Signing Properties:**
+       In the `android/` directory, you will find a template file named `key.properties.example`.
+        * Create a copy of this file and rename it to `key.properties`.
+        * Open `key.properties` and fill in the passwords and alias you chose when generating the
+          keystore.
+
+       **Note:** The `key.properties` file is already listed in `.gitignore` and must **never** be
+       committed to version control.
+
+5. **Run code generation:**
    This project heavily relies on code generation. Run `build_runner` to generate the necessary
    files:
    ```bash
@@ -185,6 +209,7 @@ Ensure an emulator/simulator is running or a device is connected.
 ### Building for Release
 
 * **To build an Android App Bundle for production:**
+  After completing the app signing setup, run:
   ```bash
   flutter build appbundle --flavor prod -t lib/main_prod.dart
   ```

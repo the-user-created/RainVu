@@ -1,0 +1,11 @@
+# This file contains signing information for the Android app.
+# DO NOT COMMIT your actual key.properties file to version control.
+#
+# 1. Duplicate this file and rename the duplicate to key.properties
+# 2. Fill in the values below.
+# 3. Place your 'upload-keystore.jks' file in the same 'android/' directory.
+
+storePassword=
+keyPassword=
+keyAlias=upload
+storeFile=upload-keystore.jks
