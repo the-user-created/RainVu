@@ -483,11 +483,13 @@ class _ResetSheetState extends State<_ResetSheet> {
             decoration: InputDecoration(
               hintText: l10n.resetDialogTextFieldHint(_confirmationText),
             ),
+            autocorrect: false,
             autovalidateMode: AutovalidateMode.onUserInteraction,
             validator: (final value) {
-              if (value != null &&
-                  value.isNotEmpty &&
-                  value != _confirmationText) {
+              if (value == null || value.isEmpty) {
+                return l10n.resetDialogValidationEmpty;
+              }
+              if (value != _confirmationText) {
                 return l10n.resetDialogValidationError(_confirmationText);
               }
               return null;

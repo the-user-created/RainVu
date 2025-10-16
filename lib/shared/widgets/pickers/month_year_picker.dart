@@ -15,14 +15,28 @@ Future<DateTime?> showMonthYearPicker(
   required final DateTime initialDate,
   required final DateTime firstDate,
   required final DateTime lastDate,
-}) async => showAdaptiveSheet<DateTime>(
-  context: context,
-  builder: (final context) => _MonthYearPicker(
-    initialDate: initialDate,
-    firstDate: firstDate,
-    lastDate: lastDate,
-  ),
-);
+}) async {
+  // Clamp the initial date to ensure it's within the valid range.
+  DateTime clampedInitialDate = initialDate;
+  final DateTime initialMonth = DateTime(initialDate.year, initialDate.month);
+  final DateTime firstMonth = DateTime(firstDate.year, firstDate.month);
+  final DateTime lastMonth = DateTime(lastDate.year, lastDate.month);
+
+  if (initialMonth.isBefore(firstMonth)) {
+    clampedInitialDate = firstDate;
+  } else if (initialMonth.isAfter(lastMonth)) {
+    clampedInitialDate = lastDate;
+  }
+
+  return showAdaptiveSheet<DateTime>(
+    context: context,
+    builder: (final context) => _MonthYearPicker(
+      initialDate: clampedInitialDate,
+      firstDate: firstDate,
+      lastDate: lastDate,
+    ),
+  );
+}
 
 class _MonthYearPicker extends StatefulWidget {
   const _MonthYearPicker({

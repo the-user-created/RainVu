@@ -1096,6 +1096,10 @@
   "@resetDialogTitle": {
     "description": "Title for the app data reset confirmation dialog."
   },
+  "resetDialogValidationEmpty": "Please type the confirmation text.",
+  "@resetDialogValidationEmpty": {
+    "description": "Validation error message shown if the user leaves the reset confirmation field empty."
+  },
   "resetDialogValidationError": "Please type {confirmationText} to confirm.",
   "@resetDialogValidationError": {
     "description": "Validation error message shown if the user types the wrong text in the reset confirmation field.",

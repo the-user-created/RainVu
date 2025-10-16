@@ -35,15 +35,23 @@ class _DailyBreakdownScreenState extends ConsumerState<DailyBreakdownScreen> {
   void initState() {
     super.initState();
     if (widget.initialMonth != null) {
-      // Attempt to parse the provided month string.
-      final List<String> parts = widget.initialMonth!.split("-");
-      if (parts.length == 2) {
-        final int? year = int.tryParse(parts[0]);
-        final int? month = int.tryParse(parts[1]);
-        if (year != null && month != null) {
-          _selectedMonth = DateTime(year, month);
-          return; // Exit if successful
+      try {
+        final List<String> parts = widget.initialMonth!.split("-");
+        if (parts.length == 2) {
+          final int? year = int.tryParse(parts[0]);
+          final int? month = int.tryParse(parts[1]);
+          if (year != null && month != null) {
+            _selectedMonth = DateTime(year, month);
+            return; // Exit if successful
+          }
         }
+      } catch (e, s) {
+        FirebaseCrashlytics.instance.recordError(
+          e,
+          s,
+          reason: "Failed to parse initialMonth in DailyBreakdownScreen",
+          information: ["initialMonth: ${widget.initialMonth}"],
+        );
       }
     }
     // Fallback to the current month if no valid initialMonth is provided.
