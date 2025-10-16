@@ -62,12 +62,7 @@ class ChangelogRepository {
 
         final RegExpMatch? itemMatch = itemRegex.firstMatch(line);
         if (itemMatch != null && currentGroup != null) {
-          String description = itemMatch.group(1)!;
-
-          // Strip out links and author info for simplicity, as they are not modeled.
-          description = description
-              .replaceAll(RegExp(r"\s*\(.+\)$"), "")
-              .trim();
+          final String description = itemMatch.group(1)!.trim();
 
           currentGroup = currentGroup.copyWith(
             items: [
