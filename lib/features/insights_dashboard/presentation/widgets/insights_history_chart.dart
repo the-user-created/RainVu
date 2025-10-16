@@ -17,6 +17,16 @@ class HistoricalChart extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AppLocalizations l10n = AppLocalizations.of(context);
+    final bool hasData =
+        points.isNotEmpty && points.any((final p) => p.value > 0);
+
+    if (!hasData) {
+      return ChartCard(
+        title: l10n.dashboardChartTitle,
+        chart: const _EmptyChartState(),
+      );
+    }
+
     final ThemeData theme = Theme.of(context);
     final MeasurementUnit unit =
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
@@ -189,4 +199,46 @@ class HistoricalChart extends ConsumerWidget {
       ],
     );
   }).toList();
+}
+
+class _EmptyChartState extends StatelessWidget {
+  const _EmptyChartState();
+
+  @override
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    final AppLocalizations l10n = AppLocalizations.of(context);
+
+    return SizedBox(
+      height: 250,
+      child: Center(
+        child: ListView(
+          shrinkWrap: true,
+          physics: const BouncingScrollPhysics(),
+          padding: const EdgeInsets.all(24),
+          children: [
+            Icon(
+              Icons.show_chart_rounded,
+              size: 48,
+              color: theme.colorScheme.onSurfaceVariant.withValues(alpha: 0.5),
+            ),
+            const SizedBox(height: 16),
+            Text(
+              l10n.dashboardChartEmptyTitle,
+              style: theme.textTheme.titleMedium,
+              textAlign: TextAlign.center,
+            ),
+            const SizedBox(height: 8),
+            Text(
+              l10n.dashboardChartEmptyMessage,
+              style: theme.textTheme.bodyMedium?.copyWith(
+                color: theme.colorScheme.onSurfaceVariant,
+              ),
+              textAlign: TextAlign.center,
+            ),
+          ],
+        ),
+      ),
+    );
+  }
 }

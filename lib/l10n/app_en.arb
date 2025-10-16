@@ -233,6 +233,14 @@
   "@dailyRainfallChartTitle": {
     "description": "Title for the chart showing daily rainfall totals for a selected month."
   },
+  "dashboardChartEmptyMessage": "Your rainfall history for the selected period will appear here once you log some data.",
+  "@dashboardChartEmptyMessage": {
+    "description": "Message shown in the dashboard chart when there is no data to display for the selected metric."
+  },
+  "dashboardChartEmptyTitle": "No History Yet",
+  "@dashboardChartEmptyTitle": {
+    "description": "Title for the empty state of the dashboard chart."
+  },
   "dashboardChartTitle": "Rainfall History",
   "@dashboardChartTitle": {
     "description": "Title for the main chart on the insights dashboard."
@@ -260,10 +268,6 @@
   "dashboardMetricYTD": "YTD",
   "@dashboardMetricYTD": {
     "description": "Label for the 'Year-to-Date' metric selector on the insights dashboard."
-  },
-  "dashboardNoDataMessage": "Log more rainfall to see your historical trends and insights here.",
-  "@dashboardNoDataMessage": {
-    "description": "Message on the insights dashboard when there is not enough data to display."
   },
   "dashboardNoDataTitle": "Not Enough Data",
   "@dashboardNoDataTitle": {
