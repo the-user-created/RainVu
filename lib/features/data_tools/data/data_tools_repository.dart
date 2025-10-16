@@ -271,13 +271,33 @@ class DriftDataToolsRepository implements DataToolsRepository {
       content,
       eol: "\n",
     );
+
+    // If file is empty or only has a header, there's no data to parse.
     if (rows.length < 2) {
       return _ParsedData([], []);
     }
 
     final List<String> headers = rows.first
-        .map((final e) => e.toString().trim())
+        .map((final e) => e.toString().trim().toLowerCase())
         .toList();
+
+    // 1. Validate that all required headers are present.
+    const List<String> requiredHeaders = [
+      "date",
+      "amount",
+      "unit",
+      "gauge_name",
+    ];
+    final List<String> missingHeaders = requiredHeaders
+        .where((final h) => !headers.contains(h))
+        .toList();
+
+    if (missingHeaders.isNotEmpty) {
+      throw Exception(
+        "Missing required CSV columns: ${missingHeaders.join(", ")}",
+      );
+    }
+
     final int entryIdIndex = headers.indexOf("entry_id");
     final int gaugeNameIndex = headers.indexOf("gauge_name");
     final int dateIndex = headers.indexOf("date");
@@ -290,47 +310,90 @@ class DriftDataToolsRepository implements DataToolsRepository {
 
     for (int i = 1; i < rows.length; i++) {
       final List<dynamic> row = rows[i];
-      if (row.length <=
-          [gaugeNameIndex, dateIndex, amountIndex, unitIndex].reduce(max)) {
+      final int rowNumberForError = i + 1; // 1-based index for user feedback
+
+      // Skip rows that are completely empty.
+      if (row.every((final cell) => cell.toString().trim().isEmpty)) {
         continue;
       }
 
-      final String? entryId;
-      if (entryIdIndex != -1 && row.length > entryIdIndex) {
-        final String idValue = row[entryIdIndex].toString();
-        entryId = idValue.isNotEmpty ? idValue : null;
-      } else {
-        entryId = null;
+      // 2. Verify that the row has the correct number of columns.
+      if (row.length != headers.length) {
+        throw Exception(
+          "Row $rowNumberForError has ${row.length} columns, but the header has ${headers.length}. Please check for formatting errors.",
+        );
       }
 
-      final String gaugeName = row[gaugeNameIndex].toString().trim();
+      // 3. Wrap row processing in a try-catch for robust parsing.
+      try {
+        final String? entryId;
+        if (entryIdIndex != -1) {
+          final String idValue = row[entryIdIndex].toString();
+          entryId = idValue.isNotEmpty ? idValue : null;
+        } else {
+          entryId = null;
+        }
 
-      domain_gauge.RainGauge? gauge = gaugeCache[gaugeName];
-      if (gauge == null && gaugeName.isNotEmpty) {
-        gauge = domain_gauge.RainGauge(id: const Uuid().v4(), name: gaugeName);
-        gauges.add(gauge);
-        gaugeCache[gaugeName] = gauge;
+        // 4. Get values and validate that they are not empty.
+        final String gaugeNameStr = row[gaugeNameIndex].toString().trim();
+        if (gaugeNameStr.isEmpty) {
+          throw const FormatException("Missing value for 'gauge_name'");
+        }
+
+        final String dateStr = row[dateIndex].toString().trim();
+        if (dateStr.isEmpty) {
+          throw const FormatException("Missing value for 'date'");
+        }
+
+        final String amountStr = row[amountIndex].toString().trim();
+        if (amountStr.isEmpty) {
+          throw const FormatException("Missing value for 'amount'");
+        }
+
+        final String unitStr = row[unitIndex].toString().trim();
+        if (unitStr.isEmpty) {
+          throw const FormatException("Missing value for 'unit'");
+        }
+
+        // Now that strings are validated, proceed with parsing and conversion.
+        final String gaugeName = gaugeNameStr;
+        domain_gauge.RainGauge? gauge = gaugeCache[gaugeName];
+        if (gauge == null) {
+          gauge = domain_gauge.RainGauge(
+            id: const Uuid().v4(),
+            name: gaugeName,
+          );
+          gauges.add(gauge);
+          gaugeCache[gaugeName] = gauge;
+        }
+
+        final double amountFromFile = double.parse(amountStr);
+        final double amountInMm = unitStr.toLowerCase() == "in"
+            ? amountFromFile.toMillimeters()
+            : amountFromFile;
+
+        entries.add(
+          domain_entry.RainfallEntry(
+            id: entryId,
+            amount: amountInMm,
+            date: DateTime.parse(dateStr),
+            // Always save as mm
+            unit: "mm",
+            gaugeId: gauge.id,
+          ),
+        );
+      } on FormatException catch (e) {
+        throw Exception(
+          "Invalid data format in row $rowNumberForError. Details: ${e.message}",
+        );
+      } catch (e) {
+        // This will catch the column count mismatch exception and others.
+        throw Exception(
+          "Could not process row $rowNumberForError. ${e.toString().replaceFirst("Exception: ", "")}",
+        );
       }
-
-      final String unitFromFile = row[unitIndex];
-      double amountFromFile = double.parse(row[amountIndex].toString());
-
-      if (unitFromFile.toLowerCase() == "in") {
-        amountFromFile = amountFromFile.toMillimeters();
-      }
-
-      entries.add(
-        domain_entry.RainfallEntry(
-          id: entryId,
-          amount: amountFromFile,
-          date: DateTime.parse(row[dateIndex]),
-          // Always save as mm
-          unit: "mm",
-          gaugeId: gauge?.id ?? "",
-        ),
-      );
     }
-    return _ParsedData(gauges, entries);
+    return _ParsedData(gauges.unique((final g) => g.name), entries);
   }
 
   Future<void> _persistImportedData(
