@@ -253,16 +253,108 @@ class DriftDataToolsRepository implements DataToolsRepository {
   }
 
   _ParsedData _parseJsonContent(final String content) {
-    final Map<String, dynamic> data = json.decode(content);
-    final List<dynamic> gaugesJson = data["gauges"] ?? [];
-    final List<dynamic> entriesJson = data["entries"] ?? [];
+    final dynamic decoded;
+    try {
+      decoded = json.decode(content);
+    } on FormatException {
+      throw const InvalidJsonFormatException();
+    }
 
-    final List<domain_gauge.RainGauge> gauges = gaugesJson
-        .map((final g) => domain_gauge.RainGauge.fromJson(g))
+    if (decoded is! Map<String, dynamic>) {
+      throw const JsonInvalidValueException(
+        "Root element must be a JSON object.",
+      );
+    }
+    final Map<String, dynamic> data = decoded;
+
+    // 1. Validate top-level keys
+    const List<String> requiredKeys = ["gauges", "entries"];
+    final List<String> missingKeys = requiredKeys
+        .where((final key) => !data.containsKey(key))
         .toList();
-    final List<domain_entry.RainfallEntry> entries = entriesJson
-        .map((final e) => domain_entry.RainfallEntry.fromJson(e))
-        .toList();
+    if (missingKeys.isNotEmpty) {
+      throw JsonMissingKeysException(missingKeys);
+    }
+
+    if (data["gauges"] is! List) {
+      throw const JsonInvalidValueException("The 'gauges' key must be a list.");
+    }
+    if (data["entries"] is! List) {
+      throw const JsonInvalidValueException(
+        "The 'entries' key must be a list.",
+      );
+    }
+
+    final List<dynamic> gaugesJson = data["gauges"];
+    final List<dynamic> entriesJson = data["entries"];
+
+    final List<domain_gauge.RainGauge> gauges = [];
+    for (int i = 0; i < gaugesJson.length; i++) {
+      final dynamic item = gaugesJson[i];
+      final String path = "gauges[$i]";
+
+      if (item is! Map<String, dynamic>) {
+        throw JsonInvalidValueException("$path must be a JSON object.");
+      }
+
+      if (item["id"] is! String || (item["id"] as String).isEmpty) {
+        throw JsonInvalidValueException("$path is missing a valid 'id'.");
+      }
+      if (item["name"] is! String || (item["name"] as String).isEmpty) {
+        throw JsonInvalidValueException("$path is missing a valid 'name'.");
+      }
+
+      gauges.add(domain_gauge.RainGauge(id: item["id"], name: item["name"]));
+    }
+
+    final List<domain_entry.RainfallEntry> entries = [];
+    for (int i = 0; i < entriesJson.length; i++) {
+      final dynamic item = entriesJson[i];
+      final String path = "entries[$i]";
+
+      if (item is! Map<String, dynamic>) {
+        throw JsonInvalidValueException("$path must be a JSON object.");
+      }
+
+      // Allow null id for new entries, but if present, it must be a string.
+      if (item.containsKey("id") &&
+          item["id"] != null &&
+          item["id"] is! String) {
+        throw JsonInvalidValueException("$path has an invalid 'id' type.");
+      }
+      if (item["amount"] is! num) {
+        throw JsonInvalidValueException("$path is missing a valid 'amount'.");
+      }
+      if (item["date"] is! String) {
+        throw JsonInvalidValueException("$path is missing a valid 'date'.");
+      }
+      if (item["gaugeId"] is! String || (item["gaugeId"] as String).isEmpty) {
+        throw JsonInvalidValueException("$path is missing a valid 'gaugeId'.");
+      }
+      if (item["unit"] is! String || (item["unit"] as String).isEmpty) {
+        throw JsonInvalidValueException("$path is missing a valid 'unit'.");
+      }
+
+      final DateTime date;
+      try {
+        date = DateTime.parse(item["date"]);
+      } on FormatException {
+        throw JsonInvalidValueException(
+          "$path has an invalid date format for 'date'. Expected ISO 8601.",
+        );
+      }
+
+      entries.add(
+        domain_entry.RainfallEntry(
+          // fromJson handles optional id correctly
+          id: item["id"],
+          amount: (item["amount"] as num).toDouble(),
+          date: date,
+          gaugeId: item["gaugeId"],
+          unit: item["unit"],
+        ),
+      );
+    }
 
     return _ParsedData(gauges, entries);
   }

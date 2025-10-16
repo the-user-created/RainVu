@@ -91,3 +91,34 @@ class CsvMissingValueException extends DataToolsException {
   String toString() =>
       "CsvMissingValueException: Missing value for column '$columnName' in row $rowNumber.";
 }
+
+/// Thrown when a file's content cannot be parsed as valid JSON.
+class InvalidJsonFormatException extends DataToolsException {
+  const InvalidJsonFormatException();
+
+  @override
+  String toString() =>
+      "InvalidJsonFormatException: The file content is not valid JSON.";
+}
+
+/// Thrown when an imported JSON file is missing required top-level keys.
+class JsonMissingKeysException extends DataToolsException {
+  const JsonMissingKeysException(this.keys);
+
+  final List<String> keys;
+
+  @override
+  String toString() =>
+      "JsonMissingKeysException: The JSON file is missing required keys: ${keys.join(", ")}.";
+}
+
+/// Thrown when a value in the JSON file has an incorrect type or format.
+class JsonInvalidValueException extends DataToolsException {
+  const JsonInvalidValueException(this.details);
+
+  final String details;
+
+  @override
+  String toString() =>
+      "JsonInvalidValueException: An invalid value was found in the JSON data. Details: $details";
+}

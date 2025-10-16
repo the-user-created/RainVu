@@ -691,6 +691,27 @@
       }
     }
   },
+  "importErrorInvalidJson": "The file is malformed and could not be read as JSON.",
+  "importErrorJsonInvalidValue": "Invalid data found in the JSON file. Details: {details}.",
+  "@importErrorJsonInvalidValue": {
+    "description": "Error message for invalid data in a JSON import file.",
+    "placeholders": {
+      "details": {
+        "type": "String",
+        "example": "in entries[5], 'amount' must be a number."
+      }
+    }
+  },
+  "importErrorJsonMissingKeys": "The JSON file is missing required top-level keys: {keys}.",
+  "@importErrorJsonMissingKeys": {
+    "description": "Error message when a JSON import file is missing required keys.",
+    "placeholders": {
+      "keys": {
+        "type": "String",
+        "example": "gauges, entries"
+      }
+    }
+  },
   "importErrorMissingHeaders": "The CSV file is missing required columns: {headers}.",
   "@importErrorMissingHeaders": {
     "description": "Error message when a CSV import file is missing required columns.",

@@ -48,6 +48,13 @@ class DataToolsNotifier extends _$DataToolsNotifier {
         final CsvRowProcessingException e => l10n.importErrorProcessingRow(
           e.rowNumber,
         ),
+        final InvalidJsonFormatException _ => l10n.importErrorInvalidJson,
+        final JsonMissingKeysException e => l10n.importErrorJsonMissingKeys(
+          e.keys.join(", "),
+        ),
+        final JsonInvalidValueException e => l10n.importErrorJsonInvalidValue(
+          e.details,
+        ),
         _ => l10n.genericError,
       };
 
