@@ -197,7 +197,7 @@ class AppTheme {
         elevation: 1,
         shape: RoundedRectangleBorder(
           borderRadius: BorderRadius.circular(16),
-          side: BorderSide(color: colorScheme.outlineVariant, width: 0.5),
+          side: const BorderSide(color: Colors.transparent, width: 0),
         ),
         color: colorScheme.surfaceContainer,
         surfaceTintColor: Colors.transparent,
