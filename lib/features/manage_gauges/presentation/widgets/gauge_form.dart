@@ -49,6 +49,7 @@ class _GaugeFormState extends ConsumerState<GaugeForm> {
 
     return Form(
       key: _formKey,
+      autovalidateMode: AutovalidateMode.onUserInteraction,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
@@ -63,7 +64,8 @@ class _GaugeFormState extends ConsumerState<GaugeForm> {
           TextFormField(
             controller: _nameController,
             textCapitalization: TextCapitalization.words,
-            textInputAction: TextInputAction.next,
+            textInputAction: TextInputAction.done,
+            onFieldSubmitted: (final _) => _submit(),
             decoration: InputDecoration(
               hintText: l10n.gaugeFormNameHint,
               filled: true,

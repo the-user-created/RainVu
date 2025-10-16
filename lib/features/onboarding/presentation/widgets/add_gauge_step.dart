@@ -27,6 +27,7 @@ class _AddGaugeStepState extends ConsumerState<AddGaugeStep> {
     if (!(_formKey.currentState?.validate() ?? false)) {
       return;
     }
+    FocusScope.of(context).unfocus();
 
     setState(() => _isLoading = true);
     final AppLocalizations l10n = AppLocalizations.of(context);
@@ -90,6 +91,8 @@ class _AddGaugeStepState extends ConsumerState<AddGaugeStep> {
                     key: _formKey,
                     child: TextFormField(
                       controller: _nameController,
+                      textInputAction: TextInputAction.done,
+                      onFieldSubmitted: (final _) => _saveGauge(),
                       decoration: InputDecoration(
                         labelText: l10n.gaugeFormNameLabel,
                         hintText: l10n.onboardingGaugeHint,
@@ -139,7 +142,10 @@ class _AddGaugeStepState extends ConsumerState<AddGaugeStep> {
                   ),
                   const SizedBox(height: 12),
                   AppButton(
-                    onPressed: widget.onSkip,
+                    onPressed: () {
+                      FocusManager.instance.primaryFocus?.unfocus();
+                      widget.onSkip();
+                    },
                     label: l10n.skipButtonLabel,
                     style: AppButtonStyle.outlineDestructive,
                     isExpanded: true,
