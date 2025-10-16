@@ -1,7 +1,6 @@
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:rainvu/core/ui/custom_colors.dart";
 import "package:rainvu/features/changelog/application/changelog_provider.dart";
 import "package:rainvu/features/changelog/domain/changelog_entry.dart";
 import "package:rainvu/features/changelog/presentation/widgets/change_group_widget.dart";
@@ -21,10 +20,8 @@ class ChangelogScreen extends ConsumerWidget {
     );
 
     return Scaffold(
-      backgroundColor: colorScheme.changelogBackground,
       appBar: AppBar(
         title: Text(l10n.changelogTitle, style: theme.textTheme.titleLarge),
-        backgroundColor: colorScheme.changelogBackground,
         elevation: 0,
         scrolledUnderElevation: 1,
         surfaceTintColor: Colors.transparent,
@@ -55,27 +52,78 @@ class ChangelogScreen extends ConsumerWidget {
             if (releases.isEmpty) {
               return Center(child: Text(l10n.changelogError));
             }
-            return ListView.separated(
-              padding: const EdgeInsets.all(16),
+            return ListView.builder(
+              padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
               itemCount: releases.length,
-              separatorBuilder: (final context, final index) => Padding(
-                padding: const EdgeInsets.symmetric(
-                  vertical: 24,
-                  horizontal: 32,
-                ),
-                child: Divider(
-                  height: 1,
-                  thickness: 1,
-                  color: colorScheme.changelogDivider,
-                ),
-              ),
               itemBuilder: (final context, final index) {
                 final ChangelogRelease release = releases[index];
-                return _ReleaseEntryWidget(release: release);
+                final bool isLast = index == releases.length - 1;
+                return _TimelineReleaseEntry(release: release, isLast: isLast);
               },
             );
           },
         ),
+      ),
+    );
+  }
+}
+
+class _TimelineReleaseEntry extends StatelessWidget {
+  const _TimelineReleaseEntry({required this.release, required this.isLast});
+
+  final ChangelogRelease release;
+  final bool isLast;
+
+  @override
+  Widget build(final BuildContext context) => IntrinsicHeight(
+    child: Row(
+      crossAxisAlignment: CrossAxisAlignment.stretch,
+      children: [
+        _TimelineConnector(isLast: isLast),
+        Expanded(
+          child: Padding(
+            padding: EdgeInsets.only(bottom: isLast ? 0 : 32),
+            child: _ReleaseEntryWidget(release: release),
+          ),
+        ),
+      ],
+    ),
+  );
+}
+
+class _TimelineConnector extends StatelessWidget {
+  const _TimelineConnector({required this.isLast});
+
+  final bool isLast;
+
+  @override
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    return SizedBox(
+      width: 40,
+      child: Column(
+        children: [
+          Container(
+            padding: const EdgeInsets.all(4),
+            decoration: BoxDecoration(
+              color: theme.colorScheme.surface,
+              shape: BoxShape.circle,
+              border: Border.all(color: theme.colorScheme.primary, width: 2),
+            ),
+            child: Icon(
+              Icons.celebration_outlined,
+              size: 16,
+              color: theme.colorScheme.primary,
+            ),
+          ),
+          if (!isLast)
+            Expanded(
+              child: Container(
+                width: 2,
+                color: theme.colorScheme.outlineVariant,
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -97,23 +145,33 @@ class _ReleaseEntryWidget extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
-          padding: const EdgeInsets.only(bottom: 16, left: 4, right: 4),
-          child: Column(
-            crossAxisAlignment: CrossAxisAlignment.start,
+          padding: const EdgeInsets.only(bottom: 16),
+          child: Wrap(
+            spacing: 12,
+            runSpacing: 8,
+            crossAxisAlignment: WrapCrossAlignment.center,
             children: [
-              Text(
-                l10n.changelogVersion(release.version),
-                style: textTheme.displaySmall?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: colorScheme.onSurface,
+              Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 12,
+                  vertical: 4,
+                ),
+                decoration: BoxDecoration(
+                  color: colorScheme.primary,
+                  borderRadius: BorderRadius.circular(20),
+                ),
+                child: Text(
+                  l10n.changelogVersionTag(release.version),
+                  style: textTheme.bodyMedium?.copyWith(
+                    fontWeight: FontWeight.bold,
+                    color: colorScheme.onPrimary,
+                  ),
                 ),
               ),
-              const SizedBox(height: 4),
               Text(
                 release.date,
-                style: textTheme.bodyLarge?.copyWith(
+                style: textTheme.bodyMedium?.copyWith(
                   color: colorScheme.onSurfaceVariant,
-                  fontStyle: FontStyle.italic,
                 ),
               ),
             ],
@@ -138,30 +196,50 @@ class _ChangelogLoadingPlaceholder extends StatelessWidget {
     final Color color = Theme.of(context).colorScheme.surfaceContainerHighest;
     return ListView(
       physics: const NeverScrollableScrollPhysics(),
-      padding: const EdgeInsets.all(16),
-      children: List.generate(
-        3,
-        (final index) => Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(bottom: 16, left: 4, right: 4),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  LinePlaceholder(height: 36, width: 150, color: color),
-                  const SizedBox(height: 8),
-                  LinePlaceholder(height: 20, width: 100, color: color),
-                ],
+      padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
+      children: List.generate(3, (final index) {
+        final bool isLast = index == 2;
+        return IntrinsicHeight(
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.stretch,
+            children: [
+              _TimelineConnector(isLast: isLast),
+              Expanded(
+                child: Padding(
+                  padding: EdgeInsets.only(bottom: isLast ? 0 : 32),
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Padding(
+                        padding: const EdgeInsets.only(bottom: 16),
+                        child: Row(
+                          children: [
+                            LinePlaceholder(
+                              height: 28,
+                              width: 90,
+                              color: color,
+                              borderRadius: BorderRadius.circular(20),
+                            ),
+                            const SizedBox(width: 12),
+                            LinePlaceholder(
+                              height: 16,
+                              width: 100,
+                              color: color,
+                            ),
+                          ],
+                        ),
+                      ),
+                      CardPlaceholder(height: 120, color: color),
+                      const SizedBox(height: 12),
+                      CardPlaceholder(height: 80, color: color),
+                    ],
+                  ),
+                ),
               ),
-            ),
-            CardPlaceholder(height: 120, color: color),
-            const SizedBox(height: 12),
-            CardPlaceholder(height: 80, color: color),
-            const SizedBox(height: 48),
-          ],
-        ),
-      ),
+            ],
+          ),
+        );
+      }),
     );
   }
 }

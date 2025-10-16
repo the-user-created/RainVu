@@ -33,6 +33,19 @@ extension ChangeCategoryExtension on ChangeCategory {
         return colorScheme.changelogRemoved;
     }
   }
+
+  IconData get icon {
+    switch (this) {
+      case ChangeCategory.added:
+        return Icons.add_circle_outline;
+      case ChangeCategory.changed:
+        return Icons.sync_alt_outlined;
+      case ChangeCategory.fixed:
+        return Icons.check_circle_outline;
+      case ChangeCategory.removed:
+        return Icons.remove_circle_outline;
+    }
+  }
 }
 
 @freezed

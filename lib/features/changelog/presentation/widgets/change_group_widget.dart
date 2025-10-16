@@ -1,5 +1,4 @@
 import "package:flutter/material.dart";
-import "package:rainvu/core/ui/custom_colors.dart";
 import "package:rainvu/features/changelog/domain/changelog_entry.dart";
 import "package:rainvu/features/changelog/presentation/widgets/change_item_tile.dart";
 import "package:rainvu/l10n/app_localizations.dart";
@@ -17,50 +16,38 @@ class ChangeGroupWidget extends StatelessWidget {
     final bool isDark = colorScheme.brightness == Brightness.dark;
     final Color categoryColor = group.category.color(colorScheme);
 
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: colorScheme.changelogCardBackground,
-        borderRadius: BorderRadius.circular(16),
-        border: Border(left: BorderSide(color: categoryColor, width: 6)),
-        boxShadow: [
-          BoxShadow(
-            color: theme.shadowColor,
-            blurRadius: 10,
-            offset: const Offset(0, 4),
+    return Card(
+      elevation: 1,
+      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(12)),
+      clipBehavior: Clip.antiAlias,
+      margin: EdgeInsets.zero,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            width: double.infinity,
+            color: categoryColor.withValues(alpha: isDark ? 0.25 : 0.15),
+            padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+            child: Text(
+              group.category.title(l10n),
+              style: theme.textTheme.titleSmall?.copyWith(
+                fontWeight: FontWeight.bold,
+                color: categoryColor,
+              ),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.fromLTRB(16, 8, 16, 16),
+            child: Column(
+              children: group.items
+                  .map(
+                    (final item) =>
+                        ChangeItemTile(item: item, category: group.category),
+                  )
+                  .toList(),
+            ),
           ),
         ],
-      ),
-      child: ClipRRect(
-        borderRadius: BorderRadius.circular(16),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Container(
-              width: double.infinity,
-              color: categoryColor.withValues(alpha: isDark ? 0.2 : 0.1),
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
-              child: Text(
-                group.category.title(l10n),
-                style: theme.textTheme.titleMedium?.copyWith(
-                  fontWeight: FontWeight.bold,
-                  color: categoryColor,
-                ),
-              ),
-            ),
-            Padding(
-              padding: const EdgeInsets.fromLTRB(16, 8, 16, 8),
-              child: Column(
-                children: ListTile.divideTiles(
-                  context: context,
-                  tiles: group.items.map(
-                    (final item) => ChangeItemTile(item: item),
-                  ),
-                  color: colorScheme.changelogDivider,
-                ).toList(),
-              ),
-            ),
-          ],
-        ),
       ),
     );
   }

@@ -28,21 +28,4 @@ extension CustomColors on ColorScheme {
   Color get changelogRemoved => brightness == Brightness.dark
       ? const Color(0xFFEF9A9A)
       : const Color(0xFF9A4938);
-
-  // --- Changelog UI Element Colors ---
-
-  /// A soft, off-white/beige background for a natural feel.
-  Color get changelogBackground => brightness == Brightness.dark
-      ? const Color(0xFF212121)
-      : const Color(0xFFF8F6F2);
-
-  /// The background for individual changelog cards.
-  Color get changelogCardBackground => brightness == Brightness.dark
-      ? const Color(0xFF2C2C2C)
-      : const Color(0xFFFFFFFF);
-
-  /// A soft color for dividers that complements the background.
-  Color get changelogDivider => brightness == Brightness.dark
-      ? const Color(0xFF424242)
-      : const Color(0xFFDEDCD7);
 }

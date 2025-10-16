@@ -144,6 +144,15 @@
       }
     }
   },
+  "changelogVersionTag": "v{version}",
+  "@changelogVersionTag": {
+    "description": "A short tag for the version number in the changelog, e.g., 'v1.2.0'.",
+    "placeholders": {
+      "version": {
+        "type": "String"
+      }
+    }
+  },
   "clearSelectionTooltip": "Clear selection",
   "@clearSelectionTooltip": {
     "description": "Tooltip for a button that clears a user's current selection (e.g., a date range)."

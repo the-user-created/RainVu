@@ -2,9 +2,10 @@ import "package:flutter/material.dart";
 import "package:rainvu/features/changelog/domain/changelog_entry.dart";
 
 class ChangeItemTile extends StatelessWidget {
-  const ChangeItemTile({required this.item, super.key});
+  const ChangeItemTile({required this.item, required this.category, super.key});
 
   final ChangeItem item;
+  final ChangeCategory category;
 
   /// Parses a string with `**bold**` markdown and returns a list of [TextSpan]s.
   List<TextSpan> _buildTextSpans(
@@ -44,25 +45,25 @@ class ChangeItemTile extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     final TextTheme textTheme = theme.textTheme;
     final ColorScheme colorScheme = theme.colorScheme;
+    final Color categoryColor = category.color(colorScheme);
 
     final TextStyle baseStyle = textTheme.bodyMedium!.copyWith(
-      color: colorScheme.onSurface,
+      color: colorScheme.onSurfaceVariant,
       height: 1.5,
     );
-    final TextStyle boldStyle = baseStyle.copyWith(fontWeight: FontWeight.bold);
+    final TextStyle boldStyle = baseStyle.copyWith(
+      fontWeight: FontWeight.w600,
+      color: colorScheme.onSurface,
+    );
 
     return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 8),
+      padding: const EdgeInsets.only(top: 8),
       child: Row(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
           Padding(
-            padding: const EdgeInsets.only(top: 8, right: 12),
-            child: Icon(
-              Icons.water_drop_outlined,
-              size: 16,
-              color: colorScheme.onSurfaceVariant.withValues(alpha: 0.6),
-            ),
+            padding: const EdgeInsets.only(top: 4, right: 12),
+            child: Icon(category.icon, size: 18, color: categoryColor),
           ),
           Expanded(
             child: Text.rich(
