@@ -1,8 +1,11 @@
+import "dart:io";
+
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
+import "package:keyboard_actions/keyboard_actions.dart";
 import "package:rainvu/app_constants.dart";
 import "package:rainvu/core/application/preferences_provider.dart";
 import "package:rainvu/core/data/providers/data_providers.dart";
@@ -31,6 +34,7 @@ class EditEntrySheet extends ConsumerStatefulWidget {
 class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _amountController;
+  final _amountFocusNode = FocusNode();
   late DateTime _selectedDate;
   late MeasurementUnit _displayUnit;
   String? _selectedGaugeId;
@@ -49,6 +53,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
   @override
   void dispose() {
     _amountController.dispose();
+    _amountFocusNode.dispose();
     super.dispose();
   }
 
@@ -77,13 +82,15 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
     setState(() => _isLoading = true);
 
     try {
-      double amount = double.tryParse(_amountController.text) ?? 0.0;
+      final double amount =
+          double.tryParse(_amountController.text.replaceAll(",", ".")) ?? 0.0;
+      double amountInMm = amount;
       if (_displayUnit == MeasurementUnit.inch) {
-        amount = amount.toMillimeters();
+        amountInMm = amount.toMillimeters();
       }
 
       final RainfallEntry updatedEntry = widget.entry.copyWith(
-        amount: amount,
+        amount: amountInMm,
         date: _selectedDate,
         unit: "mm", // Always save as mm
         gaugeId: _selectedGaugeId!,
@@ -141,6 +148,11 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
     ),
   );
 
+  KeyboardActionsConfig _buildKeyboardConfig() => KeyboardActionsConfig(
+    nextFocus: false, // No other fields to navigate to
+    actions: [KeyboardActionsItem(focusNode: _amountFocusNode)],
+  );
+
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
@@ -149,13 +161,14 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
       allGaugesFutureProvider,
     );
 
-    return InteractiveSheet(
+    final Widget sheetContent = InteractiveSheet(
       title: Text(l10n.editEntrySheetTitle),
       child: Form(
         key: _formKey,
+        autovalidateMode: AutovalidateMode.onUserInteraction,
         child: Column(
           mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.stretch,
           children: [
             _buildSectionHeader(l10n.editEntryGaugeHeader),
             gaugesAsync.when(
@@ -187,6 +200,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
             _buildSectionHeader(l10n.editEntryAmountHeader),
             _AmountInputRow(
               amountController: _amountController,
+              amountFocusNode: _amountFocusNode,
               selectedUnit: _displayUnit,
               onUnitChanged: (final value) {
                 setState(() {
@@ -244,6 +258,14 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
         ),
       ),
     );
+
+    if (Platform.isIOS) {
+      return KeyboardActions(
+        config: _buildKeyboardConfig(),
+        child: sheetContent,
+      );
+    }
+    return sheetContent;
   }
 }
 
@@ -253,11 +275,13 @@ class _AmountInputRow extends StatelessWidget {
     required this.amountController,
     required this.selectedUnit,
     required this.onUnitChanged,
+    this.amountFocusNode,
   });
 
   final TextEditingController amountController;
   final MeasurementUnit selectedUnit;
   final ValueChanged<MeasurementUnit> onUnitChanged;
+  final FocusNode? amountFocusNode;
 
   @override
   Widget build(final BuildContext context) {
@@ -266,19 +290,24 @@ class _AmountInputRow extends StatelessWidget {
 
     final Widget amountField = TextFormField(
       controller: amountController,
+      focusNode: amountFocusNode,
       decoration: InputDecoration(hintText: l10n.editEntryAmountHint),
       keyboardType: const TextInputType.numberWithOptions(decimal: true),
       validator: (final val) {
         if (val == null || val.isEmpty) {
           return l10n.editEntryAmountValidationEmpty;
         }
-        if (double.tryParse(val) == null) {
+        final String normalizedVal = val.replaceAll(",", ".");
+        if (double.tryParse(normalizedVal) == null) {
           return l10n.editEntryAmountValidationInvalid;
+        }
+        if (double.parse(normalizedVal).isNegative) {
+          return l10n.editEntryAmountValidationNegative;
         }
         return null;
       },
       inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r"^\d+\.?\d*")),
+        FilteringTextInputFormatter.allow(RegExp(r"^\d*[,.]?\d*")),
       ],
     );
 

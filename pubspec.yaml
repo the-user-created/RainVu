@@ -39,6 +39,7 @@ dependencies:
   json_annotation: ^4.9.0
   json_path: ^0.8.0
   json_serializable: ^6.9.5
+  keyboard_actions: ^4.2.0
   package_info_plus: ^9.0.0
   path: ^1.9.1
   path_provider: ^2.1.5

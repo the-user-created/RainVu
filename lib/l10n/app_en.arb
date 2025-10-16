@@ -416,6 +416,10 @@
   "@editEntryAmountValidationInvalid": {
     "description": "Validation error message when the amount field contains an invalid number."
   },
+  "editEntryAmountValidationNegative": "Amount cannot be negative",
+  "@editEntryAmountValidationNegative": {
+    "description": "Validation error message when the amount is negative."
+  },
   "editEntryDateTimeHeader": "Date & Time",
   "@editEntryDateTimeHeader": {
     "description": "Header for the date and time selection section in the edit entry sheet."
@@ -755,6 +759,10 @@
   "logRainfallAmountValidationInvalid": "Please enter a valid number",
   "@logRainfallAmountValidationInvalid": {
     "description": "Validation error when the amount is not a valid number."
+  },
+  "logRainfallAmountValidationNegative": "Amount cannot be negative",
+  "@logRainfallAmountValidationNegative": {
+    "description": "Validation error when the amount is negative."
   },
   "logRainfallDateTimeHeader": "Date & Time",
   "@logRainfallDateTimeHeader": {
