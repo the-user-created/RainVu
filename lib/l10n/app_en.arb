@@ -880,9 +880,53 @@
   "@infoTooltip": {
     "description": "Generic tooltip for an info icon button."
   },
+  "insightsDashboardInfoSheetTitle": "About the Dashboard",
+  "@insightsDashboardInfoSheetTitle": {
+    "description": "Title for the info sheet on the main insights dashboard."
+  },
   "insightsError": "Could not load insights.",
   "@insightsError": {
     "description": "Generic error message for the insights screen."
+  },
+  "insightsInfo12MoDescription": "Shows the total rainfall over the last 12 months from today. The comparison shows how this total fares against the historical average for any 12-month period.",
+  "@insightsInfo12MoDescription": {
+    "description": "Description for the 'Last 12 Months' metric in the insights info sheet."
+  },
+  "insightsInfo12MoTitle": "Last 12 Months",
+  "@insightsInfo12MoTitle": {
+    "description": "Title for the 'Last 12 Months' metric in the insights info sheet."
+  },
+  "insightsInfoAllTimeDescription": "Shows the grand total of all rainfall ever logged. The chart displays the total rainfall for each year you have data.",
+  "@insightsInfoAllTimeDescription": {
+    "description": "Description for the 'All Time' metric in the insights info sheet."
+  },
+  "insightsInfoAllTimeTitle": "All Time",
+  "@insightsInfoAllTimeTitle": {
+    "description": "Title for the 'All Time' metric in the insights info sheet."
+  },
+  "insightsInfoComparisonDescription": "The percentage shows how the current period's rainfall compares to a previous period or a historical average. Green indicates more rain, while red indicates less.",
+  "@insightsInfoComparisonDescription": {
+    "description": "Description for the comparison percentage on the insights dashboard."
+  },
+  "insightsInfoComparisonTitle": "Understanding the Comparison",
+  "@insightsInfoComparisonTitle": {
+    "description": "Title for the section explaining the comparison percentage in the insights info sheet."
+  },
+  "insightsInfoMtdDescription": "Stands for 'Month-to-Date'. It shows the total rainfall from the beginning of the current month up to today. This is compared to the same period in the previous month.",
+  "@insightsInfoMtdDescription": {
+    "description": "Description for the 'Month-to-Date' metric in the insights info sheet."
+  },
+  "insightsInfoMtdTitle": "MTD (Month-to-Date)",
+  "@insightsInfoMtdTitle": {
+    "description": "Title for the 'Month-to-Date' metric in the insights info sheet."
+  },
+  "insightsInfoYtdDescription": "Stands for 'Year-to-Date'. It shows the total rainfall from January 1st of the current year up to today. This is compared to the same period in the previous year.",
+  "@insightsInfoYtdDescription": {
+    "description": "Description for the 'Year-to-Date' metric in the insights info sheet."
+  },
+  "insightsInfoYtdTitle": "YTD (Year-to-Date)",
+  "@insightsInfoYtdTitle": {
+    "description": "Title for the 'Year-to-Date' metric in the insights info sheet."
   },
   "legendDailyRainfall": "Daily Rainfall",
   "@legendDailyRainfall": {
@@ -976,6 +1020,14 @@
         "type": "Object"
       }
     }
+  },
+  "monthlyAveragesInfoDescription": "This screen compares the current month's total rainfall against the historical average for the same month, calculated over various time spans (e.g., the last 2, 5, 10 years). This helps you see if the current month is wetter or drier than usual compared to recent history.",
+  "@monthlyAveragesInfoDescription": {
+    "description": "Description for the Monthly Averages screen in its info sheet."
+  },
+  "monthlyAveragesInfoSheetTitle": "About Monthly Averages",
+  "@monthlyAveragesInfoSheetTitle": {
+    "description": "Title for the info sheet on the Monthly Averages screen."
   },
   "monthlyComparisonEmptyMessage": "Once you have logged more rainfall data, you'll be able to see monthly averages here.",
   "@monthlyComparisonEmptyMessage": {
@@ -1349,6 +1401,30 @@
   "@seasonalTrendsError": {
     "description": "Generic error message for the seasonal trends screen."
   },
+  "seasonalTrendsInfoChartDescription": "This chart visualizes the daily rainfall amounts throughout the selected season, helping you spot trends and heavy rainfall events within that period.",
+  "@seasonalTrendsInfoChartDescription": {
+    "description": "Description of the seasonal trends chart for its info sheet."
+  },
+  "seasonalTrendsInfoChartTitle": "Daily Rainfall Chart",
+  "@seasonalTrendsInfoChartTitle": {
+    "description": "Title for the section explaining the chart in the seasonal trends info sheet."
+  },
+  "seasonalTrendsInfoDescription": "This screen allows you to analyze rainfall patterns for specific meteorological seasons (Spring, Summer, Autumn, Winter). Select a season and year to see a detailed breakdown and compare it with historical data. Your hemisphere setting determines which months correspond to each season.",
+  "@seasonalTrendsInfoDescription": {
+    "description": "General description of the seasonal trends screen for its info sheet."
+  },
+  "seasonalTrendsInfoSheetTitle": "About Seasonal Trends",
+  "@seasonalTrendsInfoSheetTitle": {
+    "description": "Title of the info sheet on the Seasonal Trends screen."
+  },
+  "seasonalTrendsInfoSummaryDescription": "The summary card provides key statistics for the selected season, such as the average daily rainfall and how the season's total compares to the historical average for that same season across all other years in your log.",
+  "@seasonalTrendsInfoSummaryDescription": {
+    "description": "Description of the seasonal trends summary card for its info sheet."
+  },
+  "seasonalTrendsInfoSummaryTitle": "Season Summary",
+  "@seasonalTrendsInfoSummaryTitle": {
+    "description": "Title for the section explaining the summary card in the seasonal trends info sheet."
+  },
   "seasonalTrendsNoDataMessage": "Once you start logging rainfall, this screen will show you trends and patterns for the selected season.",
   "@seasonalTrendsNoDataMessage": {
     "description": "Message for the empty state on the seasonal trends screen."
@@ -1541,6 +1617,34 @@
   "@unusualPatternsError": {
     "description": "Generic error message for the unusual patterns screen."
   },
+  "unusualPatternsInfoAnomalyDescription": "An 'unusual pattern' or 'anomaly' is a day where the recorded rainfall significantly deviates from the historical average for that specific day of the year. The sensitivity can be adjusted in the app settings.",
+  "@unusualPatternsInfoAnomalyDescription": {
+    "description": "Description of what an anomaly is for the unusual patterns info sheet."
+  },
+  "unusualPatternsInfoAnomalyTitle": "What is an Anomaly?",
+  "@unusualPatternsInfoAnomalyTitle": {
+    "description": "Title for the section explaining what an anomaly is in the unusual patterns info sheet."
+  },
+  "unusualPatternsInfoChartDescription": "The chart visualizes your actual rainfall (blue line) against the historical daily average (green line) for the selected date range. This helps you quickly identify periods of unusually high or low rainfall.",
+  "@unusualPatternsInfoChartDescription": {
+    "description": "Description of the chart on the unusual patterns screen for its info sheet."
+  },
+  "unusualPatternsInfoChartTitle": "Actual vs. Average Chart",
+  "@unusualPatternsInfoChartTitle": {
+    "description": "Title for the section explaining the chart in the unusual patterns info sheet."
+  },
+  "unusualPatternsInfoSeverityDescription": "Anomalies are categorized by severity (Low, Medium, High, Critical) based on how much the rainfall deviates from the average. You can filter the list to focus on events of a certain magnitude.",
+  "@unusualPatternsInfoSeverityDescription": {
+    "description": "Description of severity levels for the unusual patterns info sheet."
+  },
+  "unusualPatternsInfoSeverityTitle": "Severity Levels",
+  "@unusualPatternsInfoSeverityTitle": {
+    "description": "Title for the section explaining severity levels in the unusual patterns info sheet."
+  },
+  "unusualPatternsInfoSheetTitle": "About Unusual Patterns",
+  "@unusualPatternsInfoSheetTitle": {
+    "description": "Title of the info sheet on the Unusual Patterns screen."
+  },
   "unusualPatternsTitle": "Unusual Patterns",
   "@unusualPatternsTitle": {
     "description": "The title of the 'Unusual Patterns' screen."
@@ -1605,114 +1709,6 @@
   "@ytdAnnualAverage": {
     "description": "Label on the YTD card showing the historical yearly average for comparison."
   },
-  "ytdProgressTitle": "Year-to-Date Total",
-  "@ytdProgressTitle": {
-    "description": "Title for the 'Year-to-Date Total' summary card on the home screen."
-  },
-  "insightsDashboardInfoSheetTitle": "About the Dashboard",
-  "@insightsDashboardInfoSheetTitle": {
-    "description": "Title for the info sheet on the main insights dashboard."
-  },
-  "insightsInfo12MoDescription": "Shows the total rainfall over the last 12 months from today. The comparison shows how this total fares against the historical average for any 12-month period.",
-  "@insightsInfo12MoDescription": {
-    "description": "Description for the 'Last 12 Months' metric in the insights info sheet."
-  },
-  "insightsInfo12MoTitle": "Last 12 Months",
-  "@insightsInfo12MoTitle": {
-    "description": "Title for the 'Last 12 Months' metric in the insights info sheet."
-  },
-  "insightsInfoAllTimeDescription": "Shows the grand total of all rainfall ever logged. The chart displays the total rainfall for each year you have data.",
-  "@insightsInfoAllTimeDescription": {
-    "description": "Description for the 'All Time' metric in the insights info sheet."
-  },
-  "insightsInfoAllTimeTitle": "All Time",
-  "@insightsInfoAllTimeTitle": {
-    "description": "Title for the 'All Time' metric in the insights info sheet."
-  },
-  "insightsInfoComparisonDescription": "The percentage shows how the current period's rainfall compares to a previous period or a historical average. Green indicates more rain, while red indicates less.",
-  "@insightsInfoComparisonDescription": {
-    "description": "Description for the comparison percentage on the insights dashboard."
-  },
-  "insightsInfoComparisonTitle": "Understanding the Comparison",
-  "@insightsInfoComparisonTitle": {
-    "description": "Title for the section explaining the comparison percentage in the insights info sheet."
-  },
-  "insightsInfoMtdDescription": "Stands for 'Month-to-Date'. It shows the total rainfall from the beginning of the current month up to today. This is compared to the same period in the previous month.",
-  "@insightsInfoMtdDescription": {
-    "description": "Description for the 'Month-to-Date' metric in the insights info sheet."
-  },
-  "insightsInfoMtdTitle": "MTD (Month-to-Date)",
-  "@insightsInfoMtdTitle": {
-    "description": "Title for the 'Month-to-Date' metric in the insights info sheet."
-  },
-  "insightsInfoYtdDescription": "Stands for 'Year-to-Date'. It shows the total rainfall from January 1st of the current year up to today. This is compared to the same period in the previous year.",
-  "@insightsInfoYtdDescription": {
-    "description": "Description for the 'Year-to-Date' metric in the insights info sheet."
-  },
-  "insightsInfoYtdTitle": "YTD (Year-to-Date)",
-  "@insightsInfoYtdTitle": {
-    "description": "Title for the 'Year-to-Date' metric in the insights info sheet."
-  },
-  "monthlyAveragesInfoDescription": "This screen compares the current month's total rainfall against the historical average for the same month, calculated over various time spans (e.g., the last 2, 5, 10 years). This helps you see if the current month is wetter or drier than usual compared to recent history.",
-  "@monthlyAveragesInfoDescription": {
-    "description": "Description for the Monthly Averages screen in its info sheet."
-  },
-  "monthlyAveragesInfoSheetTitle": "About Monthly Averages",
-  "@monthlyAveragesInfoSheetTitle": {
-    "description": "Title for the info sheet on the Monthly Averages screen."
-  },
-  "seasonalTrendsInfoChartDescription": "This chart visualizes the daily rainfall amounts throughout the selected season, helping you spot trends and heavy rainfall events within that period.",
-  "@seasonalTrendsInfoChartDescription": {
-    "description": "Description of the seasonal trends chart for its info sheet."
-  },
-  "seasonalTrendsInfoChartTitle": "Daily Rainfall Chart",
-  "@seasonalTrendsInfoChartTitle": {
-    "description": "Title for the section explaining the chart in the seasonal trends info sheet."
-  },
-  "seasonalTrendsInfoDescription": "This screen allows you to analyze rainfall patterns for specific meteorological seasons (Spring, Summer, Autumn, Winter). Select a season and year to see a detailed breakdown and compare it with historical data. Your hemisphere setting determines which months correspond to each season.",
-  "@seasonalTrendsInfoDescription": {
-    "description": "General description of the seasonal trends screen for its info sheet."
-  },
-  "seasonalTrendsInfoSheetTitle": "About Seasonal Trends",
-  "@seasonalTrendsInfoSheetTitle": {
-    "description": "Title of the info sheet on the Seasonal Trends screen."
-  },
-  "seasonalTrendsInfoSummaryDescription": "The summary card provides key statistics for the selected season, such as the average daily rainfall and how the season's total compares to the historical average for that same season across all other years in your log.",
-  "@seasonalTrendsInfoSummaryDescription": {
-    "description": "Description of the seasonal trends summary card for its info sheet."
-  },
-  "seasonalTrendsInfoSummaryTitle": "Season Summary",
-  "@seasonalTrendsInfoSummaryTitle": {
-    "description": "Title for the section explaining the summary card in the seasonal trends info sheet."
-  },
-  "unusualPatternsInfoAnomalyDescription": "An 'unusual pattern' or 'anomaly' is a day where the recorded rainfall significantly deviates from the historical average for that specific day of the year. The sensitivity can be adjusted in the app settings.",
-  "@unusualPatternsInfoAnomalyDescription": {
-    "description": "Description of what an anomaly is for the unusual patterns info sheet."
-  },
-  "unusualPatternsInfoAnomalyTitle": "What is an Anomaly?",
-  "@unusualPatternsInfoAnomalyTitle": {
-    "description": "Title for the section explaining what an anomaly is in the unusual patterns info sheet."
-  },
-  "unusualPatternsInfoChartDescription": "The chart visualizes your actual rainfall (blue line) against the historical daily average (green line) for the selected date range. This helps you quickly identify periods of unusually high or low rainfall.",
-  "@unusualPatternsInfoChartDescription": {
-    "description": "Description of the chart on the unusual patterns screen for its info sheet."
-  },
-  "unusualPatternsInfoChartTitle": "Actual vs. Average Chart",
-  "@unusualPatternsInfoChartTitle": {
-    "description": "Title for the section explaining the chart in the unusual patterns info sheet."
-  },
-  "unusualPatternsInfoSeverityDescription": "Anomalies are categorized by severity (Low, Medium, High, Critical) based on how much the rainfall deviates from the average. You can filter the list to focus on events of a certain magnitude.",
-  "@unusualPatternsInfoSeverityDescription": {
-    "description": "Description of severity levels for the unusual patterns info sheet."
-  },
-  "unusualPatternsInfoSeverityTitle": "Severity Levels",
-  "@unusualPatternsInfoSeverityTitle": {
-    "description": "Title for the section explaining severity levels in the unusual patterns info sheet."
-  },
-  "unusualPatternsInfoSheetTitle": "About Unusual Patterns",
-  "@unusualPatternsInfoSheetTitle": {
-    "description": "Title of the info sheet on the Unusual Patterns screen."
-  },
   "ytdInfoAnnualAverageDescription": "This is the average total rainfall per year, calculated from all the data you have logged. The progress bar shows how close you are to reaching this historical average.",
   "@ytdInfoAnnualAverageDescription": {
     "description": "Description for the 'Annual Average' concept in the YTD card info sheet."
@@ -1732,5 +1728,9 @@
   "ytdInfoYtdTotalTitle": "Year-to-Date (YTD) Total",
   "@ytdInfoYtdTotalTitle": {
     "description": "Title for the section explaining the YTD total in the YTD card info sheet."
+  },
+  "ytdProgressTitle": "Year-to-Date Total",
+  "@ytdProgressTitle": {
+    "description": "Title for the 'Year-to-Date Total' summary card on the home screen."
   }
 }
