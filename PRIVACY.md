@@ -1,6 +1,6 @@
 # Privacy Policy for RainVu
 
-**Last Updated:** October 15, 2025
+**Last Updated:** October 16, 2025
 
 Thank you for using RainVu. As an open-source project, we believe in full transparency regarding
 your privacy. This policy explains how information is collected, used, and handled within our
@@ -90,7 +90,8 @@ You have full control over your data within RainVu.
   using the "Export Data" feature in the app.
 * **Data Deletion:** You can delete individual rainfall entries or gauges directly within the app.
   You can also delete all app data by using the "Reset App" function in Settings or by uninstalling
-  the application from your device.
+  the application from your device. For detailed instructions, please see our 
+  [Data Deletion Page](https://github.com/the-user-created/RainVu/blob/main/docs/data_deletion.md).
 
 ## 5. Children's Privacy
 
