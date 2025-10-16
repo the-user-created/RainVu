@@ -7,11 +7,27 @@ import "package:rainvu/features/insights_dashboard/application/insights_provider
 import "package:rainvu/features/insights_dashboard/domain/insights_data.dart";
 import "package:rainvu/features/insights_dashboard/presentation/widgets/monthly_averages_card.dart";
 import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/widgets/buttons/app_icon_button.dart";
 import "package:rainvu/shared/widgets/placeholders.dart";
+import "package:rainvu/shared/widgets/sheets/info_sheet.dart";
 import "package:shimmer/shimmer.dart";
 
 class MonthlyAveragesScreen extends ConsumerWidget {
   const MonthlyAveragesScreen({super.key});
+
+  void _showInfoSheet(final BuildContext context, final AppLocalizations l10n) {
+    InfoSheet.show(
+      context,
+      title: l10n.monthlyAveragesInfoSheetTitle,
+      items: [
+        InfoSheetItem(
+          icon: Icons.compare_arrows_outlined,
+          title: "", // Title is already in the sheet's main title
+          description: l10n.monthlyAveragesInfoDescription,
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
@@ -21,7 +37,19 @@ class MonthlyAveragesScreen extends ConsumerWidget {
     );
 
     return Scaffold(
-      appBar: AppBar(title: Text(l10n.monthlyComparisonTitle)),
+      appBar: AppBar(
+        title: Text(l10n.monthlyComparisonTitle),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: AppIconButton(
+              icon: const Icon(Icons.info_outline),
+              onPressed: () => _showInfoSheet(context, l10n),
+              tooltip: l10n.infoTooltip,
+            ),
+          ),
+        ],
+      ),
       body: SafeArea(
         child: insightsDataAsync.when(
           loading: () => const _LoadingState(),

@@ -7,11 +7,47 @@ import "package:rainvu/features/insights_dashboard/presentation/widgets/analysis
 import "package:rainvu/features/insights_dashboard/presentation/widgets/insights_history_chart.dart";
 import "package:rainvu/features/insights_dashboard/presentation/widgets/metric_header.dart";
 import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/widgets/buttons/app_icon_button.dart";
 import "package:rainvu/shared/widgets/placeholders.dart";
+import "package:rainvu/shared/widgets/sheets/info_sheet.dart";
 import "package:shimmer/shimmer.dart";
 
 class InsightsScreen extends ConsumerWidget {
   const InsightsScreen({super.key});
+
+  void _showInfoSheet(final BuildContext context, final AppLocalizations l10n) {
+    InfoSheet.show(
+      context,
+      title: l10n.insightsDashboardInfoSheetTitle,
+      items: [
+        InfoSheetItem(
+          icon: Icons.calendar_view_month_outlined,
+          title: l10n.insightsInfoMtdTitle,
+          description: l10n.insightsInfoMtdDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.calendar_today_outlined,
+          title: l10n.insightsInfoYtdTitle,
+          description: l10n.insightsInfoYtdDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.history_outlined,
+          title: l10n.insightsInfo12MoTitle,
+          description: l10n.insightsInfo12MoDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.public_outlined,
+          title: l10n.insightsInfoAllTimeTitle,
+          description: l10n.insightsInfoAllTimeDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.compare_arrows_outlined,
+          title: l10n.insightsInfoComparisonTitle,
+          description: l10n.insightsInfoComparisonDescription,
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
@@ -24,6 +60,16 @@ class InsightsScreen extends ConsumerWidget {
       appBar: AppBar(
         automaticallyImplyLeading: false,
         title: Text(l10n.navInsights, style: theme.textTheme.headlineLarge),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: AppIconButton(
+              icon: const Icon(Icons.info_outline),
+              onPressed: () => _showInfoSheet(context, l10n),
+              tooltip: l10n.infoTooltip,
+            ),
+          ),
+        ],
       ),
       body: SafeArea(
         child: asyncData.when(

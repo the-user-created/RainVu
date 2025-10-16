@@ -8,6 +8,8 @@ import "package:rainvu/core/navigation/app_router.dart";
 import "package:rainvu/core/utils/extensions.dart";
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/domain/user_preferences.dart";
+import "package:rainvu/shared/widgets/buttons/app_icon_button.dart";
+import "package:rainvu/shared/widgets/sheets/info_sheet.dart";
 
 class YtdSummaryCard extends ConsumerStatefulWidget {
   const YtdSummaryCard({
@@ -28,6 +30,25 @@ class _YtdSummaryCardState extends ConsumerState<YtdSummaryCard> {
 
   void _handleTap() {
     const YearlyComparisonRoute().push(context);
+  }
+
+  void _showInfoSheet(final BuildContext context, final AppLocalizations l10n) {
+    InfoSheet.show(
+      context,
+      title: l10n.ytdInfoSheetTitle,
+      items: [
+        InfoSheetItem(
+          icon: Icons.calendar_today_outlined,
+          title: l10n.ytdInfoYtdTotalTitle,
+          description: l10n.ytdInfoYtdTotalDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.show_chart_outlined,
+          title: l10n.ytdInfoAnnualAverageTitle,
+          description: l10n.ytdInfoAnnualAverageDescription,
+        ),
+      ],
+    );
   }
 
   @override
@@ -55,11 +76,25 @@ class _YtdSummaryCardState extends ConsumerState<YtdSummaryCard> {
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      Text(
-                        l10n.ytdProgressTitle,
-                        style: theme.textTheme.titleMedium?.copyWith(
-                          fontWeight: FontWeight.w600,
-                        ),
+                      Row(
+                        mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                        children: [
+                          Flexible(
+                            child: Text(
+                              l10n.ytdProgressTitle,
+                              style: theme.textTheme.titleMedium?.copyWith(
+                                fontWeight: FontWeight.w600,
+                              ),
+                            ),
+                          ),
+                          AppIconButton(
+                            icon: const Icon(Icons.info_outline),
+                            onPressed: () => _showInfoSheet(context, l10n),
+                            tooltip: l10n.infoTooltip,
+                            iconSize: 20,
+                            color: theme.colorScheme.onSurfaceVariant,
+                          ),
+                        ],
                       ),
                       const SizedBox(height: 12),
                       Row(

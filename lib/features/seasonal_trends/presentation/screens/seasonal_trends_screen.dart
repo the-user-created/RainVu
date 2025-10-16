@@ -7,11 +7,37 @@ import "package:rainvu/features/seasonal_trends/presentation/widgets/season_sele
 import "package:rainvu/features/seasonal_trends/presentation/widgets/seasonal_summary_card.dart";
 import "package:rainvu/features/seasonal_trends/presentation/widgets/seasonal_trend_chart.dart";
 import "package:rainvu/l10n/app_localizations.dart";
+import "package:rainvu/shared/widgets/buttons/app_icon_button.dart";
 import "package:rainvu/shared/widgets/placeholders.dart";
+import "package:rainvu/shared/widgets/sheets/info_sheet.dart";
 import "package:shimmer/shimmer.dart";
 
 class SeasonalTrendsScreen extends ConsumerWidget {
   const SeasonalTrendsScreen({super.key});
+
+  void _showInfoSheet(final BuildContext context, final AppLocalizations l10n) {
+    InfoSheet.show(
+      context,
+      title: l10n.seasonalTrendsInfoSheetTitle,
+      items: [
+        InfoSheetItem(
+          icon: Icons.info_outline,
+          title: "", // General description doesn't need a sub-title.
+          description: l10n.seasonalTrendsInfoDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.show_chart_outlined,
+          title: l10n.seasonalTrendsInfoChartTitle,
+          description: l10n.seasonalTrendsInfoChartDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.summarize_outlined,
+          title: l10n.seasonalTrendsInfoSummaryTitle,
+          description: l10n.seasonalTrendsInfoSummaryDescription,
+        ),
+      ],
+    );
+  }
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
@@ -27,6 +53,16 @@ class SeasonalTrendsScreen extends ConsumerWidget {
           l10n.seasonalTrendsTitle,
           style: theme.textTheme.titleLarge,
         ),
+        actions: [
+          Padding(
+            padding: const EdgeInsets.only(right: 8),
+            child: AppIconButton(
+              icon: const Icon(Icons.info_outline),
+              onPressed: () => _showInfoSheet(context, l10n),
+              tooltip: l10n.infoTooltip,
+            ),
+          ),
+        ],
       ),
       body: SafeArea(
         child: dataAsync.when(
@@ -108,7 +144,6 @@ class _Header extends ConsumerWidget {
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
-    final AppLocalizations l10n = AppLocalizations.of(context);
 
     return DecoratedBox(
       decoration: BoxDecoration(
@@ -125,22 +160,9 @@ class _Header extends ConsumerWidget {
           ),
         ],
       ),
-      child: Padding(
-        padding: const EdgeInsets.fromLTRB(20, 20, 20, 24),
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
-              l10n.seasonalTrendsDescription,
-              style: theme.textTheme.bodyMedium?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
-              ),
-            ),
-            const SizedBox(height: 20),
-            const SeasonSelector(),
-          ],
-        ),
+      child: const Padding(
+        padding: EdgeInsets.fromLTRB(20, 16, 20, 24),
+        child: SeasonSelector(),
       ),
     );
   }
