@@ -52,8 +52,19 @@ class DataToolsNotifier extends _$DataToolsNotifier {
         final JsonMissingKeysException e => l10n.importErrorJsonMissingKeys(
           e.keys.join(", "),
         ),
-        final JsonInvalidValueException e => l10n.importErrorJsonInvalidValue(
-          e.details,
+        final JsonWrongTypeException e => l10n.importErrorJsonWrongType(
+          e.path,
+          e.expected,
+          e.actual,
+        ),
+        final JsonMissingFieldException e => l10n.importErrorJsonMissingField(
+          e.path,
+          e.field,
+        ),
+        final JsonInvalidFormatException e => l10n.importErrorJsonInvalidFormat(
+          e.path,
+          e.field,
+          e.expectedFormat,
         ),
         _ => l10n.genericError,
       };

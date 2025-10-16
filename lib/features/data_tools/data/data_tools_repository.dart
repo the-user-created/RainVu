@@ -261,8 +261,10 @@ class DriftDataToolsRepository implements DataToolsRepository {
     }
 
     if (decoded is! Map<String, dynamic>) {
-      throw const JsonInvalidValueException(
-        "Root element must be a JSON object.",
+      throw JsonWrongTypeException(
+        path: "root",
+        expected: "Object",
+        actual: decoded.runtimeType.toString(),
       );
     }
     final Map<String, dynamic> data = decoded;
@@ -277,11 +279,17 @@ class DriftDataToolsRepository implements DataToolsRepository {
     }
 
     if (data["gauges"] is! List) {
-      throw const JsonInvalidValueException("The 'gauges' key must be a list.");
+      throw JsonWrongTypeException(
+        path: "gauges",
+        expected: "List",
+        actual: data["gauges"].runtimeType.toString(),
+      );
     }
     if (data["entries"] is! List) {
-      throw const JsonInvalidValueException(
-        "The 'entries' key must be a list.",
+      throw JsonWrongTypeException(
+        path: "entries",
+        expected: "List",
+        actual: data["entries"].runtimeType.toString(),
       );
     }
 
@@ -294,14 +302,32 @@ class DriftDataToolsRepository implements DataToolsRepository {
       final String path = "gauges[$i]";
 
       if (item is! Map<String, dynamic>) {
-        throw JsonInvalidValueException("$path must be a JSON object.");
+        throw JsonWrongTypeException(
+          path: path,
+          expected: "Object",
+          actual: item.runtimeType.toString(),
+        );
       }
 
+      if (item["id"] == null) {
+        throw JsonMissingFieldException(path: path, field: "id");
+      }
       if (item["id"] is! String || (item["id"] as String).isEmpty) {
-        throw JsonInvalidValueException("$path is missing a valid 'id'.");
+        throw JsonWrongTypeException(
+          path: path,
+          expected: "non-empty String",
+          actual: "id",
+        );
+      }
+      if (item["name"] == null) {
+        throw JsonMissingFieldException(path: path, field: "name");
       }
       if (item["name"] is! String || (item["name"] as String).isEmpty) {
-        throw JsonInvalidValueException("$path is missing a valid 'name'.");
+        throw JsonWrongTypeException(
+          path: path,
+          expected: "non-empty String",
+          actual: "name",
+        );
       }
 
       gauges.add(domain_gauge.RainGauge(id: item["id"], name: item["name"]));
@@ -313,34 +339,36 @@ class DriftDataToolsRepository implements DataToolsRepository {
       final String path = "entries[$i]";
 
       if (item is! Map<String, dynamic>) {
-        throw JsonInvalidValueException("$path must be a JSON object.");
+        throw JsonWrongTypeException(
+          path: path,
+          expected: "Object",
+          actual: item.runtimeType.toString(),
+        );
       }
 
-      // Allow null id for new entries, but if present, it must be a string.
-      if (item.containsKey("id") &&
-          item["id"] != null &&
-          item["id"] is! String) {
-        throw JsonInvalidValueException("$path has an invalid 'id' type.");
+      const List<String> requiredFields = ["amount", "date", "gaugeId", "unit"];
+      for (final field in requiredFields) {
+        if (!item.containsKey(field) || item[field] == null) {
+          throw JsonMissingFieldException(path: path, field: field);
+        }
       }
+
       if (item["amount"] is! num) {
-        throw JsonInvalidValueException("$path is missing a valid 'amount'.");
-      }
-      if (item["date"] is! String) {
-        throw JsonInvalidValueException("$path is missing a valid 'date'.");
-      }
-      if (item["gaugeId"] is! String || (item["gaugeId"] as String).isEmpty) {
-        throw JsonInvalidValueException("$path is missing a valid 'gaugeId'.");
-      }
-      if (item["unit"] is! String || (item["unit"] as String).isEmpty) {
-        throw JsonInvalidValueException("$path is missing a valid 'unit'.");
+        throw JsonWrongTypeException(
+          path: path,
+          expected: "Number",
+          actual: item["amount"].runtimeType.toString(),
+        );
       }
 
       final DateTime date;
       try {
         date = DateTime.parse(item["date"]);
       } on FormatException {
-        throw JsonInvalidValueException(
-          "$path has an invalid date format for 'date'. Expected ISO 8601.",
+        throw JsonInvalidFormatException(
+          path: path,
+          field: "date",
+          expectedFormat: "ISO 8601",
         );
       }
 

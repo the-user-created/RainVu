@@ -692,6 +692,24 @@
     }
   },
   "importErrorInvalidJson": "The file is malformed and could not be read as JSON.",
+  "importErrorJsonInvalidFormat": "The field '{field}' at '{path}' has an invalid format. Expected format: {expectedFormat}.",
+  "@importErrorJsonInvalidFormat": {
+    "description": "Error for an incorrectly formatted value in JSON.",
+    "placeholders": {
+      "path": {
+        "type": "String",
+        "example": "entries[5]"
+      },
+      "field": {
+        "type": "String",
+        "example": "date"
+      },
+      "expectedFormat": {
+        "type": "String",
+        "example": "ISO 8601"
+      }
+    }
+  },
   "importErrorJsonInvalidValue": "Invalid data found in the JSON file. Details: {details}.",
   "@importErrorJsonInvalidValue": {
     "description": "Error message for invalid data in a JSON import file.",
@@ -702,6 +720,20 @@
       }
     }
   },
+  "importErrorJsonMissingField": "A required field '{field}' is missing at '{path}'.",
+  "@importErrorJsonMissingField": {
+    "description": "Error for a missing field in a JSON object.",
+    "placeholders": {
+      "path": {
+        "type": "String",
+        "example": "entries[5]"
+      },
+      "field": {
+        "type": "String",
+        "example": "amount"
+      }
+    }
+  },
   "importErrorJsonMissingKeys": "The JSON file is missing required top-level keys: {keys}.",
   "@importErrorJsonMissingKeys": {
     "description": "Error message when a JSON import file is missing required keys.",
@@ -709,6 +741,24 @@
       "keys": {
         "type": "String",
         "example": "gauges, entries"
+      }
+    }
+  },
+  "importErrorJsonWrongType": "Invalid data type at '{path}'. Expected {expected} but found {actual}.",
+  "@importErrorJsonWrongType": {
+    "description": "Error for incorrect data type in JSON.",
+    "placeholders": {
+      "path": {
+        "type": "String",
+        "example": "entries[5]"
+      },
+      "expected": {
+        "type": "String",
+        "example": "Number"
+      },
+      "actual": {
+        "type": "String",
+        "example": "String"
       }
     }
   },

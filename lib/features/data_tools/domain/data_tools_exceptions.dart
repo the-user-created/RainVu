@@ -112,13 +112,48 @@ class JsonMissingKeysException extends DataToolsException {
       "JsonMissingKeysException: The JSON file is missing required keys: ${keys.join(", ")}.";
 }
 
-/// Thrown when a value in the JSON file has an incorrect type or format.
-class JsonInvalidValueException extends DataToolsException {
-  const JsonInvalidValueException(this.details);
+/// Thrown when a value in the JSON file has an incorrect data type.
+class JsonWrongTypeException extends DataToolsException {
+  const JsonWrongTypeException({
+    required this.path,
+    required this.expected,
+    required this.actual,
+  });
 
-  final String details;
+  final String path;
+  final String expected;
+  final String actual;
 
   @override
   String toString() =>
-      "JsonInvalidValueException: An invalid value was found in the JSON data. Details: $details";
+      "JsonWrongTypeException: Invalid type at path '$path'. Expected $expected, but got $actual.";
+}
+
+/// Thrown when a required field is missing from a JSON object.
+class JsonMissingFieldException extends DataToolsException {
+  const JsonMissingFieldException({required this.path, required this.field});
+
+  final String path;
+  final String field;
+
+  @override
+  String toString() =>
+      "JsonMissingFieldException: Missing required field '$field' at path '$path'.";
+}
+
+/// Thrown when a field in the JSON has an invalid format (e.g., a bad date string).
+class JsonInvalidFormatException extends DataToolsException {
+  const JsonInvalidFormatException({
+    required this.path,
+    required this.field,
+    required this.expectedFormat,
+  });
+
+  final String path;
+  final String field;
+  final String expectedFormat;
+
+  @override
+  String toString() =>
+      "JsonInvalidFormatException: Invalid format for field '$field' at path '$path'. Expected format: $expectedFormat.";
 }
