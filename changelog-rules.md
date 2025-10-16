@@ -79,20 +79,21 @@ Each item within a change group describes a single, notable change.
 * **Format:** `- {Description}`
 * **List Style:** Must be an unordered list item, starting with a hyphen and a single space (`- `).
 * **Description:** A concise, single-line description of the change.
-* **Markdown Support:**
-    * **Supported:** You can use `**bold**` text by enclosing it in double asterisks. This is the
-      only supported Markdown format.
-    * **Not Supported:** Italics (`*text*`), links (`[text](url)`), inline code (`code`), etc., will
-      be rendered as plain text.
-* **Stripped Content:** Any text at the very end of a line that is enclosed in parentheses (e.g.,
-  `(by @user)`, `(#123)`) will be **completely removed** by the parser. Do not use parentheses for
-  descriptive text at the end of a line.
+* **Markdown Support:** The following Markdown formats are supported and will be rendered in the
+  app:
+* **Bold Text:** Use double asterisks to emphasize text, e.g., `**important**`.
+* **Inline Code:** Use single backticks to format text as code, e.g., `` `my_variable` ``.
+* **Links:** Use standard Markdown link syntax, e.g., `[link text](https://example.com)`. The link
+  will be tappable in the app.
+* **Unsupported Formats:** Other Markdown formats like italics (`*text*`), blockquotes, etc., will
+  be rendered as plain text.
 
 **Examples:**
 
 ```markdown
 - Added **new** 'What's New' screen to view app updates.
-- Corrected a **minor layout issue** on the monthly breakdown chart.
+- Corrected a bug where the `total_rainfall` was miscalculated.
+- Added a link to our issue tracker [#19](https://github.com/the-user-created/RainVu/issues/19).
 ```
 
 **Invalid Examples:**
@@ -102,11 +103,9 @@ Each item within a change group describes a single, notable change.
 
 * A new feature was added.
 
-# Incorrect: Uses parentheses at the end, which will be stripped
+# Incorrect: Uses unsupported italics markdown
 
-- Fixed a bug. (This was a critical issue)
-
-# The app will only display: "Fixed a bug."
+- _Improved_ the UI layout.
 ```
 
 ### **5. Complete Example**
@@ -125,12 +124,14 @@ This example demonstrates all the rules working together in a valid `CHANGELOG.m
 
 ### Changed
 
-- Restructured Settings screen for **better organization**.
-- Moved App Reset functionality into the 'Help & Feedback' screen.
+- Restructured the Settings screen for **better organization**.
+- The `user_preferences` table now includes a `themeMode` setting.
 
 ### Fixed
 
-- Corrected a minor layout issue on the **monthly breakdown chart**.
+- Corrected a layout issue on the monthly breakdown chart. See
+  issue [#19](https://github.com/the-user-created/RainVu/issues/19).
+- Resolved a crash related to `null` values during data import.
 
 ## [1.1.0] - 2025-09-10
 
