@@ -26,6 +26,8 @@ import "package:rainvu/oss_licenses.dart" as oss;
 
 part "app_router.g.dart";
 
+// ignore_for_file: avoid_classes_with_only_static_members
+
 // 1. Define Navigator Keys
 final GlobalKey<NavigatorState> _rootNavigatorKey = GlobalKey<NavigatorState>(
   debugLabel: "root",
@@ -78,8 +80,18 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
   const OnboardingRoute();
 
   @override
-  Widget build(final BuildContext context, final GoRouterState state) =>
-      const OnboardingScreen();
+  Page<void> buildPage(final BuildContext context, final GoRouterState state) =>
+      CustomTransitionPage<void>(
+        key: state.pageKey,
+        child: const OnboardingScreen(),
+        transitionsBuilder:
+            (
+              final context,
+              final animation,
+              final secondaryAnimation,
+              final child,
+            ) => FadeTransition(opacity: animation, child: child),
+      );
 }
 
 // --- Stateful Shell Route Definition ---
@@ -144,36 +156,42 @@ class AppShellRoute extends StatefulShellRouteData {
   const AppShellRoute();
 
   @override
-  Widget builder(
+  Page<void> pageBuilder(
     final BuildContext context,
     final GoRouterState state,
     final StatefulNavigationShell navigationShell,
-  ) => ScaffoldWithNavBar(navigationShell: navigationShell);
+  ) => CustomTransitionPage<void>(
+    key: state.pageKey,
+    child: ScaffoldWithNavBar(navigationShell: navigationShell),
+    transitionsBuilder:
+        (
+          final context,
+          final animation,
+          final secondaryAnimation,
+          final child,
+        ) => FadeTransition(opacity: animation, child: child),
+  );
 }
 
 // --- Shell Branches ---
-// ignore: avoid_classes_with_only_static_members
 class HomeBranch extends StatefulShellBranchData {
   const HomeBranch();
 
   static final GlobalKey<NavigatorState> $navigatorKey = _homeNavigatorKey;
 }
 
-// ignore: avoid_classes_with_only_static_members
 class InsightsBranch extends StatefulShellBranchData {
   const InsightsBranch();
 
   static final GlobalKey<NavigatorState> $navigatorKey = _insightsNavigatorKey;
 }
 
-// ignore: avoid_classes_with_only_static_members
 class GaugesBranch extends StatefulShellBranchData {
   const GaugesBranch();
 
   static final GlobalKey<NavigatorState> $navigatorKey = _gaugesNavigatorKey;
 }
 
-// ignore: avoid_classes_with_only_static_members
 class SettingsBranch extends StatefulShellBranchData {
   const SettingsBranch();
 
