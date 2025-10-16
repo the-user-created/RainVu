@@ -33,6 +33,23 @@ class SeasonalTrendsFilterNotifier extends _$SeasonalTrendsFilterNotifier {
         ) ??
         Hemisphere.northern;
 
+    // Listen to the available years and self-correct if the current year
+    // in the state becomes invalid (e.g., after initial data load).
+    ref.listen(availableYearsProvider, (final previous, final next) {
+      final List<int>? years = next.value;
+      if (years == null || years.isEmpty) {
+        // No data or still loading, do nothing.
+        // The widget will handle showing the current year as the only option.
+        return;
+      }
+
+      // If the currently selected year is not in the list of available years,
+      // update the state to use the most recent valid year.
+      if (!years.contains(state.year)) {
+        state = state.copyWith(year: years.first);
+      }
+    });
+
     return SeasonalFilter(
       year: DateTime.now().year,
       season: getCurrentSeason(hemisphere),
