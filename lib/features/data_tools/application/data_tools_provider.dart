@@ -4,6 +4,7 @@ import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:rainvu/core/firebase/analytics_service.dart";
 import "package:rainvu/features/data_tools/data/data_tools_repository.dart";
+import "package:rainvu/features/data_tools/domain/data_tools_exceptions.dart";
 import "package:rainvu/features/data_tools/domain/data_tools_state.dart";
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:riverpod_annotation/riverpod_annotation.dart";
@@ -22,6 +23,33 @@ class DataToolsNotifier extends _$DataToolsNotifier {
   void setDateRange(final DateTimeRange? range) {
     state = state.copyWith(dateRange: range);
   }
+
+  String _getErrorMessage(final Object e, final AppLocalizations l10n) =>
+      switch (e) {
+        final NoDataToExportException _ => l10n.exportErrorNoData,
+        final UnsupportedFileFormatException e =>
+          l10n.importErrorUnsupportedFormat(e.extension),
+        final MissingCsvHeadersException e => l10n.importErrorMissingHeaders(
+          e.headers.join(", "),
+        ),
+        final CsvRowColumnCountException e => l10n.importErrorColumnCount(
+          e.rowNumber,
+          e.expected,
+          e.actual,
+        ),
+        final CsvMissingValueException e => l10n.importErrorMissingValue(
+          e.columnName,
+          e.rowNumber,
+        ),
+        final CsvRowFormatException e => l10n.importErrorInvalidData(
+          e.rowNumber,
+          e.details,
+        ),
+        final CsvRowProcessingException e => l10n.importErrorProcessingRow(
+          e.rowNumber,
+        ),
+        _ => l10n.genericError,
+      };
 
   Future<void> pickFileForImport(final AppLocalizations l10n) async {
     // Clear previous messages and states
@@ -46,7 +74,7 @@ class DataToolsNotifier extends _$DataToolsNotifier {
           reason: "File parsing for import preview failed",
         );
         state = state.copyWith(
-          errorMessage: l10n.dataToolsParseFailed(e.toString()),
+          errorMessage: _getErrorMessage(e, l10n),
           isParsing: false,
           fileToImport: null,
           importPreview: null,
@@ -98,9 +126,7 @@ class DataToolsNotifier extends _$DataToolsNotifier {
         s,
         reason: "Export data action failed",
       );
-      state = state.copyWith(
-        errorMessage: l10n.dataToolsExportFailed(e.toString()),
-      );
+      state = state.copyWith(errorMessage: _getErrorMessage(e, l10n));
     } finally {
       state = state.copyWith(isExporting: false, exportStage: ExportStage.none);
     }
@@ -149,9 +175,7 @@ class DataToolsNotifier extends _$DataToolsNotifier {
         s,
         reason: "Import data action failed",
       );
-      state = state.copyWith(
-        errorMessage: l10n.dataToolsImportFailed(e.toString()),
-      );
+      state = state.copyWith(errorMessage: _getErrorMessage(e, l10n));
     } finally {
       state = state.copyWith(isImporting: false);
     }

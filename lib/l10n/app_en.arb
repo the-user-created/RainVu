@@ -444,6 +444,10 @@
   "@exportDataCardDescription": {
     "description": "Descriptive text on the data export card."
   },
+  "exportErrorNoData": "No data available to export in the selected range.",
+  "@exportErrorNoData": {
+    "description": "Error message when trying to export data with no entries in the selected range."
+  },
   "exportFormatCsv": "CSV",
   "@exportFormatCsv": {
     "description": "Label for the CSV export format option."
@@ -659,6 +663,74 @@
   "importDataCardDescription": "Import your previously exported rainfall data",
   "@importDataCardDescription": {
     "description": "Descriptive text on the data import card."
+  },
+  "importErrorColumnCount": "Row {row} has an incorrect number of columns. Expected {expected}, but found {actual}.",
+  "@importErrorColumnCount": {
+    "description": "Error message when a CSV row has an incorrect number of columns.",
+    "placeholders": {
+      "row": {
+        "type": "int"
+      },
+      "expected": {
+        "type": "int"
+      },
+      "actual": {
+        "type": "int"
+      }
+    }
+  },
+  "importErrorInvalidData": "Invalid data format in row {row}: {details}.",
+  "@importErrorInvalidData": {
+    "description": "Error message for a CSV row with data that cannot be parsed.",
+    "placeholders": {
+      "row": {
+        "type": "int"
+      },
+      "details": {
+        "type": "String"
+      }
+    }
+  },
+  "importErrorMissingHeaders": "The CSV file is missing required columns: {headers}.",
+  "@importErrorMissingHeaders": {
+    "description": "Error message when a CSV import file is missing required columns.",
+    "placeholders": {
+      "headers": {
+        "type": "String"
+      }
+    }
+  },
+  "importErrorMissingValue": "Missing value for column ''{column}'' in row {row}.",
+  "@importErrorMissingValue": {
+    "description": "Error message when a required value in a CSV cell is empty.",
+    "placeholders": {
+      "column": {
+        "type": "String",
+        "description": "The name of the missing column."
+      },
+      "row": {
+        "type": "int",
+        "description": "The row number where the error occurred."
+      }
+    }
+  },
+  "importErrorProcessingRow": "Could not process row {row}. Please check the file's content.",
+  "@importErrorProcessingRow": {
+    "description": "Generic error for a CSV row that could not be processed.",
+    "placeholders": {
+      "row": {
+        "type": "int"
+      }
+    }
+  },
+  "importErrorUnsupportedFormat": "Unsupported file format: {extension}. Please use CSV or JSON.",
+  "@importErrorUnsupportedFormat": {
+    "description": "Error message for an unsupported import file format.",
+    "placeholders": {
+      "extension": {
+        "type": "String"
+      }
+    }
   },
   "importPreviewCancelButton": "Cancel",
   "@importPreviewCancelButton": {

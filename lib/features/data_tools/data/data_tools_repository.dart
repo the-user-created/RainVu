@@ -10,6 +10,7 @@ import "package:rainvu/core/data/local/app_database.dart";
 import "package:rainvu/core/data/local/daos/rain_gauges_dao.dart";
 import "package:rainvu/core/data/local/daos/rainfall_entries_dao.dart";
 import "package:rainvu/core/utils/extensions.dart";
+import "package:rainvu/features/data_tools/domain/data_tools_exceptions.dart";
 import "package:rainvu/features/data_tools/domain/data_tools_state.dart";
 import "package:rainvu/shared/domain/rain_gauge.dart" as domain_gauge;
 import "package:rainvu/shared/domain/rainfall_entry.dart" as domain_entry;
@@ -68,7 +69,7 @@ class DriftDataToolsRepository implements DataToolsRepository {
         : await _entriesDao.getAllEntriesWithGauges();
 
     if (entriesWithGauges.isEmpty) {
-      throw Exception("No data available to export in the selected range.");
+      throw const NoDataToExportException();
     }
 
     onProgress(ExportStage.formatting);
@@ -146,7 +147,7 @@ class DriftDataToolsRepository implements DataToolsRepository {
         continue;
       }
 
-      final RainfallEntry existingEntry = existingEntriesById[parsedEntry.id!]!;
+      final RainfallEntry existingEntry = existingEntriesById[parsedEntry.id]!;
       final String? resolvedGaugeId = resolvedGaugeIdMap[parsedEntry.gaugeId];
 
       final bool amountChanged =
@@ -247,7 +248,7 @@ class DriftDataToolsRepository implements DataToolsRepository {
     } else if (extension == "csv") {
       return _parseCsvContent(content);
     } else {
-      throw Exception("Unsupported file format: $extension");
+      throw UnsupportedFileFormatException(extension);
     }
   }
 
@@ -293,9 +294,7 @@ class DriftDataToolsRepository implements DataToolsRepository {
         .toList();
 
     if (missingHeaders.isNotEmpty) {
-      throw Exception(
-        "Missing required CSV columns: ${missingHeaders.join(", ")}",
-      );
+      throw MissingCsvHeadersException(missingHeaders);
     }
 
     final int entryIdIndex = headers.indexOf("entry_id");
@@ -319,8 +318,10 @@ class DriftDataToolsRepository implements DataToolsRepository {
 
       // 2. Verify that the row has the correct number of columns.
       if (row.length != headers.length) {
-        throw Exception(
-          "Row $rowNumberForError has ${row.length} columns, but the header has ${headers.length}. Please check for formatting errors.",
+        throw CsvRowColumnCountException(
+          rowNumber: rowNumberForError,
+          expected: headers.length,
+          actual: row.length,
         );
       }
 
@@ -337,22 +338,34 @@ class DriftDataToolsRepository implements DataToolsRepository {
         // 4. Get values and validate that they are not empty.
         final String gaugeNameStr = row[gaugeNameIndex].toString().trim();
         if (gaugeNameStr.isEmpty) {
-          throw const FormatException("Missing value for 'gauge_name'");
+          throw CsvMissingValueException(
+            rowNumber: rowNumberForError,
+            columnName: "gauge_name",
+          );
         }
 
         final String dateStr = row[dateIndex].toString().trim();
         if (dateStr.isEmpty) {
-          throw const FormatException("Missing value for 'date'");
+          throw CsvMissingValueException(
+            rowNumber: rowNumberForError,
+            columnName: "date",
+          );
         }
 
         final String amountStr = row[amountIndex].toString().trim();
         if (amountStr.isEmpty) {
-          throw const FormatException("Missing value for 'amount'");
+          throw CsvMissingValueException(
+            rowNumber: rowNumberForError,
+            columnName: "amount",
+          );
         }
 
         final String unitStr = row[unitIndex].toString().trim();
         if (unitStr.isEmpty) {
-          throw const FormatException("Missing value for 'unit'");
+          throw CsvMissingValueException(
+            rowNumber: rowNumberForError,
+            columnName: "unit",
+          );
         }
 
         // Now that strings are validated, proceed with parsing and conversion.
@@ -383,14 +396,12 @@ class DriftDataToolsRepository implements DataToolsRepository {
           ),
         );
       } on FormatException catch (e) {
-        throw Exception(
-          "Invalid data format in row $rowNumberForError. Details: ${e.message}",
+        throw CsvRowFormatException(
+          rowNumber: rowNumberForError,
+          details: e.message,
         );
-      } catch (e) {
-        // This will catch the column count mismatch exception and others.
-        throw Exception(
-          "Could not process row $rowNumberForError. ${e.toString().replaceFirst("Exception: ", "")}",
-        );
+      } catch (_) {
+        throw CsvRowProcessingException(rowNumberForError);
       }
     }
     return _ParsedData(gauges.unique((final g) => g.name), entries);
