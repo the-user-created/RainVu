@@ -1,5 +1,11 @@
 # Changelog
 
+## [1.1.2] - 2025-10-17
+
+### Fixed
+
+- **Changelog**: Resolved a layout issue that could cause a crash on the changelog screen.
+
 ## [1.1.1] - 2025-10-17
 
 ### Added
