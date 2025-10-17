@@ -1,9 +1,25 @@
 # Changelog
 
+## [1.1.1] - 2025-10-17
+
+### Added
+
+- **Expandable FAB**: Introduced a new expandable floating action button on the home screen with quick access to **Log Rainfall** and **Add Gauge** actions.
+
+### Changed
+
+- **Manage Gauges**: Replaced the top bar add button with a floating action button for adding new gauges.
+- **Gauge List**: Improved the layout of gauge list tiles with better button organization and clearer visual hierarchy.
+- **Historical Averages**: Updated the calculation requirements for yearly rainfall averages to require **80% data coverage** for 5, 10, 15, and 20-year periods (previously required only 2 years of data).
+
+### Fixed
+
+- **iOS Keyboard**: Corrected an issue where the numpad action bar did not follow the system theme on iOS devices.
+
 ## [1.1.0] - 2025-10-16
 
 ### Added
-- **Android Beta Release**: RainVu is now available for beta testing on Android.
+- **Android Beta Release**: RainVu is ready for beta testing on Android.
 - **Contextual Help**: Added info sheets on various screens to provide on-demand explanations of features and metrics.
 
 ### Changed

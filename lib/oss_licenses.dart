@@ -4641,13 +4641,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('leak_tracker_flutter_testing'), PackageRef('mockito')],
   );
 
-/// flutter_native_splash 2.4.6
+/// flutter_native_splash 2.4.7
 const _flutter_native_splash = Package(
     name: 'flutter_native_splash',
     description: "Customize Flutter's default white native splash screen with background color and splash image. Supports dark mode, full screen, and more.",
     repository: 'https://github.com/jonbhanson/flutter_native_splash',
     authors: [],
-    version: '2.4.6',
+    version: '2.4.7',
     license: '''MIT License
 
 Copyright (c) 2022 Jon Hanson
@@ -4675,13 +4675,13 @@ SOFTWARE.''',
     devDependencies: [PackageRef('flutter_lints')],
   );
 
-/// flutter_plugin_android_lifecycle 2.0.31
+/// flutter_plugin_android_lifecycle 2.0.32
 const _flutter_plugin_android_lifecycle = Package(
     name: 'flutter_plugin_android_lifecycle',
     description: 'Flutter plugin for accessing an Android Lifecycle within other plugins.',
     repository: 'https://github.com/flutter/packages/tree/main/packages/flutter_plugin_android_lifecycle',
     authors: [],
-    version: '2.0.31',
+    version: '2.0.32',
     license: '''Copyright 2013 The Flutter Authors
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -4984,14 +4984,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('test')],
   );
 
-/// go_router 16.2.4
+/// go_router 16.2.5
 const _go_router = Package(
     name: 'go_router',
     description: 'A declarative router for Flutter based on Navigation 2 supporting deep linking, data-driven routes and more',
     repository: 'https://github.com/flutter/packages/tree/main/packages/go_router',
     authors: [],
-    version: '16.2.4',
-    license: '''Copyright 2013 The Flutter Authors. All rights reserved.
+    version: '16.2.5',
+    license: '''Copyright 2013 The Flutter Authors
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -7035,13 +7035,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('plugin_platform_interface'), PackageRef('test')],
   );
 
-/// path_provider_android 2.2.19
+/// path_provider_android 2.2.20
 const _path_provider_android = Package(
     name: 'path_provider_android',
     description: 'Android implementation of the path_provider plugin.',
     repository: 'https://github.com/flutter/packages/tree/main/packages/path_provider/path_provider_android',
     authors: [],
-    version: '2.2.19',
+    version: '2.2.20',
     license: '''Copyright 2013 The Flutter Authors
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -7514,13 +7514,13 @@ THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
     devDependencies: [PackageRef('test')],
   );
 
-/// rfc_6901 0.2.0
+/// rfc_6901 0.2.1
 const _rfc_6901 = Package(
     name: 'rfc_6901',
     description: 'JSON Pointer (RFC 6901). Reads/writes referred values in JSON documents.',
     homepage: 'https://github.com/f3ath/rfc-6901-dart',
     authors: [],
-    version: '0.2.0',
+    version: '0.2.1',
     license: '''MIT License
 
 Copyright (c) 2021 The Конь
@@ -10600,13 +10600,13 @@ SOFTWARE.''',
     devDependencies: [PackageRef('path'), PackageRef('test')],
   );
 
-/// rainvu 1.1.0+3
+/// rainvu 1.1.1+4
 const _rainvu = Package(
     name: 'rainvu',
     description: 'A comprehensive mobile app for farmers, gardeners, and weather enthusiasts to meticulously log rainfall from multiple custom gauges and transform that data into actionable insights through powerful charting and historical analysis.',
     repository: 'https://github.com/the-user-created/RainVu',
     authors: [],
-    version: '1.1.0+3',
+    version: '1.1.1+4',
     license: '''MIT License
 
 Copyright (c) 2025 David Young
