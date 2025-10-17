@@ -75,56 +75,58 @@ class _TimelineReleaseEntry extends StatelessWidget {
   final bool isLast;
 
   @override
-  Widget build(final BuildContext context) => IntrinsicHeight(
-    child: Row(
-      crossAxisAlignment: CrossAxisAlignment.stretch,
+  Widget build(final BuildContext context) {
+    final ThemeData theme = Theme.of(context);
+    const double connectorWidth = 40;
+    const double lineWidth = 2;
+    const double dotDiameter = 28;
+
+    return Stack(
       children: [
-        _TimelineConnector(isLast: isLast),
-        Expanded(
-          child: Padding(
-            padding: EdgeInsets.only(bottom: isLast ? 0 : 32),
-            child: _ReleaseEntryWidget(release: release),
+        // The vertical line, positioned behind the content.
+        if (!isLast)
+          Positioned(
+            left: connectorWidth / 2 - lineWidth / 2,
+            top: dotDiameter, // Start below the dot
+            bottom: 0,
+            child: Container(
+              width: lineWidth,
+              color: theme.colorScheme.outlineVariant,
+            ),
+          ),
+        // The row containing the dot and the content.
+        Padding(
+          padding: EdgeInsets.only(bottom: isLast ? 0 : 32),
+          child: Row(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              SizedBox(
+                width: connectorWidth,
+                height: dotDiameter,
+                child: Center(
+                  child: Container(
+                    padding: const EdgeInsets.all(4),
+                    decoration: BoxDecoration(
+                      color: theme.colorScheme.surface,
+                      shape: BoxShape.circle,
+                      border: Border.all(
+                        color: theme.colorScheme.primary,
+                        width: 2,
+                      ),
+                    ),
+                    child: Icon(
+                      Icons.celebration_outlined,
+                      size: 16,
+                      color: theme.colorScheme.primary,
+                    ),
+                  ),
+                ),
+              ),
+              Expanded(child: _ReleaseEntryWidget(release: release)),
+            ],
           ),
         ),
       ],
-    ),
-  );
-}
-
-class _TimelineConnector extends StatelessWidget {
-  const _TimelineConnector({required this.isLast});
-
-  final bool isLast;
-
-  @override
-  Widget build(final BuildContext context) {
-    final ThemeData theme = Theme.of(context);
-    return SizedBox(
-      width: 40,
-      child: Column(
-        children: [
-          Container(
-            padding: const EdgeInsets.all(4),
-            decoration: BoxDecoration(
-              color: theme.colorScheme.surface,
-              shape: BoxShape.circle,
-              border: Border.all(color: theme.colorScheme.primary, width: 2),
-            ),
-            child: Icon(
-              Icons.celebration_outlined,
-              size: 16,
-              color: theme.colorScheme.primary,
-            ),
-          ),
-          if (!isLast)
-            Expanded(
-              child: Container(
-                width: 2,
-                color: theme.colorScheme.outlineVariant,
-              ),
-            ),
-        ],
-      ),
     );
   }
 }
@@ -142,6 +144,7 @@ class _ReleaseEntryWidget extends StatelessWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
 
     return Column(
+      mainAxisSize: MainAxisSize.min,
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Padding(
@@ -193,51 +196,91 @@ class _ChangelogLoadingPlaceholder extends StatelessWidget {
 
   @override
   Widget build(final BuildContext context) {
-    final Color color = Theme.of(context).colorScheme.surfaceContainerHighest;
+    final ThemeData theme = Theme.of(context);
+    final Color placeholderColor = theme.colorScheme.surfaceContainerHighest;
+    const double connectorWidth = 40;
+    const double lineWidth = 2;
+    const double dotPlaceholderSize = 28;
+
+    final Widget dotPlaceholder = Container(
+      height: dotPlaceholderSize,
+      width: dotPlaceholderSize,
+      decoration: BoxDecoration(
+        color: placeholderColor,
+        shape: BoxShape.circle,
+      ),
+    );
+
     return ListView(
       physics: const NeverScrollableScrollPhysics(),
       padding: const EdgeInsets.symmetric(vertical: 8, horizontal: 16),
       children: List.generate(3, (final index) {
         final bool isLast = index == 2;
-        return IntrinsicHeight(
-          child: Row(
-            crossAxisAlignment: CrossAxisAlignment.stretch,
-            children: [
-              _TimelineConnector(isLast: isLast),
-              Expanded(
-                child: Padding(
-                  padding: EdgeInsets.only(bottom: isLast ? 0 : 32),
-                  child: Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Padding(
-                        padding: const EdgeInsets.only(bottom: 16),
-                        child: Row(
-                          children: [
-                            LinePlaceholder(
-                              height: 28,
-                              width: 90,
-                              color: color,
-                              borderRadius: BorderRadius.circular(20),
-                            ),
-                            const SizedBox(width: 12),
-                            LinePlaceholder(
-                              height: 16,
-                              width: 100,
-                              color: color,
-                            ),
-                          ],
-                        ),
-                      ),
-                      CardPlaceholder(height: 120, color: color),
-                      const SizedBox(height: 12),
-                      CardPlaceholder(height: 80, color: color),
-                    ],
-                  ),
+        return Stack(
+          children: [
+            if (!isLast)
+              Positioned(
+                left: connectorWidth / 2 - lineWidth / 2,
+                top: dotPlaceholderSize,
+                bottom: 0,
+                child: Container(
+                  width: lineWidth,
+                  color: theme.colorScheme.outlineVariant,
                 ),
               ),
-            ],
-          ),
+            Padding(
+              padding: EdgeInsets.only(bottom: isLast ? 0 : 32),
+              child: Row(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  SizedBox(
+                    width: connectorWidth,
+                    height: dotPlaceholderSize,
+                    child: Center(
+                      child: Container(
+                        height: dotPlaceholderSize,
+                        width: dotPlaceholderSize,
+                        decoration: BoxDecoration(
+                          color: theme.colorScheme.surface,
+                          shape: BoxShape.circle,
+                        ),
+                        child: Center(child: dotPlaceholder),
+                      ),
+                    ),
+                  ),
+                  Expanded(
+                    child: Column(
+                      crossAxisAlignment: CrossAxisAlignment.start,
+                      children: [
+                        Padding(
+                          padding: const EdgeInsets.only(bottom: 16),
+                          child: Row(
+                            children: [
+                              LinePlaceholder(
+                                height: 28,
+                                width: 90,
+                                color: placeholderColor,
+                                borderRadius: BorderRadius.circular(20),
+                              ),
+                              const SizedBox(width: 12),
+                              LinePlaceholder(
+                                height: 16,
+                                width: 100,
+                                color: placeholderColor,
+                              ),
+                            ],
+                          ),
+                        ),
+                        CardPlaceholder(height: 120, color: placeholderColor),
+                        const SizedBox(height: 12),
+                        CardPlaceholder(height: 80, color: placeholderColor),
+                      ],
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ],
         );
       }),
     );
