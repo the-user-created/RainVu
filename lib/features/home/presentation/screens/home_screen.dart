@@ -4,13 +4,14 @@ import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:rainvu/app_constants.dart";
 import "package:rainvu/features/home/application/home_providers.dart";
 import "package:rainvu/features/home/domain/home_data.dart";
-import "package:rainvu/features/home/presentation/widgets/home_app_bar.dart";
 import "package:rainvu/features/home/presentation/widgets/log_rain_sheet.dart";
 import "package:rainvu/features/home/presentation/widgets/monthly_summary_card.dart";
 import "package:rainvu/features/home/presentation/widgets/monthly_trend_chart.dart";
 import "package:rainvu/features/home/presentation/widgets/ytd_summary_card.dart";
+import "package:rainvu/features/manage_gauges/presentation/widgets/add_gauge_sheet.dart";
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/utils/adaptive_ui_helpers.dart";
+import "package:rainvu/shared/widgets/buttons/expandable_fab.dart";
 import "package:rainvu/shared/widgets/placeholders.dart";
 import "package:shimmer/shimmer.dart";
 
@@ -24,16 +25,43 @@ class HomeScreen extends ConsumerWidget {
     );
   }
 
+  void _showAddGaugeSheet(final BuildContext context) {
+    showAdaptiveSheet<void>(
+      context: context,
+      builder: (final context) => const AddGaugeSheet(),
+    );
+  }
+
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AsyncValue<HomeData> homeDataAsync = ref.watch(
       homeScreenDataProvider,
     );
+    final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: Scaffold(
-        appBar: HomeAppBar(onAddPressed: () => _showLogRainSheet(context)),
+        appBar: AppBar(
+          automaticallyImplyLeading: false,
+          title: Text(l10n.appName, style: theme.textTheme.headlineLarge),
+          elevation: 0,
+        ),
+        floatingActionButton: ExpandableFab(
+          distance: 70,
+          children: [
+            ActionButton(
+              onPressed: () => _showLogRainSheet(context),
+              icon: const Icon(Icons.water_drop),
+              label: l10n.fabLogRainfall,
+            ),
+            ActionButton(
+              onPressed: () => _showAddGaugeSheet(context),
+              icon: const Icon(Icons.straighten),
+              label: l10n.fabAddGauge,
+            ),
+          ],
+        ),
         body: SafeArea(
           child: homeDataAsync.when(
             loading: () => const _LoadingState(),
@@ -63,7 +91,7 @@ class HomeScreen extends ConsumerWidget {
                 ),
                 const SizedBox(height: 24),
                 MonthlyTrendChart(trends: homeData.monthlyTrends),
-                const SizedBox(height: 32),
+                const SizedBox(height: 96),
               ],
             ),
           ),

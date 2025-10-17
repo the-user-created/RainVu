@@ -4,7 +4,6 @@ import "package:rainvu/features/manage_gauges/presentation/widgets/add_gauge_she
 import "package:rainvu/features/manage_gauges/presentation/widgets/gauge_list.dart";
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/utils/adaptive_ui_helpers.dart";
-import "package:rainvu/shared/widgets/buttons/app_icon_button.dart";
 
 class ManageGaugesScreen extends StatelessWidget {
   const ManageGaugesScreen({super.key});
@@ -26,23 +25,19 @@ class ManageGaugesScreen extends StatelessWidget {
           l10n.manageGaugesTitle,
           style: theme.textTheme.headlineMedium,
         ),
-        actions: [
-          Padding(
-            padding: const EdgeInsets.only(right: 8),
-            child: AppIconButton(
-              icon: const Icon(Icons.add_circle_outline),
-              iconSize: 30,
-              onPressed: () => _showAddSheet(context),
-              tooltip: l10n.addGaugeTooltip,
-            ),
-          ),
-        ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () => _showAddSheet(context),
+        tooltip: l10n.addGaugeTooltip,
+        child: const Icon(Icons.add),
       ),
       body: const SafeArea(
         child: SingleChildScrollView(
-          padding: EdgeInsets.symmetric(
-            horizontal: AppConstants.horiEdgePadding,
-            vertical: 16,
+          padding: EdgeInsets.fromLTRB(
+            AppConstants.horiEdgePadding,
+            16,
+            AppConstants.horiEdgePadding,
+            88,
           ),
           child: GaugeList(),
         ),

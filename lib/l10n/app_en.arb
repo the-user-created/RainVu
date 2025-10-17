@@ -489,6 +489,14 @@
   "@exportProgressTitle": {
     "description": "The title of the dialog shown during data export."
   },
+  "fabAddGauge": "Add Gauge",
+  "@fabAddGauge": {
+    "description": "Label for the floating action button to add a new rain gauge."
+  },
+  "fabLogRainfall": "Log Rainfall",
+  "@fabLogRainfall": {
+    "description": "Label for the floating action button to log a new rainfall entry."
+  },
   "filePickerBoxSubtitle": "CSV or JSON files only",
   "@filePickerBoxSubtitle": {
     "description": "Subtitle in the file import box indicating allowed file types."
