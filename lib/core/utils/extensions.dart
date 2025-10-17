@@ -111,3 +111,10 @@ extension DateTimeExtension on DateTime {
   /// Returns a new DateTime object with the time set to the end of the day (23:59:59.999).
   DateTime get endOfDay => DateTime(year, month, day, 23, 59, 59, 999);
 }
+
+// ignore: camel_case_extensions
+extension iOSKeyboardConfig on BuildContext {
+  Color get iOSKeyboardBgColor => Theme.of(this).brightness == Brightness.dark
+      ? const Color(0xFF2E3030)
+      : const Color(0xFFCAD1D9);
+}

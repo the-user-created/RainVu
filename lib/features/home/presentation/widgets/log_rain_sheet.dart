@@ -1,5 +1,3 @@
-import "dart:io";
-
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
@@ -30,7 +28,7 @@ class LogRainSheet extends ConsumerStatefulWidget {
 class _LogRainSheetState extends ConsumerState<LogRainSheet> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _amountController;
-  final _amountFocusNode = FocusNode();
+  late FocusNode _amountFocusNode;
 
   // State for form fields
   String? _selectedGaugeId;
@@ -41,6 +39,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
   void initState() {
     super.initState();
     _amountController = TextEditingController();
+    _amountFocusNode = FocusNode();
   }
 
   @override
@@ -110,9 +109,29 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
     }
   }
 
-  KeyboardActionsConfig _buildKeyboardConfig() => KeyboardActionsConfig(
-    nextFocus: false, // No other fields to navigate to
-    actions: [KeyboardActionsItem(focusNode: _amountFocusNode)],
+  KeyboardActionsConfig get _keyboardActionsConfig => KeyboardActionsConfig(
+    keyboardActionsPlatform: KeyboardActionsPlatform.IOS,
+    keyboardBarColor: context.iOSKeyboardBgColor,
+    actions: [
+      KeyboardActionsItem(
+        focusNode: _amountFocusNode,
+        toolbarButtons: [
+          (final node) => GestureDetector(
+            onTap: node.unfocus,
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              child: Text(
+                AppLocalizations.of(context).doneButtonLabel,
+                style: const TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ],
   );
 
   @override
@@ -131,7 +150,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
         userPreferences.value?.measurementUnit ?? MeasurementUnit.mm;
     final MeasurementUnit effectiveUnit = _localSelectedUnit ?? globalUnit;
 
-    final Widget sheetContent = GestureDetector(
+    return GestureDetector(
       onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
       child: InteractiveSheet(
         title: Text(l10n.logRainfallSheetTitle),
@@ -203,6 +222,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
               _buildSectionHeader(l10n.logRainfallAmountHeader),
               _AmountInputRow(
                 amountController: _amountController,
+                keyboardActionsConfig: _keyboardActionsConfig,
                 amountFocusNode: _amountFocusNode,
                 selectedUnit: effectiveUnit,
                 onUnitChanged: (final value) {
@@ -252,14 +272,6 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
         ),
       ),
     );
-
-    if (Platform.isIOS) {
-      return KeyboardActions(
-        config: _buildKeyboardConfig(),
-        child: sheetContent,
-      );
-    }
-    return sheetContent;
   }
 
   Widget _buildSectionHeader(final String title) => Align(
@@ -280,12 +292,14 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
 class _AmountInputRow extends StatelessWidget {
   const _AmountInputRow({
     required this.amountController,
+    required this.keyboardActionsConfig,
     required this.selectedUnit,
     required this.onUnitChanged,
     this.amountFocusNode,
   });
 
   final TextEditingController amountController;
+  final KeyboardActionsConfig keyboardActionsConfig;
   final MeasurementUnit selectedUnit;
   final ValueChanged<MeasurementUnit> onUnitChanged;
   final FocusNode? amountFocusNode;
@@ -295,27 +309,31 @@ class _AmountInputRow extends StatelessWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final double textScaleFactor = MediaQuery.textScalerOf(context).scale(1);
 
-    final Widget amountField = TextFormField(
-      controller: amountController,
-      focusNode: amountFocusNode,
-      decoration: InputDecoration(hintText: l10n.logRainfallAmountHint),
-      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-      validator: (final val) {
-        if (val == null || val.isEmpty) {
-          return l10n.logRainfallAmountValidationEmpty;
-        }
-        final String normalizedVal = val.replaceAll(",", ".");
-        if (double.tryParse(normalizedVal) == null) {
-          return l10n.logRainfallAmountValidationInvalid;
-        }
-        if (double.parse(normalizedVal).isNegative) {
-          return l10n.logRainfallAmountValidationNegative;
-        }
-        return null;
-      },
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r"^\d*[,.]?\d*")),
-      ],
+    final Widget amountField = KeyboardActions(
+      config: keyboardActionsConfig,
+      disableScroll: true,
+      child: TextFormField(
+        controller: amountController,
+        focusNode: amountFocusNode,
+        decoration: InputDecoration(hintText: l10n.logRainfallAmountHint),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        validator: (final val) {
+          if (val == null || val.isEmpty) {
+            return l10n.logRainfallAmountValidationEmpty;
+          }
+          final String normalizedVal = val.replaceAll(",", ".");
+          if (double.tryParse(normalizedVal) == null) {
+            return l10n.logRainfallAmountValidationInvalid;
+          }
+          if (double.parse(normalizedVal).isNegative) {
+            return l10n.logRainfallAmountValidationNegative;
+          }
+          return null;
+        },
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r"^\d*[,.]?\d*")),
+        ],
+      ),
     );
 
     final Widget unitSelector = AppSegmentedControl<MeasurementUnit>(

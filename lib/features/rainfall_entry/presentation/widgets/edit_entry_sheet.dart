@@ -1,5 +1,3 @@
-import "dart:io";
-
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter/services.dart";
@@ -34,7 +32,7 @@ class EditEntrySheet extends ConsumerStatefulWidget {
 class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
   final _formKey = GlobalKey<FormState>();
   late TextEditingController _amountController;
-  final _amountFocusNode = FocusNode();
+  late FocusNode _amountFocusNode;
   late DateTime _selectedDate;
   late MeasurementUnit _displayUnit;
   String? _selectedGaugeId;
@@ -46,6 +44,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
     super.initState();
     final RainfallEntry entry = widget.entry;
     _amountController = TextEditingController();
+    _amountFocusNode = FocusNode();
     _selectedDate = entry.date;
     _selectedGaugeId = entry.gaugeId;
   }
@@ -148,9 +147,29 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
     ),
   );
 
-  KeyboardActionsConfig _buildKeyboardConfig() => KeyboardActionsConfig(
-    nextFocus: false, // No other fields to navigate to
-    actions: [KeyboardActionsItem(focusNode: _amountFocusNode)],
+  KeyboardActionsConfig get _keyboardActionsConfig => KeyboardActionsConfig(
+    keyboardActionsPlatform: KeyboardActionsPlatform.IOS,
+    keyboardBarColor: context.iOSKeyboardBgColor,
+    actions: [
+      KeyboardActionsItem(
+        focusNode: _amountFocusNode,
+        toolbarButtons: [
+          (final node) => GestureDetector(
+            onTap: node.unfocus,
+            child: Container(
+              padding: const EdgeInsets.all(12),
+              child: Text(
+                AppLocalizations.of(context).doneButtonLabel,
+                style: const TextStyle(
+                  color: Colors.blue,
+                  fontWeight: FontWeight.bold,
+                ),
+              ),
+            ),
+          ),
+        ],
+      ),
+    ],
   );
 
   @override
@@ -161,111 +180,106 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
       allGaugesFutureProvider,
     );
 
-    final Widget sheetContent = InteractiveSheet(
-      title: Text(l10n.editEntrySheetTitle),
-      child: Form(
-        key: _formKey,
-        autovalidateMode: AutovalidateMode.onUserInteraction,
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.stretch,
-          children: [
-            _buildSectionHeader(l10n.editEntryGaugeHeader),
-            gaugesAsync.when(
-              loading: () => TextFormField(
-                enabled: false,
-                decoration: InputDecoration(hintText: l10n.loading),
-              ),
-              error: (final err, final stack) =>
-                  Text(l10n.rainfallEntriesError),
-              data: (final gauges) => AppDropdownFormField<String>(
-                value: _selectedGaugeId,
-                items: gauges.map((final gauge) {
-                  final String displayName =
-                      gauge.id == AppConstants.defaultGaugeId
-                      ? l10n.defaultGaugeName
-                      : gauge.name;
-                  return DropdownMenuItem(
-                    value: gauge.id,
-                    child: Text(displayName),
-                  );
-                }).toList(),
-                onChanged: (final value) =>
-                    setState(() => _selectedGaugeId = value),
-                validator: (final value) =>
-                    value == null ? l10n.editEntryGaugeValidation : null,
-              ),
-            ),
-            const SizedBox(height: 16),
-            _buildSectionHeader(l10n.editEntryAmountHeader),
-            _AmountInputRow(
-              amountController: _amountController,
-              amountFocusNode: _amountFocusNode,
-              selectedUnit: _displayUnit,
-              onUnitChanged: (final value) {
-                setState(() {
-                  _displayUnit = value;
-                });
-              },
-            ),
-            const SizedBox(height: 16),
-            _buildSectionHeader(l10n.editEntryDateTimeHeader),
-            InkWell(
-              onTap: _pickDateTime,
-              child: Container(
-                width: double.infinity,
-                constraints: const BoxConstraints(minHeight: 60),
-                decoration: BoxDecoration(
-                  color: theme.colorScheme.surface,
-                  borderRadius: BorderRadius.circular(8),
-                  border: Border.all(color: theme.colorScheme.outline),
+    return GestureDetector(
+      onTap: () => FocusManager.instance.primaryFocus?.unfocus(),
+      child: InteractiveSheet(
+        title: Text(l10n.editEntrySheetTitle),
+        child: Form(
+          key: _formKey,
+          autovalidateMode: AutovalidateMode.onUserInteraction,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              _buildSectionHeader(l10n.editEntryGaugeHeader),
+              gaugesAsync.when(
+                loading: () => TextFormField(
+                  enabled: false,
+                  decoration: InputDecoration(hintText: l10n.loading),
                 ),
-                child: Padding(
-                  padding: const EdgeInsets.symmetric(
-                    horizontal: 12,
-                    vertical: 12,
+                error: (final err, final stack) =>
+                    Text(l10n.rainfallEntriesError),
+                data: (final gauges) => AppDropdownFormField<String>(
+                  value: _selectedGaugeId,
+                  items: gauges.map((final gauge) {
+                    final String displayName =
+                        gauge.id == AppConstants.defaultGaugeId
+                        ? l10n.defaultGaugeName
+                        : gauge.name;
+                    return DropdownMenuItem(
+                      value: gauge.id,
+                      child: Text(displayName),
+                    );
+                  }).toList(),
+                  onChanged: (final value) =>
+                      setState(() => _selectedGaugeId = value),
+                  validator: (final value) =>
+                      value == null ? l10n.editEntryGaugeValidation : null,
+                ),
+              ),
+              const SizedBox(height: 16),
+              _buildSectionHeader(l10n.editEntryAmountHeader),
+              _AmountInputRow(
+                amountController: _amountController,
+                amountFocusNode: _amountFocusNode,
+                keyboardActionsConfig: _keyboardActionsConfig,
+                selectedUnit: _displayUnit,
+                onUnitChanged: (final value) {
+                  setState(() {
+                    _displayUnit = value;
+                  });
+                },
+              ),
+              const SizedBox(height: 16),
+              _buildSectionHeader(l10n.editEntryDateTimeHeader),
+              InkWell(
+                onTap: _pickDateTime,
+                child: Container(
+                  width: double.infinity,
+                  constraints: const BoxConstraints(minHeight: 60),
+                  decoration: BoxDecoration(
+                    color: theme.colorScheme.surface,
+                    borderRadius: BorderRadius.circular(8),
+                    border: Border.all(color: theme.colorScheme.outline),
                   ),
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                    children: [
-                      Flexible(
-                        child: Text(
-                          DateFormat.yMMMd().add_jm().format(_selectedDate),
-                          style: theme.textTheme.bodyLarge,
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 2,
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 12,
+                      vertical: 12,
+                    ),
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Flexible(
+                          child: Text(
+                            DateFormat.yMMMd().add_jm().format(_selectedDate),
+                            style: theme.textTheme.bodyLarge,
+                            overflow: TextOverflow.ellipsis,
+                            maxLines: 2,
+                          ),
                         ),
-                      ),
-                      const SizedBox(width: 8),
-                      Icon(
-                        Icons.calendar_today,
-                        color: theme.colorScheme.onSurface,
-                        size: 24,
-                      ),
-                    ],
+                        const SizedBox(width: 8),
+                        Icon(
+                          Icons.calendar_today,
+                          color: theme.colorScheme.onSurface,
+                          size: 24,
+                        ),
+                      ],
+                    ),
                   ),
                 ),
               ),
-            ),
-            const SizedBox(height: 32),
-            AppButton(
-              onPressed: _onSaveChanges,
-              label: l10n.saveChangesButton,
-              isLoading: _isLoading,
-              isExpanded: true,
-            ),
-          ],
+              const SizedBox(height: 32),
+              AppButton(
+                onPressed: _onSaveChanges,
+                label: l10n.saveChangesButton,
+                isLoading: _isLoading,
+                isExpanded: true,
+              ),
+            ],
+          ),
         ),
       ),
     );
-
-    if (Platform.isIOS) {
-      return KeyboardActions(
-        config: _buildKeyboardConfig(),
-        child: sheetContent,
-      );
-    }
-    return sheetContent;
   }
 }
 
@@ -273,12 +287,14 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
 class _AmountInputRow extends StatelessWidget {
   const _AmountInputRow({
     required this.amountController,
+    required this.amountFocusNode,
+    required this.keyboardActionsConfig,
     required this.selectedUnit,
     required this.onUnitChanged,
-    this.amountFocusNode,
   });
 
   final TextEditingController amountController;
+  final KeyboardActionsConfig keyboardActionsConfig;
   final MeasurementUnit selectedUnit;
   final ValueChanged<MeasurementUnit> onUnitChanged;
   final FocusNode? amountFocusNode;
@@ -288,27 +304,31 @@ class _AmountInputRow extends StatelessWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final double textScaleFactor = MediaQuery.textScalerOf(context).scale(1);
 
-    final Widget amountField = TextFormField(
-      controller: amountController,
-      focusNode: amountFocusNode,
-      decoration: InputDecoration(hintText: l10n.editEntryAmountHint),
-      keyboardType: const TextInputType.numberWithOptions(decimal: true),
-      validator: (final val) {
-        if (val == null || val.isEmpty) {
-          return l10n.editEntryAmountValidationEmpty;
-        }
-        final String normalizedVal = val.replaceAll(",", ".");
-        if (double.tryParse(normalizedVal) == null) {
-          return l10n.editEntryAmountValidationInvalid;
-        }
-        if (double.parse(normalizedVal).isNegative) {
-          return l10n.editEntryAmountValidationNegative;
-        }
-        return null;
-      },
-      inputFormatters: [
-        FilteringTextInputFormatter.allow(RegExp(r"^\d*[,.]?\d*")),
-      ],
+    final Widget amountField = KeyboardActions(
+      config: keyboardActionsConfig,
+      disableScroll: true,
+      child: TextFormField(
+        controller: amountController,
+        focusNode: amountFocusNode,
+        decoration: InputDecoration(hintText: l10n.editEntryAmountHint),
+        keyboardType: const TextInputType.numberWithOptions(decimal: true),
+        validator: (final val) {
+          if (val == null || val.isEmpty) {
+            return l10n.editEntryAmountValidationEmpty;
+          }
+          final String normalizedVal = val.replaceAll(",", ".");
+          if (double.tryParse(normalizedVal) == null) {
+            return l10n.editEntryAmountValidationInvalid;
+          }
+          if (double.parse(normalizedVal).isNegative) {
+            return l10n.editEntryAmountValidationNegative;
+          }
+          return null;
+        },
+        inputFormatters: [
+          FilteringTextInputFormatter.allow(RegExp(r"^\d*[,.]?\d*")),
+        ],
+      ),
     );
 
     final Widget unitSelector = AppSegmentedControl<MeasurementUnit>(
