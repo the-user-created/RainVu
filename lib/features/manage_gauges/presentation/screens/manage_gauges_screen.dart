@@ -29,6 +29,8 @@ class ManageGaugesScreen extends StatelessWidget {
       floatingActionButton: FloatingActionButton(
         onPressed: () => _showAddSheet(context),
         tooltip: l10n.addGaugeTooltip,
+        shape: const CircleBorder(),
+        heroTag: null,
         child: const Icon(Icons.add),
       ),
       body: const SafeArea(

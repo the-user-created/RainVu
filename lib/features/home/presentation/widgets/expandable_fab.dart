@@ -17,13 +17,13 @@ class ExpandableFab extends StatefulWidget {
     required this.children,
     super.key,
     this.initialOpen = false,
-    this.distance = 60.0,
+    this.distance = 72.0,
   });
 
   /// Whether the FAB is open initially.
   final bool initialOpen;
 
-  /// The distance between each action button.
+  /// The vertical distance between the center of each action button.
   final double distance;
 
   /// The list of [ActionButton]s to display.
@@ -84,7 +84,8 @@ class _ExpandableFabState extends State<ExpandableFab>
 
       buttons.add(
         _ExpandingActionButton(
-          distance: widget.distance * (i + 1),
+          distance: widget.distance,
+          index: i,
           progress: CurvedAnimation(
             parent: _expandAnimation,
             curve: Interval(start, end, curve: Curves.easeOutCubic),
@@ -116,6 +117,7 @@ class _ExpandableFabState extends State<ExpandableFab>
           ),
         ..._buildExpandingActionButtons(),
         FloatingActionButton(
+          shape: const CircleBorder(),
           onPressed: _toggle,
           child: AnimatedIcon(
             icon: AnimatedIcons.menu_close,
@@ -134,9 +136,11 @@ class _ExpandingActionButton extends StatelessWidget {
     required this.progress,
     required this.child,
     required this.onPressed,
+    required this.index,
   });
 
   final double distance;
+  final int index;
   final Animation<double> progress;
   final ActionButton child;
   final VoidCallback onPressed;
@@ -144,58 +148,63 @@ class _ExpandingActionButton extends StatelessWidget {
   @override
   Widget build(final BuildContext context) {
     final ThemeData theme = Theme.of(context);
+    final ColorScheme colorScheme = theme.colorScheme;
+    final TextTheme textTheme = theme.textTheme;
 
     return AnimatedBuilder(
       animation: progress,
       builder: (final context, final _) {
-        final double offset = progress.value * distance;
+        final double offset = (index + 1) * distance;
+
         return Positioned(
-          right: 4,
-          bottom: 4 + offset,
+          right: 0,
+          bottom: progress.value * offset,
           child: Opacity(
             opacity: progress.value,
-            child: Transform.scale(
-              scale: progress.value,
-              alignment: Alignment.bottomRight,
-              child: GestureDetector(
-                onTap: onPressed,
-                behavior: HitTestBehavior.opaque,
-                child: ColoredBox(
-                  color: Colors.transparent,
-                  child: Row(
-                    mainAxisAlignment: MainAxisAlignment.end,
-                    children: [
-                      if (child.label != null)
-                        IgnorePointer(
-                          child: Material(
-                            elevation: 2,
-                            color: theme.colorScheme.surfaceContainer,
-                            borderRadius: BorderRadius.circular(8),
-                            child: Padding(
-                              padding: const EdgeInsets.symmetric(
-                                horizontal: 12,
-                                vertical: 6,
-                              ),
-                              child: Text(
-                                child.label!,
-                                style: theme.textTheme.bodyMedium?.copyWith(
-                                  color: theme.colorScheme.onSurface,
-                                  fontWeight: FontWeight.w600,
-                                ),
+            child: Transform.translate(
+              offset: Offset(0, 16 * (1.0 - progress.value)),
+              child: Transform.scale(
+                scale: progress.value,
+                alignment: Alignment.centerRight,
+                child: Material(
+                  shape: const StadiumBorder(),
+                  clipBehavior: Clip.antiAlias,
+                  elevation: 4,
+                  color: colorScheme.tertiary,
+                  child: InkWell(
+                    onTap: onPressed,
+                    splashColor: colorScheme.onTertiary.withValues(alpha: 0.1),
+                    highlightColor: colorScheme.onTertiary.withValues(
+                      alpha: .05,
+                    ),
+                    child: Padding(
+                      padding: const EdgeInsets.symmetric(
+                        horizontal: 16,
+                        vertical: 10,
+                      ),
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          if (child.label != null) ...[
+                            Text(
+                              child.label!,
+                              style: textTheme.bodyMedium?.copyWith(
+                                color: colorScheme.onTertiary,
+                                fontWeight: FontWeight.bold,
                               ),
                             ),
+                            const SizedBox(width: 12),
+                          ],
+                          IconTheme(
+                            data: IconThemeData(
+                              color: colorScheme.onTertiary,
+                              size: 20,
+                            ),
+                            child: child.icon,
                           ),
-                        ),
-                      const SizedBox(width: 16),
-                      IgnorePointer(
-                        child: FloatingActionButton.small(
-                          heroTag: null,
-                          // onPressed is handled by the parent GestureDetector
-                          onPressed: () {},
-                          child: child.icon,
-                        ),
+                        ],
                       ),
-                    ],
+                    ),
                   ),
                 ),
               ),
