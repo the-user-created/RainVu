@@ -117,28 +117,35 @@ class _GaugeListTileState extends ConsumerState<GaugeListTile> {
             onTapCancel: () => setState(() => _isPressed = false),
             child: Padding(
               padding: const EdgeInsets.fromLTRB(16, 12, 8, 12),
-              child: Wrap(
-                alignment: WrapAlignment.spaceBetween,
-                crossAxisAlignment: WrapCrossAlignment.center,
-                runSpacing: 8,
-                spacing: 16,
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Column(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Text(displayName, style: theme.textTheme.titleMedium),
-                      const SizedBox(height: 4),
-                      Text(
-                        l10n.gaugeEntryCount(widget.gauge.entryCount),
-                        style: theme.textTheme.bodyMedium?.copyWith(
-                          color: theme.colorScheme.onSurfaceVariant,
-                        ),
-                      ),
-                    ],
+                  Text(displayName, style: theme.textTheme.titleMedium),
+                  const SizedBox(height: 4),
+                  Text(
+                    l10n.gaugeEntryCount(widget.gauge.entryCount),
+                    style: theme.textTheme.bodyMedium?.copyWith(
+                      color: theme.colorScheme.onSurfaceVariant,
+                    ),
                   ),
                   Row(
-                    mainAxisSize: MainAxisSize.min,
                     children: [
+                      const Spacer(),
+                      if (!isDefaultGauge)
+                        AppIconButton(
+                          icon: const Icon(Icons.edit_outlined, size: 22),
+                          tooltip: l10n.gaugeTileEditTooltip,
+                          color: theme.colorScheme.onSurfaceVariant,
+                          onPressed: () => _showEditSheet(context),
+                        ),
+                      if (!isDefaultGauge)
+                        AppIconButton(
+                          icon: const Icon(Icons.delete_outline, size: 22),
+                          tooltip: l10n.gaugeTileDeleteTooltip,
+                          color: theme.colorScheme.error,
+                          onPressed: () =>
+                              _showDeleteSheet(context, ref, l10n, displayName),
+                        ),
                       AppIconButton(
                         icon: Icon(
                           isFavorite ? Icons.star : Icons.star_border_outlined,
@@ -173,21 +180,6 @@ class _GaugeListTileState extends ConsumerState<GaugeListTile> {
                           }
                         },
                       ),
-                      if (!isDefaultGauge)
-                        AppIconButton(
-                          icon: const Icon(Icons.edit_outlined, size: 22),
-                          tooltip: l10n.gaugeTileEditTooltip,
-                          color: theme.colorScheme.onSurfaceVariant,
-                          onPressed: () => _showEditSheet(context),
-                        ),
-                      if (!isDefaultGauge)
-                        AppIconButton(
-                          icon: const Icon(Icons.delete_outline, size: 22),
-                          tooltip: l10n.gaugeTileDeleteTooltip,
-                          color: theme.colorScheme.error,
-                          onPressed: () =>
-                              _showDeleteSheet(context, ref, l10n, displayName),
-                        ),
                     ],
                   ),
                 ],
