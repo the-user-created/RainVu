@@ -243,6 +243,7 @@ class DriftInsightsRepository implements InsightsRepository {
     final currentMonthTotal = results[0] as double;
     final previousYearsTotals = results[1] as List<YearlyTotal>;
 
+    // For a 2-year average, require data from at least 2 years.
     final List<YearlyTotal> twoYrTotals = previousYearsTotals
         .where((final t) => t.year >= currentYear - 2)
         .toList();
@@ -250,32 +251,36 @@ class DriftInsightsRepository implements InsightsRepository {
         ? null
         : twoYrTotals.map((final t) => t.total).sum / twoYrTotals.length;
 
+    // For a 5-year average, require data from at least 4 years (80%).
     final List<YearlyTotal> fiveYrTotals = previousYearsTotals
         .where((final t) => t.year >= currentYear - 5)
         .toList();
-    final double? fiveYrAvg = fiveYrTotals.length < 2
+    final double? fiveYrAvg = fiveYrTotals.length < 4
         ? null
         : fiveYrTotals.map((final t) => t.total).sum / fiveYrTotals.length;
 
+    // For a 10-year average, require data from at least 8 years (80%).
     final List<YearlyTotal> tenYrTotals = previousYearsTotals
         .where((final t) => t.year >= currentYear - 10)
         .toList();
-    final double? tenYrAvg = tenYrTotals.length < 2
+    final double? tenYrAvg = tenYrTotals.length < 8
         ? null
         : tenYrTotals.map((final t) => t.total).sum / tenYrTotals.length;
 
+    // For a 15-year average, require data from at least 12 years (80%).
     final List<YearlyTotal> fifteenYrTotals = previousYearsTotals
         .where((final t) => t.year >= currentYear - 15)
         .toList();
-    final double? fifteenYrAvg = fifteenYrTotals.length < 2
+    final double? fifteenYrAvg = fifteenYrTotals.length < 12
         ? null
         : fifteenYrTotals.map((final t) => t.total).sum /
               fifteenYrTotals.length;
 
+    // For a 20-year average, require data from at least 16 years (80%).
     final List<YearlyTotal> twentyYrTotals = previousYearsTotals
         .where((final t) => t.year >= currentYear - 20)
         .toList();
-    final double? twentyYrAvg = twentyYrTotals.length < 2
+    final double? twentyYrAvg = twentyYrTotals.length < 16
         ? null
         : twentyYrTotals.map((final t) => t.total).sum / twentyYrTotals.length;
 
