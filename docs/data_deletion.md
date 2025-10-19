@@ -72,4 +72,4 @@ Firebase.
 
 ---
 
-If you have any questions about this process, please contact us at **developer@emberworks.dev**.
+If you have any questions about this process, please contact us at **emberworksdev@gmail.com**.

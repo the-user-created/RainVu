@@ -10,8 +10,40 @@ import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/utils/ui_helpers.dart";
 import "package:url_launcher/url_launcher.dart";
 
+const String _kGitHubBaseUrl = "https://github.com/the-user-created/RainVu";
+const String _kBugReportUrl = "$_kGitHubBaseUrl/issues/new?labels=bug";
+const String _kFeatureRequestUrl =
+    "$_kGitHubBaseUrl/issues/new?labels=enhancement";
+const String _kDiscussionsUrl = "$_kGitHubBaseUrl/discussions";
+
 class HelpScreen extends ConsumerWidget {
   const HelpScreen({super.key});
+
+  Future<void> _launchSupportUrl(
+    final BuildContext context,
+    final String url,
+  ) async {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final Uri uri = Uri.parse(url);
+
+    try {
+      if (!await launchUrl(uri, mode: LaunchMode.externalApplication)) {
+        if (!context.mounted) {
+          return;
+        }
+        showSnackbar(l10n.urlLaunchError, type: MessageType.error);
+      }
+    } catch (e, s) {
+      FirebaseCrashlytics.instance.recordError(
+        e,
+        s,
+        reason: "Failed to launch support URL: $url",
+      );
+      if (context.mounted) {
+        showSnackbar(l10n.urlLaunchError, type: MessageType.error);
+      }
+    }
+  }
 
   String? _encodeQueryParameters(final Map<String, String> params) => params
       .entries
@@ -46,7 +78,7 @@ class HelpScreen extends ConsumerWidget {
 
     final Uri uri = Uri(
       scheme: "mailto",
-      path: "developer@emberworks.dev",
+      path: "emberworksdev@gmail.com",
       query: _encodeQueryParameters(<String, String>{
         "subject": subject,
         "body": finalBody,
@@ -82,33 +114,24 @@ class HelpScreen extends ConsumerWidget {
         icon: Icons.bug_report_outlined,
         title: l10n.helpReportBugTitle,
         subtitle: l10n.helpReportBugSubtitle,
-        onTap: () {
-          const String subject = "Bug Report: [Please describe the issue]";
-          const String body =
-              "Please provide as much detail as possible about the bug.\n\n"
-              "What happened?\n\n"
-              "What did you expect to happen?\n\n"
-              "What steps can we take to reproduce it?\n1. \n2. \n3. \n";
-          _launchEmail(context, ref, subject: subject, body: body);
-        },
+        onTap: () => _launchSupportUrl(context, _kBugReportUrl),
       ),
       HelpActionCard(
         icon: Icons.lightbulb_outline_rounded,
         title: l10n.helpSuggestIdeaTitle,
         subtitle: l10n.helpSuggestIdeaSubtitle,
-        onTap: () {
-          const String subject = "Feature Suggestion: [Your idea here]";
-          const String body =
-              "Please describe your idea and the problem it would solve.\n\n"
-              "My idea is...\n\n"
-              "This would be helpful because...\n\n";
-          _launchEmail(context, ref, subject: subject, body: body);
-        },
+        onTap: () => _launchSupportUrl(context, _kFeatureRequestUrl),
+      ),
+      HelpActionCard(
+        icon: Icons.forum_outlined,
+        title: l10n.helpEmailSupportTitle,
+        subtitle: l10n.helpEmailSupportSubtitle,
+        onTap: () => _launchSupportUrl(context, _kDiscussionsUrl),
       ),
       HelpActionCard(
         icon: Icons.mail_outline_rounded,
-        title: l10n.helpEmailSupportTitle,
-        subtitle: l10n.helpEmailSupportSubtitle,
+        title: l10n.helpDirectEmailTitle,
+        subtitle: l10n.helpDirectEmailSubtitle,
         onTap: () {
           const String subject = "Support Request";
           const String body = "How can we help you?\n\n";

@@ -1,6 +1,6 @@
 # Privacy Policy for RainVu
 
-**Last Updated:** October 16, 2025
+**Last Updated:** October 19, 2025
 
 Thank you for using RainVu. As an open-source project, we believe in full transparency regarding
 your privacy. This policy explains how information is collected, used, and handled within our
@@ -69,10 +69,10 @@ following third-party services only under specific circumstances:
 * **Google (Firebase):** If you opt-in to share usage data, anonymized analytics and crash reports
   are sent to Google's Firebase platform. You can find more information
   in [Google's Privacy Policy](https://policies.google.com/privacy).
-* **Support Communications:** If you contact us for support via email, the contents of your email
-  will be processed by our email service providers (ImprovMX and ProtonMail) to facilitate
-  communication. To help us resolve your issue, the app may pre-fill the email draft with
-  non-personal diagnostic information, such as the app version and build number.
+* **Support Communications:** If you contact us via email at emberworksdev@gmail.com, your email
+  address and the contents of your message will be processed by Google's email services to
+  facilitate our communication. To help us resolve your issue, the app may pre-fill an email draft
+  with non-personal diagnostic information, such as the app version and build number.
 
 ### D. Scope of This Policy
 
@@ -90,7 +90,7 @@ You have full control over your data within RainVu.
   using the "Export Data" feature in the app.
 * **Data Deletion:** You can delete individual rainfall entries or gauges directly within the app.
   You can also delete all app data by using the "Reset App" function in Settings or by uninstalling
-  the application from your device. For detailed instructions, please see our 
+  the application from your device. For detailed instructions, please see our
   [Data Deletion Page](https://github.com/the-user-created/RainVu/blob/main/docs/data_deletion.md).
 
 ## 5. Children's Privacy
@@ -106,7 +106,7 @@ periodically for any changes.
 
 ## 7. Contact Us
 
-If you have any questions about this Privacy Policy, you can contact us at developer@emberworks.dev.
+If you have any questions about this Privacy Policy, you can contact us at emberworksdev@gmail.com.
 
 You can also view the source code or raise an issue on our public
 repository: https://github.com/the-user-created/RainVu

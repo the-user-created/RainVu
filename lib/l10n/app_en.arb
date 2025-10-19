@@ -625,19 +625,27 @@
   "@genericError": {
     "description": "A generic error message for unexpected failures."
   },
-  "helpEmailSupportSubtitle": "For direct assistance, account questions, or other inquiries.",
-  "@helpEmailSupportSubtitle": {
-    "description": "Subtitle for the 'Email Support' option in the help screen."
+  "helpDirectEmailSubtitle": "For direct support if you don't use GitHub.",
+  "@helpDirectEmailSubtitle": {
+    "description": "Subtitle for the direct email contact option, clarifying its purpose."
   },
-  "helpEmailSupportTitle": "Email Support",
+  "helpDirectEmailTitle": "Contact via Email",
+  "@helpDirectEmailTitle": {
+    "description": "Title for the direct email contact option in the help screen."
+  },
+  "helpEmailSupportSubtitle": "Start or join a discussion on GitHub.",
+  "@helpEmailSupportSubtitle": {
+    "description": "Subtitle for the 'Ask a Question' option in the help screen, directing to GitHub."
+  },
+  "helpEmailSupportTitle": "Ask a Question",
   "@helpEmailSupportTitle": {
-    "description": "Title for the 'Email Support' option in the help screen."
+    "description": "Title for the 'Ask a Question' option in the help screen."
   },
   "helpIntro": "Have a question or feedback? We're here to help you get the most out of RainVu.",
   "@helpIntro": {
     "description": "Introductory text on the Help & Support screen."
   },
-  "helpReportBugSubtitle": "Let us know about a technical issue or something that isn't working as expected.",
+  "helpReportBugSubtitle": "Open an issue on our GitHub page.",
   "@helpReportBugSubtitle": {
     "description": "Subtitle for the 'Report a Bug' option in the help screen."
   },
@@ -645,7 +653,7 @@
   "@helpReportBugTitle": {
     "description": "Title for the 'Report a Bug' option in the help screen."
   },
-  "helpSuggestIdeaSubtitle": "Share your ideas for new features or other improvements.",
+  "helpSuggestIdeaSubtitle": "Suggest a new feature on GitHub.",
   "@helpSuggestIdeaSubtitle": {
     "description": "Subtitle for the 'Suggest an Idea' option in the help screen."
   },
@@ -713,6 +721,9 @@
     }
   },
   "importErrorInvalidJson": "The file is malformed and could not be read as JSON.",
+  "@importErrorInvalidJson": {
+    "description": "Error message when the imported JSON file is not valid JSON."
+  },
   "importErrorJsonInvalidFormat": "The field '{field}' at '{path}' has an invalid format. Expected format: {expectedFormat}.",
   "@importErrorJsonInvalidFormat": {
     "description": "Error for an incorrectly formatted value in JSON.",

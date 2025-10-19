@@ -1,6 +1,6 @@
 # Terms of Service for RainVu
 
-**Last Updated:** October 15, 2025
+**Last Updated:** October 19, 2025
 
 By downloading, installing, or using the RainVu application ("the App"), you agree to be bound by
 these Terms of Service ("Terms"). If you do not agree to these Terms, do not use the App.
@@ -77,4 +77,4 @@ acceptance of the new Terms.
 
 ## 9. Contact Us
 
-If you have any questions about these Terms, you can contact us at developer@emberworks.dev.
+If you have any questions about these Terms, you can contact us at emberworksdev@gmail.com.
