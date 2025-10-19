@@ -1,7 +1,7 @@
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
-import "package:in_app_review/in_app_review.dart";
+import "package:rainvu/core/application/app_store_service.dart";
 import "package:rainvu/core/application/preferences_provider.dart";
 import "package:rainvu/core/firebase/telemetry_manager.dart";
 import "package:rainvu/core/navigation/app_router.dart";
@@ -20,7 +20,6 @@ import "package:rainvu/shared/utils/ui_helpers.dart";
 import "package:rainvu/shared/widgets/buttons/app_button.dart";
 import "package:rainvu/shared/widgets/forms/app_segmented_control.dart";
 import "package:rainvu/shared/widgets/sheets/interactive_sheet.dart";
-import "package:share_plus/share_plus.dart";
 
 /// The main settings screen, composed of smaller, reusable widgets.
 class SettingsScreen extends ConsumerWidget {
@@ -33,36 +32,19 @@ class SettingsScreen extends ConsumerWidget {
     );
   }
 
-  // TODO: Proper testing of in-app review flow on real devices.
-  // TODO: Proper testing of share plus with URLs on real devices.
-
-  /// Handles the "Leave a Review" action.
-  ///
-  /// It first checks if the in-app review dialog is available. If so, it
-  /// requests the review. Otherwise, it attempts to open the app's store
-  /// listing as a fallback. If that fails (e.g., app not published),
-  /// it shows a snackbar.
-  Future<void> _leaveReview(final BuildContext context) async {
-    final InAppReview inAppReview = InAppReview.instance;
+  /// Handles the "Leave a Review" action by opening the app's store page.
+  Future<void> _leaveReview(
+    final BuildContext context,
+    final WidgetRef ref,
+  ) async {
     final AppLocalizations l10n = AppLocalizations.of(context);
-
     try {
-      if (await inAppReview.isAvailable()) {
-        // This will open the in-app review dialog. The OS handles quotas,
-        // so it's safe to call; it might not appear if the user has reviewed
-        // recently or opted out.
-        await inAppReview.requestReview();
-      } else {
-        // Fallback for when the in-app review is not available,
-        // e.g., during development on Android or on unsupported devices.
-        // For a published app, you would add your appStoreId here.
-        await inAppReview.openStoreListing();
-      }
+      await ref.read(appStoreServiceProvider).openStoreListingForReview();
     } catch (e, s) {
       FirebaseCrashlytics.instance.recordError(
         e,
         s,
-        reason: "In-app review or store listing failed",
+        reason: "Open store listing failed",
       );
       if (context.mounted) {
         showSnackbar(l10n.reviewNotAvailable, type: MessageType.error);
@@ -70,27 +52,20 @@ class SettingsScreen extends ConsumerWidget {
     }
   }
 
-  /// Handles the "Share RainVu" action.
-  ///
-  /// Summons the platform's native share sheet. It calculates the
-  /// [sharePositionOrigin] for iPad compatibility.
-  Future<void> _shareApp(final BuildContext context) async {
+  /// Handles the "Share RainVu" action using the central AppStoreService.
+  Future<void> _shareApp(
+    final BuildContext context,
+    final WidgetRef ref,
+  ) async {
     final AppLocalizations l10n = AppLocalizations.of(context);
-    final RenderBox? box = context.findRenderObject() as RenderBox?;
-
-    // The sharePositionOrigin is required for iPads to prevent crashes and
-    // anchor the share popover to the button that triggered it.
-    final Rect? sharePositionOrigin = box != null
-        ? box.localToGlobal(Offset.zero) & box.size
-        : null;
     try {
-      await SharePlus.instance.share(
-        ShareParams(
-          text: l10n.shareAppText,
-          subject: l10n.shareAppSubject,
-          sharePositionOrigin: sharePositionOrigin,
-        ),
-      );
+      await ref
+          .read(appStoreServiceProvider)
+          .shareApp(
+            context: context,
+            text: l10n.shareAppText,
+            subject: l10n.shareAppSubject,
+          );
     } catch (e, s) {
       FirebaseCrashlytics.instance.recordError(
         e,
@@ -179,13 +154,13 @@ class SettingsScreen extends ConsumerWidget {
                 SettingsListTile(
                   leading: const Icon(Icons.star_outline_rounded),
                   title: l10n.settingsSupportDevelopmentLeaveReview,
-                  onTap: () => _leaveReview(context),
+                  onTap: () => _leaveReview(context, ref),
                 ),
                 Builder(
                   builder: (final builderContext) => SettingsListTile(
                     leading: const Icon(Icons.share_outlined),
                     title: l10n.settingsSupportDevelopmentShareApp,
-                    onTap: () => _shareApp(builderContext),
+                    onTap: () => _shareApp(builderContext, ref),
                   ),
                 ),
               ],
