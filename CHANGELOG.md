@@ -1,5 +1,17 @@
 # Changelog
 
+## [1.1.3] - 2025-10-19
+
+### Changed
+
+- **Reviews**: Implemented proper support for app store reviews on iOS and Android platforms.
+- **App Sharing**: Updated the app sharing feature to use the store listing links for iOS and Android.
+- **Help & Support**: Revised the help and support section to use new email address and provide links to the GitHub repository.
+
+### Fixed
+
+- **Splash**: Fixed a splash screen icon sizing issue on certain Android devices.
+
 ## [1.1.2] - 2025-10-17
 
 ### Fixed
