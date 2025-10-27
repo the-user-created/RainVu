@@ -31,6 +31,7 @@ class MonthlyAveragesScreen extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
+    final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<InsightsData> insightsDataAsync = ref.watch(
       dashboardDataProvider,
@@ -38,7 +39,7 @@ class MonthlyAveragesScreen extends ConsumerWidget {
 
     return Scaffold(
       appBar: AppBar(
-        title: Text(l10n.monthlyComparisonTitle),
+        title: Text(l10n.monthlyComparisonTitle, style: theme.textTheme.titleLarge),
         actions: [
           Padding(
             padding: const EdgeInsets.only(right: 8),
