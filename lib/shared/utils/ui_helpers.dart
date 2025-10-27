@@ -27,6 +27,7 @@ Future<DateTime?> showAppDateTimePicker(
   required final DateTime initialDate,
   required final DateTime firstDate,
   required final DateTime lastDate,
+  final bool? timePickerIsInputOnly,
 }) async {
   // Determine if large text scaling is active to switch to input mode.
   final bool useInputMode = MediaQuery.textScalerOf(context).scale(1) > 1.4;
@@ -34,9 +35,10 @@ Future<DateTime?> showAppDateTimePicker(
   final DatePickerEntryMode datePickerEntryMode = useInputMode
       ? DatePickerEntryMode.input
       : DatePickerEntryMode.calendar;
-  final TimePickerEntryMode timePickerEntryMode = useInputMode
-      ? TimePickerEntryMode.input
-      : TimePickerEntryMode.dial;
+  final TimePickerEntryMode timePickerEntryMode =
+      (timePickerIsInputOnly ?? false)
+      ? TimePickerEntryMode.inputOnly
+      : (useInputMode ? TimePickerEntryMode.input : TimePickerEntryMode.dial);
 
   final DateTime? pickedDate = await showDatePicker(
     context: context,

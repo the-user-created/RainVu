@@ -125,6 +125,7 @@ class _EditEntrySheetState extends ConsumerState<EditEntrySheet> {
       initialDate: _selectedDate,
       firstDate: DateTime(2000),
       lastDate: DateTime.now(),
+      timePickerIsInputOnly: true,
     );
 
     if (picked != null) {

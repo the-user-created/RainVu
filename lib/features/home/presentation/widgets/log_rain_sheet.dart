@@ -55,6 +55,7 @@ class _LogRainSheetState extends ConsumerState<LogRainSheet> {
       initialDate: _selectedDateTime,
       firstDate: DateTime(1900),
       lastDate: DateTime.now(),
+      timePickerIsInputOnly: true,
     );
 
     if (picked != null) {
