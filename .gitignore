@@ -6,6 +6,7 @@ output.txt
 diff.txt
 design_docs/
 .env*
+prompt.txt
 
 # Firebase
 google-services.json

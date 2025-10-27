@@ -390,7 +390,6 @@ class DriftDataToolsRepository implements DataToolsRepository {
   _ParsedData _parseCsvContent(final String content) {
     final List<List<dynamic>> rows = const CsvToListConverter().convert(
       content,
-      eol: "\n",
     );
 
     // If file is empty or only has a header, there's no data to parse.
