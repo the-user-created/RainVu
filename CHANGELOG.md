@@ -1,5 +1,13 @@
 # Changelog
 
+## [1.1.4] - 2025-10-27
+
+### Fixed
+
+- **Data Import**: Fixed an issue where CSV import could fail if a rain gauge name contained a comma.
+- **Data Entry**: Resolved a display issue with the time picker when adding or editing rainfall entries, ensuring it works correctly with accessibility font sizes.
+- **UI**: Corrected the font size of the title on the **Monthly Averages** screen for better visual consistency.
+
 ## [1.1.3] - 2025-10-19
 
 ### Changed
