@@ -953,13 +953,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('build_runner'), PackageRef('term_glyph'), PackageRef('test')],
   );
 
-/// build_daemon 4.0.4
+/// build_daemon 4.1.0
 const _build_daemon = Package(
     name: 'build_daemon',
     description: 'A daemon for running Dart builds.',
     repository: 'https://github.com/dart-lang/build/tree/master/build_daemon',
     authors: [],
-    version: '4.0.4',
+    version: '4.1.0',
     license: '''Copyright 2019, the Dart project authors. 
 
 Redistribution and use in source and binary forms, with or without
@@ -990,7 +990,7 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     isMarkdown: false,
     isSdk: false,
     dependencies: [PackageRef('built_collection'), PackageRef('built_value'), PackageRef('crypto'), PackageRef('http_multi_server'), PackageRef('logging'), PackageRef('path'), PackageRef('pool'), PackageRef('shelf'), PackageRef('shelf_web_socket'), PackageRef('stream_transform'), PackageRef('watcher'), PackageRef('web_socket_channel')],
-    devDependencies: [PackageRef('analyzer'), PackageRef('build_runner'), PackageRef('mockito'), PackageRef('test')],
+    devDependencies: [PackageRef('build_runner'), PackageRef('mockito'), PackageRef('test')],
   );
 
 /// build_resolvers 3.0.3
@@ -3548,14 +3548,14 @@ SOFTWARE.''',
     devDependencies: [],
   );
 
-/// drift 2.28.2
+/// drift 2.29.0
 const _drift = Package(
     name: 'drift',
     description: 'Drift is a reactive library to store relational data in Dart and Flutter applications.',
     homepage: 'https://drift.simonbinder.eu/',
     repository: 'https://github.com/simolus3/drift',
     authors: [],
-    version: '2.28.2',
+    version: '2.29.0',
     license: '''MIT License
 
 Copyright (c) 2021 Simon Binder
@@ -3583,14 +3583,14 @@ SOFTWARE.''',
     devDependencies: [PackageRef('archive'), PackageRef('analyzer'), PackageRef('drift_dev'), PackageRef('http'), PackageRef('lints'), PackageRef('uuid'), PackageRef('build_runner'), PackageRef('test'), PackageRef('mockito'), PackageRef('shelf'), PackageRef('vm_service'), PackageRef('rxdart'), PackageRef('build_daemon'), PackageRef('fake_async')],
   );
 
-/// drift_dev 2.28.3
+/// drift_dev 2.29.0
 const _drift_dev = Package(
     name: 'drift_dev',
     description: 'Dev-dependency for users of drift. Contains the generator and development tools.',
     homepage: 'https://drift.simonbinder.eu/',
     repository: 'https://github.com/simolus3/drift',
     authors: [],
-    version: '2.28.3',
+    version: '2.29.0',
     license: '''MIT License
 
 Copyright (c) 2021 Simon Binder
@@ -4984,13 +4984,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('test')],
   );
 
-/// go_router 16.2.5
+/// go_router 16.3.0
 const _go_router = Package(
     name: 'go_router',
     description: 'A declarative router for Flutter based on Navigation 2 supporting deep linking, data-driven routes and more',
     repository: 'https://github.com/flutter/packages/tree/main/packages/go_router',
     authors: [],
-    version: '16.2.5',
+    version: '16.3.0',
     license: '''Copyright 2013 The Flutter Authors
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -5022,14 +5022,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('io'), PackageRef('leak_tracker_flutter_testing'), PackageRef('path')],
   );
 
-/// go_router_builder 4.1.0
+/// go_router_builder 4.1.1
 const _go_router_builder = Package(
     name: 'go_router_builder',
     description: 'A builder that supports generated strongly-typed route helpers for package:go_router',
     repository: 'https://github.com/flutter/packages/tree/main/packages/go_router_builder',
     authors: [],
-    version: '4.1.0',
-    license: '''Copyright 2013 The Flutter Authors. All rights reserved.
+    version: '4.1.1',
+    license: '''Copyright 2013 The Flutter Authors
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -7073,14 +7073,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('test')],
   );
 
-/// path_provider_foundation 2.4.2
+/// path_provider_foundation 2.4.3
 const _path_provider_foundation = Package(
     name: 'path_provider_foundation',
     description: 'iOS and macOS implementation of the path_provider plugin',
     repository: 'https://github.com/flutter/packages/tree/main/packages/path_provider/path_provider_foundation',
     authors: [],
-    version: '2.4.2',
-    license: '''Copyright 2013 The Flutter Authors. All rights reserved.
+    version: '2.4.3',
+    license: '''Copyright 2013 The Flutter Authors
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -7901,14 +7901,14 @@ const _rxdart = Package(
     devDependencies: [PackageRef('lints'), PackageRef('stack_trace'), PackageRef('test')],
   );
 
-/// share_plus 12.0.0
+/// share_plus 12.0.1
 const _share_plus = Package(
     name: 'share_plus',
     description: 'Flutter plugin for sharing content via the platform share UI, using the ACTION_SEND intent on Android and UIActivityViewController on iOS.',
     homepage: 'https://github.com/fluttercommunity/plus_plugins',
     repository: 'https://github.com/fluttercommunity/plus_plugins/tree/main/packages/share_plus/share_plus',
     authors: [],
-    version: '12.0.0',
+    version: '12.0.1',
     license: '''Copyright 2017, the Flutter project authors. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without
@@ -8059,14 +8059,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [],
   );
 
-/// shared_preferences_foundation 2.5.4
+/// shared_preferences_foundation 2.5.5
 const _shared_preferences_foundation = Package(
     name: 'shared_preferences_foundation',
     description: 'iOS and macOS implementation of the shared_preferences plugin.',
     repository: 'https://github.com/flutter/packages/tree/main/packages/shared_preferences/shared_preferences_foundation',
     authors: [],
-    version: '2.5.4',
-    license: '''Copyright 2013 The Flutter Authors. All rights reserved.
+    version: '2.5.5',
+    license: '''Copyright 2013 The Flutter Authors
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -8927,14 +8927,14 @@ SOFTWARE.''',
     devDependencies: [],
   );
 
-/// sqlparser 0.41.2
+/// sqlparser 0.42.0
 const _sqlparser = Package(
     name: 'sqlparser',
     description: 'Parses sqlite statements and performs static analysis on them',
     homepage: 'https://github.com/simolus3/drift/tree/develop/sqlparser',
     repository: 'https://github.com/simolus3/drift',
     authors: [],
-    version: '0.41.2',
+    version: '0.42.0',
     license: '''MIT License
 
 Copyright (c) 2019 Simon Binder
@@ -9696,14 +9696,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('mockito'), PackageRef('plugin_platform_interface'), PackageRef('test')],
   );
 
-/// url_launcher_ios 6.3.4
+/// url_launcher_ios 6.3.5
 const _url_launcher_ios = Package(
     name: 'url_launcher_ios',
     description: 'iOS implementation of the url_launcher plugin.',
     repository: 'https://github.com/flutter/packages/tree/main/packages/url_launcher/url_launcher_ios',
     authors: [],
-    version: '6.3.4',
-    license: '''Copyright 2013 The Flutter Authors. All rights reserved.
+    version: '6.3.5',
+    license: '''Copyright 2013 The Flutter Authors
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -9772,14 +9772,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('test')],
   );
 
-/// url_launcher_macos 3.2.3
+/// url_launcher_macos 3.2.4
 const _url_launcher_macos = Package(
     name: 'url_launcher_macos',
     description: 'macOS implementation of the url_launcher plugin.',
     repository: 'https://github.com/flutter/packages/tree/main/packages/url_launcher/url_launcher_macos',
     authors: [],
-    version: '3.2.3',
-    license: '''Copyright 2013 The Flutter Authors. All rights reserved.
+    version: '3.2.4',
+    license: '''Copyright 2013 The Flutter Authors
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
