@@ -14,6 +14,52 @@ import "package:rainvu/shared/domain/user_preferences.dart";
 class ChartSemanticsHelper {
   ChartSemanticsHelper._();
 
+  /// Appends semantic descriptions for a list of data points to a buffer,
+  /// grouping consecutive zero-value points for brevity.
+  static void _appendGroupedDataPoints({
+    required final BuildContext context,
+    required final StringBuffer buffer,
+    required final List<({String label, double value})> dataPoints,
+    required final MeasurementUnit unit,
+  }) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    int i = 0;
+    while (i < dataPoints.length) {
+      final ({String label, double value}) currentPoint = dataPoints[i];
+
+      if (currentPoint.value == 0) {
+        // Find the end of the zero-value sequence
+        int j = i;
+        while (j + 1 < dataPoints.length && dataPoints[j + 1].value == 0) {
+          j++;
+        }
+
+        final String startLabel = dataPoints[i].label;
+        if (i == j) {
+          // Single zero point
+          buffer.writeln(l10n.chartSemanticsZeroDataPoint(startLabel));
+        } else {
+          // Range of zero points
+          final String endLabel = dataPoints[j].label;
+          buffer.writeln(
+            l10n.chartSemanticsZeroDataRange(startLabel, endLabel),
+          );
+        }
+        i = j + 1; // Move index past the processed zero sequence
+      } else {
+        // Non-zero point
+        final String formattedValue = currentPoint.value.formatRainfall(
+          context,
+          unit,
+        );
+        buffer.writeln(
+          l10n.chartSemanticsDataPoint(currentPoint.label, formattedValue),
+        );
+        i++;
+      }
+    }
+  }
+
   /// Generates a description for a simple bar chart with one data series.
   static String getBarChartDescription({
     required final BuildContext context,
@@ -29,10 +75,12 @@ class ChartSemanticsHelper {
     final StringBuffer buffer = StringBuffer()
       ..writeln(l10n.chartSemanticsLabelBar(title));
 
-    for (final point in dataPoints) {
-      final String formattedValue = point.value.formatRainfall(context, unit);
-      buffer.writeln(l10n.chartSemanticsDataPoint(point.label, formattedValue));
-    }
+    _appendGroupedDataPoints(
+      context: context,
+      buffer: buffer,
+      dataPoints: dataPoints,
+      unit: unit,
+    );
     return buffer.toString();
   }
 
@@ -51,14 +99,19 @@ class ChartSemanticsHelper {
     final StringBuffer buffer = StringBuffer()
       ..writeln(l10n.chartSemanticsLabelLine(title));
 
-    for (final point in data) {
+    final List<({String label, double value})> genericDataPoints = data.map((
+      final point,
+    ) {
       final String label = DateFormat.yMMMd().format(point.date);
-      final String formattedValue = point.rainfall.formatRainfall(
-        context,
-        unit,
-      );
-      buffer.writeln(l10n.chartSemanticsDataPoint(label, formattedValue));
-    }
+      return (label: label, value: point.rainfall);
+    }).toList();
+
+    _appendGroupedDataPoints(
+      context: context,
+      buffer: buffer,
+      dataPoints: genericDataPoints,
+      unit: unit,
+    );
     return buffer.toString();
   }
 
@@ -77,19 +130,44 @@ class ChartSemanticsHelper {
     final StringBuffer buffer = StringBuffer()
       ..writeln(l10n.chartSemanticsLabelDualLine(title));
 
-    for (final point in data) {
-      final String label = DateFormat.yMMMd().format(point.date);
-      final String actualValue = point.actualRainfall.formatRainfall(
-        context,
-        unit,
-      );
-      final String averageValue = point.averageRainfall.formatRainfall(
-        context,
-        unit,
-      );
-      buffer.writeln(
-        l10n.chartSemanticsDualDataPoint(label, actualValue, averageValue),
-      );
+    int i = 0;
+    while (i < data.length) {
+      final AnomalyChartPoint currentPoint = data[i];
+
+      if (currentPoint.actualRainfall == 0 &&
+          currentPoint.averageRainfall == 0) {
+        int j = i;
+        while (j + 1 < data.length &&
+            data[j + 1].actualRainfall == 0 &&
+            data[j + 1].averageRainfall == 0) {
+          j++;
+        }
+
+        final String startLabel = DateFormat.yMMMd().format(data[i].date);
+        if (i == j) {
+          buffer.writeln(l10n.chartSemanticsZeroDataPoint(startLabel));
+        } else {
+          final String endLabel = DateFormat.yMMMd().format(data[j].date);
+          buffer.writeln(
+            l10n.chartSemanticsZeroDataRange(startLabel, endLabel),
+          );
+        }
+        i = j + 1;
+      } else {
+        final String label = DateFormat.yMMMd().format(currentPoint.date);
+        final String actualValue = currentPoint.actualRainfall.formatRainfall(
+          context,
+          unit,
+        );
+        final String averageValue = currentPoint.averageRainfall.formatRainfall(
+          context,
+          unit,
+        );
+        buffer.writeln(
+          l10n.chartSemanticsDualDataPoint(label, actualValue, averageValue),
+        );
+        i++;
+      }
     }
     return buffer.toString();
   }
@@ -116,21 +194,53 @@ class ChartSemanticsHelper {
         : data.labels;
 
     for (final ComparativeChartSeries series in data.series) {
-      for (int i = 0; i < series.data.length; i++) {
-        final String label = isSingleGroup
-            ? l10n.totalLabel
-            : semanticLabels[i];
-        final String formattedValue = series.data[i].formatRainfall(
-          context,
-          unit,
-        );
-        buffer.writeln(
-          l10n.chartSemanticsComparativeDataPoint(
-            series.year.toString(),
-            label,
-            formattedValue,
-          ),
-        );
+      int i = 0;
+      while (i < series.data.length) {
+        final double value = series.data[i];
+
+        if (value == 0) {
+          int j = i;
+          while (j + 1 < series.data.length && series.data[j + 1] == 0) {
+            j++;
+          }
+
+          final String startLabel = isSingleGroup
+              ? l10n.totalLabel
+              : semanticLabels[i];
+          if (i == j) {
+            buffer.writeln(
+              l10n.chartSemanticsComparativeZeroDataPoint(
+                series.year.toString(),
+                startLabel,
+              ),
+            );
+          } else {
+            final String endLabel = isSingleGroup
+                ? l10n.totalLabel
+                : semanticLabels[j];
+            buffer.writeln(
+              l10n.chartSemanticsComparativeZeroDataRange(
+                series.year.toString(),
+                startLabel,
+                endLabel,
+              ),
+            );
+          }
+          i = j + 1;
+        } else {
+          final String label = isSingleGroup
+              ? l10n.totalLabel
+              : semanticLabels[i];
+          final String formattedValue = value.formatRainfall(context, unit);
+          buffer.writeln(
+            l10n.chartSemanticsComparativeDataPoint(
+              series.year.toString(),
+              label,
+              formattedValue,
+            ),
+          );
+          i++;
+        }
       }
     }
     return buffer.toString();
@@ -142,7 +252,11 @@ class ChartSemanticsHelper {
     final List<DailyRainfallPoint> points,
     final DateTime selectedMonth,
   ) => points.map((final p) {
-    final date = DateTime(selectedMonth.year, selectedMonth.month, p.day);
+    final DateTime date = DateTime(
+      selectedMonth.year,
+      selectedMonth.month,
+      p.day,
+    );
     return (label: DateFormat.yMMMMd().format(date), value: p.rainfall);
   }).toList();
 

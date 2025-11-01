@@ -180,6 +180,33 @@
       }
     }
   },
+  "chartSemanticsComparativeZeroDataPoint": "{seriesName}, {label}: No rainfall.",
+  "@chartSemanticsComparativeZeroDataPoint": {
+    "description": "A template for a single data point with zero value in a comparative chart for screen readers.",
+    "placeholders": {
+      "seriesName": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsComparativeZeroDataRange": "{seriesName}, {startLabel} to {endLabel}: No rainfall.",
+  "@chartSemanticsComparativeZeroDataRange": {
+    "description": "A template for a range of data points with zero value in a comparative chart for screen readers.",
+    "placeholders": {
+      "seriesName": {
+        "type": "String"
+      },
+      "startLabel": {
+        "type": "String"
+      },
+      "endLabel": {
+        "type": "String"
+      }
+    }
+  },
   "chartSemanticsDataPoint": "{label}: {value}.",
   "@chartSemanticsDataPoint": {
     "description": "A template for a single data point in a chart for screen readers.",
@@ -237,6 +264,27 @@
   "chartSemanticsNoData": "No data available for this chart.",
   "@chartSemanticsNoData": {
     "description": "A message for screen readers when a chart has no data to display."
+  },
+  "chartSemanticsZeroDataPoint": "{label}: No rainfall.",
+  "@chartSemanticsZeroDataPoint": {
+    "description": "A template for a single data point with zero value in a chart for screen readers.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsZeroDataRange": "{startLabel} to {endLabel}: No rainfall.",
+  "@chartSemanticsZeroDataRange": {
+    "description": "A template for a range of data points with zero value in a chart for screen readers.",
+    "placeholders": {
+      "startLabel": {
+        "type": "String"
+      },
+      "endLabel": {
+        "type": "String"
+      }
+    }
   },
   "clearSelectionTooltip": "Clear selection",
   "@clearSelectionTooltip": {
