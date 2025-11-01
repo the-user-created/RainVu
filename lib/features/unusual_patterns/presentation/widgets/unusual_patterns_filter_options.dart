@@ -71,10 +71,21 @@ class _DateRangePickerButton extends ConsumerWidget {
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final DateTimeRange<DateTime>? dateRange = this.dateRange;
-    final String dateText = dateRange != null
-        ? "${DateFormat.yMd().format(dateRange.start)} - ${DateFormat.yMd().format(dateRange.end)}"
-        : "Loading...";
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final DateTimeRange? dateRange = this.dateRange;
+
+    final String dateText;
+    final String? semanticDateText;
+
+    if (dateRange != null) {
+      final String startDate = DateFormat.yMd().format(dateRange.start);
+      final String endDate = DateFormat.yMd().format(dateRange.end);
+      dateText = "$startDate - $endDate";
+      semanticDateText = l10n.dateRangeSemanticsLabel(startDate, endDate);
+    } else {
+      dateText = "Loading...";
+      semanticDateText = dateText;
+    }
 
     final AsyncValue<DateRangeResult> dbDateRangeAsync = ref.watch(
       rainfallDateRangeProvider,
@@ -103,6 +114,7 @@ class _DateRangePickerButton extends ConsumerWidget {
             }
           : null,
       label: dateText,
+      semanticLabel: semanticDateText,
       style: AppButtonStyle.secondary,
       size: AppButtonSize.small,
       icon: const Icon(Icons.calendar_today, size: 20),

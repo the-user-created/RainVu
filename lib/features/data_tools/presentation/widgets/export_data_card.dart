@@ -28,12 +28,16 @@ class ExportDataCard extends ConsumerWidget {
     );
 
     final String dateRangeLabel;
+    final String? semanticDateRangeLabel;
     if (state.dateRange == null) {
       dateRangeLabel = l10n.dateRangeAllTime;
+      semanticDateRangeLabel = dateRangeLabel;
     } else {
       final DateFormat formatter = DateFormat.yMd();
-      dateRangeLabel =
-          "${formatter.format(state.dateRange!.start)} - ${formatter.format(state.dateRange!.end)}";
+      final String startDate = formatter.format(state.dateRange!.start);
+      final String endDate = formatter.format(state.dateRange!.end);
+      dateRangeLabel = "$startDate - $endDate";
+      semanticDateRangeLabel = l10n.dateRangeSemanticsLabel(startDate, endDate);
     }
 
     final bool hasData = dateRangeAsync.maybeWhen(
@@ -96,6 +100,7 @@ class ExportDataCard extends ConsumerWidget {
                               type: MessageType.error,
                             ),
                       label: dateRangeLabel,
+                      semanticLabel: semanticDateRangeLabel,
                       icon: const Icon(Icons.calendar_today, size: 20),
                     ),
                   ),

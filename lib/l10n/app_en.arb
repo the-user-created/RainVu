@@ -423,6 +423,20 @@
   "@dateRangeAllTime": {
     "description": "Label indicating that the 'All Time' date range is selected for export."
   },
+  "dateRangeSemanticsLabel": "{startDate} to {endDate}",
+  "@dateRangeSemanticsLabel": {
+    "description": "An accessible label for a date range, read by screen readers.",
+    "placeholders": {
+      "startDate": {
+        "type": "String",
+        "example": "January 1, 2023"
+      },
+      "endDate": {
+        "type": "String",
+        "example": "December 31, 2023"
+      }
+    }
+  },
   "dayOfMonth": "Day {day}",
   "@dayOfMonth": {
     "description": "Label for a day of the month, used in chart semantics.",

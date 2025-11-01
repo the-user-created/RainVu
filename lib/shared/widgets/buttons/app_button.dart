@@ -35,6 +35,7 @@ class AppButton extends StatefulWidget {
     this.isExpanded = false,
     this.icon,
     this.borderRadius,
+    this.semanticLabel,
   });
 
   /// The callback that is called when the button is tapped.
@@ -60,6 +61,9 @@ class AppButton extends StatefulWidget {
 
   /// An optional override for the button's border radius.
   final BorderRadius? borderRadius;
+
+  /// An optional accessibility label to override the visual label for screen readers.
+  final String? semanticLabel;
 
   @override
   State<AppButton> createState() => _AppButtonState();
@@ -165,7 +169,7 @@ class _AppButtonState extends State<AppButton> {
             ],
           );
 
-    final Widget button = isOutline
+    Widget button = isOutline
         ? OutlinedButton(
             onPressed: isDisabled ? null : widget.onPressed,
             style: buttonStyle,
@@ -176,6 +180,16 @@ class _AppButtonState extends State<AppButton> {
             style: buttonStyle,
             child: buttonChild,
           );
+
+    if (widget.semanticLabel != null) {
+      button = Semantics(
+        label: widget.semanticLabel,
+        button: true,
+        enabled: !isDisabled,
+        excludeSemantics: true,
+        child: button,
+      );
+    }
 
     final Widget interactiveButton =
         Listener(
