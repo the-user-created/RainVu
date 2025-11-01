@@ -9,6 +9,7 @@ import "package:rainvu/core/utils/extensions.dart";
 import "package:rainvu/features/home/domain/home_data.dart";
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/domain/user_preferences.dart";
+import "package:rainvu/shared/utils/chart_semantics_helper.dart";
 import "package:rainvu/shared/widgets/charts/chart_card.dart";
 
 class MonthlyTrendChart extends ConsumerStatefulWidget {
@@ -94,88 +95,103 @@ class _MonthlyTrendChartState extends ConsumerState<MonthlyTrendChart>
     );
 
     if (!hasData) {
-      return ChartCard(
-        title: l10n.monthlyTrendChartTitle,
-        legend: legendWidget,
-        margin: EdgeInsets.zero,
-        chart: SizedBox(
-          height: 250,
-          child: Center(
-            child: Text(
-              l10n.monthlyTrendChartNoData,
-              style: textTheme.bodyLarge?.copyWith(
-                color: colorScheme.onSurfaceVariant,
+      return Semantics(
+        label: l10n.monthlyTrendChartTitle,
+        value: l10n.monthlyTrendChartNoData,
+        child: ChartCard(
+          title: l10n.monthlyTrendChartTitle,
+          legend: legendWidget,
+          margin: EdgeInsets.zero,
+          chart: SizedBox(
+            height: 250,
+            child: Center(
+              child: Text(
+                l10n.monthlyTrendChartNoData,
+                style: textTheme.bodyLarge?.copyWith(
+                  color: colorScheme.onSurfaceVariant,
+                ),
+                textAlign: TextAlign.center,
               ),
-              textAlign: TextAlign.center,
             ),
           ),
         ),
       );
     }
 
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (final context, final _) {
-        final double maxRainfall = widget.trends
-            .map((final e) => e.rainfall)
-            .reduce(max);
-        final double displayMaxRainfall = isInch
-            ? maxRainfall.toInches()
-            : maxRainfall;
+    final String semanticLabel = ChartSemanticsHelper.getBarChartDescription(
+      context: context,
+      title: l10n.monthlyTrendChartTitle,
+      dataPoints: ChartSemanticsHelper.fromMonthlyTrendPoints(widget.trends),
+      unit: unit,
+    );
 
-        final BarChart barChart = BarChart(
-          BarChartData(
-            maxY: (displayMaxRainfall * 1.2).clamp(
-              isInch ? 0.5 : 10.0,
-              double.infinity,
+    return Semantics(
+      label: l10n.monthlyTrendChartTitle,
+      value: semanticLabel,
+      child: AnimatedBuilder(
+        animation: _animation,
+        builder: (final context, final _) {
+          final double maxRainfall = widget.trends
+              .map((final e) => e.rainfall)
+              .reduce(max);
+          final double displayMaxRainfall = isInch
+              ? maxRainfall.toInches()
+              : maxRainfall;
+
+          final BarChart barChart = BarChart(
+            BarChartData(
+              maxY: (displayMaxRainfall * 1.2).clamp(
+                isInch ? 0.5 : 10.0,
+                double.infinity,
+              ),
+              barTouchData: _buildBarTouchData(context, unit),
+              titlesData: _buildTitlesData(textTheme),
+              gridData: _buildGridData(colorScheme),
+              borderData: FlBorderData(show: false),
+              barGroups: _buildBarGroups(colorScheme, isInch, _animation.value),
+              alignment: BarChartAlignment.spaceAround,
             ),
-            barTouchData: _buildBarTouchData(context, unit),
-            titlesData: _buildTitlesData(textTheme),
-            gridData: _buildGridData(colorScheme),
-            borderData: FlBorderData(show: false),
-            barGroups: _buildBarGroups(colorScheme, isInch, _animation.value),
-            alignment: BarChartAlignment.spaceAround,
-          ),
-        );
+          );
 
-        // Calculate dynamic minimum bar group width based on label sizes
-        final double minBarGroupWidth = _calculateMinBarGroupWidth(
-          context,
-          textScaler,
-        );
+          // Calculate dynamic minimum bar group width based on label sizes
+          final double minBarGroupWidth = _calculateMinBarGroupWidth(
+            context,
+            textScaler,
+          );
 
-        return ChartCard(
-          title: l10n.monthlyTrendChartTitle,
-          legend: legendWidget,
-          margin: EdgeInsets.zero,
-          chart: LayoutBuilder(
-            builder: (final context, final constraints) {
-              final double calculatedWidth =
-                  widget.trends.length * minBarGroupWidth;
-              final double chartWidth = max(
-                constraints.maxWidth,
-                calculatedWidth,
-              );
+          return ChartCard(
+            title: l10n.monthlyTrendChartTitle,
+            legend: legendWidget,
+            margin: EdgeInsets.zero,
+            chart: LayoutBuilder(
+              builder: (final context, final constraints) {
+                final double calculatedWidth =
+                    widget.trends.length * minBarGroupWidth;
+                final double chartWidth = max(
+                  constraints.maxWidth,
+                  calculatedWidth,
+                );
 
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                clipBehavior: Clip.none,
-                child: SizedBox(
-                  width: chartWidth,
-                  child: Padding(
-                    padding: const EdgeInsets.only(
-                      right: 16,
-                      top: 8,
-                      bottom: 8,
+                return SingleChildScrollView(
+                  scrollDirection: Axis.horizontal,
+                  clipBehavior: Clip.none,
+                  child: SizedBox(
+                    width: chartWidth,
+                    child: Padding(
+                      padding: const EdgeInsets.only(
+                        right: 16,
+                        top: 8,
+                        bottom: 8,
+                      ),
+                      child: SizedBox(height: 250, child: barChart),
                     ),
-                    child: SizedBox(height: 250, child: barChart),
                   ),
-                ),
-              );
-            },
-          ),
-        );
-      },
+                );
+              },
+            ),
+          );
+        },
+      ),
     );
   }
 

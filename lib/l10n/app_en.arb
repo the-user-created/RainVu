@@ -165,6 +165,79 @@
       }
     }
   },
+  "chartSemanticsComparativeDataPoint": "{seriesName}, {label}: {value}.",
+  "@chartSemanticsComparativeDataPoint": {
+    "description": "A template for a single data point in a comparative chart for screen readers.",
+    "placeholders": {
+      "seriesName": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsDataPoint": "{label}: {value}.",
+  "@chartSemanticsDataPoint": {
+    "description": "A template for a single data point in a chart for screen readers.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsDualDataPoint": "{label}. Actual: {actualValue}, Average: {averageValue}.",
+  "@chartSemanticsDualDataPoint": {
+    "description": "A template for a single data point in a dual-line chart for screen readers.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "actualValue": {
+        "type": "String"
+      },
+      "averageValue": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsLabelBar": "Bar chart showing {title}.",
+  "@chartSemanticsLabelBar": {
+    "description": "A template for the accessibility label of a bar chart.",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsLabelDualLine": "Line chart comparing actual vs average rainfall for {title}.",
+  "@chartSemanticsLabelDualLine": {
+    "description": "A template for the accessibility label of a dual line chart.",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsLabelLine": "Line chart showing {title}.",
+  "@chartSemanticsLabelLine": {
+    "description": "A template for the accessibility label of a line chart.",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsNoData": "No data available for this chart.",
+  "@chartSemanticsNoData": {
+    "description": "A message for screen readers when a chart has no data to display."
+  },
   "clearSelectionTooltip": "Clear selection",
   "@clearSelectionTooltip": {
     "description": "Tooltip for a button that clears a user's current selection (e.g., a date range)."
@@ -337,6 +410,15 @@
   "dateRangeAllTime": "Date Range: All Time",
   "@dateRangeAllTime": {
     "description": "Label indicating that the 'All Time' date range is selected for export."
+  },
+  "dayOfMonth": "Day {day}",
+  "@dayOfMonth": {
+    "description": "Label for a day of the month, used in chart semantics.",
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
   },
   "defaultGaugeName": "Default Gauge",
   "@defaultGaugeName": {

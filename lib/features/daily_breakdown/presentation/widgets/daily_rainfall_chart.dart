@@ -8,6 +8,7 @@ import "package:rainvu/core/utils/extensions.dart";
 import "package:rainvu/features/daily_breakdown/domain/daily_breakdown_data.dart";
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/domain/user_preferences.dart";
+import "package:rainvu/shared/utils/chart_semantics_helper.dart";
 import "package:rainvu/shared/widgets/charts/chart_card.dart";
 import "package:rainvu/shared/widgets/charts/legend_item.dart";
 
@@ -48,25 +49,39 @@ class DailyRainfallChart extends ConsumerWidget {
       ),
     );
 
-    return ChartCard(
+    final String semanticLabel = ChartSemanticsHelper.getBarChartDescription(
+      context: context,
       title: l10n.dailyRainfallChartTitle,
-      margin: EdgeInsets.zero,
-      legend: LegendItem(
-        color: colorScheme.secondary,
-        text: l10n.legendDailyRainfall,
-      ),
-      chart: LayoutBuilder(
-        builder: (final context, final constraints) {
-          const double minPointWidth = 18;
-          final double calculatedWidth = chartData.length * minPointWidth;
-          final double chartWidth = max(constraints.maxWidth, calculatedWidth);
+      dataPoints: ChartSemanticsHelper.fromDailyRainfallPoints(chartData, l10n),
+      unit: unit,
+    );
 
-          return SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            clipBehavior: Clip.none,
-            child: SizedBox(width: chartWidth, height: 200, child: barChart),
-          );
-        },
+    return Semantics(
+      label: l10n.dailyRainfallChartTitle,
+      value: semanticLabel,
+      child: ChartCard(
+        title: l10n.dailyRainfallChartTitle,
+        margin: EdgeInsets.zero,
+        legend: LegendItem(
+          color: colorScheme.secondary,
+          text: l10n.legendDailyRainfall,
+        ),
+        chart: LayoutBuilder(
+          builder: (final context, final constraints) {
+            const double minPointWidth = 18;
+            final double calculatedWidth = chartData.length * minPointWidth;
+            final double chartWidth = max(
+              constraints.maxWidth,
+              calculatedWidth,
+            );
+
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              clipBehavior: Clip.none,
+              child: SizedBox(width: chartWidth, height: 200, child: barChart),
+            );
+          },
+        ),
       ),
     );
   }

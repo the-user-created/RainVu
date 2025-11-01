@@ -7,6 +7,7 @@ import "package:rainvu/core/utils/extensions.dart";
 import "package:rainvu/features/insights_dashboard/domain/insights_data.dart";
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/domain/user_preferences.dart";
+import "package:rainvu/shared/utils/chart_semantics_helper.dart";
 import "package:rainvu/shared/widgets/charts/chart_card.dart";
 
 class HistoricalChart extends ConsumerWidget {
@@ -21,9 +22,13 @@ class HistoricalChart extends ConsumerWidget {
         points.isNotEmpty && points.any((final p) => p.value > 0);
 
     if (!hasData) {
-      return ChartCard(
-        title: l10n.dashboardChartTitle,
-        chart: const _EmptyChartState(),
+      return Semantics(
+        label: l10n.dashboardChartTitle,
+        value: l10n.dashboardChartEmptyMessage,
+        child: ChartCard(
+          title: l10n.dashboardChartTitle,
+          chart: const _EmptyChartState(),
+        ),
       );
     }
 
@@ -49,19 +54,33 @@ class HistoricalChart extends ConsumerWidget {
       ),
     );
 
-    return ChartCard(
+    final String semanticLabel = ChartSemanticsHelper.getBarChartDescription(
+      context: context,
       title: l10n.dashboardChartTitle,
-      chart: LayoutBuilder(
-        builder: (final context, final constraints) {
-          final double calculatedWidth = points.length * minBarWidth;
-          final double chartWidth = max(constraints.maxWidth, calculatedWidth);
+      dataPoints: ChartSemanticsHelper.fromChartPoints(points),
+      unit: unit,
+    );
 
-          return SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            clipBehavior: Clip.none,
-            child: SizedBox(width: chartWidth, height: 250, child: barChart),
-          );
-        },
+    return Semantics(
+      label: l10n.dashboardChartTitle,
+      value: semanticLabel,
+      child: ChartCard(
+        title: l10n.dashboardChartTitle,
+        chart: LayoutBuilder(
+          builder: (final context, final constraints) {
+            final double calculatedWidth = points.length * minBarWidth;
+            final double chartWidth = max(
+              constraints.maxWidth,
+              calculatedWidth,
+            );
+
+            return SingleChildScrollView(
+              scrollDirection: Axis.horizontal,
+              clipBehavior: Clip.none,
+              child: SizedBox(width: chartWidth, height: 250, child: barChart),
+            );
+          },
+        ),
       ),
     );
   }
