@@ -10,6 +10,7 @@ import "package:rainvu/core/utils/extensions.dart";
 import "package:rainvu/features/yearly_comparison/domain/yearly_comparison_data.dart";
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/domain/user_preferences.dart";
+import "package:rainvu/shared/utils/chart_semantics_helper.dart";
 import "package:rainvu/shared/widgets/charts/chart_card.dart";
 import "package:rainvu/shared/widgets/charts/legend_item.dart";
 
@@ -103,9 +104,16 @@ class _YearlyComparisonChartState extends ConsumerState<YearlyComparisonChart>
 
     if (widget.chartData.series.isEmpty ||
         widget.chartData.series.first.data.isEmpty) {
-      return SizedBox(
-        height: 300,
-        child: Center(child: Text(l10n.yearlyComparisonChartNoData)),
+      return Semantics(
+        container: true,
+        label: l10n.yearlyComparisonChartTitle,
+        value: l10n.yearlyComparisonChartNoData,
+        child: ExcludeSemantics(
+          child: SizedBox(
+            height: 300,
+            child: Center(child: Text(l10n.yearlyComparisonChartNoData)),
+          ),
+        ),
       );
     }
 
@@ -129,105 +137,137 @@ class _YearlyComparisonChartState extends ConsumerState<YearlyComparisonChart>
       isSingleGroup,
     );
 
-    return AnimatedBuilder(
-      animation: _animation,
-      builder: (final context, final child) {
-        final barChart = BarChart(
-          BarChartData(
-            maxY: finalMaxY,
-            alignment: isSingleGroup
-                ? BarChartAlignment.center
-                : BarChartAlignment.spaceBetween,
-            barGroups: _generateBarGroups(colors, isInch, _animation.value),
-            titlesData: _buildTitles(theme, l10n, isSingleGroup, textScaler),
-            borderData: FlBorderData(show: false),
-            gridData: FlGridData(
-              drawVerticalLine: false,
-              getDrawingHorizontalLine: (final value) => FlLine(
-                color: colorScheme.outline.withValues(alpha: 0.5),
-                strokeWidth: 1,
-              ),
-            ),
-            barTouchData: BarTouchData(
-              touchTooltipData: BarTouchTooltipData(
-                fitInsideHorizontally: true,
-                getTooltipColor: (final _) => colorScheme.primary,
-                getTooltipItem:
-                    (final group, final groupIndex, final rod, final rodIndex) {
-                      // Tooltip should show the final value, not the animated one.
-                      final double originalValue = isInch
-                          ? widget.chartData.series[rodIndex].data[groupIndex]
-                                .toInches()
-                          : widget.chartData.series[rodIndex].data[groupIndex];
-
-                      final int year = widget.chartData.series[rodIndex].year;
-                      final String label = isSingleGroup
-                          ? l10n.totalLabel
-                          : widget.chartData.labels[groupIndex];
-                      final String titleText = isSingleGroup
-                          ? "$year\n"
-                          : "$year $label\n";
-
-                      final double mmValue = isInch
-                          ? originalValue.toMillimeters()
-                          : originalValue;
-
-                      return BarTooltipItem(
-                        titleText,
-                        TextStyle(
-                          color: colorScheme.onPrimary,
-                          fontWeight: FontWeight.bold,
-                        ),
-                        children: <TextSpan>[
-                          TextSpan(
-                            text: mmValue.formatRainfall(context, unit),
-                            style: TextStyle(color: colorScheme.onPrimary),
-                          ),
-                        ],
-                      );
-                    },
-              ),
-            ),
-          ),
+    final String semanticLabel =
+        ChartSemanticsHelper.getComparativeBarChartDescription(
+          context: context,
+          title: l10n.yearlyComparisonChartTitle,
+          data: widget.chartData,
+          unit: unit,
         );
 
-        return ChartCard(
-          title: l10n.yearlyComparisonChartTitle,
-          margin: const EdgeInsets.all(16),
-          legend: Wrap(
-            spacing: 12,
-            runSpacing: 4,
-            children: widget.chartData.series
-                .mapIndexed(
-                  (final index, final series) => LegendItem(
-                    color: colors[index % colors.length],
-                    text: series.year.toString(),
-                  ),
-                )
-                .toList(),
-          ),
-          chart: LayoutBuilder(
-            builder: (final context, final constraints) {
-              final double chartWidth = max(
-                constraints.maxWidth,
-                widget.chartData.labels.length * minBarGroupWidth,
-              );
-              return SingleChildScrollView(
-                scrollDirection: Axis.horizontal,
-                clipBehavior: Clip.none,
-                child: SizedBox(
-                  width: chartWidth,
-                  height: 260,
-                  child: Padding(
-                    padding: const EdgeInsets.only(top: 16, right: 16),
-                    child: barChart,
+    return Semantics(
+      container: true,
+      label: l10n.yearlyComparisonChartTitle,
+      value: semanticLabel,
+      child: ExcludeSemantics(
+        child: AnimatedBuilder(
+          animation: _animation,
+          builder: (final context, final child) {
+            final barChart = BarChart(
+              BarChartData(
+                maxY: finalMaxY,
+                alignment: isSingleGroup
+                    ? BarChartAlignment.center
+                    : BarChartAlignment.spaceBetween,
+                barGroups: _generateBarGroups(colors, isInch, _animation.value),
+                titlesData: _buildTitles(
+                  theme,
+                  l10n,
+                  isSingleGroup,
+                  textScaler,
+                ),
+                borderData: FlBorderData(show: false),
+                gridData: FlGridData(
+                  drawVerticalLine: false,
+                  getDrawingHorizontalLine: (final value) => FlLine(
+                    color: colorScheme.outline.withValues(alpha: 0.5),
+                    strokeWidth: 1,
                   ),
                 ),
-              );
-            },
-          ),
-        );
-      },
+                barTouchData: BarTouchData(
+                  touchTooltipData: BarTouchTooltipData(
+                    fitInsideHorizontally: true,
+                    getTooltipColor: (final _) => colorScheme.primary,
+                    getTooltipItem:
+                        (
+                          final group,
+                          final groupIndex,
+                          final rod,
+                          final rodIndex,
+                        ) {
+                          // Tooltip should show the final value, not the animated one.
+                          final double originalValue = isInch
+                              ? widget
+                                    .chartData
+                                    .series[rodIndex]
+                                    .data[groupIndex]
+                                    .toInches()
+                              : widget
+                                    .chartData
+                                    .series[rodIndex]
+                                    .data[groupIndex];
+
+                          final int year =
+                              widget.chartData.series[rodIndex].year;
+                          final String label = isSingleGroup
+                              ? l10n.totalLabel
+                              : widget.chartData.labels[groupIndex];
+                          final String titleText = isSingleGroup
+                              ? "$year\n"
+                              : "$year $label\n";
+
+                          final double mmValue = isInch
+                              ? originalValue.toMillimeters()
+                              : originalValue;
+
+                          return BarTooltipItem(
+                            titleText,
+                            TextStyle(
+                              color: colorScheme.onPrimary,
+                              fontWeight: FontWeight.bold,
+                            ),
+                            children: <TextSpan>[
+                              TextSpan(
+                                text: mmValue.formatRainfall(context, unit),
+                                style: TextStyle(color: colorScheme.onPrimary),
+                              ),
+                            ],
+                          );
+                        },
+                  ),
+                ),
+              ),
+            );
+
+            return ChartCard(
+              title: l10n.yearlyComparisonChartTitle,
+              margin: const EdgeInsets.all(16),
+              legend: Wrap(
+                spacing: 12,
+                runSpacing: 4,
+                children: widget.chartData.series
+                    .mapIndexed(
+                      (final index, final series) => LegendItem(
+                        color: colors[index % colors.length],
+                        text: series.year.toString(),
+                      ),
+                    )
+                    .toList(),
+              ),
+              chart: LayoutBuilder(
+                builder: (final context, final constraints) {
+                  final double chartWidth = max(
+                    constraints.maxWidth,
+                    widget.chartData.labels.length * minBarGroupWidth,
+                  );
+                  return SingleChildScrollView(
+                    scrollDirection: Axis.horizontal,
+                    clipBehavior: Clip.none,
+                    child: SizedBox(
+                      width: chartWidth,
+                      height: 260,
+                      child: Padding(
+                        padding: const EdgeInsets.only(top: 16, right: 16),
+                        child: barChart,
+                      ),
+                    ),
+                  );
+                },
+              ),
+            );
+          },
+        ),
+      ),
     );
   }
 

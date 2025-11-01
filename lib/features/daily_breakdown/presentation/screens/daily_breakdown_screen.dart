@@ -157,7 +157,10 @@ class _DailyBreakdownScreenState extends ConsumerState<DailyBreakdownScreen> {
                     currentTotal: data.summaryStats.totalRainfall,
                   ),
                   const SizedBox(height: 24),
-                  DailyRainfallChart(chartData: data.dailyChartData),
+                  DailyRainfallChart(
+                    chartData: data.dailyChartData,
+                    selectedMonth: _selectedMonth,
+                  ),
                 ],
               ),
             );

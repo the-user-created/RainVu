@@ -123,6 +123,61 @@ class _MonthYearPickerState extends State<_MonthYearPicker> {
     });
   }
 
+  void _increaseYear() {
+    final int currentItem = _yearController.selectedItem;
+    final int lastItem = widget.lastDate.year - widget.firstDate.year;
+    if (currentItem < lastItem) {
+      _yearController.animateToItem(
+        currentItem + 1,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+      );
+    }
+  }
+
+  void _decreaseYear() {
+    final int currentItem = _yearController.selectedItem;
+    if (currentItem > 0) {
+      _yearController.animateToItem(
+        currentItem - 1,
+        duration: const Duration(milliseconds: 200),
+        curve: Curves.easeOut,
+      );
+    }
+  }
+
+  void _increaseMonth() {
+    final int currentItem = _monthController.selectedItem;
+    if (currentItem < 11) {
+      final int newMonth =
+          currentItem + 2; // Month is 1-based, index is 0-based
+      final DateTime newDate = DateTime(_selectedYear, newMonth);
+      if (!newDate.isAfter(widget.lastDate)) {
+        _monthController.animateToItem(
+          currentItem + 1,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOut,
+        );
+      }
+    }
+  }
+
+  void _decreaseMonth() {
+    final int currentItem = _monthController.selectedItem;
+    if (currentItem > 0) {
+      final int newMonth = currentItem;
+      // Check against the end of the new month to be inclusive
+      final DateTime endOfNewMonth = DateTime(_selectedYear, newMonth + 1, 0);
+      if (!endOfNewMonth.isBefore(widget.firstDate)) {
+        _monthController.animateToItem(
+          currentItem - 1,
+          duration: const Duration(milliseconds: 200),
+          curve: Curves.easeOut,
+        );
+      }
+    }
+  }
+
   @override
   Widget build(final BuildContext context) {
     final AppLocalizations l10n = AppLocalizations.of(context);
@@ -172,54 +227,84 @@ class _MonthYearPickerState extends State<_MonthYearPicker> {
     );
   }
 
-  Widget _buildYearPicker(final double itemExtent) => Expanded(
-    child: ListWheelScrollView.useDelegate(
-      controller: _yearController,
-      itemExtent: itemExtent,
-      physics: const FixedExtentScrollPhysics(),
-      onSelectedItemChanged: _onYearChanged,
-      childDelegate: ListWheelChildBuilderDelegate(
-        builder: (final context, final index) {
-          final int year = widget.firstDate.year + index;
-          final bool isSelected = year == _selectedYear;
-          return _WheelItem(text: year.toString(), isSelected: isSelected);
-        },
-        childCount: widget.lastDate.year - widget.firstDate.year + 1,
+  Widget _buildYearPicker(final double itemExtent) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    return Expanded(
+      child: Semantics(
+        label: l10n.yearPickerSemanticsLabel,
+        value: _selectedYear.toString(),
+        onIncrease: _increaseYear,
+        onDecrease: _decreaseYear,
+        child: ExcludeSemantics(
+          child: ListWheelScrollView.useDelegate(
+            controller: _yearController,
+            itemExtent: itemExtent,
+            physics: const FixedExtentScrollPhysics(),
+            onSelectedItemChanged: _onYearChanged,
+            childDelegate: ListWheelChildBuilderDelegate(
+              builder: (final context, final index) {
+                final int year = widget.firstDate.year + index;
+                final bool isSelected = year == _selectedYear;
+                return _WheelItem(
+                  text: year.toString(),
+                  isSelected: isSelected,
+                );
+              },
+              childCount: widget.lastDate.year - widget.firstDate.year + 1,
+            ),
+          ),
+        ),
       ),
-    ),
-  );
+    );
+  }
 
-  Widget _buildMonthPicker(final double itemExtent) => Expanded(
-    child: ListWheelScrollView.useDelegate(
-      controller: _monthController,
-      itemExtent: itemExtent,
-      physics: const FixedExtentScrollPhysics(),
-      onSelectedItemChanged: _onMonthChanged,
-      childDelegate: ListWheelChildBuilderDelegate(
-        builder: (final context, final index) {
-          final int month = index + 1;
-          final String monthText = DateFormat.MMM().format(DateTime(0, month));
-          final bool isSelected = month == _selectedMonth;
+  Widget _buildMonthPicker(final double itemExtent) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    final String monthName = DateFormat.MMMM().format(
+      DateTime(0, _selectedMonth),
+    );
+    return Expanded(
+      child: Semantics(
+        label: l10n.monthPickerSemanticsLabel,
+        value: monthName,
+        onIncrease: _increaseMonth,
+        onDecrease: _decreaseMonth,
+        child: ExcludeSemantics(
+          child: ListWheelScrollView.useDelegate(
+            controller: _monthController,
+            itemExtent: itemExtent,
+            physics: const FixedExtentScrollPhysics(),
+            onSelectedItemChanged: _onMonthChanged,
+            childDelegate: ListWheelChildBuilderDelegate(
+              builder: (final context, final index) {
+                final int month = index + 1;
+                final String monthText = DateFormat.MMM().format(
+                  DateTime(0, month),
+                );
+                final bool isSelected = month == _selectedMonth;
 
-          final DateTime currentDate = DateTime(_selectedYear, month);
-          final bool isDisabled =
-              currentDate.isAfter(widget.lastDate) ||
-              DateTime(
-                currentDate.year,
-                currentDate.month + 1,
-                0,
-              ).isBefore(widget.firstDate);
+                final DateTime currentDate = DateTime(_selectedYear, month);
+                final bool isDisabled =
+                    currentDate.isAfter(widget.lastDate) ||
+                    DateTime(
+                      currentDate.year,
+                      currentDate.month + 1,
+                      0,
+                    ).isBefore(widget.firstDate);
 
-          return _WheelItem(
-            text: monthText,
-            isSelected: isSelected,
-            isDisabled: isDisabled,
-          );
-        },
-        childCount: 12,
+                return _WheelItem(
+                  text: monthText,
+                  isSelected: isSelected,
+                  isDisabled: isDisabled,
+                );
+              },
+              childCount: 12,
+            ),
+          ),
+        ),
       ),
-    ),
-  );
+    );
+  }
 }
 
 class _WheelItem extends StatelessWidget {

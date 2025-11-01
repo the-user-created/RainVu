@@ -18,6 +18,7 @@ class ExpandableFab extends StatefulWidget {
     super.key,
     this.initialOpen = false,
     this.distance = 72.0,
+    this.tooltip,
   });
 
   /// Whether the FAB is open initially.
@@ -28,6 +29,9 @@ class ExpandableFab extends StatefulWidget {
 
   /// The list of [ActionButton]s to display.
   final List<ActionButton> children;
+
+  /// The semantic label for the collapsed FAB.
+  final String? tooltip;
 
   @override
   State<ExpandableFab> createState() => _ExpandableFabState();
@@ -119,6 +123,7 @@ class _ExpandableFabState extends State<ExpandableFab>
         FloatingActionButton(
           shape: const CircleBorder(),
           onPressed: _toggle,
+          tooltip: widget.tooltip,
           child: AnimatedIcon(
             icon: AnimatedIcons.menu_close,
             progress: _expandAnimation,

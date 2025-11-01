@@ -46,6 +46,9 @@ abstract class ComparativeChartData with _$ComparativeChartData {
     /// Labels for the X-axis (e.g., 'Jan', 'Feb', ...).
     required final List<String> labels,
 
+    /// Full date context for each label, used for semantics.
+    final List<DateTime>? dates,
+
     /// The data series, one for each year being compared.
     required final List<ComparativeChartSeries> series,
   }) = _ComparativeChartData;

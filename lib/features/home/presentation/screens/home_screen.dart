@@ -49,6 +49,7 @@ class HomeScreen extends ConsumerWidget {
         ),
         floatingActionButton: ExpandableFab(
           distance: 70,
+          tooltip: l10n.fabActionsMenuTooltip,
           children: [
             ActionButton(
               onPressed: () => _showLogRainSheet(context),

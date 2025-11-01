@@ -73,7 +73,11 @@ class DriftInsightsRepository implements InsightsRepository {
         final double total =
             dailyTotals.firstWhereOrNull((final d) => d.day == day)?.total ??
             0.0;
-        return ChartPoint(label: day.toString(), value: total);
+        return ChartPoint(
+          label: day.toString(),
+          value: total,
+          date: DateTime(_now.year, _now.month, day),
+        );
       },
     );
 
@@ -115,6 +119,7 @@ class DriftInsightsRepository implements InsightsRepository {
       return ChartPoint(
         label: DateFormat.MMM().format(DateTime(0, month)),
         value: total,
+        date: DateTime(_now.year, month),
       );
     });
 
@@ -151,7 +156,11 @@ class DriftInsightsRepository implements InsightsRepository {
               )
               ?.total ??
           0.0;
-      return ChartPoint(label: DateFormat.MMM().format(date), value: total);
+      return ChartPoint(
+        label: DateFormat.MMM().format(date),
+        value: total,
+        date: date,
+      );
     });
 
     return MetricData(

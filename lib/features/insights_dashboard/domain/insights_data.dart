@@ -53,6 +53,9 @@ abstract class ChartPoint with _$ChartPoint {
 
     /// The value for the y-axis (e.g., total rainfall).
     required final double value,
+
+    /// The full date context for the data point, used for semantics.
+    final DateTime? date,
   }) = _ChartPoint;
 }
 

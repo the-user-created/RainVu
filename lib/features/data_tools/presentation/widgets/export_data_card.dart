@@ -17,19 +17,6 @@ import "package:rainvu/shared/widgets/pickers/date_range_picker.dart";
 class ExportDataCard extends ConsumerWidget {
   const ExportDataCard({super.key});
 
-  String _getFormatLabel(
-    final BuildContext context,
-    final ExportFormat format,
-  ) {
-    final AppLocalizations l10n = AppLocalizations.of(context);
-    switch (format) {
-      case ExportFormat.csv:
-        return l10n.exportFormatCsv;
-      case ExportFormat.json:
-        return l10n.exportFormatJson;
-    }
-  }
-
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
@@ -41,18 +28,31 @@ class ExportDataCard extends ConsumerWidget {
     );
 
     final String dateRangeLabel;
+    final String? semanticDateRangeLabel;
     if (state.dateRange == null) {
       dateRangeLabel = l10n.dateRangeAllTime;
+      semanticDateRangeLabel = dateRangeLabel;
     } else {
       final DateFormat formatter = DateFormat.yMd();
-      dateRangeLabel =
-          "${formatter.format(state.dateRange!.start)} - ${formatter.format(state.dateRange!.end)}";
+      final String startDate = formatter.format(state.dateRange!.start);
+      final String endDate = formatter.format(state.dateRange!.end);
+      dateRangeLabel = "$startDate - $endDate";
+      semanticDateRangeLabel = l10n.dateRangeSemanticsLabel(startDate, endDate);
     }
 
     final bool hasData = dateRangeAsync.maybeWhen(
       data: (final data) => data.min != null && data.max != null,
       orElse: () => false,
     );
+
+    final List<ChipOption<ExportFormat>> chipOptions = [
+      ChipOption(value: ExportFormat.csv, label: l10n.exportFormatCsv),
+      ChipOption(
+        value: ExportFormat.json,
+        label: l10n.exportFormatJson,
+        semanticsLabel: l10n.exportFormatJsonSemanticsLabel,
+      ),
+    ];
 
     return SettingsCard(
       children: [
@@ -100,10 +100,8 @@ class ExportDataCard extends ConsumerWidget {
                               type: MessageType.error,
                             ),
                       label: dateRangeLabel,
-                      icon: const Icon(
-                        Icons.calendar_today,
-                        size: 20,
-                      ),
+                      semanticLabel: semanticDateRangeLabel,
+                      icon: const Icon(Icons.calendar_today, size: 20),
                     ),
                   ),
                   if (state.dateRange != null) ...[
@@ -124,14 +122,7 @@ class ExportDataCard extends ConsumerWidget {
               AppChoiceChips<ExportFormat>(
                 selectedValue: state.exportFormat,
                 onSelected: notifier.setExportFormat,
-                options: ExportFormat.values
-                    .map(
-                      (final format) => ChipOption(
-                        value: format,
-                        label: _getFormatLabel(context, format),
-                      ),
-                    )
-                    .toList(),
+                options: chipOptions,
               ),
               const SizedBox(height: 24),
               AppButton(

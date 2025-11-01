@@ -124,9 +124,14 @@ class DriftYearlyComparisonRepository implements YearlyComparisonRepository {
     final List<String> labels = DateFormat.MMMM().dateSymbols.STANDALONEMONTHS
         .map((final m) => m.substring(0, 3))
         .toList();
+    final List<DateTime> dates = List.generate(
+      12,
+      (final index) => DateTime(0, index + 1),
+    );
 
     return ComparativeChartData(
       labels: labels,
+      dates: dates,
       series: [
         ComparativeChartSeries(year: filter.year1, data: monthlyTotals1),
         ComparativeChartSeries(year: filter.year2, data: monthlyTotals2),

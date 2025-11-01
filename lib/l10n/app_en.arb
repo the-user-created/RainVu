@@ -43,6 +43,18 @@
       }
     }
   },
+  "anomalyGroupDeviationSemantics": "{sign}{percent}% versus average",
+  "@anomalyGroupDeviationSemantics": {
+    "description": "A screen-reader-friendly version of the percentage deviation from the average, expanding 'vs avg' to 'versus average'.",
+    "placeholders": {
+      "sign": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
   "anomalyGroupSummary": "{count, plural, =1 {1 Unusual Event} other {{count} Unusual Events}}",
   "@anomalyGroupSummary": {
     "description": "Summary line for a group of unusual rainfall events, handling pluralization.",
@@ -149,6 +161,127 @@
     "description": "A short tag for the version number in the changelog, e.g., 'v1.2.0'.",
     "placeholders": {
       "version": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsComparativeDataPoint": "{seriesName}, {label}: {value}.",
+  "@chartSemanticsComparativeDataPoint": {
+    "description": "A template for a single data point in a comparative chart for screen readers.",
+    "placeholders": {
+      "seriesName": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsComparativeZeroDataPoint": "{seriesName}, {label}: No rainfall.",
+  "@chartSemanticsComparativeZeroDataPoint": {
+    "description": "A template for a single data point with zero value in a comparative chart for screen readers.",
+    "placeholders": {
+      "seriesName": {
+        "type": "String"
+      },
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsComparativeZeroDataRange": "{seriesName}, {startLabel} to {endLabel}: No rainfall.",
+  "@chartSemanticsComparativeZeroDataRange": {
+    "description": "A template for a range of data points with zero value in a comparative chart for screen readers.",
+    "placeholders": {
+      "seriesName": {
+        "type": "String"
+      },
+      "startLabel": {
+        "type": "String"
+      },
+      "endLabel": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsDataPoint": "{label}: {value}.",
+  "@chartSemanticsDataPoint": {
+    "description": "A template for a single data point in a chart for screen readers.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "value": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsDualDataPoint": "{label}. Actual: {actualValue}, Average: {averageValue}.",
+  "@chartSemanticsDualDataPoint": {
+    "description": "A template for a single data point in a dual-line chart for screen readers.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      },
+      "actualValue": {
+        "type": "String"
+      },
+      "averageValue": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsLabelBar": "Bar chart showing {title}.",
+  "@chartSemanticsLabelBar": {
+    "description": "A template for the accessibility label of a bar chart.",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsLabelDualLine": "Line chart comparing actual vs average rainfall for {title}.",
+  "@chartSemanticsLabelDualLine": {
+    "description": "A template for the accessibility label of a dual line chart.",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsLabelLine": "Line chart showing {title}.",
+  "@chartSemanticsLabelLine": {
+    "description": "A template for the accessibility label of a line chart.",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsNoData": "No data available for this chart.",
+  "@chartSemanticsNoData": {
+    "description": "A message for screen readers when a chart has no data to display."
+  },
+  "chartSemanticsZeroDataPoint": "{label}: No rainfall.",
+  "@chartSemanticsZeroDataPoint": {
+    "description": "A template for a single data point with zero value in a chart for screen readers.",
+    "placeholders": {
+      "label": {
+        "type": "String"
+      }
+    }
+  },
+  "chartSemanticsZeroDataRange": "{startLabel} to {endLabel}: No rainfall.",
+  "@chartSemanticsZeroDataRange": {
+    "description": "A template for a range of data points with zero value in a chart for screen readers.",
+    "placeholders": {
+      "startLabel": {
+        "type": "String"
+      },
+      "endLabel": {
         "type": "String"
       }
     }
@@ -326,6 +459,29 @@
   "@dateRangeAllTime": {
     "description": "Label indicating that the 'All Time' date range is selected for export."
   },
+  "dateRangeSemanticsLabel": "{startDate} to {endDate}",
+  "@dateRangeSemanticsLabel": {
+    "description": "An accessible label for a date range, read by screen readers.",
+    "placeholders": {
+      "startDate": {
+        "type": "String",
+        "example": "January 1, 2023"
+      },
+      "endDate": {
+        "type": "String",
+        "example": "December 31, 2023"
+      }
+    }
+  },
+  "dayOfMonth": "Day {day}",
+  "@dayOfMonth": {
+    "description": "Label for a day of the month, used in chart semantics.",
+    "placeholders": {
+      "day": {
+        "type": "int"
+      }
+    }
+  },
   "defaultGaugeName": "Default Gauge",
   "@defaultGaugeName": {
     "description": "The name of the default, non-deletable rain gauge."
@@ -469,6 +625,10 @@
   "@exportFormatJson": {
     "description": "Label for the JSON export format option."
   },
+  "exportFormatJsonSemanticsLabel": "J S O N",
+  "@exportFormatJsonSemanticsLabel": {
+    "description": "A semantic label for the 'JSON' chip to ensure it is read correctly by screen readers as individual letters."
+  },
   "exportFormatTitle": "Export Format",
   "@exportFormatTitle": {
     "description": "Title for the section where the user chooses the export file format."
@@ -488,6 +648,10 @@
   "exportProgressTitle": "Exporting Data",
   "@exportProgressTitle": {
     "description": "The title of the dialog shown during data export."
+  },
+  "fabActionsMenuTooltip": "Actions menu",
+  "@fabActionsMenuTooltip": {
+    "description": "Tooltip and semantic label for the collapsed expandable floating action button, indicating it opens a menu of actions."
   },
   "fabAddGauge": "Add Gauge",
   "@fabAddGauge": {
@@ -1040,6 +1204,24 @@
       }
     }
   },
+  "monthPickerSemanticsLabel": "Month",
+  "@monthPickerSemanticsLabel": {
+    "description": "The accessibility label for the month picker, used by screen readers."
+  },
+  "monthlyAverageCardTitle": "{month}: {total}",
+  "@monthlyAverageCardTitle": {
+    "description": "A semantic label for the monthly averages card header, combining the month and total rainfall to be read clearly by screen readers.",
+    "placeholders": {
+      "month": {
+        "type": "String",
+        "example": "January"
+      },
+      "total": {
+        "type": "String",
+        "example": "11.6 mm"
+      }
+    }
+  },
   "monthlyAveragesInfoDescription": "This screen compares the current month's total rainfall against the historical average for the same month, calculated over various time spans (e.g., the last 2, 5, 10 years). This helps you see if the current month is wetter or drier than usual compared to recent history.",
   "@monthlyAveragesInfoDescription": {
     "description": "Description for the Monthly Averages screen in its info sheet."
@@ -1088,21 +1270,41 @@
   "@mtdBreakdown10yrAvg": {
     "description": "Label for the 10-year average in the monthly averages breakdown."
   },
+  "mtdBreakdown10yrAvgSemantics": "10 year average",
+  "@mtdBreakdown10yrAvgSemantics": {
+    "description": "A screen-reader-friendly label that expands the abbreviation '10yr avg'."
+  },
   "mtdBreakdown15yrAvg": "15yr avg",
   "@mtdBreakdown15yrAvg": {
     "description": "Label for the 15-year average in the monthly averages breakdown."
+  },
+  "mtdBreakdown15yrAvgSemantics": "15 year average",
+  "@mtdBreakdown15yrAvgSemantics": {
+    "description": "A screen-reader-friendly label that expands the abbreviation '15yr avg'."
   },
   "mtdBreakdown20yrAvg": "20yr avg",
   "@mtdBreakdown20yrAvg": {
     "description": "Label for the 20-year average in the monthly averages breakdown."
   },
+  "mtdBreakdown20yrAvgSemantics": "20 year average",
+  "@mtdBreakdown20yrAvgSemantics": {
+    "description": "A screen-reader-friendly label that expands the abbreviation '20yr avg'."
+  },
   "mtdBreakdown2yrAvg": "2yr avg",
   "@mtdBreakdown2yrAvg": {
     "description": "Label for the 2-year average in the monthly averages breakdown."
   },
+  "mtdBreakdown2yrAvgSemantics": "2 year average",
+  "@mtdBreakdown2yrAvgSemantics": {
+    "description": "A screen-reader-friendly label that expands the abbreviation '2yr avg'."
+  },
   "mtdBreakdown5yrAvg": "5yr avg",
   "@mtdBreakdown5yrAvg": {
     "description": "Label for the 5-year average in the monthly averages breakdown."
+  },
+  "mtdBreakdown5yrAvgSemantics": "5 year average",
+  "@mtdBreakdown5yrAvgSemantics": {
+    "description": "A screen-reader-friendly label that expands the abbreviation '5yr avg'."
   },
   "navGauges": "Gauges",
   "@navGauges": {
@@ -1159,6 +1361,10 @@
   "onboardingPermissionsAgreement": "By continuing, you agree to our",
   "@onboardingPermissionsAgreement": {
     "description": "The introductory text for the privacy policy and terms of service agreement."
+  },
+  "onboardingPermissionsAgreementSemantics": "By continuing, you agree to our Privacy Policy and Terms of Service.",
+  "@onboardingPermissionsAgreementSemantics": {
+    "description": "A screen-reader-friendly label for the legal agreement text during onboarding, read as a single sentence."
   },
   "onboardingPermissionsPrivacyPolicy": "Privacy Policy",
   "@onboardingPermissionsPrivacyPolicy": {
@@ -1676,6 +1882,10 @@
   "@viewEntriesButtonLabel": {
     "description": "Label for a button that navigates to a detailed list of entries for a given period."
   },
+  "yearPickerSemanticsLabel": "Year",
+  "@yearPickerSemanticsLabel": {
+    "description": "The accessibility label for the year picker, used by screen readers."
+  },
   "yearlyComparisonAvailableYearsError": "Could not determine available years for comparison.",
   "@yearlyComparisonAvailableYearsError": {
     "description": "Generic error message on the yearly comparison screen when years can't be loaded."
@@ -1727,6 +1937,15 @@
   "ytdAnnualAverage": "vs Yearly Avg: {value}",
   "@ytdAnnualAverage": {
     "description": "Label on the YTD card showing the historical yearly average for comparison."
+  },
+  "ytdAnnualAverageSemantics": "versus Yearly Average: {value}",
+  "@ytdAnnualAverageSemantics": {
+    "description": "A screen-reader-friendly version of the YTD card's comparison text, expanding 'vs' to 'versus'.",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
   },
   "ytdInfoAnnualAverageDescription": "This is the average total rainfall per year, calculated from all the data you have logged. The progress bar shows how close you are to reaching this historical average.",
   "@ytdInfoAnnualAverageDescription": {

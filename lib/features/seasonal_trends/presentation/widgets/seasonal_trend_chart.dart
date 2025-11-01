@@ -9,6 +9,7 @@ import "package:rainvu/core/utils/extensions.dart";
 import "package:rainvu/features/seasonal_trends/domain/seasonal_trends_data.dart";
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/domain/user_preferences.dart";
+import "package:rainvu/shared/utils/chart_semantics_helper.dart";
 import "package:rainvu/shared/widgets/charts/chart_card.dart";
 
 class SeasonalTrendChart extends ConsumerWidget {
@@ -67,21 +68,42 @@ class SeasonalTrendChart extends ConsumerWidget {
       ),
     );
 
-    return ChartCard(
+    final String semanticLabel = ChartSemanticsHelper.getLineChartDescription(
+      context: context,
       title: l10n.rainfallTrendsTitle,
-      margin: EdgeInsets.zero,
-      chart: LayoutBuilder(
-        builder: (final context, final constraints) {
-          const double minPointWidth = 4;
-          final double calculatedWidth = trendData.length * minPointWidth;
-          final double chartWidth = max(constraints.maxWidth, calculatedWidth);
+      data: trendData,
+      unit: unit,
+    );
 
-          return SingleChildScrollView(
-            scrollDirection: Axis.horizontal,
-            clipBehavior: Clip.none,
-            child: SizedBox(width: chartWidth, height: 250, child: lineChart),
-          );
-        },
+    return Semantics(
+      container: true,
+      label: l10n.rainfallTrendsTitle,
+      value: semanticLabel,
+      child: ExcludeSemantics(
+        child: ChartCard(
+          title: l10n.rainfallTrendsTitle,
+          margin: EdgeInsets.zero,
+          chart: LayoutBuilder(
+            builder: (final context, final constraints) {
+              const double minPointWidth = 4;
+              final double calculatedWidth = trendData.length * minPointWidth;
+              final double chartWidth = max(
+                constraints.maxWidth,
+                calculatedWidth,
+              );
+
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                clipBehavior: Clip.none,
+                child: SizedBox(
+                  width: chartWidth,
+                  height: 250,
+                  child: lineChart,
+                ),
+              );
+            },
+          ),
+        ),
       ),
     );
   }

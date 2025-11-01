@@ -11,6 +11,7 @@ import "package:rainvu/core/utils/extensions.dart";
 import "package:rainvu/features/unusual_patterns/domain/unusual_patterns_data.dart";
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/domain/user_preferences.dart";
+import "package:rainvu/shared/utils/chart_semantics_helper.dart";
 import "package:rainvu/shared/widgets/charts/chart_card.dart";
 import "package:rainvu/shared/widgets/charts/legend_item.dart";
 
@@ -131,75 +132,90 @@ class AnomalyTimelineChart extends ConsumerWidget {
       isMultiYear,
     );
 
-    return ChartCard(
-      title: l10n.rainfallTrendsTitle,
-      legend: Row(
-        mainAxisSize: MainAxisSize.min,
-        children: [
-          LegendItem(
-            color: colorScheme.secondary,
-            text: l10n.anomalyTimelineLegendActual,
-            shape: LegendShape.circle,
-          ),
-          LegendItem(
-            color: colorScheme.tertiary,
-            text: l10n.anomalyTimelineLegendAverage,
-            shape: LegendShape.circle,
-          ),
-        ],
-      ),
-      chart: processedPoints.isEmpty
-          ? SizedBox(
-              height: 240,
-              child: Center(
-                child: Text(
-                  l10n.noDataToSetDateRange,
-                  style: theme.textTheme.bodyLarge?.copyWith(
-                    color: colorScheme.onSurfaceVariant,
-                  ),
-                ),
+    final String semanticLabel =
+        ChartSemanticsHelper.getDualLineChartDescription(
+          context: context,
+          title: l10n.rainfallTrendsTitle,
+          data: chartPoints,
+          unit: unit,
+        );
+
+    return Semantics(
+      container: true,
+      label: l10n.rainfallTrendsTitle,
+      value: semanticLabel,
+      child: ExcludeSemantics(
+        child: ChartCard(
+          title: l10n.rainfallTrendsTitle,
+          legend: Row(
+            mainAxisSize: MainAxisSize.min,
+            children: [
+              LegendItem(
+                color: colorScheme.secondary,
+                text: l10n.anomalyTimelineLegendActual,
+                shape: LegendShape.circle,
               ),
-            )
-          : LayoutBuilder(
-              builder: (final context, final constraints) {
-                // Calculate dynamic minimum point width based on label sizes
-                final double minPointWidth = _calculateMinPointWidth(
-                  context,
-                  textScaler,
-                  processedPoints,
-                  isMultiYear,
-                );
-
-                final double calculatedWidth =
-                    processedPoints.length * minPointWidth;
-                final double chartWidth = max(
-                  constraints.maxWidth,
-                  calculatedWidth,
-                );
-
-                return SingleChildScrollView(
-                  scrollDirection: Axis.horizontal,
-                  clipBehavior: Clip.none,
-                  child: SizedBox(
-                    width: chartWidth,
-                    height: 240,
-                    child: Padding(
-                      padding: const EdgeInsets.only(right: 16, top: 16),
-                      child: _buildChart(
-                        context,
-                        l10n: l10n,
-                        unit: unit,
-                        isInch: isInch,
-                        isMultiYear: isMultiYear,
-                        processedPoints: processedPoints,
-                        availableWidth: chartWidth,
-                        textScaler: textScaler,
+              LegendItem(
+                color: colorScheme.tertiary,
+                text: l10n.anomalyTimelineLegendAverage,
+                shape: LegendShape.circle,
+              ),
+            ],
+          ),
+          chart: processedPoints.isEmpty
+              ? SizedBox(
+                  height: 240,
+                  child: Center(
+                    child: Text(
+                      l10n.noDataToSetDateRange,
+                      style: theme.textTheme.bodyLarge?.copyWith(
+                        color: colorScheme.onSurfaceVariant,
                       ),
                     ),
                   ),
-                );
-              },
-            ),
+                )
+              : LayoutBuilder(
+                  builder: (final context, final constraints) {
+                    // Calculate dynamic minimum point width based on label sizes
+                    final double minPointWidth = _calculateMinPointWidth(
+                      context,
+                      textScaler,
+                      processedPoints,
+                      isMultiYear,
+                    );
+
+                    final double calculatedWidth =
+                        processedPoints.length * minPointWidth;
+                    final double chartWidth = max(
+                      constraints.maxWidth,
+                      calculatedWidth,
+                    );
+
+                    return SingleChildScrollView(
+                      scrollDirection: Axis.horizontal,
+                      clipBehavior: Clip.none,
+                      child: SizedBox(
+                        width: chartWidth,
+                        height: 240,
+                        child: Padding(
+                          padding: const EdgeInsets.only(right: 16, top: 16),
+                          child: _buildChart(
+                            context,
+                            l10n: l10n,
+                            unit: unit,
+                            isInch: isInch,
+                            isMultiYear: isMultiYear,
+                            processedPoints: processedPoints,
+                            availableWidth: chartWidth,
+                            textScaler: textScaler,
+                          ),
+                        ),
+                      ),
+                    );
+                  },
+                ),
+        ),
+      ),
     );
   }
 
