@@ -1781,5 +1781,9 @@
         "example": "11.6 mm"
       }
     }
+  },
+  "exportFormatJsonSemanticsLabel": "J S O N",
+  "@exportFormatJsonSemanticsLabel": {
+    "description": "A semantic label for the 'JSON' chip to ensure it is read correctly by screen readers as individual letters."
   }
 }

@@ -2,7 +2,12 @@ import "package:flutter/material.dart";
 
 /// Represents a single option for the [AppChoiceChips] widget.
 class ChipOption<T> {
-  const ChipOption({required this.value, required this.label, this.icon});
+  const ChipOption({
+    required this.value,
+    required this.label,
+    this.icon,
+    this.semanticsLabel,
+  });
 
   /// The unique value associated with this chip.
   final T value;
@@ -12,6 +17,9 @@ class ChipOption<T> {
 
   /// An optional icon to display before the label.
   final IconData? icon;
+
+  /// An optional semantic label for the chip's text, for accessibility.
+  final String? semanticsLabel;
 }
 
 /// A modern, reusable set of choice chips.
@@ -103,6 +111,7 @@ class AppChoiceChips<T> extends StatelessWidget {
             ],
             Text(
               option.label,
+              semanticsLabel: option.semanticsLabel,
               style: textTheme.bodyMedium?.copyWith(
                 color: isSelected
                     ? selectedForegroundColor
