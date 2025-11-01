@@ -170,14 +170,20 @@ class _AnomalyGroupState extends State<_AnomalyGroup> {
                         ),
                         if (percentage.abs() > 0) ...[
                           const SizedBox(height: 4),
-                          Text(
-                            l10n.anomalyGroupDeviation(
+                          Semantics(
+                            label: l10n.anomalyGroupDeviationSemantics(
                               isPositive ? "+" : "",
                               percentage.abs().toStringAsFixed(0),
                             ),
-                            style: textTheme.bodyMedium?.copyWith(
-                              color: deviationColor,
-                              fontWeight: FontWeight.w600,
+                            child: Text(
+                              l10n.anomalyGroupDeviation(
+                                isPositive ? "+" : "",
+                                percentage.abs().toStringAsFixed(0),
+                              ),
+                              style: textTheme.bodyMedium?.copyWith(
+                                color: deviationColor,
+                                fontWeight: FontWeight.w600,
+                              ),
                             ),
                           ),
                         ],

@@ -99,6 +99,7 @@ class _MonthlyAveragesCardState extends ConsumerState<MonthlyAveragesCard> {
                   children: [
                     _ComparisonRow(
                       label: l10n.mtdBreakdown2yrAvg,
+                      semanticLabel: l10n.mtdBreakdown2yrAvgSemantics,
                       currentValue: widget.data.mtdTotal,
                       comparisonValue: widget.data.twoYrAvg,
                       unit: unit,
@@ -106,6 +107,7 @@ class _MonthlyAveragesCardState extends ConsumerState<MonthlyAveragesCard> {
                     const SizedBox(height: 8),
                     _ComparisonRow(
                       label: l10n.mtdBreakdown5yrAvg,
+                      semanticLabel: l10n.mtdBreakdown5yrAvgSemantics,
                       currentValue: widget.data.mtdTotal,
                       comparisonValue: widget.data.fiveYrAvg,
                       unit: unit,
@@ -113,6 +115,7 @@ class _MonthlyAveragesCardState extends ConsumerState<MonthlyAveragesCard> {
                     const SizedBox(height: 8),
                     _ComparisonRow(
                       label: l10n.mtdBreakdown10yrAvg,
+                      semanticLabel: l10n.mtdBreakdown10yrAvgSemantics,
                       currentValue: widget.data.mtdTotal,
                       comparisonValue: widget.data.tenYrAvg,
                       unit: unit,
@@ -120,6 +123,7 @@ class _MonthlyAveragesCardState extends ConsumerState<MonthlyAveragesCard> {
                     const SizedBox(height: 8),
                     _ComparisonRow(
                       label: l10n.mtdBreakdown15yrAvg,
+                      semanticLabel: l10n.mtdBreakdown15yrAvgSemantics,
                       currentValue: widget.data.mtdTotal,
                       comparisonValue: widget.data.fifteenYrAvg,
                       unit: unit,
@@ -127,6 +131,7 @@ class _MonthlyAveragesCardState extends ConsumerState<MonthlyAveragesCard> {
                     const SizedBox(height: 8),
                     _ComparisonRow(
                       label: l10n.mtdBreakdown20yrAvg,
+                      semanticLabel: l10n.mtdBreakdown20yrAvgSemantics,
                       currentValue: widget.data.mtdTotal,
                       comparisonValue: widget.data.twentyYrAvg,
                       unit: unit,
@@ -148,9 +153,11 @@ class _ComparisonRow extends StatelessWidget {
     required this.currentValue,
     required this.comparisonValue,
     required this.unit,
+    this.semanticLabel,
   });
 
   final String label;
+  final String? semanticLabel;
   final double currentValue;
   final double? comparisonValue;
   final MeasurementUnit unit;
@@ -191,10 +198,13 @@ class _ComparisonRow extends StatelessWidget {
       children: [
         Flexible(
           flex: 2,
-          child: Text(
-            label,
-            style: textTheme.bodySmall?.copyWith(
-              color: colorScheme.onSurfaceVariant,
+          child: Semantics(
+            label: semanticLabel ?? label,
+            child: Text(
+              label,
+              style: textTheme.bodySmall?.copyWith(
+                color: colorScheme.onSurfaceVariant,
+              ),
             ),
           ),
         ),

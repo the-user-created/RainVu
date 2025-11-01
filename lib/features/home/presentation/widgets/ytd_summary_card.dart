@@ -62,6 +62,12 @@ class _YtdSummaryCardState extends ConsumerState<YtdSummaryCard> {
         ? min(widget.ytdTotal / widget.annualAverage, 1)
         : 0.0;
 
+    final String formattedAverage = widget.annualAverage.formatRainfall(
+      context,
+      unit,
+      precision: 0,
+    );
+
     return GestureDetector(
       onTapDown: (final _) => setState(() => _isPressed = true),
       onTapUp: (final _) {
@@ -145,18 +151,17 @@ class _YtdSummaryCardState extends ConsumerState<YtdSummaryCard> {
                       const SizedBox(height: 8),
                       Align(
                         alignment: Alignment.centerRight,
-                        child: Text(
-                          l10n.ytdAnnualAverage(
-                            widget.annualAverage.formatRainfall(
-                              context,
-                              unit,
-                              precision: 0,
+                        child: Semantics(
+                          label: l10n.ytdAnnualAverageSemantics(
+                            formattedAverage,
+                          ),
+                          child: Text(
+                            l10n.ytdAnnualAverage(formattedAverage),
+                            style: theme.textTheme.bodyMedium?.copyWith(
+                              color: theme.colorScheme.onSurfaceVariant,
                             ),
+                            textAlign: TextAlign.right,
                           ),
-                          style: theme.textTheme.bodyMedium?.copyWith(
-                            color: theme.colorScheme.onSurfaceVariant,
-                          ),
-                          textAlign: TextAlign.right,
                         ),
                       ),
                     ],

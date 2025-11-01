@@ -55,6 +55,18 @@
       }
     }
   },
+  "anomalyGroupDeviationSemantics": "{sign}{percent}% versus average",
+  "@anomalyGroupDeviationSemantics": {
+    "description": "A screen-reader-friendly version of the percentage deviation from the average, expanding 'vs avg' to 'versus average'.",
+    "placeholders": {
+      "sign": {
+        "type": "String"
+      },
+      "percent": {
+        "type": "String"
+      }
+    }
+  },
   "anomalyGroupSummary": "{count, plural, =1 {1 Unusual Event} other {{count} Unusual Events}}",
   "@anomalyGroupSummary": {
     "description": "Summary line for a group of unusual rainfall events, handling pluralization.",
@@ -1208,21 +1220,41 @@
   "@mtdBreakdown10yrAvg": {
     "description": "Label for the 10-year average in the monthly averages breakdown."
   },
+  "mtdBreakdown10yrAvgSemantics": "10 year average",
+  "@mtdBreakdown10yrAvgSemantics": {
+    "description": "A screen-reader-friendly label that expands the abbreviation '10yr avg'."
+  },
   "mtdBreakdown15yrAvg": "15yr avg",
   "@mtdBreakdown15yrAvg": {
     "description": "Label for the 15-year average in the monthly averages breakdown."
+  },
+  "mtdBreakdown15yrAvgSemantics": "15 year average",
+  "@mtdBreakdown15yrAvgSemantics": {
+    "description": "A screen-reader-friendly label that expands the abbreviation '15yr avg'."
   },
   "mtdBreakdown20yrAvg": "20yr avg",
   "@mtdBreakdown20yrAvg": {
     "description": "Label for the 20-year average in the monthly averages breakdown."
   },
+  "mtdBreakdown20yrAvgSemantics": "20 year average",
+  "@mtdBreakdown20yrAvgSemantics": {
+    "description": "A screen-reader-friendly label that expands the abbreviation '20yr avg'."
+  },
   "mtdBreakdown2yrAvg": "2yr avg",
   "@mtdBreakdown2yrAvg": {
     "description": "Label for the 2-year average in the monthly averages breakdown."
   },
+  "mtdBreakdown2yrAvgSemantics": "2 year average",
+  "@mtdBreakdown2yrAvgSemantics": {
+    "description": "A screen-reader-friendly label that expands the abbreviation '2yr avg'."
+  },
   "mtdBreakdown5yrAvg": "5yr avg",
   "@mtdBreakdown5yrAvg": {
     "description": "Label for the 5-year average in the monthly averages breakdown."
+  },
+  "mtdBreakdown5yrAvgSemantics": "5 year average",
+  "@mtdBreakdown5yrAvgSemantics": {
+    "description": "A screen-reader-friendly label that expands the abbreviation '5yr avg'."
   },
   "navGauges": "Gauges",
   "@navGauges": {
@@ -1851,6 +1883,15 @@
   "ytdAnnualAverage": "vs Yearly Avg: {value}",
   "@ytdAnnualAverage": {
     "description": "Label on the YTD card showing the historical yearly average for comparison."
+  },
+  "ytdAnnualAverageSemantics": "versus Yearly Average: {value}",
+  "@ytdAnnualAverageSemantics": {
+    "description": "A screen-reader-friendly version of the YTD card's comparison text, expanding 'vs' to 'versus'.",
+    "placeholders": {
+      "value": {
+        "type": "String"
+      }
+    }
   },
   "ytdInfoAnnualAverageDescription": "This is the average total rainfall per year, calculated from all the data you have logged. The progress bar shows how close you are to reaching this historical average.",
   "@ytdInfoAnnualAverageDescription": {
