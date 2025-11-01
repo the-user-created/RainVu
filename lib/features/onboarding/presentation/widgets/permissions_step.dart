@@ -101,7 +101,7 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () => _launchUrl(
-                          "https://github.com/the-user-created/RainVu/blob/main/PRIVACY.md",
+                          "https://github.com/astraen-dev/RainVu/blob/main/PRIVACY.md",
                         ),
                     ),
                     TextSpan(text: " ${l10n.and} "),
@@ -113,7 +113,7 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
                       ),
                       recognizer: TapGestureRecognizer()
                         ..onTap = () => _launchUrl(
-                          "https://github.com/the-user-created/RainVu/blob/main/TERMS.md",
+                          "https://github.com/astraen-dev/RainVu/blob/main/TERMS.md",
                         ),
                     ),
                     const TextSpan(text: "."),

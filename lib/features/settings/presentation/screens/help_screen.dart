@@ -10,7 +10,7 @@ import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/utils/ui_helpers.dart";
 import "package:url_launcher/url_launcher.dart";
 
-const String _kGitHubBaseUrl = "https://github.com/the-user-created/RainVu";
+const String _kGitHubBaseUrl = "https://github.com/astraen-dev/RainVu";
 const String _kBugReportUrl = "$_kGitHubBaseUrl/issues/new?labels=bug";
 const String _kFeatureRequestUrl =
     "$_kGitHubBaseUrl/issues/new?labels=enhancement";
@@ -78,7 +78,7 @@ class HelpScreen extends ConsumerWidget {
 
     final Uri uri = Uri(
       scheme: "mailto",
-      path: "emberworksdev@gmail.com",
+      path: "dev@astraen.dev",
       query: _encodeQueryParameters(<String, String>{
         "subject": subject,
         "body": finalBody,

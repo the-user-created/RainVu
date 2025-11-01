@@ -107,7 +107,7 @@ Follow these instructions to set up the project for local development.
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/the-user-created/RainVu.git
+   git clone https://github.com/astraen-dev/RainVu.git
    cd RainVu
    ```
 
@@ -125,8 +125,8 @@ Follow these instructions to set up the project for local development.
     * Enable Analytics and Crashlytics in both projects.
     * For each project, register an Android and an iOS app, making sure to use the correct
       package/bundle IDs:
-        * **Development:** `com.emberworks.rainvu.dev` (for both iOS and Android)
-        * **Production:** `com.emberworks.rainvu` (for both iOS and Android)
+        * **Development:** `com.astraen.rainvu.dev` (for both iOS and Android)
+        * **Production:** `com.astraen.rainvu` (for both iOS and Android)
     * Run the `flutterfire configure` commands below, replacing the `--project` value with your own
       Firebase project IDs. This will generate the necessary `firebase_options_*.dart` files and
       native configuration files.
@@ -136,8 +136,8 @@ Follow these instructions to set up the project for local development.
    flutterfire configure \
      --project=<YOUR_DEV_PROJECT_ID> \
      --out=lib/firebase_options_dev.dart \
-     --ios-bundle-id=com.emberworks.rainvu.dev \
-     --android-package-name=com.emberworks.rainvu.dev \
+     --ios-bundle-id=com.astraen.rainvu.dev \
+     --android-package-name=com.astraen.rainvu.dev \
      --ios-out=ios/Runner/Firebase/dev/GoogleService-Info.plist \
      --android-out=android/app/src/dev/google-services.json
    ```
@@ -147,8 +147,8 @@ Follow these instructions to set up the project for local development.
    flutterfire configure \
      --project=<YOUR_PROD_PROJECT_ID> \
      --out=lib/firebase_options_prod.dart \
-     --ios-bundle-id=com.emberworks.rainvu \
-     --android-package-name=com.emberworks.rainvu \
+     --ios-bundle-id=com.astraen.rainvu \
+     --android-package-name=com.astraen.rainvu \
      --ios-out=ios/Runner/Firebase/prod/GoogleService-Info.plist \
      --android-out=android/app/src/prod/google-services.json
    ```

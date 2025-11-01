@@ -52,7 +52,7 @@
 - **Data Import/Export**: Significantly improved the reliability of **CSV** and **JSON** imports with robust validation and clear, specific error messages for malformed data.
 - **Data Entry**: Enhanced all data entry forms with improved validation (including preventing negative amounts), better focus management, and integrated keyboard actions on iOS for a smoother experience.
 - **Insights Dashboard**: Improved the dashboard to gracefully handle cases with no data by showing informative empty state messages.
-- **In-App Changelog**: Redesigned the changelog screen with a timeline layout and enhanced markdown support for `inline code` and [links](https://github.com/the-user-created/RainVu).
+- **In-App Changelog**: Redesigned the changelog screen with a timeline layout and enhanced markdown support for `inline code` and [links](https://github.com/astraen-dev/RainVu).
 - **UI Polish**: Implemented a smoother fade transition on app startup.
 
 ### Fixed
