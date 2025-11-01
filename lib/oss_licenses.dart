@@ -1983,14 +1983,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('build_runner'), PackageRef('mockito'), PackageRef('test')],
   );
 
-/// cross_file 0.3.4+2
+/// cross_file 0.3.5
 const _cross_file = Package(
     name: 'cross_file',
     description: 'An abstraction to allow working with files across multiple platforms.',
     repository: 'https://github.com/flutter/packages/tree/main/packages/cross_file',
     authors: [],
-    version: '0.3.4+2',
-    license: '''Copyright 2013 The Flutter Authors. All rights reserved.
+    version: '0.3.5',
+    license: '''Copyright 2013 The Flutter Authors
 
 Redistribution and use in source and binary forms, with or without modification,
 are permitted provided that the following conditions are met:
@@ -4415,13 +4415,13 @@ SOFTWARE.''',
     devDependencies: [PackageRef('build_runner'), PackageRef('mockito')],
   );
 
-/// flutter 3.35.6
+/// flutter 3.35.7
 const _flutter = Package(
     name: 'flutter',
     description: 'A framework for writing Flutter applications',
     homepage: 'https://flutter.dev',
     authors: [],
-    version: '3.35.6',
+    version: '3.35.7',
     license: '''Copyright 2014 The Flutter Authors. All rights reserved.
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -8859,13 +8859,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('test'), PackageRef('lints')],
   );
 
-/// sqlite3 2.9.3
+/// sqlite3 2.9.4
 const _sqlite3 = Package(
     name: 'sqlite3',
     description: 'Provides lightweight yet convenient bindings to SQLite by using dart:ffi',
     homepage: 'https://github.com/simolus3/sqlite3.dart/tree/main/sqlite3',
     authors: [],
-    version: '2.9.3',
+    version: '2.9.4',
     license: '''MIT License
 
 Copyright (c) 2020 Simon Binder
