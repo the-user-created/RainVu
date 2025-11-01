@@ -1966,5 +1966,9 @@
   "ytdProgressTitle": "Year-to-Date Total",
   "@ytdProgressTitle": {
     "description": "Title for the 'Year-to-Date Total' summary card on the home screen."
+  },
+  "onboardingPermissionsAgreementSemantics": "By continuing, you agree to our Privacy Policy and Terms of Service.",
+  "@onboardingPermissionsAgreementSemantics": {
+    "description": "A screen-reader-friendly label for the legal agreement text during onboarding, read as a single sentence."
   }
 }

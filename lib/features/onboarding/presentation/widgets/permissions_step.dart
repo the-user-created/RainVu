@@ -83,40 +83,45 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
             contentPadding: const EdgeInsets.symmetric(horizontal: 4),
           ),
           const SizedBox(height: 24),
-          Text.rich(
-            TextSpan(
-              style: theme.textTheme.bodySmall?.copyWith(
-                color: theme.colorScheme.onSurfaceVariant,
+          Semantics(
+            label: l10n.onboardingPermissionsAgreementSemantics,
+            child: ExcludeSemantics(
+              child: Text.rich(
+                TextSpan(
+                  style: theme.textTheme.bodySmall?.copyWith(
+                    color: theme.colorScheme.onSurfaceVariant,
+                  ),
+                  children: [
+                    TextSpan(text: "${l10n.onboardingPermissionsAgreement} "),
+                    TextSpan(
+                      text: l10n.onboardingPermissionsPrivacyPolicy,
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        color: theme.colorScheme.primary,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => _launchUrl(
+                          "https://github.com/the-user-created/RainVu/blob/main/PRIVACY.md",
+                        ),
+                    ),
+                    TextSpan(text: " ${l10n.and} "),
+                    TextSpan(
+                      text: l10n.onboardingPermissionsTos,
+                      style: TextStyle(
+                        decoration: TextDecoration.underline,
+                        color: theme.colorScheme.primary,
+                      ),
+                      recognizer: TapGestureRecognizer()
+                        ..onTap = () => _launchUrl(
+                          "https://github.com/the-user-created/RainVu/blob/main/TERMS.md",
+                        ),
+                    ),
+                    const TextSpan(text: "."),
+                  ],
+                ),
+                textAlign: TextAlign.center,
               ),
-              children: [
-                TextSpan(text: "${l10n.onboardingPermissionsAgreement} "),
-                TextSpan(
-                  text: l10n.onboardingPermissionsPrivacyPolicy,
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    color: theme.colorScheme.primary,
-                  ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () => _launchUrl(
-                      "https://github.com/the-user-created/RainVu/blob/main/PRIVACY.md",
-                    ),
-                ),
-                TextSpan(text: " ${l10n.and} "),
-                TextSpan(
-                  text: l10n.onboardingPermissionsTos,
-                  style: TextStyle(
-                    decoration: TextDecoration.underline,
-                    color: theme.colorScheme.primary,
-                  ),
-                  recognizer: TapGestureRecognizer()
-                    ..onTap = () => _launchUrl(
-                      "https://github.com/the-user-created/RainVu/blob/main/TERMS.md",
-                    ),
-                ),
-                const TextSpan(text: "."),
-              ],
             ),
-            textAlign: TextAlign.center,
           ),
           const Spacer(),
           AppButton(
