@@ -84,6 +84,7 @@ class DriftHomeRepository implements HomeRepository {
       final key = "${monthDate.year}-${monthDate.month}";
       trendPoints.add(
         MonthlyTrendPoint(
+          date: monthDate,
           month: DateFormat.MMM().format(monthDate),
           rainfall: trendsMap[key]!,
         ),

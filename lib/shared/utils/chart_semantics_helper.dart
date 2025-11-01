@@ -111,10 +111,15 @@ class ChartSemanticsHelper {
       ..writeln(l10n.chartSemanticsLabelBar(title));
 
     final bool isSingleGroup = data.labels.length == 1;
+    final List<String> semanticLabels = data.dates != null
+        ? data.dates!.map((final d) => DateFormat.MMMM().format(d)).toList()
+        : data.labels;
 
     for (final ComparativeChartSeries series in data.series) {
       for (int i = 0; i < series.data.length; i++) {
-        final String label = isSingleGroup ? l10n.totalLabel : data.labels[i];
+        final String label = isSingleGroup
+            ? l10n.totalLabel
+            : semanticLabels[i];
         final String formattedValue = series.data[i].formatRainfall(
           context,
           unit,
@@ -135,16 +140,35 @@ class ChartSemanticsHelper {
 
   static List<({String label, double value})> fromDailyRainfallPoints(
     final List<DailyRainfallPoint> points,
-    final AppLocalizations l10n,
-  ) => points
-      .map((final p) => (label: l10n.dayOfMonth(p.day), value: p.rainfall))
-      .toList();
+    final DateTime selectedMonth,
+  ) => points.map((final p) {
+    final date = DateTime(selectedMonth.year, selectedMonth.month, p.day);
+    return (label: DateFormat.yMMMMd().format(date), value: p.rainfall);
+  }).toList();
 
   static List<({String label, double value})> fromMonthlyTrendPoints(
     final List<MonthlyTrendPoint> points,
-  ) => points.map((final p) => (label: p.month, value: p.rainfall)).toList();
+  ) => points
+      .map(
+        (final p) =>
+            (label: DateFormat.yMMMM().format(p.date), value: p.rainfall),
+      )
+      .toList();
 
   static List<({String label, double value})> fromChartPoints(
     final List<ChartPoint> points,
-  ) => points.map((final p) => (label: p.label, value: p.value)).toList();
+  ) => points.map((final p) {
+    String label = p.label;
+    if (p.date != null) {
+      // MTD data has numeric labels for days
+      if (int.tryParse(p.label) != null) {
+        label = DateFormat.yMMMMd().format(p.date!);
+      }
+      // YTD/12-Month data has month abbreviations
+      else {
+        label = DateFormat.yMMMM().format(p.date!);
+      }
+    }
+    return (label: label, value: p.value);
+  }).toList();
 }

@@ -19,6 +19,7 @@ abstract class HomeData with _$HomeData {
 @freezed
 abstract class MonthlyTrendPoint with _$MonthlyTrendPoint {
   const factory MonthlyTrendPoint({
+    required final DateTime date,
     required final String month, // e.g., "Jan"
     required final double rainfall,
   }) = _MonthlyTrendPoint;

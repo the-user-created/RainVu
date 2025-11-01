@@ -13,9 +13,14 @@ import "package:rainvu/shared/widgets/charts/chart_card.dart";
 import "package:rainvu/shared/widgets/charts/legend_item.dart";
 
 class DailyRainfallChart extends ConsumerWidget {
-  const DailyRainfallChart({required this.chartData, super.key});
+  const DailyRainfallChart({
+    required this.chartData,
+    required this.selectedMonth,
+    super.key,
+  });
 
   final List<DailyRainfallPoint> chartData;
+  final DateTime selectedMonth;
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
@@ -52,7 +57,10 @@ class DailyRainfallChart extends ConsumerWidget {
     final String semanticLabel = ChartSemanticsHelper.getBarChartDescription(
       context: context,
       title: l10n.dailyRainfallChartTitle,
-      dataPoints: ChartSemanticsHelper.fromDailyRainfallPoints(chartData, l10n),
+      dataPoints: ChartSemanticsHelper.fromDailyRainfallPoints(
+        chartData,
+        selectedMonth,
+      ),
       unit: unit,
     );
 
