@@ -37,6 +37,11 @@ class _MonthlyAveragesCardState extends ConsumerState<MonthlyAveragesCard> {
         ref.watch(userPreferencesProvider).value?.measurementUnit ??
         MeasurementUnit.mm;
 
+    final String totalRainfall = widget.data.mtdTotal.formatRainfall(
+      context,
+      unit,
+    );
+
     return AnimatedScale(
       scale: _isPressed ? 0.95 : 1.0,
       duration: const Duration(milliseconds: 150),
@@ -55,31 +60,37 @@ class _MonthlyAveragesCardState extends ConsumerState<MonthlyAveragesCard> {
               crossAxisAlignment: CrossAxisAlignment.start,
               mainAxisSize: MainAxisSize.min,
               children: [
-                // This Row + Expanded forces the Wrap to take up the full width,
-                // allowing spaceBetween to work correctly.
-                Row(
-                  children: [
-                    Expanded(
-                      child: Wrap(
-                        spacing: 16,
-                        // Horizontal gap between items
-                        runSpacing: 4,
-                        // Vertical gap if items wrap
-                        alignment: WrapAlignment.spaceBetween,
-                        crossAxisAlignment: WrapCrossAlignment.center,
-                        children: [
-                          Text(widget.data.month, style: textTheme.titleMedium),
-                          Text(
-                            widget.data.mtdTotal.formatRainfall(context, unit),
-                            style: textTheme.titleMedium?.copyWith(
-                              color: theme.colorScheme.secondary,
-                              fontWeight: FontWeight.bold,
+                Semantics(
+                  label: l10n.monthlyAverageCardTitle(
+                    widget.data.month,
+                    totalRainfall,
+                  ),
+                  excludeSemantics: true,
+                  child: Row(
+                    children: [
+                      Expanded(
+                        child: Wrap(
+                          spacing: 16,
+                          runSpacing: 4,
+                          alignment: WrapAlignment.spaceBetween,
+                          crossAxisAlignment: WrapCrossAlignment.center,
+                          children: [
+                            Text(
+                              widget.data.month,
+                              style: textTheme.titleMedium,
                             ),
-                          ),
-                        ],
+                            Text(
+                              totalRainfall,
+                              style: textTheme.titleMedium?.copyWith(
+                                color: theme.colorScheme.secondary,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
+                          ],
+                        ),
                       ),
-                    ),
-                  ],
+                    ],
+                  ),
                 ),
                 const SizedBox(height: 12),
                 Column(

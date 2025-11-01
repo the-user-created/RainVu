@@ -1751,5 +1751,35 @@
   "ytdProgressTitle": "Year-to-Date Total",
   "@ytdProgressTitle": {
     "description": "Title for the 'Year-to-Date Total' summary card on the home screen."
+  },
+  "analysisLinkTileSemanticsLabel": "{title}. {subtitle}",
+  "@analysisLinkTileSemanticsLabel": {
+    "description": "A combined semantic label for the analysis link tiles on the insights screen, read by screen readers.",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "subtitle": {
+        "type": "String"
+      }
+    }
+  },
+  "fabActionsMenuTooltip": "Actions menu",
+  "@fabActionsMenuTooltip": {
+    "description": "Tooltip and semantic label for the collapsed expandable floating action button, indicating it opens a menu of actions."
+  },
+  "monthlyAverageCardTitle": "{month}: {total}",
+  "@monthlyAverageCardTitle": {
+    "description": "A semantic label for the monthly averages card header, combining the month and total rainfall to be read clearly by screen readers.",
+    "placeholders": {
+      "month": {
+        "type": "String",
+        "example": "January"
+      },
+      "total": {
+        "type": "String",
+        "example": "11.6 mm"
+      }
+    }
   }
 }
