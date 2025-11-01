@@ -12,6 +12,18 @@
   "@allSeverities": {
     "description": "Label for a filter option that selects all severity levels for unusual events."
   },
+  "analysisLinkTileSemanticsLabel": "{title}. {subtitle}",
+  "@analysisLinkTileSemanticsLabel": {
+    "description": "A combined semantic label for the analysis link tiles on the insights screen, read by screen readers.",
+    "placeholders": {
+      "title": {
+        "type": "String"
+      },
+      "subtitle": {
+        "type": "String"
+      }
+    }
+  },
   "and": "and",
   "@and": {
     "description": "A conjunction used to link the Privacy Policy and Terms of Service."
@@ -469,6 +481,10 @@
   "@exportFormatJson": {
     "description": "Label for the JSON export format option."
   },
+  "exportFormatJsonSemanticsLabel": "J S O N",
+  "@exportFormatJsonSemanticsLabel": {
+    "description": "A semantic label for the 'JSON' chip to ensure it is read correctly by screen readers as individual letters."
+  },
   "exportFormatTitle": "Export Format",
   "@exportFormatTitle": {
     "description": "Title for the section where the user chooses the export file format."
@@ -488,6 +504,10 @@
   "exportProgressTitle": "Exporting Data",
   "@exportProgressTitle": {
     "description": "The title of the dialog shown during data export."
+  },
+  "fabActionsMenuTooltip": "Actions menu",
+  "@fabActionsMenuTooltip": {
+    "description": "Tooltip and semantic label for the collapsed expandable floating action button, indicating it opens a menu of actions."
   },
   "fabAddGauge": "Add Gauge",
   "@fabAddGauge": {
@@ -1037,6 +1057,24 @@
     "placeholders": {
       "error": {
         "type": "Object"
+      }
+    }
+  },
+  "monthPickerSemanticsLabel": "Month",
+  "@monthPickerSemanticsLabel": {
+    "description": "The accessibility label for the month picker, used by screen readers."
+  },
+  "monthlyAverageCardTitle": "{month}: {total}",
+  "@monthlyAverageCardTitle": {
+    "description": "A semantic label for the monthly averages card header, combining the month and total rainfall to be read clearly by screen readers.",
+    "placeholders": {
+      "month": {
+        "type": "String",
+        "example": "January"
+      },
+      "total": {
+        "type": "String",
+        "example": "11.6 mm"
       }
     }
   },
@@ -1676,6 +1714,10 @@
   "@viewEntriesButtonLabel": {
     "description": "Label for a button that navigates to a detailed list of entries for a given period."
   },
+  "yearPickerSemanticsLabel": "Year",
+  "@yearPickerSemanticsLabel": {
+    "description": "The accessibility label for the year picker, used by screen readers."
+  },
   "yearlyComparisonAvailableYearsError": "Could not determine available years for comparison.",
   "@yearlyComparisonAvailableYearsError": {
     "description": "Generic error message on the yearly comparison screen when years can't be loaded."
@@ -1751,39 +1793,5 @@
   "ytdProgressTitle": "Year-to-Date Total",
   "@ytdProgressTitle": {
     "description": "Title for the 'Year-to-Date Total' summary card on the home screen."
-  },
-  "analysisLinkTileSemanticsLabel": "{title}. {subtitle}",
-  "@analysisLinkTileSemanticsLabel": {
-    "description": "A combined semantic label for the analysis link tiles on the insights screen, read by screen readers.",
-    "placeholders": {
-      "title": {
-        "type": "String"
-      },
-      "subtitle": {
-        "type": "String"
-      }
-    }
-  },
-  "fabActionsMenuTooltip": "Actions menu",
-  "@fabActionsMenuTooltip": {
-    "description": "Tooltip and semantic label for the collapsed expandable floating action button, indicating it opens a menu of actions."
-  },
-  "monthlyAverageCardTitle": "{month}: {total}",
-  "@monthlyAverageCardTitle": {
-    "description": "A semantic label for the monthly averages card header, combining the month and total rainfall to be read clearly by screen readers.",
-    "placeholders": {
-      "month": {
-        "type": "String",
-        "example": "January"
-      },
-      "total": {
-        "type": "String",
-        "example": "11.6 mm"
-      }
-    }
-  },
-  "exportFormatJsonSemanticsLabel": "J S O N",
-  "@exportFormatJsonSemanticsLabel": {
-    "description": "A semantic label for the 'JSON' chip to ensure it is read correctly by screen readers as individual letters."
   }
 }

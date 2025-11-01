@@ -113,35 +113,22 @@ class _PreferencesSheetState extends ConsumerState<PreferencesSheet> {
                 ),
               ),
               const SizedBox(height: 16),
-              SliderTheme(
-                data: SliderTheme.of(context).copyWith(
-                  trackHeight: 6,
-                  thumbShape: const RoundSliderThumbShape(),
-                  overlayShape: const RoundSliderOverlayShape(
-                    overlayRadius: 20,
-                  ),
-                  activeTrackColor: theme.colorScheme.secondary,
-                  inactiveTrackColor: theme.colorScheme.secondary.withValues(
-                    alpha: 0.3,
-                  ),
-                  thumbColor: theme.colorScheme.secondary,
-                  overlayColor: theme.colorScheme.secondary.withValues(
-                    alpha: 0.2,
-                  ),
-                ),
-                child: Slider(
-                  value: _currentThreshold!,
-                  min: 10,
-                  max: 200,
-                  onChanged: (final value) {
-                    setState(() => _currentThreshold = value);
-                  },
-                  onChangeEnd: (final value) {
-                    ref
-                        .read(userPreferencesProvider.notifier)
-                        .setAnomalyDeviationThreshold(value);
-                  },
-                ),
+              Slider(
+                value: _currentThreshold!,
+                min: 10,
+                max: 200,
+                divisions: 190,
+                label: _currentThreshold!.round().toString(),
+                semanticFormatterCallback: (final value) => l10n
+                    .anomalyDeviationThresholdValue(value.round().toString()),
+                onChanged: (final value) {
+                  setState(() => _currentThreshold = value);
+                },
+                onChangeEnd: (final value) {
+                  ref
+                      .read(userPreferencesProvider.notifier)
+                      .setAnomalyDeviationThreshold(value);
+                },
               ),
               const SizedBox(height: 8),
               Align(
