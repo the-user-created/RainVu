@@ -12,18 +12,6 @@
   "@allSeverities": {
     "description": "Label for a filter option that selects all severity levels for unusual events."
   },
-  "analysisLinkTileSemanticsLabel": "{title}. {subtitle}",
-  "@analysisLinkTileSemanticsLabel": {
-    "description": "A combined semantic label for the analysis link tiles on the insights screen, read by screen readers.",
-    "placeholders": {
-      "title": {
-        "type": "String"
-      },
-      "subtitle": {
-        "type": "String"
-      }
-    }
-  },
   "and": "and",
   "@and": {
     "description": "A conjunction used to link the Privacy Policy and Terms of Service."
