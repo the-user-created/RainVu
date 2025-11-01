@@ -76,26 +76,33 @@ class SeasonalTrendChart extends ConsumerWidget {
     );
 
     return Semantics(
+      container: true,
       label: l10n.rainfallTrendsTitle,
       value: semanticLabel,
-      child: ChartCard(
-        title: l10n.rainfallTrendsTitle,
-        margin: EdgeInsets.zero,
-        chart: LayoutBuilder(
-          builder: (final context, final constraints) {
-            const double minPointWidth = 4;
-            final double calculatedWidth = trendData.length * minPointWidth;
-            final double chartWidth = max(
-              constraints.maxWidth,
-              calculatedWidth,
-            );
+      child: ExcludeSemantics(
+        child: ChartCard(
+          title: l10n.rainfallTrendsTitle,
+          margin: EdgeInsets.zero,
+          chart: LayoutBuilder(
+            builder: (final context, final constraints) {
+              const double minPointWidth = 4;
+              final double calculatedWidth = trendData.length * minPointWidth;
+              final double chartWidth = max(
+                constraints.maxWidth,
+                calculatedWidth,
+              );
 
-            return SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              clipBehavior: Clip.none,
-              child: SizedBox(width: chartWidth, height: 250, child: lineChart),
-            );
-          },
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                clipBehavior: Clip.none,
+                child: SizedBox(
+                  width: chartWidth,
+                  height: 250,
+                  child: lineChart,
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

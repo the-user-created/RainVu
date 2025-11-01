@@ -23,11 +23,14 @@ class HistoricalChart extends ConsumerWidget {
 
     if (!hasData) {
       return Semantics(
+        container: true,
         label: l10n.dashboardChartTitle,
         value: l10n.dashboardChartEmptyMessage,
-        child: ChartCard(
-          title: l10n.dashboardChartTitle,
-          chart: const _EmptyChartState(),
+        child: ExcludeSemantics(
+          child: ChartCard(
+            title: l10n.dashboardChartTitle,
+            chart: const _EmptyChartState(),
+          ),
         ),
       );
     }
@@ -62,24 +65,31 @@ class HistoricalChart extends ConsumerWidget {
     );
 
     return Semantics(
+      container: true,
       label: l10n.dashboardChartTitle,
       value: semanticLabel,
-      child: ChartCard(
-        title: l10n.dashboardChartTitle,
-        chart: LayoutBuilder(
-          builder: (final context, final constraints) {
-            final double calculatedWidth = points.length * minBarWidth;
-            final double chartWidth = max(
-              constraints.maxWidth,
-              calculatedWidth,
-            );
+      child: ExcludeSemantics(
+        child: ChartCard(
+          title: l10n.dashboardChartTitle,
+          chart: LayoutBuilder(
+            builder: (final context, final constraints) {
+              final double calculatedWidth = points.length * minBarWidth;
+              final double chartWidth = max(
+                constraints.maxWidth,
+                calculatedWidth,
+              );
 
-            return SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              clipBehavior: Clip.none,
-              child: SizedBox(width: chartWidth, height: 250, child: barChart),
-            );
-          },
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                clipBehavior: Clip.none,
+                child: SizedBox(
+                  width: chartWidth,
+                  height: 250,
+                  child: barChart,
+                ),
+              );
+            },
+          ),
         ),
       ),
     );

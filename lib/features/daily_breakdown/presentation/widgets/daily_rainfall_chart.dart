@@ -57,30 +57,37 @@ class DailyRainfallChart extends ConsumerWidget {
     );
 
     return Semantics(
+      container: true,
       label: l10n.dailyRainfallChartTitle,
       value: semanticLabel,
-      child: ChartCard(
-        title: l10n.dailyRainfallChartTitle,
-        margin: EdgeInsets.zero,
-        legend: LegendItem(
-          color: colorScheme.secondary,
-          text: l10n.legendDailyRainfall,
-        ),
-        chart: LayoutBuilder(
-          builder: (final context, final constraints) {
-            const double minPointWidth = 18;
-            final double calculatedWidth = chartData.length * minPointWidth;
-            final double chartWidth = max(
-              constraints.maxWidth,
-              calculatedWidth,
-            );
+      child: ExcludeSemantics(
+        child: ChartCard(
+          title: l10n.dailyRainfallChartTitle,
+          margin: EdgeInsets.zero,
+          legend: LegendItem(
+            color: colorScheme.secondary,
+            text: l10n.legendDailyRainfall,
+          ),
+          chart: LayoutBuilder(
+            builder: (final context, final constraints) {
+              const double minPointWidth = 18;
+              final double calculatedWidth = chartData.length * minPointWidth;
+              final double chartWidth = max(
+                constraints.maxWidth,
+                calculatedWidth,
+              );
 
-            return SingleChildScrollView(
-              scrollDirection: Axis.horizontal,
-              clipBehavior: Clip.none,
-              child: SizedBox(width: chartWidth, height: 200, child: barChart),
-            );
-          },
+              return SingleChildScrollView(
+                scrollDirection: Axis.horizontal,
+                clipBehavior: Clip.none,
+                child: SizedBox(
+                  width: chartWidth,
+                  height: 200,
+                  child: barChart,
+                ),
+              );
+            },
+          ),
         ),
       ),
     );
