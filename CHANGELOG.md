@@ -1,5 +1,24 @@
 # Changelog
 
+## [1.1.5] - 2025-11-02
+
+### Added
+
+- **Accessibility**: Implemented comprehensive accessibility support for all charts, providing detailed, human-readable descriptions for screen reader users (e.g., VoiceOver, TalkBack).
+- **Accessibility**: Added a tooltip to the expandable floating action button on the home screen for better clarity and accessibility.
+
+### Changed
+
+- **UI**: Refactored the analysis links on the **Insights** screen to use standard list tiles, improving layout consistency and tap targets.
+- **Accessibility**: Improved semantic labels on the **YTD Summary** card, **Monthly Averages** card, and data entry forms to provide a clearer and more informative experience for screen reader users.
+- **Accessibility**: The anomaly deviation threshold slider in **Settings** now provides live, spoken feedback for its selected value.
+
+### Fixed
+
+- **Accessibility**: Corrected a critical issue where the month and year pickers were not navigable with screen readers. They are now fully accessible and support value changes via accessibility actions.
+- **Accessibility**: Fixed the screen reader pronunciation of the "JSON" export option to be read as individual letters.
+- **Accessibility**: Improved the focus and readability of the legal agreement links during the onboarding process for screen reader users.
+
 ## [1.1.4] - 2025-10-27
 
 ### Fixed
