@@ -1,6 +1,6 @@
 # Privacy Policy for RainVu
 
-**Last Updated:** November 1, 2025
+**Last Updated:** November 2, 2025
 
 Thank you for using RainVu. As an open-source project, we believe in full transparency regarding
 your privacy. This policy explains how information is collected, used, and handled within our
@@ -70,7 +70,7 @@ following third-party services only under specific circumstances:
   are sent to Google's Firebase platform. You can find more information
   in [Google's Privacy Policy](https://policies.google.com/privacy).
 * **Support Communications:** If you contact us via email at dev@astraen.dev, your email
-  address and the contents of your message will be processed by Google's email services to
+  address and the contents of your message will be processed by Zoho Mail's email services to
   facilitate our communication. To help us resolve your issue, the app may pre-fill an email draft
   with non-personal diagnostic information, such as the app version and build number.
 
@@ -98,13 +98,51 @@ You have full control over your data within RainVu.
 RainVu is not intended for use by individuals under the age of 13 (or the equivalent minimum age
 in your jurisdiction). We do not knowingly collect any personal information from children.
 
-## 6. Changes to This Privacy Policy
+## 6. Your Data Protection Rights
+
+ASTRAEN (PTY) LTD is a company based in South Africa, and as such, we operate under the Protection
+of Personal Information Act (POPIA). We believe in providing a high standard of privacy to all our
+users, regardless of their location. Therefore, we extend the following data protection rights to
+everyone who uses RainVu:
+
+* **The Right to Access and Rectify:** Since all your primary data is stored on your device, you
+  have direct access to view and correct it at any time within the app.
+* **The Right to Erasure (Right to be Forgotten):** You can delete your data at any time. Deleting
+  individual entries, using the "Reset App" function, or uninstalling the application will
+  permanently remove your data from your device.
+* **The Right to Data Portability:** You can export a complete copy of your data at any time using
+  the app's "Export Data" feature.
+* **The Right to Object to Processing:** For the limited anonymous data we collect (with your
+  consent), you can object to this processing at any time by opting out via the app's Settings
+  screen.
+
+For any questions about these rights or our privacy practices, you can contact our designated
+Information Officer.
+
+### Information Officer:
+
+- David Young
+- ASTRAEN (PTY) LTD
+- **Email:** dev@astraen.dev
+
+If you have a privacy concern that you feel has not been resolved satisfactorily, you have the right
+to contact the relevant supervisory authority. As our company is based in South Africa, our lead
+authority is the Information Regulator.
+
+### The Information Regulator (South Africa):
+
+- **Website:** https://inforegulator.org.za/
+- **POPI:** POPIAComplaints@inforegulator.org.za
+- **PAIA:** PAIAComplaints@inforegulator.org.za
+- **General Enquiries:** enquiries@inforegulator.org.za
+
+## 7. Changes to This Privacy Policy
 
 We may update this Privacy Policy from time to time. Changes to this policy will be reflected in the
 commit history of our public code repository. You are advised to review this Privacy Policy
 periodically for any changes.
 
-## 7. Contact Us
+## 8. Contact Us
 
 If you have any questions about this Privacy Policy, you can contact us at dev@astraen.dev.
 
