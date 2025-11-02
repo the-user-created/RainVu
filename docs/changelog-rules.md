@@ -93,7 +93,7 @@ Each item within a change group describes a single, notable change.
 ```markdown
 - Added **new** 'What's New' screen to view app updates.
 - Corrected a bug where the `total_rainfall` was miscalculated.
-- Added a link to our issue tracker [#19](https://github.com/the-user-created/RainVu/issues/19).
+- Added a link to our issue tracker [#19](https://github.com/astraen-dev/RainVu/issues/19).
 ```
 
 **Invalid Examples:**
@@ -130,7 +130,7 @@ This example demonstrates all the rules working together in a valid `CHANGELOG.m
 ### Fixed
 
 - Corrected a layout issue on the monthly breakdown chart. See
-  issue [#19](https://github.com/the-user-created/RainVu/issues/19).
+  issue [#19](https://github.com/astraen-dev/RainVu/issues/19).
 - Resolved a crash related to `null` values during data import.
 
 ## [1.1.0] - 2025-09-10

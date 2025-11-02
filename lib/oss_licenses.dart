@@ -10600,13 +10600,13 @@ SOFTWARE.''',
     devDependencies: [PackageRef('path'), PackageRef('test')],
   );
 
-/// rainvu 1.1.4+7
+/// rainvu 1.1.5+8
 const _rainvu = Package(
     name: 'rainvu',
     description: 'A comprehensive mobile app for farmers, gardeners, and weather enthusiasts to meticulously log rainfall from multiple custom gauges and transform that data into actionable insights through powerful charting and historical analysis.',
-    repository: 'https://github.com/the-user-created/RainVu',
+    repository: 'https://github.com/astraen-dev/RainVu',
     authors: [],
-    version: '1.1.4+7',
+    version: '1.1.5+8',
     license: '''MIT License
 
 Copyright (c) 2025 David Young

@@ -72,4 +72,4 @@ Firebase.
 
 ---
 
-If you have any questions about this process, please contact us at **emberworksdev@gmail.com**.
+If you have any questions about this process, please contact us at **dev@astraen.dev**.

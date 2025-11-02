@@ -5,12 +5,12 @@
         "buildConfigurations": {
           "src/dev": {
             "projectId": "rainvu-dev",
-            "appId": "1:181297700803:android:d6ed1a2e48ab9bb12ea776",
+            "appId": "1:181297700803:android:c8a7fe0e77b6d5c72ea776",
             "fileOutput": "android/app/src/dev/google-services.json"
           },
           "src/prod": {
             "projectId": "rainvu-prod",
-            "appId": "1:49922939683:android:ca37e0c825188e062c8a96",
+            "appId": "1:49922939683:android:17f06e126512759b2c8a96",
             "fileOutput": "android/app/src/prod/google-services.json"
           }
         }
@@ -19,15 +19,15 @@
         "lib/firebase_options_dev.dart": {
           "projectId": "rainvu-dev",
           "configurations": {
-            "android": "1:181297700803:android:d6ed1a2e48ab9bb12ea776",
-            "ios": "1:181297700803:ios:7a84f8fb301b792e2ea776"
+            "android": "1:181297700803:android:c8a7fe0e77b6d5c72ea776",
+            "ios": "1:181297700803:ios:7967ad04778e2abc2ea776"
           }
         },
         "lib/firebase_options_prod.dart": {
           "projectId": "rainvu-prod",
           "configurations": {
-            "android": "1:49922939683:android:ca37e0c825188e062c8a96",
-            "ios": "1:49922939683:ios:496100e31e00b3f92c8a96"
+            "android": "1:49922939683:android:17f06e126512759b2c8a96",
+            "ios": "1:49922939683:ios:5ff7bd7979c46fc12c8a96"
           }
         }
       }

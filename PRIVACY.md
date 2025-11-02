@@ -1,6 +1,6 @@
 # Privacy Policy for RainVu
 
-**Last Updated:** October 19, 2025
+**Last Updated:** November 1, 2025
 
 Thank you for using RainVu. As an open-source project, we believe in full transparency regarding
 your privacy. This policy explains how information is collected, used, and handled within our
@@ -69,7 +69,7 @@ following third-party services only under specific circumstances:
 * **Google (Firebase):** If you opt-in to share usage data, anonymized analytics and crash reports
   are sent to Google's Firebase platform. You can find more information
   in [Google's Privacy Policy](https://policies.google.com/privacy).
-* **Support Communications:** If you contact us via email at emberworksdev@gmail.com, your email
+* **Support Communications:** If you contact us via email at dev@astraen.dev, your email
   address and the contents of your message will be processed by Google's email services to
   facilitate our communication. To help us resolve your issue, the app may pre-fill an email draft
   with non-personal diagnostic information, such as the app version and build number.
@@ -91,7 +91,7 @@ You have full control over your data within RainVu.
 * **Data Deletion:** You can delete individual rainfall entries or gauges directly within the app.
   You can also delete all app data by using the "Reset App" function in Settings or by uninstalling
   the application from your device. For detailed instructions, please see our
-  [Data Deletion Page](https://github.com/the-user-created/RainVu/blob/main/docs/data_deletion.md).
+  [Data Deletion Page](https://github.com/astraen-dev/RainVu/blob/main/docs/data_deletion.md).
 
 ## 5. Children's Privacy
 
@@ -106,7 +106,7 @@ periodically for any changes.
 
 ## 7. Contact Us
 
-If you have any questions about this Privacy Policy, you can contact us at emberworksdev@gmail.com.
+If you have any questions about this Privacy Policy, you can contact us at dev@astraen.dev.
 
 You can also view the source code or raise an issue on our public
-repository: https://github.com/the-user-created/RainVu
+repository: https://github.com/astraen-dev/RainVu
