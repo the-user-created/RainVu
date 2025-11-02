@@ -1,5 +1,12 @@
 # Changelog
 
+## [1.1.6] - 2025-11-02
+
+### Changed
+
+- **Legal**: Migrated the **Privacy Policy** and **Terms of Service** from in-app documents to our official website. This change ensures that the legal information is always up-to-date and easily accessible. The app's copyright has also been updated.
+- **App Store**: Updated the internal App Store ID to ensure features like "Leave a Review" point to the correct listing.
+
 ## [1.1.5] - 2025-11-02
 
 ### Added
