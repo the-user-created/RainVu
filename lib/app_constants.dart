@@ -21,4 +21,10 @@ abstract class AppConstants {
   /// The Apple App Store URL for RainVu.
   static const String kAppStoreUrl =
       "https://apps.apple.com/us/app/rainvu/id6754812264";
+
+  // Legal URLs
+  static const String kPrivacyPolicyUrl =
+      "https://www.astraen.dev/rainvu/privacy";
+  static const String kTermsOfServiceUrl =
+      "https://www.astraen.dev/rainvu/terms";
 }

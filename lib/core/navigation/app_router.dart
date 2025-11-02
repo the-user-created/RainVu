@@ -9,7 +9,6 @@ import "package:rainvu/features/data_tools/presentation/screens/data_tools_scree
 import "package:rainvu/features/home/presentation/screens/home_screen.dart";
 import "package:rainvu/features/insights_dashboard/presentation/screens/insights_screen.dart";
 import "package:rainvu/features/insights_dashboard/presentation/screens/monthly_averages_screen.dart";
-import "package:rainvu/features/legal/presentation/screens/markdown_viewer_screen.dart";
 import "package:rainvu/features/manage_gauges/presentation/screens/manage_gauges_screen.dart";
 import "package:rainvu/features/onboarding/presentation/screens/onboarding_screen.dart";
 import "package:rainvu/features/oss_licenses/presentation/screens/license_detail_screen.dart";
@@ -144,8 +143,6 @@ class OnboardingRoute extends GoRouteData with $OnboardingRoute {
               ],
             ),
             TypedGoRoute<ChangelogRoute>(path: "changelog"),
-            TypedGoRoute<PrivacyPolicyRoute>(path: "privacy-policy"),
-            TypedGoRoute<TermsOfServiceRoute>(path: "terms-of-service"),
           ],
         ),
       ],
@@ -374,37 +371,5 @@ class LicenseDetailRoute extends GoRouteData with $LicenseDetailRoute {
       ),
     );
     return LicenseDetailScreen(package: package);
-  }
-}
-
-class PrivacyPolicyRoute extends GoRouteData with $PrivacyPolicyRoute {
-  const PrivacyPolicyRoute();
-
-  static final GlobalKey<NavigatorState> $parentNavigatorKey =
-      _rootNavigatorKey;
-
-  @override
-  Widget build(final BuildContext context, final GoRouterState state) {
-    final AppLocalizations l10n = AppLocalizations.of(context);
-    return MarkdownViewerScreen(
-      title: l10n.settingsSupportLegalPrivacyPolicy,
-      filePath: "PRIVACY.md",
-    );
-  }
-}
-
-class TermsOfServiceRoute extends GoRouteData with $TermsOfServiceRoute {
-  const TermsOfServiceRoute();
-
-  static final GlobalKey<NavigatorState> $parentNavigatorKey =
-      _rootNavigatorKey;
-
-  @override
-  Widget build(final BuildContext context, final GoRouterState state) {
-    final AppLocalizations l10n = AppLocalizations.of(context);
-    return MarkdownViewerScreen(
-      title: l10n.settingsSupportLegalTermsOfService,
-      filePath: "TERMS.md",
-    );
   }
 }

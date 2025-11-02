@@ -1,15 +1,13 @@
-import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/gestures.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rainvu/app_constants.dart";
+import "package:rainvu/core/application/url_launcher_service.dart";
 import "package:rainvu/core/firebase/telemetry_manager.dart";
 import "package:rainvu/core/navigation/app_router.dart";
-import "package:rainvu/core/utils/snackbar_service.dart";
 import "package:rainvu/features/onboarding/application/onboarding_provider.dart";
 import "package:rainvu/l10n/app_localizations.dart";
-import "package:rainvu/shared/utils/ui_helpers.dart";
 import "package:rainvu/shared/widgets/buttons/app_button.dart";
-import "package:url_launcher/url_launcher.dart";
 
 class PermissionsStep extends ConsumerStatefulWidget {
   const PermissionsStep({super.key});
@@ -32,32 +30,11 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
     }
   }
 
-  Future<void> _launchUrl(final String url) async {
-    final AppLocalizations l10n = AppLocalizations.of(context);
-    final Uri uri = Uri.parse(url);
-
-    try {
-      if (!await launchUrl(uri)) {
-        if (mounted) {
-          showSnackbar(l10n.urlLaunchError, type: MessageType.error);
-        }
-      }
-    } catch (e, s) {
-      FirebaseCrashlytics.instance.recordError(
-        e,
-        s,
-        reason: "Failed to launch URL: $url",
-      );
-      if (mounted) {
-        showSnackbar(l10n.urlLaunchError, type: MessageType.error);
-      }
-    }
-  }
-
   @override
   Widget build(final BuildContext context) {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final ThemeData theme = Theme.of(context);
+    final UrlLauncherService urlLauncher = ref.read(urlLauncherServiceProvider);
 
     return Padding(
       padding: const EdgeInsets.all(24),
@@ -100,8 +77,9 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
                         color: theme.colorScheme.primary,
                       ),
                       recognizer: TapGestureRecognizer()
-                        ..onTap = () => _launchUrl(
-                          "https://github.com/astraen-dev/RainVu/blob/main/PRIVACY.md",
+                        ..onTap = () => urlLauncher.launchExternalUrl(
+                          context,
+                          AppConstants.kPrivacyPolicyUrl,
                         ),
                     ),
                     TextSpan(text: " ${l10n.and} "),
@@ -112,8 +90,9 @@ class _PermissionsStepState extends ConsumerState<PermissionsStep> {
                         color: theme.colorScheme.primary,
                       ),
                       recognizer: TapGestureRecognizer()
-                        ..onTap = () => _launchUrl(
-                          "https://github.com/astraen-dev/RainVu/blob/main/TERMS.md",
+                        ..onTap = () => urlLauncher.launchExternalUrl(
+                          context,
+                          AppConstants.kTermsOfServiceUrl,
                         ),
                     ),
                     const TextSpan(text: "."),

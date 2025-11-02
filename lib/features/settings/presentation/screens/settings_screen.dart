@@ -1,8 +1,10 @@
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rainvu/app_constants.dart";
 import "package:rainvu/core/application/app_store_service.dart";
 import "package:rainvu/core/application/preferences_provider.dart";
+import "package:rainvu/core/application/url_launcher_service.dart";
 import "package:rainvu/core/firebase/telemetry_manager.dart";
 import "package:rainvu/core/navigation/app_router.dart";
 import "package:rainvu/core/utils/snackbar_service.dart";
@@ -115,6 +117,7 @@ class SettingsScreen extends ConsumerWidget {
   Widget build(final BuildContext context, final WidgetRef ref) {
     final ThemeData theme = Theme.of(context);
     final AppLocalizations l10n = AppLocalizations.of(context);
+    final UrlLauncherService urlLauncher = ref.read(urlLauncherServiceProvider);
 
     return Scaffold(
       appBar: AppBar(
@@ -181,12 +184,18 @@ class SettingsScreen extends ConsumerWidget {
                 SettingsListTile(
                   leading: const Icon(Icons.policy_outlined),
                   title: l10n.settingsSupportLegalPrivacyPolicy,
-                  onTap: () => const PrivacyPolicyRoute().push(context),
+                  onTap: () => urlLauncher.launchExternalUrl(
+                    context,
+                    AppConstants.kPrivacyPolicyUrl,
+                  ),
                 ),
                 SettingsListTile(
                   leading: const Icon(Icons.gavel_rounded),
                   title: l10n.settingsSupportLegalTermsOfService,
-                  onTap: () => const TermsOfServiceRoute().push(context),
+                  onTap: () => urlLauncher.launchExternalUrl(
+                    context,
+                    AppConstants.kTermsOfServiceUrl,
+                  ),
                 ),
                 SettingsListTile(
                   leading: const Icon(Icons.article_outlined),
