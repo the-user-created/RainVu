@@ -10609,7 +10609,7 @@ const _rainvu = Package(
     version: '1.1.5+8',
     license: '''MIT License
 
-Copyright (c) 2025 David Young
+Copyright (c) 2025 ASTRAEN (PTY) LTD
 
 Permission is hereby granted, free of charge, to any person obtaining a copy
 of this software and associated documentation files (the "Software"), to deal
