@@ -1,7 +1,6 @@
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:go_router/go_router.dart";
-import "package:rainvu/core/firebase/analytics_service.dart";
 import "package:rainvu/l10n/app_localizations.dart";
 
 /// A Scaffold with a persistent BottomNavigationBar for nested navigation.
@@ -15,21 +14,6 @@ class ScaffoldWithNavBar extends ConsumerWidget {
   /// The navigation shell and container for the branch Navigators.
   final StatefulNavigationShell navigationShell;
 
-  String _getScreenNameForIndex(final int index) {
-    switch (index) {
-      case 0:
-        return "home";
-      case 1:
-        return "insights";
-      case 2:
-        return "gauges";
-      case 3:
-        return "settings";
-      default:
-        return "unknown_shell_route";
-    }
-  }
-
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
     final AppLocalizations l10n = AppLocalizations.of(context);
@@ -40,14 +24,9 @@ class ScaffoldWithNavBar extends ConsumerWidget {
         currentIndex: navigationShell.currentIndex,
         // Navigate to the selected branch when a tab is tapped
         onTap: (final index) {
-          // Only log a screen view if the user is switching to a different tab.
-          if (index != navigationShell.currentIndex) {
-            final String screenName = _getScreenNameForIndex(index);
-            // Use ref.read for one-off actions inside callbacks.
-            ref
-                .read(analyticsServiceProvider)
-                .logScreenView(screenName: screenName);
-          }
+          // The AnalyticsObserver will now automatically log this screen view
+          // due to the GoRouter v17 update. The manual call has been removed
+          // to prevent duplicate events.
 
           // Use goBranch to switch tabs while preserving stack state
           navigationShell.goBranch(
