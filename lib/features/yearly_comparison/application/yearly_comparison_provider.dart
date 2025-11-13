@@ -1,4 +1,5 @@
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:rainvu/core/application/filter_provider.dart";
 import "package:rainvu/core/application/preferences_provider.dart";
 import "package:rainvu/core/data/providers/data_providers.dart";
 import "package:rainvu/features/yearly_comparison/data/yearly_comparison_repository.dart";
@@ -67,6 +68,7 @@ class YearlyComparisonFilterNotifier extends _$YearlyComparisonFilterNotifier {
 @riverpod
 Future<List<YearlySummary>> yearlyComparisonSummaries(final Ref ref) async {
   ref.watch(rainfallTableUpdatesProvider);
+  final String gaugeId = ref.watch(selectedGaugeFilterProvider);
 
   final (int year1, int year2) = ref.watch(_selectedYearsProvider);
 
@@ -79,7 +81,7 @@ Future<List<YearlySummary>> yearlyComparisonSummaries(final Ref ref) async {
 
   return ref
       .watch(yearlyComparisonRepositoryProvider)
-      .fetchComparativeSummaries(year1, year2);
+      .fetchComparativeSummaries(year1, year2, gaugeId: gaugeId);
 }
 
 /// Fetches only the chart data.
@@ -87,6 +89,7 @@ Future<List<YearlySummary>> yearlyComparisonSummaries(final Ref ref) async {
 @riverpod
 Future<ComparativeChartData> yearlyComparisonChartData(final Ref ref) async {
   ref.watch(rainfallTableUpdatesProvider);
+  final String gaugeId = ref.watch(selectedGaugeFilterProvider);
 
   // Await the filter provider. This will correctly propagate loading/error states.
   final ComparativeFilter filter = await ref.watch(
@@ -100,5 +103,5 @@ Future<ComparativeChartData> yearlyComparisonChartData(final Ref ref) async {
   }
   return ref
       .watch(yearlyComparisonRepositoryProvider)
-      .fetchComparativeChartData(filter, prefs.hemisphere);
+      .fetchComparativeChartData(filter, prefs.hemisphere, gaugeId: gaugeId);
 }

@@ -5,6 +5,7 @@ import "package:rainvu/features/yearly_comparison/domain/yearly_comparison_data.
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/widgets/forms/app_choice_chips.dart";
 import "package:rainvu/shared/widgets/forms/app_dropdown.dart";
+import "package:rainvu/shared/widgets/gauge_filter_dropdown.dart";
 
 class FiltersContent extends ConsumerWidget {
   const FiltersContent({super.key});
@@ -29,6 +30,8 @@ class FiltersContent extends ConsumerWidget {
             Center(child: Text(l10n.yearlyComparisonAvailableYearsError)),
         data: (final availableYears) => Column(
           children: [
+            const GaugeFilterDropdown(),
+            const SizedBox(height: 16),
             Padding(
               padding: const EdgeInsets.symmetric(horizontal: 4),
               child: Text(

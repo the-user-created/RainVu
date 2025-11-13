@@ -222,13 +222,22 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
     return query.map((final row) => row.read(year)!).get();
   }
 
-  Future<List<MonthlyTotalForYear>> getMonthlyTotalsForYear(final int year) {
+  Future<List<MonthlyTotalForYear>> getMonthlyTotalsForYear(
+    final int year, {
+    final String? gaugeId,
+  }) {
     final Expression<int> month = rainfallEntries.date.month;
     final Expression<double> total = rainfallEntries.amount.sum();
+
+    Expression<bool> whereClause = rainfallEntries.date.year.equals(year);
+    if (gaugeId != null) {
+      whereClause = whereClause & rainfallEntries.gaugeId.equals(gaugeId);
+    }
+
     final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
         selectOnly(rainfallEntries)
           ..addColumns([month, total])
-          ..where(rainfallEntries.date.year.equals(year))
+          ..where(whereClause)
           ..groupBy([month]);
 
     return query
@@ -239,12 +248,13 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
         .get();
   }
 
-  Future<double> getYearlyTotal(final int year) async {
+  Future<double> getYearlyTotal(final int year, {final String? gaugeId}) async {
     final DateTime start = DateTime(year);
     final DateTime end = DateTime(year, 12, 31).endOfDay;
     final List<DailyTotalWithDate> dailyTotals = await getDailyTotalsInRange(
       start,
       end,
+      gaugeId: gaugeId,
     );
     return dailyTotals.map((final e) => e.total).sum;
   }
@@ -694,16 +704,23 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
 
   Future<double> getSeasonalTotalForYear(
     final int year,
-    final List<int> months,
-  ) {
+    final List<int> months, {
+    final String? gaugeId,
+  }) {
     final Expression<double> total = rainfallEntries.amount.sum();
+
+    Expression<bool> whereClause =
+        rainfallEntries.date.year.equals(year) &
+        rainfallEntries.date.month.isIn(months);
+
+    if (gaugeId != null) {
+      whereClause = whereClause & rainfallEntries.gaugeId.equals(gaugeId);
+    }
+
     final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
         selectOnly(rainfallEntries)
           ..addColumns([total])
-          ..where(
-            rainfallEntries.date.year.equals(year) &
-                rainfallEntries.date.month.isIn(months),
-          );
+          ..where(whereClause);
     return query.map((final row) => row.read(total) ?? 0.0).getSingle();
   }
 

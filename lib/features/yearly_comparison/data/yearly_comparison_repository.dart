@@ -1,4 +1,5 @@
 import "package:intl/intl.dart";
+import "package:rainvu/core/application/filter_provider.dart";
 import "package:rainvu/core/data/local/app_database.dart";
 import "package:rainvu/core/data/local/daos/rainfall_entries_dao.dart";
 import "package:rainvu/features/yearly_comparison/domain/yearly_comparison_data.dart";
@@ -12,13 +13,15 @@ abstract class YearlyComparisonRepository {
 
   Future<List<YearlySummary>> fetchComparativeSummaries(
     final int year1,
-    final int year2,
-  );
+    final int year2, {
+    required String gaugeId,
+  });
 
   Future<ComparativeChartData> fetchComparativeChartData(
     final ComparativeFilter filter,
-    final Hemisphere hemisphere,
-  );
+    final Hemisphere hemisphere, {
+    required String gaugeId,
+  });
 }
 
 @riverpod
@@ -43,11 +46,14 @@ class DriftYearlyComparisonRepository implements YearlyComparisonRepository {
   @override
   Future<List<YearlySummary>> fetchComparativeSummaries(
     final int year1,
-    final int year2,
-  ) async {
+    final int year2, {
+    required String gaugeId,
+  }) async {
+    final String? filterGaugeId = gaugeId == allGaugesFilterId ? null : gaugeId;
+
     final List<double> totals = await Future.wait([
-      _dao.getYearlyTotal(year1),
-      _dao.getYearlyTotal(year2),
+      _dao.getYearlyTotal(year1, gaugeId: filterGaugeId),
+      _dao.getYearlyTotal(year2, gaugeId: filterGaugeId),
     ]);
     final double total1 = totals[0];
     final double total2 = totals[1];
@@ -74,26 +80,34 @@ class DriftYearlyComparisonRepository implements YearlyComparisonRepository {
   @override
   Future<ComparativeChartData> fetchComparativeChartData(
     final ComparativeFilter filter,
-    final Hemisphere hemisphere,
-  ) async {
+    final Hemisphere hemisphere, {
+    required String gaugeId,
+  }) async {
+    final String? filterGaugeId = gaugeId == allGaugesFilterId ? null : gaugeId;
+
     switch (filter.type) {
       case ComparisonType.annual:
-        return _fetchAnnualChartData(filter);
+        return _fetchAnnualChartData(filter, gaugeId: filterGaugeId);
       case ComparisonType.monthly:
-        return _fetchMonthlyChartData(filter);
+        return _fetchMonthlyChartData(filter, gaugeId: filterGaugeId);
       case ComparisonType.seasonal:
-        return _fetchSeasonalChartData(filter, hemisphere);
+        return _fetchSeasonalChartData(
+          filter,
+          hemisphere,
+          gaugeId: filterGaugeId,
+        );
     }
   }
 
   /// Fetches chart data for a year-over-year comparison,
   /// showing only the annual total.
   Future<ComparativeChartData> _fetchAnnualChartData(
-    final ComparativeFilter filter,
-  ) async {
+    final ComparativeFilter filter, {
+    final String? gaugeId,
+  }) async {
     final List<double> totals = await Future.wait([
-      _dao.getYearlyTotal(filter.year1),
-      _dao.getYearlyTotal(filter.year2),
+      _dao.getYearlyTotal(filter.year1, gaugeId: gaugeId),
+      _dao.getYearlyTotal(filter.year2, gaugeId: gaugeId),
     ]);
     final double total1 = totals[0];
     final double total2 = totals[1];
@@ -110,11 +124,12 @@ class DriftYearlyComparisonRepository implements YearlyComparisonRepository {
   /// Fetches chart data for a year-over-year comparison,
   /// broken down by month.
   Future<ComparativeChartData> _fetchMonthlyChartData(
-    final ComparativeFilter filter,
-  ) async {
+    final ComparativeFilter filter, {
+    final String? gaugeId,
+  }) async {
     final List<List<MonthlyTotalForYear>> results = await Future.wait([
-      _dao.getMonthlyTotalsForYear(filter.year1),
-      _dao.getMonthlyTotalsForYear(filter.year2),
+      _dao.getMonthlyTotalsForYear(filter.year1, gaugeId: gaugeId),
+      _dao.getMonthlyTotalsForYear(filter.year2, gaugeId: gaugeId),
     ]);
 
     final List<double> monthlyTotals1 = _processMonthlyTotals(results[0]);
@@ -143,8 +158,9 @@ class DriftYearlyComparisonRepository implements YearlyComparisonRepository {
   /// broken down by season, respecting the user's hemisphere.
   Future<ComparativeChartData> _fetchSeasonalChartData(
     final ComparativeFilter filter,
-    final Hemisphere hemisphere,
-  ) async {
+    final Hemisphere hemisphere, {
+    final String? gaugeId,
+  }) async {
     final List<Future<double>> futures1 = [];
     final List<Future<double>> futures2 = [];
     final List<String> labels = Season.values
@@ -156,8 +172,12 @@ class DriftYearlyComparisonRepository implements YearlyComparisonRepository {
 
     for (final Season season in Season.values) {
       final List<int> months = getMonthsForSeason(season, hemisphere);
-      futures1.add(_dao.getSeasonalTotalForYear(filter.year1, months));
-      futures2.add(_dao.getSeasonalTotalForYear(filter.year2, months));
+      futures1.add(
+        _dao.getSeasonalTotalForYear(filter.year1, months, gaugeId: gaugeId),
+      );
+      futures2.add(
+        _dao.getSeasonalTotalForYear(filter.year2, months, gaugeId: gaugeId),
+      );
     }
 
     final List<double> seasonalTotals1 = await Future.wait(futures1);
