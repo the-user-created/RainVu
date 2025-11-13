@@ -165,7 +165,6 @@ const allDependencies = <Package>[
   _source_map_stack_trace,
   _source_maps,
   _source_span,
-  _sprintf,
   _sqlite3,
   _sqlite3_flutter_libs,
   _sqlparser,
@@ -350,14 +349,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('collection'), PackageRef('test')],
   );
 
-/// _flutterfire_internals 1.3.63
+/// _flutterfire_internals 1.3.64
 const __flutterfire_internals = Package(
     name: '_flutterfire_internals',
     description: 'A package hosting Dart code shared between FlutterFire plugins.',
     homepage: 'https://firebase.google.com/docs/firestore',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/_flutterfire_internals',
     authors: [],
-    version: '1.3.63',
+    version: '1.3.64',
     license: '''Copyright 2017, the Chromium project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -953,13 +952,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('build_runner'), PackageRef('term_glyph'), PackageRef('test')],
   );
 
-/// build_daemon 4.1.0
+/// build_daemon 4.1.1
 const _build_daemon = Package(
     name: 'build_daemon',
     description: 'A daemon for running Dart builds.',
     repository: 'https://github.com/dart-lang/build/tree/master/build_daemon',
     authors: [],
-    version: '4.1.0',
+    version: '4.1.1',
     license: '''Copyright 2019, the Dart project authors. 
 
 Redistribution and use in source and binary forms, with or without
@@ -2021,13 +2020,13 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('path'), PackageRef('test')],
   );
 
-/// crypto 3.0.6
+/// crypto 3.0.7
 const _crypto = Package(
     name: 'crypto',
     description: 'Implementations of SHA, MD5, and HMAC cryptographic functions.',
     repository: 'https://github.com/dart-lang/core/tree/main/pkgs/crypto',
     authors: [],
-    version: '3.0.6',
+    version: '3.0.7',
     license: '''Copyright 2015, the Dart project authors.
 
 Redistribution and use in source and binary forms, with or without
@@ -3981,14 +3980,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('lints'), PackageRef('test')],
   );
 
-/// file_picker 10.3.3
+/// file_picker 10.3.6
 const _file_picker = Package(
     name: 'file_picker',
     description: 'A package that allows you to use a native file explorer to pick single or multiple absolute file paths, with extension filtering support.',
     homepage: 'https://github.com/miguelpruivo/plugins_flutter_file_picker',
     repository: 'https://github.com/miguelpruivo/flutter_file_picker',
     authors: [],
-    version: '10.3.3',
+    version: '10.3.6',
     license: '''MIT License
 
 Copyright (c) 2018 Miguel Ruivo
@@ -4016,14 +4015,14 @@ SOFTWARE.''',
     devDependencies: [PackageRef('flutter_lints')],
   );
 
-/// firebase_analytics 12.0.3
+/// firebase_analytics 12.0.4
 const _firebase_analytics = Package(
     name: 'firebase_analytics',
     description: 'Flutter plugin for Google Analytics for Firebase, an app measurement solution that provides insight on app usage and user engagement on Android and iOS.',
     homepage: 'https://firebase.google.com/docs/analytics',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_analytics/firebase_analytics',
     authors: [],
-    version: '12.0.3',
+    version: '12.0.4',
     license: '''Copyright 2017, the Chromium project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -4056,14 +4055,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [],
   );
 
-/// firebase_analytics_platform_interface 5.0.3
+/// firebase_analytics_platform_interface 5.0.4
 const _firebase_analytics_platform_interface = Package(
     name: 'firebase_analytics_platform_interface',
     description: 'A common platform interface for the firebase_analytics plugin.',
     homepage: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_analytics/firebase_analytics_platform_interface',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_analytics/firebase_analytics_platform_interface',
     authors: [],
-    version: '5.0.3',
+    version: '5.0.4',
     license: '''Copyright 2017, the Chromium project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -4096,14 +4095,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('firebase_core_platform_interface')],
   );
 
-/// firebase_analytics_web 0.6.0+3
+/// firebase_analytics_web 0.6.1
 const _firebase_analytics_web = Package(
     name: 'firebase_analytics_web',
     description: 'The web implementation of firebase_analytics',
     homepage: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_analytics/firebase_analytics_web',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_analytics/firebase_analytics_web',
     authors: [],
-    version: '0.6.0+3',
+    version: '0.6.1',
     license: '''Copyright 2017, the Chromium project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -4136,14 +4135,14 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('build_runner'), PackageRef('mockito')],
   );
 
-/// firebase_core 4.2.0
+/// firebase_core 4.2.1
 const _firebase_core = Package(
     name: 'firebase_core',
     description: 'Flutter plugin for Firebase Core, enabling connecting to multiple Firebase apps.',
     homepage: 'https://firebase.google.com/docs/flutter/setup',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_core/firebase_core',
     authors: [],
-    version: '4.2.0',
+    version: '4.2.1',
     license: '''// Copyright 2017 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -4218,14 +4217,14 @@ const _firebase_core_platform_interface = Package(
     devDependencies: [PackageRef('mockito')],
   );
 
-/// firebase_core_web 3.2.0
+/// firebase_core_web 3.3.0
 const _firebase_core_web = Package(
     name: 'firebase_core_web',
     description: 'The web implementation of firebase_core',
     homepage: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_core/firebase_core_web',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_core/firebase_core_web',
     authors: [],
-    version: '3.2.0',
+    version: '3.3.0',
     license: '''// Copyright 2020 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -4259,14 +4258,14 @@ const _firebase_core_web = Package(
     devDependencies: [],
   );
 
-/// firebase_crashlytics 5.0.3
+/// firebase_crashlytics 5.0.4
 const _firebase_crashlytics = Package(
     name: 'firebase_crashlytics',
     description: 'Flutter plugin for Firebase Crashlytics. It reports uncaught errors to the Firebase console.',
     homepage: 'https://firebase.google.com/docs/crashlytics',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_crashlytics/firebase_crashlytics',
     authors: [],
-    version: '5.0.3',
+    version: '5.0.4',
     license: '''// Copyright 2019 The Chromium Authors. All rights reserved.
 //
 // Redistribution and use in source and binary forms, with or without
@@ -4300,14 +4299,14 @@ const _firebase_crashlytics = Package(
     devDependencies: [],
   );
 
-/// firebase_crashlytics_platform_interface 3.8.14
+/// firebase_crashlytics_platform_interface 3.8.15
 const _firebase_crashlytics_platform_interface = Package(
     name: 'firebase_crashlytics_platform_interface',
     description: 'A common platform interface for the firebase_crashlytics plugin.',
     homepage: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_crashlytics/firebase_crashlytics_platform_interface',
     repository: 'https://github.com/firebase/flutterfire/tree/main/packages/firebase_crashlytics/firebase_crashlytics_platform_interface',
     authors: [],
-    version: '3.8.14',
+    version: '3.8.15',
     license: '''Copyright 2020, the Chromium project authors. All rights reserved.
 Redistribution and use in source and binary forms, with or without
 modification, are permitted provided that the following conditions are
@@ -4984,13 +4983,13 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('test')],
   );
 
-/// go_router 16.3.0
+/// go_router 17.0.0
 const _go_router = Package(
     name: 'go_router',
     description: 'A declarative router for Flutter based on Navigation 2 supporting deep linking, data-driven routes and more',
     repository: 'https://github.com/flutter/packages/tree/main/packages/go_router',
     authors: [],
-    version: '16.3.0',
+    version: '17.0.0',
     license: '''Copyright 2013 The Flutter Authors
 
 Redistribution and use in source and binary forms, with or without modification,
@@ -5426,13 +5425,13 @@ THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLI
     devDependencies: [PackageRef('dart_style'), PackageRef('path'), PackageRef('test')],
   );
 
-/// http 1.5.0
+/// http 1.6.0
 const _http = Package(
     name: 'http',
     description: 'A composable, multi-platform, Future-based API for HTTP requests.',
     repository: 'https://github.com/dart-lang/http/tree/master/pkgs/http',
     authors: [],
-    version: '1.5.0',
+    version: '1.6.0',
     license: '''Copyright 2014, the Dart project authors. 
 
 Redistribution and use in source and binary forms, with or without
@@ -8824,41 +8823,6 @@ OF THIS SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('test')],
   );
 
-/// sprintf 7.0.0
-const _sprintf = Package(
-    name: 'sprintf',
-    description: 'Dart implementation of sprintf. Provides simple printf like formatting such as sprintf("hello %s", ["world"]);',
-    homepage: 'https://github.com/Naddiseo/dart-sprintf',
-    authors: [],
-    version: '7.0.0',
-    license: '''Copyright (c) 2012, Richard Eames
-All rights reserved.
-
-Redistribution and use in source and binary forms, with or without modification, 
-are permitted provided that the following conditions are met:
-
-1. Redistributions of source code must retain the above copyright notice, this 
-   list of conditions and the following disclaimer.
-2. Redistributions in binary form must reproduce the above copyright notice, 
-   this list of conditions and the following disclaimer in the documentation 
-   and/or other materials provided with the distribution.
-
-THIS SOFTWARE IS PROVIDED BY THE COPYRIGHT HOLDERS AND CONTRIBUTORS "AS IS" AND 
-ANY EXPRESS OR IMPLIED WARRANTIES, INCLUDING, BUT NOT LIMITED TO, THE IMPLIED 
-WARRANTIES OF MERCHANTABILITY AND FITNESS FOR A PARTICULAR PURPOSE ARE 
-DISCLAIMED. IN NO EVENT SHALL THE COPYRIGHT HOLDER OR CONTRIBUTORS BE LIABLE FOR
-ANY DIRECT, INDIRECT, INCIDENTAL, SPECIAL, EXEMPLARY, OR CONSEQUENTIAL DAMAGES 
-(INCLUDING, BUT NOT LIMITED TO, PROCUREMENT OF SUBSTITUTE GOODS OR SERVICES; 
-LOSS OF USE, DATA, OR PROFITS; OR BUSINESS INTERRUPTION) HOWEVER CAUSED AND ON 
-ANY THEORY OF LIABILITY, WHETHER IN CONTRACT, STRICT LIABILITY, OR TORT 
-(INCLUDING NEGLIGENCE OR OTHERWISE) ARISING IN ANY WAY OUT OF THE USE OF THIS 
-SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
-    isMarkdown: false,
-    isSdk: false,
-    dependencies: [],
-    devDependencies: [PackageRef('test'), PackageRef('lints')],
-  );
-
 /// sqlite3 2.9.4
 const _sqlite3 = Package(
     name: 'sqlite3',
@@ -10130,14 +10094,14 @@ SOFTWARE, EVEN IF ADVISED OF THE POSSIBILITY OF SUCH DAMAGE.''',
     devDependencies: [PackageRef('test')],
   );
 
-/// uuid 4.5.1
+/// uuid 4.5.2
 const _uuid = Package(
     name: 'uuid',
     description: '''RFC4122 (v1, v4, v5, v6, v7, v8) UUID Generator and Parser for Dart
 ''',
     repository: 'https://github.com/Daegalus/dart-uuid',
     authors: [],
-    version: '4.5.1',
+    version: '4.5.2',
     license: '''Copyright (c) 2021 Yulian Kuncheff
 
 Permission is hereby granted, free of charge, to any person obtaining a copy of this software and associated documentation files (the "Software"), to deal in the Software without restriction, including without limitation the rights to use, copy, modify, merge, publish, distribute, sublicense, and/or sell copies of the Software, and to permit persons to whom the Software is furnished to do so, subject to the following conditions:
@@ -10147,7 +10111,7 @@ The above copyright notice and this permission notice shall be included in all c
 THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY, FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE SOFTWARE.''',
     isMarkdown: false,
     isSdk: false,
-    dependencies: [PackageRef('crypto'), PackageRef('sprintf'), PackageRef('meta'), PackageRef('fixnum')],
+    dependencies: [PackageRef('crypto'), PackageRef('meta'), PackageRef('fixnum')],
     devDependencies: [PackageRef('lints'), PackageRef('test')],
   );
 
@@ -10600,13 +10564,13 @@ SOFTWARE.''',
     devDependencies: [PackageRef('path'), PackageRef('test')],
   );
 
-/// rainvu 1.1.6+9
+/// rainvu 1.2.0+10
 const _rainvu = Package(
     name: 'rainvu',
     description: 'A comprehensive mobile app for farmers, gardeners, and weather enthusiasts to meticulously log rainfall from multiple custom gauges and transform that data into actionable insights through powerful charting and historical analysis.',
     repository: 'https://github.com/astraen-dev/RainVu',
     authors: [],
-    version: '1.1.6+9',
+    version: '1.2.0+10',
     license: '''MIT License
 
 Copyright (c) 2025 ASTRAEN (PTY) LTD

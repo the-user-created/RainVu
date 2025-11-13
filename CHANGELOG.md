@@ -1,5 +1,22 @@
 # Changelog
 
+## [1.2.0] - 2025-11-13
+
+### Added
+
+- **Gauge Filtering**: You can now filter data throughout the app to view statistics for **'All Gauges'** or a specific rain gauge. The filter is available on the **Daily Breakdown**, **Monthly Averages**, **Seasonal Trends**, **Yearly Comparison**, and **Unusual Patterns** screens.
+- **Help & Info**: Added a new section to the **Help** screen explaining how daily rainfall totals are calculated, especially when using multiple gauges.
+
+### Changed
+
+- **Data Calculation**: Improved the accuracy of rainfall statistics for the **'All Gauges'** view. Instead of summing entries from multiple gauges on the same day (which could inflate totals), the app now calculates the *average* daily rainfall across all active gauges. This provides a more representative measure of precipitation.
+- **UI**: Refactored filter controls into a consistent `FilterBar` at the top of relevant analysis screens for a more unified and responsive user experience.
+- **Dependencies**: Upgraded core dependencies for improved performance, security, and features.
+
+### Fixed
+
+- **Data Accuracy**: Corrected an issue where rainfall statistics would be significantly inflated in charts and summaries when data from multiple gauges was logged on the same day.
+
 ## [1.1.6] - 2025-11-02
 
 ### Changed
