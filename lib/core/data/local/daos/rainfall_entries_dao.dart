@@ -335,19 +335,39 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
 
   Future<List<DailyTotal>> getDailyTotalsForMonth(
     final int year,
-    final int month,
-  ) {
+    final int month, {
+    final String? gaugeId,
+  }) {
     final Expression<int> dayExp = rainfallEntries.date.day;
+    final Expression<bool> monthClause =
+        rainfallEntries.date.year.equals(year) &
+        rainfallEntries.date.month.equals(month);
+
+    // If a specific gauge is selected, we can use a simpler sum query.
+    if (gaugeId != null) {
+      final Expression<double> totalExp = rainfallEntries.amount.sum();
+      final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
+          selectOnly(rainfallEntries)
+            ..addColumns([dayExp, totalExp])
+            ..where(monthClause & rainfallEntries.gaugeId.equals(gaugeId))
+            ..groupBy([dayExp]);
+
+      return query
+          .map(
+            (final row) =>
+                DailyTotal(row.read(dayExp)!, row.read(totalExp) ?? 0.0),
+          )
+          .get();
+    }
+
+    // Original query for 'All Gauges' that averages across multiple gauges
     final Expression<double> gaugeTotalExp = rainfallEntries.amount.sum();
 
     // 1. Inner query: sum per gauge per day
     final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry>
     dailyPerGauge = selectOnly(rainfallEntries)
       ..addColumns([dayExp, gaugeTotalExp])
-      ..where(
-        rainfallEntries.date.year.equals(year) &
-            rainfallEntries.date.month.equals(month),
-      )
+      ..where(monthClause)
       ..groupBy([dayExp, rainfallEntries.gaugeId]);
 
     // 2. Wrap in subquery to do the averaging

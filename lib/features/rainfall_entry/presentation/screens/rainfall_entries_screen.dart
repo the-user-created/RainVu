@@ -5,6 +5,7 @@ import "package:flutter_animate/flutter_animate.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:intl/intl.dart";
 import "package:rainvu/app_constants.dart";
+import "package:rainvu/core/application/filter_provider.dart";
 import "package:rainvu/core/application/preferences_provider.dart";
 import "package:rainvu/core/data/providers/data_providers.dart";
 import "package:rainvu/core/utils/extensions.dart";
@@ -14,6 +15,8 @@ import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/domain/rain_gauge.dart";
 import "package:rainvu/shared/domain/rainfall_entry.dart";
 import "package:rainvu/shared/domain/user_preferences.dart";
+import "package:rainvu/shared/widgets/gauge_filter_bar.dart";
+import "package:rainvu/shared/widgets/gauge_filter_dropdown.dart";
 import "package:rainvu/shared/widgets/placeholders.dart";
 import "package:shimmer/shimmer.dart";
 
@@ -35,6 +38,13 @@ class RainfallEntriesScreen extends ConsumerStatefulWidget {
 
 class _RainfallEntriesScreenState extends ConsumerState<RainfallEntriesScreen> {
   final Set<int> _animatedIndices = {};
+  late String _selectedGaugeId;
+
+  @override
+  void initState() {
+    super.initState();
+    _selectedGaugeId = widget.gaugeId ?? allGaugesFilterId;
+  }
 
   @override
   Widget build(final BuildContext context) {
@@ -42,13 +52,15 @@ class _RainfallEntriesScreenState extends ConsumerState<RainfallEntriesScreen> {
     final AppLocalizations l10n = AppLocalizations.of(context);
     final DateTime selectedMonth =
         DateTime.tryParse("${widget.month}-01") ?? DateTime.now();
-    final String? gaugeId = widget.gaugeId;
+    final String? filterGaugeId = _selectedGaugeId == allGaugesFilterId
+        ? null
+        : _selectedGaugeId;
 
     final AsyncValue<List<RainfallEntry>> entriesAsync = ref.watch(
-      rainfallEntriesForMonthProvider(selectedMonth, gaugeId),
+      rainfallEntriesForMonthProvider(selectedMonth, filterGaugeId),
     );
-    final AsyncValue<RainGauge?> gaugeAsync = gaugeId != null
-        ? ref.watch(gaugeByIdProvider(gaugeId))
+    final AsyncValue<RainGauge?> gaugeAsync = filterGaugeId != null
+        ? ref.watch(gaugeByIdProvider(filterGaugeId))
         : const AsyncValue.data(null);
 
     final String monthTitle = DateFormat.yMMMM().format(selectedMonth);
@@ -59,17 +71,19 @@ class _RainfallEntriesScreenState extends ConsumerState<RainfallEntriesScreen> {
           data: (final gauge) {
             final String gaugeName;
             if (gauge == null) {
-              gaugeName = "";
+              gaugeName = l10n.allGaugesFilter;
             } else if (gauge.id == AppConstants.defaultGaugeId) {
               gaugeName = l10n.defaultGaugeName;
             } else {
               gaugeName = gauge.name;
             }
-            final String fullTitle = gaugeName.isNotEmpty
-                ? "$monthTitle: $gaugeName"
-                : monthTitle;
+            final String fullTitle = "$monthTitle: $gaugeName";
 
-            return Text(fullTitle, style: theme.textTheme.titleLarge);
+            return Text(
+              fullTitle,
+              style: theme.textTheme.titleLarge,
+              overflow: TextOverflow.ellipsis,
+            );
           },
           loading: () => Text(monthTitle, style: theme.textTheme.titleLarge),
           error: (final _, final _) =>
@@ -77,86 +91,98 @@ class _RainfallEntriesScreenState extends ConsumerState<RainfallEntriesScreen> {
         ),
       ),
       body: SafeArea(
-        child: entriesAsync.when(
-          loading: () => const _LoadingState(),
-          error: (final err, final stack) {
-            FirebaseCrashlytics.instance.recordError(
-              err,
-              stack,
-              reason: "Failed to load rainfall entries for month",
-            );
-            return Center(child: Text(l10n.rainfallEntriesError));
-          },
-          data: (final entries) {
-            if (entries.isEmpty) {
-              return const _EmptyState();
-            }
+        child: Column(
+          children: [
+            GaugeFilterBar(
+              child: GaugeFilterDropdown(
+                value: _selectedGaugeId,
+                onChanged: (final value) {
+                  if (value != null) {
+                    setState(() => _selectedGaugeId = value);
+                  }
+                },
+              ),
+            ),
+            Expanded(
+              child: entriesAsync.when(
+                loading: () => const _LoadingState(),
+                error: (final err, final stack) {
+                  FirebaseCrashlytics.instance.recordError(
+                    err,
+                    stack,
+                    reason: "Failed to load rainfall entries for month",
+                  );
+                  return Center(child: Text(l10n.rainfallEntriesError));
+                },
+                data: (final entries) {
+                  if (entries.isEmpty) {
+                    return const _EmptyState();
+                  }
 
-            // Group entries by day
-            final Map<DateTime, List<RainfallEntry>> groupedEntries = groupBy(
-              entries,
-              (final entry) => entry.date.startOfDay,
-            );
+                  // Group entries by day
+                  final Map<DateTime, List<RainfallEntry>> groupedEntries =
+                      groupBy(entries, (final entry) => entry.date.startOfDay);
 
-            // Sort dates in descending order
-            final List<DateTime> sortedDates = groupedEntries.keys.toList()
-              ..sort((final a, final b) => b.compareTo(a));
+                  // Sort dates in descending order
+                  final List<DateTime> sortedDates =
+                      groupedEntries.keys.toList()
+                        ..sort((final a, final b) => b.compareTo(a));
 
-            return CustomScrollView(
-              slivers: [
-                SliverToBoxAdapter(
-                  child: _MonthlySummaryCard(entries: entries)
-                      .animate()
-                      .fade(duration: 300.ms)
-                      .slideY(begin: -0.1, curve: Curves.easeOutCubic),
-                ),
-                SliverPadding(
-                  padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
-                  sliver: SliverList.builder(
-                    itemCount: sortedDates.length,
-                    itemBuilder: (final context, final index) {
-                      final DateTime date = sortedDates[index];
-                      final List<RainfallEntry> dayEntries =
-                          groupedEntries[date]!;
+                  return CustomScrollView(
+                    slivers: [
+                      SliverToBoxAdapter(
+                        child: _MonthlySummaryCard(entries: entries)
+                            .animate()
+                            .fade(duration: 300.ms)
+                            .slideY(begin: -0.1, curve: Curves.easeOutCubic),
+                      ),
+                      SliverPadding(
+                        padding: const EdgeInsets.fromLTRB(16, 12, 16, 24),
+                        sliver: SliverList.builder(
+                          itemCount: sortedDates.length,
+                          itemBuilder: (final context, final index) {
+                            final DateTime date = sortedDates[index];
+                            final List<RainfallEntry> dayEntries =
+                                groupedEntries[date]!;
 
-                      final Widget dateGroup = Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-                          if (index > 0) const SizedBox(height: 16),
-                          _DateHeader(date: date),
-                          ...dayEntries.map(
-                            (final entry) =>
-                                RainfallEntryListItem(entry: entry),
-                          ),
-                        ],
-                      );
+                            final Widget dateGroup = Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                if (index > 0) const SizedBox(height: 16),
+                                _DateHeader(date: date),
+                                ...dayEntries.map(
+                                  (final entry) =>
+                                      RainfallEntryListItem(entry: entry),
+                                ),
+                              ],
+                            );
 
-                      final bool hasBeenAnimated = _animatedIndices.contains(
-                        index,
-                      );
+                            final bool hasBeenAnimated = _animatedIndices
+                                .contains(index);
 
-                      // If already animated, return the widget without animation.
-                      if (hasBeenAnimated) {
-                        return dateGroup;
-                      }
+                            if (hasBeenAnimated) {
+                              return dateGroup;
+                            }
 
-                      // Otherwise, add to the set and return the animated widget.
-                      _animatedIndices.add(index);
-                      return dateGroup
-                          .animate()
-                          .fade(duration: 500.ms)
-                          .slideY(
-                            begin: 0.2,
-                            duration: 400.ms,
-                            delay: (index * 50).ms,
-                            curve: Curves.easeOutCubic,
-                          );
-                    },
-                  ),
-                ),
-              ],
-            );
-          },
+                            _animatedIndices.add(index);
+                            return dateGroup
+                                .animate()
+                                .fade(duration: 500.ms)
+                                .slideY(
+                                  begin: 0.2,
+                                  duration: 400.ms,
+                                  delay: (index * 50).ms,
+                                  curve: Curves.easeOutCubic,
+                                );
+                          },
+                        ),
+                      ),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );

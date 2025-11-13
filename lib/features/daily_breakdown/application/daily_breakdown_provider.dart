@@ -1,3 +1,4 @@
+import "package:rainvu/core/application/filter_provider.dart";
 import "package:rainvu/core/data/providers/data_providers.dart";
 import "package:rainvu/features/daily_breakdown/data/daily_breakdown_repository.dart";
 import "package:rainvu/features/daily_breakdown/domain/daily_breakdown_data.dart";
@@ -11,9 +12,10 @@ Future<DailyBreakdownData> dailyBreakdown(
   final DateTime month,
 ) async {
   ref.watch(rainfallTableUpdatesProvider);
+  final String gaugeId = ref.watch(selectedGaugeFilterProvider);
 
   final DailyBreakdownRepository repo = ref.watch(
     dailyBreakdownRepositoryProvider,
   );
-  return repo.fetchDailyBreakdown(month);
+  return repo.fetchDailyBreakdown(month, gaugeId: gaugeId);
 }

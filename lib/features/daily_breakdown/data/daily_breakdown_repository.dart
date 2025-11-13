@@ -1,6 +1,7 @@
 import "dart:math";
 
 import "package:collection/collection.dart";
+import "package:rainvu/core/application/filter_provider.dart";
 import "package:rainvu/core/data/local/app_database.dart";
 import "package:rainvu/core/data/local/daos/rainfall_entries_dao.dart";
 import "package:rainvu/features/daily_breakdown/domain/daily_breakdown_data.dart";
@@ -9,7 +10,10 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 part "daily_breakdown_repository.g.dart";
 
 abstract class DailyBreakdownRepository {
-  Future<DailyBreakdownData> fetchDailyBreakdown(final DateTime month);
+  Future<DailyBreakdownData> fetchDailyBreakdown(
+    final DateTime month, {
+    required final String gaugeId,
+  });
 }
 
 @riverpod
@@ -25,15 +29,17 @@ class DriftDailyBreakdownRepository implements DailyBreakdownRepository {
 
   @override
   Future<DailyBreakdownData> fetchDailyBreakdown(
-    final DateTime month,
-  ) async {
+    final DateTime month, {
+    required final String gaugeId,
+  }) async {
     final int year = month.year;
     final int monthValue = month.month;
     final int daysInMonth = DateTime(year, monthValue + 1, 0).day;
+    final String? filterGaugeId = gaugeId == allGaugesFilterId ? null : gaugeId;
 
     // Fetch all necessary data from the database in parallel for efficiency
     final List<List<Object>> results = await Future.wait([
-      _dao.getDailyTotalsForMonth(year, monthValue),
+      _dao.getDailyTotalsForMonth(year, monthValue, gaugeId: filterGaugeId),
       _dao.getTotalsForMonthAcrossYears(
         month: monthValue,
         years: List.generate(10, (final index) => year - 1 - index),

@@ -13,6 +13,8 @@ import "package:rainvu/features/daily_breakdown/presentation/widgets/past_averag
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/utils/ui_helpers.dart";
 import "package:rainvu/shared/widgets/buttons/app_icon_button.dart";
+import "package:rainvu/shared/widgets/gauge_filter_bar.dart";
+import "package:rainvu/shared/widgets/gauge_filter_dropdown.dart";
 import "package:rainvu/shared/widgets/pickers/month_year_picker.dart";
 import "package:rainvu/shared/widgets/placeholders.dart";
 import "package:rainvu/shared/widgets/sheets/info_sheet.dart";
@@ -149,48 +151,58 @@ class _DailyBreakdownScreenState extends ConsumerState<DailyBreakdownScreen> {
         ],
       ),
       body: SafeArea(
-        child: breakdownDataAsync.when(
-          loading: () => const _LoadingState(),
-          error: (final err, final stack) {
-            FirebaseCrashlytics.instance.recordError(
-              err,
-              stack,
-              reason: "Failed to load daily breakdown data",
-            );
-            return Center(
-              child: Text(
-                l10n.dailyBreakdownError,
-                style: theme.textTheme.bodyLarge,
-              ),
-            );
-          },
-          data: (final data) {
-            if (data.summaryStats.totalRainfall == 0) {
-              return const _EmptyState();
-            }
+        child: Column(
+          children: [
+            const GaugeFilterBar(child: GaugeFilterDropdown()),
+            Expanded(
+              child: breakdownDataAsync.when(
+                loading: () => const _LoadingState(),
+                error: (final err, final stack) {
+                  FirebaseCrashlytics.instance.recordError(
+                    err,
+                    stack,
+                    reason: "Failed to load daily breakdown data",
+                  );
+                  return Center(
+                    child: Text(
+                      l10n.dailyBreakdownError,
+                      style: theme.textTheme.bodyLarge,
+                    ),
+                  );
+                },
+                data: (final data) {
+                  if (data.summaryStats.totalRainfall == 0) {
+                    return const _EmptyState();
+                  }
 
-            return SingleChildScrollView(
-              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 24),
-              child: Column(
-                children: [
-                  MonthlySummaryCard(
-                    stats: data.summaryStats,
-                    selectedMonth: _selectedMonth,
-                  ),
-                  const SizedBox(height: 24),
-                  PastAveragesCard(
-                    stats: data.historicalStats,
-                    currentTotal: data.summaryStats.totalRainfall,
-                  ),
-                  const SizedBox(height: 24),
-                  DailyRainfallChart(
-                    chartData: data.dailyChartData,
-                    selectedMonth: _selectedMonth,
-                  ),
-                ],
+                  return SingleChildScrollView(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 24,
+                    ),
+                    child: Column(
+                      children: [
+                        MonthlySummaryCard(
+                          stats: data.summaryStats,
+                          selectedMonth: _selectedMonth,
+                        ),
+                        const SizedBox(height: 24),
+                        PastAveragesCard(
+                          stats: data.historicalStats,
+                          currentTotal: data.summaryStats.totalRainfall,
+                        ),
+                        const SizedBox(height: 24),
+                        DailyRainfallChart(
+                          chartData: data.dailyChartData,
+                          selectedMonth: _selectedMonth,
+                        ),
+                      ],
+                    ),
+                  );
+                },
               ),
-            );
-          },
+            ),
+          ],
         ),
       ),
     );
@@ -207,7 +219,7 @@ class _LoadingState extends StatelessWidget {
       baseColor: theme.colorScheme.surfaceContainerHighest,
       highlightColor: theme.colorScheme.surface,
       child: const SingleChildScrollView(
-        physics: const NeverScrollableScrollPhysics(),
+        physics: NeverScrollableScrollPhysics(),
         padding: EdgeInsets.symmetric(
           horizontal: AppConstants.horiEdgePadding,
           vertical: 24,

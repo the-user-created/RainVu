@@ -8,6 +8,10 @@
   "@addGaugeTooltip": {
     "description": "Tooltip for the button that opens the 'Add New Rain Gauge' sheet."
   },
+  "allGaugesFilter": "All Gauges",
+  "@allGaugesFilter": {
+    "description": "Label for the filter option that includes data from all rain gauges."
+  },
   "allSeverities": "All Severities",
   "@allSeverities": {
     "description": "Label for a filter option that selects all severity levels for unusual events."
