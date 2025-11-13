@@ -616,7 +616,9 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
         .get();
   }
 
-  Future<List<HistoricalDayInfo>> getHistoricalDayInfo() {
+  Future<List<HistoricalDayInfo>> getHistoricalDayInfo({
+    final String? gaugeId,
+  }) {
     final Expression<int> month = rainfallEntries.date.month;
     final Expression<int> day = rainfallEntries.date.day;
     final Expression<double> total = rainfallEntries.amount.sum();
@@ -625,9 +627,13 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
     );
 
     final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
-        selectOnly(rainfallEntries)
-          ..addColumns([month, day, total, yearCount])
-          ..groupBy([month, day]);
+        selectOnly(rainfallEntries)..addColumns([month, day, total, yearCount]);
+
+    if (gaugeId != null) {
+      query.where(rainfallEntries.gaugeId.equals(gaugeId));
+    }
+
+    query.groupBy([month, day]);
 
     return query
         .map(

@@ -1,4 +1,5 @@
 import "package:flutter/material.dart";
+import "package:rainvu/core/application/filter_provider.dart";
 import "package:rainvu/core/application/preferences_provider.dart";
 import "package:rainvu/core/data/providers/data_providers.dart";
 import "package:rainvu/core/data/repositories/rainfall_repository.dart";
@@ -64,7 +65,9 @@ class AnomalyFilterNotifier extends _$AnomalyFilterNotifier {
 
 @riverpod
 Future<UnusualPatternsData> anomalyData(final Ref ref) async {
-  ref.watch(rainfallRepositoryProvider).watchTableUpdates();
+  // Watch for updates to data tables and filters
+  ref.watch(rainfallTableUpdatesProvider);
+  final String gaugeId = ref.watch(selectedGaugeFilterProvider);
 
   // Await the filter and preferences providers. This will propagate loading
   // and error states automatically.
@@ -73,5 +76,9 @@ Future<UnusualPatternsData> anomalyData(final Ref ref) async {
   final UnusualPatternsRepository repo = ref.watch(
     unusualPatternsRepositoryProvider,
   );
-  return repo.fetchAnomalyData(filter, prefs.anomalyDeviationThreshold);
+  return repo.fetchAnomalyData(
+    filter,
+    prefs.anomalyDeviationThreshold,
+    gaugeId: gaugeId,
+  );
 }

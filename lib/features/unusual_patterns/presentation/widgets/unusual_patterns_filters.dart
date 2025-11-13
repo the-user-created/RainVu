@@ -8,6 +8,7 @@ import "package:rainvu/features/unusual_patterns/domain/unusual_patterns_data.da
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/utils/adaptive_ui_helpers.dart";
 import "package:rainvu/shared/widgets/buttons/app_button.dart";
+import "package:rainvu/shared/widgets/gauge_filter_dropdown.dart";
 import "package:rainvu/shared/widgets/pickers/date_range_picker.dart";
 import "package:rainvu/shared/widgets/sheets/interactive_sheet.dart";
 
@@ -26,6 +27,7 @@ class UnusualPatternsFilters extends ConsumerWidget {
       runSpacing: 12,
       alignment: WrapAlignment.center,
       children: [
+        const GaugeFilterDropdown(),
         _DateRangePickerButton(dateRange: filter?.dateRange),
         _SeveritySelectorButton(severities: filter?.severities),
       ],

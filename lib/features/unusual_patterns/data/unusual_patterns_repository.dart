@@ -1,3 +1,4 @@
+import "package:rainvu/core/application/filter_provider.dart";
 import "package:rainvu/core/data/local/app_database.dart";
 import "package:rainvu/core/data/local/daos/rainfall_entries_dao.dart";
 import "package:rainvu/features/unusual_patterns/domain/unusual_patterns_data.dart";
@@ -9,20 +10,18 @@ part "unusual_patterns_repository.g.dart";
 abstract class UnusualPatternsRepository {
   Future<UnusualPatternsData> fetchAnomalyData(
     final AnomalyFilter filter,
-    final double minAnomalyThreshold,
-  );
+    final double minAnomalyThreshold, {
+    required String gaugeId,
+  });
 }
 
 @riverpod
-UnusualPatternsRepository unusualPatternsRepository(
-  final Ref ref,
-) {
+UnusualPatternsRepository unusualPatternsRepository(final Ref ref) {
   final AppDatabase db = ref.watch(appDatabaseProvider);
   return DriftUnusualPatternsRepository(db.rainfallEntriesDao);
 }
 
-class DriftUnusualPatternsRepository
-    implements UnusualPatternsRepository {
+class DriftUnusualPatternsRepository implements UnusualPatternsRepository {
   DriftUnusualPatternsRepository(this._dao);
 
   final RainfallEntriesDao _dao;
@@ -31,12 +30,19 @@ class DriftUnusualPatternsRepository
   @override
   Future<UnusualPatternsData> fetchAnomalyData(
     final AnomalyFilter filter,
-    final double minAnomalyThreshold,
-  ) async {
+    final double minAnomalyThreshold, {
+    required String gaugeId,
+  }) async {
+    final String? filterGaugeId = gaugeId == allGaugesFilterId ? null : gaugeId;
+
     // 1. Fetch historical data and daily totals in parallel.
     final List<List<Object>> results = await Future.wait([
-      _dao.getHistoricalDayInfo(),
-      _dao.getDailyTotalsInRange(filter.dateRange.start, filter.dateRange.end),
+      _dao.getHistoricalDayInfo(gaugeId: filterGaugeId),
+      _dao.getDailyTotalsInRange(
+        filter.dateRange.start,
+        filter.dateRange.end,
+        gaugeId: filterGaugeId,
+      ),
     ]);
 
     final historicalInfo = results[0] as List<HistoricalDayInfo>;
