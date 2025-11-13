@@ -1,3 +1,4 @@
+import "package:rainvu/core/application/filter_provider.dart";
 import "package:rainvu/core/data/providers/data_providers.dart";
 import "package:rainvu/features/insights_dashboard/data/insights_repository.dart";
 import "package:rainvu/features/insights_dashboard/domain/insights_data.dart";
@@ -20,11 +21,12 @@ class DashboardMetricState extends _$DashboardMetricState {
 /// Provides all the data needed for the entire insights feature.
 @riverpod
 Future<InsightsData> dashboardData(final Ref ref) async {
-  // This provider will re-fetch when rainfall data changes.
+  // This provider will re-fetch when rainfall data or the gauge filter changes.
   ref.watch(rainfallTableUpdatesProvider);
+  final String gaugeId = ref.watch(selectedGaugeFilterProvider);
 
   final InsightsRepository repository = ref.watch(insightsRepositoryProvider);
-  return repository.getInsightsData();
+  return repository.getInsightsData(gaugeId: gaugeId);
 }
 
 /// A provider that combines the main data with the user's selection

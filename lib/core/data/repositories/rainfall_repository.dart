@@ -29,8 +29,9 @@ abstract class RainfallRepository {
 
   Future<double> getTotalAmountBetween(
     final DateTime start,
-    final DateTime end,
-  );
+    final DateTime end, {
+    final String? gaugeId,
+  });
 
   Stream<void> watchTableUpdates();
 
@@ -152,10 +153,11 @@ class DriftRainfallRepository implements RainfallRepository {
   @override
   Future<double> getTotalAmountBetween(
     final DateTime start,
-    final DateTime end,
-  ) async {
+    final DateTime end, {
+    final String? gaugeId,
+  }) async {
     try {
-      return await _dao.getTotalAmountBetween(start, end);
+      return await _dao.getTotalAmountBetween(start, end, gaugeId: gaugeId);
     } catch (e, s) {
       FirebaseCrashlytics.instance.recordError(
         e,

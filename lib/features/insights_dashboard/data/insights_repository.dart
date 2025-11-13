@@ -1,5 +1,6 @@
 import "package:collection/collection.dart";
 import "package:intl/intl.dart";
+import "package:rainvu/core/application/filter_provider.dart";
 import "package:rainvu/core/data/local/app_database.dart";
 import "package:rainvu/core/data/local/daos/rainfall_entries_dao.dart";
 import "package:rainvu/features/insights_dashboard/domain/insights_data.dart";
@@ -8,7 +9,7 @@ import "package:riverpod_annotation/riverpod_annotation.dart";
 part "insights_repository.g.dart";
 
 abstract class InsightsRepository {
-  Future<InsightsData> getInsightsData();
+  Future<InsightsData> getInsightsData({required String gaugeId});
 }
 
 @riverpod
@@ -24,13 +25,15 @@ class DriftInsightsRepository implements InsightsRepository {
   final _now = DateTime.now();
 
   @override
-  Future<InsightsData> getInsightsData() async {
+  Future<InsightsData> getInsightsData({required String gaugeId}) async {
+    final String? filterGaugeId = gaugeId == allGaugesFilterId ? null : gaugeId;
+
     final List<Object> results = await Future.wait([
       _getMtdData(),
       _getYtdData(),
       _getLast12MonthsData(),
       _getAllTimeData(),
-      _getMonthlyAverages(),
+      _getMonthlyAverages(gaugeId: filterGaugeId),
     ]);
 
     return InsightsData(
@@ -214,7 +217,9 @@ class DriftInsightsRepository implements InsightsRepository {
 
   // --- Other Data Fetchers ---
 
-  Future<List<MonthlyAveragesData>> _getMonthlyAverages() async {
+  Future<List<MonthlyAveragesData>> _getMonthlyAverages({
+    final String? gaugeId,
+  }) async {
     final int currentYear = _now.year;
     final List<int> previous20Years = List.generate(
       20,
@@ -223,7 +228,14 @@ class DriftInsightsRepository implements InsightsRepository {
     final futures = <Future<MonthlyAveragesData>>[];
 
     for (int month = 1; month <= 12; month++) {
-      futures.add(_getComparisonForMonth(month, currentYear, previous20Years));
+      futures.add(
+        _getComparisonForMonth(
+          month,
+          currentYear,
+          previous20Years,
+          gaugeId: gaugeId,
+        ),
+      );
     }
     return Future.wait(futures);
   }
@@ -231,8 +243,9 @@ class DriftInsightsRepository implements InsightsRepository {
   Future<MonthlyAveragesData> _getComparisonForMonth(
     final int month,
     final int currentYear,
-    final List<int> previousYears,
-  ) async {
+    final List<int> previousYears, {
+    final String? gaugeId,
+  }) async {
     final startOfMonth = DateTime(currentYear, month);
     final DateTime endOfMonth = DateTime(
       currentYear,
@@ -241,9 +254,14 @@ class DriftInsightsRepository implements InsightsRepository {
     final Future<double> currentMonthTotalFuture = _dao.getTotalAmountBetween(
       startOfMonth,
       endOfMonth,
+      gaugeId: gaugeId,
     );
     final Future<List<YearlyTotal>> previousYearsTotalsFuture = _dao
-        .getTotalsForMonthAcrossYears(month: month, years: previousYears);
+        .getTotalsForMonthAcrossYears(
+          month: month,
+          years: previousYears,
+          gaugeId: gaugeId,
+        );
 
     final List<Object> results = await Future.wait([
       currentMonthTotalFuture,

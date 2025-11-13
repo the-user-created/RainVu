@@ -204,11 +204,13 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
 
   Future<double> getTotalAmountBetween(
     final DateTime start,
-    final DateTime end,
-  ) async {
+    final DateTime end, {
+    final String? gaugeId,
+  }) async {
     final List<DailyTotalWithDate> dailyTotals = await getDailyTotalsInRange(
       start,
       end,
+      gaugeId: gaugeId,
     );
     return dailyTotals.map((final e) => e.total).sum;
   }
@@ -316,14 +318,21 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
   Future<List<YearlyTotal>> getTotalsForMonthAcrossYears({
     required final int month,
     required final List<int> years,
+    final String? gaugeId,
   }) {
     final Expression<int> year = rainfallEntries.date.year;
     final Expression<double> total = rainfallEntries.amount.sum();
 
+    Expression<bool> whereClause =
+        rainfallEntries.date.month.equals(month) & year.isIn(years);
+    if (gaugeId != null) {
+      whereClause = whereClause & rainfallEntries.gaugeId.equals(gaugeId);
+    }
+
     final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
         selectOnly(rainfallEntries)
           ..addColumns([year, total])
-          ..where(rainfallEntries.date.month.equals(month) & year.isIn(years))
+          ..where(whereClause)
           ..groupBy([year]);
 
     return query
@@ -511,12 +520,38 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
 
   Future<List<DailyTotalWithDate>> getDailyTotalsInRange(
     final DateTime start,
-    final DateTime end,
-  ) {
+    final DateTime end, {
+    final String? gaugeId,
+  }) {
     final Expression<String> dateStrExp = rainfallEntries.date.strftime(
       "%Y-%m-%d",
     );
     final Expression<DateTime> minDateExp = rainfallEntries.date.min();
+
+    if (gaugeId != null) {
+      // Simple sum for a single gauge
+      final Expression<double> totalExp = rainfallEntries.amount.sum();
+      final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
+          selectOnly(rainfallEntries)
+            ..addColumns([minDateExp, totalExp])
+            ..where(
+              rainfallEntries.date.isBetweenValues(start, end) &
+                  rainfallEntries.gaugeId.equals(gaugeId),
+            )
+            ..groupBy([dateStrExp])
+            ..orderBy([OrderingTerm.asc(minDateExp)]);
+
+      return query
+          .map(
+            (final row) => DailyTotalWithDate(
+              row.read(minDateExp)!,
+              row.read(totalExp) ?? 0.0,
+            ),
+          )
+          .get();
+    }
+
+    // "All Gauges" logic: average across gauges for each day
     final Expression<double> gaugeTotalExp = rainfallEntries.amount.sum();
 
     // 1. Inner query: sum per gauge per day
