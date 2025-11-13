@@ -1,5 +1,6 @@
 import "package:flutter_riverpod/flutter_riverpod.dart";
 import "package:freezed_annotation/freezed_annotation.dart";
+import "package:rainvu/core/application/filter_provider.dart";
 import "package:rainvu/core/application/preferences_provider.dart";
 import "package:rainvu/core/data/repositories/rainfall_repository.dart";
 import "package:rainvu/features/seasonal_trends/data/seasonal_trends_repository.dart";
@@ -67,13 +68,18 @@ Future<SeasonalTrendsData> seasonalTrendsData(final Ref ref) async {
   ref.watch(rainfallRepositoryProvider).watchTableUpdates();
 
   final SeasonalFilter filter = ref.watch(seasonalTrendsFilterProvider);
+  final String gaugeId = ref.watch(selectedGaugeFilterProvider);
   // Await preferences to ensure they are loaded before fetching data.
   final UserPreferences prefs = await ref.watch(userPreferencesProvider.future);
 
   final SeasonalTrendsRepository repository = ref.watch(
     seasonalTrendsRepositoryProvider,
   );
-  return repository.fetchSeasonalTrends(filter, prefs.hemisphere);
+  return repository.fetchSeasonalTrends(
+    filter,
+    prefs.hemisphere,
+    gaugeId: gaugeId,
+  );
 }
 
 /// Provides a list of years for which rainfall data is available.

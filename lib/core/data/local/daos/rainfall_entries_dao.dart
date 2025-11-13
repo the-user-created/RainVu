@@ -458,21 +458,46 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
 
   Future<List<DailyRainfall>> getDailyTotalsForSeason(
     final int year,
-    final List<int> months,
-  ) {
+    final List<int> months, {
+    final String? gaugeId,
+  }) {
     final Expression<String> dateStrExp = rainfallEntries.date.strftime(
       "%Y-%m-%d",
     );
+
+    Expression<bool> whereClause =
+        rainfallEntries.date.year.equals(year) &
+        rainfallEntries.date.month.isIn(months);
+
+    if (gaugeId != null) {
+      // Simple sum for a single gauge
+      final Expression<double> totalExp = rainfallEntries.amount.sum();
+      whereClause = whereClause & rainfallEntries.gaugeId.equals(gaugeId);
+
+      final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
+          selectOnly(rainfallEntries)
+            ..addColumns([dateStrExp, totalExp])
+            ..where(whereClause)
+            ..groupBy([dateStrExp]);
+
+      return query
+          .map(
+            (final row) => DailyRainfall(
+              DateTime.parse(row.read(dateStrExp)!),
+              row.read(totalExp) ?? 0.0,
+            ),
+          )
+          .get();
+    }
+
+    // "All Gauges" logic: average across gauges for each day
     final Expression<double> gaugeTotalExp = rainfallEntries.amount.sum();
 
     // 1. Inner query: sum per gauge per day
     final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry>
     dailyPerGauge = selectOnly(rainfallEntries)
       ..addColumns([dateStrExp, gaugeTotalExp])
-      ..where(
-        rainfallEntries.date.year.equals(year) &
-            rainfallEntries.date.month.isIn(months),
-      )
+      ..where(whereClause)
       ..groupBy([dateStrExp, rainfallEntries.gaugeId]);
 
     // 2. Wrap in subquery to do the averaging
@@ -498,17 +523,22 @@ class RainfallEntriesDao extends DatabaseAccessor<AppDatabase>
   Future<List<YearlyTotal>> getHistoricalSeasonalTotals({
     required final List<int> months,
     required final int excludeYear,
+    final String? gaugeId,
   }) {
     final Expression<int> year = rainfallEntries.date.year;
     final Expression<double> total = rainfallEntries.amount.sum();
 
+    Expression<bool> whereClause =
+        rainfallEntries.date.month.isIn(months) & year.isNotValue(excludeYear);
+
+    if (gaugeId != null) {
+      whereClause = whereClause & rainfallEntries.gaugeId.equals(gaugeId);
+    }
+
     final JoinedSelectStatement<$RainfallEntriesTable, RainfallEntry> query =
         selectOnly(rainfallEntries)
           ..addColumns([year, total])
-          ..where(
-            rainfallEntries.date.month.isIn(months) &
-                year.isNotValue(excludeYear),
-          )
+          ..where(whereClause)
           ..groupBy([year]);
 
     return query

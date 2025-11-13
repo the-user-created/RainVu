@@ -9,6 +9,7 @@ import "package:rainvu/features/seasonal_trends/presentation/widgets/seasonal_tr
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/widgets/buttons/app_icon_button.dart";
 import "package:rainvu/shared/widgets/filter_bar.dart";
+import "package:rainvu/shared/widgets/gauge_filter_dropdown.dart";
 import "package:rainvu/shared/widgets/placeholders.dart";
 import "package:rainvu/shared/widgets/sheets/info_sheet.dart";
 import "package:shimmer/shimmer.dart";
@@ -68,7 +69,7 @@ class SeasonalTrendsScreen extends ConsumerWidget {
       body: SafeArea(
         child: Column(
           children: [
-            const FilterBar(child: SeasonSelector()),
+            const FilterBar(child: _SeasonalTrendsFilters()),
             Expanded(
               child: dataAsync.when(
                 loading: () => const _LoadingState(),
@@ -105,6 +106,38 @@ class SeasonalTrendsScreen extends ConsumerWidget {
       ),
     );
   }
+}
+
+class _SeasonalTrendsFilters extends StatelessWidget {
+  const _SeasonalTrendsFilters();
+
+  @override
+  Widget build(final BuildContext context) => LayoutBuilder(
+    builder: (final context, final constraints) {
+      const double breakpoint = 520;
+
+      if (constraints.maxWidth < breakpoint) {
+        // Vertical layout for smaller screens
+        return const Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            GaugeFilterDropdown(),
+            SizedBox(height: 12),
+            SeasonSelector(),
+          ],
+        );
+      } else {
+        // Horizontal layout for larger screens
+        return const Row(
+          children: [
+            Expanded(flex: 2, child: GaugeFilterDropdown()),
+            SizedBox(width: 16),
+            Expanded(flex: 3, child: SeasonSelector()),
+          ],
+        );
+      }
+    },
+  );
 }
 
 class _LoadingState extends StatelessWidget {

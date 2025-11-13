@@ -1,6 +1,7 @@
 import "dart:math";
 
 import "package:collection/collection.dart";
+import "package:rainvu/core/application/filter_provider.dart";
 import "package:rainvu/core/data/local/app_database.dart";
 import "package:rainvu/core/data/local/daos/rainfall_entries_dao.dart";
 import "package:rainvu/features/seasonal_trends/application/seasonal_trends_provider.dart";
@@ -13,8 +14,9 @@ part "seasonal_trends_repository.g.dart";
 abstract class SeasonalTrendsRepository {
   Future<SeasonalTrendsData> fetchSeasonalTrends(
     final SeasonalFilter filter,
-    final Hemisphere hemisphere,
-  );
+    final Hemisphere hemisphere, {
+    required String gaugeId,
+  });
 }
 
 @riverpod
@@ -31,16 +33,19 @@ class DriftSeasonalTrendsRepository implements SeasonalTrendsRepository {
   @override
   Future<SeasonalTrendsData> fetchSeasonalTrends(
     final SeasonalFilter filter,
-    final Hemisphere hemisphere,
-  ) async {
+    final Hemisphere hemisphere, {
+    required String gaugeId,
+  }) async {
     final List<int> months = getMonthsForSeason(filter.season, hemisphere);
+    final String? filterGaugeId = gaugeId == allGaugesFilterId ? null : gaugeId;
 
     // Fetch data for the selected season and its historical counterparts in parallel.
     final List<List<Object>> results = await Future.wait([
-      _dao.getDailyTotalsForSeason(filter.year, months),
+      _dao.getDailyTotalsForSeason(filter.year, months, gaugeId: filterGaugeId),
       _dao.getHistoricalSeasonalTotals(
         months: months,
         excludeYear: filter.year,
+        gaugeId: filterGaugeId,
       ),
     ]);
 
