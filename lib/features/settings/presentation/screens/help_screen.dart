@@ -8,6 +8,7 @@ import "package:rainvu/features/settings/application/settings_providers.dart";
 import "package:rainvu/features/settings/presentation/widgets/help/help_action_card.dart";
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/utils/ui_helpers.dart";
+import "package:rainvu/shared/widgets/sheets/info_sheet.dart";
 import "package:url_launcher/url_launcher.dart";
 
 const String _kGitHubBaseUrl = "https://github.com/astraen-dev/RainVu";
@@ -18,6 +19,33 @@ const String _kDiscussionsUrl = "$_kGitHubBaseUrl/discussions";
 
 class HelpScreen extends ConsumerWidget {
   const HelpScreen({super.key});
+
+  void _showCalculationInfoSheet(
+    final BuildContext context,
+    final AppLocalizations l10n,
+  ) {
+    InfoSheet.show(
+      context,
+      title: l10n.helpCalculationTitle,
+      items: [
+        InfoSheetItem(
+          icon: Icons.functions,
+          title: l10n.dailyBreakdownInfoSumTitle,
+          description: l10n.dailyBreakdownInfoSumDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.pie_chart_outline,
+          title: l10n.dailyBreakdownInfoAverageTitle,
+          description: l10n.dailyBreakdownInfoAverageDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.add_chart,
+          title: l10n.helpCalculationCombinedTitle,
+          description: l10n.helpCalculationCombinedDescription,
+        ),
+      ],
+    );
+  }
 
   Future<void> _launchSupportUrl(
     final BuildContext context,
@@ -110,6 +138,12 @@ class HelpScreen extends ConsumerWidget {
     final AppLocalizations l10n = AppLocalizations.of(context);
 
     final List<Widget> helpCards = [
+      HelpActionCard(
+        icon: Icons.calculate_outlined,
+        title: l10n.helpCalculationTitle,
+        subtitle: l10n.helpCalculationSubtitle,
+        onTap: () => _showCalculationInfoSheet(context, l10n),
+      ),
       HelpActionCard(
         icon: Icons.bug_report_outlined,
         title: l10n.helpReportBugTitle,

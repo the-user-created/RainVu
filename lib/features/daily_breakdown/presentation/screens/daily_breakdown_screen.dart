@@ -15,6 +15,7 @@ import "package:rainvu/shared/utils/ui_helpers.dart";
 import "package:rainvu/shared/widgets/buttons/app_icon_button.dart";
 import "package:rainvu/shared/widgets/pickers/month_year_picker.dart";
 import "package:rainvu/shared/widgets/placeholders.dart";
+import "package:rainvu/shared/widgets/sheets/info_sheet.dart";
 import "package:shimmer/shimmer.dart";
 
 class DailyBreakdownScreen extends ConsumerStatefulWidget {
@@ -56,6 +57,26 @@ class _DailyBreakdownScreenState extends ConsumerState<DailyBreakdownScreen> {
     }
     // Fallback to the current month if no valid initialMonth is provided.
     _selectedMonth = DateTime(DateTime.now().year, DateTime.now().month);
+  }
+
+  void _showInfoSheet(final BuildContext context) {
+    final AppLocalizations l10n = AppLocalizations.of(context);
+    InfoSheet.show(
+      context,
+      title: l10n.dailyBreakdownInfoSheetTitle,
+      items: [
+        InfoSheetItem(
+          icon: Icons.functions,
+          title: l10n.dailyBreakdownInfoSumTitle,
+          description: l10n.dailyBreakdownInfoSumDescription,
+        ),
+        InfoSheetItem(
+          icon: Icons.pie_chart_outline,
+          title: l10n.dailyBreakdownInfoAverageTitle,
+          description: l10n.dailyBreakdownInfoAverageDescription,
+        ),
+      ],
+    );
   }
 
   Future<void> _pickMonth() async {
@@ -104,6 +125,11 @@ class _DailyBreakdownScreenState extends ConsumerState<DailyBreakdownScreen> {
           style: theme.textTheme.titleLarge,
         ),
         actions: [
+          AppIconButton(
+            icon: const Icon(Icons.info_outline),
+            onPressed: () => _showInfoSheet(context),
+            tooltip: l10n.infoTooltip,
+          ),
           Padding(
             padding: const EdgeInsets.only(right: 12),
             child: AppIconButton(
@@ -181,7 +207,7 @@ class _LoadingState extends StatelessWidget {
       baseColor: theme.colorScheme.surfaceContainerHighest,
       highlightColor: theme.colorScheme.surface,
       child: const SingleChildScrollView(
-        physics: NeverScrollableScrollPhysics(),
+        physics: const NeverScrollableScrollPhysics(),
         padding: EdgeInsets.symmetric(
           horizontal: AppConstants.horiEdgePadding,
           vertical: 24,

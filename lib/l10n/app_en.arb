@@ -358,6 +358,26 @@
   "@dailyBreakdownError": {
     "description": "Generic error message for the daily breakdown screen."
   },
+  "dailyBreakdownInfoAverageDescription": "If a day has logs from different gauges, the total for each gauge is calculated first, and then these totals are averaged to get the final rainfall amount for the day.",
+  "@dailyBreakdownInfoAverageDescription": {
+    "description": "Explanation of how logs from multiple gauges are handled."
+  },
+  "dailyBreakdownInfoAverageTitle": "For Multiple Gauges",
+  "@dailyBreakdownInfoAverageTitle": {
+    "description": "Title for the section explaining calculation for multiple gauges."
+  },
+  "dailyBreakdownInfoSheetTitle": "How Daily Rainfall is Calculated",
+  "@dailyBreakdownInfoSheetTitle": {
+    "description": "Title for the info sheet explaining how daily totals are calculated."
+  },
+  "dailyBreakdownInfoSumDescription": "If a day has multiple rainfall logs from the same gauge, their amounts are summed up to get the total for that gauge on that day.",
+  "@dailyBreakdownInfoSumDescription": {
+    "description": "Explanation of how multiple logs from a single gauge are handled."
+  },
+  "dailyBreakdownInfoSumTitle": "For a Single Gauge",
+  "@dailyBreakdownInfoSumTitle": {
+    "description": "Title for the section explaining calculation for a single gauge."
+  },
   "dailyBreakdownTitle": "Daily Breakdown",
   "@dailyBreakdownTitle": {
     "description": "The title of the Daily Breakdown screen."
@@ -788,6 +808,22 @@
   "genericError": "Something went wrong. Please try again.",
   "@genericError": {
     "description": "A generic error message for unexpected failures."
+  },
+  "helpCalculationCombinedDescription": "If a day includes multiple logs for multiple gauges, the app first sums the logs for each individual gauge, and then averages the final total of each gauge.",
+  "@helpCalculationCombinedDescription": {
+    "description": "Explanation of how combined single- and multi-gauge scenarios are calculated."
+  },
+  "helpCalculationCombinedTitle": "Combined Scenarios",
+  "@helpCalculationCombinedTitle": {
+    "description": "Title for the section in the help info sheet explaining complex calculation scenarios."
+  },
+  "helpCalculationSubtitle": "Understand how daily totals are summed and averaged.",
+  "@helpCalculationSubtitle": {
+    "description": "Subtitle for the help card about data calculation."
+  },
+  "helpCalculationTitle": "How Rainfall is Calculated",
+  "@helpCalculationTitle": {
+    "description": "Title for the help card and info sheet explaining data calculation logic."
   },
   "helpDirectEmailSubtitle": "For direct support if you don't use GitHub.",
   "@helpDirectEmailSubtitle": {
