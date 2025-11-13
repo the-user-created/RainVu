@@ -1,10 +1,10 @@
 import "package:flutter/material.dart";
 
 /// A dedicated bar for displaying filter controls, typically placed below an AppBar.
-class GaugeFilterBar extends StatelessWidget {
-  const GaugeFilterBar({required this.child, super.key});
+class FilterBar extends StatelessWidget {
+  const FilterBar({required this.child, super.key});
 
-  /// The filter widget to be displayed inside the bar, e.g., a Dropdown.
+  /// The filter widget(s) to be displayed inside the bar.
   final Widget child;
 
   @override
@@ -12,7 +12,7 @@ class GaugeFilterBar extends StatelessWidget {
     final ThemeData theme = Theme.of(context);
     return Container(
       width: double.infinity,
-      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 8),
+      padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 12),
       decoration: BoxDecoration(
         color: theme.colorScheme.surfaceContainer,
         border: Border(

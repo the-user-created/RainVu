@@ -15,7 +15,7 @@ import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/domain/rain_gauge.dart";
 import "package:rainvu/shared/domain/rainfall_entry.dart";
 import "package:rainvu/shared/domain/user_preferences.dart";
-import "package:rainvu/shared/widgets/gauge_filter_bar.dart";
+import "package:rainvu/shared/widgets/filter_bar.dart";
 import "package:rainvu/shared/widgets/gauge_filter_dropdown.dart";
 import "package:rainvu/shared/widgets/placeholders.dart";
 import "package:shimmer/shimmer.dart";
@@ -93,7 +93,7 @@ class _RainfallEntriesScreenState extends ConsumerState<RainfallEntriesScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            GaugeFilterBar(
+            FilterBar(
               child: GaugeFilterDropdown(
                 value: _selectedGaugeId,
                 onChanged: (final value) {

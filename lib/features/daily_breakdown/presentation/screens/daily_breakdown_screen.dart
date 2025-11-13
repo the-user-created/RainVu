@@ -1,6 +1,7 @@
 import "package:firebase_crashlytics/firebase_crashlytics.dart";
 import "package:flutter/material.dart";
 import "package:flutter_riverpod/flutter_riverpod.dart";
+import "package:intl/intl.dart";
 import "package:rainvu/app_constants.dart";
 import "package:rainvu/core/data/providers/data_providers.dart";
 import "package:rainvu/core/data/repositories/rainfall_repository.dart";
@@ -12,8 +13,9 @@ import "package:rainvu/features/daily_breakdown/presentation/widgets/monthly_sum
 import "package:rainvu/features/daily_breakdown/presentation/widgets/past_averages_card.dart";
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/utils/ui_helpers.dart";
+import "package:rainvu/shared/widgets/buttons/app_button.dart";
 import "package:rainvu/shared/widgets/buttons/app_icon_button.dart";
-import "package:rainvu/shared/widgets/gauge_filter_bar.dart";
+import "package:rainvu/shared/widgets/filter_bar.dart";
 import "package:rainvu/shared/widgets/gauge_filter_dropdown.dart";
 import "package:rainvu/shared/widgets/pickers/month_year_picker.dart";
 import "package:rainvu/shared/widgets/placeholders.dart";
@@ -120,6 +122,13 @@ class _DailyBreakdownScreenState extends ConsumerState<DailyBreakdownScreen> {
       rainfallDateRangeProvider,
     );
 
+    final VoidCallback? onPickMonthCallback = dateRangeAsync.when(
+      data: (final data) =>
+          (data.min != null && data.max != null) ? _pickMonth : null,
+      loading: () => null,
+      error: (final _, final _) => null,
+    );
+
     return Scaffold(
       appBar: AppBar(
         title: Text(
@@ -127,25 +136,12 @@ class _DailyBreakdownScreenState extends ConsumerState<DailyBreakdownScreen> {
           style: theme.textTheme.titleLarge,
         ),
         actions: [
-          AppIconButton(
-            icon: const Icon(Icons.info_outline),
-            onPressed: () => _showInfoSheet(context),
-            tooltip: l10n.infoTooltip,
-          ),
           Padding(
-            padding: const EdgeInsets.only(right: 12),
+            padding: const EdgeInsets.only(right: 8),
             child: AppIconButton(
-              icon: Icon(
-                Icons.calendar_today,
-                color: theme.colorScheme.onSurface,
-              ),
-              onPressed: dateRangeAsync.when(
-                data: (final data) =>
-                    (data.min != null && data.max != null) ? _pickMonth : null,
-                loading: () => null,
-                error: (final _, final _) => null,
-              ),
-              tooltip: l10n.selectMonthTooltip,
+              icon: const Icon(Icons.info_outline),
+              onPressed: () => _showInfoSheet(context),
+              tooltip: l10n.infoTooltip,
             ),
           ),
         ],
@@ -153,7 +149,12 @@ class _DailyBreakdownScreenState extends ConsumerState<DailyBreakdownScreen> {
       body: SafeArea(
         child: Column(
           children: [
-            const GaugeFilterBar(child: GaugeFilterDropdown()),
+            FilterBar(
+              child: _DailyBreakdownFilters(
+                selectedMonth: _selectedMonth,
+                onPickMonth: onPickMonthCallback,
+              ),
+            ),
             Expanded(
               child: breakdownDataAsync.when(
                 loading: () => const _LoadingState(),
@@ -207,6 +208,60 @@ class _DailyBreakdownScreenState extends ConsumerState<DailyBreakdownScreen> {
       ),
     );
   }
+}
+
+/// A responsive widget for the filter controls in the [DailyBreakdownScreen].
+///
+/// It displays the filter controls in a `Row` on wider screens and switches
+/// to a `Column` on narrower screens to prevent overflow.
+class _DailyBreakdownFilters extends StatelessWidget {
+  const _DailyBreakdownFilters({required this.selectedMonth, this.onPickMonth});
+
+  final DateTime selectedMonth;
+  final VoidCallback? onPickMonth;
+
+  @override
+  Widget build(final BuildContext context) => LayoutBuilder(
+    builder: (final context, final constraints) {
+      const double breakpoint = 380;
+
+      if (constraints.maxWidth < breakpoint) {
+        // Vertical layout for smaller screens or larger fonts
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: [
+            const GaugeFilterDropdown(),
+            const SizedBox(height: 12),
+            AppButton(
+              label: DateFormat.yMMMM().format(selectedMonth),
+              onPressed: onPickMonth,
+              style: AppButtonStyle.secondary,
+              size: AppButtonSize.small,
+              icon: const Icon(Icons.calendar_today, size: 18),
+              isExpanded: true,
+            ),
+          ],
+        );
+      } else {
+        // Horizontal layout for larger screens
+        return Row(
+          children: [
+            const Expanded(child: GaugeFilterDropdown()),
+            const SizedBox(width: 16),
+            Expanded(
+              child: AppButton(
+                label: DateFormat.yMMMM().format(selectedMonth),
+                onPressed: onPickMonth,
+                style: AppButtonStyle.secondary,
+                size: AppButtonSize.small,
+                icon: const Icon(Icons.calendar_today, size: 18),
+              ),
+            ),
+          ],
+        );
+      }
+    },
+  );
 }
 
 class _LoadingState extends StatelessWidget {

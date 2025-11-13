@@ -11,55 +11,24 @@ import "package:rainvu/shared/widgets/buttons/app_button.dart";
 import "package:rainvu/shared/widgets/pickers/date_range_picker.dart";
 import "package:rainvu/shared/widgets/sheets/interactive_sheet.dart";
 
-class AnomalyFilterOptions extends ConsumerWidget {
-  const AnomalyFilterOptions({super.key});
+class UnusualPatternsFilters extends ConsumerWidget {
+  const UnusualPatternsFilters({super.key});
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
-    final AppLocalizations l10n = AppLocalizations.of(context);
-
     final AsyncValue<AnomalyFilter> filterAsync = ref.watch(
       anomalyFilterProvider,
     );
     final AnomalyFilter? filter = filterAsync.value;
 
-    return Container(
-      padding: const EdgeInsets.all(16),
-      margin: const EdgeInsets.symmetric(horizontal: 16),
-      decoration: BoxDecoration(
-        color: colorScheme.surface,
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 4,
-            color: theme.shadowColor,
-            offset: const Offset(0, 2),
-          ),
-        ],
-        borderRadius: BorderRadius.circular(16),
-      ),
-      child: Column(
-        crossAxisAlignment: CrossAxisAlignment.stretch,
-        children: [
-          Text(
-            l10n.filterOptionsTitle,
-            style: textTheme.titleMedium,
-            textAlign: TextAlign.center,
-          ),
-          const SizedBox(height: 16),
-          Wrap(
-            spacing: 12,
-            runSpacing: 12,
-            alignment: WrapAlignment.center,
-            children: [
-              _DateRangePickerButton(dateRange: filter?.dateRange),
-              _SeveritySelectorButton(severities: filter?.severities),
-            ],
-          ),
-        ],
-      ),
+    return Wrap(
+      spacing: 12,
+      runSpacing: 12,
+      alignment: WrapAlignment.center,
+      children: [
+        _DateRangePickerButton(dateRange: filter?.dateRange),
+        _SeveritySelectorButton(severities: filter?.severities),
+      ],
     );
   }
 }

@@ -9,6 +9,7 @@ import "package:rainvu/features/yearly_comparison/presentation/widgets/yearly_co
 import "package:rainvu/features/yearly_comparison/presentation/widgets/yearly_summary_list.dart";
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/widgets/buttons/app_icon_button.dart";
+import "package:rainvu/shared/widgets/filter_bar.dart";
 import "package:rainvu/shared/widgets/placeholders.dart";
 import "package:rainvu/shared/widgets/sheets/info_sheet.dart";
 import "package:shimmer/shimmer.dart";
@@ -90,8 +91,12 @@ class YearlyComparisonScreen extends ConsumerWidget {
             if (availableYears.length < 2) {
               return const _InsufficientDataState();
             }
-
-            return const _AnalysisContent();
+            return const Column(
+              children: [
+                FilterBar(child: FiltersContent()),
+                Expanded(child: _AnalysisContent()),
+              ],
+            );
           },
         ),
       ),
@@ -112,7 +117,7 @@ class _LoadingState extends StatelessWidget {
         physics: NeverScrollableScrollPhysics(),
         child: Column(
           children: [
-            YearlyComparisonFilters(),
+            FilterBar(child: SizedBox(height: 150)),
             SizedBox(height: 16),
             Padding(
               padding: EdgeInsets.symmetric(horizontal: 16),
@@ -140,9 +145,8 @@ class _AnalysisContent extends StatelessWidget {
   const _AnalysisContent();
 
   @override
-  Widget build(final BuildContext context) => const SingleChildScrollView(
-    child: Column(children: [YearlyComparisonFilters(), _DataContent()]),
-  );
+  Widget build(final BuildContext context) =>
+      const SingleChildScrollView(child: _DataContent());
 }
 
 class _DataContent extends ConsumerWidget {

@@ -8,6 +8,7 @@ import "package:rainvu/features/seasonal_trends/presentation/widgets/seasonal_su
 import "package:rainvu/features/seasonal_trends/presentation/widgets/seasonal_trend_chart.dart";
 import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/widgets/buttons/app_icon_button.dart";
+import "package:rainvu/shared/widgets/filter_bar.dart";
 import "package:rainvu/shared/widgets/placeholders.dart";
 import "package:rainvu/shared/widgets/sheets/info_sheet.dart";
 import "package:shimmer/shimmer.dart";
@@ -22,7 +23,7 @@ class SeasonalTrendsScreen extends ConsumerWidget {
       items: [
         InfoSheetItem(
           icon: Icons.info_outline,
-          title: "", // General description doesn't need a sub-title.
+          title: "",
           description: l10n.seasonalTrendsInfoDescription,
         ),
         InfoSheetItem(
@@ -65,42 +66,41 @@ class SeasonalTrendsScreen extends ConsumerWidget {
         ],
       ),
       body: SafeArea(
-        child: dataAsync.when(
-          loading: () => const _LoadingState(),
-          error: (final err, final stack) {
-            FirebaseCrashlytics.instance.recordError(
-              err,
-              stack,
-              reason: "Failed to load seasonal trends data",
-            );
-            return Center(child: Text(l10n.seasonalTrendsError));
-          },
-          data: (final data) {
-            final bool hasData =
-                data.summary.highestRecorded > 0 ||
-                data.summary.lowestRecorded > 0;
+        child: Column(
+          children: [
+            const FilterBar(child: SeasonSelector()),
+            Expanded(
+              child: dataAsync.when(
+                loading: () => const _LoadingState(),
+                error: (final err, final stack) {
+                  FirebaseCrashlytics.instance.recordError(
+                    err,
+                    stack,
+                    reason: "Failed to load seasonal trends data",
+                  );
+                  return Center(child: Text(l10n.seasonalTrendsError));
+                },
+                data: (final data) {
+                  final bool hasData =
+                      data.summary.highestRecorded > 0 ||
+                      data.summary.lowestRecorded > 0;
 
-            return ListView(
-              padding: const EdgeInsets.only(bottom: 24),
-              children: [
-                const _Header(),
-                const SizedBox(height: 24),
-                if (hasData)
-                  Padding(
-                    padding: const EdgeInsets.symmetric(horizontal: 16),
-                    child: Column(
-                      children: [
-                        SeasonalTrendChart(trendData: data.trendData),
-                        const SizedBox(height: 24),
-                        SeasonalSummaryCard(summary: data.summary),
-                      ],
-                    ),
-                  )
-                else
-                  const _NoDataState(),
-              ],
-            );
-          },
+                  if (!hasData) {
+                    return const _NoDataState();
+                  }
+
+                  return ListView(
+                    padding: const EdgeInsets.all(16),
+                    children: [
+                      SeasonalTrendChart(trendData: data.trendData),
+                      const SizedBox(height: 24),
+                      SeasonalSummaryCard(summary: data.summary),
+                    ],
+                  );
+                },
+              ),
+            ),
+          ],
         ),
       ),
     );
@@ -117,52 +117,13 @@ class _LoadingState extends StatelessWidget {
       baseColor: theme.colorScheme.surfaceContainerHighest,
       highlightColor: theme.colorScheme.surface,
       child: ListView(
-        padding: const EdgeInsets.only(bottom: 24),
+        physics: const NeverScrollableScrollPhysics(),
+        padding: const EdgeInsets.all(16),
         children: const [
-          _Header(),
+          CardPlaceholder(height: 300),
           SizedBox(height: 24),
-          Padding(
-            padding: EdgeInsets.symmetric(horizontal: 16),
-            child: Column(
-              children: [
-                CardPlaceholder(height: 300),
-                SizedBox(height: 24),
-                CardPlaceholder(height: 220),
-              ],
-            ),
-          ),
+          CardPlaceholder(height: 220),
         ],
-      ),
-    );
-  }
-}
-
-/// The header section containing description and filters.
-class _Header extends ConsumerWidget {
-  const _Header();
-
-  @override
-  Widget build(final BuildContext context, final WidgetRef ref) {
-    final ThemeData theme = Theme.of(context);
-
-    return DecoratedBox(
-      decoration: BoxDecoration(
-        color: theme.colorScheme.surface,
-        borderRadius: const BorderRadius.only(
-          bottomLeft: Radius.circular(16),
-          bottomRight: Radius.circular(16),
-        ),
-        boxShadow: [
-          BoxShadow(
-            blurRadius: 4,
-            color: theme.shadowColor.withValues(alpha: 0.2),
-            offset: const Offset(0, 2),
-          ),
-        ],
-      ),
-      child: const Padding(
-        padding: EdgeInsets.fromLTRB(20, 16, 20, 24),
-        child: SeasonSelector(),
       ),
     );
   }

@@ -6,14 +6,12 @@ import "package:rainvu/l10n/app_localizations.dart";
 import "package:rainvu/shared/widgets/forms/app_choice_chips.dart";
 import "package:rainvu/shared/widgets/forms/app_dropdown.dart";
 
-class YearlyComparisonFilters extends ConsumerWidget {
-  const YearlyComparisonFilters({super.key});
+class FiltersContent extends ConsumerWidget {
+  const FiltersContent({super.key});
 
   @override
   Widget build(final BuildContext context, final WidgetRef ref) {
-    final ThemeData theme = Theme.of(context);
-    final ColorScheme colorScheme = theme.colorScheme;
-    final TextTheme textTheme = theme.textTheme;
+    final TextTheme textTheme = Theme.of(context).textTheme;
     final AppLocalizations l10n = AppLocalizations.of(context);
     final AsyncValue<ComparativeFilter> filterAsync = ref.watch(
       yearlyComparisonFilterProvider,
@@ -21,44 +19,28 @@ class YearlyComparisonFilters extends ConsumerWidget {
     final AsyncValue<List<int>> availableYearsAsync = ref.watch(
       availableYearsProvider,
     );
-
-    return Card(
-      elevation: 2,
-      shape: const RoundedRectangleBorder(
-        borderRadius: BorderRadius.only(
-          bottomLeft: Radius.circular(16),
-          bottomRight: Radius.circular(16),
-        ),
-      ),
-      margin: EdgeInsets.zero,
-      clipBehavior: Clip.antiAlias,
-      child: Container(
-        color: colorScheme.surface,
-        padding: const EdgeInsets.all(16),
-        child: filterAsync.when(
-          loading: () => const SizedBox(height: 150),
-          error: (final e, final s) =>
-              Center(child: Text(l10n.yearlyComparisonFilterError)),
-          data: (final filter) => availableYearsAsync.when(
-            loading: () => const SizedBox(height: 150),
-            error: (final e, final s) =>
-                Center(child: Text(l10n.yearlyComparisonAvailableYearsError)),
-            data: (final availableYears) => Column(
-              children: [
-                Padding(
-                  padding: const EdgeInsets.symmetric(horizontal: 4),
-                  child: Text(
-                    l10n.yearlyComparisonSelectYearsTitle,
-                    style: textTheme.titleMedium,
-                  ),
-                ),
-                const SizedBox(height: 12),
-                _YearSelectors(filter: filter, availableYears: availableYears),
-                const SizedBox(height: 16),
-                _ComparisonTypeSelector(filter: filter),
-              ],
+    return filterAsync.when(
+      loading: () => const SizedBox(height: 150),
+      error: (final e, final s) =>
+          Center(child: Text(l10n.yearlyComparisonFilterError)),
+      data: (final filter) => availableYearsAsync.when(
+        loading: () => const SizedBox(height: 150),
+        error: (final e, final s) =>
+            Center(child: Text(l10n.yearlyComparisonAvailableYearsError)),
+        data: (final availableYears) => Column(
+          children: [
+            Padding(
+              padding: const EdgeInsets.symmetric(horizontal: 4),
+              child: Text(
+                l10n.yearlyComparisonSelectYearsTitle,
+                style: textTheme.titleMedium,
+              ),
             ),
-          ),
+            const SizedBox(height: 12),
+            _YearSelectors(filter: filter, availableYears: availableYears),
+            const SizedBox(height: 16),
+            _ComparisonTypeSelector(filter: filter),
+          ],
         ),
       ),
     );
